@@ -1,0 +1,92 @@
+package com.mazebert.simulation;
+
+import com.mazebert.simulation.gateways.*;
+import com.mazebert.simulation.plugins.SleepPluginTrainer;
+import com.mazebert.simulation.commands.BuildTowerCommand;
+import com.mazebert.simulation.commands.Command;
+import com.mazebert.simulation.messages.Turn;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.jusecase.inject.ComponentTest;
+import org.jusecase.inject.Trainer;
+
+import static com.mazebert.simulation.messages.TurnBuilder.turn;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.jusecase.Builders.a;
+
+public class Simulation_SinglePlayerTest implements ComponentTest {
+
+    @Trainer
+    CommandExecutorTrainer simulationCommandExecutor;
+    @Trainer
+    LocalCommandGateway localCommandGateway;
+    @Trainer
+    SleepPluginTrainer sleepPluginTrainer;
+    @Trainer
+    MessageGatewayTrainer messageGatewayTrainer;
+    @Trainer
+    PlayerGatewayTrainer playerGatewayTrainer;
+
+    TurnGateway turnGateway;
+
+    Simulation simulation;
+
+    @BeforeEach
+    void setUp() {
+        turnGateway = new TurnGateway(1);
+        givenDependency(turnGateway);
+        givenDependency(new UnitGateway());
+
+        simulation = new Simulation();
+    }
+
+    @Test
+    void emptyTurn() {
+        turnGateway.onLocalTurnReceived(a(turn()));
+
+        simulation.process();
+
+        Command executedCommand = simulationCommandExecutor.getLastCommand();
+        assertThat(executedCommand).isNull();
+    }
+
+    @Test
+    void buildTower() {
+        BuildTowerCommand command = new BuildTowerCommand();
+        command.tower = "foo";
+        turnGateway.onLocalTurnReceived(a(turn().withCommand(command)));
+
+        simulation.process();
+
+        Command executedCommand = simulationCommandExecutor.getLastCommand();
+        assertThat(executedCommand).isSameAs(command);
+        assertThat(executedCommand.playerId).isEqualTo(1);
+        assertThat(executedCommand.turnNumber).isEqualTo(0);
+    }
+
+    @Test
+    void turnIsIncremented() {
+        turnGateway.onLocalTurnReceived(a(turn().withTurnNumber(0)));
+        simulation.process();
+        assertThat(turnGateway.getCurrentTurnNumber()).isEqualTo(1);
+
+        turnGateway.onLocalTurnReceived(a(turn().withTurnNumber(1)));
+        simulation.process();
+        assertThat(turnGateway.getCurrentTurnNumber()).isEqualTo(2);
+    }
+
+    @Test
+    void playerCommandsAreScheduled() {
+        turnGateway.onLocalTurnReceived(a(turn()));
+        BuildTowerCommand command = new BuildTowerCommand();
+        command.tower = "foo";
+        localCommandGateway.addCommand(command);
+
+        simulation.process();
+
+        Turn turn = turnGateway.getTurn(2, 1);
+        assertThat(turn.playerId).isEqualTo(1);
+        assertThat(turn.turnNumber).isEqualTo(2);
+        assertThat(turn.commands).containsExactly(command);
+    }
+}
