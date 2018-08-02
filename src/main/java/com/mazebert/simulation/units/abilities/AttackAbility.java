@@ -13,24 +13,35 @@ public strictfp class AttackAbility extends CooldownAbility<Tower> {
     @Inject
     private UnitGateway unitGateway;
 
+    private Creep currentTarget;
+
     @Override
     protected void initialize(Tower unit) {
         super.initialize(unit);
+        currentTarget = null;
     }
 
     @Override
     public void dispose(Tower unit) {
+        currentTarget = null;
         super.dispose(unit);
     }
 
     @Override
     boolean onCooldownReached() {
-        Creep creep = unitGateway.findUnitInRange(0, 0, 0, Creep.class);
-        if (creep == null) {
-            return false;
+        currentTarget = findTarget();
+        if (currentTarget != null) {
+            getUnit().onAttack.dispatch(currentTarget);
+        }
+        return true;
+    }
+
+    private Creep findTarget() {
+        Tower tower = getUnit();
+        if (currentTarget != null && currentTarget.isInRange(tower, tower.getRange())) {
+            return currentTarget;
         }
 
-        getUnit().onAttack.dispatch(creep);
-        return true;
+        return unitGateway.findUnitInRange(tower, tower.getRange(), Creep.class);
     }
 }

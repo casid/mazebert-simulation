@@ -23,7 +23,7 @@ public abstract strictfp class CooldownAbility<U extends Unit & CooldownUnit> ex
     public void onUpdate(float dt) {
         do {
             float cooldown = getCooldown();
-            float increment = Math.min(cooldown, dt);
+            float increment = StrictMath.min(cooldown, dt);
 
             passedTime += increment;
             dt -= increment;

@@ -1,7 +1,6 @@
 package com.mazebert.simulation.gateways;
 
 import com.mazebert.simulation.units.Unit;
-import com.mazebert.simulation.units.creeps.Creep;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,11 +20,15 @@ public strictfp class UnitGateway {
         units.remove(unit);
     }
 
+    public <U extends Unit> U findUnitInRange(Unit unit, float range, Class<U> unitClass) {
+        return findUnitInRange(unit.getX(), unit.getY(), range, unitClass);
+    }
+
     @SuppressWarnings("unchecked")
     public <U extends Unit> U findUnitInRange(float x, float y, float range, Class<U> unitClass) {
         for (Unit unit : units) {
-            if (unitClass.isAssignableFrom(unit.getClass())) {
-                return (U)unit;
+            if (unitClass.isAssignableFrom(unit.getClass()) && unit.isInRange(x, y, range)) {
+                return (U) unit;
             }
         }
         return null;

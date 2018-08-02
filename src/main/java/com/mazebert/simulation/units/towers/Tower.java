@@ -10,7 +10,15 @@ public strictfp class Tower extends Unit implements CooldownUnit {
     public final OnAttack onAttack = new OnAttack();
 
     private float cooldown = Float.MAX_VALUE;
+    private float range = 1.0f;
 
+
+    @Override
+    public void hash(Hash hash) {
+        super.hash(hash);
+        hash.add(cooldown);
+        hash.add(range);
+    }
 
     public float getCooldown() {
         return cooldown;
@@ -20,9 +28,11 @@ public strictfp class Tower extends Unit implements CooldownUnit {
         this.cooldown = cooldown;
     }
 
-    @Override
-    public void hash(Hash hash) {
-        super.hash(hash);
-        hash.add(cooldown);
+    public float getRange() {
+        return range;
+    }
+
+    public void setRange(float range) {
+        this.range = range;
     }
 }

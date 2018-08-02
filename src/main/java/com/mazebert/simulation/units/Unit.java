@@ -15,7 +15,7 @@ public abstract strictfp class Unit implements Hashable {
     private float x;
     private float y;
 
-    private List<Ability> abilities = new ArrayList<>();
+    private final List<Ability> abilities = new ArrayList<>();
 
     public void simulate(float dt) {
         onUpdate.dispatch(dt);
@@ -47,5 +47,16 @@ public abstract strictfp class Unit implements Hashable {
     public void addAbility(Ability ability) {
         abilities.add(ability);
         ability.init(this);
+    }
+
+    public final boolean isInRange(Unit other, float range) {
+        return isInRange(other.getX(), other.getY(), range);
+    }
+
+    public boolean isInRange(float x, float y, float range) {
+        float dx = StrictMath.abs(this.x - x);
+        float dy = StrictMath.abs(this.y - y);
+
+        return dx <= range && dy <= range;
     }
 }

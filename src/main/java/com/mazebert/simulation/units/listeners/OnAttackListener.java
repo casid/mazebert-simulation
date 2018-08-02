@@ -1,7 +1,7 @@
 package com.mazebert.simulation.units.listeners;
 
-import com.mazebert.simulation.units.Unit;
+import com.mazebert.simulation.units.creeps.Creep;
 
 public interface OnAttackListener {
-    void onAttack(Unit unit);
+    void onAttack(Creep target);
 }
