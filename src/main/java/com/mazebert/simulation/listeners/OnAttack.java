@@ -1,6 +1,5 @@
-package com.mazebert.simulation.units.listeners;
+package com.mazebert.simulation.listeners;
 
-import com.mazebert.simulation.units.Unit;
 import com.mazebert.simulation.units.creeps.Creep;
 import org.jusecase.signals.Signal;
 

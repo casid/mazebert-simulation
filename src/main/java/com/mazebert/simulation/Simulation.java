@@ -4,6 +4,7 @@ import com.mazebert.simulation.commands.Command;
 import com.mazebert.simulation.commands.InitGameCommand;
 import com.mazebert.simulation.gateways.*;
 import com.mazebert.simulation.hash.Hash;
+import com.mazebert.simulation.listeners.OnTowerBuilt;
 import com.mazebert.simulation.plugins.SleepPlugin;
 import com.mazebert.simulation.messages.Turn;
 import com.mazebert.simulation.units.Unit;

@@ -3,7 +3,7 @@ package com.mazebert.simulation.units;
 import com.mazebert.simulation.hash.Hash;
 import com.mazebert.simulation.hash.Hashable;
 import com.mazebert.simulation.units.abilities.Ability;
-import com.mazebert.simulation.units.listeners.OnUpdate;
+import com.mazebert.simulation.listeners.OnUpdate;
 
 import java.util.ArrayList;
 import java.util.List;

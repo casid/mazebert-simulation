@@ -2,7 +2,7 @@ package com.mazebert.simulation.units.abilities;
 
 import com.mazebert.simulation.gateways.UnitGateway;
 import com.mazebert.simulation.units.creeps.Creep;
-import com.mazebert.simulation.units.listeners.OnAttackListener;
+import com.mazebert.simulation.listeners.OnAttackListener;
 import com.mazebert.simulation.units.towers.Tower;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

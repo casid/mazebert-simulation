@@ -2,7 +2,7 @@ package com.mazebert.simulation.units.abilities;
 
 import com.mazebert.simulation.units.CooldownUnit;
 import com.mazebert.simulation.units.Unit;
-import com.mazebert.simulation.units.listeners.OnUpdateListener;
+import com.mazebert.simulation.listeners.OnUpdateListener;
 
 public abstract strictfp class CooldownAbility<U extends Unit & CooldownUnit> extends Ability<U> implements OnUpdateListener {
     private float passedTime;

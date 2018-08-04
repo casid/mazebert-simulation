@@ -1,4 +1,4 @@
-package com.mazebert.simulation.units.listeners;
+package com.mazebert.simulation.listeners;
 
 import com.mazebert.simulation.units.creeps.Creep;
 

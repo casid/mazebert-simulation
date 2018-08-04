@@ -3,7 +3,7 @@ package com.mazebert.simulation.units.towers;
 import com.mazebert.simulation.hash.Hash;
 import com.mazebert.simulation.units.CooldownUnit;
 import com.mazebert.simulation.units.Unit;
-import com.mazebert.simulation.units.listeners.OnAttack;
+import com.mazebert.simulation.listeners.OnAttack;
 
 public strictfp class Tower extends Unit implements CooldownUnit {
 
