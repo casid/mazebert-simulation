@@ -37,7 +37,8 @@ public class StrictfpTest {
         }
 
         for (Method method : clazz.getDeclaredMethods()) {
-            if (method.getName().contains("ajc$preClinit")) {
+            String methodName = method.getName();
+            if (methodName.contains("ajc$preClinit") || methodName.contains("$jacocoInit")) {
                 continue;
             }
             if (Modifier.isAbstract(method.getModifiers())) {
@@ -45,6 +46,7 @@ public class StrictfpTest {
             }
 
             if (!Modifier.isStrict(method.getModifiers())) {
+                System.err.println("Method " + methodName + " is not strict");
                 return false;
             }
         }
