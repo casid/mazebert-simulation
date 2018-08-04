@@ -11,6 +11,7 @@ public strictfp class Tower extends Unit implements CooldownUnit {
 
     private float cooldown = Float.MAX_VALUE;
     private float range = 1.0f;
+    private int color;
 
 
     @Override
@@ -18,6 +19,7 @@ public strictfp class Tower extends Unit implements CooldownUnit {
         super.hash(hash);
         hash.add(cooldown);
         hash.add(range);
+        hash.add(color);
     }
 
     public float getCooldown() {
@@ -34,5 +36,13 @@ public strictfp class Tower extends Unit implements CooldownUnit {
 
     public void setRange(float range) {
         this.range = range;
+    }
+
+    public void setColor(int color) {
+        this.color = color;
+    }
+
+    public int getColor() {
+        return color;
     }
 }
