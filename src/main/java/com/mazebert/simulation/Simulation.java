@@ -46,6 +46,7 @@ public strictfp class Simulation {
     public void start() {
         if (replayWriterGateway.isWriteEnabled()) {
             ReplayHeader header = new ReplayHeader();
+            header.playerId = playerGateway.getPlayerId();
             header.playerCount = playerGateway.getPlayerCount();
             replayWriterGateway.writeHeader(header);
         }

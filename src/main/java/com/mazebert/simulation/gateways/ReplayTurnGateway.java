@@ -27,7 +27,7 @@ public class ReplayTurnGateway extends TurnGateway implements PlayerGateway {
 
     @Override
     public int getPlayerId() {
-        return 1; // TODO get from header
+        return replayHeader.playerId;
     }
 
     @Override
