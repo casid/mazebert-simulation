@@ -8,7 +8,7 @@ import org.jusecase.inject.Component;
 import javax.inject.Inject;
 
 @Component
-public class ColorChangeAbility extends Ability<Tower> implements OnUpdateListener {
+public class ColorChangeAbility extends CooldownAbility<Tower> {
 
     @Inject
     private RandomPlugin randomPlugin;
@@ -16,17 +16,12 @@ public class ColorChangeAbility extends Ability<Tower> implements OnUpdateListen
     @Override
     protected void initialize(Tower unit) {
         super.initialize(unit);
-        unit.onUpdate.add(this);
+        unit.setColor(0xffffffff);
     }
 
     @Override
-    protected void dispose(Tower unit) {
-        unit.onUpdate.remove(this);
-        super.dispose(unit);
-    }
-
-    @Override
-    public void onUpdate(float dt) {
+    boolean onCooldownReached() {
         getUnit().setColor(randomPlugin.nextInt());
+        return true;
     }
 }
