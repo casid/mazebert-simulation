@@ -13,11 +13,11 @@ public strictfp class ResendTurnSerializer implements BitSerializer<ResendTurn> 
 
     @Override
     public void serialize(BitWriter writer, ResendTurn object) {
-        writer.writeInt8(object.turnNumber);
+        writer.writeInt32(object.turnNumber);
     }
 
     @Override
     public void deserialize(BitReader reader, ResendTurn object) {
-        object.turnNumber = reader.readInt8();
+        object.turnNumber = reader.readInt32();
     }
 }

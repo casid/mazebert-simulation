@@ -26,6 +26,8 @@ public class Simulation_SinglePlayerTest implements ComponentTest {
     MessageGatewayTrainer messageGatewayTrainer;
     @Trainer
     PlayerGatewayTrainer playerGatewayTrainer;
+    @Trainer
+    NoReplayWriterGateway noReplayWriterGateway;
 
     TurnGateway turnGateway;
 
@@ -73,6 +75,14 @@ public class Simulation_SinglePlayerTest implements ComponentTest {
         turnGateway.onLocalTurnReceived(a(turn().withTurnNumber(1)));
         simulation.process();
         assertThat(turnGateway.getCurrentTurnNumber()).isEqualTo(2);
+    }
+
+    @Test
+    void turnIsIncremented_maxInt() {
+        turnGateway.setCurrentTurnNumber(Integer.MAX_VALUE - 1);
+        turnGateway.onLocalTurnReceived(a(turn().withTurnNumber(Integer.MAX_VALUE - 1)));
+        simulation.process();
+        assertThat(turnGateway.getCurrentTurnNumber()).isEqualTo(0);
     }
 
     @Test

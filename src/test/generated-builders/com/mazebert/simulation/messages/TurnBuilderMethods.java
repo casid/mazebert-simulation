@@ -21,11 +21,6 @@ public interface TurnBuilderMethods<T extends Turn, B extends Builder> extends B
         return (B)this;
     }
 
-    default B withProcessed(boolean value) {
-        getEntity().processed = value;
-        return (B)this;
-    }
-
     default B withSimulationCommands(java.util.List value) {
         getEntity().commands = value;
         return (B)this;

@@ -46,29 +46,29 @@ public strictfp class TurnGateway {
         }
 
         Turn[] turns = getCurrentPlayerTurns();
-        for (Turn turn : turns) {
-            turn.processed = true;
-        }
-
         return Arrays.asList(turns);
     }
 
     public void incrementTurnNumber() {
-        currentTurnNumber = clampTurnNumber(currentTurnNumber + 1);
+        currentTurnNumber = clampTurnNumber(currentTurnNumber + 1L);
     }
 
-    private int clampTurnNumber(int turnNumber) {
-        while (turnNumber >= turnBufferSize) {
-            turnNumber -= turnBufferSize;
+    public void setCurrentTurnNumber(int currentTurnNumber) {
+        this.currentTurnNumber = clampTurnNumber(currentTurnNumber);
+    }
+
+    public int clampTurnNumber(long turnNumber) {
+        while (turnNumber >= Integer.MAX_VALUE) {
+            turnNumber -= Integer.MAX_VALUE;
         }
-        return turnNumber;
+        return (int)turnNumber;
     }
 
     private void askForMissingTurns(MessageGateway messageGateway) {
         Turn[] currentPlayerTurns = getCurrentPlayerTurns();
         for (int playerIndex = 0; playerIndex < currentPlayerTurns.length; ++playerIndex ) {
             Turn playerTurn = currentPlayerTurns[playerIndex];
-            if (isMissing(playerTurn)) {
+            if (isMissing(playerTurn, currentTurnNumber)) {
                 ResendTurn message = new ResendTurn();
                 message.turnNumber = currentTurnNumber;
                 messageGateway.sendToPlayer(playerIndex + 1, message);
@@ -91,20 +91,25 @@ public strictfp class TurnGateway {
     private boolean addTurn(Turn turn) {
         if (turn.playerId > 0 && turn.playerId <= maxPlayerCount) {
             int playerIndex = turn.playerId - 1;
+            int turnIndex = turn.turnNumber % turnBufferSize;
 
-            if (turns[turn.turnNumber][playerIndex] == null || turns[turn.turnNumber][playerIndex].processed) {
-                turns[turn.turnNumber][playerIndex] = turn;
+            if (isMissing(turns[turnIndex][playerIndex], turn.turnNumber)) {
+                turns[turnIndex][playerIndex] = turn;
                 return true;
             }
         }
         return false;
     }
 
+    private int getCurrentTurnIndex() {
+        return currentTurnNumber % turnBufferSize;
+    }
+
     private boolean isCurrentTurnAvailableForEachPlayer() {
         Turn[] turns = getCurrentPlayerTurns();
 
         for (Turn turn : turns) {
-            if (isMissing(turn)) {
+            if (isMissing(turn, currentTurnNumber)) {
                 return false;
             }
         }
@@ -113,20 +118,21 @@ public strictfp class TurnGateway {
     }
 
     private Turn[] getCurrentPlayerTurns() {
-        return this.turns[currentTurnNumber];
+        return this.turns[getCurrentTurnIndex()];
     }
 
-    private boolean isMissing(Turn turn) {
-        return turn == null || turn.processed;
+    public boolean isMissing(Turn turn, int turnNumber) {
+        return turn == null || turn.turnNumber < turnNumber;
     }
 
     public Turn getTurn(int turnNumber, int playerId) {
         int playerIndex = playerId - 1;
+        int turnIndex = turnNumber % turnBufferSize;
 
-        return turns[turnNumber][playerIndex];
+        return turns[turnIndex][playerIndex];
     }
 
     public int getTurnNumberForLocalCommands() {
-        return clampTurnNumber(currentTurnNumber + 2);
+        return clampTurnNumber(currentTurnNumber + 2L);
     }
 }

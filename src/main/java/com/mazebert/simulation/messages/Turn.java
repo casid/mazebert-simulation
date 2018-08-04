@@ -11,6 +11,4 @@ public strictfp class Turn extends BitMessage {
     public int turnNumber;
     public int hash;
     public List<Command> commands = Collections.emptyList();
-
-    public transient boolean processed;
 }
