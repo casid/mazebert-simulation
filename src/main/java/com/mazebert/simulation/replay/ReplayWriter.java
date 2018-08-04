@@ -1,31 +1,44 @@
 package com.mazebert.simulation.replay;
 
+import com.mazebert.simulation.gateways.ReplayWriterGateway;
+import com.mazebert.simulation.messages.Turn;
 import com.mazebert.simulation.replay.data.ReplayHeader;
 import com.mazebert.simulation.replay.data.ReplayTurn;
-import org.jusecase.bitpack.buffer.BufferBitWriter;
+import org.jusecase.bitpack.stream.StreamBitWriter;
 
 import java.io.IOException;
-import java.nio.ByteBuffer;
-import java.nio.channels.ByteChannel;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.StandardOpenOption;
+import java.util.List;
 
-public strictfp class ReplayWriter {
-    private final BufferBitWriter writer;
-    private final ByteChannel outputChannel;
+import static java.nio.file.StandardOpenOption.*;
+
+public strictfp class ReplayWriter implements ReplayWriterGateway, AutoCloseable {
+    private final StreamBitWriter writer;
+    private final ReplayTurn replayTurn = new ReplayTurn();
 
     public ReplayWriter(Path path) {
-        writer = new BufferBitWriter(new ReplayProtocol(), ByteBuffer.allocateDirect(ReplayProtocol.MAX_BYTES_PER_ENTITY));
         try {
-            outputChannel = Files.newByteChannel(path, StandardOpenOption.WRITE);
+            writer = new StreamBitWriter(new ReplayProtocol(), Files.newOutputStream(path, CREATE, WRITE, TRUNCATE_EXISTING));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
 
+    @Override
+    public boolean isWriteEnabled() {
+        return true;
+    }
+
+    @Override
     public void writeHeader(ReplayHeader header) {
         write(header);
+    }
+
+    @Override
+    public void writeTurn(List<Turn> playerTurns) {
+        replayTurn.playerTurns = playerTurns;
+        writeTurn(replayTurn);
     }
 
     public void writeTurn(ReplayTurn turn) {
@@ -34,7 +47,8 @@ public strictfp class ReplayWriter {
 
     public void close() {
         try {
-            outputChannel.close();
+            writer.flush();
+            writer.close();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -42,17 +56,5 @@ public strictfp class ReplayWriter {
 
     private void write(Object object) {
         writer.writeObjectNonNull(object);
-        writer.flush();
-
-        try {
-            ByteBuffer buffer = writer.getBuffer();
-            buffer.limit(buffer.position());
-            buffer.position(0);
-            outputChannel.write(buffer);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-
-        writer.reset();
     }
 }

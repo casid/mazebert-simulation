@@ -1,5 +1,6 @@
 package com.mazebert.simulation.replay.data.serializers;
 
+import com.mazebert.simulation.messages.Turn;
 import com.mazebert.simulation.replay.data.ReplayTurn;
 import org.jusecase.bitpack.BitReader;
 import org.jusecase.bitpack.BitSerializer;
@@ -18,6 +19,6 @@ public strictfp class ReplayTurnSerializer implements BitSerializer<ReplayTurn> 
 
     @Override
     public void deserialize(BitReader reader, ReplayTurn object) {
-        object.playerTurns = reader.readObjectsWithDifferentTypesAsList();
+        object.playerTurns = reader.readObjectsWithSameTypeAsList(Turn.class);
     }
 }

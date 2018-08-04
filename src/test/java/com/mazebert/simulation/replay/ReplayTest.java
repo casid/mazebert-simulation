@@ -1,5 +1,7 @@
 package com.mazebert.simulation.replay;
 
+import com.mazebert.simulation.commands.InitGameCommand;
+import com.mazebert.simulation.messages.Turn;
 import com.mazebert.simulation.replay.data.ReplayHeader;
 import com.mazebert.simulation.replay.data.ReplayTurn;
 import io.github.glytching.junit.extension.folder.TemporaryFolder;
@@ -18,33 +20,36 @@ import static org.assertj.core.api.Assertions.assertThat;
 @ExtendWith(TemporaryFolderExtension.class)
 public class ReplayTest {
 
-    ReplayWriter replayWriter;
-    ReplayReader replayReader;
+    File replay;
 
     @BeforeEach
     void setUp(TemporaryFolder temporaryFolder) throws IOException {
-        File replay = temporaryFolder.createFile("replay");
-        replayWriter = new ReplayWriter(replay.toPath());
-        replayReader = new ReplayReader(replay.toPath());
+        replay = temporaryFolder.createFile("replay");
     }
 
     @Test
-    void roundtrip() {
+    void roundtrip() throws IOException {
         ReplayHeader header = new ReplayHeader();
-        replayWriter.writeHeader(header);
+        header.playerCount = 2;
 
         ReplayTurn turn = new ReplayTurn();
         turn.playerTurns = new ArrayList<>();
-        replayWriter.writeTurn(turn);
+        Turn playerTurn = new Turn();
+        playerTurn.playerId = 1;
+        playerTurn.hash = 1241932452;
+        turn.playerTurns.add(playerTurn);
 
-        replayWriter.close();
+        try (ReplayWriter replayWriter = new ReplayWriter(replay.toPath())){
+            replayWriter.writeHeader(header);
+            replayWriter.writeTurn(turn);
+        }
 
-        ReplayHeader readHeader = replayReader.readHeader();
-        assertThat(readHeader).isEqualToComparingFieldByFieldRecursively(header);
+        try (ReplayReader replayReader = new ReplayReader(replay.toPath())) {
+            ReplayHeader readHeader = replayReader.readHeader();
+            assertThat(readHeader).isEqualToComparingFieldByFieldRecursively(header);
 
-        ReplayTurn readTurn = replayReader.readTurn();
-        assertThat(readTurn).isEqualToComparingFieldByFieldRecursively(turn);
-
-        replayReader.close();
+            ReplayTurn readTurn = replayReader.readTurn();
+            assertThat(readTurn).isEqualToComparingFieldByFieldRecursively(turn);
+        }
     }
 }

@@ -4,9 +4,9 @@ import com.mazebert.simulation.commands.Command;
 import com.mazebert.simulation.commands.InitGameCommand;
 import com.mazebert.simulation.gateways.*;
 import com.mazebert.simulation.hash.Hash;
-import com.mazebert.simulation.listeners.OnTowerBuilt;
 import com.mazebert.simulation.plugins.SleepPlugin;
 import com.mazebert.simulation.messages.Turn;
+import com.mazebert.simulation.replay.data.ReplayHeader;
 import com.mazebert.simulation.units.Unit;
 import org.jusecase.inject.Component;
 
@@ -34,6 +34,8 @@ public strictfp class Simulation {
     private PlayerGateway playerGateway;
     @Inject
     private UnitGateway unitGateway;
+    @Inject
+    private ReplayWriterGateway replayWriterGateway;
 
     private boolean allPlayersReady;
     private long turnTimeInMillis = 100;
@@ -41,8 +43,13 @@ public strictfp class Simulation {
     private float turnTimeInSeconds = turnTimeInMillis / 1000.0f;
     private Hash hash = new Hash();
 
-
     public void start() {
+        if (replayWriterGateway.isWriteEnabled()) {
+            ReplayHeader header = new ReplayHeader();
+            header.playerCount = playerGateway.getPlayerCount();
+            replayWriterGateway.writeHeader(header);
+        }
+
         commandExecutor.init();
 
         List<Command> requests = new ArrayList<>();
@@ -78,22 +85,28 @@ public strictfp class Simulation {
 
         simulateTurn(playerTurns);
 
+        if (replayWriterGateway.isWriteEnabled()) {
+            replayWriterGateway.writeTurn(playerTurns);
+        }
+
         long duration = System.nanoTime() - start;
         sleepPlugin.sleep(Math.max(0, turnTimeInNanos - duration));
     }
 
     private void checkHashes(List<Turn> playerTurns) {
         int myHash = 0;
+        int myTurn = 0;
         for (Turn playerTurn : playerTurns) {
             if (playerTurn.playerId == playerGateway.getPlayerId()) {
                 myHash = playerTurn.hash;
+                myTurn = playerTurn.turnNumber;
             }
         }
 
         for (Turn playerTurn : playerTurns) {
             if (playerTurn.hash != myHash) {
                 // TODO handle it!! This means game over.
-                System.err.println("Oh shit, we have a dsync with player " + playerTurn.playerId + ". Mine: " + myHash + ", theirs: " + playerTurn.hash);
+                System.err.println("Oh shit, we have a dsync with player " + playerTurn.playerId + ". Mine: " + myHash + ", theirs: " + playerTurn.hash + "(My turn: " + myTurn + ", theirs: " + playerTurn.turnNumber);
             }
         }
     }

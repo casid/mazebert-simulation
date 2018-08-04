@@ -10,8 +10,8 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardOpenOption;
 
-public strictfp class ReplayReader {
-    private final BitReader reader;
+public strictfp class ReplayReader implements AutoCloseable {
+    private final StreamBitReader reader;
 
     public ReplayReader(Path path) {
         try {
@@ -29,7 +29,7 @@ public strictfp class ReplayReader {
         return reader.readObjectNonNull(ReplayTurn.class);
     }
 
-    public void close() {
-        // TODO
+    public void close() throws IOException {
+        reader.close();
     }
 }
