@@ -5,6 +5,7 @@ import com.mazebert.simulation.plugins.SleepPluginTrainer;
 import com.mazebert.simulation.commands.BuildTowerCommand;
 import com.mazebert.simulation.commands.Command;
 import com.mazebert.simulation.messages.Turn;
+import com.mazebert.simulation.units.towers.TowerType;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.jusecase.inject.ComponentTest;
@@ -55,7 +56,7 @@ public class Simulation_SinglePlayerTest implements ComponentTest {
     @Test
     void buildTower() {
         BuildTowerCommand command = new BuildTowerCommand();
-        command.tower = "foo";
+        command.towerType = TowerType.Hitman;
         turnGateway.onLocalTurnReceived(a(turn().withCommand(command)));
 
         simulation.process();
@@ -89,7 +90,7 @@ public class Simulation_SinglePlayerTest implements ComponentTest {
     void playerCommandsAreScheduled() {
         turnGateway.onLocalTurnReceived(a(turn()));
         BuildTowerCommand command = new BuildTowerCommand();
-        command.tower = "foo";
+        command.towerType = TowerType.Hitman;
         localCommandGateway.addCommand(command);
 
         simulation.process();

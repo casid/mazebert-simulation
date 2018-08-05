@@ -1,7 +1,9 @@
 package com.mazebert.simulation.commands;
 
+import com.mazebert.simulation.units.towers.TowerType;
+
 public strictfp class BuildTowerCommand extends Command {
-    public String tower;
+    public TowerType towerType;
     public int x;
     public int y;
 }
