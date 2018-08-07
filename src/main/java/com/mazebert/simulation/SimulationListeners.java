@@ -1,7 +1,7 @@
 package com.mazebert.simulation;
 
-import com.mazebert.simulation.listeners.OnTowerBuilt;
+import com.mazebert.simulation.listeners.OnUnitAdded;
 
 public class SimulationListeners {
-    public final OnTowerBuilt onTowerBuilt = new OnTowerBuilt();
+    public final OnUnitAdded onUnitAdded = new OnUnitAdded();
 }

@@ -23,7 +23,7 @@ public strictfp class BuildTower extends Usecase<BuildTowerCommand> {
         tower.setY(command.y);
         unitGateway.addUnit(tower);
 
-        simulationListeners.onTowerBuilt.dispatch(tower);
+        simulationListeners.onUnitAdded.dispatch(tower);
     }
 
 }
