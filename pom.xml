@@ -27,13 +27,6 @@
         </dependency>
         <dependency>
             <groupId>org.jusecase</groupId>
-            <artifactId>jusecase</artifactId>
-            <version>1.0.1</version>
-            <type>test-jar</type>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.jusecase</groupId>
             <artifactId>inject</artifactId>
             <version>0.1.0</version>
         </dependency>
@@ -81,6 +74,12 @@
             <groupId>org.assertj</groupId>
             <artifactId>assertj-core</artifactId>
             <version>3.5.2</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.jusecase</groupId>
+            <artifactId>jusecase-test-junit5</artifactId>
+            <version>1.0.0</version>
             <scope>test</scope>
         </dependency>
     </dependencies>

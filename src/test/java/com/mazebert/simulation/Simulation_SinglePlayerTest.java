@@ -1,47 +1,16 @@
 package com.mazebert.simulation;
 
-import com.mazebert.simulation.gateways.*;
-import com.mazebert.simulation.plugins.SleepPluginTrainer;
 import com.mazebert.simulation.commands.BuildTowerCommand;
 import com.mazebert.simulation.commands.Command;
 import com.mazebert.simulation.messages.Turn;
 import com.mazebert.simulation.units.towers.TowerType;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.jusecase.inject.ComponentTest;
-import org.jusecase.inject.Trainer;
 
 import static com.mazebert.simulation.messages.TurnBuilder.turn;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.jusecase.Builders.a;
 
-public class Simulation_SinglePlayerTest implements ComponentTest {
-
-    @Trainer
-    CommandExecutorTrainer simulationCommandExecutor;
-    @Trainer
-    LocalCommandGateway localCommandGateway;
-    @Trainer
-    SleepPluginTrainer sleepPluginTrainer;
-    @Trainer
-    MessageGatewayTrainer messageGatewayTrainer;
-    @Trainer
-    PlayerGatewayTrainer playerGatewayTrainer;
-    @Trainer
-    NoReplayWriterGateway noReplayWriterGateway;
-
-    TurnGateway turnGateway;
-
-    Simulation simulation;
-
-    @BeforeEach
-    void setUp() {
-        turnGateway = new TurnGateway(1);
-        givenDependency(turnGateway);
-        givenDependency(new UnitGateway());
-
-        simulation = new Simulation();
-    }
+public class Simulation_SinglePlayerTest extends SimulationTest {
 
     @Test
     void emptyTurn() {
