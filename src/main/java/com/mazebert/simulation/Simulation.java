@@ -36,6 +36,8 @@ public strictfp class Simulation {
     private UnitGateway unitGateway;
     @Inject
     private ReplayWriterGateway replayWriterGateway;
+    @Inject
+    private SimulationListeners simulationListeners;
 
     private boolean allPlayersReady;
     private long turnTimeInMillis = 100;
@@ -118,6 +120,8 @@ public strictfp class Simulation {
         for (Unit unit : unitGateway.getUnits()) {
             unit.simulate(turnTimeInSeconds);
         }
+
+        simulationListeners.onUpdate.dispatch(turnTimeInSeconds);
 
         hash.reset();
         for (Unit unit : unitGateway.getUnits()) {
