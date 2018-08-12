@@ -1,6 +1,6 @@
 package com.mazebert.simulation;
 
-public enum WaveType {
+public strictfp enum WaveType {
     Normal(10),
     Mass(20),
     Boss(1),

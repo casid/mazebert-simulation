@@ -27,8 +27,8 @@ public class AttackAbilityTest implements ComponentTest, OnAttackListener {
     @BeforeEach
     void setUp() {
         tower = new Tower();
-        tower.setCooldown(1.0f);
-        tower.setRange(1.0f);
+        tower.setBaseCooldown(1.0f);
+        tower.setBaseRange(1.0f);
         tower.addAbility(new AttackAbility());
         tower.onAttack.add(this);
 
@@ -50,22 +50,22 @@ public class AttackAbilityTest implements ComponentTest, OnAttackListener {
 
     @Test
     void attack_creepInRange_exactly_right() {
-        creep.setX(tower.getRange());
+        creep.setX(tower.getBaseRange());
         whenTowerAttacks();
         thenUnitIsAttacked(creep);
     }
 
     @Test
     void attack_creepInRange_exactly_left() {
-        creep.setX(-tower.getRange());
+        creep.setX(-tower.getBaseRange());
         whenTowerAttacks();
         thenUnitIsAttacked(creep);
     }
 
     @Test
     void attack_creepInRange_exactly_rightTop() {
-        creep.setX(tower.getRange());
-        creep.setY(tower.getRange());
+        creep.setX(tower.getBaseRange());
+        creep.setY(tower.getBaseRange());
 
         whenTowerAttacks();
 
@@ -74,8 +74,8 @@ public class AttackAbilityTest implements ComponentTest, OnAttackListener {
 
     @Test
     void attack_creepInRange_exactly_leftBottom() {
-        creep.setX(-tower.getRange());
-        creep.setY(-tower.getRange());
+        creep.setX(-tower.getBaseRange());
+        creep.setY(-tower.getBaseRange());
 
         whenTowerAttacks();
 

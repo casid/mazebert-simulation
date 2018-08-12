@@ -21,10 +21,24 @@ public strictfp interface RandomPlugin {
     }
 
     /**
+     * floating point number between [min,max[
+     */
+    default double getDouble(double min, double max) {
+        return min + (max - min) * getFloatAbs();
+    }
+
+    /**
      * integer number between [min,max]
      */
     default int getInt(int min, int max) {
         return (int) (min + (max - min + 1) * getFloatAbs());
+    }
+
+    /**
+     * integer number between [min,max]
+     */
+    default long getLong(long min, long max) {
+        return (long) (min + (max - min + 1) * getFloatAbs());
     }
 
     default <T> T get(T[] array) {

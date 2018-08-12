@@ -1,5 +1,6 @@
 package com.mazebert.simulation.units.towers;
 
+import com.mazebert.simulation.Balancing;
 import com.mazebert.simulation.hash.Hash;
 import com.mazebert.simulation.units.CooldownUnit;
 import com.mazebert.simulation.units.Unit;
@@ -9,40 +10,144 @@ public strictfp class Tower extends Unit implements CooldownUnit {
 
     public final OnAttack onAttack = new OnAttack();
 
-    private float cooldown = Float.MAX_VALUE;
-    private float range = 1.0f;
-    private int color;
-
+    private int level;
+    private float strength = 1.0f;
+    private float baseCooldown = Float.MAX_VALUE;
+    private float baseRange = 1.0f;
+    private float damageSpread; // [0, 1], 0=constant damage, 1=max spread damage
+    private float minBaseDamage;
+    private float maxBaseDamage;
+    private float addedRelativeBaseDamage;
+    private float addedAbsoluteBaseDamage;
+    private float critChance = 0.05f;
+    private float critDamage = 0.25f;
+    private int multicrit = 1;
+    private Gender gender = Gender.Unknown;
 
     @Override
     public void hash(Hash hash) {
         super.hash(hash);
-        hash.add(cooldown);
-        hash.add(range);
-        hash.add(color);
+        hash.add(level);
+        hash.add(strength);
+        hash.add(baseCooldown);
+        hash.add(baseRange);
+        hash.add(damageSpread);
+        hash.add(minBaseDamage);
+        hash.add(maxBaseDamage);
+        hash.add(addedRelativeBaseDamage);
+        hash.add(addedAbsoluteBaseDamage);
+        hash.add(critChance);
+        hash.add(critDamage);
+        hash.add(multicrit);
+        hash.add(gender);
     }
 
+    public float getBaseCooldown() {
+        return baseCooldown;
+    }
+
+    public void setBaseCooldown(float baseCooldown) {
+        this.baseCooldown = baseCooldown;
+    }
+
+    public float getBaseRange() {
+        return baseRange;
+    }
+
+    public void setBaseRange(float baseRange) {
+        this.baseRange = baseRange;
+    }
+
+    public float getMinBaseDamage() {
+        return minBaseDamage;
+    }
+
+    public float getMaxBaseDamage() {
+        return maxBaseDamage;
+    }
+
+    public void setBaseDamage(float baseDamage) {
+        maxBaseDamage = Math.round((1.0 + damageSpread) * baseDamage);
+        minBaseDamage = Math.round((1.0 - damageSpread) * baseDamage);
+
+        if (minBaseDamage <= 0.0f) {
+            minBaseDamage = 1.0f;
+        }
+    }
+
+    public void setDamageSpread(float damageSpread) {
+        this.damageSpread = damageSpread;
+    }
+
+    public float getCritChance() {
+        return critChance;
+    }
+
+    public void setCritChance(float critChance) {
+        this.critChance = critChance;
+    }
+
+    public float getCritDamage() {
+        return critDamage;
+    }
+
+    public void setCritDamage(float critDamage) {
+        this.critDamage = critDamage;
+    }
+
+    public int getMulticrit() {
+        return multicrit;
+    }
+
+    public void setMulticrit(int multicrit) {
+        this.multicrit = multicrit;
+    }
+
+    public float getAddedRelativeBaseDamage() {
+        return addedRelativeBaseDamage;
+    }
+
+    public void setAddedRelativeBaseDamage(float addedRelativeBaseDamage) {
+        this.addedRelativeBaseDamage = addedRelativeBaseDamage;
+    }
+
+    public float getAddedAbsoluteBaseDamage() {
+        return addedAbsoluteBaseDamage;
+    }
+
+    public void setAddedAbsoluteBaseDamage(float addedAbsoluteBaseDamage) {
+        this.addedAbsoluteBaseDamage = addedAbsoluteBaseDamage;
+    }
+
+    public Gender getGender() {
+        return gender;
+    }
+
+    public void setGender(Gender gender) {
+        this.gender = gender;
+    }
+
+    public int getLevel() {
+        return level;
+    }
+
+    public void setLevel(int level) {
+        if (level != this.level) {
+            this.level = level;
+            setBaseDamage(Balancing.getBaseDamage(this));
+        }
+    }
+
+    public float getStrength() {
+        return strength;
+    }
+
+    public void setStrength(float strength) {
+        this.strength = strength;
+    }
+
+    @Override
     public float getCooldown() {
-        return cooldown;
-    }
-
-    public void setCooldown(float cooldown) {
-        this.cooldown = cooldown;
-    }
-
-    public float getRange() {
-        return range;
-    }
-
-    public void setRange(float range) {
-        this.range = range;
-    }
-
-    public void setColor(int color) {
-        this.color = color;
-    }
-
-    public int getColor() {
-        return color;
+        return baseCooldown;
     }
 }

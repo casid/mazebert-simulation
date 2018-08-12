@@ -38,6 +38,8 @@ public strictfp class WaveGateway {
             Wave wave = new Wave();
             wave.type = randomPlugin.get(RANDOM_WAVE_TYPES);
             wave.creepCount = wave.type.creepCount;
+            wave.minSecondsToNextCreep = 1.0f;
+            wave.maxSecondsToNextCreep = 1.6f;
 
             addWave(wave);
         }

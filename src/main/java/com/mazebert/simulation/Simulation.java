@@ -6,6 +6,7 @@ import com.mazebert.simulation.gateways.*;
 import com.mazebert.simulation.hash.Hash;
 import com.mazebert.simulation.plugins.SleepPlugin;
 import com.mazebert.simulation.messages.Turn;
+import com.mazebert.simulation.plugins.random.FastRandomPlugin;
 import com.mazebert.simulation.replay.data.ReplayHeader;
 import com.mazebert.simulation.units.Unit;
 import org.jusecase.inject.Component;
@@ -14,7 +15,6 @@ import javax.inject.Inject;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
 @Component
@@ -58,7 +58,7 @@ public strictfp class Simulation {
         List<Command> requests = new ArrayList<>();
         if (playerGateway.isHost()) {
             InitGameCommand initGameCommand = new InitGameCommand();
-            initGameCommand.randomSeed = new Random().nextInt();
+            initGameCommand.randomSeed = FastRandomPlugin.createSeed();
             initGameCommand.rounds = 250;
             requests.add(initGameCommand);
         }

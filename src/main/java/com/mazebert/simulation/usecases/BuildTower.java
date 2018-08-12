@@ -21,6 +21,7 @@ public strictfp class BuildTower extends Usecase<BuildTowerCommand> {
         Tower tower = command.towerType.newInstance();
         tower.setX(command.x);
         tower.setY(command.y);
+        tower.setLevel(1);
         unitGateway.addUnit(tower);
 
         simulationListeners.onUnitAdded.dispatch(tower);

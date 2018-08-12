@@ -8,12 +8,13 @@ import com.mazebert.simulation.units.Unit;
 public strictfp class Creep extends Unit {
     private static final float[] TEMP = new float[2];
 
-    private float health = 100.0f;
+    private double health = 100.0f;
     private Wave wave;
     private float baseSpeed = 1.0f;
     private float speedModifier = 1.0f;
     private Path path;
     private int pathIndex;
+    private CreepState state = CreepState.Running;
 
     private volatile boolean freshCoordinates;
 
@@ -24,6 +25,9 @@ public strictfp class Creep extends Unit {
         hash.add(wave);
         hash.add(baseSpeed);
         hash.add(speedModifier);
+        // path
+        // pathIndex
+        hash.add(state);
     }
 
     @Override
@@ -41,6 +45,10 @@ public strictfp class Creep extends Unit {
     }
 
     private float[] walk(float x, float y, float distanceToWalk, float[] result) {
+        if (state != CreepState.Running) {
+            return null;
+        }
+
         if (distanceToWalk <= 0.0f) {
             return null;
         }
@@ -63,12 +71,12 @@ public strictfp class Creep extends Unit {
             result[1] = ty;
             ++pathIndex;
 
-            return walk(tx, ty, distanceToWalk - distance, result);
+            walk(tx, ty, distanceToWalk - distance, result);
         } else {
             result[0] = x + distanceToWalk * dx / distance;
             result[1] = y + distanceToWalk * dy / distance;
-            return result;
         }
+        return result;
     }
 
     public float[] predictWalk(float x, float y, float dt, float[] temp) {
@@ -82,12 +90,16 @@ public strictfp class Creep extends Unit {
         return walk(x, y, distanceToWalk, temp);
     }
 
-    public float getHealth() {
+    public double getHealth() {
         return health;
     }
 
-    public void setHealth(float health) {
-        this.health = health;
+    public void setHealth(double health) {
+        if (health < 0.0) {
+            this.health = 0.0;
+        } else {
+            this.health = health;
+        }
     }
 
     public boolean isDead() {
@@ -129,5 +141,13 @@ public strictfp class Creep extends Unit {
 
     public void setPath(Path path) {
         this.path = path;
+    }
+
+    public void setState(CreepState state) {
+        this.state = state;
+    }
+
+    public CreepState getState() {
+        return state;
     }
 }

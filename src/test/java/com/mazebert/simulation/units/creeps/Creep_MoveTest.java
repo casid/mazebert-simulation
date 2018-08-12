@@ -62,4 +62,26 @@ class Creep_MoveTest {
         assertThat(creep.getX()).isEqualTo(0.5f);
         assertThat(creep.getY()).isEqualTo(1.5f);
     }
+
+    @Test
+    void death() {
+        creep.setPath(new Path(0.0f, 0.0f, 1.0f, 0.0f));
+        creep.setState(CreepState.Death);
+
+        creep.simulate(1.0f);
+
+        assertThat(creep.getX()).isEqualTo(0.0f);
+        assertThat(creep.getY()).isEqualTo(0.0f);
+    }
+
+    @Test
+    void hit() {
+        creep.setPath(new Path(0.0f, 0.0f, 1.0f, 0.0f));
+        creep.setState(CreepState.Hit);
+
+        creep.simulate(1.0f);
+
+        assertThat(creep.getX()).isEqualTo(0.0f);
+        assertThat(creep.getY()).isEqualTo(0.0f);
+    }
 }

@@ -3,7 +3,6 @@ package com.mazebert.simulation.units.abilities;
 import com.mazebert.simulation.units.towers.Tower;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.jusecase.inject.Trainer;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.catchThrowable;
@@ -18,7 +17,7 @@ public class CooldownAbilityTest {
     @BeforeEach
     void setUp() {
         unit = new Tower();
-        unit.setCooldown(1.0f);
+        unit.setBaseCooldown(1.0f);
 
         cooldownAbility = new MyCooldownAbility();
         unit.addAbility(cooldownAbility);
@@ -82,7 +81,7 @@ public class CooldownAbilityTest {
         active = true;
 
         unit.simulate(0.5f);
-        unit.setCooldown(2.0f);
+        unit.setBaseCooldown(2.0f);
         unit.simulate(0.5f);
         unit.simulate(0.5f);
         unit.simulate(0.5f);
