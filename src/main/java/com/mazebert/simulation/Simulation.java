@@ -58,7 +58,7 @@ public strictfp class Simulation {
         List<Command> requests = new ArrayList<>();
         if (playerGateway.isHost()) {
             InitGameCommand initGameCommand = new InitGameCommand();
-            initGameCommand.randomSeed = new Random().nextLong();
+            initGameCommand.randomSeed = new Random().nextInt();
             requests.add(initGameCommand);
         }
         schedule(requests, 0);

@@ -3,17 +3,32 @@ package com.mazebert.simulation.plugins.random;
 import com.mazebert.simulation.SimulationLoop;
 
 public strictfp class SmartRandomPlugin implements RandomPlugin {
-    private final JdkRandomPlugin synced = new JdkRandomPlugin();
-    private final JdkRandomPlugin unsynced = new JdkRandomPlugin();
+    private final FastRandomPlugin synced = new FastRandomPlugin();
+    private final FastRandomPlugin unsynced = new FastRandomPlugin();
 
     @Override
-    public void setSeed(long seed) {
+    public void setSeed(int seed) {
         resolvePlugin().setSeed(seed);
     }
 
     @Override
-    public int nextInt() {
-        return resolvePlugin().nextInt();
+    public float getFloat() {
+        return resolvePlugin().getFloat();
+    }
+
+    @Override
+    public float getFloatAbs() {
+        return resolvePlugin().getFloatAbs();
+    }
+
+    @Override
+    public float getFloat(float min, float max) {
+        return resolvePlugin().getFloat(min, max);
+    }
+
+    @Override
+    public int getInt(int min, int max) {
+        return resolvePlugin().getInt(min, max);
     }
 
     private RandomPlugin resolvePlugin() {

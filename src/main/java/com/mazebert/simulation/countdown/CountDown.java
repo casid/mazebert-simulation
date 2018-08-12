@@ -7,7 +7,7 @@ import org.jusecase.inject.Component;
 import javax.inject.Inject;
 
 @Component
-public abstract class CountDown implements OnUpdateListener {
+public strictfp abstract class CountDown implements OnUpdateListener {
 
     @Inject
     private SimulationListeners simulationListeners;

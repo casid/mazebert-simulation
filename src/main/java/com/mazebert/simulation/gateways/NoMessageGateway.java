@@ -2,7 +2,7 @@ package com.mazebert.simulation.gateways;
 
 import org.jusecase.bitnet.message.BitMessage;
 
-public class NoMessageGateway implements MessageGateway {
+public strictfp class NoMessageGateway implements MessageGateway {
     @Override
     public void sendToOtherPlayers(BitMessage message) {
         // do nothing

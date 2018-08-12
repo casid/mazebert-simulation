@@ -1,10 +1,8 @@
 package com.mazebert.simulation.usecases;
 
-import com.mazebert.simulation.Balancing;
-import com.mazebert.simulation.countdown.CountDown;
+import com.mazebert.simulation.commands.InitGameCommand;
 import com.mazebert.simulation.countdown.GameCountDown;
 import com.mazebert.simulation.plugins.random.RandomPlugin;
-import com.mazebert.simulation.commands.InitGameCommand;
 import org.jusecase.inject.Component;
 
 import javax.inject.Inject;

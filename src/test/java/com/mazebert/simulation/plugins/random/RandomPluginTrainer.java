@@ -4,19 +4,37 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class RandomPluginTrainer implements RandomPlugin {
 
-    private long seed;
+    private int seed;
+    private float[] floatAbs;
+    private int nextFloatAbs;
 
-    public void thenSeedIsSetTo(long expected) {
+    public void givenFloatAbs(float... floats) {
+        floatAbs = floats;
+        nextFloatAbs = 0;
+    }
+
+    public void thenSeedIsSetTo(int expected) {
         assertThat(seed).isEqualTo(expected);
     }
 
     @Override
-    public void setSeed(long seed) {
+    public void setSeed(int seed) {
         this.seed = seed;
     }
 
     @Override
-    public int nextInt() {
+    public float getFloat() {
         return 0;
+    }
+
+    @Override
+    public float getFloatAbs() {
+        if (floatAbs == null) {
+            return 0.0f;
+        }
+        if (nextFloatAbs >= floatAbs.length - 1) {
+            return floatAbs[floatAbs.length - 1];
+        }
+        return floatAbs[nextFloatAbs++];
     }
 }

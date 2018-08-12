@@ -14,11 +14,11 @@ public strictfp class InitGameCommandSerializer implements BitSerializer<InitGam
 
     @Override
     public void serialize(BitWriter writer, InitGameCommand object) {
-        writer.writeLong(object.randomSeed);
+        writer.writeInt32(object.randomSeed);
     }
 
     @Override
     public void deserialize(BitReader reader, InitGameCommand object) {
-        object.randomSeed = reader.readLong();
+        object.randomSeed = reader.readInt32();
     }
 }

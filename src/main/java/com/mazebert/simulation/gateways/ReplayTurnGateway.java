@@ -7,7 +7,7 @@ import com.mazebert.simulation.replay.data.ReplayTurn;
 
 import java.util.List;
 
-public class ReplayTurnGateway extends TurnGateway implements PlayerGateway {
+public strictfp class ReplayTurnGateway extends TurnGateway implements PlayerGateway {
     private final ReplayHeader replayHeader;
     private final ReplayReader replayReader;
 

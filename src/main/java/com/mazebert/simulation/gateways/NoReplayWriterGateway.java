@@ -5,7 +5,7 @@ import com.mazebert.simulation.replay.data.ReplayHeader;
 
 import java.util.List;
 
-public class NoReplayWriterGateway implements ReplayWriterGateway {
+public strictfp class NoReplayWriterGateway implements ReplayWriterGateway {
     @Override
     public boolean isWriteEnabled() {
         return false;

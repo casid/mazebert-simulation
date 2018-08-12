@@ -1,6 +1,6 @@
 package com.mazebert.simulation.units.towers;
 
-public enum TowerType {
+public strictfp enum TowerType {
     Hitman(1, Hitman.class);
 
     public final int id;
