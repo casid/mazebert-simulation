@@ -28,6 +28,12 @@ public class WaveSpawnerTest implements ComponentTest {
     }
 
     @Test
+    void noWaveExists() {
+        whenGameIsStarted();
+        assertThat(unitGateway.getUnits()).hasSize(0);
+    }
+
+    @Test
     void boss() {
         Wave wave = new Wave();
         wave.creepCount = 1;

@@ -57,6 +57,9 @@ public strictfp class WaveSpawner implements OnGameStartedListener, OnUpdateList
 
     private void startNextWave() {
         Wave wave = waveGateway.getNextWave();
+        if (wave == null) {
+            return;
+        }
 
         for (int i = 0; i < wave.creepCount; ++i) {
             Creep creep = new Creep();
