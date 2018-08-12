@@ -71,6 +71,10 @@ public strictfp class WaveSpawner implements OnGameStartedListener, OnUpdateList
     }
 
     private void spawnCreep(Creep creep) {
+        creep.setX(5);
+        creep.setY(5);
+        creep.setPath(new Path(5, 5, 5, -5, -5, -5, 0, 0));
+
         unitGateway.addUnit(creep);
         simulationListeners.onUnitAdded.dispatch(creep);
     }

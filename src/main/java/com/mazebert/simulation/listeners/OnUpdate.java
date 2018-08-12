@@ -4,8 +4,10 @@ import org.jusecase.signals.Signal;
 
 public strictfp class OnUpdate extends Signal<OnUpdateListener> {
     public void dispatch(float dt) {
-        for (OnUpdateListener listener : getListeners()) {
-            listener.onUpdate(dt);
+        if (size() > 0) {
+            for (OnUpdateListener listener : getListeners()) {
+                listener.onUpdate(dt);
+            }
         }
     }
 }

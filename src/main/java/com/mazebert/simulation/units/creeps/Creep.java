@@ -1,18 +1,85 @@
 package com.mazebert.simulation.units.creeps;
 
+import com.mazebert.simulation.Path;
 import com.mazebert.simulation.Wave;
 import com.mazebert.simulation.hash.Hash;
 import com.mazebert.simulation.units.Unit;
 
 public strictfp class Creep extends Unit {
+    private static final float[] TEMP = new float[2];
+
     private float health = 100.0f;
     private Wave wave;
+    private float baseSpeed = 1.0f;
+    private float speedModifier = 1.0f;
+    private Path path;
+    private int pathIndex;
+
+    private volatile boolean freshCoordinates;
 
     @Override
     public void hash(Hash hash) {
         super.hash(hash);
         hash.add(health);
         hash.add(wave);
+        hash.add(baseSpeed);
+        hash.add(speedModifier);
+    }
+
+    @Override
+    public void simulate(float dt) {
+        super.simulate(dt);
+
+        float distanceToWalk = getSpeed() * dt;
+        float[] result = walk(getX(), getY(), distanceToWalk, TEMP);
+        if (result != null) {
+            setX(result[0]);
+            setY(result[1]);
+
+            freshCoordinates = true;
+        }
+    }
+
+    private float[] walk(float x, float y, float distanceToWalk, float[] result) {
+        if (distanceToWalk <= 0.0f) {
+            return null;
+        }
+
+        int targetIndex = pathIndex + 1;
+        if (targetIndex >= path.size()) {
+            return null;
+        }
+
+        float[] target = path.get(targetIndex, result);
+        float tx = target[0];
+        float ty = target[1];
+
+        float dx = tx - x;
+        float dy = ty - y;
+
+        float distance = (float)StrictMath.sqrt(dx * dx + dy * dy);
+        if (distance <= distanceToWalk) {
+            result[0] = tx;
+            result[1] = ty;
+            ++pathIndex;
+
+            return walk(tx, ty, distanceToWalk - distance, result);
+        } else {
+            result[0] = x + distanceToWalk * dx / distance;
+            result[1] = y + distanceToWalk * dy / distance;
+            return result;
+        }
+    }
+
+    public float[] simulateWalk(float x, float y, float dt, float[] temp) {
+        if (freshCoordinates) {
+            freshCoordinates = false;
+            x = getX();
+            y = getY();
+        }
+
+        float distanceToWalk = getSpeed() * dt;
+        return walk(x, y, distanceToWalk, temp);
     }
 
     public float getHealth() {
@@ -38,5 +105,29 @@ public strictfp class Creep extends Unit {
 
     public Wave getWave() {
         return wave;
+    }
+
+    public float getBaseSpeed() {
+        return baseSpeed;
+    }
+
+    public void setBaseSpeed(float baseSpeed) {
+        this.baseSpeed = baseSpeed;
+    }
+
+    public float getSpeedModifier() {
+        return speedModifier;
+    }
+
+    public void setSpeedModifier(float speedModifier) {
+        this.speedModifier = speedModifier;
+    }
+
+    public float getSpeed() {
+        return baseSpeed * speedModifier;
+    }
+
+    public void setPath(Path path) {
+        this.path = path;
     }
 }

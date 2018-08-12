@@ -103,7 +103,7 @@ public class WaveSpawnerTest implements ComponentTest {
         wave.minSecondsToNextCreep = 1.0f;
         wave.maxSecondsToNextCreep = 2.1f;
         waveGateway.addWave(wave);
-        randomPluginTrainer.givenFloatAbs(1.0f); // will use maxSecondsToNextCreep
+        randomPluginTrainer.givenFloatAbs(0.99f); // will use maxSecondsToNextCreep
 
         whenGameIsStarted();
         assertThat(unitGateway.getUnits()).hasSize(1);
