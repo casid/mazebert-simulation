@@ -66,6 +66,8 @@ public strictfp class WaveSpawner implements OnGameStartedListener, OnUpdateList
             creep.setWave(wave);
             creepQueue.add(creep);
         }
+
+        waveGateway.generateMissingWaves(randomPlugin);
     }
 
     private void spawnCreep(Creep creep) {

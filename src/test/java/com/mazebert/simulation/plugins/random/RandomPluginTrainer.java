@@ -9,6 +9,10 @@ public class RandomPluginTrainer implements RandomPlugin {
     private int nextFloatAbs;
 
     public void givenFloatAbs(float... floats) {
+        for (float f : floats) {
+            assertThat(f).isLessThan(1.0f);
+            assertThat(f).isGreaterThanOrEqualTo(0.0f);
+        }
         floatAbs = floats;
         nextFloatAbs = 0;
     }

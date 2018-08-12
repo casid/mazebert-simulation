@@ -23,6 +23,14 @@ public strictfp class Hash {
         add(Double.doubleToLongBits(value));
     }
 
+    public void add(Enum value) {
+        if (value == null) {
+            add(0);
+        } else {
+            add(value.ordinal() + 1);
+        }
+    }
+
     public void add(Hashable value) {
         if (value == null) {
             add(0);

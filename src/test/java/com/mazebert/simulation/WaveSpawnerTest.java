@@ -25,12 +25,49 @@ public class WaveSpawnerTest implements ComponentTest {
     @BeforeEach
     void setUp() {
         waveSpawner = new WaveSpawner();
+        waveGateway.setTotalWaves(250);
     }
 
     @Test
     void noWaveExists() {
         whenGameIsStarted();
         assertThat(unitGateway.getUnits()).hasSize(0);
+        assertThat(waveGateway.getCurrentWave()).isEqualTo(0);
+    }
+
+    @Test
+    void waveIsRemoved() {
+        Wave wave = new Wave();
+        wave.creepCount = 1;
+        waveGateway.addWave(wave);
+
+        whenGameIsStarted();
+
+        assertThat(waveGateway.getWaves().stream().findFirst().orElse(null)).isNotEqualTo(wave);
+        assertThat(waveGateway.getCurrentWave()).isEqualTo(1);
+    }
+
+    @Test
+    void wavesAreGenerated() {
+        Wave wave = new Wave();
+        wave.creepCount = 1;
+        waveGateway.addWave(wave);
+
+        whenGameIsStarted();
+
+        assertThat(waveGateway.getWaves()).hasSize(5);
+    }
+
+    @Test
+    void wavesAreGenerated_notMoreThanMax() {
+        waveGateway.setTotalWaves(5);
+        Wave wave = new Wave();
+        wave.creepCount = 1;
+        waveGateway.addWave(wave);
+
+        whenGameIsStarted();
+
+        assertThat(waveGateway.getWaves()).hasSize(4);
     }
 
     @Test

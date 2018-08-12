@@ -26,4 +26,8 @@ public strictfp interface RandomPlugin {
     default int getInt(int min, int max) {
         return (int) (min + (max - min + 1) * getFloatAbs());
     }
+
+    default <T> T get(T[] array) {
+        return array[getInt(0, array.length - 1)];
+    }
 }

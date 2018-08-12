@@ -2,7 +2,10 @@ package com.mazebert.simulation.usecases;
 
 import com.mazebert.simulation.Balancing;
 import com.mazebert.simulation.SimulationListeners;
+import com.mazebert.simulation.Wave;
+import com.mazebert.simulation.WaveType;
 import com.mazebert.simulation.commands.InitGameCommand;
+import com.mazebert.simulation.gateways.WaveGateway;
 import com.mazebert.simulation.plugins.random.RandomPluginTrainer;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -16,12 +19,16 @@ class InitGameTest extends UsecaseTest<InitGameCommand> {
     RandomPluginTrainer randomPluginTrainer;
     @Trainer
     SimulationListeners simulationListeners;
+    @Trainer
+    WaveGateway waveGateway;
 
     boolean gameStarted;
 
     @BeforeEach
     void setUp() {
         usecase = new InitGame();
+
+        request.rounds = 1;
     }
 
     @Test
@@ -59,5 +66,63 @@ class InitGameTest extends UsecaseTest<InitGameCommand> {
         whenRequestIsExecuted();
 
         assertThat(gameStarted).isFalse();
+    }
+
+    @Test
+    void wavesAreGenerated() {
+        request.rounds = 250;
+        whenRequestIsExecuted();
+        assertThat(waveGateway.getWaves()).hasSize(WaveGateway.WAVES_IN_ADVANCE);
+    }
+
+    @Test
+    void wavesAreGenerated_notMoreThanTotalWaveCount() {
+        request.rounds = 2;
+        whenRequestIsExecuted();
+        assertThat(waveGateway.getWaves()).hasSize(request.rounds);
+    }
+
+    @Test
+    void waveGeneration_normal() {
+        randomPluginTrainer.givenFloatAbs(0.0f);
+
+        whenRequestIsExecuted();
+
+        Wave wave = waveGateway.getNextWave();
+        assertThat(wave.type).isEqualTo(WaveType.Normal);
+        assertThat(wave.creepCount).isEqualTo(10);
+    }
+
+    @Test
+    void waveGeneration_mass() {
+        randomPluginTrainer.givenFloatAbs(0.26f);
+
+        whenRequestIsExecuted();
+
+        Wave wave = waveGateway.getNextWave();
+        assertThat(wave.type).isEqualTo(WaveType.Mass);
+        assertThat(wave.creepCount).isEqualTo(20);
+    }
+
+    @Test
+    void waveGeneration_boss() {
+        randomPluginTrainer.givenFloatAbs(0.51f);
+
+        whenRequestIsExecuted();
+
+        Wave wave = waveGateway.getNextWave();
+        assertThat(wave.type).isEqualTo(WaveType.Boss);
+        assertThat(wave.creepCount).isEqualTo(1);
+    }
+
+    @Test
+    void waveGeneration_air() {
+        randomPluginTrainer.givenFloatAbs(0.76f);
+
+        whenRequestIsExecuted();
+
+        Wave wave = waveGateway.getNextWave();
+        assertThat(wave.type).isEqualTo(WaveType.Air);
+        assertThat(wave.creepCount).isEqualTo(5);
     }
 }
