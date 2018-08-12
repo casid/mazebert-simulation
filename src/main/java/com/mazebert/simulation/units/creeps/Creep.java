@@ -71,7 +71,7 @@ public strictfp class Creep extends Unit {
         }
     }
 
-    public float[] simulateWalk(float x, float y, float dt, float[] temp) {
+    public float[] predictWalk(float x, float y, float dt, float[] temp) {
         if (freshCoordinates) {
             freshCoordinates = false;
             x = getX();
