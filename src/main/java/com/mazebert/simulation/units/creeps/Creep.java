@@ -9,6 +9,7 @@ public strictfp class Creep extends Unit {
     private static final float[] TEMP = new float[2];
 
     private double health = 100.0f;
+    private double maxHealth = health;
     private Wave wave;
     private float baseSpeed = 1.0f;
     private float speedModifier = 1.0f;
@@ -22,6 +23,7 @@ public strictfp class Creep extends Unit {
     public void hash(Hash hash) {
         super.hash(hash);
         hash.add(health);
+        hash.add(maxHealth);
         hash.add(wave);
         hash.add(baseSpeed);
         hash.add(speedModifier);
@@ -149,5 +151,13 @@ public strictfp class Creep extends Unit {
 
     public CreepState getState() {
         return state;
+    }
+
+    public double getMaxHealth() {
+        return maxHealth;
+    }
+
+    public void setMaxHealth(double maxHealth) {
+        this.maxHealth = maxHealth;
     }
 }
