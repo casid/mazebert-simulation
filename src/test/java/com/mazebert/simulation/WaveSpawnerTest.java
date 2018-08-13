@@ -3,10 +3,15 @@ package com.mazebert.simulation;
 import com.mazebert.simulation.gateways.UnitGateway;
 import com.mazebert.simulation.gateways.WaveGateway;
 import com.mazebert.simulation.plugins.random.RandomPluginTrainer;
+import com.mazebert.simulation.units.Unit;
+import com.mazebert.simulation.units.creeps.Creep;
+import com.mazebert.simulation.units.creeps.CreepState;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.jusecase.inject.ComponentTest;
 import org.jusecase.inject.Trainer;
+
+import java.util.concurrent.atomic.AtomicReference;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -116,6 +121,43 @@ public class WaveSpawnerTest implements ComponentTest {
 
         whenGameIsUpdated();
         assertThat(unitGateway.getUnits()).hasSize(2);
+    }
+
+    @Test
+    void creepIsKilled() {
+        AtomicReference<Unit> removedUnit = new AtomicReference<>(null);
+        simulationListeners.onUnitRemoved.add(removedUnit::set);
+        Wave wave = new Wave();
+        wave.creepCount = 1;
+        waveGateway.addWave(wave);
+
+        whenGameIsStarted();
+        assertThat(unitGateway.getUnits()).hasSize(1);
+        Creep creep = (Creep) unitGateway.getUnits().get(0);
+        creep.setHealth(0.0f);
+        assertThat(unitGateway.getUnits()).hasSize(1);
+        creep.simulate(1.0f);
+        assertThat(unitGateway.getUnits()).hasSize(1);
+        creep.simulate(1.0f);
+
+        assertThat(creep.getState()).isEqualTo(CreepState.Dead);
+        assertThat(unitGateway.getUnits()).isEmpty();
+        assertThat(removedUnit.get()).isSameAs(creep);
+    }
+
+    @Test
+    void creepIsKilled_onDeath() {
+        AtomicReference<Creep> deathCreep = new AtomicReference<>(null);
+        Wave wave = new Wave();
+        wave.creepCount = 1;
+        waveGateway.addWave(wave);
+
+        whenGameIsStarted();
+        Creep creep = (Creep) unitGateway.getUnits().get(0);
+        creep.onDeath.add(deathCreep::set);
+        creep.setHealth(0.0f);
+
+        assertThat(deathCreep.get()).isSameAs(creep);
     }
 
     private void whenGameIsStarted() {

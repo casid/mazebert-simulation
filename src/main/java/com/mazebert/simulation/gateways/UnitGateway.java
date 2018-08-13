@@ -4,9 +4,12 @@ import com.mazebert.simulation.units.Unit;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 public strictfp class UnitGateway {
     private final List<Unit> units = new ArrayList<>();
+    private final List<Unit> unitsToRemove = new ArrayList<>();
+    private boolean removeDirectly = true;
 
     public void addUnit(Unit unit) {
         units.add(unit);
@@ -17,7 +20,11 @@ public strictfp class UnitGateway {
     }
 
     public void removeUnit(Unit unit) {
-        units.remove(unit);
+        if (removeDirectly) {
+            units.remove(unit);
+        } else {
+            unitsToRemove.add(unit);
+        }
     }
 
     public <U extends Unit> U findUnitInRange(Unit unit, float range, Class<U> unitClass) {
@@ -32,5 +39,17 @@ public strictfp class UnitGateway {
             }
         }
         return null;
+    }
+
+    public void startIteration() {
+        removeDirectly = false;
+    }
+
+    public void endIteration() {
+        removeDirectly = true;
+        if (!unitsToRemove.isEmpty()) {
+            units.removeAll(unitsToRemove);
+            unitsToRemove.clear();
+        }
     }
 }

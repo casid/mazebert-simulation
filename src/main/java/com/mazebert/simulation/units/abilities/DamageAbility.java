@@ -3,7 +3,6 @@ package com.mazebert.simulation.units.abilities;
 import com.mazebert.simulation.listeners.OnAttackListener;
 import com.mazebert.simulation.plugins.random.RandomPlugin;
 import com.mazebert.simulation.units.creeps.Creep;
-import com.mazebert.simulation.units.creeps.CreepState;
 import com.mazebert.simulation.units.towers.Tower;
 import org.jusecase.inject.Component;
 
@@ -46,9 +45,5 @@ public strictfp class DamageAbility extends Ability<Tower> implements OnAttackLi
         }
 
         target.setHealth(target.getHealth() - damage);
-
-        if (target.isDead()) {
-            target.setState(CreepState.Death);
-        }
     }
 }

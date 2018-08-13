@@ -2,6 +2,7 @@ package com.mazebert.simulation;
 
 import com.mazebert.simulation.gateways.UnitGateway;
 import com.mazebert.simulation.gateways.WaveGateway;
+import com.mazebert.simulation.listeners.OnDeadListener;
 import com.mazebert.simulation.listeners.OnGameStartedListener;
 import com.mazebert.simulation.listeners.OnUpdateListener;
 import com.mazebert.simulation.plugins.random.RandomPlugin;
@@ -13,7 +14,7 @@ import java.util.ArrayDeque;
 import java.util.Queue;
 
 @Component
-public strictfp class WaveSpawner implements OnGameStartedListener, OnUpdateListener {
+public strictfp class WaveSpawner implements OnGameStartedListener, OnUpdateListener, OnDeadListener {
     @Inject
     private SimulationListeners simulationListeners;
     @Inject
@@ -74,8 +75,15 @@ public strictfp class WaveSpawner implements OnGameStartedListener, OnUpdateList
         creep.setX(5);
         creep.setY(5);
         creep.setPath(new Path(5, 5, 5, -5, -5, -5, 0, 0));
+        creep.onDead.add(this);
 
         unitGateway.addUnit(creep);
         simulationListeners.onUnitAdded.dispatch(creep);
+    }
+
+    @Override
+    public void onDead(Creep creep) {
+        unitGateway.removeUnit(creep);
+        simulationListeners.onUnitRemoved.dispatch(creep);
     }
 }

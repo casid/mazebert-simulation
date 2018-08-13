@@ -117,13 +117,21 @@ public strictfp class Simulation {
 
     private void simulateTurn(List<Turn> playerTurns) {
         simulatePlayerTurns(playerTurns);
+        simulateUnits();
+        hashUnits();
+    }
 
+    private void simulateUnits() {
+        unitGateway.startIteration();
         for (Unit unit : unitGateway.getUnits()) {
             unit.simulate(turnTimeInSeconds);
         }
+        unitGateway.endIteration();
 
         simulationListeners.onUpdate.dispatch(turnTimeInSeconds);
+    }
 
+    private void hashUnits() {
         hash.reset();
         for (Unit unit : unitGateway.getUnits()) {
             unit.hash(hash);

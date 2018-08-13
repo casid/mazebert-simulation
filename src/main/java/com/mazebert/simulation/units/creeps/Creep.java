@@ -3,10 +3,17 @@ package com.mazebert.simulation.units.creeps;
 import com.mazebert.simulation.Path;
 import com.mazebert.simulation.Wave;
 import com.mazebert.simulation.hash.Hash;
+import com.mazebert.simulation.listeners.OnDead;
+import com.mazebert.simulation.listeners.OnDeath;
 import com.mazebert.simulation.units.Unit;
 
 public strictfp class Creep extends Unit {
+    public static final float DEATH_TIME = 2.0f;
+
     private static final float[] TEMP = new float[2];
+
+    public final OnDead onDead = new OnDead();
+    public final OnDeath onDeath = new OnDeath();
 
     private double health = 100.0f;
     private double maxHealth = health;
@@ -17,6 +24,7 @@ public strictfp class Creep extends Unit {
     private int pathIndex;
     private CreepState state = CreepState.Running;
 
+    private float deathTime;
     private volatile boolean freshCoordinates;
 
     @Override
@@ -36,13 +44,24 @@ public strictfp class Creep extends Unit {
     public void simulate(float dt) {
         super.simulate(dt);
 
-        float distanceToWalk = getSpeed() * dt;
-        float[] result = walk(getX(), getY(), distanceToWalk, TEMP);
-        if (result != null) {
-            setX(result[0]);
-            setY(result[1]);
+        switch (state) {
+            case Running:
+                float distanceToWalk = getSpeed() * dt;
+                float[] result = walk(getX(), getY(), distanceToWalk, TEMP);
+                if (result != null) {
+                    setX(result[0]);
+                    setY(result[1]);
 
-            freshCoordinates = true;
+                    freshCoordinates = true;
+                }
+                break;
+            case Death:
+                deathTime += dt;
+                if (deathTime >= DEATH_TIME) {
+                    setState(CreepState.Dead);
+                    onDead.dispatch(this);
+                }
+                break;
         }
     }
 
@@ -97,8 +116,11 @@ public strictfp class Creep extends Unit {
     }
 
     public void setHealth(double health) {
-        if (health < 0.0) {
+        if (health <= 0.0 && this.health > 0.0) {
             this.health = 0.0;
+            deathTime = 0.0f;
+            setState(CreepState.Death);
+            onDeath.dispatch(this);
         } else {
             this.health = health;
         }
