@@ -12,8 +12,8 @@ public strictfp class Creep extends Unit {
 
     private static final float[] TEMP = new float[2];
 
-    public final OnDead onDead = new OnDead();
     public final OnDeath onDeath = new OnDeath();
+    public final OnDead onDead = new OnDead();
 
     private double health = 100.0f;
     private double maxHealth = health;
