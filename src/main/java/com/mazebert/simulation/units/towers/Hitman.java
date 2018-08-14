@@ -5,7 +5,7 @@ import com.mazebert.simulation.units.abilities.DamageAbility;
 
 public class Hitman extends Tower {
     public Hitman() {
-        setBaseCooldown(5.0f);
+        setBaseCooldown(1.0f);
         setBaseRange(6.0f);
         setDamageSpread(1.0f);
         setGender(Gender.Male);
