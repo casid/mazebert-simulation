@@ -196,6 +196,42 @@ public class WaveSpawnerTest implements ComponentTest {
         assertThat(getCreep(1).getGold()).isEqualTo(26);
     }
 
+    @Test
+    void health_boss() {
+        Wave wave = new Wave();
+        wave.creepCount = 1;
+        waveGateway.addWave(wave);
+
+        whenAllCreepsAreSpawned();
+
+        assertThat(getCreep(0).getHealth()).isEqualTo(256);
+    }
+
+    @Test
+    void health_distributed() {
+        Wave wave = new Wave();
+        wave.creepCount = 2;
+        waveGateway.addWave(wave);
+
+        whenAllCreepsAreSpawned();
+
+        assertThat(getCreep(0).getHealth()).isEqualTo(128);
+        assertThat(getCreep(1).getHealth()).isEqualTo(128);
+    }
+
+    @Test
+    void health_modifier_atLeastOnePerCreep() {
+        Wave wave = new Wave();
+        wave.creepCount = 2;
+        wave.healthMultiplier = 0.001f;
+        waveGateway.addWave(wave);
+
+        whenAllCreepsAreSpawned();
+
+        assertThat(getCreep(0).getHealth()).isEqualTo(1);
+        assertThat(getCreep(1).getHealth()).isEqualTo(1);
+    }
+
     private Creep getCreep(int index) {
         return (Creep)unitGateway.getUnits().get(index);
     }

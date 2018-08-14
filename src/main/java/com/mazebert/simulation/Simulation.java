@@ -94,7 +94,7 @@ public strictfp class Simulation {
         }
 
         long duration = System.nanoTime() - start;
-        sleepPlugin.sleep(Math.max(0, turnTimeInNanos - duration));
+        sleepPlugin.sleep(StrictMath.max(0, turnTimeInNanos - duration));
     }
 
     private void checkHashes(List<Turn> playerTurns) {

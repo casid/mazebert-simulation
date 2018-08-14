@@ -33,7 +33,7 @@ public strictfp class WaveGateway {
     }
 
     public void generateMissingWaves(RandomPlugin randomPlugin) {
-        int missingWaves = Math.min(totalWaves - currentWave, WaveGateway.WAVES_IN_ADVANCE);
+        int missingWaves = StrictMath.min(totalWaves - currentWave, WaveGateway.WAVES_IN_ADVANCE);
         for (int i = 0; i < missingWaves; ++i) {
             Wave wave = new Wave();
             wave.type = randomPlugin.get(RANDOM_WAVE_TYPES);

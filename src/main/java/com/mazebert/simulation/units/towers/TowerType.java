@@ -24,7 +24,7 @@ public strictfp enum TowerType {
     static {
         int maxId = 0;
         for (TowerType towerType : TowerType.values()) {
-            maxId = Math.max(maxId, towerType.id);
+            maxId = StrictMath.max(maxId, towerType.id);
         }
         LOOKUP = new TowerType[maxId + 1];
         for (TowerType towerType : TowerType.values()) {

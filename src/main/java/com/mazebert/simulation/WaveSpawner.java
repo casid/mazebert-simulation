@@ -62,6 +62,9 @@ public strictfp class WaveSpawner implements OnGameStartedListener, OnUpdateList
             return;
         }
 
+        double healthOfAllCreeps = Balancing.getTotalCreepHitpoints(waveGateway.getCurrentWave(), Difficulty.Easy); // TODO difficulty gateway!
+        double healthOfOneCreep = StrictMath.max(1, StrictMath.round(wave.healthMultiplier * healthOfAllCreeps / wave.creepCount));
+
         int goldOfAllCreeps = Balancing.getGoldForRound(waveGateway.getCurrentWave());
         int goldOfOneCreep = goldOfAllCreeps / wave.creepCount;
         int goldRemaining = goldOfAllCreeps % wave.creepCount;
@@ -70,6 +73,7 @@ public strictfp class WaveSpawner implements OnGameStartedListener, OnUpdateList
         for (int i = 0; i < wave.creepCount; ++i) {
             Creep creep = new Creep();
             creep.setWave(wave);
+            creep.setHealth(healthOfOneCreep);
             creep.setGold(i == creepIndexWithRemainingGold ? goldOfOneCreep + goldRemaining : goldOfOneCreep);
             creepQueue.add(creep);
         }

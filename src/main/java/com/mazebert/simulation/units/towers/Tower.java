@@ -67,8 +67,8 @@ public strictfp class Tower extends Unit implements CooldownUnit {
     }
 
     public void setBaseDamage(float baseDamage) {
-        maxBaseDamage = Math.round((1.0 + damageSpread) * baseDamage);
-        minBaseDamage = Math.round((1.0 - damageSpread) * baseDamage);
+        maxBaseDamage = StrictMath.round((1.0 + damageSpread) * baseDamage);
+        minBaseDamage = StrictMath.round((1.0 - damageSpread) * baseDamage);
 
         if (minBaseDamage <= 0.0f) {
             minBaseDamage = 1.0f;

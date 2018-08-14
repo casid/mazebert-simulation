@@ -23,7 +23,21 @@ public strictfp class Balancing {
     }
 
     public static int getGoldForRound(int round) {
-        int gold = (int)Math.round(Math.pow(1.0125, round) * 50.0);
+        int gold = (int)StrictMath.round(StrictMath.pow(1.0125, round) * 50.0);
         return gold > 1000 ? 1000 : gold;
+    }
+
+    public static double getTotalCreepHitpoints(int round, Difficulty difficulty) {
+        double x = round - 1;
+
+        // Add endgame hitpoints if we are there yet!
+        double endgameHitpoints = 0.0;
+        if (x >= 140.0)
+        {
+            double endgameX = x - 140;
+            endgameHitpoints = difficulty.endGameFactor * endgameX * endgameX * endgameX * endgameX;
+        }
+
+        return StrictMath.round(endgameHitpoints + difficulty.midGameFactor * x * x * x * x + difficulty.earlyGameFactor * x * x + getLinearCreepHitpoints(round));
     }
 }
