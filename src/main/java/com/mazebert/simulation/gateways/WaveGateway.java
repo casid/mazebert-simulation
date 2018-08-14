@@ -52,4 +52,8 @@ public strictfp class WaveGateway {
     public int getCurrentWave() {
         return currentWave;
     }
+
+    public void setCurrentWave(int currentWave) {
+        this.currentWave = currentWave;
+    }
 }

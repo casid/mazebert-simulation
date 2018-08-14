@@ -23,9 +23,11 @@ public strictfp class Creep extends Unit {
     private Path path;
     private int pathIndex;
     private CreepState state = CreepState.Running;
+    private int gold;
 
-    private float deathTime;
-    private volatile boolean freshCoordinates;
+    private transient float deathTime;
+    private transient volatile boolean freshCoordinates;
+
 
     @Override
     public void hash(Hash hash) {
@@ -35,9 +37,10 @@ public strictfp class Creep extends Unit {
         hash.add(wave);
         hash.add(baseSpeed);
         hash.add(speedModifier);
-        // path
-        // pathIndex
+        // ignore path
+        // ignore pathIndex
         hash.add(state);
+        hash.add(gold);
     }
 
     @Override
@@ -181,5 +184,13 @@ public strictfp class Creep extends Unit {
 
     public void setMaxHealth(double maxHealth) {
         this.maxHealth = maxHealth;
+    }
+
+    public int getGold() {
+        return gold;
+    }
+
+    public void setGold(int gold) {
+        this.gold = gold;
     }
 }

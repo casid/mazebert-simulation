@@ -21,4 +21,9 @@ public strictfp class Balancing {
         int x = round - 1;
         return 64 * x + 256;
     }
+
+    public static int getGoldForRound(int round) {
+        int gold = (int)Math.round(Math.pow(1.0125, round) * 50.0);
+        return gold > 1000 ? 1000 : gold;
+    }
 }

@@ -133,7 +133,7 @@ public class WaveSpawnerTest implements ComponentTest {
 
         whenGameIsStarted();
         assertThat(unitGateway.getUnits()).hasSize(1);
-        Creep creep = (Creep) unitGateway.getUnits().get(0);
+        Creep creep = getCreep(0);
         creep.setHealth(0.0f);
         assertThat(unitGateway.getUnits()).hasSize(1);
         creep.simulate(1.0f);
@@ -153,16 +153,63 @@ public class WaveSpawnerTest implements ComponentTest {
         waveGateway.addWave(wave);
 
         whenGameIsStarted();
-        Creep creep = (Creep) unitGateway.getUnits().get(0);
+        Creep creep = getCreep(0);
         creep.onDeath.add(deathCreep::set);
         creep.setHealth(0.0f);
 
         assertThat(deathCreep.get()).isSameAs(creep);
     }
 
+    @Test
+    void gold_boss() {
+        Wave wave = new Wave();
+        wave.creepCount = 1;
+        waveGateway.addWave(wave);
+
+        whenAllCreepsAreSpawned();
+
+        assertThat(getCreep(0).getGold()).isEqualTo(51);
+    }
+
+    @Test
+    void gold_boss_higherLevel() {
+        waveGateway.setCurrentWave(9);
+        Wave wave = new Wave();
+        wave.creepCount = 1;
+        waveGateway.addWave(wave);
+
+        whenAllCreepsAreSpawned();
+
+        assertThat(getCreep(0).getGold()).isEqualTo(57);
+    }
+
+    @Test
+    void gold_distributed() {
+        Wave wave = new Wave();
+        wave.creepCount = 2;
+        waveGateway.addWave(wave);
+        randomPluginTrainer.givenFloatAbs(0.9f);
+
+        whenAllCreepsAreSpawned();
+
+        assertThat(getCreep(0).getGold()).isEqualTo(25);
+        assertThat(getCreep(1).getGold()).isEqualTo(26);
+    }
+
+    private Creep getCreep(int index) {
+        return (Creep)unitGateway.getUnits().get(index);
+    }
+
     private void whenGameIsStarted() {
         simulationListeners.onGameStarted.dispatch();
         simulationListeners.onUpdate.dispatch(0.0f);
+    }
+
+    private void whenAllCreepsAreSpawned() {
+        simulationListeners.onGameStarted.dispatch();
+        for (int i = 0; i < 10; ++i) {
+            simulationListeners.onUpdate.dispatch(1.0f);
+        }
     }
 
     private void whenGameIsUpdated() {
