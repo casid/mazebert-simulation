@@ -1,6 +1,6 @@
 package com.mazebert.simulation;
 
-public enum Difficulty {
+public strictfp enum Difficulty {
     Easy(1.25, 0.0003, 0.75),
     Normal(1.5, 0.0006, 1.0),
     Hard(1.75, 0.0009, 1.25);

@@ -39,7 +39,6 @@ public strictfp class Simulation {
     @Inject
     private SimulationListeners simulationListeners;
 
-    private boolean allPlayersReady;
     private long turnTimeInMillis = 100;
     private long turnTimeInNanos = TimeUnit.MILLISECONDS.toNanos(turnTimeInMillis);
     private float turnTimeInSeconds = turnTimeInMillis / 1000.0f;
@@ -78,12 +77,7 @@ public strictfp class Simulation {
     }
 
     private void simulate(List<Turn> playerTurns) {
-        long start = System.nanoTime();
-
-        if (!allPlayersReady) {
-            System.out.println("All players ready, game simulation starts now");
-            allPlayersReady = true;
-        }
+        long start = sleepPlugin.nanoTime();
 
         checkHashes(playerTurns);
 
@@ -93,8 +87,7 @@ public strictfp class Simulation {
             replayWriterGateway.writeTurn(playerTurns);
         }
 
-        long duration = System.nanoTime() - start;
-        sleepPlugin.sleep(StrictMath.max(0, turnTimeInNanos - duration));
+        sleepPlugin.sleepUntil(start, turnTimeInNanos);
     }
 
     private void checkHashes(List<Turn> playerTurns) {

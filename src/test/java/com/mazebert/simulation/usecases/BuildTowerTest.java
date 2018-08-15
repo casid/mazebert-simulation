@@ -39,7 +39,7 @@ class BuildTowerTest extends UsecaseTest<BuildTowerCommand> {
     void baseDamage() {
         whenRequestIsExecuted();
         assertThat(tower.getMinBaseDamage()).isEqualTo(1.0f);
-        assertThat(tower.getMaxBaseDamage()).isEqualTo(52.0f);
+        assertThat(tower.getMaxBaseDamage()).isEqualTo(12.0f);
     }
 
     @Override

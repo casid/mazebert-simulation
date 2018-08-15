@@ -1,5 +1,6 @@
 package com.mazebert.simulation;
 
+import com.mazebert.simulation.gateways.DifficultyGateway;
 import com.mazebert.simulation.gateways.UnitGateway;
 import com.mazebert.simulation.gateways.WaveGateway;
 import com.mazebert.simulation.plugins.random.RandomPluginTrainer;
@@ -24,6 +25,8 @@ public class WaveSpawnerTest implements ComponentTest {
     WaveGateway waveGateway;
     @Trainer
     RandomPluginTrainer randomPluginTrainer;
+    @Trainer
+    DifficultyGateway difficultyGateway;
 
     WaveSpawner waveSpawner;
 
@@ -54,9 +57,7 @@ public class WaveSpawnerTest implements ComponentTest {
 
     @Test
     void wavesAreGenerated() {
-        Wave wave = new Wave();
-        wave.creepCount = 1;
-        waveGateway.addWave(wave);
+        givenBossWave();
 
         whenGameIsStarted();
 
@@ -66,9 +67,7 @@ public class WaveSpawnerTest implements ComponentTest {
     @Test
     void wavesAreGenerated_notMoreThanMax() {
         waveGateway.setTotalWaves(5);
-        Wave wave = new Wave();
-        wave.creepCount = 1;
-        waveGateway.addWave(wave);
+        givenBossWave();
 
         whenGameIsStarted();
 
@@ -77,9 +76,7 @@ public class WaveSpawnerTest implements ComponentTest {
 
     @Test
     void boss() {
-        Wave wave = new Wave();
-        wave.creepCount = 1;
-        waveGateway.addWave(wave);
+        givenBossWave();
 
         whenGameIsStarted();
 
@@ -127,9 +124,7 @@ public class WaveSpawnerTest implements ComponentTest {
     void creepIsKilled() {
         AtomicReference<Unit> removedUnit = new AtomicReference<>(null);
         simulationListeners.onUnitRemoved.add(removedUnit::set);
-        Wave wave = new Wave();
-        wave.creepCount = 1;
-        waveGateway.addWave(wave);
+        givenBossWave();
 
         whenGameIsStarted();
         assertThat(unitGateway.getUnits()).hasSize(1);
@@ -148,9 +143,7 @@ public class WaveSpawnerTest implements ComponentTest {
     @Test
     void creepIsKilled_onDeath() {
         AtomicReference<Creep> deathCreep = new AtomicReference<>(null);
-        Wave wave = new Wave();
-        wave.creepCount = 1;
-        waveGateway.addWave(wave);
+        givenBossWave();
 
         whenGameIsStarted();
         Creep creep = getCreep(0);
@@ -162,9 +155,7 @@ public class WaveSpawnerTest implements ComponentTest {
 
     @Test
     void gold_boss() {
-        Wave wave = new Wave();
-        wave.creepCount = 1;
-        waveGateway.addWave(wave);
+        givenBossWave();
 
         whenAllCreepsAreSpawned();
 
@@ -174,9 +165,7 @@ public class WaveSpawnerTest implements ComponentTest {
     @Test
     void gold_boss_higherLevel() {
         waveGateway.setCurrentWave(9);
-        Wave wave = new Wave();
-        wave.creepCount = 1;
-        waveGateway.addWave(wave);
+        givenBossWave();
 
         whenAllCreepsAreSpawned();
 
@@ -198,13 +187,34 @@ public class WaveSpawnerTest implements ComponentTest {
 
     @Test
     void health_boss() {
-        Wave wave = new Wave();
-        wave.creepCount = 1;
-        waveGateway.addWave(wave);
+        givenBossWave();
 
         whenAllCreepsAreSpawned();
 
         assertThat(getCreep(0).getHealth()).isEqualTo(256);
+        assertThat(getCreep(0).getMaxHealth()).isEqualTo(256);
+    }
+
+    @Test
+    void health_boss_difficulty_easy() {
+        waveGateway.setCurrentWave(5);
+        difficultyGateway.setDifficulty(Difficulty.Easy);
+        givenBossWave();
+
+        whenAllCreepsAreSpawned();
+
+        assertThat(getCreep(0).getHealth()).isEqualTo(607);
+    }
+
+    @Test
+    void health_boss_difficulty_hard() {
+        waveGateway.setCurrentWave(5);
+        difficultyGateway.setDifficulty(Difficulty.Hard);
+        givenBossWave();
+
+        whenAllCreepsAreSpawned();
+
+        assertThat(getCreep(0).getHealth()).isEqualTo(620);
     }
 
     @Test
@@ -234,6 +244,12 @@ public class WaveSpawnerTest implements ComponentTest {
 
     private Creep getCreep(int index) {
         return (Creep)unitGateway.getUnits().get(index);
+    }
+
+    private void givenBossWave() {
+        Wave wave = new Wave();
+        wave.creepCount = 1;
+        waveGateway.addWave(wave);
     }
 
     private void whenGameIsStarted() {

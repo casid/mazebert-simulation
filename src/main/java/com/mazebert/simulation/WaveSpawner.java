@@ -1,5 +1,6 @@
 package com.mazebert.simulation;
 
+import com.mazebert.simulation.gateways.DifficultyGateway;
 import com.mazebert.simulation.gateways.UnitGateway;
 import com.mazebert.simulation.gateways.WaveGateway;
 import com.mazebert.simulation.listeners.OnDeadListener;
@@ -23,6 +24,8 @@ public strictfp class WaveSpawner implements OnGameStartedListener, OnUpdateList
     private UnitGateway unitGateway;
     @Inject
     private RandomPlugin randomPlugin;
+    @Inject
+    private DifficultyGateway difficultyGateway;
 
     private Queue<Creep> creepQueue = new ArrayDeque<>();
     private float countdownForNextCreepToSend;
@@ -62,7 +65,7 @@ public strictfp class WaveSpawner implements OnGameStartedListener, OnUpdateList
             return;
         }
 
-        double healthOfAllCreeps = Balancing.getTotalCreepHitpoints(waveGateway.getCurrentWave(), Difficulty.Easy); // TODO difficulty gateway!
+        double healthOfAllCreeps = Balancing.getTotalCreepHitpoints(waveGateway.getCurrentWave(), difficultyGateway.getDifficulty());
         double healthOfOneCreep = StrictMath.max(1, StrictMath.round(wave.healthMultiplier * healthOfAllCreeps / wave.creepCount));
 
         int goldOfAllCreeps = Balancing.getGoldForRound(waveGateway.getCurrentWave());
@@ -74,6 +77,7 @@ public strictfp class WaveSpawner implements OnGameStartedListener, OnUpdateList
             Creep creep = new Creep();
             creep.setWave(wave);
             creep.setHealth(healthOfOneCreep);
+            creep.setMaxHealth(healthOfOneCreep);
             creep.setGold(i == creepIndexWithRemainingGold ? goldOfOneCreep + goldRemaining : goldOfOneCreep);
             creepQueue.add(creep);
         }

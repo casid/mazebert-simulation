@@ -11,4 +11,17 @@ public strictfp class SleepPlugin {
             // Ignore
         }
     }
+
+    public long nanoTime() {
+        return System.nanoTime();
+    }
+
+    public void sleepUntil(long start, long nanos) {
+        long duration = nanoTime() - start;
+        duration = nanos - duration;
+
+        if (duration > 0) {
+            sleep(duration);
+        }
+    }
 }
