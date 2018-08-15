@@ -154,6 +154,32 @@ public class WaveSpawnerTest implements ComponentTest {
     }
 
     @Test
+    void allCreepsOfWaveAreKilled() {
+        givenBossWave();
+
+        whenGameIsStarted();
+        whenCreepIsKilled(getCreep(0));
+        whenGameIsUpdated(Balancing.WAVE_COUNTDOWN_SECONDS);
+        whenGameIsUpdated();
+
+        assertThat(unitGateway.getUnits()).isNotEmpty();
+    }
+
+    @Test
+    void notAllCreepsOfWaveAreKilled() {
+        Wave wave = new Wave();
+        wave.creepCount = 2;
+        waveGateway.addWave(wave);
+
+        whenGameIsStarted();
+        whenCreepIsKilled(getCreep(0));
+        whenGameIsUpdated(Balancing.WAVE_COUNTDOWN_SECONDS);
+        whenGameIsUpdated();
+
+        assertThat(unitGateway.getUnits()).hasSize(1);
+    }
+
+    @Test
     void gold_boss() {
         givenBossWave();
 
@@ -264,7 +290,17 @@ public class WaveSpawnerTest implements ComponentTest {
         }
     }
 
+    private void whenGameIsUpdated(float dt) {
+        simulationListeners.onUpdate.dispatch(dt);
+    }
+
     private void whenGameIsUpdated() {
-        simulationListeners.onUpdate.dispatch(1.0f);
+        whenGameIsUpdated(1.0f);
+    }
+
+    private void whenCreepIsKilled(Creep creep) {
+        creep.setHealth(0.0f);
+        creep.simulate(Creep.DEATH_TIME);
+        assertThat(unitGateway.getUnits()).doesNotContain(creep);
     }
 }

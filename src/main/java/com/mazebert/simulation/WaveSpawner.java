@@ -1,12 +1,12 @@
 package com.mazebert.simulation;
 
+import com.mazebert.simulation.countdown.WaveCountDown;
 import com.mazebert.simulation.gateways.DifficultyGateway;
 import com.mazebert.simulation.gateways.UnitGateway;
 import com.mazebert.simulation.gateways.WaveGateway;
-import com.mazebert.simulation.listeners.OnDeadListener;
-import com.mazebert.simulation.listeners.OnGameStartedListener;
-import com.mazebert.simulation.listeners.OnUpdateListener;
+import com.mazebert.simulation.listeners.*;
 import com.mazebert.simulation.plugins.random.RandomPlugin;
+import com.mazebert.simulation.units.Unit;
 import com.mazebert.simulation.units.creeps.Creep;
 import org.jusecase.inject.Component;
 
@@ -15,7 +15,7 @@ import java.util.ArrayDeque;
 import java.util.Queue;
 
 @Component
-public strictfp class WaveSpawner implements OnGameStartedListener, OnUpdateListener, OnDeadListener {
+public strictfp class WaveSpawner implements OnGameStartedListener, OnWaveStartedListener, OnUpdateListener, OnDeadListener, OnUnitRemovedListener {
     @Inject
     private SimulationListeners simulationListeners;
     @Inject
@@ -32,11 +32,18 @@ public strictfp class WaveSpawner implements OnGameStartedListener, OnUpdateList
 
     public WaveSpawner() {
         simulationListeners.onGameStarted.add(this);
+        simulationListeners.onWaveStarted.add(this);
         simulationListeners.onUpdate.add(this);
+        simulationListeners.onUnitRemoved.add(this);
     }
 
     @Override
     public void onGameStarted() {
+        startNextWave();
+    }
+
+    @Override
+    public void onWaveStarted() {
         startNextWave();
     }
 
@@ -99,5 +106,15 @@ public strictfp class WaveSpawner implements OnGameStartedListener, OnUpdateList
     public void onDead(Creep creep) {
         unitGateway.removeUnit(creep);
         simulationListeners.onUnitRemoved.dispatch(creep);
+    }
+
+    @Override
+    public void onUnitRemoved(Unit unit) {
+        if (unit instanceof Creep) {
+            Creep creep = (Creep)unit;
+            if (--creep.getWave().creepCount <= 0) {
+                new WaveCountDown().start();
+            }
+        }
     }
 }

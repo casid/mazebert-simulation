@@ -3,7 +3,8 @@ package com.mazebert.simulation;
 import com.mazebert.simulation.units.towers.Tower;
 
 public strictfp class Balancing {
-    public static final float GAME_COUNTDOWN_SECONDS = 2.0f;
+    public static final float GAME_COUNTDOWN_SECONDS = 2.0f; // TODO change to 30
+    public static final float WAVE_COUNTDOWN_SECONDS = 5.0f;
     public static final float DAMAGE_BALANCING_FACTOR = 12.0f;
 
     public static float getBaseDamage(Tower tower) {
