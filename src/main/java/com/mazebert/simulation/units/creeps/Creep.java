@@ -10,7 +10,7 @@ import com.mazebert.simulation.units.Unit;
 public strictfp class Creep extends Unit {
     public static final float DEATH_TIME = 2.0f;
 
-    private static final float[] TEMP = new float[2];
+    private static final WalkResult TEMP = new WalkResult();
 
     public final OnDeath onDeath = new OnDeath();
     public final OnDead onDead = new OnDead();
@@ -50,10 +50,12 @@ public strictfp class Creep extends Unit {
         switch (state) {
             case Running:
                 float distanceToWalk = getSpeed() * dt;
-                float[] result = walk(getX(), getY(), distanceToWalk, TEMP);
+                TEMP.pathIndex = pathIndex;
+                WalkResult result = walk(getX(), getY(), distanceToWalk, TEMP);
                 if (result != null) {
-                    setX(result[0]);
-                    setY(result[1]);
+                    pathIndex = result.pathIndex;
+                    setX(result.getX());
+                    setY(result.getY());
 
                     freshCoordinates = true;
                 }
@@ -68,7 +70,7 @@ public strictfp class Creep extends Unit {
         }
     }
 
-    private float[] walk(float x, float y, float distanceToWalk, float[] result) {
+    private WalkResult walk(float x, float y, float distanceToWalk, WalkResult result) {
         if (state != CreepState.Running) {
             return null;
         }
@@ -77,12 +79,12 @@ public strictfp class Creep extends Unit {
             return null;
         }
 
-        int targetIndex = pathIndex + 1;
+        int targetIndex = result.pathIndex + 1;
         if (targetIndex >= path.size()) {
             return null;
         }
 
-        float[] target = path.get(targetIndex, result);
+        float[] target = path.get(targetIndex, result.position);
         float tx = target[0];
         float ty = target[1];
 
@@ -91,19 +93,20 @@ public strictfp class Creep extends Unit {
 
         float distance = (float)StrictMath.sqrt(dx * dx + dy * dy);
         if (distance <= distanceToWalk) {
-            result[0] = tx;
-            result[1] = ty;
-            ++pathIndex;
+            result.position[0] = tx;
+            result.position[1] = ty;
+            ++result.pathIndex;
 
             walk(tx, ty, distanceToWalk - distance, result);
         } else {
-            result[0] = x + distanceToWalk * dx / distance;
-            result[1] = y + distanceToWalk * dy / distance;
+            result.position[0] = x + distanceToWalk * dx / distance;
+            result.position[1] = y + distanceToWalk * dy / distance;
         }
+
         return result;
     }
 
-    public float[] predictWalk(float x, float y, float dt, float[] temp) {
+    public WalkResult predictWalk(float x, float y, float dt, WalkResult result) {
         if (freshCoordinates) {
             freshCoordinates = false;
             x = getX();
@@ -111,7 +114,15 @@ public strictfp class Creep extends Unit {
         }
 
         float distanceToWalk = getSpeed() * dt;
-        return walk(x, y, distanceToWalk, temp);
+
+        result.pathIndex = pathIndex;
+        if (walk(x, y, distanceToWalk, result) != null) {
+            float[] direction = path.get(result.pathIndex, result.direction);
+            direction[0] = result.position[0] - direction[0];
+            direction[1] = result.position[1] - direction[1];
+        }
+
+        return result;
     }
 
     public double getHealth() {
@@ -192,5 +203,27 @@ public strictfp class Creep extends Unit {
 
     public void setGold(int gold) {
         this.gold = gold;
+    }
+
+    public static class WalkResult {
+        private float[] position = new float[2];
+        private float[] direction = new float[2];
+        private int pathIndex;
+
+        public float getX() {
+            return position[0];
+        }
+
+        public float getY() {
+            return position[1];
+        }
+
+        public float getDx() {
+            return direction[0];
+        }
+
+        public float getDy() {
+            return direction[1];
+        }
     }
 }

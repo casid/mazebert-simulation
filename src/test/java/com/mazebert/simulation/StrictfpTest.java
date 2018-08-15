@@ -38,7 +38,7 @@ public class StrictfpTest {
 
         for (Method method : clazz.getDeclaredMethods()) {
             String methodName = method.getName();
-            if (methodName.contains("ajc$preClinit") || methodName.contains("$jacocoInit")) {
+            if (methodName.contains("ajc$preClinit") || methodName.contains("$jacocoInit") || methodName.contains("access$")) {
                 continue;
             }
             if (Modifier.isAbstract(method.getModifiers())) {
