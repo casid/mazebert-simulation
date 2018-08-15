@@ -104,6 +104,8 @@ class InitGameTest extends UsecaseTest<InitGameCommand> {
         Wave wave = waveGateway.getNextWave();
         assertThat(wave.type).isEqualTo(WaveType.Mass);
         assertThat(wave.creepCount).isEqualTo(20);
+        assertThat(wave.minSecondsToNextCreep).isEqualTo(0.2f);
+        assertThat(wave.maxSecondsToNextCreep).isEqualTo(0.6f);
     }
 
     @Test
@@ -126,5 +128,7 @@ class InitGameTest extends UsecaseTest<InitGameCommand> {
         Wave wave = waveGateway.getNextWave();
         assertThat(wave.type).isEqualTo(WaveType.Air);
         assertThat(wave.creepCount).isEqualTo(5);
+        assertThat(wave.minSecondsToNextCreep).isEqualTo(1.6f);
+        assertThat(wave.maxSecondsToNextCreep).isEqualTo(3.2f);
     }
 }
