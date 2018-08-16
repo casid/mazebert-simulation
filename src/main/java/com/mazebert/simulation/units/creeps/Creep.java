@@ -24,6 +24,7 @@ public strictfp class Creep extends Unit {
     private int pathIndex;
     private CreepState state = CreepState.Running;
     private int gold;
+    private int armor;
 
     private transient float deathTime;
     private transient volatile boolean freshCoordinates;
@@ -41,6 +42,7 @@ public strictfp class Creep extends Unit {
         // ignore pathIndex
         hash.add(state);
         hash.add(gold);
+        hash.add(armor);
     }
 
     @Override
@@ -203,6 +205,14 @@ public strictfp class Creep extends Unit {
 
     public void setGold(int gold) {
         this.gold = gold;
+    }
+
+    public int getArmor() {
+        return armor;
+    }
+
+    public void setArmor(int armor) {
+        this.armor = armor;
     }
 
     public static class WalkResult {

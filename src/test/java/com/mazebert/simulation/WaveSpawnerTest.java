@@ -180,6 +180,25 @@ public class WaveSpawnerTest implements ComponentTest {
     }
 
     @Test
+    void armor_round1() {
+        givenBossWave();
+
+        whenAllCreepsAreSpawned();
+
+        assertThat(getCreep(0).getArmor()).isEqualTo(1);
+    }
+
+    @Test
+    void armor_round10() {
+        waveGateway.setCurrentWave(9);
+        givenBossWave();
+
+        whenAllCreepsAreSpawned();
+
+        assertThat(getCreep(0).getArmor()).isEqualTo(10);
+    }
+
+    @Test
     void gold_boss() {
         givenBossWave();
 
