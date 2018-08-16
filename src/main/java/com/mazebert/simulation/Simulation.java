@@ -76,6 +76,10 @@ public strictfp class Simulation {
         turnGateway.incrementTurnNumber();
     }
 
+    public float getPlayTimeInSeconds() {
+        return turnGateway.getCurrentTurnNumber() * turnTimeInSeconds;
+    }
+
     private void simulate(List<Turn> playerTurns) {
         long start = sleepPlugin.nanoTime();
 
