@@ -5,11 +5,14 @@ import com.mazebert.simulation.SimulationListeners;
 import com.mazebert.simulation.Wave;
 import com.mazebert.simulation.WaveType;
 import com.mazebert.simulation.commands.InitGameCommand;
+import com.mazebert.simulation.gateways.GameGateway;
 import com.mazebert.simulation.gateways.WaveGateway;
 import com.mazebert.simulation.plugins.random.RandomPluginTrainer;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.jusecase.inject.Trainer;
+
+import java.util.UUID;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -21,6 +24,8 @@ class InitGameTest extends UsecaseTest<InitGameCommand> {
     SimulationListeners simulationListeners;
     @Trainer
     WaveGateway waveGateway;
+    @Trainer
+    GameGateway gameGateway;
 
     boolean gameStarted;
 
@@ -130,5 +135,14 @@ class InitGameTest extends UsecaseTest<InitGameCommand> {
         assertThat(wave.creepCount).isEqualTo(5);
         assertThat(wave.minSecondsToNextCreep).isEqualTo(1.6f);
         assertThat(wave.maxSecondsToNextCreep).isEqualTo(3.2f);
+    }
+
+    @Test
+    void gameId() {
+        request.gameId = UUID.fromString("86ce2065-ce3a-46a8-ab3f-ac3179b62002");
+
+        whenRequestIsExecuted();
+
+        assertThat(gameGateway.getGame().id).isEqualTo(request.gameId);
     }
 }

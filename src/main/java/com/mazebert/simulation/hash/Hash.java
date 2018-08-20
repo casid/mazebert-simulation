@@ -1,5 +1,7 @@
 package com.mazebert.simulation.hash;
 
+import java.util.UUID;
+
 public strictfp class Hash {
     private int result;
 
@@ -36,6 +38,15 @@ public strictfp class Hash {
             add(0);
         } else {
             value.hash(this);
+        }
+    }
+
+    public void add(UUID value) {
+        if (value == null) {
+            add(0);
+        } else {
+            add(value.getMostSignificantBits());
+            add(value.getLeastSignificantBits());
         }
     }
 

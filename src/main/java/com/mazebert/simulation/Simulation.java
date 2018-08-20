@@ -15,6 +15,7 @@ import javax.inject.Inject;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
 @Component
@@ -38,6 +39,8 @@ public strictfp class Simulation {
     private ReplayWriterGateway replayWriterGateway;
     @Inject
     private SimulationListeners simulationListeners;
+    @Inject
+    private GameGateway gameGateway;
 
     private long turnTimeInMillis = 100;
     private long turnTimeInNanos = TimeUnit.MILLISECONDS.toNanos(turnTimeInMillis);
@@ -57,6 +60,7 @@ public strictfp class Simulation {
         List<Command> requests = new ArrayList<>();
         if (playerGateway.isHost()) {
             InitGameCommand initGameCommand = new InitGameCommand();
+            initGameCommand.gameId = UUID.randomUUID();
             initGameCommand.randomSeed = FastRandomPlugin.createSeed();
             initGameCommand.rounds = 250;
             requests.add(initGameCommand);
@@ -115,7 +119,7 @@ public strictfp class Simulation {
     private void simulateTurn(List<Turn> playerTurns) {
         simulatePlayerTurns(playerTurns);
         simulateUnits();
-        hashUnits();
+        hashGameState();
     }
 
     private void simulateUnits() {
@@ -128,8 +132,9 @@ public strictfp class Simulation {
         simulationListeners.onUpdate.dispatch(turnTimeInSeconds);
     }
 
-    private void hashUnits() {
+    private void hashGameState() {
         hash.reset();
+        hash.add(gameGateway.getGame());
         for (Unit unit : unitGateway.getUnits()) {
             unit.hash(hash);
         }
