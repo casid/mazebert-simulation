@@ -9,11 +9,13 @@ import static org.assertj.core.api.Assertions.assertThat;
 class Creep_MoveTest {
 
     Creep creep;
+    Creep creepHasReachedTarget;
 
     @BeforeEach
     void setUp() {
         creep = new Creep();
         creep.setBaseSpeed(1.0f);
+        creep.onTargetReached.add(c -> creepHasReachedTarget = c);
     }
 
     @Test
@@ -49,7 +51,16 @@ class Creep_MoveTest {
 
         assertThat(creep.getX()).isEqualTo(1.0f);
         assertThat(creep.getY()).isEqualTo(1.0f);
-        // TODO onTargetReached fired
+        assertThat(creepHasReachedTarget).isSameAs(creep);
+    }
+
+    @Test
+    void pathTargetNotReached() {
+        creep.setPath(new Path(0.0f, 0.0f, 1.0f, 1.0f));
+
+        creep.simulate(1.0f);
+
+        assertThat(creepHasReachedTarget).isNull();
     }
 
     @Test

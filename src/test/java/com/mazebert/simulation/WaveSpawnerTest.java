@@ -180,6 +180,32 @@ public class WaveSpawnerTest implements ComponentTest {
     }
 
     @Test
+    void creepReachesTarget() {
+        givenBossWave();
+        whenGameIsStarted();
+        Creep creep = getCreep(0);
+        creep.setPath(new Path(0.0f, 0.0f, 0.0f, 1.0f));
+
+        creep.simulate(1.0f);
+
+        assertThat(unitGateway.getUnits()).isEmpty();
+    }
+
+    @Test
+    void allCreepsReachTarget() {
+        givenBossWave();
+        whenGameIsStarted();
+        Creep creep = getCreep(0);
+        creep.setPath(new Path(0.0f, 0.0f, 0.0f, 1.0f));
+
+        creep.simulate(1.0f);
+        whenGameIsUpdated(Balancing.WAVE_COUNTDOWN_SECONDS);
+        whenGameIsUpdated();
+
+        assertThat(unitGateway.getUnits()).isNotEmpty();
+    }
+
+    @Test
     void armor_round1() {
         givenBossWave();
 

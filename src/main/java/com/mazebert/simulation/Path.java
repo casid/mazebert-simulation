@@ -18,6 +18,14 @@ public strictfp class Path {
         return result;
     }
 
+    public float getX(int pathIndex) {
+        return points[pathIndex * 2];
+    }
+
+    public float getY(int pathIndex) {
+        return points[pathIndex * 2 + 1];
+    }
+
     public int size() {
         return size;
     }

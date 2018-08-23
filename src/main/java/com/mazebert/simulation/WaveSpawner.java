@@ -15,7 +15,7 @@ import java.util.ArrayDeque;
 import java.util.Queue;
 
 @Component
-public strictfp class WaveSpawner implements OnGameStartedListener, OnWaveStartedListener, OnUpdateListener, OnDeadListener, OnUnitRemovedListener {
+public strictfp class WaveSpawner implements OnGameStartedListener, OnWaveStartedListener, OnUpdateListener, OnDeadListener, OnUnitRemovedListener, OnTargetReachedListener {
     @Inject
     private SimulationListeners simulationListeners;
     @Inject
@@ -96,10 +96,9 @@ public strictfp class WaveSpawner implements OnGameStartedListener, OnWaveStarte
     }
 
     private void spawnCreep(Creep creep) {
-        creep.setX(5);
-        creep.setY(5);
         creep.setPath(new Path(5, 5, 5, -5, -5, -5, 0, 0));
         creep.onDead.add(this);
+        creep.onTargetReached.add(this);
 
         unitGateway.addUnit(creep);
         simulationListeners.onUnitAdded.dispatch(creep);
@@ -107,8 +106,7 @@ public strictfp class WaveSpawner implements OnGameStartedListener, OnWaveStarte
 
     @Override
     public void onDead(Creep creep) {
-        unitGateway.removeUnit(creep);
-        simulationListeners.onUnitRemoved.dispatch(creep);
+        removeCreep(creep);
     }
 
     @Override
@@ -119,5 +117,15 @@ public strictfp class WaveSpawner implements OnGameStartedListener, OnWaveStarte
                 new WaveCountDown().start();
             }
         }
+    }
+
+    @Override
+    public void onTargetReached(Creep creep) {
+        removeCreep(creep);
+    }
+
+    private void removeCreep(Creep creep) {
+        unitGateway.removeUnit(creep);
+        simulationListeners.onUnitRemoved.dispatch(creep);
     }
 }

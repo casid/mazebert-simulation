@@ -5,6 +5,7 @@ import com.mazebert.simulation.Wave;
 import com.mazebert.simulation.hash.Hash;
 import com.mazebert.simulation.listeners.OnDead;
 import com.mazebert.simulation.listeners.OnDeath;
+import com.mazebert.simulation.listeners.OnTargetReached;
 import com.mazebert.simulation.units.Unit;
 
 public strictfp class Creep extends Unit {
@@ -14,6 +15,7 @@ public strictfp class Creep extends Unit {
 
     public final OnDeath onDeath = new OnDeath();
     public final OnDead onDead = new OnDead();
+    public final OnTargetReached onTargetReached = new OnTargetReached();
 
     private double health = 100.0f;
     private double maxHealth = health;
@@ -60,6 +62,10 @@ public strictfp class Creep extends Unit {
                     setY(result.getY());
 
                     freshCoordinates = true;
+
+                    if (pathIndex >= path.size() - 1) {
+                        onTargetReached.dispatch(this);
+                    }
                 }
                 break;
             case Death:
@@ -181,6 +187,10 @@ public strictfp class Creep extends Unit {
 
     public void setPath(Path path) {
         this.path = path;
+        if (path != null && path.size() > 0) {
+            setX(path.getX(0));
+            setY(path.getY(0));
+        }
     }
 
     public void setState(CreepState state) {
