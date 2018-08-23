@@ -2,6 +2,7 @@ package com.mazebert.simulation.usecases;
 
 import com.mazebert.simulation.SimulationListeners;
 import com.mazebert.simulation.commands.BuildTowerCommand;
+import com.mazebert.simulation.gateways.TurnGateway;
 import com.mazebert.simulation.gateways.UnitGateway;
 import com.mazebert.simulation.plugins.random.RandomPluginTrainer;
 import com.mazebert.simulation.units.towers.Tower;
@@ -19,6 +20,8 @@ class BuildTowerTest extends UsecaseTest<BuildTowerCommand> {
     private SimulationListeners simulationListeners;
     @Trainer
     private RandomPluginTrainer randomPluginTrainer;
+    @Trainer
+    private TurnGateway turnGateway = new TurnGateway(1);
 
     Tower tower;
 
@@ -39,7 +42,7 @@ class BuildTowerTest extends UsecaseTest<BuildTowerCommand> {
     void baseDamage() {
         whenRequestIsExecuted();
         assertThat(tower.getMinBaseDamage()).isEqualTo(1.0f);
-        assertThat(tower.getMaxBaseDamage()).isEqualTo(12.0f);
+        assertThat(tower.getMaxBaseDamage()).isEqualTo(52.0f);
     }
 
     @Override

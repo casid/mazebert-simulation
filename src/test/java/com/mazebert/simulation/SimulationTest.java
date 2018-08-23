@@ -22,6 +22,8 @@ public abstract class SimulationTest implements ComponentTest {
     protected NoReplayWriterGateway noReplayWriterGateway;
     @Trainer
     protected SimulationListeners simulationListeners;
+    @Trainer
+    protected GameGateway gameGateway;
 
     private int playerCount;
     protected TurnGateway turnGateway;
