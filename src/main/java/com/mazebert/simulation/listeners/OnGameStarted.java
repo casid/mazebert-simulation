@@ -3,9 +3,13 @@ package com.mazebert.simulation.listeners;
 import org.jusecase.signals.Signal;
 
 public strictfp class OnGameStarted extends Signal<OnGameStartedListener> {
+    public OnGameStarted() {
+        super(OnGameStartedListener.class);
+    }
+
     public void dispatch() {
-        for (OnGameStartedListener listener : getListeners()) {
-            listener.onGameStarted();
+        for (int i = 0; i < size; ++i) {
+            listeners[i].onGameStarted();
         }
     }
 }

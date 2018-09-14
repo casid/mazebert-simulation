@@ -51,7 +51,7 @@ class InitGameTest extends UsecaseTest<InitGameCommand> {
         simulationListeners.onUpdate.dispatch(Balancing.GAME_COUNTDOWN_SECONDS);
 
         assertThat(gameStarted).isTrue();
-        assertThat(simulationListeners.onUpdate.getListeners()).isEmpty();
+        assertThat(simulationListeners.onUpdate.size()).isEqualTo(0);
     }
 
     @Test
