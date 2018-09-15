@@ -21,6 +21,7 @@ public strictfp class InitGameCommandSerializer implements BitSerializer<InitGam
 
     @Override
     public void deserialize(BitReader reader, InitGameCommand object) {
+        object.gameId = reader.readUuidNonNull();
         object.randomSeed = reader.readInt32();
         object.rounds = reader.readInt16();
     }
