@@ -1,10 +1,10 @@
 package com.mazebert.simulation.gateways;
 
 import com.mazebert.simulation.units.Unit;
+import com.mazebert.simulation.units.wizards.Wizard;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.CopyOnWriteArrayList;
 
 public strictfp class UnitGateway {
     private final List<Unit> units = new ArrayList<>();
@@ -41,6 +41,16 @@ public strictfp class UnitGateway {
         return null;
     }
 
+    @SuppressWarnings("unchecked")
+    public <U extends Unit> U findUnit(Class<U> unitClass) {
+        for (Unit unit : units) {
+            if (unitClass.isAssignableFrom(unit.getClass())) {
+                return (U) unit;
+            }
+        }
+        return null;
+    }
+
     public void startIteration() {
         removeDirectly = false;
     }
@@ -51,5 +61,9 @@ public strictfp class UnitGateway {
             units.removeAll(unitsToRemove);
             unitsToRemove.clear();
         }
+    }
+
+    public Wizard getWizard() {
+        return findUnit(Wizard.class);
     }
 }

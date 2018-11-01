@@ -10,6 +10,7 @@ import com.mazebert.simulation.gateways.GameGateway;
 import com.mazebert.simulation.gateways.UnitGateway;
 import com.mazebert.simulation.gateways.WaveGateway;
 import com.mazebert.simulation.plugins.random.RandomPluginTrainer;
+import com.mazebert.simulation.units.wizards.Wizard;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.jusecase.inject.Trainer;
@@ -153,9 +154,30 @@ class InitGameTest extends UsecaseTest<InitGameCommand> {
     }
 
     @Test
-    void noRounds() {
+    void noRounds_meansWizardTower() {
         request.rounds = 0;
         whenRequestIsExecuted();
         assertThat(simulationListeners.onUpdate.size()).isEqualTo(0);
+    }
+
+    @Test
+    void firstGame() {
+        whenRequestIsExecuted();
+
+        Wizard wizard = unitGateway.getWizard();
+        assertThat(wizard).isNotNull();
+        assertThat(wizard.getHand()).hasSize(4);
+    }
+
+    @Test
+    void secondGame() {
+        Wizard existingWizard = new Wizard();
+        unitGateway.addUnit(existingWizard);
+
+        whenRequestIsExecuted();
+
+        assertThat(unitGateway.getUnits()).hasSize(1);
+        Wizard wizard = unitGateway.getWizard();
+        assertThat(wizard).isSameAs(existingWizard);
     }
 }
