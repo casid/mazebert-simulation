@@ -4,6 +4,7 @@ import com.mazebert.simulation.Balancing;
 import com.mazebert.simulation.Card;
 import com.mazebert.simulation.hash.Hash;
 import com.mazebert.simulation.units.CooldownUnit;
+import com.mazebert.simulation.units.Gender;
 import com.mazebert.simulation.units.Unit;
 import com.mazebert.simulation.listeners.OnAttack;
 
