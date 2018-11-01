@@ -1,10 +1,9 @@
 package com.mazebert.simulation.units.towers;
 
 import com.mazebert.simulation.units.abilities.AttackAbility;
-import com.mazebert.simulation.units.abilities.DamageAbility;
 import com.mazebert.simulation.units.abilities.DelayedDamageAbility;
 
-public class Hitman extends Tower {
+public strictfp class Hitman extends Tower {
     public Hitman() {
         setBaseCooldown(5.0f);
         setBaseRange(6.0f);
