@@ -14,4 +14,9 @@ public class Hitman extends Tower {
         addAbility(new AttackAbility());
         addAbility(new DelayedDamageAbility(1.0f));
     }
+
+    @Override
+    public String getName() {
+        return "Hitman";
+    }
 }

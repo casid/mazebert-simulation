@@ -1,12 +1,13 @@
 package com.mazebert.simulation.units.towers;
 
 import com.mazebert.simulation.Balancing;
+import com.mazebert.simulation.Card;
 import com.mazebert.simulation.hash.Hash;
 import com.mazebert.simulation.units.CooldownUnit;
 import com.mazebert.simulation.units.Unit;
 import com.mazebert.simulation.listeners.OnAttack;
 
-public strictfp abstract class Tower extends Unit implements CooldownUnit {
+public strictfp abstract class Tower extends Unit implements CooldownUnit, Card {
 
     public final OnAttack onAttack = new OnAttack();
 
