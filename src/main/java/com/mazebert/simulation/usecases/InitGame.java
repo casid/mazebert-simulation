@@ -1,5 +1,6 @@
 package com.mazebert.simulation.usecases;
 
+import com.mazebert.simulation.WaveSpawner;
 import com.mazebert.simulation.commands.InitGameCommand;
 import com.mazebert.simulation.countdown.GameCountDown;
 import com.mazebert.simulation.gateways.GameGateway;
@@ -24,10 +25,13 @@ public strictfp class InitGame extends Usecase<InitGameCommand> {
         randomPlugin.setSeed(command.randomSeed);
         gameGateway.getGame().id = command.gameId;
 
-        waveGateway.setTotalWaves(command.rounds);
-        waveGateway.generateMissingWaves(randomPlugin);
+        if (command.rounds > 0) {
+            waveGateway.setTotalWaves(command.rounds);
+            waveGateway.generateMissingWaves(randomPlugin);
 
-        new GameCountDown().start();
+            new GameCountDown().start();
+            new WaveSpawner();
+        }
     }
 
 }

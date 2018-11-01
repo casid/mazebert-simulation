@@ -5,7 +5,9 @@ import com.mazebert.simulation.SimulationListeners;
 import com.mazebert.simulation.Wave;
 import com.mazebert.simulation.WaveType;
 import com.mazebert.simulation.commands.InitGameCommand;
+import com.mazebert.simulation.gateways.DifficultyGateway;
 import com.mazebert.simulation.gateways.GameGateway;
+import com.mazebert.simulation.gateways.UnitGateway;
 import com.mazebert.simulation.gateways.WaveGateway;
 import com.mazebert.simulation.plugins.random.RandomPluginTrainer;
 import org.junit.jupiter.api.BeforeEach;
@@ -26,6 +28,10 @@ class InitGameTest extends UsecaseTest<InitGameCommand> {
     WaveGateway waveGateway;
     @Trainer
     GameGateway gameGateway;
+    @Trainer
+    UnitGateway unitGateway;
+    @Trainer
+    DifficultyGateway difficultyGateway;
 
     boolean gameStarted;
 
@@ -51,7 +57,7 @@ class InitGameTest extends UsecaseTest<InitGameCommand> {
         simulationListeners.onUpdate.dispatch(Balancing.GAME_COUNTDOWN_SECONDS);
 
         assertThat(gameStarted).isTrue();
-        assertThat(simulationListeners.onUpdate.size()).isEqualTo(0);
+        assertThat(simulationListeners.onUpdate.size()).isEqualTo(1);
     }
 
     @Test
@@ -144,5 +150,12 @@ class InitGameTest extends UsecaseTest<InitGameCommand> {
         whenRequestIsExecuted();
 
         assertThat(gameGateway.getGame().id).isEqualTo(request.gameId);
+    }
+
+    @Test
+    void noRounds() {
+        request.rounds = 0;
+        whenRequestIsExecuted();
+        assertThat(simulationListeners.onUpdate.size()).isEqualTo(0);
     }
 }
