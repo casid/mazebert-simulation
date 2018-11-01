@@ -6,7 +6,7 @@ import com.mazebert.simulation.units.CooldownUnit;
 import com.mazebert.simulation.units.Unit;
 import com.mazebert.simulation.listeners.OnAttack;
 
-public strictfp class Tower extends Unit implements CooldownUnit {
+public strictfp abstract class Tower extends Unit implements CooldownUnit {
 
     public final OnAttack onAttack = new OnAttack();
 

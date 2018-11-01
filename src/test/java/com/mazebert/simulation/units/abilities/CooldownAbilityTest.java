@@ -1,5 +1,6 @@
 package com.mazebert.simulation.units.abilities;
 
+import com.mazebert.simulation.units.TestTower;
 import com.mazebert.simulation.units.towers.Tower;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -16,7 +17,7 @@ public class CooldownAbilityTest {
 
     @BeforeEach
     void setUp() {
-        unit = new Tower();
+        unit = new TestTower();
         unit.setBaseCooldown(1.0f);
 
         cooldownAbility = new MyCooldownAbility();
@@ -109,7 +110,7 @@ public class CooldownAbilityTest {
 
     @Test
     void init_alreadyInitialized() {
-        Throwable throwable = catchThrowable(() -> cooldownAbility.init(new Tower()));
+        Throwable throwable = catchThrowable(() -> cooldownAbility.init(new TestTower()));
         assertThat(throwable).isInstanceOf(IllegalStateException.class).hasMessage("This ability is already owned by " + unit);
     }
 
