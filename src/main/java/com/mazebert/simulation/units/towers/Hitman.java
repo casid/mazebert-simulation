@@ -1,5 +1,6 @@
 package com.mazebert.simulation.units.towers;
 
+import com.mazebert.simulation.Rarity;
 import com.mazebert.simulation.units.Gender;
 import com.mazebert.simulation.units.abilities.AttackAbility;
 import com.mazebert.simulation.units.abilities.DelayedDamageAbility;
@@ -18,5 +19,10 @@ public strictfp class Hitman extends Tower {
     @Override
     public String getName() {
         return "Hitman";
+    }
+
+    @Override
+    public Rarity getRarity() {
+        return Rarity.Common;
     }
 }
