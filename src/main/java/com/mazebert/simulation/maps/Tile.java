@@ -1,0 +1,27 @@
+package com.mazebert.simulation.maps;
+
+public class Tile {
+    public final TileType type;
+    public final float height;
+    public final int layer;
+    public int waypointIndex = -1;
+
+    public Tile(TileType type) {
+        this(type, 0, 0);
+    }
+
+    public Tile(TileType type, float height) {
+        this(type, height, 0);
+    }
+
+    public Tile(TileType type, float height, int layer) {
+        this.type = type;
+        this.height = height;
+        this.layer = layer;
+    }
+
+    public Tile waypoint(int index) {
+        waypointIndex = index;
+        return this;
+    }
+}
