@@ -9,6 +9,7 @@ import com.mazebert.simulation.gateways.DifficultyGateway;
 import com.mazebert.simulation.gateways.GameGateway;
 import com.mazebert.simulation.gateways.UnitGateway;
 import com.mazebert.simulation.gateways.WaveGateway;
+import com.mazebert.simulation.maps.BloodMoor;
 import com.mazebert.simulation.plugins.random.RandomPluginTrainer;
 import com.mazebert.simulation.units.wizards.Wizard;
 import org.junit.jupiter.api.BeforeEach;
@@ -179,5 +180,12 @@ class InitGameTest extends UsecaseTest<InitGameCommand> {
         assertThat(unitGateway.getUnits()).hasSize(1);
         Wizard wizard = unitGateway.getWizard();
         assertThat(wizard).isSameAs(existingWizard);
+    }
+
+    @Test
+    void map() {
+        whenRequestIsExecuted();
+
+        assertThat(gameGateway.getGame().map).isInstanceOf(BloodMoor.class);
     }
 }
