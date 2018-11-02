@@ -1,6 +1,6 @@
 package com.mazebert.simulation.maps;
 
-public class TileType {
+public strictfp class TileType {
     public final String name;
     public final int pivotX;
     public final int pivotY;

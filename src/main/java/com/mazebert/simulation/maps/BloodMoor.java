@@ -1,6 +1,6 @@
 package com.mazebert.simulation.maps;
 
-public class BloodMoor extends Map {
+public strictfp class BloodMoor extends Map {
 
     public BloodMoor() {
         TileType t1 = new TileType("grass-1", 92, 64).buildable();

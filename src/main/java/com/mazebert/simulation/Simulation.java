@@ -41,6 +41,8 @@ public strictfp class Simulation {
     private SimulationListeners simulationListeners;
     @Inject
     private GameGateway gameGateway;
+    @Inject
+    private SimulationMonitor monitor;
 
     private long turnTimeInMillis = 100;
     private long turnTimeInNanos = TimeUnit.MILLISECONDS.toNanos(turnTimeInMillis);
@@ -89,7 +91,13 @@ public strictfp class Simulation {
 
         checkHashes(playerTurns);
 
-        simulateTurn(playerTurns);
+        if (monitor.isRequired()) {
+            synchronized (monitor.get()) {
+                simulateTurn(playerTurns);
+            }
+        } else {
+            simulateTurn(playerTurns);
+        }
 
         if (replayWriterGateway.isWriteEnabled()) {
             replayWriterGateway.writeTurn(playerTurns);

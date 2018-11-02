@@ -1,12 +1,10 @@
 package com.mazebert.simulation.replay;
 
-import com.mazebert.simulation.commands.InitGameCommand;
 import com.mazebert.simulation.messages.Turn;
 import com.mazebert.simulation.replay.data.ReplayHeader;
 import com.mazebert.simulation.replay.data.ReplayTurn;
 import io.github.glytching.junit.extension.folder.TemporaryFolder;
 import io.github.glytching.junit.extension.folder.TemporaryFolderExtension;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -39,7 +37,7 @@ public class ReplayTest {
         playerTurn.hash = 1241932452;
         turn.playerTurns.add(playerTurn);
 
-        try (ReplayWriter replayWriter = new ReplayWriter(replay.toPath())){
+        try (ReplayWriter replayWriter = new ReplayWriter(replay.toPath())) {
             replayWriter.writeHeader(header);
             replayWriter.writeTurn(turn);
         }

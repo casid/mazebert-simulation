@@ -1,6 +1,6 @@
 package com.mazebert.simulation.maps;
 
-public class Tile {
+public strictfp class Tile {
     public final TileType type;
     public final float height;
     public final int layer;

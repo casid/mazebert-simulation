@@ -1,6 +1,6 @@
 package com.mazebert.simulation;
 
-public enum Rarity {
+public strictfp enum Rarity {
     Common,
     Uncommon,
     Rare,
