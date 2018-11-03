@@ -4,7 +4,7 @@ public strictfp class TileType {
     public final String name;
     public final float pivotX;
     public final float pivotY;
-    public String blendMode = "normal";
+    public String blendMode;
     public float alpha = 1.0f;
     public boolean walkable;
     public boolean flyable;
@@ -45,7 +45,7 @@ public strictfp class TileType {
     }
 
     public TileType transparentWater() {
-        return blendMode("screen").flyable();
+        return blendMode("Screen").flyable();
     }
 
     public TileType base() {
