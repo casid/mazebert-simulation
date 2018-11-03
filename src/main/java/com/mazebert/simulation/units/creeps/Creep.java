@@ -159,7 +159,7 @@ public strictfp class Creep extends Unit {
 
     @Override
     public String getModelId() {
-        return null; // TODO
+        return "orc"; // TODO
     }
 
     public void setWave(Wave wave) {
