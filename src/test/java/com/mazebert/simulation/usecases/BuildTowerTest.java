@@ -5,11 +5,14 @@ import com.mazebert.simulation.commands.BuildTowerCommand;
 import com.mazebert.simulation.gateways.TurnGateway;
 import com.mazebert.simulation.gateways.UnitGateway;
 import com.mazebert.simulation.plugins.random.RandomPluginTrainer;
+import com.mazebert.simulation.units.TestTower;
 import com.mazebert.simulation.units.towers.Tower;
-import com.mazebert.simulation.units.towers.TowerType;
+import com.mazebert.simulation.units.wizards.Wizard;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.jusecase.inject.Trainer;
+
+import java.util.UUID;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -23,31 +26,38 @@ class BuildTowerTest extends UsecaseTest<BuildTowerCommand> {
     @Trainer
     private TurnGateway turnGateway = new TurnGateway(1);
 
-    Tower tower;
+    Tower tower = new TestTower();
+    Tower builtTower;
 
     @BeforeEach
     void setUp() {
+        Wizard wizard = new Wizard();
+        wizard.addCardToHand(tower);
+        unitGateway.addUnit(wizard);
+
         usecase = new BuildTower();
 
-        request.towerType = TowerType.Hitman;
+        request.cardId = tower.getCardId();
     }
 
     @Test
-    void level() {
+    void towerIsBuilt() {
         whenRequestIsExecuted();
-        assertThat(tower.getLevel()).isEqualTo(1);
+        assertThat(builtTower).isEqualTo(tower);
     }
 
     @Test
-    void baseDamage() {
+    void towerNotFound() {
+        request.cardId = UUID.randomUUID();
+
         whenRequestIsExecuted();
-        assertThat(tower.getMinBaseDamage()).isEqualTo(1.0f);
-        assertThat(tower.getMaxBaseDamage()).isEqualTo(52.0f);
+
+        assertThat(builtTower).isNull();
     }
 
     @Override
     protected void whenRequestIsExecuted() {
         super.whenRequestIsExecuted();
-        tower = (Tower) unitGateway.getUnits().get(0);
+        builtTower = unitGateway.findUnit(Tower.class);
     }
 }

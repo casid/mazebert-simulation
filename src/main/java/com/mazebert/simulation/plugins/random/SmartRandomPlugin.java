@@ -2,6 +2,8 @@ package com.mazebert.simulation.plugins.random;
 
 import com.mazebert.simulation.SimulationLoop;
 
+import java.util.UUID;
+
 public strictfp class SmartRandomPlugin implements RandomPlugin {
     private final FastRandomPlugin synced = new FastRandomPlugin();
     private final FastRandomPlugin unsynced = new FastRandomPlugin();
@@ -19,6 +21,11 @@ public strictfp class SmartRandomPlugin implements RandomPlugin {
     @Override
     public float getFloatAbs() {
         return resolvePlugin().getFloatAbs();
+    }
+
+    @Override
+    public UUID getUuid() {
+        return resolvePlugin().getUuid();
     }
 
     @Override

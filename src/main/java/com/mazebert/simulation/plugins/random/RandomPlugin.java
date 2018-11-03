@@ -1,5 +1,7 @@
 package com.mazebert.simulation.plugins.random;
 
+import java.util.UUID;
+
 public strictfp interface RandomPlugin {
     void setSeed(int seed);
 
@@ -12,6 +14,8 @@ public strictfp interface RandomPlugin {
      * floating point number generation between [0.0,1.0[
      */
     float getFloatAbs();
+
+    UUID getUuid();
 
     /**
      * floating point number between [min,max[

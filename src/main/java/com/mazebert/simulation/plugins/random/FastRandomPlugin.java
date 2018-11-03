@@ -1,6 +1,7 @@
 package com.mazebert.simulation.plugins.random;
 
 import java.util.Random;
+import java.util.UUID;
 
 /**
  * Based on http://www.iquilezles.org/www/articles/sfrand/sfrand.htm
@@ -33,5 +34,16 @@ public strictfp class FastRandomPlugin implements RandomPlugin {
     public float getFloatAbs() {
         seed *= 16807;
         return Float.intBitsToFloat((seed & 0x007fffff) | 0x3f800000) - 1.0f;
+    }
+
+    @Override
+    public UUID getUuid() {
+        return new UUID(getLongBits(), getLongBits());
+    }
+
+    private long getLongBits() {
+        int a = seed *= 16807;
+        int b = seed *= 16807;
+        return (((long)a) << 32) | (b & 0xffffffffL);
     }
 }

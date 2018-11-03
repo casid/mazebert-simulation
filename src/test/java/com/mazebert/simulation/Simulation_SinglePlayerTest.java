@@ -3,7 +3,6 @@ package com.mazebert.simulation;
 import com.mazebert.simulation.commands.BuildTowerCommand;
 import com.mazebert.simulation.commands.Command;
 import com.mazebert.simulation.messages.Turn;
-import com.mazebert.simulation.units.towers.TowerType;
 import org.junit.jupiter.api.Test;
 
 import static com.mazebert.simulation.messages.TurnBuilder.turn;
@@ -25,7 +24,6 @@ public class Simulation_SinglePlayerTest extends SimulationTest {
     @Test
     void buildTower() {
         BuildTowerCommand command = new BuildTowerCommand();
-        command.towerType = TowerType.Hitman;
         turnGateway.onLocalTurnReceived(a(turn().withCommand(command)));
 
         simulation.process();
@@ -59,7 +57,6 @@ public class Simulation_SinglePlayerTest extends SimulationTest {
     void playerCommandsAreScheduled() {
         turnGateway.onLocalTurnReceived(a(turn()));
         BuildTowerCommand command = new BuildTowerCommand();
-        command.towerType = TowerType.Hitman;
         localCommandGateway.addCommand(command);
 
         simulation.process();

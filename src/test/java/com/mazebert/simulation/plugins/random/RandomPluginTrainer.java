@@ -1,5 +1,7 @@
 package com.mazebert.simulation.plugins.random;
 
+import java.util.UUID;
+
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class RandomPluginTrainer implements RandomPlugin {
@@ -40,5 +42,10 @@ public class RandomPluginTrainer implements RandomPlugin {
             return floatAbs[floatAbs.length - 1];
         }
         return floatAbs[nextFloatAbs++];
+    }
+
+    @Override
+    public UUID getUuid() {
+        return new UUID(0, 0);
     }
 }

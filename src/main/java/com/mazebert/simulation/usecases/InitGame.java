@@ -36,10 +36,11 @@ public strictfp class InitGame extends Usecase<InitGameCommand> {
 
         if (unitGateway.getWizard() == null) {
             Wizard wizard = new Wizard();
-            wizard.getHand().add(new Hitman());
-            wizard.getHand().add(new Hitman());
-            wizard.getHand().add(new Hitman());
-            wizard.getHand().add(new Hitman());
+            for (int i = 0; i < 4; ++i) {
+                Hitman card = new Hitman();
+                card.setCardId(randomPlugin.getUuid());
+                wizard.addCardToHand(card);
+            }
             unitGateway.addUnit(wizard);
         }
 

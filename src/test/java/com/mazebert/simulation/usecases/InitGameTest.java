@@ -168,6 +168,7 @@ class InitGameTest extends UsecaseTest<InitGameCommand> {
         Wizard wizard = unitGateway.getWizard();
         assertThat(wizard).isNotNull();
         assertThat(wizard.getHand()).hasSize(4);
+        assertThat(wizard.getHand().get(0).getCardId()).isNotNull();
     }
 
     @Test
