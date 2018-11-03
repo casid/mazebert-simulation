@@ -9,4 +9,14 @@ public strictfp abstract class Map {
     protected void addTile(Tile tile) {
         tiles.add(tile);
     }
+
+    public List<Tile> getTiles() {
+        return tiles;
+    }
+
+    public String getAtlas() {
+        return "maps/tiles.xml";
+    }
+
+    public abstract int getColumns();
 }

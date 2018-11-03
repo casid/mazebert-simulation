@@ -2,15 +2,15 @@ package com.mazebert.simulation.maps;
 
 public strictfp class TileType {
     public final String name;
-    public final int pivotX;
-    public final int pivotY;
+    public final float pivotX;
+    public final float pivotY;
     public String blendMode = "normal";
     public float alpha = 1.0f;
     public boolean walkable;
     public boolean flyable;
     public boolean buildable;
 
-    public TileType(String name, int pivotX, int pivotY) {
+    public TileType(String name, float pivotX, float pivotY) {
         this.name = name;
         this.pivotX = pivotX;
         this.pivotY = pivotY;
