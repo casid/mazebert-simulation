@@ -30,6 +30,14 @@ public strictfp class BuildTower extends Usecase<BuildTowerCommand> {
             unitGateway.addUnit(tower);
 
             simulationListeners.onUnitAdded.dispatch(tower);
+
+            if (command.onComplete != null) {
+                command.onComplete.run();
+            }
+        } else {
+            if (command.onError != null) {
+                command.onError.run();
+            }
         }
     }
 

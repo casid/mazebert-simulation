@@ -6,4 +6,7 @@ public strictfp class BuildTowerCommand extends Command {
     public UUID cardId;
     public int x;
     public int y;
+
+    public transient Runnable onError;
+    public transient Runnable onComplete;
 }

@@ -28,6 +28,8 @@ class BuildTowerTest extends UsecaseTest<BuildTowerCommand> {
 
     Tower tower = new TestTower();
     Tower builtTower;
+    boolean onErrorCalled;
+    boolean onCompleteCalled;
 
     @BeforeEach
     void setUp() {
@@ -47,12 +49,33 @@ class BuildTowerTest extends UsecaseTest<BuildTowerCommand> {
     }
 
     @Test
+    void towerIsBuilt_localCompletionHandler() {
+        request.onComplete = () -> onCompleteCalled = true;
+
+        whenRequestIsExecuted();
+
+        assertThat(onCompleteCalled).isTrue();
+        assertThat(onErrorCalled).isFalse();
+    }
+
+    @Test
     void towerNotFound() {
         request.cardId = UUID.randomUUID();
 
         whenRequestIsExecuted();
 
         assertThat(builtTower).isNull();
+    }
+
+    @Test
+    void towerNotFound_localErrorHandler() {
+        request.cardId = UUID.randomUUID();
+        request.onError = () -> onErrorCalled = true;
+
+        whenRequestIsExecuted();
+
+        assertThat(onErrorCalled).isTrue();
+        assertThat(onCompleteCalled).isFalse();
     }
 
     @Override
