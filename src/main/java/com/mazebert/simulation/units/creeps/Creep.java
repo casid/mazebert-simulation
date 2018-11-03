@@ -157,6 +157,11 @@ public strictfp class Creep extends Unit {
         return !isDead() && super.isInRange(x, y, range);
     }
 
+    @Override
+    public String getModelId() {
+        return null; // TODO
+    }
+
     public void setWave(Wave wave) {
         this.wave = wave;
     }

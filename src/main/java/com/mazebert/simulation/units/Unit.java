@@ -59,4 +59,6 @@ public abstract strictfp class Unit implements Hashable {
 
         return dx <= range && dy <= range;
     }
+
+    public abstract String getModelId();
 }

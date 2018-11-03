@@ -38,4 +38,9 @@ public strictfp class Wizard extends Unit {
         }
         return -1;
     }
+
+    @Override
+    public String getModelId() {
+        return null;
+    }
 }

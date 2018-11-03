@@ -20,4 +20,9 @@ public class TestTower extends Tower {
     public Rarity getRarity() {
         return Rarity.Common;
     }
+
+    @Override
+    public String getModelId() {
+        return null;
+    }
 }

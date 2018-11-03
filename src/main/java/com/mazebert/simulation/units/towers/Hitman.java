@@ -25,4 +25,9 @@ public strictfp class Hitman extends Tower {
     public Rarity getRarity() {
         return Rarity.Common;
     }
+
+    @Override
+    public String getModelId() {
+        return "hitman";
+    }
 }
