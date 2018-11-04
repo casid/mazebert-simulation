@@ -78,6 +78,20 @@ public class MapGridTest {
         );
     }
 
+    @Test
+    void impossibleToReach() {
+        givenGrid(
+                "s      ",
+                " ****  ",
+                " *d *  ",
+                " ****  "
+        );
+
+        whenPathIsFound();
+
+        thenPathIs(0, 0); // simply stay at source
+    }
+
     private void givenGrid(String... rows) {
         grid = new MapGrid(rows[0].length(), rows.length);
         for (int y = 0; y < grid.getHeight(); ++y) {
