@@ -1,5 +1,9 @@
 package com.mazebert.simulation;
 
+import com.mazebert.simulation.math.Point;
+
+import java.util.List;
+
 public strictfp class Path {
     private final float[] points;
     private final int size;
@@ -10,6 +14,18 @@ public strictfp class Path {
         }
         this.points = points;
         this.size = points.length / 2;
+    }
+
+    public Path(List<Point> points) {
+        this.points = new float[points.size() * 2];
+        this.size = points.size();
+
+        int i = 0;
+        for (Point point : points) {
+            this.points[i] = point.x;
+            this.points[i + 1] = point.y;
+            i += 2;
+        }
     }
 
     public float[] get(int pathIndex, float[] result) {
@@ -28,5 +44,9 @@ public strictfp class Path {
 
     public int size() {
         return size;
+    }
+
+    public float[] getPoints() {
+        return points;
     }
 }
