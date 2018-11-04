@@ -3,10 +3,13 @@ package com.mazebert.simulation.maps;
 import com.mazebert.simulation.Path;
 import org.junit.jupiter.api.Test;
 
+import java.util.function.Predicate;
+
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class MapGridTest {
-    private static final Tile walkable = new Tile(new TileType("1", 0, 0).walkable());
+    private static final Tile walkable = new Tile(new TileType("1", 0, 0).path());
+    private static final Tile flyable = new Tile(new TileType("1", 0, 0).flyable());
     private static final Tile blocked = new Tile(new TileType("1", 0, 0));
 
     private MapGrid grid;
@@ -14,6 +17,7 @@ public class MapGridTest {
     private int srcY;
     private int dstX;
     private int dstY;
+    private Predicate<Tile> predicate = MapGrid.WALKABLE;
 
     private Path path;
 
@@ -89,7 +93,27 @@ public class MapGridTest {
 
         whenPathIsFound();
 
-        thenPathIs(0, 0); // simply stay at source
+        thenPathIs(0, 0);
+    }
+
+    @Test
+    void flyable() {
+        givenGrid(
+                "s      ",
+                " ****  ",
+                " *d *  ",
+                " **~~  "
+        );
+        predicate = MapGrid.FLYABLE;
+
+        whenPathIsFound();
+
+        thenPathIs(
+                "0    1 ",
+                " ****  ",
+                " *54*  ",
+                " **3~2 "
+        );
     }
 
     private void givenGrid(String... rows) {
@@ -113,13 +137,17 @@ public class MapGridTest {
                         break;
                     case '*':
                         grid.setTile(x, y, blocked);
+                        break;
+                    case '~':
+                        grid.setTile(x, y, flyable);
+                        break;
                 }
             }
         }
     }
 
     private void whenPathIsFound() {
-        path = grid.findPath(srcX, srcY, dstX, dstY);
+        path = grid.findPath(srcX, srcY, dstX, dstY, predicate);
     }
 
     private void thenPathIs(float... coordinates) {

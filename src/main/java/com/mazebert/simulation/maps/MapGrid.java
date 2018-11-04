@@ -7,8 +7,12 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Stack;
+import java.util.function.Predicate;
 
 public class MapGrid {
+    public static final Predicate<Tile> WALKABLE = t -> t.type.walkable;
+    public static final Predicate<Tile> FLYABLE = t -> t.type.flyable;
+
     private final int width;
     private final int height;
     private final Tile[] tiles;
@@ -46,12 +50,17 @@ public class MapGrid {
     }
 
     public Path findPath(int srcX, int srcY, int dstX, int dstY) {
-        return new FindPath(srcX, srcY, dstX, dstY).find();
+        return findPath(srcX, srcY, dstX, dstY, WALKABLE);
+    }
+
+    public Path findPath(int srcX, int srcY, int dstX, int dstY, Predicate<Tile> tilePredicate) {
+        return new FindPath(srcX, srcY, dstX, dstY, tilePredicate).find();
     }
 
     private class FindPath {
         private final int srcX;
         private final int srcY;
+        private final Predicate<Tile> tilePredicate;
         private final int srcIndex;
         private final int dstIndex;
 
@@ -61,9 +70,10 @@ public class MapGrid {
 
         private List<Point> result;
 
-        public FindPath(int srcX, int srcY, int dstX, int dstY) {
+        public FindPath(int srcX, int srcY, int dstX, int dstY, Predicate<Tile> tilePredicate) {
             this.srcX = srcX;
             this.srcY = srcY;
+            this.tilePredicate = tilePredicate;
 
             srcIndex = srcX + srcY * width;
             dstIndex = dstX + dstY * width;
@@ -95,7 +105,7 @@ public class MapGrid {
             grid = new int[tiles.length];
             int i = 0;
             for (Tile tile : tiles) {
-                if (tile.type.walkable) { // TODO pass cost function
+                if (tilePredicate.test(tile)) {
                     grid[i] = -1;
                 } else {
                     grid[i] = Integer.MAX_VALUE;
