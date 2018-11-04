@@ -1,8 +1,10 @@
 package com.mazebert.simulation;
 
 import com.mazebert.simulation.gateways.DifficultyGateway;
+import com.mazebert.simulation.gateways.GameGateway;
 import com.mazebert.simulation.gateways.UnitGateway;
 import com.mazebert.simulation.gateways.WaveGateway;
+import com.mazebert.simulation.maps.BloodMoor;
 import com.mazebert.simulation.plugins.random.RandomPluginTrainer;
 import com.mazebert.simulation.units.Unit;
 import com.mazebert.simulation.units.creeps.Creep;
@@ -27,11 +29,15 @@ public class WaveSpawnerTest implements ComponentTest {
     RandomPluginTrainer randomPluginTrainer;
     @Trainer
     DifficultyGateway difficultyGateway;
+    @Trainer
+    GameGateway gameGateway;
 
     WaveSpawner waveSpawner;
 
     @BeforeEach
     void setUp() {
+        gameGateway.getGame().map = new BloodMoor();
+
         waveSpawner = new WaveSpawner();
         waveGateway.setTotalWaves(250);
     }

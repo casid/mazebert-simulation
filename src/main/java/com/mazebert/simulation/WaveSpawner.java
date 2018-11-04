@@ -2,6 +2,7 @@ package com.mazebert.simulation;
 
 import com.mazebert.simulation.countdown.WaveCountDown;
 import com.mazebert.simulation.gateways.DifficultyGateway;
+import com.mazebert.simulation.gateways.GameGateway;
 import com.mazebert.simulation.gateways.UnitGateway;
 import com.mazebert.simulation.gateways.WaveGateway;
 import com.mazebert.simulation.listeners.*;
@@ -26,6 +27,8 @@ public strictfp class WaveSpawner implements OnGameStartedListener, OnWaveStarte
     private RandomPlugin randomPlugin;
     @Inject
     private DifficultyGateway difficultyGateway;
+    @Inject
+    private GameGateway gameGateway;
 
     private Queue<Creep> creepQueue = new ArrayDeque<>();
     private float countdownForNextCreepToSend;
@@ -96,7 +99,7 @@ public strictfp class WaveSpawner implements OnGameStartedListener, OnWaveStarte
     }
 
     private void spawnCreep(Creep creep) {
-        creep.setPath(new Path(5, 5, 5, -5, -5, -5, 0, 0));
+        creep.setPath(gameGateway.getMap().getGroundPath());
         creep.onDead.add(this);
         creep.onTargetReached.add(this);
 

@@ -31,6 +31,15 @@ public class MapGridTest {
     }
 
     @Test
+    void mapWithNoTiles() {
+        grid = new MapGrid(5, 5);
+
+        path = grid.findPath(0, 0, 4, 4);
+
+        thenPathIs(0, 0);
+    }
+
+    @Test
     void sourceOutOfGrid() {
         grid = new MapGrid(1, 1);
 

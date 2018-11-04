@@ -105,7 +105,7 @@ public class MapGrid {
             grid = new int[tiles.length];
             int i = 0;
             for (Tile tile : tiles) {
-                if (tilePredicate.test(tile)) {
+                if (tile != null && tilePredicate.test(tile)) {
                     grid[i] = -1;
                 } else {
                     grid[i] = Integer.MAX_VALUE;

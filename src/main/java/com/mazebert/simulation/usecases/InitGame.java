@@ -38,6 +38,7 @@ public strictfp class InitGame extends Usecase<InitGameCommand> {
             Wizard wizard = new Wizard();
             for (int i = 0; i < 4; ++i) {
                 Hitman card = new Hitman();
+                card.setLevel(1);
                 card.setCardId(randomPlugin.getUuid());
                 wizard.addCardToHand(card);
             }
