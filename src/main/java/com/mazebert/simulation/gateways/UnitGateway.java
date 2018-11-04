@@ -5,6 +5,7 @@ import com.mazebert.simulation.units.wizards.Wizard;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Consumer;
 
 public strictfp class UnitGateway {
     private final List<Unit> units = new ArrayList<>();
@@ -49,6 +50,15 @@ public strictfp class UnitGateway {
             }
         }
         return null;
+    }
+
+    @SuppressWarnings("unchecked")
+    public <U extends Unit> void forEachInRange(float x, float y, float range, Class<U> unitClass, Consumer<U> unitConsumer) {
+        for (Unit unit : units) {
+            if (unitClass.isAssignableFrom(unit.getClass()) && unit.isInRange(x, y, range)) {
+                unitConsumer.accept((U) unit);
+            }
+        }
     }
 
     public void startIteration() {

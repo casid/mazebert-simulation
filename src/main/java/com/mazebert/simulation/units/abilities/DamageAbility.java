@@ -44,6 +44,10 @@ public strictfp class DamageAbility extends Ability<Tower> implements OnAttackLi
             }
         }
 
-        target.setHealth(target.getHealth() - damage);
+        onDamage(target, damage);
+    }
+
+    protected void onDamage(Creep target, double damage) {
+        target.receiveDamage(damage);
     }
 }

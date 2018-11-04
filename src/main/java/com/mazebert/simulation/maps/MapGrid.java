@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Stack;
 import java.util.function.Predicate;
 
-public class MapGrid {
+public strictfp class MapGrid {
     public static final Predicate<Tile> WALKABLE = t -> t.type.walkable;
     public static final Predicate<Tile> FLYABLE = t -> t.type.flyable;
 
@@ -57,7 +57,7 @@ public class MapGrid {
         return new FindPath(srcX, srcY, dstX, dstY, tilePredicate).find();
     }
 
-    private class FindPath {
+    private strictfp class FindPath {
         private final int srcX;
         private final int srcY;
         private final Predicate<Tile> tilePredicate;

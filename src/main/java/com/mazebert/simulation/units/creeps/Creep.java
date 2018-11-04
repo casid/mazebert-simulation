@@ -230,6 +230,10 @@ public strictfp class Creep extends Unit {
         this.armor = armor;
     }
 
+    public void receiveDamage(double damage) {
+        setHealth(getHealth() - damage);
+    }
+
     public static class WalkResult {
         private float[] position = new float[2];
         private float[] direction = new float[2];
