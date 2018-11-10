@@ -11,8 +11,12 @@ import org.junit.jupiter.api.extension.ExtendWith;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
 import java.util.ArrayList;
 
+import static java.nio.file.StandardOpenOption.CREATE;
+import static java.nio.file.StandardOpenOption.TRUNCATE_EXISTING;
+import static java.nio.file.StandardOpenOption.WRITE;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @ExtendWith(TemporaryFolderExtension.class)
@@ -37,7 +41,7 @@ public class ReplayTest {
         playerTurn.hash = 1241932452;
         turn.playerTurns.add(playerTurn);
 
-        try (ReplayWriter replayWriter = new ReplayWriter(replay.toPath())) {
+        try (ReplayWriter replayWriter = new ReplayWriter(Files.newOutputStream(replay.toPath(), CREATE, WRITE, TRUNCATE_EXISTING))) {
             replayWriter.writeHeader(header);
             replayWriter.writeTurn(turn);
         }

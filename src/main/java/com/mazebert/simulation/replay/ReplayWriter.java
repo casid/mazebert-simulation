@@ -7,6 +7,7 @@ import com.mazebert.simulation.replay.data.ReplayTurn;
 import org.jusecase.bitpack.stream.StreamBitWriter;
 
 import java.io.IOException;
+import java.io.OutputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
@@ -17,12 +18,8 @@ public strictfp class ReplayWriter implements ReplayWriterGateway, AutoCloseable
     private final StreamBitWriter writer;
     private final ReplayTurn replayTurn = new ReplayTurn();
 
-    public ReplayWriter(Path path) {
-        try {
-            writer = new StreamBitWriter(new ReplayProtocol(), Files.newOutputStream(path, CREATE, WRITE, TRUNCATE_EXISTING));
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+    public ReplayWriter(OutputStream outputStream) {
+        writer = new StreamBitWriter(new ReplayProtocol(), outputStream);
     }
 
     @Override
