@@ -2,16 +2,20 @@ package com.mazebert.simulation;
 
 public strictfp class SimulationLoop {
 
-    public static final String THREAD_NAME = "simulation-loop";
-
-    private final Simulation simulation = Sim.context().simulation;
+    private final String threadName;
+    private final Context context;
 
     private volatile boolean running;
+
+    public SimulationLoop(String threadName, Context context) {
+        this.threadName = threadName;
+        this.context = context;
+    }
 
     public void start() {
         running = true;
         Thread thread = new Thread(this::run);
-        thread.setName(THREAD_NAME);
+        thread.setName(threadName);
         thread.start();
     }
 
@@ -20,6 +24,9 @@ public strictfp class SimulationLoop {
     }
 
     private void run() {
+        Sim.setContext(context);
+
+        Simulation simulation = new Simulation();
         simulation.start();
         while (running) {
             simulation.process();

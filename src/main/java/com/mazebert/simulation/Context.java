@@ -26,5 +26,4 @@ public strictfp class Context {
 
     // Logic
     public CommandExecutor commandExecutor;
-    public Simulation simulation;
 }

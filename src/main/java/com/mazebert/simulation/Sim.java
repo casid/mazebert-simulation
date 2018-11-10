@@ -7,7 +7,7 @@ public strictfp class Sim {
         return context.get();
     }
 
-    static void setTestContext(Context testContext) {
+    static void setContext(Context testContext) {
         context.set(testContext);
     }
 }
