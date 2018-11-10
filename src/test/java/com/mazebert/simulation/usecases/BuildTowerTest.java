@@ -10,26 +10,25 @@ import com.mazebert.simulation.units.towers.Tower;
 import com.mazebert.simulation.units.wizards.Wizard;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.jusecase.inject.Trainer;
 
 import java.util.UUID;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 class BuildTowerTest extends UsecaseTest<BuildTowerCommand> {
-    @Trainer
-    private UnitGateway unitGateway;
-    @Trainer
-    private SimulationListeners simulationListeners;
-    @Trainer
-    private RandomPluginTrainer randomPluginTrainer;
-    @Trainer
-    private TurnGateway turnGateway = new TurnGateway(1);
+    RandomPluginTrainer randomPluginTrainer = new RandomPluginTrainer();
 
     Tower tower = new TestTower();
     Tower builtTower;
     boolean onErrorCalled;
     boolean onCompleteCalled;
+
+    public BuildTowerTest() {
+        unitGateway = new UnitGateway();
+        simulationListeners = new SimulationListeners();
+        turnGateway = new TurnGateway(1);
+        randomPlugin = randomPluginTrainer;
+    }
 
     @BeforeEach
     void setUp() {

@@ -3,34 +3,15 @@ package com.mazebert.simulation;
 import com.mazebert.simulation.gateways.*;
 import com.mazebert.simulation.plugins.SleepPluginTrainer;
 import org.junit.jupiter.api.BeforeEach;
-import org.jusecase.inject.ComponentTest;
-import org.jusecase.inject.Trainer;
 
-public abstract class SimulationTest implements ComponentTest {
+public abstract class SimulationTest extends SimTest {
 
-    @Trainer
-    protected CommandExecutorTrainer simulationCommandExecutor;
-    @Trainer
-    protected LocalCommandGateway localCommandGateway;
-    @Trainer
-    protected SleepPluginTrainer sleepPluginTrainer;
-    @Trainer
-    protected MessageGatewayTrainer messageGatewayTrainer;
-    @Trainer
-    protected PlayerGatewayTrainer playerGatewayTrainer;
-    @Trainer
-    protected NoReplayWriterGateway noReplayWriterGateway;
-    @Trainer
-    protected SimulationListeners simulationListeners;
-    @Trainer
-    protected GameGateway gameGateway;
-    @Trainer
-    protected SimulationMonitor simulationMonitor;
-
-    private int playerCount;
-    protected TurnGateway turnGateway;
-
+    protected CommandExecutorTrainer commandExecutorTrainer = new CommandExecutorTrainer();
+    protected SleepPluginTrainer sleepPluginTrainer = new SleepPluginTrainer();
+    protected MessageGatewayTrainer messageGatewayTrainer = new MessageGatewayTrainer();
+    protected PlayerGatewayTrainer playerGatewayTrainer = new PlayerGatewayTrainer();
     protected Simulation simulation;
+    private int playerCount;
 
     protected SimulationTest() {
         this(1);
@@ -42,9 +23,17 @@ public abstract class SimulationTest implements ComponentTest {
 
     @BeforeEach
     void setUp() {
+        commandExecutor = commandExecutorTrainer;
+        localCommandGateway = new LocalCommandGateway();
+        sleepPlugin = sleepPluginTrainer;
+        messageGateway = messageGatewayTrainer;
+        playerGateway = playerGatewayTrainer;
+        replayWriterGateway = new NoReplayWriterGateway();
+        simulationListeners = new SimulationListeners();
+        gameGateway = new GameGateway();
+        simulationMonitor = new SimulationMonitor();
+        unitGateway = new UnitGateway();
         turnGateway = new TurnGateway(playerCount);
-        givenDependency(turnGateway);
-        givenDependency(new UnitGateway());
 
         simulation = new Simulation();
     }

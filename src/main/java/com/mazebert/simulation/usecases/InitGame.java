@@ -1,5 +1,6 @@
 package com.mazebert.simulation.usecases;
 
+import com.mazebert.simulation.Sim;
 import com.mazebert.simulation.SimulationListeners;
 import com.mazebert.simulation.WaveSpawner;
 import com.mazebert.simulation.commands.InitGameCommand;
@@ -13,23 +14,14 @@ import com.mazebert.simulation.units.towers.Dandelion;
 import com.mazebert.simulation.units.towers.Hitman;
 import com.mazebert.simulation.units.towers.Tower;
 import com.mazebert.simulation.units.wizards.Wizard;
-import org.jusecase.inject.Component;
 
-import javax.inject.Inject;
-
-@Component
 public strictfp class InitGame extends Usecase<InitGameCommand> {
 
-    @Inject
-    private RandomPlugin randomPlugin;
-    @Inject
-    private WaveGateway waveGateway;
-    @Inject
-    private GameGateway gameGateway;
-    @Inject
-    private UnitGateway unitGateway;
-    @Inject
-    private SimulationListeners simulationListeners;
+    private final RandomPlugin randomPlugin = Sim.context().randomPlugin;
+    private final WaveGateway waveGateway = Sim.context().waveGateway;
+    private final GameGateway gameGateway = Sim.context().gameGateway;
+    private final UnitGateway unitGateway = Sim.context().unitGateway;
+    private final SimulationListeners simulationListeners = Sim.context().simulationListeners;
 
     @Override
     public void execute(InitGameCommand command) {

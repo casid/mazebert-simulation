@@ -1,17 +1,13 @@
 package com.mazebert.simulation.units.abilities;
 
+import com.mazebert.simulation.Sim;
 import com.mazebert.simulation.listeners.OnAttackListener;
 import com.mazebert.simulation.plugins.random.RandomPlugin;
 import com.mazebert.simulation.units.creeps.Creep;
 import com.mazebert.simulation.units.towers.Tower;
-import org.jusecase.inject.Component;
 
-import javax.inject.Inject;
-
-@Component
 public strictfp class DamageAbility extends Ability<Tower> implements OnAttackListener {
-    @Inject
-    private RandomPlugin randomPlugin;
+    private final RandomPlugin randomPlugin = Sim.context().randomPlugin;
 
     @Override
     protected void initialize(Tower unit) {

@@ -1,17 +1,13 @@
 package com.mazebert.simulation.units.abilities;
 
+import com.mazebert.simulation.Sim;
 import com.mazebert.simulation.gateways.UnitGateway;
 import com.mazebert.simulation.units.creeps.Creep;
 import com.mazebert.simulation.units.towers.Tower;
-import org.jusecase.inject.Component;
 
-import javax.inject.Inject;
-
-@Component
 public strictfp class AttackAbility extends CooldownAbility<Tower> {
 
-    @Inject
-    private UnitGateway unitGateway;
+    private final UnitGateway unitGateway = Sim.context().unitGateway;
 
     private Creep currentTarget;
 

@@ -1,15 +1,12 @@
 package com.mazebert.simulation.units.abilities;
 
+import com.mazebert.simulation.Sim;
 import com.mazebert.simulation.gateways.UnitGateway;
 import com.mazebert.simulation.units.creeps.Creep;
-import org.jusecase.inject.Component;
 
-import javax.inject.Inject;
-
-@Component
 public strictfp class SplashDamageAbility extends DamageAbility {
-    @Inject
-    private UnitGateway unitGateway;
+
+    private UnitGateway unitGateway = Sim.context().unitGateway;
 
     private int range;
     private float damageFactor;

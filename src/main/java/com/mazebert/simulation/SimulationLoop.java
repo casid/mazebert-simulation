@@ -1,16 +1,10 @@
 package com.mazebert.simulation;
 
-import org.jusecase.inject.Component;
-
-import javax.inject.Inject;
-
-@Component
 public strictfp class SimulationLoop {
 
     public static final String THREAD_NAME = "simulation-loop";
 
-    @Inject
-    private Simulation simulation;
+    private final Simulation simulation = Sim.context().simulation;
 
     private volatile boolean running;
 

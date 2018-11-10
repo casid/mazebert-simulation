@@ -1,16 +1,12 @@
 package com.mazebert.simulation.countdown;
 
+import com.mazebert.simulation.Sim;
 import com.mazebert.simulation.SimulationListeners;
 import com.mazebert.simulation.listeners.OnUpdateListener;
-import org.jusecase.inject.Component;
 
-import javax.inject.Inject;
-
-@Component
 public strictfp abstract class CountDown implements OnUpdateListener {
 
-    @Inject
-    private SimulationListeners simulationListeners;
+    private final SimulationListeners simulationListeners = Sim.context().simulationListeners;
 
     private final float millis;
     private float millisPassed;
@@ -22,7 +18,7 @@ public strictfp abstract class CountDown implements OnUpdateListener {
     @Override
     public void onUpdate(float dt) {
         millisPassed += dt;
-        if (millisPassed >= millis ) {
+        if (millisPassed >= millis) {
             onCountDownReached(simulationListeners);
             stop();
         }

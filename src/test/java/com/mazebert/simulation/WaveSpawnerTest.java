@@ -11,31 +11,26 @@ import com.mazebert.simulation.units.creeps.Creep;
 import com.mazebert.simulation.units.creeps.CreepState;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.jusecase.inject.ComponentTest;
-import org.jusecase.inject.Trainer;
 
 import java.util.concurrent.atomic.AtomicReference;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class WaveSpawnerTest implements ComponentTest {
-    @Trainer
-    SimulationListeners simulationListeners;
-    @Trainer
-    UnitGateway unitGateway;
-    @Trainer
-    WaveGateway waveGateway;
-    @Trainer
-    RandomPluginTrainer randomPluginTrainer;
-    @Trainer
-    DifficultyGateway difficultyGateway;
-    @Trainer
-    GameGateway gameGateway;
+public class WaveSpawnerTest extends SimTest {
+
+    RandomPluginTrainer randomPluginTrainer = new RandomPluginTrainer();
 
     WaveSpawner waveSpawner;
 
     @BeforeEach
     void setUp() {
+        simulationListeners = new SimulationListeners();
+        unitGateway = new UnitGateway();
+        waveGateway = new WaveGateway();
+        randomPlugin = randomPluginTrainer;
+        difficultyGateway = new DifficultyGateway();
+        gameGateway = new GameGateway();
+
         gameGateway.getGame().map = new BloodMoor();
 
         waveSpawner = new WaveSpawner();
@@ -320,7 +315,7 @@ public class WaveSpawnerTest implements ComponentTest {
     }
 
     private Creep getCreep(int index) {
-        return (Creep)unitGateway.getUnits().get(index);
+        return (Creep) unitGateway.getUnits().get(index);
     }
 
     private void givenBossWave() {

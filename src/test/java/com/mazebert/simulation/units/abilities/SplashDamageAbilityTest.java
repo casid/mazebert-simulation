@@ -1,5 +1,6 @@
 package com.mazebert.simulation.units.abilities;
 
+import com.mazebert.simulation.SimTest;
 import com.mazebert.simulation.gateways.UnitGateway;
 import com.mazebert.simulation.plugins.random.RandomPluginTrainer;
 import com.mazebert.simulation.units.TestTower;
@@ -7,16 +8,11 @@ import com.mazebert.simulation.units.creeps.Creep;
 import com.mazebert.simulation.units.towers.Tower;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.jusecase.inject.ComponentTest;
-import org.jusecase.inject.Trainer;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class SplashDamageAbilityTest implements ComponentTest {
-    @Trainer
-    UnitGateway unitGateway;
-    @Trainer
-    RandomPluginTrainer randomPluginTrainer;
+public class SplashDamageAbilityTest extends SimTest {
+    RandomPluginTrainer randomPluginTrainer = new RandomPluginTrainer();
 
     Tower tower;
     Creep creep1;
@@ -27,6 +23,9 @@ public class SplashDamageAbilityTest implements ComponentTest {
 
     @BeforeEach
     void setUp() {
+        unitGateway = new UnitGateway();
+        randomPlugin = randomPluginTrainer;
+
         tower = new TestTower();
         tower.setBaseCooldown(1.0f);
         tower.setBaseRange(5.0f);

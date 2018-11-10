@@ -14,7 +14,6 @@ import com.mazebert.simulation.plugins.random.RandomPluginTrainer;
 import com.mazebert.simulation.units.wizards.Wizard;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.jusecase.inject.Trainer;
 
 import java.util.UUID;
 
@@ -22,23 +21,19 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 class InitGameTest extends UsecaseTest<InitGameCommand> {
 
-    @Trainer
-    RandomPluginTrainer randomPluginTrainer;
-    @Trainer
-    SimulationListeners simulationListeners;
-    @Trainer
-    WaveGateway waveGateway;
-    @Trainer
-    GameGateway gameGateway;
-    @Trainer
-    UnitGateway unitGateway;
-    @Trainer
-    DifficultyGateway difficultyGateway;
+    RandomPluginTrainer randomPluginTrainer = new RandomPluginTrainer();
 
     boolean gameStarted;
 
     @BeforeEach
     void setUp() {
+        randomPlugin = randomPluginTrainer;
+        simulationListeners = new SimulationListeners();
+        waveGateway = new WaveGateway();
+        gameGateway = new GameGateway();
+        unitGateway = new UnitGateway();
+        difficultyGateway = new DifficultyGateway();
+
         usecase = new InitGame();
 
         request.rounds = 1;

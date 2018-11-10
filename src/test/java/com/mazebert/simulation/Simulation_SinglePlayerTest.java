@@ -17,7 +17,7 @@ public class Simulation_SinglePlayerTest extends SimulationTest {
 
         simulation.process();
 
-        Command executedCommand = simulationCommandExecutor.getLastCommand();
+        Command executedCommand = commandExecutorTrainer.getLastCommand();
         assertThat(executedCommand).isNull();
     }
 
@@ -28,7 +28,7 @@ public class Simulation_SinglePlayerTest extends SimulationTest {
 
         simulation.process();
 
-        Command executedCommand = simulationCommandExecutor.getLastCommand();
+        Command executedCommand = commandExecutorTrainer.getLastCommand();
         assertThat(executedCommand).isSameAs(command);
         assertThat(executedCommand.playerId).isEqualTo(1);
         assertThat(executedCommand.turnNumber).isEqualTo(0);

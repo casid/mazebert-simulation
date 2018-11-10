@@ -9,26 +9,17 @@ import com.mazebert.simulation.listeners.*;
 import com.mazebert.simulation.plugins.random.RandomPlugin;
 import com.mazebert.simulation.units.Unit;
 import com.mazebert.simulation.units.creeps.Creep;
-import org.jusecase.inject.Component;
 
-import javax.inject.Inject;
 import java.util.ArrayDeque;
 import java.util.Queue;
 
-@Component
 public strictfp class WaveSpawner implements OnGameStartedListener, OnWaveStartedListener, OnUpdateListener, OnDeadListener, OnUnitRemovedListener, OnTargetReachedListener {
-    @Inject
-    private SimulationListeners simulationListeners;
-    @Inject
-    private WaveGateway waveGateway;
-    @Inject
-    private UnitGateway unitGateway;
-    @Inject
-    private RandomPlugin randomPlugin;
-    @Inject
-    private DifficultyGateway difficultyGateway;
-    @Inject
-    private GameGateway gameGateway;
+    private final SimulationListeners simulationListeners = Sim.context().simulationListeners;
+    private final WaveGateway waveGateway = Sim.context().waveGateway;
+    private final UnitGateway unitGateway = Sim.context().unitGateway;
+    private final RandomPlugin randomPlugin = Sim.context().randomPlugin;
+    private final DifficultyGateway difficultyGateway = Sim.context().difficultyGateway;
+    private final GameGateway gameGateway = Sim.context().gameGateway;
 
     private Queue<Creep> creepQueue = new ArrayDeque<>();
     private float countdownForNextCreepToSend;
@@ -83,7 +74,7 @@ public strictfp class WaveSpawner implements OnGameStartedListener, OnWaveStarte
         int goldOfAllCreeps = Balancing.getGoldForRound(round);
         int goldOfOneCreep = goldOfAllCreeps / wave.creepCount;
         int goldRemaining = goldOfAllCreeps % wave.creepCount;
-        int creepIndexWithRemainingGold = (int)(randomPlugin.getFloatAbs() * wave.creepCount);
+        int creepIndexWithRemainingGold = (int) (randomPlugin.getFloatAbs() * wave.creepCount);
 
         for (int i = 0; i < wave.creepCount; ++i) {
             Creep creep = new Creep();
@@ -115,7 +106,7 @@ public strictfp class WaveSpawner implements OnGameStartedListener, OnWaveStarte
     @Override
     public void onUnitRemoved(Unit unit) {
         if (unit instanceof Creep) {
-            Creep creep = (Creep)unit;
+            Creep creep = (Creep) unit;
             if (--creep.getWave().creepCount <= 0) {
                 new WaveCountDown().start();
             }

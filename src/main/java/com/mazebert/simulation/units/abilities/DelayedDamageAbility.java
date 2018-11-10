@@ -1,17 +1,14 @@
 package com.mazebert.simulation.units.abilities;
 
+import com.mazebert.simulation.Sim;
 import com.mazebert.simulation.gateways.TurnGateway;
 import com.mazebert.simulation.listeners.OnUpdateListener;
 import com.mazebert.simulation.units.creeps.Creep;
 import com.mazebert.simulation.units.towers.Tower;
-import org.jusecase.inject.Component;
 
-import javax.inject.Inject;
-
-@Component
 public strictfp class DelayedDamageAbility extends DamageAbility implements OnUpdateListener {
-    @Inject
-    private TurnGateway turnGateway;
+
+    private final TurnGateway turnGateway = Sim.context().turnGateway;
 
     private final float delay;
 

@@ -1,22 +1,17 @@
 package com.mazebert.simulation.usecases;
 
 import com.mazebert.simulation.Card;
+import com.mazebert.simulation.Sim;
 import com.mazebert.simulation.SimulationListeners;
 import com.mazebert.simulation.commands.BuildTowerCommand;
 import com.mazebert.simulation.gateways.UnitGateway;
 import com.mazebert.simulation.units.towers.Tower;
 import com.mazebert.simulation.units.wizards.Wizard;
-import org.jusecase.inject.Component;
 
-import javax.inject.Inject;
-
-@Component
 public strictfp class BuildTower extends Usecase<BuildTowerCommand> {
 
-    @Inject
-    private UnitGateway unitGateway;
-    @Inject
-    private SimulationListeners simulationListeners;
+    private final UnitGateway unitGateway = Sim.context().unitGateway;
+    private final SimulationListeners simulationListeners = Sim.context().simulationListeners;
 
     @Override
     public void execute(BuildTowerCommand command) {
@@ -24,7 +19,7 @@ public strictfp class BuildTower extends Usecase<BuildTowerCommand> {
 
         Card card = wizard.removeCardFromHand(command.cardId);
         if (card instanceof Tower) {
-            Tower tower = (Tower)card;
+            Tower tower = (Tower) card;
             tower.setX(command.x);
             tower.setY(command.y);
             unitGateway.addUnit(tower);

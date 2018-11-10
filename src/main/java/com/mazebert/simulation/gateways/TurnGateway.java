@@ -2,12 +2,10 @@ package com.mazebert.simulation.gateways;
 
 import com.mazebert.simulation.messages.ResendTurn;
 import com.mazebert.simulation.messages.Turn;
-import org.jusecase.inject.Component;
 
 import java.util.Arrays;
 import java.util.List;
 
-@Component
 public strictfp class TurnGateway {
 
     private final int maxPlayerCount;
@@ -24,6 +22,10 @@ public strictfp class TurnGateway {
 
     public int getCurrentTurnNumber() {
         return currentTurnNumber;
+    }
+
+    public void setCurrentTurnNumber(int currentTurnNumber) {
+        this.currentTurnNumber = clampTurnNumber(currentTurnNumber);
     }
 
     public List<Turn> waitForAllPlayerTurns(MessageGateway messageGateway) {
@@ -53,20 +55,16 @@ public strictfp class TurnGateway {
         currentTurnNumber = clampTurnNumber(currentTurnNumber + 1L);
     }
 
-    public void setCurrentTurnNumber(int currentTurnNumber) {
-        this.currentTurnNumber = clampTurnNumber(currentTurnNumber);
-    }
-
     public int clampTurnNumber(long turnNumber) {
         while (turnNumber >= Integer.MAX_VALUE) {
             turnNumber -= Integer.MAX_VALUE;
         }
-        return (int)turnNumber;
+        return (int) turnNumber;
     }
 
     private void askForMissingTurns(MessageGateway messageGateway) {
         Turn[] currentPlayerTurns = getCurrentPlayerTurns();
-        for (int playerIndex = 0; playerIndex < currentPlayerTurns.length; ++playerIndex ) {
+        for (int playerIndex = 0; playerIndex < currentPlayerTurns.length; ++playerIndex) {
             Turn playerTurn = currentPlayerTurns[playerIndex];
             if (isMissing(playerTurn, currentTurnNumber)) {
                 ResendTurn message = new ResendTurn();

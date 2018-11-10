@@ -9,40 +9,26 @@ import com.mazebert.simulation.messages.Turn;
 import com.mazebert.simulation.plugins.random.FastRandomPlugin;
 import com.mazebert.simulation.replay.data.ReplayHeader;
 import com.mazebert.simulation.units.Unit;
-import org.jusecase.inject.Component;
 
-import javax.inject.Inject;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
-@Component
 public strictfp class Simulation {
 
-    @Inject
-    private CommandExecutor commandExecutor;
-    @Inject
-    private LocalCommandGateway localCommandGateway;
-    @Inject
-    private TurnGateway turnGateway;
-    @Inject
-    private SleepPlugin sleepPlugin;
-    @Inject
-    private MessageGateway messageGateway;
-    @Inject
-    private PlayerGateway playerGateway;
-    @Inject
-    private UnitGateway unitGateway;
-    @Inject
-    private ReplayWriterGateway replayWriterGateway;
-    @Inject
-    private SimulationListeners simulationListeners;
-    @Inject
-    private GameGateway gameGateway;
-    @Inject
-    private SimulationMonitor monitor;
+    private final CommandExecutor commandExecutor = Sim.context().commandExecutor;
+    private final LocalCommandGateway localCommandGateway = Sim.context().localCommandGateway;
+    private final TurnGateway turnGateway = Sim.context().turnGateway;
+    private final SleepPlugin sleepPlugin = Sim.context().sleepPlugin;
+    private final MessageGateway messageGateway = Sim.context().messageGateway;
+    private final PlayerGateway playerGateway = Sim.context().playerGateway;
+    private final UnitGateway unitGateway = Sim.context().unitGateway;
+    private final ReplayWriterGateway replayWriterGateway = Sim.context().replayWriterGateway;
+    private final SimulationListeners simulationListeners = Sim.context().simulationListeners;
+    private final GameGateway gameGateway = Sim.context().gameGateway;
+    private final SimulationMonitor monitor = Sim.context().simulationMonitor;
 
     private long turnTimeInMillis = 100;
     private long turnTimeInNanos = TimeUnit.MILLISECONDS.toNanos(turnTimeInMillis);

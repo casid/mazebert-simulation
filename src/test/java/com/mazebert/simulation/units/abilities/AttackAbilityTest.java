@@ -1,24 +1,20 @@
 package com.mazebert.simulation.units.abilities;
 
+import com.mazebert.simulation.SimTest;
 import com.mazebert.simulation.gateways.UnitGateway;
+import com.mazebert.simulation.listeners.OnAttackListener;
 import com.mazebert.simulation.units.TestTower;
 import com.mazebert.simulation.units.creeps.Creep;
-import com.mazebert.simulation.listeners.OnAttackListener;
 import com.mazebert.simulation.units.towers.Tower;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.jusecase.inject.ComponentTest;
-import org.jusecase.inject.Trainer;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class AttackAbilityTest implements ComponentTest, OnAttackListener {
-
-    @Trainer
-    UnitGateway unitGateway;
+public class AttackAbilityTest extends SimTest implements OnAttackListener {
 
     Tower tower;
     Creep creep;
@@ -27,6 +23,8 @@ public class AttackAbilityTest implements ComponentTest, OnAttackListener {
 
     @BeforeEach
     void setUp() {
+        unitGateway = new UnitGateway();
+
         tower = new TestTower();
         tower.setBaseCooldown(1.0f);
         tower.setBaseRange(1.0f);

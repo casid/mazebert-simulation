@@ -1,5 +1,6 @@
 package com.mazebert.simulation.units.abilities;
 
+import com.mazebert.simulation.SimTest;
 import com.mazebert.simulation.gateways.TurnGateway;
 import com.mazebert.simulation.gateways.UnitGateway;
 import com.mazebert.simulation.plugins.random.RandomPluginTrainer;
@@ -8,24 +9,21 @@ import com.mazebert.simulation.units.creeps.Creep;
 import com.mazebert.simulation.units.towers.Tower;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.jusecase.inject.ComponentTest;
-import org.jusecase.inject.Trainer;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-class DelayedDamageAbilityTest implements ComponentTest {
-    @Trainer
-    UnitGateway unitGateway;
-    @Trainer
-    TurnGateway turnGateway = new TurnGateway(1);
-    @Trainer
-    RandomPluginTrainer randomPluginTrainer;
+class DelayedDamageAbilityTest extends SimTest {
+    RandomPluginTrainer randomPluginTrainer = new RandomPluginTrainer();
 
     Tower tower;
     Creep creep;
 
     @BeforeEach
     void setUp() {
+        unitGateway = new UnitGateway();
+        turnGateway = new TurnGateway(1);
+        randomPlugin = randomPluginTrainer;
+
         tower = new TestTower();
         tower.setBaseCooldown(1.0f);
         tower.setBaseRange(1.0f);
