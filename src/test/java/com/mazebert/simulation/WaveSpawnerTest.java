@@ -43,7 +43,7 @@ public class WaveSpawnerTest extends SimTest {
     void noWaveExists() {
         whenGameIsStarted();
         assertThat(unitGateway.getUnits()).hasSize(0);
-        assertThat(waveGateway.getCurrentWave()).isEqualTo(0);
+        assertThat(waveGateway.getCurrentRound()).isEqualTo(0);
     }
 
     @Test
@@ -55,7 +55,7 @@ public class WaveSpawnerTest extends SimTest {
         whenGameIsStarted();
 
         assertThat(waveGateway.getWaves().stream().findFirst().orElse(null)).isNotEqualTo(wave);
-        assertThat(waveGateway.getCurrentWave()).isEqualTo(1);
+        assertThat(waveGateway.getCurrentRound()).isEqualTo(1);
     }
 
     @Test
@@ -248,7 +248,7 @@ public class WaveSpawnerTest extends SimTest {
 
     @Test
     void armor_round10() {
-        waveGateway.setCurrentWave(9);
+        waveGateway.setCurrentRound(9);
         givenBossWave();
 
         whenAllCreepsAreSpawned();
@@ -267,7 +267,7 @@ public class WaveSpawnerTest extends SimTest {
 
     @Test
     void gold_boss_higherLevel() {
-        waveGateway.setCurrentWave(9);
+        waveGateway.setCurrentRound(9);
         givenBossWave();
 
         whenAllCreepsAreSpawned();
@@ -300,7 +300,7 @@ public class WaveSpawnerTest extends SimTest {
 
     @Test
     void health_boss_difficulty_easy() {
-        waveGateway.setCurrentWave(5);
+        waveGateway.setCurrentRound(5);
         difficultyGateway.setDifficulty(Difficulty.Easy);
         givenBossWave();
 
@@ -311,7 +311,7 @@ public class WaveSpawnerTest extends SimTest {
 
     @Test
     void health_boss_difficulty_hard() {
-        waveGateway.setCurrentWave(5);
+        waveGateway.setCurrentRound(5);
         difficultyGateway.setDifficulty(Difficulty.Hard);
         givenBossWave();
 

@@ -17,6 +17,11 @@ public class TestTower extends Tower {
     }
 
     @Override
+    public String getDescription() {
+        return "description";
+    }
+
+    @Override
     public Rarity getRarity() {
         return Rarity.Common;
     }

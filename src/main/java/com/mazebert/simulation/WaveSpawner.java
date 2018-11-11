@@ -66,7 +66,7 @@ public strictfp class WaveSpawner implements OnGameStartedListener, OnWaveStarte
             return;
         }
 
-        int round = waveGateway.getCurrentWave();
+        int round = waveGateway.getCurrentRound();
 
         double healthOfAllCreeps = Balancing.getTotalCreepHitpoints(round, difficultyGateway.getDifficulty());
         double healthOfOneCreep = StrictMath.max(1, StrictMath.round(wave.healthMultiplier * healthOfAllCreeps / wave.creepCount));

@@ -193,4 +193,9 @@ public strictfp abstract class Tower extends Unit implements CooldownUnit, Card 
     public void setCardId(UUID id) {
         cardId = id;
     }
+
+    @Override
+    public String getAuthor() {
+        return "casid";
+    }
 }

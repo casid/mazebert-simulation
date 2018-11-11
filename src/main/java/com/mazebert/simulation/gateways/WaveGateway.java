@@ -9,13 +9,14 @@ import java.util.Collection;
 import java.util.Queue;
 
 public strictfp class WaveGateway {
-    public static final int WAVES_IN_ADVANCE = 5;
+    public static final int WAVES_IN_ADVANCE = 3;
     private static final WaveType[] RANDOM_WAVE_TYPES = {WaveType.Normal, WaveType.Mass, WaveType.Boss, WaveType.Air};
 
     private Queue<Wave> waves = new ArrayDeque<>(WAVES_IN_ADVANCE);
     private int totalWaves;
     private int generatedWaves;
-    private int currentWave;
+    private int currentRound;
+    private Wave currentWave;
 
     public void addWave(Wave wave) {
         waves.add(wave);
@@ -24,7 +25,8 @@ public strictfp class WaveGateway {
     public Wave nextWave() {
         Wave wave = waves.poll();
         if (wave != null) {
-            ++currentWave;
+            currentWave = wave;
+            ++currentRound;
         }
         return wave;
     }
@@ -34,7 +36,7 @@ public strictfp class WaveGateway {
     }
 
     public void generateMissingWaves(RandomPlugin randomPlugin) {
-        int missingWaves = StrictMath.min(totalWaves - currentWave, WaveGateway.WAVES_IN_ADVANCE) - waves.size();
+        int missingWaves = StrictMath.min(totalWaves - currentRound, WaveGateway.WAVES_IN_ADVANCE) - waves.size();
         for (int i = 0; i < missingWaves; ++i) {
             Wave wave = new Wave();
             wave.round = ++generatedWaves;
@@ -51,11 +53,15 @@ public strictfp class WaveGateway {
         this.totalWaves = totalWaves;
     }
 
-    public int getCurrentWave() {
-        return currentWave;
+    public int getCurrentRound() {
+        return currentRound;
     }
 
-    public void setCurrentWave(int currentWave) {
-        this.currentWave = currentWave;
+    public void setCurrentRound(int currentRound) {
+        this.currentRound = currentRound;
+    }
+
+    public Wave getCurrentWave() {
+        return currentWave;
     }
 }

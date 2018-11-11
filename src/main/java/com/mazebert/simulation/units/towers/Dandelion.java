@@ -22,6 +22,11 @@ public strictfp class Dandelion extends Tower {
     }
 
     @Override
+    public String getDescription() {
+        return "??";
+    }
+
+    @Override
     public Rarity getRarity() {
         return Rarity.Common;
     }

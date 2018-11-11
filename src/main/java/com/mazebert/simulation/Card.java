@@ -4,6 +4,8 @@ import java.util.UUID;
 
 public interface Card {
     String getName();
+    String getDescription();
+    String getAuthor();
     Rarity getRarity();
 
     UUID getCardId();
