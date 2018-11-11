@@ -23,7 +23,7 @@ public strictfp abstract class CountDown implements OnUpdateListener {
             onCountDownReached(simulationListeners);
             stop();
         } else if((int)secondsPassed > lastUpdate) {
-            onCountDownUpdated((int) (seconds - (int)secondsPassed));
+            onCountDownUpdated((int)seconds - (int)secondsPassed);
             lastUpdate = (int)secondsPassed;
         }
     }
