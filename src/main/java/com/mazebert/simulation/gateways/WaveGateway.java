@@ -14,6 +14,7 @@ public strictfp class WaveGateway {
 
     private Queue<Wave> waves = new ArrayDeque<>(WAVES_IN_ADVANCE);
     private int totalWaves;
+    private int generatedWaves;
     private int currentWave;
 
     public void addWave(Wave wave) {
@@ -33,9 +34,10 @@ public strictfp class WaveGateway {
     }
 
     public void generateMissingWaves(RandomPlugin randomPlugin) {
-        int missingWaves = StrictMath.min(totalWaves - currentWave, WaveGateway.WAVES_IN_ADVANCE);
+        int missingWaves = StrictMath.min(totalWaves - currentWave, WaveGateway.WAVES_IN_ADVANCE) - waves.size();
         for (int i = 0; i < missingWaves; ++i) {
             Wave wave = new Wave();
+            wave.round = ++generatedWaves;
             wave.type = randomPlugin.get(RANDOM_WAVE_TYPES);
             wave.creepCount = wave.type.creepCount;
             wave.minSecondsToNextCreep = wave.type.getMinSecondsToNextCreep();

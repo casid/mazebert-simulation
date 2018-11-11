@@ -12,6 +12,8 @@ import com.mazebert.simulation.units.creeps.CreepState;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.atomic.AtomicReference;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -73,6 +75,35 @@ public class WaveSpawnerTest extends SimTest {
         whenGameIsStarted();
 
         assertThat(waveGateway.getWaves()).hasSize(4);
+    }
+
+    @Test
+    void wavesAreGenerated_round() {
+        givenBossWave();
+
+        whenGameIsStarted();
+
+        List<Wave> waves = new ArrayList<>(waveGateway.getWaves());
+        assertThat(waves.get(0).round).isEqualTo(1);
+        assertThat(waves.get(1).round).isEqualTo(2);
+        assertThat(waves.get(2).round).isEqualTo(3);
+        assertThat(waves.get(3).round).isEqualTo(4);
+        assertThat(waves.get(4).round).isEqualTo(5);
+    }
+
+    @Test
+    void wavesAreGenerated_roundsInGame() {
+        givenBossWave();
+
+        whenGameIsStarted();
+        whenAllCreepsAreSpawned();
+
+        List<Wave> waves = new ArrayList<>(waveGateway.getWaves());
+        assertThat(waves.get(0).round).isEqualTo(2);
+        assertThat(waves.get(1).round).isEqualTo(3);
+        assertThat(waves.get(2).round).isEqualTo(4);
+        assertThat(waves.get(3).round).isEqualTo(5);
+        assertThat(waves.get(4).round).isEqualTo(6);
     }
 
     @Test
