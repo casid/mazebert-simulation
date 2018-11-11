@@ -61,7 +61,7 @@ public strictfp class WaveSpawner implements OnGameStartedListener, OnWaveStarte
     }
 
     private void startNextWave() {
-        Wave wave = waveGateway.getNextWave();
+        Wave wave = waveGateway.nextWave();
         if (wave == null) {
             return;
         }

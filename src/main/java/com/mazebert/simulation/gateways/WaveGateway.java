@@ -20,7 +20,7 @@ public strictfp class WaveGateway {
         waves.add(wave);
     }
 
-    public Wave getNextWave() {
+    public Wave nextWave() {
         Wave wave = waves.poll();
         if (wave != null) {
             ++currentWave;

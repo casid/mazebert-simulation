@@ -1,6 +1,5 @@
 package com.mazebert.simulation.usecases;
 
-import com.mazebert.simulation.Balancing;
 import com.mazebert.simulation.SimulationListeners;
 import com.mazebert.simulation.Wave;
 import com.mazebert.simulation.WaveType;
@@ -136,7 +135,7 @@ class InitGameTest extends UsecaseTest<InitGameCommand> {
 
         whenRequestIsExecuted();
 
-        Wave wave = waveGateway.getNextWave();
+        Wave wave = waveGateway.nextWave();
         assertThat(wave.type).isEqualTo(WaveType.Normal);
         assertThat(wave.creepCount).isEqualTo(10);
         assertThat(wave.minSecondsToNextCreep).isEqualTo(1.0f);
@@ -149,7 +148,7 @@ class InitGameTest extends UsecaseTest<InitGameCommand> {
 
         whenRequestIsExecuted();
 
-        Wave wave = waveGateway.getNextWave();
+        Wave wave = waveGateway.nextWave();
         assertThat(wave.type).isEqualTo(WaveType.Mass);
         assertThat(wave.creepCount).isEqualTo(20);
         assertThat(wave.minSecondsToNextCreep).isEqualTo(0.2f);
@@ -162,7 +161,7 @@ class InitGameTest extends UsecaseTest<InitGameCommand> {
 
         whenRequestIsExecuted();
 
-        Wave wave = waveGateway.getNextWave();
+        Wave wave = waveGateway.nextWave();
         assertThat(wave.type).isEqualTo(WaveType.Boss);
         assertThat(wave.creepCount).isEqualTo(1);
     }
@@ -173,7 +172,7 @@ class InitGameTest extends UsecaseTest<InitGameCommand> {
 
         whenRequestIsExecuted();
 
-        Wave wave = waveGateway.getNextWave();
+        Wave wave = waveGateway.nextWave();
         assertThat(wave.type).isEqualTo(WaveType.Air);
         assertThat(wave.creepCount).isEqualTo(5);
         assertThat(wave.minSecondsToNextCreep).isEqualTo(1.6f);
