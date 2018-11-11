@@ -16,6 +16,6 @@ public strictfp class WaveCountDown extends CountDown {
 
     @Override
     protected void onCountDownUpdated(int remainingSeconds) {
-        simulationListeners.onGameCountDown.dispatch(remainingSeconds);
+        simulationListeners.onWaveCountDown.dispatch(remainingSeconds);
     }
 }
