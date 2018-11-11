@@ -15,8 +15,11 @@ import com.mazebert.simulation.units.wizards.Wizard;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
+import static com.mazebert.simulation.Balancing.GAME_COUNTDOWN_SECONDS;
 import static org.assertj.core.api.Assertions.assertThat;
 
 class InitGameTest extends UsecaseTest<InitGameCommand> {
@@ -51,7 +54,7 @@ class InitGameTest extends UsecaseTest<InitGameCommand> {
         simulationListeners.onGameStarted.add(() -> gameStarted = true);
 
         whenRequestIsExecuted();
-        simulationListeners.onUpdate.dispatch(Balancing.GAME_COUNTDOWN_SECONDS);
+        simulationListeners.onUpdate.dispatch(GAME_COUNTDOWN_SECONDS);
 
         assertThat(gameStarted).isTrue();
         assertThat(simulationListeners.onUpdate.size()).isEqualTo(1);
@@ -62,7 +65,7 @@ class InitGameTest extends UsecaseTest<InitGameCommand> {
         simulationListeners.onGameStarted.add(() -> gameStarted = true);
 
         whenRequestIsExecuted();
-        simulationListeners.onUpdate.dispatch(0.5f * Balancing.GAME_COUNTDOWN_SECONDS);
+        simulationListeners.onUpdate.dispatch(0.5f * GAME_COUNTDOWN_SECONDS);
 
         assertThat(gameStarted).isFalse();
     }
@@ -74,6 +77,31 @@ class InitGameTest extends UsecaseTest<InitGameCommand> {
         whenRequestIsExecuted();
 
         assertThat(gameStarted).isFalse();
+    }
+
+    @Test
+    void gameCountDownIsUpdated() {
+        List<Integer> countDown = new ArrayList<>();
+        simulationListeners.onGameCountDown.add(countDown::add);
+
+        whenRequestIsExecuted();
+        simulationListeners.onUpdate.dispatch(1.0f);
+
+        assertThat(countDown).containsExactly((int)GAME_COUNTDOWN_SECONDS, (int)GAME_COUNTDOWN_SECONDS - 1);
+    }
+
+    @Test
+    void gameCountDownIsUpdated_onlyWhenSecondsChange() {
+        List<Integer> countDown = new ArrayList<>();
+        simulationListeners.onGameCountDown.add(countDown::add);
+
+        whenRequestIsExecuted();
+        simulationListeners.onUpdate.dispatch(0.25f);
+        simulationListeners.onUpdate.dispatch(0.25f);
+        simulationListeners.onUpdate.dispatch(0.25f);
+        simulationListeners.onUpdate.dispatch(0.25f);
+
+        assertThat(countDown).containsExactly((int)GAME_COUNTDOWN_SECONDS, (int)GAME_COUNTDOWN_SECONDS - 1);
     }
 
     @Test

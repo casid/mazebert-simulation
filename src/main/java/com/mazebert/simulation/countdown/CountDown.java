@@ -6,26 +6,31 @@ import com.mazebert.simulation.listeners.OnUpdateListener;
 
 public strictfp abstract class CountDown implements OnUpdateListener {
 
-    private final SimulationListeners simulationListeners = Sim.context().simulationListeners;
+    protected final SimulationListeners simulationListeners = Sim.context().simulationListeners;
 
-    private final float millis;
-    private float millisPassed;
+    private final float seconds;
+    private float secondsPassed;
+    private int lastUpdate;
 
-    public CountDown(float millis) {
-        this.millis = millis;
+    public CountDown(float seconds) {
+        this.seconds = seconds;
     }
 
     @Override
     public void onUpdate(float dt) {
-        millisPassed += dt;
-        if (millisPassed >= millis) {
+        secondsPassed += dt;
+        if (secondsPassed >= seconds) {
             onCountDownReached(simulationListeners);
             stop();
+        } else if((int)secondsPassed > lastUpdate) {
+            onCountDownUpdated((int) (seconds - secondsPassed));
+            lastUpdate = (int)secondsPassed;
         }
     }
 
     public void start() {
         this.simulationListeners.onUpdate.add(this);
+        onCountDownUpdated((int)seconds);
     }
 
     public void stop() {
@@ -33,4 +38,6 @@ public strictfp abstract class CountDown implements OnUpdateListener {
     }
 
     protected abstract void onCountDownReached(SimulationListeners simulationListeners);
+
+    protected abstract void onCountDownUpdated(int remainingSeconds);
 }

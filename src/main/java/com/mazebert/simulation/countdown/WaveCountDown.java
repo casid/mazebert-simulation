@@ -13,4 +13,9 @@ public strictfp class WaveCountDown extends CountDown {
     protected void onCountDownReached(SimulationListeners simulationListeners) {
         simulationListeners.onWaveStarted.dispatch();
     }
+
+    @Override
+    protected void onCountDownUpdated(int remainingSeconds) {
+        simulationListeners.onGameCountDown.dispatch(remainingSeconds);
+    }
 }

@@ -13,4 +13,9 @@ public strictfp class GameCountDown extends CountDown {
     protected void onCountDownReached(SimulationListeners simulationListeners) {
         simulationListeners.onGameStarted.dispatch();
     }
+
+    @Override
+    protected void onCountDownUpdated(int remainingSeconds) {
+        simulationListeners.onGameCountDown.dispatch(remainingSeconds);
+    }
 }
