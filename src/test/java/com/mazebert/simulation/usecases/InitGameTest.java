@@ -105,6 +105,18 @@ class InitGameTest extends UsecaseTest<InitGameCommand> {
     }
 
     @Test
+    void gameCountDownIsUpdated_rounding() {
+        List<Integer> countDown = new ArrayList<>();
+        simulationListeners.onGameCountDown.add(countDown::add);
+
+        whenRequestIsExecuted();
+        simulationListeners.onUpdate.dispatch(0.5f);
+        simulationListeners.onUpdate.dispatch(0.5001f);
+
+        assertThat(countDown).containsExactly((int)GAME_COUNTDOWN_SECONDS, (int)GAME_COUNTDOWN_SECONDS - 1);
+    }
+
+    @Test
     void wavesAreGenerated() {
         request.rounds = 250;
         whenRequestIsExecuted();
