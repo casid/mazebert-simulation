@@ -2,6 +2,7 @@ package com.mazebert.simulation.units.towers;
 
 import com.mazebert.simulation.Balancing;
 import com.mazebert.simulation.Card;
+import com.mazebert.simulation.Element;
 import com.mazebert.simulation.hash.Hash;
 import com.mazebert.simulation.units.CooldownUnit;
 import com.mazebert.simulation.units.Gender;
@@ -27,6 +28,7 @@ public strictfp abstract class Tower extends Unit implements CooldownUnit, Card 
     private float critChance = 0.05f;
     private float critDamage = 0.25f;
     private int multicrit = 1;
+    private Element element;
     private Gender gender = Gender.Unknown;
     private UUID cardId;
 
@@ -47,6 +49,7 @@ public strictfp abstract class Tower extends Unit implements CooldownUnit, Card 
         hash.add(critChance);
         hash.add(critDamage);
         hash.add(multicrit);
+        hash.add(element);
         hash.add(gender);
     }
 
@@ -184,6 +187,14 @@ public strictfp abstract class Tower extends Unit implements CooldownUnit, Card 
         return modifier < 0 ? 0 : modifier;
     }
 
+    public Element getElement() {
+        return element;
+    }
+
+    public void setElement(Element element) {
+        this.element = element;
+    }
+
     @Override
     public UUID getCardId() {
         return cardId;
@@ -197,5 +208,10 @@ public strictfp abstract class Tower extends Unit implements CooldownUnit, Card 
     @Override
     public String getAuthor() {
         return "casid";
+    }
+
+    @Override
+    public boolean isDark() {
+        return element == Element.Darkness;
     }
 }

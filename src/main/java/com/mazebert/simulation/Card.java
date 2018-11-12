@@ -7,6 +7,7 @@ public interface Card {
     String getDescription();
     String getAuthor();
     Rarity getRarity();
+    boolean isDark();
 
     UUID getCardId();
     void setCardId(UUID id);

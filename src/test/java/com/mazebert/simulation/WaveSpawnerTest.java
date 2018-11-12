@@ -64,17 +64,17 @@ public class WaveSpawnerTest extends SimTest {
 
         whenGameIsStarted();
 
-        assertThat(waveGateway.getWaves()).hasSize(5);
+        assertThat(waveGateway.getWaves()).hasSize(3);
     }
 
     @Test
     void wavesAreGenerated_notMoreThanMax() {
-        waveGateway.setTotalWaves(5);
+        waveGateway.setTotalWaves(3);
         givenBossWave();
 
         whenGameIsStarted();
 
-        assertThat(waveGateway.getWaves()).hasSize(4);
+        assertThat(waveGateway.getWaves()).hasSize(2);
     }
 
     @Test
@@ -87,8 +87,6 @@ public class WaveSpawnerTest extends SimTest {
         assertThat(waves.get(0).round).isEqualTo(1);
         assertThat(waves.get(1).round).isEqualTo(2);
         assertThat(waves.get(2).round).isEqualTo(3);
-        assertThat(waves.get(3).round).isEqualTo(4);
-        assertThat(waves.get(4).round).isEqualTo(5);
     }
 
     @Test
@@ -102,8 +100,6 @@ public class WaveSpawnerTest extends SimTest {
         assertThat(waves.get(0).round).isEqualTo(2);
         assertThat(waves.get(1).round).isEqualTo(3);
         assertThat(waves.get(2).round).isEqualTo(4);
-        assertThat(waves.get(3).round).isEqualTo(5);
-        assertThat(waves.get(4).round).isEqualTo(6);
     }
 
     @Test
