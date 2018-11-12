@@ -214,4 +214,12 @@ public strictfp abstract class Tower extends Unit implements CooldownUnit, Card 
     public boolean isDark() {
         return element == Element.Darkness;
     }
+
+    public int getImageOffsetOnCardX() {
+        return 0;
+    }
+
+    public int getImageOffsetOnCardY() {
+        return 0;
+    }
 }
