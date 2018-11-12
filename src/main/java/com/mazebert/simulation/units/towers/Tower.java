@@ -1,5 +1,6 @@
 package com.mazebert.simulation.units.towers;
 
+import com.mazebert.simulation.AttackType;
 import com.mazebert.simulation.Balancing;
 import com.mazebert.simulation.Card;
 import com.mazebert.simulation.Element;
@@ -29,7 +30,8 @@ public strictfp abstract class Tower extends Unit implements CooldownUnit, Card 
     private float critDamage = 0.25f;
     private int multicrit = 1;
     private Element element;
-    private Gender gender = Gender.Unknown;
+    private Gender gender;
+    private AttackType attackType;
     private UUID cardId;
 
     @Override
@@ -51,6 +53,7 @@ public strictfp abstract class Tower extends Unit implements CooldownUnit, Card 
         hash.add(multicrit);
         hash.add(element);
         hash.add(gender);
+        hash.add(attackType);
     }
 
     public float getBaseCooldown() {
@@ -213,6 +216,14 @@ public strictfp abstract class Tower extends Unit implements CooldownUnit, Card 
     @Override
     public boolean isDark() {
         return element == Element.Darkness;
+    }
+
+    public AttackType getAttackType() {
+        return attackType;
+    }
+
+    public void setAttackType(AttackType attackType) {
+        this.attackType = attackType;
     }
 
     public int getImageOffsetOnCardX() {

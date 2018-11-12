@@ -1,5 +1,6 @@
 package com.mazebert.simulation.units.towers;
 
+import com.mazebert.simulation.AttackType;
 import com.mazebert.simulation.Element;
 import com.mazebert.simulation.Rarity;
 import com.mazebert.simulation.units.Gender;
@@ -10,9 +11,11 @@ public strictfp class Hitman extends Tower {
     public Hitman() {
         setBaseCooldown(5.0f);
         setBaseRange(6.0f);
+        setAttackType(AttackType.Fal);
+        setStrength(1.5f);
         setDamageSpread(1.0f);
-        setElement(Element.Metropolis);
         setGender(Gender.Male);
+        setElement(Element.Metropolis);
 
         addAbility(new AttackAbility());
         addAbility(new DelayedDamageAbility(1.0f));
@@ -26,6 +29,11 @@ public strictfp class Hitman extends Tower {
     @Override
     public Rarity getRarity() {
         return Rarity.Common;
+    }
+
+    @Override
+    public String getSinceVersion() {
+        return "0.2";
     }
 
     @Override

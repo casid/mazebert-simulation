@@ -27,6 +27,11 @@ public class TestTower extends Tower {
     }
 
     @Override
+    public String getSinceVersion() {
+        return "1.0.0";
+    }
+
+    @Override
     public String getModelId() {
         return null;
     }

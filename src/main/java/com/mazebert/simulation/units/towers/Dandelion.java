@@ -32,6 +32,11 @@ public strictfp class Dandelion extends Tower {
     }
 
     @Override
+    public String getSinceVersion() {
+        return "?";
+    }
+
+    @Override
     public String getModelId() {
         return "dandelion";
     }
