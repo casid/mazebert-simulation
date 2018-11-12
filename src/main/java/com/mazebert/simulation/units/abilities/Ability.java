@@ -31,4 +31,24 @@ public abstract strictfp class Ability<U extends Unit> {
     public U getUnit() {
         return unit;
     }
+
+    public boolean isVisibleToUser() {
+        return false;
+    }
+
+    public String getTitle() {
+        return "";
+    }
+
+    public String getDescription() {
+        return "";
+    }
+
+    public String getIconFile() {
+        return "";
+    }
+
+    public String getLevelBonus() {
+        return "";
+    }
 }

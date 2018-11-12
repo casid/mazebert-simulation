@@ -7,6 +7,7 @@ public interface Card {
     String getDescription();
     String getAuthor();
     Rarity getRarity();
+    Rarity getDropRarity();
     boolean isDark();
     String getSinceVersion();
 

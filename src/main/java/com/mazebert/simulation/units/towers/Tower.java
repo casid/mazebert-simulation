@@ -1,14 +1,11 @@
 package com.mazebert.simulation.units.towers;
 
-import com.mazebert.simulation.AttackType;
-import com.mazebert.simulation.Balancing;
-import com.mazebert.simulation.Card;
-import com.mazebert.simulation.Element;
+import com.mazebert.simulation.*;
 import com.mazebert.simulation.hash.Hash;
+import com.mazebert.simulation.listeners.OnAttack;
 import com.mazebert.simulation.units.CooldownUnit;
 import com.mazebert.simulation.units.Gender;
 import com.mazebert.simulation.units.Unit;
-import com.mazebert.simulation.listeners.OnAttack;
 
 import java.util.UUID;
 
@@ -232,5 +229,38 @@ public strictfp abstract class Tower extends Unit implements CooldownUnit, Card 
 
     public int getImageOffsetOnCardY() {
         return 0;
+    }
+
+    @Override
+    public Rarity getDropRarity() {
+        return getRarity();
+    }
+
+    public int getGoldCost() {
+        switch (getDropRarity()) {
+            case Common:
+                return (int) (getGoldCostFactor() * 50);
+            case Uncommon:
+                return (int) (getGoldCostFactor() * 250);
+            case Rare:
+                return (int) (getGoldCostFactor() * 2000);
+            case Unique:
+                return (int) (getGoldCostFactor() * 4000);
+            case Legendary:
+                return (int) (getGoldCostFactor() * 8000);
+        }
+        return 1;
+    }
+
+    protected float getGoldCostFactor() {
+        return 1.0f;
+    }
+
+    public void addCritChance(float critChance) {
+        this.critChance += critDamage;
+    }
+
+    public void addCritDamage(float critDamage) {
+        this.critDamage += critDamage;
     }
 }

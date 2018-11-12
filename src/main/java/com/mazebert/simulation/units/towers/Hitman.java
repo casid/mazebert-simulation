@@ -19,6 +19,7 @@ public strictfp class Hitman extends Tower {
 
         addAbility(new AttackAbility());
         addAbility(new DelayedDamageAbility(1.0f));
+        addAbility(new HitmanHeadshotAbility());
     }
 
     @Override
@@ -49,5 +50,10 @@ public strictfp class Hitman extends Tower {
     @Override
     public int getImageOffsetOnCardY() {
         return 8;
+    }
+
+    @Override
+    protected float getGoldCostFactor() {
+        return 1.3f;
     }
 }

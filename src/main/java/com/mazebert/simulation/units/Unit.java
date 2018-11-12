@@ -49,6 +49,10 @@ public abstract strictfp class Unit implements Hashable {
         ability.init(this);
     }
 
+    public List<Ability> getAbilities() {
+        return abilities;
+    }
+
     public final boolean isInRange(Unit other, float range) {
         return isInRange(other.getX(), other.getY(), range);
     }
