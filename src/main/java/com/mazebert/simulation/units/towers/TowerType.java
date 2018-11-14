@@ -1,7 +1,11 @@
 package com.mazebert.simulation.units.towers;
 
-public strictfp enum TowerType {
-    Hitman(1, Hitman.class);
+import com.mazebert.simulation.CardType;
+
+public strictfp enum TowerType implements CardType<Tower> {
+    Hitman(1, Hitman.class),
+    Dandelion(2, Dandelion.class),
+    ;
 
     public final int id;
     public final Class<? extends Tower> towerClass;
@@ -11,9 +15,12 @@ public strictfp enum TowerType {
         this.towerClass = towerClass;
     }
 
-    public Tower newInstance() {
+    @Override
+    public Tower create() {
         try {
-            return towerClass.newInstance();
+            Tower tower = towerClass.newInstance();
+            tower.setLevel(1);
+            return tower;
         } catch (Exception e) {
             throw new RuntimeException(e);
         }

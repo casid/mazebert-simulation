@@ -8,7 +8,6 @@ import java.util.UUID;
 public class TestTower extends Tower {
 
     public TestTower() {
-        setCardId(UUID.randomUUID());
     }
 
     @Override

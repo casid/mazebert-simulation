@@ -10,6 +10,7 @@ import com.mazebert.simulation.gateways.UnitGateway;
 import com.mazebert.simulation.gateways.WaveGateway;
 import com.mazebert.simulation.maps.BloodMoor;
 import com.mazebert.simulation.plugins.random.RandomPluginTrainer;
+import com.mazebert.simulation.units.towers.TowerType;
 import com.mazebert.simulation.units.wizards.Wizard;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -86,7 +87,7 @@ class InitGameTest extends UsecaseTest<InitGameCommand> {
         whenRequestIsExecuted();
         simulationListeners.onUpdate.dispatch(1.0f);
 
-        assertThat(countDown).containsExactly((int)GAME_COUNTDOWN_SECONDS, (int)GAME_COUNTDOWN_SECONDS - 1);
+        assertThat(countDown).containsExactly((int) GAME_COUNTDOWN_SECONDS, (int) GAME_COUNTDOWN_SECONDS - 1);
     }
 
     @Test
@@ -100,7 +101,7 @@ class InitGameTest extends UsecaseTest<InitGameCommand> {
         simulationListeners.onUpdate.dispatch(0.25f);
         simulationListeners.onUpdate.dispatch(0.25f);
 
-        assertThat(countDown).containsExactly((int)GAME_COUNTDOWN_SECONDS, (int)GAME_COUNTDOWN_SECONDS - 1);
+        assertThat(countDown).containsExactly((int) GAME_COUNTDOWN_SECONDS, (int) GAME_COUNTDOWN_SECONDS - 1);
     }
 
     @Test
@@ -112,7 +113,7 @@ class InitGameTest extends UsecaseTest<InitGameCommand> {
         simulationListeners.onUpdate.dispatch(0.5f);
         simulationListeners.onUpdate.dispatch(0.5001f);
 
-        assertThat(countDown).containsExactly((int)GAME_COUNTDOWN_SECONDS, (int)GAME_COUNTDOWN_SECONDS - 1);
+        assertThat(countDown).containsExactly((int) GAME_COUNTDOWN_SECONDS, (int) GAME_COUNTDOWN_SECONDS - 1);
     }
 
     @Test
@@ -201,8 +202,9 @@ class InitGameTest extends UsecaseTest<InitGameCommand> {
 
         Wizard wizard = unitGateway.getWizard();
         assertThat(wizard).isNotNull();
-        assertThat(wizard.getHand()).hasSize(4);
-        assertThat(wizard.getHand().get(0).getCardId()).isNotNull();
+        assertThat(wizard.towerStash.size()).isEqualTo(1);
+        assertThat(wizard.towerStash.get(0).cardType).isEqualTo(TowerType.Hitman);
+        assertThat(wizard.towerStash.get(0).amount).isEqualTo(4);
     }
 
     @Test

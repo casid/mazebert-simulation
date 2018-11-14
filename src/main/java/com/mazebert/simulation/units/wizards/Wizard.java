@@ -1,42 +1,19 @@
 package com.mazebert.simulation.units.wizards;
 
-import com.mazebert.simulation.Card;
+import com.mazebert.simulation.stash.TowerStash;
 import com.mazebert.simulation.units.Unit;
-import com.mazebert.simulation.units.towers.Tower;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
+import com.mazebert.simulation.units.towers.TowerType;
 
 public strictfp class Wizard extends Unit {
-    private final List<Card> hand = new ArrayList<>();
-    private final List<Card> pile = new ArrayList<>();
+    public final TowerStash towerStash = new TowerStash();
 
-    public List<Card> getHand() {
-        return hand;
+
+    public void addTowerCard(TowerType towerType) {
+        towerStash.add(towerType);
     }
 
-    public void addCardToHand(Card card) {
-        hand.add(card);
-    }
-
-    public Card removeCardFromHand(UUID cardId) {
-        int index = getCardIndexOnHand(cardId);
-        if (index >= 0) {
-            return hand.remove(index);
-        }
-        return null;
-    }
-
-    private int getCardIndexOnHand(UUID cardId) {
-        int index = 0;
-        for (Card card : hand) {
-            if (card.getCardId().equals(cardId)) {
-                return index;
-            }
-            ++index;
-        }
-        return -1;
+    public boolean removeTowerCard(TowerType towerType) {
+        return towerStash.remove(towerType);
     }
 
     @Override

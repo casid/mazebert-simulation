@@ -10,7 +10,4 @@ public interface Card {
     Rarity getDropRarity();
     boolean isDark();
     String getSinceVersion();
-
-    UUID getCardId();
-    void setCardId(UUID id);
 }

@@ -10,9 +10,7 @@ import com.mazebert.simulation.gateways.UnitGateway;
 import com.mazebert.simulation.gateways.WaveGateway;
 import com.mazebert.simulation.maps.BloodMoor;
 import com.mazebert.simulation.plugins.random.RandomPlugin;
-import com.mazebert.simulation.units.towers.Dandelion;
-import com.mazebert.simulation.units.towers.Hitman;
-import com.mazebert.simulation.units.towers.Tower;
+import com.mazebert.simulation.units.towers.TowerType;
 import com.mazebert.simulation.units.wizards.Wizard;
 
 public strictfp class InitGame extends Usecase<InitGameCommand> {
@@ -31,15 +29,7 @@ public strictfp class InitGame extends Usecase<InitGameCommand> {
         if (unitGateway.getWizard() == null) {
             Wizard wizard = new Wizard();
             for (int i = 0; i < 4; ++i) {
-                Tower card;
-                if (i % 2 == 0) {
-                    card = new Hitman();
-                } else {
-                    card = new Dandelion();
-                }
-                card.setLevel(1);
-                card.setCardId(randomPlugin.getUuid());
-                wizard.addCardToHand(card);
+                wizard.addTowerCard(TowerType.Hitman);
             }
             unitGateway.addUnit(wizard);
         }

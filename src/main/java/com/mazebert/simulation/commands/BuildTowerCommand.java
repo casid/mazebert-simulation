@@ -1,9 +1,9 @@
 package com.mazebert.simulation.commands;
 
-import java.util.UUID;
+import com.mazebert.simulation.units.towers.TowerType;
 
 public strictfp class BuildTowerCommand extends Command {
-    public UUID cardId;
+    public TowerType towerType;
     public int x;
     public int y;
 

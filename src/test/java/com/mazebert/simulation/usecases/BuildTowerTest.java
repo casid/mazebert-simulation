@@ -5,20 +5,19 @@ import com.mazebert.simulation.commands.BuildTowerCommand;
 import com.mazebert.simulation.gateways.TurnGateway;
 import com.mazebert.simulation.gateways.UnitGateway;
 import com.mazebert.simulation.plugins.random.RandomPluginTrainer;
-import com.mazebert.simulation.units.TestTower;
+import com.mazebert.simulation.units.towers.Hitman;
 import com.mazebert.simulation.units.towers.Tower;
+import com.mazebert.simulation.units.towers.TowerType;
 import com.mazebert.simulation.units.wizards.Wizard;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
-import java.util.UUID;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 class BuildTowerTest extends UsecaseTest<BuildTowerCommand> {
     RandomPluginTrainer randomPluginTrainer = new RandomPluginTrainer();
 
-    Tower tower = new TestTower();
+    Wizard wizard;
     Tower builtTower;
     boolean onErrorCalled;
     boolean onCompleteCalled;
@@ -32,19 +31,32 @@ class BuildTowerTest extends UsecaseTest<BuildTowerCommand> {
 
     @BeforeEach
     void setUp() {
-        Wizard wizard = new Wizard();
-        wizard.addCardToHand(tower);
+        wizard = new Wizard();
+        wizard.addTowerCard(TowerType.Hitman);
         unitGateway.addUnit(wizard);
 
         usecase = new BuildTower();
 
-        request.cardId = tower.getCardId();
+        request.towerType = TowerType.Hitman;
     }
 
     @Test
     void towerIsBuilt() {
         whenRequestIsExecuted();
-        assertThat(builtTower).isEqualTo(tower);
+        assertThat(builtTower).isInstanceOf(Hitman.class);
+        assertThat(builtTower.getLevel()).isEqualTo(1);
+        assertThat(wizard.towerStash.size()).isEqualTo(0);
+    }
+
+    @Test
+    void towerIsBuilt_availableMoreThanOnce() {
+        wizard.addTowerCard(TowerType.Hitman);
+        wizard.addTowerCard(TowerType.Hitman);
+
+        whenRequestIsExecuted();
+
+        assertThat(wizard.towerStash.size()).isEqualTo(1);
+        assertThat(wizard.towerStash.get(0).amount).isEqualTo(2);
     }
 
     @Test
@@ -59,7 +71,7 @@ class BuildTowerTest extends UsecaseTest<BuildTowerCommand> {
 
     @Test
     void towerNotFound() {
-        request.cardId = UUID.randomUUID();
+        request.towerType = TowerType.Dandelion;
 
         whenRequestIsExecuted();
 
@@ -68,7 +80,7 @@ class BuildTowerTest extends UsecaseTest<BuildTowerCommand> {
 
     @Test
     void towerNotFound_localErrorHandler() {
-        request.cardId = UUID.randomUUID();
+        request.towerType = TowerType.Dandelion;
         request.onError = () -> onErrorCalled = true;
 
         whenRequestIsExecuted();

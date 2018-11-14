@@ -17,9 +17,8 @@ public strictfp class BuildTower extends Usecase<BuildTowerCommand> {
     public void execute(BuildTowerCommand command) {
         Wizard wizard = unitGateway.getWizard();
 
-        Card card = wizard.removeCardFromHand(command.cardId);
-        if (card instanceof Tower) {
-            Tower tower = (Tower) card;
+        if (wizard.removeTowerCard(command.towerType)) {
+            Tower tower = command.towerType.create();
             tower.setX(command.x);
             tower.setY(command.y);
             unitGateway.addUnit(tower);

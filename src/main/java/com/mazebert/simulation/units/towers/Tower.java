@@ -7,8 +7,6 @@ import com.mazebert.simulation.units.CooldownUnit;
 import com.mazebert.simulation.units.Gender;
 import com.mazebert.simulation.units.Unit;
 
-import java.util.UUID;
-
 public strictfp abstract class Tower extends Unit implements CooldownUnit, Card {
 
     public final OnAttack onAttack = new OnAttack();
@@ -29,12 +27,10 @@ public strictfp abstract class Tower extends Unit implements CooldownUnit, Card 
     private Element element;
     private Gender gender;
     private AttackType attackType;
-    private UUID cardId;
 
     @Override
     public void hash(Hash hash) {
         super.hash(hash);
-        hash.add(cardId);
         hash.add(level);
         hash.add(strength);
         hash.add(baseCooldown);
@@ -193,16 +189,6 @@ public strictfp abstract class Tower extends Unit implements CooldownUnit, Card 
 
     public void setElement(Element element) {
         this.element = element;
-    }
-
-    @Override
-    public UUID getCardId() {
-        return cardId;
-    }
-
-    @Override
-    public void setCardId(UUID id) {
-        cardId = id;
     }
 
     @Override
