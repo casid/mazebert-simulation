@@ -5,15 +5,22 @@ import com.mazebert.simulation.CardType;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public strictfp class Stash<T extends Card> {
-    private List<StashEntry<T>> entries = new ArrayList<>();
-    // TODO map type => entry
+    private final List<StashEntry<T>> entries = new ArrayList<>();
+    private final Map<Object, StashEntry<T>> entryByType;
+
+    public Stash(Map<Object, StashEntry<T>> entryByType) {
+        this.entryByType = entryByType;
+    }
 
     public void add(CardType<T> cardType) {
         StashEntry<T> entry = get(cardType);
         if (entry == null) {
-            entries.add(new StashEntry<>(cardType));
+            entry = new StashEntry<>(cardType);
+            entries.add(entry);
+            entryByType.put(cardType, entry);
         } else {
             ++entry.amount;
         }
@@ -25,6 +32,7 @@ public strictfp class Stash<T extends Card> {
             --entry.amount;
             if (entry.amount <= 0) {
                 entries.remove(entry);
+                entryByType.remove(cardType);
             }
             return true;
         }
@@ -32,12 +40,7 @@ public strictfp class Stash<T extends Card> {
     }
 
     private StashEntry<T> get(CardType<T> cardType) {
-        for (StashEntry<T> entry : entries) {
-            if (entry.cardType == cardType) {
-                return entry;
-            }
-        }
-        return null;
+        return entryByType.get(cardType);
     }
 
     public int size() {
