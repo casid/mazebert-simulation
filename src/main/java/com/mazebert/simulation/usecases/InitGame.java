@@ -29,7 +29,7 @@ public strictfp class InitGame extends Usecase<InitGameCommand> {
         if (unitGateway.getWizard() == null) {
             Wizard wizard = new Wizard();
             for (int i = 0; i < 4; ++i) {
-                wizard.addTowerCard(TowerType.Hitman);
+                wizard.towerStash.add(TowerType.Hitman);
             }
             unitGateway.addUnit(wizard);
         }

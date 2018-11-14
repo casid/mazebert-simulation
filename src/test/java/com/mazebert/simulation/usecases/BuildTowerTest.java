@@ -32,7 +32,7 @@ class BuildTowerTest extends UsecaseTest<BuildTowerCommand> {
     @BeforeEach
     void setUp() {
         wizard = new Wizard();
-        wizard.addTowerCard(TowerType.Hitman);
+        wizard.towerStash.add(TowerType.Hitman);
         unitGateway.addUnit(wizard);
 
         usecase = new BuildTower();
@@ -50,8 +50,8 @@ class BuildTowerTest extends UsecaseTest<BuildTowerCommand> {
 
     @Test
     void towerIsBuilt_availableMoreThanOnce() {
-        wizard.addTowerCard(TowerType.Hitman);
-        wizard.addTowerCard(TowerType.Hitman);
+        wizard.towerStash.add(TowerType.Hitman);
+        wizard.towerStash.add(TowerType.Hitman);
 
         whenRequestIsExecuted();
 
