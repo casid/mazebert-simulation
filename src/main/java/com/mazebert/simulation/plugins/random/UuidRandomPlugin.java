@@ -14,7 +14,7 @@ public strictfp class UuidRandomPlugin extends RandomPlugin {
         do {
             uuid = UUID.randomUUID();
             seeds = extractSeeds(uuid);
-        } while (validSeeds(seeds));
+        } while (!validSeeds(seeds));
 
         return uuid;
     }
