@@ -50,6 +50,12 @@ class InitGameTest extends UsecaseTest<InitGameCommand> {
     }
 
     @Test
+    void healthIsSet() {
+        whenRequestIsExecuted();
+        assertThat(gameGateway.getGame().health).isEqualTo(1.0f);
+    }
+
+    @Test
     void gameCountDownIsStarted() {
         simulationListeners.onGameStarted.add(() -> gameStarted = true);
 

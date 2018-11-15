@@ -53,6 +53,10 @@ public strictfp class WaveGateway {
         this.totalWaves = totalWaves;
     }
 
+    public int getTotalWaves() {
+        return totalWaves;
+    }
+
     public int getCurrentRound() {
         return currentRound;
     }

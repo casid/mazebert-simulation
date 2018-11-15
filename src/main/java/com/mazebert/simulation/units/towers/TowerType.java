@@ -1,6 +1,7 @@
 package com.mazebert.simulation.units.towers;
 
 import com.mazebert.simulation.CardType;
+import com.mazebert.simulation.hash.Hash;
 
 public strictfp enum TowerType implements CardType<Tower> {
     Hitman(1, Hitman.class),
@@ -41,5 +42,20 @@ public strictfp enum TowerType implements CardType<Tower> {
 
     public static TowerType forId(int id) {
         return LOOKUP[id];
+    }
+
+    public static TowerType forTower(Tower tower) {
+        Class<? extends Tower> towerClass = tower.getClass();
+        for (TowerType towerType : values()) {
+            if (towerType.towerClass == towerClass) {
+                return towerType;
+            }
+        }
+        return null;
+    }
+
+    @Override
+    public void hash(Hash hash) {
+        hash.add(id);
     }
 }

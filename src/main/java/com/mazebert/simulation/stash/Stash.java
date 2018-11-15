@@ -2,12 +2,14 @@ package com.mazebert.simulation.stash;
 
 import com.mazebert.simulation.Card;
 import com.mazebert.simulation.CardType;
+import com.mazebert.simulation.hash.Hash;
+import com.mazebert.simulation.hash.Hashable;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public strictfp class Stash<T extends Card> {
+public strictfp class Stash<T extends Card> implements Hashable {
     private final List<StashEntry<T>> entries = new ArrayList<>();
     private final Map<Object, StashEntry<T>> entryByType;
 
@@ -49,5 +51,12 @@ public strictfp class Stash<T extends Card> {
 
     public StashEntry<T> get(int index) {
         return entries.get(index);
+    }
+
+    @Override
+    public void hash(Hash hash) {
+        for (StashEntry<T> entry : entries) {
+            hash.add(entry);
+        }
     }
 }

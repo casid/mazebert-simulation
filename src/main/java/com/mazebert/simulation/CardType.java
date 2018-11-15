@@ -1,5 +1,7 @@
 package com.mazebert.simulation;
 
-public interface CardType<T> {
+import com.mazebert.simulation.hash.Hashable;
+
+public interface CardType<T> extends Hashable {
     T create();
 }

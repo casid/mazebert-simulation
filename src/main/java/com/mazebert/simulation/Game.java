@@ -9,6 +9,7 @@ import java.util.UUID;
 public strictfp class Game implements Hashable {
     public UUID id;
     public Map map;
+    public float health;
 
     @Override
     public void hash(Hash hash) {

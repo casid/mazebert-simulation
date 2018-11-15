@@ -35,6 +35,7 @@ public strictfp class InitGame extends Usecase<InitGameCommand> {
         }
 
         gameGateway.getGame().map = new BloodMoor();
+        gameGateway.getGame().health = 1.0f;
 
         if (command.rounds > 0) {
             waveGateway.setTotalWaves(command.rounds);
