@@ -3,6 +3,7 @@ package com.mazebert.simulation;
 import com.mazebert.simulation.gateways.*;
 import com.mazebert.simulation.plugins.SleepPlugin;
 import com.mazebert.simulation.plugins.random.RandomPlugin;
+import com.mazebert.simulation.plugins.random.UuidRandomPlugin;
 
 public strictfp class Context {
     // Connection to app
@@ -10,7 +11,7 @@ public strictfp class Context {
     public SimulationMonitor simulationMonitor;
 
     // Plugins
-    public RandomPlugin randomPlugin;
+    public UuidRandomPlugin randomPlugin;
     public SleepPlugin sleepPlugin;
 
     // Gateways

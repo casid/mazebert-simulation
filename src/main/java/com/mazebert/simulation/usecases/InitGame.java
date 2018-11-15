@@ -9,13 +9,13 @@ import com.mazebert.simulation.gateways.GameGateway;
 import com.mazebert.simulation.gateways.UnitGateway;
 import com.mazebert.simulation.gateways.WaveGateway;
 import com.mazebert.simulation.maps.BloodMoor;
-import com.mazebert.simulation.plugins.random.RandomPlugin;
+import com.mazebert.simulation.plugins.random.UuidRandomPlugin;
 import com.mazebert.simulation.units.towers.TowerType;
 import com.mazebert.simulation.units.wizards.Wizard;
 
 public strictfp class InitGame extends Usecase<InitGameCommand> {
 
-    private final RandomPlugin randomPlugin = Sim.context().randomPlugin;
+    private final UuidRandomPlugin randomPlugin = Sim.context().randomPlugin;
     private final WaveGateway waveGateway = Sim.context().waveGateway;
     private final GameGateway gameGateway = Sim.context().gameGateway;
     private final UnitGateway unitGateway = Sim.context().unitGateway;
@@ -23,7 +23,7 @@ public strictfp class InitGame extends Usecase<InitGameCommand> {
 
     @Override
     public void execute(InitGameCommand command) {
-        randomPlugin.setSeed(command.randomSeed);
+        randomPlugin.setSeed(command.gameId);
         gameGateway.getGame().id = command.gameId;
 
         if (unitGateway.getWizard() == null) {

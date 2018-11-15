@@ -4,9 +4,9 @@ import java.util.UUID;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class RandomPluginTrainer implements RandomPlugin {
+public class RandomPluginTrainer extends UuidRandomPlugin {
 
-    private int seed;
+    private UUID seed;
     private float[] floatAbs;
     private int nextFloatAbs;
 
@@ -19,12 +19,12 @@ public class RandomPluginTrainer implements RandomPlugin {
         nextFloatAbs = 0;
     }
 
-    public void thenSeedIsSetTo(int expected) {
+    public void thenSeedIsSetTo(UUID expected) {
         assertThat(seed).isEqualTo(expected);
     }
 
     @Override
-    public void setSeed(int seed) {
+    public void setSeed(UUID seed) {
         this.seed = seed;
     }
 

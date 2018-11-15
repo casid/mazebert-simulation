@@ -1,27 +1,20 @@
 package com.mazebert.simulation.plugins.random;
 
-import java.util.Random;
 import java.util.UUID;
 
 /**
  * Based on http://www.iquilezles.org/www/articles/sfrand/sfrand.htm
  * with some small improvements
  */
-public strictfp class FastRandomPlugin implements RandomPlugin {
+public strictfp class FastRandomPlugin extends RandomPlugin {
     private int seed;
 
-    public static int createSeed() {
-        Random random = new Random();
-        int seed = 0;
-        while (seed == 0) {
-            seed = random.nextInt();
-        }
-        return seed;
-    }
-
-    @Override
     public void setSeed(int seed) {
         this.seed = seed;
+    }
+
+    public int getSeed() {
+        return seed;
     }
 
     @Override
@@ -44,6 +37,6 @@ public strictfp class FastRandomPlugin implements RandomPlugin {
     private long getLongBits() {
         int a = seed *= 16807;
         int b = seed *= 16807;
-        return (((long)a) << 32) | (b & 0xffffffffL);
+        return (((long) a) << 32) | (b & 0xffffffffL);
     }
 }
