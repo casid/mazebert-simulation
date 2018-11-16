@@ -24,9 +24,13 @@ public class WaveSpawnerTest extends SimTest {
 
     WaveSpawner waveSpawner;
 
+    boolean waveFinished;
+
     @BeforeEach
     void setUp() {
         simulationListeners = new SimulationListeners();
+        simulationListeners.onWaveFinished.add(() -> waveFinished = true);
+
         unitGateway = new UnitGateway();
         waveGateway = new WaveGateway();
         randomPlugin = randomPluginTrainer;
@@ -190,6 +194,7 @@ public class WaveSpawnerTest extends SimTest {
         whenGameIsUpdated(Balancing.WAVE_COUNTDOWN_SECONDS);
         whenGameIsUpdated();
 
+        assertThat(waveFinished).isTrue();
         assertThat(unitGateway.getUnits()).isNotEmpty();
     }
 

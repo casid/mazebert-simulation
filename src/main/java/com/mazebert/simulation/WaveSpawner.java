@@ -108,6 +108,7 @@ public strictfp class WaveSpawner implements OnGameStartedListener, OnWaveStarte
         if (unit instanceof Creep) {
             Creep creep = (Creep) unit;
             if (--creep.getWave().creepCount <= 0 && !unitGateway.hasUnits(Creep.class)) {
+                simulationListeners.onWaveFinished.dispatch();
                 new WaveCountDown().start();
             }
         }

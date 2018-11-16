@@ -9,6 +9,7 @@ public class SimulationListeners {
 
     public final OnWaveCountDown onWaveCountDown = new OnWaveCountDown();
     public final OnWaveStarted onWaveStarted = new OnWaveStarted();
+    public final OnWaveFinished onWaveFinished = new OnWaveFinished();
 
     public final OnUpdate onUpdate = new OnUpdate();
 
