@@ -2,11 +2,13 @@ package com.mazebert.simulation.units.abilities;
 
 import com.mazebert.simulation.Sim;
 import com.mazebert.simulation.gateways.UnitGateway;
+import com.mazebert.simulation.plugins.FormatPlugin;
 import com.mazebert.simulation.units.creeps.Creep;
 
 public strictfp class SplashDamageAbility extends DamageAbility {
 
-    private UnitGateway unitGateway = Sim.context().unitGateway;
+    private final UnitGateway unitGateway = Sim.context().unitGateway;
+    private final FormatPlugin formatPlugin = Sim.context().formatPlugin;
 
     private int range;
     private float damageFactor;
@@ -37,5 +39,21 @@ public strictfp class SplashDamageAbility extends DamageAbility {
                 creep.receiveDamage(splashDamage);
             }
         });
+    }
+
+    public boolean isVisibleToUser() {
+        return true;
+    }
+
+    public String getTitle() {
+        return "Splash";
+    }
+
+    public String getDescription() {
+        return "Creeps in " + range + " range around the target receive " + formatPlugin.percent(damageFactor) + "% damage.";
+    }
+
+    public String getIconFile() {
+        return "0036_magicgizmo_512";
     }
 }

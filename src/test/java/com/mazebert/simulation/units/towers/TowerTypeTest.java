@@ -25,7 +25,10 @@ public class TowerTypeTest {
     void allRequiredInfosAreSet() {
         for (TowerType type : TowerType.values()) {
             Tower tower = type.create();
+
             assertThat(tower.getElement()).describedAs("Tower " + type + " has no element").isNotNull();
+            assertThat(tower.getGender()).describedAs("Tower " + type + " has no gender").isNotNull();
+            assertThat(tower.getAttackType()).describedAs("Tower " + type + " has no attack type").isNotNull();
         }
     }
 }

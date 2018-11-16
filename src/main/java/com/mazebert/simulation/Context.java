@@ -1,6 +1,7 @@
 package com.mazebert.simulation;
 
 import com.mazebert.simulation.gateways.*;
+import com.mazebert.simulation.plugins.FormatPlugin;
 import com.mazebert.simulation.plugins.SleepPlugin;
 import com.mazebert.simulation.plugins.random.RandomPlugin;
 import com.mazebert.simulation.plugins.random.UuidRandomPlugin;
@@ -14,6 +15,7 @@ public strictfp class Context {
     // Plugins
     public UuidRandomPlugin randomPlugin;
     public SleepPlugin sleepPlugin;
+    public FormatPlugin formatPlugin;
 
     // Gateways
     public GameGateway gameGateway;
