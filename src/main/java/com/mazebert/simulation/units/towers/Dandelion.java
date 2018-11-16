@@ -1,6 +1,7 @@
 package com.mazebert.simulation.units.towers;
 
 import com.mazebert.simulation.AttackType;
+import com.mazebert.simulation.Element;
 import com.mazebert.simulation.Rarity;
 import com.mazebert.simulation.units.Gender;
 import com.mazebert.simulation.units.abilities.AttackAbility;
@@ -14,6 +15,7 @@ public strictfp class Dandelion extends Tower {
         setStrength(0.75f);
         setDamageSpread(0.21f);
         setGender(Gender.Unknown);
+        setElement(Element.Nature);
 
         addAbility(new AttackAbility());
         addAbility(new DandelionSplashAbility());
