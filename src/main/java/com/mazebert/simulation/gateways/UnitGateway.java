@@ -76,4 +76,13 @@ public strictfp class UnitGateway {
     public Wizard getWizard() {
         return findUnit(Wizard.class);
     }
+
+    public boolean hasUnits(Class<? extends Unit> unitClass) {
+        for (Unit unit : units) {
+            if (unitClass.isAssignableFrom(unit.getClass())) {
+                return true;
+            }
+        }
+        return false;
+    }
 }

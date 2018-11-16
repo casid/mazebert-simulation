@@ -234,6 +234,27 @@ public class WaveSpawnerTest extends SimTest {
     }
 
     @Test
+    void nextWaveCalled_firstWaveCleared() {
+        givenBossWave();
+        givenBossWave();
+        givenBossWave();
+
+        whenGameIsStarted();
+        whenNextWaveIsCalled();
+
+        whenGameIsUpdated(0.1f);
+        whenCreepIsKilled(getCreep(0));
+        whenGameIsUpdated(Balancing.WAVE_COUNTDOWN_SECONDS);
+
+        assertThat(waveGateway.getCurrentRound()).isEqualTo(2); // must not advance to next round yet
+
+        whenCreepIsKilled(getCreep(0));
+        whenGameIsUpdated(Balancing.WAVE_COUNTDOWN_SECONDS);
+
+        assertThat(waveGateway.getCurrentRound()).isEqualTo(3); // all dead, now we can advance
+    }
+
+    @Test
     void armor_round1() {
         givenBossWave();
 
@@ -354,6 +375,10 @@ public class WaveSpawnerTest extends SimTest {
     private void whenGameIsStarted() {
         simulationListeners.onGameStarted.dispatch();
         simulationListeners.onUpdate.dispatch(0.0f);
+    }
+
+    private void whenNextWaveIsCalled() {
+        simulationListeners.onWaveStarted.dispatch();
     }
 
     private void whenAllCreepsAreSpawned() {
