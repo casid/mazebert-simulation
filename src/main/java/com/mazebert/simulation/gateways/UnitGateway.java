@@ -79,7 +79,7 @@ public strictfp class UnitGateway {
 
     public boolean hasUnits(Class<? extends Unit> unitClass) {
         for (Unit unit : units) {
-            if (unitClass.isAssignableFrom(unit.getClass())) {
+            if (unitClass.isAssignableFrom(unit.getClass()) && !unitsToRemove.contains(unit)) {
                 return true;
             }
         }
