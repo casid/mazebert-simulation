@@ -4,8 +4,15 @@ import com.mazebert.simulation.CardType;
 import com.mazebert.simulation.hash.Hash;
 
 public strictfp enum TowerType implements CardType<Tower> {
-    Hitman(1, Hitman.class),
+
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////
+    // THESE IDS ARE USED TO PERSIST CARDS FROM THIS STASH.
+    // THEY MUST BE UNIQUE BOTH FOR SAVEGAMES AND FOR EXCHANGE WITH THE WEB.
+    // 1) DO NOT ALTER EXISTING IDS!
+    // 2) DO NOT REUSE DELETED IDS!
+    // 3) ADD NEW IDS TO THE BOTTOM!
     Dandelion(2, Dandelion.class),
+    Hitman(13, Hitman.class),
     ;
 
     public final int id;
