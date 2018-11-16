@@ -7,6 +7,7 @@ import com.mazebert.simulation.hash.Hash;
 import com.mazebert.simulation.messages.Turn;
 import com.mazebert.simulation.plugins.SleepPlugin;
 import com.mazebert.simulation.plugins.random.UuidRandomPlugin;
+import com.mazebert.simulation.projectiles.ProjectileGateway;
 import com.mazebert.simulation.replay.data.ReplayHeader;
 import com.mazebert.simulation.units.Unit;
 
@@ -24,6 +25,7 @@ public strictfp class Simulation {
     private final MessageGateway messageGateway = Sim.context().messageGateway;
     private final PlayerGateway playerGateway = Sim.context().playerGateway;
     private final UnitGateway unitGateway = Sim.context().unitGateway;
+    private final ProjectileGateway projectileGateway = Sim.context().projectileGateway;
     private final ReplayWriterGateway replayWriterGateway = Sim.context().replayWriterGateway;
     private final SimulationListeners simulationListeners = Sim.context().simulationListeners;
     private final GameGateway gameGateway = Sim.context().gameGateway;
@@ -111,6 +113,7 @@ public strictfp class Simulation {
     private void simulateTurn(List<Turn> playerTurns) {
         simulatePlayerTurns(playerTurns);
         simulateUnits();
+        simulateProjectiles();
         hashGameState();
     }
 
@@ -122,6 +125,10 @@ public strictfp class Simulation {
         unitGateway.endIteration();
 
         simulationListeners.onUpdate.dispatch(turnTimeInSeconds);
+    }
+
+    private void simulateProjectiles() {
+        projectileGateway.update(turnTimeInSeconds);
     }
 
     private void hashGameState() {

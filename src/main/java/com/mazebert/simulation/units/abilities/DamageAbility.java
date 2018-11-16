@@ -23,6 +23,14 @@ public strictfp class DamageAbility extends Ability<Tower> implements OnAttackLi
 
     @Override
     public void onAttack(Creep target) {
+        dealDamage(target);
+    }
+
+    protected void dealDamage(Creep target) {
+        if (target.isDead()) {
+            return;
+        }
+
         Tower tower = getUnit();
         double baseDamage = randomPlugin.getDouble(tower.getMinBaseDamage(), tower.getMaxBaseDamage());
         baseDamage += tower.getAddedAbsoluteBaseDamage();

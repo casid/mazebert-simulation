@@ -4,6 +4,7 @@ import com.mazebert.simulation.gateways.*;
 import com.mazebert.simulation.plugins.SleepPlugin;
 import com.mazebert.simulation.plugins.random.RandomPlugin;
 import com.mazebert.simulation.plugins.random.UuidRandomPlugin;
+import com.mazebert.simulation.projectiles.ProjectileGateway;
 
 public strictfp class Context {
     // Connection to app
@@ -24,6 +25,7 @@ public strictfp class Context {
     public ReplayWriterGateway replayWriterGateway;
     public LocalCommandGateway localCommandGateway;
     public TurnGateway turnGateway;
+    public ProjectileGateway projectileGateway;
 
     // Logic
     public CommandExecutor commandExecutor;

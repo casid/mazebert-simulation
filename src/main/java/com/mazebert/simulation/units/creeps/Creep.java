@@ -138,13 +138,15 @@ public strictfp class Creep extends Unit {
     }
 
     public void setHealth(double health) {
-        if (health <= 0.0 && this.health > 0.0) {
-            this.health = 0.0;
-            deathTime = 0.0f;
-            setState(CreepState.Death);
-            onDeath.dispatch(this);
-        } else {
-            this.health = health;
+        if (this.health > 0.0) {
+            if (health <= 0.0) {
+                this.health = 0.0;
+                deathTime = 0.0f;
+                setState(CreepState.Death);
+                onDeath.dispatch(this);
+            } else {
+                this.health = health;
+            }
         }
     }
 
