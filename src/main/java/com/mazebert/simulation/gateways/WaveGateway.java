@@ -8,7 +8,7 @@ import java.util.ArrayDeque;
 import java.util.Collection;
 import java.util.Queue;
 
-public strictfp class WaveGateway {
+public strictfp class WaveGateway implements ReadonlyWaveGateway {
     public static final int WAVES_IN_ADVANCE = 3;
     private static final WaveType[] RANDOM_WAVE_TYPES = {WaveType.Normal, WaveType.Mass, WaveType.Boss, WaveType.Air};
 
@@ -31,6 +31,7 @@ public strictfp class WaveGateway {
         return wave;
     }
 
+    @Override
     public Collection<Wave> getWaves() {
         return waves;
     }
@@ -53,10 +54,12 @@ public strictfp class WaveGateway {
         this.totalWaves = totalWaves;
     }
 
+    @Override
     public int getTotalWaves() {
         return totalWaves;
     }
 
+    @Override
     public int getCurrentRound() {
         return currentRound;
     }
@@ -65,6 +68,7 @@ public strictfp class WaveGateway {
         this.currentRound = currentRound;
     }
 
+    @Override
     public Wave getCurrentWave() {
         return currentWave;
     }
