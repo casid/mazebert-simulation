@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public strictfp class Stash<T extends Card> implements Hashable {
+public strictfp class Stash<T extends Card> implements ReadonlyStash<T>, Hashable {
     private final List<StashEntry<T>> entries = new ArrayList<>();
     private final Map<Object, StashEntry<T>> entryByType;
 
@@ -41,14 +41,12 @@ public strictfp class Stash<T extends Card> implements Hashable {
         return false;
     }
 
-    private StashEntry<T> get(CardType<T> cardType) {
-        return entryByType.get(cardType);
-    }
-
+    @Override
     public int size() {
         return entries.size();
     }
 
+    @Override
     public StashEntry<T> get(int index) {
         return entries.get(index);
     }
@@ -58,5 +56,9 @@ public strictfp class Stash<T extends Card> implements Hashable {
         for (StashEntry<T> entry : entries) {
             hash.add(entry);
         }
+    }
+
+    private StashEntry<T> get(CardType<T> cardType) {
+        return entryByType.get(cardType);
     }
 }

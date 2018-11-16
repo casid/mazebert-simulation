@@ -5,7 +5,7 @@ import com.mazebert.simulation.CardType;
 import com.mazebert.simulation.hash.Hash;
 import com.mazebert.simulation.hash.Hashable;
 
-public strictfp class StashEntry<T extends Card> implements Hashable {
+public strictfp class StashEntry<T extends Card> implements ReadonlyStashEntry<T>, Hashable {
     public final CardType<T> cardType;
     public final T card;
     public int amount;
@@ -20,5 +20,20 @@ public strictfp class StashEntry<T extends Card> implements Hashable {
     public void hash(Hash hash) {
         hash.add(cardType);
         hash.add(amount);
+    }
+
+    @Override
+    public CardType<T> getCardType() {
+        return cardType;
+    }
+
+    @Override
+    public T getCard() {
+        return card;
+    }
+
+    @Override
+    public int getAmount() {
+        return amount;
     }
 }

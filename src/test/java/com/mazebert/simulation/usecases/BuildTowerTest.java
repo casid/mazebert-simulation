@@ -56,7 +56,7 @@ class BuildTowerTest extends UsecaseTest<BuildTowerCommand> {
         whenRequestIsExecuted();
 
         assertThat(wizard.towerStash.size()).isEqualTo(1);
-        assertThat(wizard.towerStash.get(0).amount).isEqualTo(2);
+        assertThat(wizard.towerStash.get(0).getAmount()).isEqualTo(2);
     }
 
     @Test
