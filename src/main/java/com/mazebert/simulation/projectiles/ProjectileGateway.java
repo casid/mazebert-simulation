@@ -31,6 +31,7 @@ public strictfp class ProjectileGateway {
             if (!projectiles[i].update(dt)) {
                 projectiles[i].clearReferences();
                 pool.recycle(projectiles[i]);
+                --i;
                 --size;
             }
         }
