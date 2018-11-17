@@ -38,4 +38,17 @@ class FormatPluginTest {
     void money() {
         assertThat(format.money(Long.MAX_VALUE)).isEqualTo("9,223,372T");
     }
+
+    @Test
+    void percent() {
+        assertThat(format.percent(0.0f)).isEqualTo("0");
+        assertThat(format.percent(1.0f)).isEqualTo("100");
+        assertThat(format.percent(1.001f)).isEqualTo("100");
+        assertThat(format.percent(0.001f)).isEqualTo("0.1");
+        assertThat(format.percent(0.0001f)).isEqualTo("0.01");
+        assertThat(format.percent(0.00001f)).isEqualTo("0.001");
+        assertThat(format.percent(0.000001f)).isEqualTo("0.0001");
+        assertThat(format.percent(0.0000001f)).isEqualTo("0.00001");
+        assertThat(format.percent(0.00000001f)).isEqualTo("0");
+    }
 }

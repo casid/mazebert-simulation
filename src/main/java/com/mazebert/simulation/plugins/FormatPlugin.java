@@ -8,6 +8,7 @@ import java.util.Locale;
 public class FormatPlugin {
     private final NumberFormat noFractionFormat;
     private final NumberFormat oneFractionFormat;
+    private final NumberFormat percentFormat;
 
     public FormatPlugin() {
         noFractionFormat = DecimalFormat.getInstance(Locale.US);
@@ -19,6 +20,11 @@ public class FormatPlugin {
         oneFractionFormat.setRoundingMode(RoundingMode.HALF_UP);
         oneFractionFormat.setMinimumFractionDigits(0);
         oneFractionFormat.setMaximumFractionDigits(1);
+
+        percentFormat = DecimalFormat.getInstance(Locale.US);
+        percentFormat.setRoundingMode(RoundingMode.HALF_UP);
+        percentFormat.setMinimumFractionDigits(0);
+        percentFormat.setMaximumFractionDigits(4);
     }
 
     public String cooldown(float cooldown) {
@@ -50,28 +56,22 @@ public class FormatPlugin {
     }
 
     public String percent(float value) {
-        return "" + value;
+        return percent(value, calculateRequiredDigits(value, 5));
+    }
 
-        /* TODO test!
-         * public static function formatPercentNumber(value:Number, digits:int = int.MIN_VALUE):String
-         *                {
-         * 			if (value == 0)
-         *            {
-         * 				return "0";
-         *            }
-         *
-         * 			if (digits == int.MIN_VALUE)
-         *            {
-         * 				if (int(value * 100) != 0) digits = 0;
-         * 				else if (int(value * 1000) != 0) digits = 1;
-         * 				else if (int(value * 10000) != 0) digits = 2;
-         * 				else if (int(value * 100000) != 0) digits = 3;
-         * 				else if (int(value * 1000000) != 0) digits = 4;
-         * 				else digits = 5;
-         *            }
-         *
-         * 			return (value *= 100).toFixed(digits);
-         *        }
-         */
+    public String percent(float value, int digits) {
+        percentFormat.setMaximumFractionDigits(digits);
+        return percentFormat.format(value * 100.0f);
+    }
+
+    private int calculateRequiredDigits(float value, @SuppressWarnings("SameParameterValue") int max) {
+        int d;
+        int f;
+        for (d = 0, f = 100; d < max; ++d, f *= 10) {
+            if (((int)value * f) != 0) {
+                break;
+            }
+        }
+        return d;
     }
 }
