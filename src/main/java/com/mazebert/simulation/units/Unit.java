@@ -12,6 +12,9 @@ public abstract strictfp class Unit implements Hashable {
 
     public final OnUpdate onUpdate = new OnUpdate();
 
+    // For game display usage
+    public transient UnitView view;
+
     private float x;
     private float y;
 

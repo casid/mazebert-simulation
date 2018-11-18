@@ -11,12 +11,15 @@ public strictfp class ProjectileGateway {
         return pool.getActiveSize();
     }
 
-    public void shoot(Unit src, Creep target, float speed, OnProjectileImpact onImpact) {
+    public void shoot(Unit source, Creep target, float speed, OnProjectileImpact onImpact) {
         Projectile projectile = pool.add();
-        projectile.x = src.getX();
-        projectile.y = src.getY();
+        projectile.x = projectile.srcX = source.getX();
+        projectile.y = projectile.srcY = source.getY();
         projectile.speed = speed;
+        projectile.source = source;
         projectile.target = target;
+        projectile.added = true;
+        projectile.freshCoordinates = true;
         projectile.onImpact = onImpact;
     }
 
@@ -35,5 +38,19 @@ public strictfp class ProjectileGateway {
                 --size;
             }
         }
+    }
+
+    public void initNewProjectiles(ProjectileInitializer initializer) {
+        Projectile[] projectiles = pool.getActive();
+        int size = pool.getActiveSize();
+        for (int i = 0; i < size; ++i) {
+            if (projectiles[i].view == null) {
+                projectiles[i].view = initializer.initializeProjectile(projectiles[i]);
+            }
+        }
+    }
+
+    public interface ProjectileInitializer {
+        ProjectileView initializeProjectile(Projectile projectile);
     }
 }

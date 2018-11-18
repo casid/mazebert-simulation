@@ -10,7 +10,6 @@ import com.mazebert.simulation.units.creeps.Creep;
 import com.mazebert.simulation.units.towers.Tower;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import sun.security.krb5.internal.crypto.crc32;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -122,7 +121,6 @@ public strictfp class ProjectileDamageAbilityTest extends SimTest {
     void manyProjectiles() {
         for (int i = 0; i < 100; ++i) {
             whenTowerAttacks();
-            projectileGateway.update(0.05f);
         }
 
         assertThat(creep.isDead()).isTrue();
@@ -131,6 +129,7 @@ public strictfp class ProjectileDamageAbilityTest extends SimTest {
 
     private void whenTowerAttacks() {
         tower.simulate(1.0f);
+        projectileGateway.update(0.1f);
     }
 
     private void thenProjectileAmountIs(int expected) {
