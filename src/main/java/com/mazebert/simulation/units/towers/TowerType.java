@@ -11,6 +11,7 @@ public strictfp enum TowerType implements CardType<Tower> {
     // 1) DO NOT ALTER EXISTING IDS!
     // 2) DO NOT REUSE DELETED IDS!
     // 3) ADD NEW IDS TO THE BOTTOM!
+    Beaver(1, Beaver.class),
     Dandelion(2, Dandelion.class),
     Hitman(13, Hitman.class),
     ;

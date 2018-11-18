@@ -34,4 +34,9 @@ public class TestTower extends Tower {
     public String getModelId() {
         return null;
     }
+
+    @Override
+    protected float getGoldCostFactor() {
+        return 1;
+    }
 }

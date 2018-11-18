@@ -26,6 +26,7 @@ public strictfp abstract class Tower extends Unit implements CooldownUnit, Card 
     private float critChance = 0.05f;
     private float critDamage = 0.25f;
     private int multicrit = 1;
+    private float luck = 1.0f; // factor 1 is regular luck of every tower
     private Element element;
     private Gender gender;
     private AttackType attackType;
@@ -46,6 +47,7 @@ public strictfp abstract class Tower extends Unit implements CooldownUnit, Card 
         hash.add(critChance);
         hash.add(critDamage);
         hash.add(multicrit);
+        hash.add(luck);
         hash.add(element);
         hash.add(gender);
         hash.add(attackType);
@@ -240,9 +242,15 @@ public strictfp abstract class Tower extends Unit implements CooldownUnit, Card 
         return 1;
     }
 
-    protected float getGoldCostFactor() {
-        return 1.0f;
+    public float getLuck() {
+        return luck;
     }
+
+    public void setLuck(float luck) {
+        this.luck = luck;
+    }
+
+    protected abstract float getGoldCostFactor();
 
     public void addCritChance(float critChance) {
         this.critChance += critDamage;
@@ -250,5 +258,13 @@ public strictfp abstract class Tower extends Unit implements CooldownUnit, Card 
 
     public void addCritDamage(float critDamage) {
         this.critDamage += critDamage;
+    }
+
+    public boolean isAbilityTriggered(float chance) {
+        chance *= luck;
+        if (chance > Balancing.MAX_TRIGGER_CHANCE) {
+            chance = Balancing.MAX_TRIGGER_CHANCE;
+        }
+        return Sim.context().randomPlugin.getFloatAbs() <= chance;
     }
 }

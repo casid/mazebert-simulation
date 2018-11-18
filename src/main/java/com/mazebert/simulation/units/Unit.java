@@ -4,6 +4,9 @@ import com.mazebert.simulation.hash.Hash;
 import com.mazebert.simulation.hash.Hashable;
 import com.mazebert.simulation.units.abilities.Ability;
 import com.mazebert.simulation.listeners.OnUpdate;
+import com.mazebert.simulation.units.abilities.StackableAbility;
+import com.mazebert.simulation.units.creeps.Creep;
+import com.mazebert.simulation.units.creeps.effects.StunEffect;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -50,6 +53,27 @@ public abstract strictfp class Unit implements Hashable {
     public void addAbility(Ability ability) {
         abilities.add(ability);
         ability.init(this);
+    }
+
+    @SuppressWarnings("unchecked")
+    public <T extends StackableAbility> T addAbilityStack(Class<T> abilityClass) {
+        for (Ability ability : abilities) {
+            if (ability.getClass() == abilityClass) {
+                return (T)ability;
+            }
+        }
+        try {
+            T ability = abilityClass.newInstance();
+            addAbility(ability);
+            return ability;
+        } catch (Throwable e) {
+            throw new RuntimeException("Failed to initialize", e);
+        }
+    }
+
+    public void removeAbility(Ability ability) {
+        ability.dispose();
+        abilities.remove(ability);
     }
 
     public List<Ability> getAbilities() {

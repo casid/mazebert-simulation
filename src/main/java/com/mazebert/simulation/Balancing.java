@@ -8,6 +8,7 @@ public strictfp class Balancing {
     public static final float DAMAGE_BALANCING_FACTOR = 12.0f;
     public static final float MAX_COOLDOWN = 60.0f;
     public static final float MIN_COOLDOWN = 0.01f;
+    public static final float MAX_TRIGGER_CHANCE = 0.8f;
 
     public static float getBaseDamage(Tower tower) {
         return StrictMath.round(1.0f + tower.getStrength() * getDamageFactorForRange(tower.getBaseRange()) * (getLinearCreepHitpoints(tower.getLevel()) * tower.getBaseCooldown()) / DAMAGE_BALANCING_FACTOR);
