@@ -3,7 +3,7 @@ package com.mazebert.simulation.util;
 import java.lang.reflect.Array;
 import java.util.Arrays;
 
-public final strictfp class ObjectPool<T> {
+public strictfp class ObjectPool<T> {
     private static final int LOAD_FACTOR = 2;
 
     private final ObjectPoolFactory<T> factory;
