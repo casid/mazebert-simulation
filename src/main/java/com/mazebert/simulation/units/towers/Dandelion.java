@@ -19,7 +19,7 @@ public strictfp class Dandelion extends Tower {
 
         addAbility(new AttackAbility());
         addAbility(new DandelionSplashAbility());
-        addAbility(new ProjectileDamageAbility(1.8f));
+        addAbility(new ProjectileDamageAbility(6.0f));
     }
 
     @Override

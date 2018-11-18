@@ -44,11 +44,16 @@ public strictfp class SplashAbility extends Ability<Tower> implements OnDamageLi
     }
 
     @Override
-    public void onDamage(Creep target, double damage) {
+    public void onDamage(Object origin, Creep target, double damage) {
+        if (origin == this) {
+            return;
+        }
+
         double splashDamage = StrictMath.max(1.0, getDamageFactor() * damage);
         unitGateway.forEachInRange(target.getX(), target.getY(), getRange(), Creep.class, creep -> {
             if (creep != target) {
                 creep.receiveDamage(splashDamage);
+                getUnit().onDamage.dispatch(this, target, damage);
             }
         });
     }
