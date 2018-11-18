@@ -2,16 +2,30 @@ package com.mazebert.simulation.units.abilities;
 
 import com.mazebert.simulation.Sim;
 import com.mazebert.simulation.gateways.UnitGateway;
+import com.mazebert.simulation.listeners.OnDamageListener;
 import com.mazebert.simulation.plugins.FormatPlugin;
 import com.mazebert.simulation.units.creeps.Creep;
+import com.mazebert.simulation.units.towers.Tower;
 
-public strictfp class SplashDamageAbility extends DamageAbility {
+public strictfp class SplashAbility extends Ability<Tower> implements OnDamageListener {
 
     private final UnitGateway unitGateway = Sim.context().unitGateway;
     private final FormatPlugin formatPlugin = Sim.context().formatPlugin;
 
     private int range;
     private float damageFactor;
+
+    @Override
+    protected void initialize(Tower unit) {
+        super.initialize(unit);
+        unit.onDamage.add(this);
+    }
+
+    @Override
+    protected void dispose(Tower unit) {
+        unit.onDamage.remove(this);
+        super.dispose(unit);
+    }
 
     public int getRange() {
         return range;
@@ -30,9 +44,7 @@ public strictfp class SplashDamageAbility extends DamageAbility {
     }
 
     @Override
-    protected void onDamage(Creep target, double damage) {
-        super.onDamage(target, damage);
-
+    public void onDamage(Creep target, double damage) {
         double splashDamage = StrictMath.max(1.0, getDamageFactor() * damage);
         unitGateway.forEachInRange(target.getX(), target.getY(), getRange(), Creep.class, creep -> {
             if (creep != target) {

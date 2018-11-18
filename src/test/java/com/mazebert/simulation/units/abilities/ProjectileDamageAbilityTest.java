@@ -110,11 +110,23 @@ public strictfp class ProjectileDamageAbilityTest extends SimTest {
 
         projectileGateway.update(0.5f); // tick
         thenProjectileAmountIs(1);
+        assertThat(creep.getHealth()).isEqualTo(100);
 
         projectileGateway.update(0.5f); // tack
         thenProjectileAmountIs(0);
-
         assertThat(creep.getHealth()).isEqualTo(90);
+    }
+
+    @Test
+    void projectileIsUpdated_targetIsHit_splash() {
+        tower.addAbility(new SplashAbility());
+        projectileDamageAbility.setSpeed(1);
+
+        whenTowerAttacks();
+
+        projectileGateway.update(0.5f); // tick
+        thenProjectileAmountIs(1);
+        assertThat(creep.getHealth()).isEqualTo(100);
     }
 
     @Test

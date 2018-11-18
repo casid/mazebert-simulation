@@ -3,6 +3,7 @@ package com.mazebert.simulation.units.towers;
 import com.mazebert.simulation.*;
 import com.mazebert.simulation.hash.Hash;
 import com.mazebert.simulation.listeners.OnAttack;
+import com.mazebert.simulation.listeners.OnDamage;
 import com.mazebert.simulation.units.CooldownUnit;
 import com.mazebert.simulation.units.Gender;
 import com.mazebert.simulation.units.Unit;
@@ -10,6 +11,7 @@ import com.mazebert.simulation.units.Unit;
 public strictfp abstract class Tower extends Unit implements CooldownUnit, Card {
 
     public final OnAttack onAttack = new OnAttack();
+    public final OnDamage onDamage = new OnDamage();
 
     private int level;
     private float strength = 1.0f;

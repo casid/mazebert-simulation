@@ -1,8 +1,8 @@
 package com.mazebert.simulation.units.towers;
 
-import com.mazebert.simulation.units.abilities.SplashDamageAbility;
+import com.mazebert.simulation.units.abilities.SplashAbility;
 
-public class DandelionSplashAbility extends SplashDamageAbility {
+public class DandelionSplashAbility extends SplashAbility {
     public DandelionSplashAbility() {
         setRange(1);
         setDamageFactor(0.33f);

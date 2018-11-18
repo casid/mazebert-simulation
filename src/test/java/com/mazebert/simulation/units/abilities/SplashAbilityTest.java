@@ -11,7 +11,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class SplashDamageAbilityTest extends SimTest {
+public class SplashAbilityTest extends SimTest {
     RandomPluginTrainer randomPluginTrainer = new RandomPluginTrainer();
 
     Tower tower;
@@ -19,7 +19,7 @@ public class SplashDamageAbilityTest extends SimTest {
     Creep creep2;
     Creep creep3;
 
-    SplashDamageAbility splashDamageAbility;
+    SplashAbility splashAbility;
 
     @BeforeEach
     void setUp() {
@@ -30,10 +30,11 @@ public class SplashDamageAbilityTest extends SimTest {
         tower.setBaseCooldown(1.0f);
         tower.setBaseRange(5.0f);
         tower.addAbility(new AttackAbility());
-        splashDamageAbility = new SplashDamageAbility();
-        splashDamageAbility.setRange(1);
-        splashDamageAbility.setDamageFactor(0.4f);
-        tower.addAbility(splashDamageAbility);
+        tower.addAbility(new DamageAbility());
+        splashAbility = new SplashAbility();
+        splashAbility.setRange(1);
+        splashAbility.setDamageFactor(0.4f);
+        tower.addAbility(splashAbility);
         tower.setCritChance(0.0f);
         tower.setBaseDamage(10.0f);
 
@@ -64,7 +65,7 @@ public class SplashDamageAbilityTest extends SimTest {
 
     @Test
     void bigSplash() {
-        splashDamageAbility.setRange(20);
+        splashAbility.setRange(20);
 
         whenTowerAttacks();
 
@@ -75,7 +76,7 @@ public class SplashDamageAbilityTest extends SimTest {
 
     @Test
     void atLeastOneDamage() {
-        splashDamageAbility.setDamageFactor(0);
+        splashAbility.setDamageFactor(0);
 
         whenTowerAttacks();
 
