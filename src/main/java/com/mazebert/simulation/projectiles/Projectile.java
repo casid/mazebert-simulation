@@ -15,6 +15,7 @@ public strictfp class Projectile {
     public OnProjectileImpact onImpact;
 
     // For game display usage
+    public ProjectileViewType viewType;
     public transient ProjectileView view;
 
     public boolean update(float dt) {

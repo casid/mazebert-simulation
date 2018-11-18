@@ -3,6 +3,7 @@ package com.mazebert.simulation.units.towers;
 import com.mazebert.simulation.AttackType;
 import com.mazebert.simulation.Element;
 import com.mazebert.simulation.Rarity;
+import com.mazebert.simulation.projectiles.ProjectileViewType;
 import com.mazebert.simulation.units.Gender;
 import com.mazebert.simulation.units.abilities.AttackAbility;
 import com.mazebert.simulation.units.abilities.ProjectileDamageAbility;
@@ -20,7 +21,7 @@ public strictfp class Beaver extends Tower {
 
         addAbility(new AttackAbility());
         addAbility(new BeaverStunAbility());
-        addAbility(new ProjectileDamageAbility(14));
+        addAbility(new ProjectileDamageAbility(ProjectileViewType.Wood, 14));
     }
 
     @Override

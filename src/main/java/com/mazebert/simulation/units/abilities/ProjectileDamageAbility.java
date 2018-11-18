@@ -4,23 +4,27 @@ import com.mazebert.simulation.Sim;
 import com.mazebert.simulation.projectiles.OnProjectileImpact;
 import com.mazebert.simulation.projectiles.Projectile;
 import com.mazebert.simulation.projectiles.ProjectileGateway;
+import com.mazebert.simulation.projectiles.ProjectileViewType;
 import com.mazebert.simulation.units.creeps.Creep;
 
 public strictfp class ProjectileDamageAbility extends DamageAbility implements OnProjectileImpact {
     private final ProjectileGateway projectileGateway = Sim.context().projectileGateway;
+    private final ProjectileViewType viewType;
     private float speed;
 
+
     public ProjectileDamageAbility() {
-        this(1.0f);
+        this(null, 1.0f);
     }
 
-    public ProjectileDamageAbility(float speed) {
+    public ProjectileDamageAbility(ProjectileViewType viewType, float speed) {
+        this.viewType = viewType;
         this.speed = speed;
     }
 
     @Override
     public void onAttack(Creep target) {
-        projectileGateway.shoot(getUnit(), target, speed, this);
+        projectileGateway.shoot(viewType, getUnit(), target, speed, this);
     }
 
     public void setSpeed(float speed) {
