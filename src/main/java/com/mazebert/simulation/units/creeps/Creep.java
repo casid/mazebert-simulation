@@ -27,6 +27,8 @@ public strictfp class Creep extends Unit {
     private CreepState state = CreepState.Running;
     private int gold;
     private int armor;
+    private float experience;
+    private float experienceModifier = 1.0f;
 
     private transient float deathTime;
     private transient volatile boolean freshCoordinates;
@@ -45,6 +47,8 @@ public strictfp class Creep extends Unit {
         hash.add(state);
         hash.add(gold);
         hash.add(armor);
+        hash.add(experience);
+        hash.add(experienceModifier);
     }
 
     @Override
@@ -234,6 +238,22 @@ public strictfp class Creep extends Unit {
 
     public void receiveDamage(double damage) {
         setHealth(getHealth() - damage);
+    }
+
+    public float getExperience() {
+        return experience;
+    }
+
+    public void setExperience(float experience) {
+        this.experience = experience;
+    }
+
+    public float getExperienceModifier() {
+        return experienceModifier;
+    }
+
+    public void setExperienceModifier(float experienceModifier) {
+        this.experienceModifier = experienceModifier;
     }
 
     public static class WalkResult {

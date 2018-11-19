@@ -50,5 +50,9 @@ public strictfp class DamageAbility extends Ability<Tower> implements OnAttackLi
 
         target.receiveDamage(damage);
         tower.onDamage.dispatch(this, target, damage);
+
+        if (target.isDead()) {
+            tower.onKill.dispatch(target);
+        }
     }
 }

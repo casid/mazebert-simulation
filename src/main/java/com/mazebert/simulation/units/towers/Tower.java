@@ -2,20 +2,21 @@ package com.mazebert.simulation.units.towers;
 
 import com.mazebert.simulation.*;
 import com.mazebert.simulation.hash.Hash;
-import com.mazebert.simulation.listeners.OnAttack;
-import com.mazebert.simulation.listeners.OnDamage;
-import com.mazebert.simulation.listeners.OnLevelChanged;
+import com.mazebert.simulation.listeners.*;
 import com.mazebert.simulation.units.CooldownUnit;
 import com.mazebert.simulation.units.Gender;
 import com.mazebert.simulation.units.Unit;
+import com.mazebert.simulation.units.creeps.Creep;
 
-public strictfp abstract class Tower extends Unit implements CooldownUnit, Card {
+public strictfp abstract class Tower extends Unit implements CooldownUnit, Card, OnKillListener {
 
     public final OnAttack onAttack = new OnAttack();
     public final OnDamage onDamage = new OnDamage();
     public final OnLevelChanged onLevelChanged = new OnLevelChanged();
+    public final OnKill onKill = new OnKill();
 
     private int level;
+    private double experience;
     private float strength = 1.0f;
     private float baseCooldown = Float.MAX_VALUE;
     private float attackSpeedAdd;
@@ -32,11 +33,20 @@ public strictfp abstract class Tower extends Unit implements CooldownUnit, Card 
     private Element element;
     private Gender gender;
     private AttackType attackType;
+    private float experienceModifier = 1.0f; // factor 1 is regular experience gain
+
+    private int kills;
+
+    public Tower() {
+        onKill.add(this);
+    }
 
     @Override
     public void hash(Hash hash) {
         super.hash(hash);
+
         hash.add(level);
+        hash.add(experience);
         hash.add(strength);
         hash.add(baseCooldown);
         hash.add(attackSpeedAdd);
@@ -53,6 +63,9 @@ public strictfp abstract class Tower extends Unit implements CooldownUnit, Card 
         hash.add(element);
         hash.add(gender);
         hash.add(attackType);
+        hash.add(experienceModifier);
+
+        hash.add(kills);
     }
 
     public float getBaseCooldown() {
@@ -270,5 +283,38 @@ public strictfp abstract class Tower extends Unit implements CooldownUnit, Card 
             chance = Balancing.MAX_TRIGGER_CHANCE;
         }
         return Sim.context().randomPlugin.getFloatAbs() <= chance;
+    }
+
+    public int getKills() {
+        return kills;
+    }
+
+    public void setKills(int kills) {
+        this.kills = kills;
+    }
+
+    @Override
+    public void onKill(Creep target) {
+        experience += experienceModifier * target.getExperienceModifier() * target.getExperience();
+
+        ++kills;
+    }
+
+    public double getExperience() {
+        return experience;
+    }
+
+    public void setExperience(double experience) {
+        this.experience = experience;
+
+
+    }
+
+    public float getExperienceModifier() {
+        return experienceModifier;
+    }
+
+    public void setExperienceModifier(float experienceModifier) {
+        this.experienceModifier = experienceModifier;
     }
 }

@@ -367,6 +367,25 @@ public class WaveSpawnerTest extends SimTest {
         assertThat(getCreep(1).getHealth()).isEqualTo(1);
     }
 
+    @Test
+    void experience_round1() {
+        givenBossWave();
+
+        whenAllCreepsAreSpawned();
+
+        assertThat(getCreep(0).getExperience()).isEqualTo(1);
+    }
+
+    @Test
+    void experience_round10() {
+        waveGateway.setCurrentRound(10);
+        givenBossWave();
+
+        whenAllCreepsAreSpawned();
+
+        assertThat(getCreep(0).getExperience()).isEqualTo(23.558979f);
+    }
+
     private Creep getCreep(int index) {
         return (Creep) unitGateway.getUnits().get(index);
     }

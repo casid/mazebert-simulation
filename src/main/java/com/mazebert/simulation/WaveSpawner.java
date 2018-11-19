@@ -76,6 +76,9 @@ public strictfp class WaveSpawner implements OnGameStartedListener, OnWaveStarte
         int goldRemaining = goldOfAllCreeps % wave.creepCount;
         int creepIndexWithRemainingGold = (int) (randomPlugin.getFloatAbs() * wave.creepCount);
 
+        float experienceOfAllCreeps = Balancing.getExperienceForRound(round, wave.type);
+        float experienceOfOneCreep = experienceOfAllCreeps / wave.creepCount;
+
         for (int i = 0; i < wave.creepCount; ++i) {
             Creep creep = new Creep();
             creep.setWave(wave);
@@ -83,6 +86,8 @@ public strictfp class WaveSpawner implements OnGameStartedListener, OnWaveStarte
             creep.setMaxHealth(healthOfOneCreep);
             creep.setGold(i == creepIndexWithRemainingGold ? goldOfOneCreep + goldRemaining : goldOfOneCreep);
             creep.setArmor(round);
+            creep.setExperience(experienceOfOneCreep);
+
             creepQueue.add(creep);
         }
 

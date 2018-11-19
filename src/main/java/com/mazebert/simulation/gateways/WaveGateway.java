@@ -50,13 +50,13 @@ public strictfp class WaveGateway implements ReadonlyWaveGateway {
         }
     }
 
-    public void setTotalWaves(int totalWaves) {
-        this.totalWaves = totalWaves;
-    }
-
     @Override
     public int getTotalWaves() {
         return totalWaves;
+    }
+
+    public void setTotalWaves(int totalWaves) {
+        this.totalWaves = totalWaves;
     }
 
     @Override

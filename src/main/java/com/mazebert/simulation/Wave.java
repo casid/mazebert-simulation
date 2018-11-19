@@ -5,7 +5,7 @@ import com.mazebert.simulation.hash.Hashable;
 
 public strictfp class Wave implements Hashable {
     public int round;
-    public WaveType type;
+    public WaveType type = WaveType.Normal;
     public int creepCount;
     public float minSecondsToNextCreep;
     public float maxSecondsToNextCreep;
@@ -14,6 +14,7 @@ public strictfp class Wave implements Hashable {
 
     @Override
     public void hash(Hash hash) {
+        hash.add(round);
         hash.add(type);
         hash.add(creepCount);
         hash.add(minSecondsToNextCreep);

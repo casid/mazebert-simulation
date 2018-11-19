@@ -44,4 +44,33 @@ public strictfp class Balancing {
 
         return StrictMath.round(endgameHitpoints + difficulty.midGameFactor * x * x * x * x + difficulty.earlyGameFactor * x * x + getLinearCreepHitpoints(round));
     }
+
+    public static float getExperienceForRound(int round, WaveType waveType) {
+        float experience = getExperienceForRound(round);
+
+        switch (waveType) {
+            case Horseman:
+                return 1.4f * experience;
+            case Challenge:
+                return 0;
+            default:
+                return experience;
+        }
+    }
+
+    private static float getExperienceForRound(int round) {
+        float experience = 20.0f * (float) StrictMath.pow(1.015, round);
+
+        // Cap experience at the amount you gain for wave 200.
+        if (experience > 400) {
+            experience = 400;
+        }
+
+        return experience;
+    }
+
+    public static int getTowerLevelForExperience(double experience) {
+        // TODO
+        return 0;
+    }
 }

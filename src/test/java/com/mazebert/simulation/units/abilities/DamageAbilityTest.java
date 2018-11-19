@@ -159,6 +159,67 @@ public class DamageAbilityTest extends SimTest {
         assertThat(creep.getState()).isEqualTo(CreepState.Death);
     }
 
+    @Test
+    void kills() {
+        tower.setBaseDamage(1000.0f);
+
+        whenTowerAttacks();
+
+        assertThat(tower.getKills()).isEqualTo(1);
+    }
+
+    @Test
+    void kills_notDead() {
+        tower.setBaseDamage(10.0f);
+
+        whenTowerAttacks();
+
+        assertThat(tower.getKills()).isEqualTo(0);
+    }
+
+    @Test
+    void experience() {
+        tower.setBaseDamage(1000.0f);
+        creep.setExperience(10);
+
+        whenTowerAttacks();
+
+        assertThat(tower.getExperience()).isEqualTo(10);
+    }
+
+    @Test
+    void experience_creepModifier() {
+        tower.setBaseDamage(1000.0f);
+        creep.setExperience(10);
+        creep.setExperienceModifier(2);
+
+        whenTowerAttacks();
+
+        assertThat(tower.getExperience()).isEqualTo(20);
+    }
+
+    @Test
+    void experience_towerModifier() {
+        tower.setBaseDamage(1000.0f);
+        creep.setExperience(10);
+        tower.setExperienceModifier(3);
+
+        whenTowerAttacks();
+
+        assertThat(tower.getExperience()).isEqualTo(30);
+    }
+
+    @Test
+    void experience_levelUp() {
+        tower.setBaseDamage(1000.0f);
+        creep.setExperience(100);
+
+        whenTowerAttacks();
+
+        assertThat(tower.getLevel()).isEqualTo(2);
+        // TODO
+    }
+
     private void whenTowerAttacks() {
         tower.simulate(1.0f);
     }
