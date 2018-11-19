@@ -4,6 +4,7 @@ import com.mazebert.simulation.units.Unit;
 import com.mazebert.simulation.units.wizards.Wizard;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.function.Consumer;
 
@@ -40,6 +41,30 @@ public strictfp class UnitGateway {
             }
         }
         return null;
+    }
+
+    @SuppressWarnings("unchecked")
+    public <U extends Unit> U findUnitInRange(Unit unit, float range, Class<U> unitClass, U[] excludedUnits) {
+        return findUnitInRange(unit.getX(), unit.getY(), range, unitClass, excludedUnits);
+    }
+
+    @SuppressWarnings("unchecked")
+    public <U extends Unit> U findUnitInRange(float x, float y, float range, Class<U> unitClass, U[] excludedUnits) {
+        for (Unit unit : units) {
+            if (unitClass.isAssignableFrom(unit.getClass()) && unit.isInRange(x, y, range) && !contains(excludedUnits, unit)) {
+                return (U) unit;
+            }
+        }
+        return null;
+    }
+
+    private <U extends Unit> boolean contains(U[] excludedUnits, U unit) {
+        for (U excludedUnit : excludedUnits) {
+            if (excludedUnit == unit) {
+                return true;
+            }
+        }
+        return false;
     }
 
     @SuppressWarnings("unchecked")

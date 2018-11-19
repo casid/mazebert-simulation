@@ -37,6 +37,9 @@ public strictfp class InitGame extends Usecase<InitGameCommand> {
             for (int i = 0; i < 2; ++i) {
                 wizard.towerStash.add(TowerType.Beaver);
             }
+            for (int i = 0; i < 2; ++i) {
+                wizard.towerStash.add(TowerType.Rabbit);
+            }
             unitGateway.addUnit(wizard);
         }
 

@@ -9,35 +9,53 @@ public strictfp class AttackAbility extends CooldownAbility<Tower> {
 
     private final UnitGateway unitGateway = Sim.context().unitGateway;
 
-    private Creep currentTarget;
+    private Creep[] currentTargets;
+
+    public AttackAbility() {
+        this(1);
+    }
+
+    public AttackAbility(int targets) {
+        setTargets(targets);
+    }
 
     @Override
     protected void initialize(Tower unit) {
         super.initialize(unit);
-        currentTarget = null;
+        for (int i = 0; i < currentTargets.length; ++i) {
+            currentTargets[i] = null;
+        }
     }
 
     @Override
     public void dispose(Tower unit) {
-        currentTarget = null;
+        for (int i = 0; i < currentTargets.length; ++i) {
+            currentTargets[i] = null;
+        }
         super.dispose(unit);
     }
 
     @Override
     boolean onCooldownReached() {
-        currentTarget = findTarget();
-        if (currentTarget != null) {
-            getUnit().onAttack.dispatch(currentTarget);
+        for (int i = 0; i < currentTargets.length; ++i) {
+            currentTargets[i] = findTarget(i);
+            if (currentTargets[i] != null) {
+                getUnit().onAttack.dispatch(currentTargets[i]);
+            }
         }
         return true;
     }
 
-    private Creep findTarget() {
+    private Creep findTarget(int i) {
         Tower tower = getUnit();
-        if (currentTarget != null && currentTarget.isInRange(tower, tower.getBaseRange())) {
-            return currentTarget;
+        if (currentTargets[i] != null && currentTargets[i].isInRange(tower, tower.getBaseRange())) {
+            return currentTargets[i];
         }
 
-        return unitGateway.findUnitInRange(tower, tower.getBaseRange(), Creep.class);
+        return unitGateway.findUnitInRange(tower, tower.getBaseRange(), Creep.class, currentTargets);
+    }
+
+    public void setTargets(int targets) {
+        currentTargets = new Creep[targets];
     }
 }
