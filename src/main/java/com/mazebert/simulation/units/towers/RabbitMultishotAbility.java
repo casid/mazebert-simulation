@@ -1,8 +1,9 @@
 package com.mazebert.simulation.units.towers;
 
+import com.mazebert.simulation.listeners.OnLevelChangedListener;
 import com.mazebert.simulation.units.abilities.AttackAbility;
 
-public class RabbitMultishotAbility extends AttackAbility {
+public class RabbitMultishotAbility extends AttackAbility implements OnLevelChangedListener {
 
     public RabbitMultishotAbility() {
         super(2);
@@ -11,13 +12,22 @@ public class RabbitMultishotAbility extends AttackAbility {
     @Override
     protected void initialize(Tower unit) {
         super.initialize(unit);
-        // TODO
+        unit.onLevelChanged.add(this);
     }
 
     @Override
     public void dispose(Tower unit) {
-        // TODO
+        unit.onLevelChanged.remove(this);
         super.dispose(unit);
+    }
+
+    @Override
+    public void onLevelChanged(int oldLevel, int newLevel) {
+        int targets = 2;
+        if (newLevel >= 16) {
+            targets = 3;
+        }
+        setTargets(targets);
     }
 
     @Override

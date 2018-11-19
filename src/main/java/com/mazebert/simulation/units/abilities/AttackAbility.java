@@ -16,7 +16,7 @@ public strictfp class AttackAbility extends CooldownAbility<Tower> {
     }
 
     public AttackAbility(int targets) {
-        setTargets(targets);
+        currentTargets = new Creep[targets];
     }
 
     @Override
@@ -56,6 +56,12 @@ public strictfp class AttackAbility extends CooldownAbility<Tower> {
     }
 
     public void setTargets(int targets) {
-        currentTargets = new Creep[targets];
+        if (targets != currentTargets.length) {
+            currentTargets = new Creep[targets];
+        }
+    }
+
+    public int getTargets() {
+        return currentTargets.length;
     }
 }
