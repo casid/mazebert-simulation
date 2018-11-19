@@ -9,6 +9,15 @@ public strictfp class Balancing {
     public static final float MAX_COOLDOWN = 60.0f;
     public static final float MIN_COOLDOWN = 0.01f;
     public static final float MAX_TRIGGER_CHANCE = 0.8f;
+    public static final int MAX_TOWER_LEVEL = 99;
+
+    private static final float[] towerExperienceForLevel = new float[MAX_TOWER_LEVEL];
+
+    static {
+        for (int i = 0; i < MAX_TOWER_LEVEL; ++i) {
+            towerExperienceForLevel[i] = getTowerExperienceForLevel(i + 1);
+        }
+    }
 
     public static float getBaseDamage(Tower tower) {
         return StrictMath.round(1.0f + tower.getStrength() * getDamageFactorForRange(tower.getBaseRange()) * (getLinearCreepHitpoints(tower.getLevel()) * tower.getBaseCooldown()) / DAMAGE_BALANCING_FACTOR);
@@ -17,7 +26,7 @@ public strictfp class Balancing {
     /**
      * Damage factor for the given range (either increase or decrease the tower damage).
      */
-    public static float getDamageFactorForRange(float r ) {
+    public static float getDamageFactorForRange(float r) {
         return 3.0f / ((r * 2.0f) + 1.0f);
     }
 
@@ -27,7 +36,7 @@ public strictfp class Balancing {
     }
 
     public static int getGoldForRound(int round) {
-        int gold = (int)StrictMath.round(StrictMath.pow(1.0125, round) * 50.0);
+        int gold = (int) StrictMath.round(StrictMath.pow(1.0125, round) * 50.0);
         return gold > 1000 ? 1000 : gold;
     }
 
@@ -36,8 +45,7 @@ public strictfp class Balancing {
 
         // Add endgame hitpoints if we are there yet!
         double endgameHitpoints = 0.0;
-        if (x >= 140.0)
-        {
+        if (x >= 140.0) {
             double endgameX = x - 140;
             endgameHitpoints = difficulty.endGameFactor * endgameX * endgameX * endgameX * endgameX;
         }
@@ -69,8 +77,27 @@ public strictfp class Balancing {
         return experience;
     }
 
-    public static int getTowerLevelForExperience(double experience) {
-        // TODO
-        return 0;
+    public static int getTowerLevelForExperience(float experience) {
+        for (int i = 0; i < towerExperienceForLevel.length; ++i) {
+            if (experience < towerExperienceForLevel[i]) {
+                return i;
+            }
+        }
+        return MAX_TOWER_LEVEL;
+    }
+
+    public static float getTowerExperienceForLevel(int level) {
+        if (level <= 1) {
+            return 0;
+        }
+
+        float result = 20.0f;
+        float totalResult = 0.0f;
+        for (int i = 1; i < level; ++i) {
+            totalResult += result;
+            result *= 1.05550;
+        }
+
+        return totalResult;
     }
 }

@@ -212,12 +212,21 @@ public class DamageAbilityTest extends SimTest {
     @Test
     void experience_levelUp() {
         tower.setBaseDamage(1000.0f);
-        creep.setExperience(100);
+        creep.setExperience(20);
 
         whenTowerAttacks();
 
         assertThat(tower.getLevel()).isEqualTo(2);
-        // TODO
+    }
+
+    @Test
+    void experience_levelUp_notEnough() {
+        tower.setBaseDamage(1000.0f);
+        creep.setExperience(19);
+
+        whenTowerAttacks();
+
+        assertThat(tower.getLevel()).isEqualTo(1);
     }
 
     private void whenTowerAttacks() {

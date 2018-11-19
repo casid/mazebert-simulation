@@ -16,7 +16,7 @@ public strictfp abstract class Tower extends Unit implements CooldownUnit, Card,
     public final OnKill onKill = new OnKill();
 
     private int level;
-    private double experience;
+    private float experience;
     private float strength = 1.0f;
     private float baseCooldown = Float.MAX_VALUE;
     private float attackSpeedAdd;
@@ -295,19 +295,18 @@ public strictfp abstract class Tower extends Unit implements CooldownUnit, Card,
 
     @Override
     public void onKill(Creep target) {
-        experience += experienceModifier * target.getExperienceModifier() * target.getExperience();
+        setExperience(experience + experienceModifier * target.getExperienceModifier() * target.getExperience());
 
         ++kills;
     }
 
-    public double getExperience() {
+    public float getExperience() {
         return experience;
     }
 
-    public void setExperience(double experience) {
+    public void setExperience(float experience) {
         this.experience = experience;
-
-
+        setLevel(Balancing.getTowerLevelForExperience(experience));
     }
 
     public float getExperienceModifier() {
