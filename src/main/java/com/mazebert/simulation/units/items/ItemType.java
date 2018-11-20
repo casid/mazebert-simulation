@@ -4,7 +4,17 @@ import com.mazebert.simulation.CardType;
 import com.mazebert.simulation.hash.Hash;
 
 public strictfp enum ItemType implements CardType<Item> {
-    BabySword(1, BabySword.class);
+
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////
+    // THESE IDS ARE USED TO PERSIST CARDS FROM THIS STASH.
+    // THEY MUST BE UNIQUE BOTH FOR SAVEGAMES AND FOR EXCHANGE WITH THE WEB.
+    // 1) DO NOT ALTER EXISTING IDS!
+    // 2) DO NOT REUSE DELETED IDS!
+    // 3) ADD NEW IDS TO THE BOTTOM!
+    WoodenStaff(1, WoodenStaff.class),
+    BabySword(4, BabySword.class),
+
+    ;
 
     private static ItemType[] LOOKUP;
 
@@ -57,4 +67,5 @@ public strictfp enum ItemType implements CardType<Item> {
     public void hash(Hash hash) {
         hash.add(id);
     }
+
 }

@@ -28,6 +28,10 @@ public strictfp abstract class Item implements Card {
         return "casid";
     }
 
+    public abstract String getIcon();
+
+    public abstract int getItemLevel();
+
     public Ability<Tower>[] getAbilities() {
         return abilities;
     }

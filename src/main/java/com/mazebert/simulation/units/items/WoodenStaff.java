@@ -1,21 +1,22 @@
 package com.mazebert.simulation.units.items;
 
 import com.mazebert.simulation.Rarity;
+import com.mazebert.simulation.units.abilities.Ability;
+import com.mazebert.simulation.units.towers.Tower;
 
-public strictfp class BabySword extends Item {
-
-    public BabySword() {
-        super(new BabySwordAbility());
+public class WoodenStaff extends Item {
+    public WoodenStaff() {
+        super(new WoodenStaffAbility());
     }
 
     @Override
     public String getName() {
-        return "Baby Sword";
+        return "Wooden Staff";
     }
 
     @Override
     public String getDescription() {
-        return "Alright, it's not the largest sword but size doesn't really matter, huh?";
+        return "This staff was used by generations\nof shepherds to teach their sheep\nto knock it off.";
     }
 
     @Override
@@ -30,7 +31,7 @@ public strictfp class BabySword extends Item {
 
     @Override
     public String getIcon() {
-        return "0020_magicweapon_512";
+        return "0101_Wooden_staff_512";
     }
 
     @Override

@@ -5,6 +5,7 @@ import com.mazebert.simulation.gateways.UnitGateway;
 import com.mazebert.simulation.units.TestTower;
 import com.mazebert.simulation.units.items.BabySword;
 import com.mazebert.simulation.units.items.ItemType;
+import com.mazebert.simulation.units.items.WoodenStaff;
 import com.mazebert.simulation.units.towers.Tower;
 import com.mazebert.simulation.units.wizards.Wizard;
 import org.junit.jupiter.api.BeforeEach;
@@ -132,5 +133,19 @@ public class EquipItemTest extends UsecaseTest<EquipItemCommand> {
         request.itemType = null;
         whenRequestIsExecuted();
         assertThat(tower.getItem(0)).isNull();
+    }
+
+    @Test
+    void replace() {
+        whenRequestIsExecuted();
+        wizard.itemStash.add(ItemType.WoodenStaff);
+        request.itemType = ItemType.WoodenStaff;
+
+        whenRequestIsExecuted();
+
+        assertThat(tower.getItem(0)).isInstanceOf(WoodenStaff.class);
+        assertThat(tower.getAddedRelativeBaseDamage()).isEqualTo(0.05f);
+        assertThat(wizard.itemStash.get(0).amount).isEqualTo(1);
+        assertThat(wizard.itemStash.get(0).cardType).isEqualTo(ItemType.BabySword);
     }
 }
