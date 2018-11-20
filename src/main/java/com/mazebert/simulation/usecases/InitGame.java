@@ -26,7 +26,7 @@ public strictfp class InitGame extends Usecase<InitGameCommand> {
         randomPlugin.setSeed(command.gameId);
         gameGateway.getGame().id = command.gameId;
 
-        if (unitGateway.getWizard() == null) {
+        if (unitGateway.getWizard(command.playerId) == null) {
             Wizard wizard = new Wizard();
             for (int i = 0; i < 2; ++i) {
                 wizard.towerStash.add(TowerType.Hitman);

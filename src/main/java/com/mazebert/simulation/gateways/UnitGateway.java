@@ -1,10 +1,10 @@
 package com.mazebert.simulation.gateways;
 
 import com.mazebert.simulation.units.Unit;
+import com.mazebert.simulation.units.towers.Tower;
 import com.mazebert.simulation.units.wizards.Wizard;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.function.Consumer;
 
@@ -68,10 +68,20 @@ public strictfp class UnitGateway {
     }
 
     @SuppressWarnings("unchecked")
-    public <U extends Unit> U findUnit(Class<U> unitClass) {
+    public <U extends Unit> U findUnit(Class<U> unitClass, int playerId) {
         for (Unit unit : units) {
-            if (unitClass.isAssignableFrom(unit.getClass())) {
+            if (unitClass.isAssignableFrom(unit.getClass()) && unit.getPlayerId() == playerId) {
                 return (U) unit;
+            }
+        }
+        return null;
+    }
+
+    @SuppressWarnings("unchecked")
+    public <U extends Unit> U findUnit(Class<U> unitClass, int playerId, int x, int y) {
+        for (Unit unit : units) {
+            if (unitClass.isAssignableFrom(unit.getClass()) && unit.getPlayerId() == playerId && unit.getX() == x && unit.getY() == y) {
+                return (U)unit;
             }
         }
         return null;
@@ -98,8 +108,8 @@ public strictfp class UnitGateway {
         }
     }
 
-    public Wizard getWizard() {
-        return findUnit(Wizard.class);
+    public Wizard getWizard(int playerId) {
+        return findUnit(Wizard.class, playerId);
     }
 
     public boolean hasUnits(Class<? extends Unit> unitClass) {

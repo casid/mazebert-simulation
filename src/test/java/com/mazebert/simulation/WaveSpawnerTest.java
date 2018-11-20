@@ -373,7 +373,7 @@ public class WaveSpawnerTest extends SimTest {
 
         whenAllCreepsAreSpawned();
 
-        assertThat(getCreep(0).getExperience()).isEqualTo(1);
+        assertThat(getCreep(0).getExperience()).isEqualTo(20.3f);
     }
 
     @Test

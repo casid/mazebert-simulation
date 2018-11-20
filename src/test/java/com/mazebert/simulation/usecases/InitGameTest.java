@@ -206,7 +206,7 @@ class InitGameTest extends UsecaseTest<InitGameCommand> {
     void firstGame() {
         whenRequestIsExecuted();
 
-        Wizard wizard = unitGateway.getWizard();
+        Wizard wizard = unitGateway.getWizard(request.playerId);
         assertThat(wizard).isNotNull();
         assertThat(wizard.towerStash.size()).isGreaterThan(0);
         assertThat(wizard.towerStash.get(0).getCardType()).isEqualTo(TowerType.Hitman);
@@ -221,7 +221,7 @@ class InitGameTest extends UsecaseTest<InitGameCommand> {
         whenRequestIsExecuted();
 
         assertThat(unitGateway.getUnits()).hasSize(1);
-        Wizard wizard = unitGateway.getWizard();
+        Wizard wizard = unitGateway.getWizard(request.playerId);
         assertThat(wizard).isSameAs(existingWizard);
     }
 

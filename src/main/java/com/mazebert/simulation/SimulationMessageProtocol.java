@@ -1,6 +1,7 @@
 package com.mazebert.simulation;
 
 import com.mazebert.simulation.commands.serializers.BuildTowerCommandSerializer;
+import com.mazebert.simulation.commands.serializers.EquipItemCommandSerializer;
 import com.mazebert.simulation.commands.serializers.InitGameCommandSerializer;
 import com.mazebert.simulation.commands.serializers.NextWaveCommandSerializer;
 import com.mazebert.simulation.messages.serializers.ResendTurnSerializer;
@@ -25,5 +26,6 @@ public strictfp class SimulationMessageProtocol extends BitMessageProtocol {
         protocol.register(new InitGameCommandSerializer());
         protocol.register(new BuildTowerCommandSerializer());
         protocol.register(new NextWaveCommandSerializer());
+        protocol.register(new EquipItemCommandSerializer());
     }
 }

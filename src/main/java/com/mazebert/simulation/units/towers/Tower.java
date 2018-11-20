@@ -6,7 +6,9 @@ import com.mazebert.simulation.listeners.*;
 import com.mazebert.simulation.units.CooldownUnit;
 import com.mazebert.simulation.units.Gender;
 import com.mazebert.simulation.units.Unit;
+import com.mazebert.simulation.units.abilities.Ability;
 import com.mazebert.simulation.units.creeps.Creep;
+import com.mazebert.simulation.units.items.Item;
 
 public strictfp abstract class Tower extends Unit implements CooldownUnit, Card, OnKillListener {
 
@@ -34,6 +36,8 @@ public strictfp abstract class Tower extends Unit implements CooldownUnit, Card,
     private Gender gender;
     private AttackType attackType;
     private float experienceModifier = 1.0f; // factor 1 is regular experience gain
+
+    private Item[] items = new Item[4];
 
     private int kills;
 
@@ -315,5 +319,25 @@ public strictfp abstract class Tower extends Unit implements CooldownUnit, Card,
 
     public void setExperienceModifier(float experienceModifier) {
         this.experienceModifier = experienceModifier;
+    }
+
+    public Item getItem(int index) {
+        return items[index];
+    }
+
+    public void setItem(int index, Item item) {
+        items[index] = item;
+
+        for (Ability<Tower> ability : item.getAbilities()) {
+            addAbility(ability);
+        }
+    }
+
+    public void addAddedRelativeBaseDamage(float amount) {
+        addedRelativeBaseDamage += amount;
+    }
+
+    public int getInventorySize() {
+        return items.length;
     }
 }

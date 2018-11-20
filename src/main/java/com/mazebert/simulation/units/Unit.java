@@ -18,6 +18,7 @@ public abstract strictfp class Unit implements Hashable {
     // For game display usage
     public transient UnitView view;
 
+    private int playerId; // The player this unit belongs to
     private float x;
     private float y;
 
@@ -29,8 +30,17 @@ public abstract strictfp class Unit implements Hashable {
 
     @Override
     public void hash(Hash hash) {
+        hash.add(playerId);
         hash.add(x);
         hash.add(y);
+    }
+
+    public int getPlayerId() {
+        return playerId;
+    }
+
+    public void setPlayerId(int playerId) {
+        this.playerId = playerId;
     }
 
     public float getX() {
@@ -51,24 +61,35 @@ public abstract strictfp class Unit implements Hashable {
 
     @SuppressWarnings("unchecked")
     public void addAbility(Ability ability) {
-        abilities.add(ability);
-        ability.init(this);
+        if (ability instanceof StackableAbility) {
+            addAbilityStack(((StackableAbility)ability).getClass());
+        } else {
+            addAbilityInternal(ability);
+        }
     }
 
     @SuppressWarnings("unchecked")
     public <T extends StackableAbility> T addAbilityStack(Class<T> abilityClass) {
         for (Ability ability : abilities) {
             if (ability.getClass() == abilityClass) {
-                return (T)ability;
+                T result = (T) ability;
+                result.addStack();
+                return result;
             }
         }
         try {
             T ability = abilityClass.newInstance();
-            addAbility(ability);
+            addAbilityInternal(ability);
             return ability;
         } catch (Throwable e) {
             throw new RuntimeException("Failed to initialize", e);
         }
+    }
+
+    @SuppressWarnings("unchecked")
+    private void addAbilityInternal(Ability ability) {
+        abilities.add(ability);
+        ability.init(this);
     }
 
     public void removeAbility(Ability ability) {

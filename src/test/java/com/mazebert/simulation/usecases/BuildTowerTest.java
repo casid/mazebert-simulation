@@ -32,11 +32,13 @@ class BuildTowerTest extends UsecaseTest<BuildTowerCommand> {
     @BeforeEach
     void setUp() {
         wizard = new Wizard();
+        wizard.setPlayerId(1);
         wizard.towerStash.add(TowerType.Hitman);
         unitGateway.addUnit(wizard);
 
         usecase = new BuildTower();
 
+        request.playerId = 1;
         request.towerType = TowerType.Hitman;
     }
 
@@ -92,6 +94,6 @@ class BuildTowerTest extends UsecaseTest<BuildTowerCommand> {
     @Override
     protected void whenRequestIsExecuted() {
         super.whenRequestIsExecuted();
-        builtTower = unitGateway.findUnit(Tower.class);
+        builtTower = unitGateway.findUnit(Tower.class, request.playerId);
     }
 }

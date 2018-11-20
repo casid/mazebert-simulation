@@ -15,10 +15,11 @@ public strictfp class BuildTower extends Usecase<BuildTowerCommand> {
 
     @Override
     public void execute(BuildTowerCommand command) {
-        Wizard wizard = unitGateway.getWizard();
+        Wizard wizard = unitGateway.getWizard(command.playerId);
 
         if (wizard.towerStash.remove(command.towerType)) {
             Tower tower = command.towerType.create();
+            tower.setPlayerId(command.playerId);
             tower.setX(command.x);
             tower.setY(command.y);
             unitGateway.addUnit(tower);
