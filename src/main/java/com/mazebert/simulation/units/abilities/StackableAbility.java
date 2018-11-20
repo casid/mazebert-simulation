@@ -12,4 +12,8 @@ public abstract strictfp class StackableAbility<U extends Unit> extends Ability<
     public int getStackCount() {
         return stackCount;
     }
+
+    public void removeStack() {
+        --stackCount;
+    }
 }

@@ -86,13 +86,36 @@ public abstract strictfp class Unit implements Hashable {
         }
     }
 
+    @SuppressWarnings({"unchecked", "UnusedReturnValue"})
+    public <T extends StackableAbility> T removeAbilityStack(Class<T> abilityClass) {
+        for (Ability ability : abilities) {
+            if (ability.getClass() == abilityClass) {
+                T result = (T) ability;
+                result.removeStack();
+                if (result.getStackCount() <= 0) {
+                    removeAbilityInternal(ability);
+                }
+                return result;
+            }
+        }
+        return null;
+    }
+
+    public void removeAbility(Ability ability) {
+        if (ability instanceof StackableAbility) {
+            removeAbilityStack(((StackableAbility)ability).getClass());
+        } else {
+            removeAbilityInternal(ability);
+        }
+    }
+
     @SuppressWarnings("unchecked")
     private void addAbilityInternal(Ability ability) {
         abilities.add(ability);
         ability.init(this);
     }
 
-    public void removeAbility(Ability ability) {
+    private void removeAbilityInternal(Ability ability) {
         ability.dispose();
         abilities.remove(ability);
     }

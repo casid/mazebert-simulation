@@ -326,10 +326,19 @@ public strictfp abstract class Tower extends Unit implements CooldownUnit, Card,
     }
 
     public void setItem(int index, Item item) {
+        Item previousItem = items[index];
+        if (previousItem != null) {
+            for (Ability<Tower> ability : previousItem.getAbilities()) {
+                removeAbility(ability);
+            }
+        }
+
         items[index] = item;
 
-        for (Ability<Tower> ability : item.getAbilities()) {
-            addAbility(ability);
+        if (item != null) {
+            for (Ability<Tower> ability : item.getAbilities()) {
+                addAbility(ability);
+            }
         }
     }
 

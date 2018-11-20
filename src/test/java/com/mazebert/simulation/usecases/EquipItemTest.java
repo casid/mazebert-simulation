@@ -95,4 +95,42 @@ public class EquipItemTest extends UsecaseTest<EquipItemCommand> {
         whenRequestIsExecuted();
         assertThat(tower.getItem(0)).isNull();
     }
+
+    @Test
+    void unequip() {
+        whenRequestIsExecuted();
+        request.itemType = null;
+
+        whenRequestIsExecuted();
+
+        assertThat(tower.getItem(0)).isNull();
+        assertThat(wizard.itemStash.get(0).amount).isEqualTo(1);
+        assertThat(tower.getAddedRelativeBaseDamage()).isEqualTo(0.0f);
+    }
+
+    @Test
+    void unequip_twoItems() {
+        wizard.itemStash.add(request.itemType);
+
+        whenRequestIsExecuted();
+        request.inventoryIndex = 1;
+        whenRequestIsExecuted();
+
+        request.itemType = null;
+        whenRequestIsExecuted();
+        request.inventoryIndex = 0;
+        whenRequestIsExecuted();
+
+        assertThat(tower.getItem(0)).isNull();
+        assertThat(tower.getItem(1)).isNull();
+        assertThat(wizard.itemStash.get(0).amount).isEqualTo(2);
+        assertThat(tower.getAddedRelativeBaseDamage()).isEqualTo(0.0f);
+    }
+
+    @Test
+    void unequip_itemNotPresent() {
+        request.itemType = null;
+        whenRequestIsExecuted();
+        assertThat(tower.getItem(0)).isNull();
+    }
 }
