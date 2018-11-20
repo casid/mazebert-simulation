@@ -162,7 +162,7 @@ public strictfp abstract class Tower extends Unit implements CooldownUnit, Card,
             int oldLevel = this.level;
             this.level = level;
             setBaseDamage(Balancing.getBaseDamage(this));
-            onLevelChanged.dispatch(oldLevel, level);
+            onLevelChanged.dispatch(this, oldLevel, level);
         }
     }
 

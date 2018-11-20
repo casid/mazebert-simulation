@@ -22,7 +22,7 @@ public class RabbitMultishotAbility extends AttackAbility implements OnLevelChan
     }
 
     @Override
-    public void onLevelChanged(int oldLevel, int newLevel) {
+    public void onLevelChanged(Tower tower, int oldLevel, int newLevel) {
         int targets = 2;
         if (newLevel >= 16) {
             targets = 3;

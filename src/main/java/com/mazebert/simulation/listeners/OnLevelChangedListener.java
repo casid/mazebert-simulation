@@ -1,5 +1,7 @@
 package com.mazebert.simulation.listeners;
 
+import com.mazebert.simulation.units.towers.Tower;
+
 public interface OnLevelChangedListener {
-    void onLevelChanged(int oldLevel, int newLevel);
+    void onLevelChanged(Tower tower, int oldLevel, int newLevel);
 }
