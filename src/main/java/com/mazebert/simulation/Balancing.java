@@ -1,6 +1,11 @@
 package com.mazebert.simulation;
 
+import com.mazebert.simulation.plugins.random.RandomPlugin;
+import com.mazebert.simulation.stash.Stash;
+import com.mazebert.simulation.units.creeps.Creep;
+import com.mazebert.simulation.units.items.ItemType;
 import com.mazebert.simulation.units.towers.Tower;
+import com.mazebert.simulation.units.wizards.Wizard;
 
 public strictfp class Balancing {
     public static final float GAME_COUNTDOWN_SECONDS = 2.0f; // TODO change to 30
@@ -10,6 +15,7 @@ public strictfp class Balancing {
     public static final float MIN_COOLDOWN = 0.01f;
     public static final float MAX_TRIGGER_CHANCE = 0.8f;
     public static final int MAX_TOWER_LEVEL = 99;
+    public static final float DEFAULT_DROP_CHANCE = 0.4f;
 
     private static final float[] towerExperienceForLevel = new float[MAX_TOWER_LEVEL];
 
@@ -99,5 +105,43 @@ public strictfp class Balancing {
         }
 
         return totalResult;
+    }
+
+    public static void loot(Tower tower, Creep creep) {
+        Wizard wizard = Sim.context().unitGateway.getWizard(tower.getPlayerId());
+        RandomPlugin randomPlugin = Sim.context().randomPlugin;
+
+        int minDrops = creep.getMinDrops();
+        int maxDrops = creep.getMaxDrops();
+        float dropChance = DEFAULT_DROP_CHANCE;
+
+        float diceThrow;
+
+        for (int i = 0; i < maxDrops; ++i) {
+            if (i >= minDrops) {
+                diceThrow = randomPlugin.getFloatAbs();
+                if (diceThrow > dropChance) {
+                    continue;
+                }
+            }
+
+            diceThrow = randomPlugin.getFloatAbs();
+            Rarity rarity = calculateDropRarity(diceThrow);
+
+            diceThrow = randomPlugin.getFloatAbs();
+            Stash stash = calculateDropStash(wizard, diceThrow);
+
+            // TODO
+            randomPlugin.getFloatAbs();
+            stash.add(ItemType.BabySword);
+        }
+    }
+
+    private static Rarity calculateDropRarity(float diceThrow) {
+        return Rarity.Common;
+    }
+
+    private static Stash calculateDropStash(Wizard wizard, float diceThrow) {
+        return wizard.itemStash;
     }
 }

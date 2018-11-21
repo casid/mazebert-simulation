@@ -3,12 +3,14 @@ package com.mazebert.simulation.units.towers;
 import com.mazebert.simulation.*;
 import com.mazebert.simulation.hash.Hash;
 import com.mazebert.simulation.listeners.*;
+import com.mazebert.simulation.plugins.random.RandomPlugin;
 import com.mazebert.simulation.units.CooldownUnit;
 import com.mazebert.simulation.units.Gender;
 import com.mazebert.simulation.units.Unit;
 import com.mazebert.simulation.units.abilities.Ability;
 import com.mazebert.simulation.units.creeps.Creep;
 import com.mazebert.simulation.units.items.Item;
+import com.mazebert.simulation.units.wizards.Wizard;
 
 public strictfp abstract class Tower extends Unit implements CooldownUnit, Card, OnKillListener {
 
@@ -300,8 +302,8 @@ public strictfp abstract class Tower extends Unit implements CooldownUnit, Card,
     @Override
     public void onKill(Creep target) {
         setExperience(experience + experienceModifier * target.getExperienceModifier() * target.getExperience());
-
         ++kills;
+        Balancing.loot(this, target);
     }
 
     public float getExperience() {
@@ -348,5 +350,13 @@ public strictfp abstract class Tower extends Unit implements CooldownUnit, Card,
 
     public int getInventorySize() {
         return items.length;
+    }
+
+    public double rollBaseDamage(RandomPlugin randomPlugin) {
+        if (minBaseDamage == maxBaseDamage) {
+            return minBaseDamage;
+        } else {
+            return randomPlugin.getDouble(minBaseDamage, maxBaseDamage);
+        }
     }
 }

@@ -26,6 +26,9 @@ public strictfp class Creep extends Unit {
     private int pathIndex;
     private CreepState state = CreepState.Running;
     private int gold;
+    private int maxDrops;
+    private int minDrops;
+    private int maxItemLevel;
     private int armor;
     private float experience;
     private float experienceModifier = 1.0f;
@@ -46,6 +49,9 @@ public strictfp class Creep extends Unit {
         // ignore pathIndex
         hash.add(state);
         hash.add(gold);
+        hash.add(maxDrops);
+        hash.add(minDrops);
+        hash.add(maxItemLevel);
         hash.add(armor);
         hash.add(experience);
         hash.add(experienceModifier);
@@ -254,6 +260,30 @@ public strictfp class Creep extends Unit {
 
     public void setExperienceModifier(float experienceModifier) {
         this.experienceModifier = experienceModifier;
+    }
+
+    public int getMaxDrops() {
+        return maxDrops;
+    }
+
+    public void setMaxDrops(int maxDrops) {
+        this.maxDrops = maxDrops;
+    }
+
+    public int getMinDrops() {
+        return minDrops;
+    }
+
+    public void setMinDrops(int minDrops) {
+        this.minDrops = minDrops;
+    }
+
+    public int getMaxItemLevel() {
+        return maxItemLevel;
+    }
+
+    public void setMaxItemLevel(int maxItemLevel) {
+        this.maxItemLevel = maxItemLevel;
     }
 
     public static class WalkResult {

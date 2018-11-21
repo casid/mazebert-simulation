@@ -32,7 +32,7 @@ public strictfp class DamageAbility extends Ability<Tower> implements OnAttackLi
         }
 
         Tower tower = getUnit();
-        double baseDamage = randomPlugin.getDouble(tower.getMinBaseDamage(), tower.getMaxBaseDamage());
+        double baseDamage = tower.rollBaseDamage(randomPlugin);
         baseDamage += tower.getAddedAbsoluteBaseDamage();
         baseDamage = baseDamage * (1.0 + tower.getAddedRelativeBaseDamage());
         double damage = baseDamage;
