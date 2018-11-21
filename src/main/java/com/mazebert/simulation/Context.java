@@ -7,6 +7,8 @@ import com.mazebert.simulation.plugins.random.RandomPlugin;
 import com.mazebert.simulation.plugins.random.UuidRandomPlugin;
 import com.mazebert.simulation.projectiles.ProjectileGateway;
 
+import java.util.EnumMap;
+
 public strictfp class Context {
     // Connection to app
     public SimulationListeners simulationListeners;
@@ -31,4 +33,5 @@ public strictfp class Context {
 
     // Logic
     public CommandExecutor commandExecutor;
+    public final float[] tempChancesForRarity = new float[Rarity.values().length];
 }

@@ -114,6 +114,7 @@ public strictfp class Balancing {
         int minDrops = creep.getMinDrops();
         int maxDrops = creep.getMaxDrops();
         float dropChance = DEFAULT_DROP_CHANCE;
+        float[] rarityChances = calculateDropChancesForRarity(tower, creep);
 
         float diceThrow;
 
@@ -126,17 +127,51 @@ public strictfp class Balancing {
             }
 
             diceThrow = randomPlugin.getFloatAbs();
-            Rarity rarity = calculateDropRarity(diceThrow);
+            Rarity rarity = calculateDropRarity(rarityChances, diceThrow);
 
             diceThrow = randomPlugin.getFloatAbs();
             Stash stash = calculateDropStash(wizard, diceThrow);
 
-            CardType drop = stash.getRandomDrop(rarity, randomPlugin);
-            stash.add(drop);
+            while (rarity.ordinal() >= Rarity.Common.ordinal()) {
+                CardType drop = stash.getRandomDrop(rarity, randomPlugin);
+                if (drop == null) {
+                    rarity = Rarity.values()[rarity.ordinal() - 1];
+                } else {
+                    stash.add(drop);
+                    break;
+                }
+            }
         }
     }
 
-    private static Rarity calculateDropRarity(float diceThrow) {
+    private static float[] calculateDropChancesForRarity(Tower tower, Creep creep) {
+        float dropQualityProgress = StrictMath.min(1.0f,
+                0.8f * StrictMath.min(1.0f, (float)StrictMath.sqrt(creep.getWave().round / 120.0f)) + // Current round affects item quality as well, max quality at lvl ??.
+                0.6f * getTowerItemQualityFactor(tower));
+
+        float[] result = Sim.context().tempChancesForRarity;
+
+        result[Rarity.Unique.ordinal()] = 0.25f * dropQualityProgress * dropQualityProgress * dropQualityProgress;
+        result[Rarity.Legendary.ordinal()] = 0.5f * result[Rarity.Unique.ordinal()];
+        result[Rarity.Rare.ordinal()] = result[Rarity.Unique.ordinal()] + 0.25f * dropQualityProgress * dropQualityProgress;
+        result[Rarity.Uncommon.ordinal()] = result[Rarity.Rare.ordinal()] + 0.25f * dropQualityProgress;
+        result[Rarity.Common.ordinal()] = 1.0f;
+
+        return result;
+    }
+
+    private static float getTowerItemQualityFactor(Tower tower) {
+        return 1.0f; // TODO .itemQuality
+    }
+
+    private static Rarity calculateDropRarity(float[] rarityChances, float diceThrow) {
+        // Find rarity that fits the dice throw.
+        for (int i = Rarity.values().length - 1; i >= 0; --i) {
+            if (diceThrow <= rarityChances[i]) {
+                return Rarity.values()[i];
+            }
+        }
+
         return Rarity.Common;
     }
 

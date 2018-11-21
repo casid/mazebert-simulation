@@ -42,6 +42,9 @@ public class LootTest extends SimTest {
         tower.setMulticrit(0);
 
         creep = new Creep();
+        Wave wave = new Wave();
+        wave.round = 1;
+        creep.setWave(wave);
         unitGateway.addUnit(creep);
 
         wizard = new Wizard();
@@ -52,7 +55,7 @@ public class LootTest extends SimTest {
     void loot_babySword() {
         randomPluginTrainer.givenFloatAbs(
                 0.0f, // This is a drop
-                0.0f, // The rarity of this drop is common
+                0.99f, // The rarity of this drop is common
                 0.0f, // This is an item drop
                 BABY_SWORD_ROLL // It's a baby sword!
         );
@@ -68,11 +71,11 @@ public class LootTest extends SimTest {
     void loot_twoBabySwords() {
         randomPluginTrainer.givenFloatAbs(
                 0.0f, // This is a drop
-                0.0f, // The rarity of this drop is common
+                0.99f, // The rarity of this drop is common
                 0.0f, // This is an item drop
                 BABY_SWORD_ROLL, // It's a baby sword!
                 0.0f, // This is a drop
-                0.0f, // The rarity of this drop is common
+                0.99f, // The rarity of this drop is common
                 0.0f, // This is an item drop
                 BABY_SWORD_ROLL // It's a baby sword!
         );
@@ -88,7 +91,7 @@ public class LootTest extends SimTest {
     void loot_woodenStaff() {
         randomPluginTrainer.givenFloatAbs(
                 0.0f, // This is a drop
-                0.0f, // The rarity of this drop is common
+                0.99f, // The rarity of this drop is common
                 0.0f, // This is an item drop
                 WOODEN_STAFF_ROLL // It's a wooden staff!
         );
@@ -105,7 +108,7 @@ public class LootTest extends SimTest {
         randomPluginTrainer.givenFloatAbs(
                 0.9f, // No drop
                 0.0f, // This is a drop
-                0.0f, // The rarity of this drop is common
+                0.99f, // The rarity of this drop is common
                 0.0f, // This is an item drop
                 BABY_SWORD_ROLL // It's a baby sword!
         );
@@ -121,11 +124,11 @@ public class LootTest extends SimTest {
     void loot_twoGuaranteedBabySwords() {
         randomPluginTrainer.givenFloatAbs(
                 // Guaranteed drop, no need to roll
-                0.0f, // The rarity of this drop is common
+                0.99f, // The rarity of this drop is common
                 0.0f, // This is an item drop
                 BABY_SWORD_ROLL, // It's a baby sword!
                 // Guaranteed drop, no need to roll
-                0.0f, // The rarity of this drop is common
+                0.99f, // The rarity of this drop is common
                 0.0f, // This is an item drop
                 BABY_SWORD_ROLL // It's a baby sword!
         );
@@ -136,6 +139,33 @@ public class LootTest extends SimTest {
 
         assertThat(wizard.itemStash.get(0).amount).isEqualTo(2);
         assertThat(wizard.itemStash.get(0).cardType).isEqualTo(ItemType.BabySword);
+    }
+
+    @Test
+    void loot_legendary_noneAvailable() {
+        randomPluginTrainer.givenFloatAbs(
+                0.0f, // This is a drop
+                0.001f, // The rarity of this drop is legendary
+                0.0f, // This is an item drop
+                BABY_SWORD_ROLL // It's a baby sword!
+        );
+        creep.setMaxDrops(1);
+
+        whenTowerAttacks();
+
+        assertThat(wizard.itemStash.get(0).amount).isEqualTo(1);
+        assertThat(wizard.itemStash.get(0).cardType).isEqualTo(ItemType.BabySword);
+    }
+
+    @Test
+    void loot_itemLevel() {
+        creep.setMaxItemLevel(0);
+        creep.setMinDrops(1);
+        creep.setMaxDrops(1);
+
+        whenTowerAttacks();
+
+        assertThat(wizard.itemStash.size()).isEqualTo(0);
     }
 
     @Test

@@ -75,6 +75,9 @@ public abstract strictfp class Stash<T extends Card> implements ReadonlyStash<T>
 
     public CardType<T> getRandomDrop(Rarity rarity, RandomPlugin randomPlugin) {
         List<CardType<T>> possibleDrops = cardByDropRarity.get(rarity);
+        if (possibleDrops.isEmpty()) {
+            return null;
+        }
 
         int dropIndex = randomPlugin.getInt(0, possibleDrops.size());
 
