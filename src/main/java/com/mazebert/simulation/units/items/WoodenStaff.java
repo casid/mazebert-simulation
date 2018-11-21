@@ -4,7 +4,7 @@ import com.mazebert.simulation.Rarity;
 import com.mazebert.simulation.units.abilities.Ability;
 import com.mazebert.simulation.units.towers.Tower;
 
-public class WoodenStaff extends Item {
+public strictfp class WoodenStaff extends Item {
     public WoodenStaff() {
         super(new WoodenStaffAbility());
     }

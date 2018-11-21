@@ -45,6 +45,7 @@ public class LootTest extends SimTest {
         Wave wave = new Wave();
         wave.round = 1;
         creep.setWave(wave);
+        creep.setMaxItemLevel(100);
         unitGateway.addUnit(creep);
 
         wizard = new Wizard();
@@ -150,6 +151,7 @@ public class LootTest extends SimTest {
                 BABY_SWORD_ROLL // It's a baby sword!
         );
         creep.setMaxDrops(1);
+        creep.setMaxItemLevel(1);
 
         whenTowerAttacks();
 
@@ -158,7 +160,7 @@ public class LootTest extends SimTest {
     }
 
     @Test
-    void loot_itemLevel() {
+    void loot_itemLevel_tooLow() {
         creep.setMaxItemLevel(0);
         creep.setMinDrops(1);
         creep.setMaxDrops(1);
@@ -166,6 +168,39 @@ public class LootTest extends SimTest {
         whenTowerAttacks();
 
         assertThat(wizard.itemStash.size()).isEqualTo(0);
+    }
+
+    @Test
+    void loot_itemLevel_onlyOneFit() {
+        randomPluginTrainer.givenFloatAbs(
+                0.0f, // This is a drop
+                0.3f, // The rarity of this drop is uncommon
+                0.0f, // This is an item drop
+                0.9f // It's a meat mallet!
+        );
+        creep.setMaxDrops(1);
+
+        whenTowerAttacks();
+
+        assertThat(wizard.itemStash.get(0).amount).isEqualTo(1);
+        assertThat(wizard.itemStash.get(0).cardType).isEqualTo(ItemType.MeatMallet);
+    }
+
+    @Test
+    void loot_itemLevel_onlyOneFit2() {
+        randomPluginTrainer.givenFloatAbs(
+                0.0f, // This is a drop
+                0.3f, // The rarity of this drop is uncommon
+                0.0f, // This is an item drop
+                0.9f // It's a meat mallet!
+        );
+        creep.setMaxDrops(1);
+        creep.setMaxItemLevel(ItemType.MonsterTeeth.instance.getItemLevel());
+
+        whenTowerAttacks();
+
+        assertThat(wizard.itemStash.get(0).amount).isEqualTo(1);
+        assertThat(wizard.itemStash.get(0).cardType).isEqualTo(ItemType.MonsterTeeth);
     }
 
     @Test

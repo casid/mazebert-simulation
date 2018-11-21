@@ -10,7 +10,6 @@ import com.mazebert.simulation.units.Unit;
 import com.mazebert.simulation.units.abilities.Ability;
 import com.mazebert.simulation.units.creeps.Creep;
 import com.mazebert.simulation.units.items.Item;
-import com.mazebert.simulation.units.wizards.Wizard;
 
 public strictfp abstract class Tower extends Unit implements CooldownUnit, Card, OnKillListener {
 
@@ -281,7 +280,7 @@ public strictfp abstract class Tower extends Unit implements CooldownUnit, Card,
     protected abstract float getGoldCostFactor();
 
     public void addCritChance(float critChance) {
-        this.critChance += critDamage;
+        this.critChance += critChance;
     }
 
     public void addCritDamage(float critDamage) {

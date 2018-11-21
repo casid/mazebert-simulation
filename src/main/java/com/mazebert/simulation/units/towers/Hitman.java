@@ -43,6 +43,11 @@ public strictfp class Hitman extends Tower {
     }
 
     @Override
+    public int getItemLevel() {
+        return 1;
+    }
+
+    @Override
     public String getDescription() {
         return "This professional killer prefers to attack from the distance, hidden in shadows.";
     }

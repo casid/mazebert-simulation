@@ -35,8 +35,6 @@ public strictfp abstract class Item implements Card {
 
     public abstract String getIcon();
 
-    public abstract int getItemLevel();
-
     public Ability<Tower>[] getAbilities() {
         return abilities;
     }

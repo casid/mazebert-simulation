@@ -26,6 +26,11 @@ public class TestTower extends Tower {
     }
 
     @Override
+    public int getItemLevel() {
+        return 1;
+    }
+
+    @Override
     public String getSinceVersion() {
         return "1.0.0";
     }

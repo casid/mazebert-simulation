@@ -13,7 +13,8 @@ public strictfp enum ItemType implements CardType<Item> {
     // 3) ADD NEW IDS TO THE BOTTOM!
     WoodenStaff(1, WoodenStaff.class),
     BabySword(4, BabySword.class),
-
+    MonsterTeeth(13, MonsterTeeth.class),
+    MeatMallet(17, MeatMallet.class),
     ;
 
     private static ItemType[] LOOKUP;

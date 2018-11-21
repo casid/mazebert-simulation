@@ -37,6 +37,11 @@ public strictfp class Rabbit extends Tower {
     }
 
     @Override
+    public int getItemLevel() {
+        return 1;
+    }
+
+    @Override
     public Rarity getRarity() {
         return Rarity.Common;
     }

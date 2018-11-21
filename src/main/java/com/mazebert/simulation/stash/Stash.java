@@ -7,29 +7,42 @@ import com.mazebert.simulation.hash.Hash;
 import com.mazebert.simulation.hash.Hashable;
 import com.mazebert.simulation.plugins.random.RandomPlugin;
 
-import java.util.ArrayList;
-import java.util.EnumMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public abstract strictfp class Stash<T extends Card> implements ReadonlyStash<T>, Hashable {
+    private static final ItemLevelComparator ITEM_LEVEL_COMPARATOR = new ItemLevelComparator();
+
     private final List<StashEntry<T>> entries = new ArrayList<>();
     private final Map<Object, StashEntry<T>> entryByType;
-    private final EnumMap<Rarity, List<CardType<T>>> cardByDropRarity = new EnumMap<>(Rarity.class);
+    private final EnumMap<Rarity, CardType<T>[]> cardByDropRarity;
 
     protected Stash(Map<Object, StashEntry<T>> entryByType) {
         this.entryByType = entryByType;
+        this.cardByDropRarity = populateCardByDropRarity();
+    }
+
+    @SuppressWarnings("unchecked")
+    private EnumMap<Rarity, CardType<T>[]> populateCardByDropRarity() {
+        EnumMap<Rarity, List<CardType<T>>> temp = new EnumMap<>(Rarity.class);
 
         for (Rarity rarity : Rarity.values()) {
-            cardByDropRarity.put(rarity, new ArrayList<>());
+            temp.put(rarity, new ArrayList<>());
         }
 
         for (CardType<T> possibleDrop : getPossibleDrops()) {
             T card = possibleDrop.instance();
             if (card.isDropable()) {
-                cardByDropRarity.get(card.getDropRarity()).add(possibleDrop);
+                temp.get(card.getDropRarity()).add(possibleDrop);
             }
         }
+
+        EnumMap<Rarity, CardType<T>[]> result = new EnumMap<>(Rarity.class);
+        for (Rarity rarity : Rarity.values()) {
+            List<CardType<T>> drops = temp.get(rarity);
+            drops.sort(ITEM_LEVEL_COMPARATOR);
+            result.put(rarity, drops.toArray(new CardType[0]));
+        }
+        return result;
     }
 
     public void add(CardType<T> cardType) {
@@ -73,22 +86,43 @@ public abstract strictfp class Stash<T extends Card> implements ReadonlyStash<T>
         }
     }
 
-    public CardType<T> getRandomDrop(Rarity rarity, RandomPlugin randomPlugin) {
-        List<CardType<T>> possibleDrops = cardByDropRarity.get(rarity);
-        if (possibleDrops.isEmpty()) {
+    public CardType<T> getRandomDrop(Rarity rarity, int maxItemLevel, RandomPlugin randomPlugin) {
+        CardType<T>[] possibleDrops = cardByDropRarity.get(rarity);
+        if (possibleDrops.length <= 0) {
             return null;
         }
 
-        int dropIndex = randomPlugin.getInt(0, possibleDrops.size());
+        int amount = 0;
+        for (CardType<T> possibleDrop : possibleDrops) {
+            if (possibleDrop.instance().getItemLevel() <= maxItemLevel) {
+                ++amount;
+            } else {
+                break;
+            }
+        }
+
+        if (amount == 0) {
+            return null;
+        }
+
+        int dropIndex = randomPlugin.getInt(0, amount - 1);
 
         // TODO check if unique/legendary card has already dropped
 
-        return possibleDrops.get(dropIndex);
+        return possibleDrops[dropIndex];
     }
 
     protected abstract CardType<T>[] getPossibleDrops();
 
     private StashEntry<T> get(CardType<T> cardType) {
         return entryByType.get(cardType);
+    }
+
+    private static class ItemLevelComparator implements Comparator<CardType<? extends Card>> {
+
+        @Override
+        public int compare(CardType<? extends Card> o1, CardType<? extends Card> o2) {
+            return Integer.compare(o1.instance().getItemLevel(), o2.instance().getItemLevel());
+        }
     }
 }

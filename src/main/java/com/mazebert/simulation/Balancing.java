@@ -113,6 +113,7 @@ public strictfp class Balancing {
 
         int minDrops = creep.getMinDrops();
         int maxDrops = creep.getMaxDrops();
+        int maxItemLevel = creep.getMaxItemLevel();
         float dropChance = DEFAULT_DROP_CHANCE;
         float[] rarityChances = calculateDropChancesForRarity(tower, creep);
 
@@ -133,9 +134,13 @@ public strictfp class Balancing {
             Stash stash = calculateDropStash(wizard, diceThrow);
 
             while (rarity.ordinal() >= Rarity.Common.ordinal()) {
-                CardType drop = stash.getRandomDrop(rarity, randomPlugin);
+                CardType drop = stash.getRandomDrop(rarity, maxItemLevel, randomPlugin);
                 if (drop == null) {
-                    rarity = Rarity.values()[rarity.ordinal() - 1];
+                    if (rarity == Rarity.Common) {
+                        break;
+                    } else {
+                        rarity = Rarity.values()[rarity.ordinal() - 1];
+                    }
                 } else {
                     stash.add(drop);
                     break;

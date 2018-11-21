@@ -1,6 +1,7 @@
 package com.mazebert.simulation.units.abilities;
 
 import com.mazebert.simulation.SimTest;
+import com.mazebert.simulation.Wave;
 import com.mazebert.simulation.gateways.UnitGateway;
 import com.mazebert.simulation.plugins.random.RandomPluginTrainer;
 import com.mazebert.simulation.projectiles.Projectile;
@@ -36,6 +37,7 @@ public strictfp class ProjectileDamageAbilityTest extends SimTest {
         tower.addAbility(projectileDamageAbility);
 
         creep.setX(1.0f);
+        creep.setWave(new Wave());
         unitGateway.addUnit(creep);
     }
 

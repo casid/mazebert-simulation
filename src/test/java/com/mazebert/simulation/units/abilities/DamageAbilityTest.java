@@ -1,6 +1,7 @@
 package com.mazebert.simulation.units.abilities;
 
 import com.mazebert.simulation.SimTest;
+import com.mazebert.simulation.Wave;
 import com.mazebert.simulation.gateways.UnitGateway;
 import com.mazebert.simulation.plugins.random.RandomPluginTrainer;
 import com.mazebert.simulation.units.TestTower;
@@ -33,6 +34,7 @@ public class DamageAbilityTest extends SimTest {
         tower.setCritChance(0.0f);
 
         creep = new Creep();
+        creep.setWave(new Wave());
         unitGateway.addUnit(creep);
     }
 

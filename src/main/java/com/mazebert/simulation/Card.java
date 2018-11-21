@@ -13,6 +13,8 @@ public interface Card {
 
     boolean isDropable();
 
+    int getItemLevel();
+
     boolean isDark();
 
     String getSinceVersion();

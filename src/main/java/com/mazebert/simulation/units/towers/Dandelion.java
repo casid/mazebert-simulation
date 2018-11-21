@@ -44,6 +44,11 @@ public strictfp class Dandelion extends Tower {
     }
 
     @Override
+    public int getItemLevel() {
+        return 1;
+    }
+
+    @Override
     public String getSinceVersion() {
         return "0.1";
     }
