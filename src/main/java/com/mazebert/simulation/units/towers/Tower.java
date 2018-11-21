@@ -249,6 +249,11 @@ public strictfp abstract class Tower extends Unit implements CooldownUnit, Card,
         return getRarity();
     }
 
+    @Override
+    public boolean isDropable() {
+        return true;
+    }
+
     public int getGoldCost() {
         switch (getDropRarity()) {
             case Common:

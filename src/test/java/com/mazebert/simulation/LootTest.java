@@ -6,11 +6,9 @@ import com.mazebert.simulation.units.TestTower;
 import com.mazebert.simulation.units.abilities.AttackAbility;
 import com.mazebert.simulation.units.abilities.DamageAbility;
 import com.mazebert.simulation.units.creeps.Creep;
-import com.mazebert.simulation.units.creeps.CreepState;
 import com.mazebert.simulation.units.items.ItemType;
 import com.mazebert.simulation.units.towers.Tower;
 import com.mazebert.simulation.units.wizards.Wizard;
-import org.assertj.core.data.Percentage;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -19,6 +17,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class LootTest extends SimTest {
 
     private static final float BABY_SWORD_ROLL = 0.6f;
+    private static final float WOODEN_STAFF_ROLL = 0.0f;
 
     RandomPluginTrainer randomPluginTrainer = new RandomPluginTrainer();
 
@@ -86,6 +85,22 @@ public class LootTest extends SimTest {
     }
 
     @Test
+    void loot_woodenStaff() {
+        randomPluginTrainer.givenFloatAbs(
+                0.0f, // This is a drop
+                0.0f, // The rarity of this drop is common
+                0.0f, // This is an item drop
+                WOODEN_STAFF_ROLL // It's a wooden staff!
+        );
+        creep.setMaxDrops(1);
+
+        whenTowerAttacks();
+
+        assertThat(wizard.itemStash.get(0).amount).isEqualTo(1);
+        assertThat(wizard.itemStash.get(0).cardType).isEqualTo(ItemType.WoodenStaff);
+    }
+
+    @Test
     void loot_oneBabySwordOnSecondTry() {
         randomPluginTrainer.givenFloatAbs(
                 0.9f, // No drop
@@ -134,7 +149,7 @@ public class LootTest extends SimTest {
 
         assertThat(wizard.itemStash.size()).isEqualTo(0);
     }
-    
+
     private void whenTowerAttacks() {
         tower.simulate(1.0f);
     }

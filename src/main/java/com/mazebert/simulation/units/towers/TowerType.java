@@ -19,10 +19,17 @@ public strictfp enum TowerType implements CardType<Tower> {
 
     public final int id;
     public final Class<? extends Tower> towerClass;
+    public final Tower instance;
 
     TowerType(int id, Class<? extends Tower> towerClass) {
         this.id = id;
         this.towerClass = towerClass;
+        this.instance = create();
+    }
+
+    @Override
+    public Tower instance() {
+        return instance;
     }
 
     @Override

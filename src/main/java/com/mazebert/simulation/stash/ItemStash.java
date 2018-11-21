@@ -1,5 +1,6 @@
 package com.mazebert.simulation.stash;
 
+import com.mazebert.simulation.CardType;
 import com.mazebert.simulation.units.items.Item;
 import com.mazebert.simulation.units.items.ItemType;
 
@@ -9,5 +10,10 @@ public strictfp class ItemStash extends Stash<Item> {
     @SuppressWarnings("unchecked")
     public ItemStash() {
         super(new EnumMap(ItemType.class));
+    }
+
+    @Override
+    protected ItemType[] getPossibleDrops() {
+        return ItemType.values();
     }
 }

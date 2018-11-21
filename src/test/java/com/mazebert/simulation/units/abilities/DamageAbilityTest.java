@@ -108,7 +108,7 @@ public class DamageAbilityTest extends SimTest {
         tower.setCritChance(0.5f);
         tower.setCritDamage(0.5f);
         tower.setMulticrit(3);
-        randomPluginTrainer.givenFloatAbs(0.0f, 0.0f, 0.9f, 0.0f);
+        randomPluginTrainer.givenFloatAbs(0.0f, 0.9f, 0.0f);
 
         whenTowerAttacks();
 

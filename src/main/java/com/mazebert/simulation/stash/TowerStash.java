@@ -10,4 +10,9 @@ public strictfp class TowerStash extends Stash<Tower> {
     public TowerStash() {
         super(new EnumMap(TowerType.class));
     }
+
+    @Override
+    protected TowerType[] getPossibleDrops() {
+        return TowerType.values();
+    }
 }

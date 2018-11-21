@@ -24,6 +24,11 @@ public strictfp abstract class Item implements Card {
     }
 
     @Override
+    public boolean isDropable() {
+        return true;
+    }
+
+    @Override
     public String getAuthor() {
         return "casid";
     }

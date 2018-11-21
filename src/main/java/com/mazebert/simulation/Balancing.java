@@ -3,7 +3,6 @@ package com.mazebert.simulation;
 import com.mazebert.simulation.plugins.random.RandomPlugin;
 import com.mazebert.simulation.stash.Stash;
 import com.mazebert.simulation.units.creeps.Creep;
-import com.mazebert.simulation.units.items.ItemType;
 import com.mazebert.simulation.units.towers.Tower;
 import com.mazebert.simulation.units.wizards.Wizard;
 
@@ -107,6 +106,7 @@ public strictfp class Balancing {
         return totalResult;
     }
 
+    @SuppressWarnings("unchecked")
     public static void loot(Tower tower, Creep creep) {
         Wizard wizard = Sim.context().unitGateway.getWizard(tower.getPlayerId());
         RandomPlugin randomPlugin = Sim.context().randomPlugin;
@@ -131,9 +131,8 @@ public strictfp class Balancing {
             diceThrow = randomPlugin.getFloatAbs();
             Stash stash = calculateDropStash(wizard, diceThrow);
 
-            // TODO
-            randomPlugin.getFloatAbs();
-            stash.add(ItemType.BabySword);
+            CardType drop = stash.getRandomDrop(rarity, randomPlugin);
+            stash.add(drop);
         }
     }
 

@@ -2,19 +2,34 @@ package com.mazebert.simulation.stash;
 
 import com.mazebert.simulation.Card;
 import com.mazebert.simulation.CardType;
+import com.mazebert.simulation.Rarity;
 import com.mazebert.simulation.hash.Hash;
 import com.mazebert.simulation.hash.Hashable;
+import com.mazebert.simulation.plugins.random.RandomPlugin;
 
 import java.util.ArrayList;
+import java.util.EnumMap;
 import java.util.List;
 import java.util.Map;
 
-public strictfp class Stash<T extends Card> implements ReadonlyStash<T>, Hashable {
+public abstract strictfp class Stash<T extends Card> implements ReadonlyStash<T>, Hashable {
     private final List<StashEntry<T>> entries = new ArrayList<>();
     private final Map<Object, StashEntry<T>> entryByType;
+    private final EnumMap<Rarity, List<CardType<T>>> cardByDropRarity = new EnumMap<>(Rarity.class);
 
-    public Stash(Map<Object, StashEntry<T>> entryByType) {
+    protected Stash(Map<Object, StashEntry<T>> entryByType) {
         this.entryByType = entryByType;
+
+        for (Rarity rarity : Rarity.values()) {
+            cardByDropRarity.put(rarity, new ArrayList<>());
+        }
+
+        for (CardType<T> possibleDrop : getPossibleDrops()) {
+            T card = possibleDrop.instance();
+            if (card.isDropable()) {
+                cardByDropRarity.get(card.getDropRarity()).add(possibleDrop);
+            }
+        }
     }
 
     public void add(CardType<T> cardType) {
@@ -57,6 +72,18 @@ public strictfp class Stash<T extends Card> implements ReadonlyStash<T>, Hashabl
             hash.add(entry);
         }
     }
+
+    public CardType<T> getRandomDrop(Rarity rarity, RandomPlugin randomPlugin) {
+        List<CardType<T>> possibleDrops = cardByDropRarity.get(rarity);
+
+        int dropIndex = randomPlugin.getInt(0, possibleDrops.size());
+
+        // TODO check if unique/legendary card has already dropped
+
+        return possibleDrops.get(dropIndex);
+    }
+
+    protected abstract CardType<T>[] getPossibleDrops();
 
     private StashEntry<T> get(CardType<T> cardType) {
         return entryByType.get(cardType);
