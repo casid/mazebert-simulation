@@ -4,10 +4,7 @@ import com.mazebert.simulation.SimulationListeners;
 import com.mazebert.simulation.Wave;
 import com.mazebert.simulation.WaveType;
 import com.mazebert.simulation.commands.InitGameCommand;
-import com.mazebert.simulation.gateways.DifficultyGateway;
-import com.mazebert.simulation.gateways.GameGateway;
-import com.mazebert.simulation.gateways.UnitGateway;
-import com.mazebert.simulation.gateways.WaveGateway;
+import com.mazebert.simulation.gateways.*;
 import com.mazebert.simulation.maps.BloodMoor;
 import com.mazebert.simulation.plugins.random.RandomPluginTrainer;
 import com.mazebert.simulation.units.towers.TowerType;
@@ -32,6 +29,7 @@ class InitGameTest extends UsecaseTest<InitGameCommand> {
     void setUp() {
         randomPlugin = randomPluginTrainer;
         simulationListeners = new SimulationListeners();
+        playerGateway = new PlayerGatewayTrainer();
         waveGateway = new WaveGateway();
         gameGateway = new GameGateway();
         unitGateway = new UnitGateway();
@@ -39,6 +37,7 @@ class InitGameTest extends UsecaseTest<InitGameCommand> {
 
         usecase = new InitGame();
 
+        request.playerId = 1;
         request.rounds = 1;
     }
 
@@ -211,18 +210,6 @@ class InitGameTest extends UsecaseTest<InitGameCommand> {
         assertThat(wizard.towerStash.size()).isGreaterThan(0);
         assertThat(wizard.towerStash.get(0).getCardType()).isEqualTo(TowerType.Hitman);
         assertThat(wizard.towerStash.get(0).getAmount()).isEqualTo(2);
-    }
-
-    @Test
-    void secondGame() {
-        Wizard existingWizard = new Wizard();
-        unitGateway.addUnit(existingWizard);
-
-        whenRequestIsExecuted();
-
-        assertThat(unitGateway.getUnits()).hasSize(1);
-        Wizard wizard = unitGateway.getWizard(request.playerId);
-        assertThat(wizard).isSameAs(existingWizard);
     }
 
     @Test
