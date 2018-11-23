@@ -29,6 +29,7 @@ public strictfp class Creep extends Unit {
     private int maxDrops;
     private int minDrops;
     private int maxItemLevel;
+    private float dropChance;
     private int armor;
     private float experience;
     private float experienceModifier = 1.0f;
@@ -52,6 +53,7 @@ public strictfp class Creep extends Unit {
         hash.add(maxDrops);
         hash.add(minDrops);
         hash.add(maxItemLevel);
+        hash.add(dropChance);
         hash.add(armor);
         hash.add(experience);
         hash.add(experienceModifier);
@@ -284,6 +286,14 @@ public strictfp class Creep extends Unit {
 
     public void setMaxItemLevel(int maxItemLevel) {
         this.maxItemLevel = maxItemLevel;
+    }
+
+    public float getDropChance() {
+        return dropChance;
+    }
+
+    public void setDropChance(float dropChance) {
+        this.dropChance = dropChance;
     }
 
     public static class WalkResult {

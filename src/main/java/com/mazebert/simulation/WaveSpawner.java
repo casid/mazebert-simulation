@@ -87,11 +87,59 @@ public strictfp class WaveSpawner implements OnGameStartedListener, OnWaveStarte
             creep.setGold(i == creepIndexWithRemainingGold ? goldOfOneCreep + goldRemaining : goldOfOneCreep);
             creep.setArmor(round);
             creep.setExperience(experienceOfOneCreep);
+            applyWaveAttributes(creep, wave);
 
             creepQueue.add(creep);
         }
 
         waveGateway.generateMissingWaves(randomPlugin);
+    }
+
+    private void applyWaveAttributes(Creep creep, Wave wave) {
+        switch (wave.type) {
+            case Normal:
+                creep.setDropChance(1.0f); // Normal drop chance.
+                creep.setMinDrops(0); // No guaranteed drops.
+                creep.setMaxDrops(2); // Maximum are two drops.
+                creep.setMaxItemLevel(wave.round); // Item level is round.
+                break;
+            case Mass:
+                creep.setDropChance(0.6f); // Reduced drop chance.
+                creep.setMinDrops(0); // No guaranteed drops.
+                creep.setMaxDrops(1); // Maximum is one drop.
+                creep.setMaxItemLevel(wave.round); // Item level is round.
+                break;
+            case Boss:
+                creep.setDropChance(5.0f); // Increased drop chance.
+                creep.setMinDrops(0); // No guaranteed drops.
+                creep.setMaxDrops(4); // Maximum are 4 drops.
+                creep.setMaxItemLevel(wave.round + 2); // Item level is round + 2.
+                break;
+            case Air:
+                creep.setDropChance(2.0f); // Slightly increased drop chance, as there are half as many air creeps than normal creeps to kill.
+                creep.setMinDrops(0); // No guaranteed drops.
+                creep.setMaxDrops(2); // Maximum are two drops.
+                creep.setMaxItemLevel(wave.round); // Item level is round.
+                break;
+            case Challenge:
+                creep.setDropChance(7.5f); // Increased drop chance.
+                creep.setMinDrops(2); // Two guaranteed drops.
+                creep.setMaxDrops(6); // Maximum are 6 drops.
+                creep.setMaxItemLevel(wave.round + 5); // Item level is round + 5.
+                break;
+            case MassChallenge:
+                creep.setDropChance(1.0f); // Normal drop chance.
+                creep.setMinDrops(0); // No guaranteed drops.
+                creep.setMaxDrops(2); // Maximum are two drops.
+                creep.setMaxItemLevel(wave.round + 3); // Max Item level is round + 3.
+                break;
+            case Horseman:
+                creep.setDropChance(5.0f); // Increased drop chance.
+                creep.setMinDrops(2); // Two guaranteed drops.
+                creep.setMaxDrops(4); // Maximum are 4 drops.
+                creep.setMaxItemLevel(wave.round + 3); // Max Item level is round + 3
+                break;
+        }
     }
 
     private void spawnCreep(Creep creep) {

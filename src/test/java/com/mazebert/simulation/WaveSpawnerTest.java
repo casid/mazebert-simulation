@@ -311,6 +311,18 @@ public class WaveSpawnerTest extends SimTest {
     }
 
     @Test
+    void drops_boss() {
+        givenBossWave();
+
+        whenAllCreepsAreSpawned();
+
+        assertThat(getCreep(0).getMinDrops()).isEqualTo(0);
+        assertThat(getCreep(0).getMaxDrops()).isEqualTo(4);
+        assertThat(getCreep(0).getDropChance()).isEqualTo(5.0f);
+        assertThat(getCreep(0).getMaxItemLevel()).isEqualTo(2);
+    }
+
+    @Test
     void health_boss() {
         givenBossWave();
 
@@ -393,6 +405,7 @@ public class WaveSpawnerTest extends SimTest {
     private void givenBossWave() {
         Wave wave = new Wave();
         wave.creepCount = 1;
+        wave.type = WaveType.Boss;
         waveGateway.addWave(wave);
     }
 
