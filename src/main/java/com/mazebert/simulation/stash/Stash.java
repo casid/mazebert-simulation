@@ -39,7 +39,8 @@ public abstract strictfp class Stash<T extends Card> implements ReadonlyStash<T>
         EnumMap<Rarity, CardType<T>[]> result = new EnumMap<>(Rarity.class);
         for (Rarity rarity : Rarity.values()) {
             List<CardType<T>> drops = temp.get(rarity);
-            drops.sort(ITEM_LEVEL_COMPARATOR);
+            //noinspection Java8ListSort // For android 19 compatibility
+            Collections.sort(drops, ITEM_LEVEL_COMPARATOR);
             result.put(rarity, drops.toArray(new CardType[0]));
         }
         return result;

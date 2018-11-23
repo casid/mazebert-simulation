@@ -1,12 +1,11 @@
 package com.mazebert.simulation.gateways;
 
+import com.mazebert.java8.Consumer;
 import com.mazebert.simulation.units.Unit;
-import com.mazebert.simulation.units.towers.Tower;
 import com.mazebert.simulation.units.wizards.Wizard;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.function.Consumer;
 
 public strictfp class UnitGateway {
     private final List<Unit> units = new ArrayList<>();
@@ -81,7 +80,7 @@ public strictfp class UnitGateway {
     public <U extends Unit> U findUnit(Class<U> unitClass, int playerId, int x, int y) {
         for (Unit unit : units) {
             if (unitClass.isAssignableFrom(unit.getClass()) && unit.getPlayerId() == playerId && unit.getX() == x && unit.getY() == y) {
-                return (U)unit;
+                return (U) unit;
             }
         }
         return null;

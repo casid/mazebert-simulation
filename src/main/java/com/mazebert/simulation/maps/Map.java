@@ -1,11 +1,11 @@
 package com.mazebert.simulation.maps;
 
+import com.mazebert.java8.Predicate;
 import com.mazebert.simulation.Path;
 import com.mazebert.simulation.math.Point;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.function.Predicate;
 
 public strictfp abstract class Map {
     private final List<Tile> tiles = new ArrayList<>();

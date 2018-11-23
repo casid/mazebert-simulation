@@ -1,5 +1,6 @@
 package com.mazebert.simulation.maps;
 
+import com.mazebert.java8.Predicate;
 import com.mazebert.simulation.Path;
 import com.mazebert.simulation.math.Point;
 
@@ -7,7 +8,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Stack;
-import java.util.function.Predicate;
 
 public strictfp class MapGrid {
     public static final Predicate<Tile> WALKABLE = t -> t.type.walkable;

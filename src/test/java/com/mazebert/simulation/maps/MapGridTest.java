@@ -1,9 +1,8 @@
 package com.mazebert.simulation.maps;
 
+import com.mazebert.java8.Predicate;
 import com.mazebert.simulation.Path;
 import org.junit.jupiter.api.Test;
-
-import java.util.function.Predicate;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
