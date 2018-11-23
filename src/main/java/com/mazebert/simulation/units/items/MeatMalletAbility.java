@@ -41,6 +41,6 @@ public strictfp class MeatMalletAbility extends DamageWithLevelBonusAbility {
 
     @Override
     public String getDescription() {
-        return "Damage increased by " + Sim.context().formatPlugin.percent(bonus) + "%\nCrit chance reduced by " + Sim.context().formatPlugin.percent(critChanceMalus) + "%";
+        return "Damage increased by " + formatPlugin.percent(bonus) + "%\nCrit chance reduced by " + formatPlugin.percent(critChanceMalus) + "%";
     }
 }

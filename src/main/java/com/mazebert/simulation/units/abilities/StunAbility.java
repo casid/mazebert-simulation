@@ -8,8 +8,6 @@ import com.mazebert.simulation.units.creeps.effects.StunEffect;
 import com.mazebert.simulation.units.towers.Tower;
 
 public strictfp class StunAbility extends Ability<Tower> implements OnDamageListener {
-    private final FormatPlugin formatPlugin = Sim.context().formatPlugin;
-
     private float chance;
     private float duration;
 

@@ -10,7 +10,6 @@ import com.mazebert.simulation.units.towers.Tower;
 public strictfp class SplashAbility extends Ability<Tower> implements OnDamageListener {
 
     private final UnitGateway unitGateway = Sim.context().unitGateway;
-    private final FormatPlugin formatPlugin = Sim.context().formatPlugin;
 
     private int range;
     private float damageFactor;
