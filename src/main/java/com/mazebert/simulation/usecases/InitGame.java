@@ -11,6 +11,7 @@ import com.mazebert.simulation.gateways.UnitGateway;
 import com.mazebert.simulation.gateways.WaveGateway;
 import com.mazebert.simulation.maps.BloodMoor;
 import com.mazebert.simulation.plugins.random.UuidRandomPlugin;
+import com.mazebert.simulation.units.items.ItemType;
 import com.mazebert.simulation.units.towers.TowerType;
 import com.mazebert.simulation.units.wizards.Wizard;
 
@@ -43,6 +44,8 @@ public strictfp class InitGame extends Usecase<InitGameCommand> {
             for (int i = 0; i < 2; ++i) {
                 wizard.towerStash.add(TowerType.Rabbit);
             }
+            wizard.itemStash.add(ItemType.BabySword);
+            wizard.itemStash.add(ItemType.WoodenStaff);
             unitGateway.addUnit(wizard);
         }
 

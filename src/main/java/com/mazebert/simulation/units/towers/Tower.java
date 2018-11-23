@@ -33,6 +33,8 @@ public strictfp abstract class Tower extends Unit implements CooldownUnit, Card,
     private float critDamage = 0.25f;
     private int multicrit = 1;
     private float luck = 1.0f; // factor 1 is regular luck of every tower
+    private float itemChance = 1.0f; // 1.0 is 100% item chance (normal, not good not bad)
+    private float itemQuality = 1.0f; // 1.0 is 100% item quality (normal, not good not bad)
     private Element element;
     private Gender gender;
     private AttackType attackType;
@@ -65,6 +67,8 @@ public strictfp abstract class Tower extends Unit implements CooldownUnit, Card,
         hash.add(critDamage);
         hash.add(multicrit);
         hash.add(luck);
+        hash.add(itemChance);
+        hash.add(itemQuality);
         hash.add(element);
         hash.add(gender);
         hash.add(attackType);
@@ -362,5 +366,21 @@ public strictfp abstract class Tower extends Unit implements CooldownUnit, Card,
         } else {
             return randomPlugin.getDouble(minBaseDamage, maxBaseDamage);
         }
+    }
+
+    public float getItemChance() {
+        return itemChance;
+    }
+
+    public void setItemChance(float itemChance) {
+        this.itemChance = itemChance;
+    }
+
+    public float getItemQuality() {
+        return itemQuality;
+    }
+
+    public void setItemQuality(float itemQuality) {
+        this.itemQuality = itemQuality;
     }
 }

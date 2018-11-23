@@ -174,7 +174,7 @@ public class LootTest extends SimTest {
     void loot_itemLevel_onlyOneFit() {
         randomPluginTrainer.givenFloatAbs(
                 0.0f, // This is a drop
-                0.3f, // The rarity of this drop is uncommon
+                0.01f, // The rarity of this drop is uncommon
                 0.0f, // This is an item drop
                 0.9f // It's a meat mallet!
         );
@@ -190,7 +190,7 @@ public class LootTest extends SimTest {
     void loot_itemLevel_onlyOneFit2() {
         randomPluginTrainer.givenFloatAbs(
                 0.0f, // This is a drop
-                0.3f, // The rarity of this drop is uncommon
+                0.01f, // The rarity of this drop is uncommon
                 0.0f, // This is an item drop
                 0.9f // It's a meat mallet!
         );

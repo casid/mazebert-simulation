@@ -14,7 +14,8 @@ public strictfp class Balancing {
     public static final float MIN_COOLDOWN = 0.01f;
     public static final float MAX_TRIGGER_CHANCE = 0.8f;
     public static final int MAX_TOWER_LEVEL = 99;
-    public static final float DEFAULT_DROP_CHANCE = 0.4f;
+    public static final float DEFAULT_DROP_CHANCE = 0.04f;
+    public static final float DROP_QUALITY_CONST = 0.4f;
 
     private static final float[] towerExperienceForLevel = new float[MAX_TOWER_LEVEL];
 
@@ -114,7 +115,7 @@ public strictfp class Balancing {
         int minDrops = creep.getMinDrops();
         int maxDrops = creep.getMaxDrops();
         int maxItemLevel = creep.getMaxItemLevel();
-        float dropChance = DEFAULT_DROP_CHANCE;
+        float dropChance = DEFAULT_DROP_CHANCE * creep.getDropChance() * getTowerItemChanceFactor(tower.getItemChance());
         float[] rarityChances = calculateDropChancesForRarity(tower, creep);
 
         float diceThrow;
@@ -151,8 +152,8 @@ public strictfp class Balancing {
 
     private static float[] calculateDropChancesForRarity(Tower tower, Creep creep) {
         float dropQualityProgress = StrictMath.min(1.0f,
-                0.8f * StrictMath.min(1.0f, (float)StrictMath.sqrt(creep.getWave().round / 120.0f)) + // Current round affects item quality as well, max quality at lvl ??.
-                0.6f * getTowerItemQualityFactor(tower));
+                0.8f * StrictMath.min(1.0f, (float) StrictMath.sqrt(creep.getWave().round / 120.0f)) + // Current round affects item quality as well, max quality at lvl ??.
+                        0.6f * getTowerItemQualityFactor(tower.getItemQuality()));
 
         float[] result = Sim.context().tempChancesForRarity;
 
@@ -165,8 +166,20 @@ public strictfp class Balancing {
         return result;
     }
 
-    private static float getTowerItemQualityFactor(Tower tower) {
-        return 1.0f; // TODO .itemQuality
+    private static float getTowerItemChanceFactor(float linearChance) {
+        if (linearChance > 0.0f) {
+            return (2.0f * linearChance) / (1.0f + linearChance);
+        } else {
+            return 0.0f;
+        }
+    }
+
+    private static float getTowerItemQualityFactor(float linearChance) {
+        if (linearChance > 0.0f) {
+            return (DROP_QUALITY_CONST * (linearChance - 1.0f)) / (1.0f + (DROP_QUALITY_CONST * (linearChance - 1.0f)));
+        } else {
+            return 0.0f;
+        }
     }
 
     private static Rarity calculateDropRarity(float[] rarityChances, float diceThrow) {
