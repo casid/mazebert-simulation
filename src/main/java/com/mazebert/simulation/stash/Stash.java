@@ -81,6 +81,11 @@ public abstract strictfp class Stash<T extends Card> implements ReadonlyStash<T>
     }
 
     @Override
+    public StashEntry<T> get(CardType<T> cardType) {
+        return entryByType.get(cardType);
+    }
+
+    @Override
     public void hash(Hash hash) {
         for (StashEntry<T> entry : entries) {
             hash.add(entry);
@@ -114,10 +119,6 @@ public abstract strictfp class Stash<T extends Card> implements ReadonlyStash<T>
     }
 
     protected abstract CardType<T>[] getPossibleDrops();
-
-    private StashEntry<T> get(CardType<T> cardType) {
-        return entryByType.get(cardType);
-    }
 
     private static class ItemLevelComparator implements Comparator<CardType<? extends Card>> {
 
