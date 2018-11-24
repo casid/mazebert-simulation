@@ -17,6 +17,7 @@ public strictfp abstract class Tower extends Unit implements CooldownUnit, Card,
     public final OnDamage onDamage = new OnDamage();
     public final OnLevelChanged onLevelChanged = new OnLevelChanged();
     public final OnKill onKill = new OnKill();
+    public final OnItemEquipped onItemEquipped = new OnItemEquipped();
 
     private int level;
     private float experience;
@@ -350,6 +351,8 @@ public strictfp abstract class Tower extends Unit implements CooldownUnit, Card,
                 addAbility(ability);
             }
         }
+
+        onItemEquipped.dispatch(this, index, previousItem, item);
     }
 
     public void addAddedRelativeBaseDamage(float amount) {
