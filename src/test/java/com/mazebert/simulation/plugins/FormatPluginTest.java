@@ -1,5 +1,6 @@
 package com.mazebert.simulation.plugins;
 
+import com.mazebert.simulation.Balancing;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -9,12 +10,14 @@ class FormatPluginTest {
 
     @Test
     void cooldown() {
-        assertThat(format.cooldown(0.0f)).isEqualTo("0s");
+        assertThat(format.cooldown(0.2f)).isEqualTo("0.2s");
         assertThat(format.cooldown(1.0f)).isEqualTo("1s");
         assertThat(format.cooldown(2.0f)).isEqualTo("2s");
         assertThat(format.cooldown(2.2f)).isEqualTo("2.2s");
         assertThat(format.cooldown(2.234f)).isEqualTo("2.2s");
         assertThat(format.cooldown(0.55f)).isEqualTo("0.6s");
+        assertThat(format.cooldown(Balancing.MAX_COOLDOWN)).isEqualTo("60s (max)");
+        assertThat(format.cooldown(Balancing.MIN_COOLDOWN)).isEqualTo("0.01s (min)");
     }
 
     @Test

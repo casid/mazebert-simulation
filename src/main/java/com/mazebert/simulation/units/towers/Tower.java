@@ -371,6 +371,38 @@ public strictfp abstract class Tower extends Unit implements CooldownUnit, Card,
         }
     }
 
+    public double calculateAverageBaseDamageForDisplay() {
+        return minBaseDamage + 0.5 * (maxBaseDamage - minBaseDamage);
+    }
+
+    public double calculateAverageDamageForDisplay() {
+        // Calculate average base damage between min and max.
+        double averageBaseDamage = minBaseDamage + (maxBaseDamage - minBaseDamage + 1) * 0.5;
+        averageBaseDamage += addedAbsoluteBaseDamage;
+        averageBaseDamage = averageBaseDamage * (1.0 + addedRelativeBaseDamage);
+        double damage = averageBaseDamage;
+
+        // Calculate average crit amount and damage.
+        double critChance = this.critDamage;
+        for (int i = 0; i < multicrit; ++i)
+        {
+            if (critChance > 0.0)
+            {
+                // Add average critical strike damage to the final damage.
+                damage += averageBaseDamage * critDamage * Math.min(1.0, critChance);
+
+                // Reduce crit chance for next multicrit by 20%.
+                critChance *= 0.8;
+            }
+            else
+            {
+                break;
+            }
+        }
+
+        return damage;
+    }
+
     public float getItemChance() {
         return itemChance;
     }

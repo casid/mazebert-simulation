@@ -1,5 +1,7 @@
 package com.mazebert.simulation.plugins;
 
+import com.mazebert.simulation.Balancing;
+
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
@@ -8,6 +10,7 @@ import java.util.Locale;
 public strictfp class FormatPlugin {
     private final NumberFormat noFractionFormat;
     private final NumberFormat oneFractionFormat;
+    private final NumberFormat twoFractionFormat;
     private final NumberFormat percentFormat;
 
     public FormatPlugin() {
@@ -21,6 +24,11 @@ public strictfp class FormatPlugin {
         oneFractionFormat.setMinimumFractionDigits(0);
         oneFractionFormat.setMaximumFractionDigits(1);
 
+        twoFractionFormat = DecimalFormat.getInstance(Locale.US);
+        twoFractionFormat.setRoundingMode(RoundingMode.HALF_UP);
+        twoFractionFormat.setMinimumFractionDigits(0);
+        twoFractionFormat.setMaximumFractionDigits(2);
+
         percentFormat = DecimalFormat.getInstance(Locale.US);
         percentFormat.setRoundingMode(RoundingMode.HALF_UP);
         percentFormat.setMinimumFractionDigits(0);
@@ -28,7 +36,18 @@ public strictfp class FormatPlugin {
     }
 
     public String cooldown(float cooldown) {
-        return oneFractionFormat.format(cooldown) + "s";
+        String result;
+        if (cooldown < 0.1f) {
+            result = twoFractionFormat.format(cooldown) + "s";
+        } else {
+            result = oneFractionFormat.format(cooldown) + "s";
+        }
+        if (cooldown >= Balancing.MAX_COOLDOWN) {
+            result += " (max)";
+        } else if (cooldown <= Balancing.MIN_COOLDOWN) {
+            result += " (min)";
+        }
+        return result;
     }
 
     public String damage(double damage) {
