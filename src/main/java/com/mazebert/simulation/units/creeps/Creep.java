@@ -5,6 +5,7 @@ import com.mazebert.simulation.Wave;
 import com.mazebert.simulation.hash.Hash;
 import com.mazebert.simulation.listeners.OnDead;
 import com.mazebert.simulation.listeners.OnDeath;
+import com.mazebert.simulation.listeners.OnHealthChanged;
 import com.mazebert.simulation.listeners.OnTargetReached;
 import com.mazebert.simulation.units.Unit;
 
@@ -16,6 +17,7 @@ public strictfp class Creep extends Unit {
     public final OnDeath onDeath = new OnDeath();
     public final OnDead onDead = new OnDead();
     public final OnTargetReached onTargetReached = new OnTargetReached();
+    public final OnHealthChanged onHealthChanged = new OnHealthChanged();
 
     private double health = 100.0f;
     private double maxHealth = health;
@@ -151,6 +153,8 @@ public strictfp class Creep extends Unit {
 
     public void setHealth(double health) {
         if (this.health > 0.0) {
+            double oldHealth = this.health;
+
             if (health <= 0.0) {
                 this.health = 0.0;
                 deathTime = 0.0f;
@@ -159,6 +163,8 @@ public strictfp class Creep extends Unit {
             } else {
                 this.health = health;
             }
+
+            onHealthChanged.dispatch(this, oldHealth, this.health);
         }
     }
 
