@@ -1,21 +1,19 @@
 package com.mazebert.simulation.units.creeps;
 
 public strictfp enum CreepType {
-    Orc("orc", 58),
-    Rat("rat", 58),
-    Spider("spider", 58),
-    Troll("troll", 58),
-    Bat("bat", 58),
-    AirDragon("airdragon", 58),
-    Gnome("gnome", 52),
-    Horseman("horsemen", 78),
+    Orc("orc"),
+    Rat("rat"),
+    Spider("spider"),
+    Troll("troll"),
+    Bat("bat"),
+    AirDragon("airdragon"),
+    Gnome("gnome"),
+    Horseman("horsemen"),
     ;
 
     public final String modelId;
-    public final int baseHeight;
 
-    CreepType(String modelId, int baseHeight) {
+    CreepType(String modelId) {
         this.modelId = modelId;
-        this.baseHeight = baseHeight;
     }
 }
