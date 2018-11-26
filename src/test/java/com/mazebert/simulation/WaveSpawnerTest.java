@@ -9,6 +9,7 @@ import com.mazebert.simulation.plugins.random.RandomPluginTrainer;
 import com.mazebert.simulation.units.Unit;
 import com.mazebert.simulation.units.creeps.Creep;
 import com.mazebert.simulation.units.creeps.CreepState;
+import com.mazebert.simulation.units.creeps.CreepType;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -396,6 +397,30 @@ public class WaveSpawnerTest extends SimTest {
         whenAllCreepsAreSpawned();
 
         assertThat(getCreep(0).getExperience()).isEqualTo(23.558979f);
+    }
+
+    @Test
+    void orc() {
+        Wave wave = new Wave();
+        wave.creepCount = 1;
+        wave.creepType = CreepType.Orc;
+        waveGateway.addWave(wave);
+
+        whenGameIsStarted();
+
+        assertThat(getCreep(0).getType()).isEqualTo(CreepType.Orc);
+    }
+
+    @Test
+    void rat() {
+        Wave wave = new Wave();
+        wave.creepCount = 1;
+        wave.creepType = CreepType.Rat;
+        waveGateway.addWave(wave);
+
+        whenGameIsStarted();
+
+        assertThat(getCreep(0).getType()).isEqualTo(CreepType.Rat);
     }
 
     private Creep getCreep(int index) {

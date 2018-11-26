@@ -3,6 +3,7 @@ package com.mazebert.simulation.gateways;
 import com.mazebert.simulation.Wave;
 import com.mazebert.simulation.WaveType;
 import com.mazebert.simulation.plugins.random.RandomPlugin;
+import com.mazebert.simulation.units.creeps.CreepType;
 
 import java.util.ArrayDeque;
 import java.util.Collection;
@@ -11,6 +12,8 @@ import java.util.Queue;
 public strictfp class WaveGateway implements ReadonlyWaveGateway {
     public static final int WAVES_IN_ADVANCE = 3;
     private static final WaveType[] RANDOM_WAVE_TYPES = {WaveType.Normal, WaveType.Mass, WaveType.Boss, WaveType.Air};
+    private static final CreepType[] RANDOM_AIR_CREEP_TYPES = {CreepType.AirDragon};
+    private static final CreepType[] RANDOM_GROUND_CREEP_TYPES = {CreepType.Orc, CreepType.Rat, CreepType.Spider};
 
     private Queue<Wave> waves = new ArrayDeque<>(WAVES_IN_ADVANCE);
     private int totalWaves;
@@ -45,9 +48,20 @@ public strictfp class WaveGateway implements ReadonlyWaveGateway {
             wave.creepCount = wave.type.creepCount;
             wave.minSecondsToNextCreep = wave.type.getMinSecondsToNextCreep();
             wave.maxSecondsToNextCreep = wave.type.getMaxSecondsToNextCreep();
+            wave.creepType = rollCreepType(wave, randomPlugin);
 
             addWave(wave);
         }
+    }
+
+    private CreepType rollCreepType(Wave wave, RandomPlugin randomPlugin) {
+        switch (wave.type) {
+            case Air:
+                return randomPlugin.get(RANDOM_AIR_CREEP_TYPES);
+            case Horseman:
+                return CreepType.Horseman;
+        }
+        return randomPlugin.get(RANDOM_GROUND_CREEP_TYPES);
     }
 
     @Override

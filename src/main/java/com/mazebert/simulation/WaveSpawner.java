@@ -140,6 +140,8 @@ public strictfp class WaveSpawner implements OnGameStartedListener, OnWaveStarte
                 creep.setMaxItemLevel(wave.round + 3); // Max Item level is round + 3
                 break;
         }
+
+        creep.setType(wave.creepType);
     }
 
     private void spawnCreep(Creep creep) {

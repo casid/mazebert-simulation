@@ -26,6 +26,7 @@ public strictfp class Creep extends Unit {
     private float speedModifier = 1.0f;
     private Path path;
     private int pathIndex;
+    private CreepType type;
     private CreepState state = CreepState.Running;
     private int gold;
     private int maxDrops;
@@ -50,6 +51,7 @@ public strictfp class Creep extends Unit {
         hash.add(speedModifier);
         // ignore path
         // ignore pathIndex
+        hash.add(type);
         hash.add(state);
         hash.add(gold);
         hash.add(maxDrops);
@@ -179,7 +181,15 @@ public strictfp class Creep extends Unit {
 
     @Override
     public String getModelId() {
-        return "orc"; // TODO
+        return type.modelId;
+    }
+
+    public CreepType getType() {
+        return type;
+    }
+
+    public void setType(CreepType type) {
+        this.type = type;
     }
 
     public void setWave(Wave wave) {
