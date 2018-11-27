@@ -51,14 +51,14 @@ public strictfp class Simulation {
             replayWriterGateway.writeHeader(header);
         }
 
-        List<Command> requests = new ArrayList<>();
+        List<Command> commands = new ArrayList<>();
         if (playerGateway.isHost()) {
             InitGameCommand initGameCommand = new InitGameCommand();
             initGameCommand.gameId = UuidRandomPlugin.createSeed();
             initGameCommand.rounds = 250;
-            requests.add(initGameCommand);
+            commands.add(initGameCommand);
         }
-        schedule(requests, 0);
+        schedule(commands, 0);
 
         schedule(Collections.emptyList(), 1);
     }
@@ -149,16 +149,10 @@ public strictfp class Simulation {
     }
 
     private void simulateTurn(List<Turn> playerTurns) {
-        simulateTurn(playerTurns, true);
-    }
-
-    private void simulateTurn(List<Turn> playerTurns, boolean hash) {
         simulatePlayerTurns(playerTurns);
         simulateUnits();
         simulateProjectiles();
-        if (hash) {
-            hashGameState();
-        }
+        hashGameState();
     }
 
     private void simulateUnits() {
