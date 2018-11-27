@@ -4,6 +4,7 @@ import com.mazebert.simulation.commands.Command;
 import com.mazebert.simulation.commands.InitGameCommand;
 import com.mazebert.simulation.gateways.*;
 import com.mazebert.simulation.hash.Hash;
+import com.mazebert.simulation.hash.HashHistory;
 import com.mazebert.simulation.messages.Turn;
 import com.mazebert.simulation.plugins.SleepPlugin;
 import com.mazebert.simulation.plugins.random.UuidRandomPlugin;
@@ -63,6 +64,10 @@ public strictfp class Simulation {
     }
 
     public void load(ReplayReader replayReader) {
+        HashHistory hashHistory = new HashHistory(2);
+        hashHistory.add(0);
+        hashHistory.add(0);
+
         while (true) {
             ReplayFrame replayFrame = replayReader.readFrame();
             if (replayFrame == null) {
@@ -71,14 +76,15 @@ public strictfp class Simulation {
 
             int turnNumbersToSimulate = replayFrame.turnNumber - turnGateway.getCurrentTurnNumber();
             for (int i = 0; i < turnNumbersToSimulate; ++i) {
-                simulateTurn(Collections.emptyList(), false);
+                simulateTurn(Collections.emptyList());
+                hashHistory.add(hash.get());
                 turnGateway.incrementTurnNumber();
             }
 
             List<Turn> playerTurns = replayFrame.getTurns();
-            hashGameState();
-            simulateTurn(playerTurns, false);
-            checkHashes(playerTurns, hash.get(), replayFrame.turnNumber);
+            simulateTurn(playerTurns);
+            checkHashes(playerTurns, hashHistory.getOldest(), replayFrame.turnNumber);
+            hashHistory.add(hash.get());
             turnGateway.incrementTurnNumber();
         }
     }
