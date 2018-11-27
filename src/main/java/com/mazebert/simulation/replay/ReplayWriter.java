@@ -17,6 +17,7 @@ public strictfp class ReplayWriter implements ReplayWriterGateway, AutoCloseable
 
     public ReplayWriter(OutputStream outputStream) {
         writer = new StreamBitWriter(new ReplayProtocol(), outputStream);
+        replayFrame.playerTurns = new ReplayTurn[1];
     }
 
     @Override
