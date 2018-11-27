@@ -1,8 +1,6 @@
 package com.mazebert.simulation.units.abilities;
 
-import com.mazebert.simulation.Sim;
 import com.mazebert.simulation.listeners.OnDamageListener;
-import com.mazebert.simulation.plugins.FormatPlugin;
 import com.mazebert.simulation.units.creeps.Creep;
 import com.mazebert.simulation.units.creeps.effects.StunEffect;
 import com.mazebert.simulation.units.towers.Tower;

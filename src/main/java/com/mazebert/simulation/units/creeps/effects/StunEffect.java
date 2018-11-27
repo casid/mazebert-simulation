@@ -26,7 +26,9 @@ public strictfp class StunEffect extends StackableAbility<Creep> implements OnUp
     public void onUpdate(float dt) {
         remainingSeconds -= dt;
         if (remainingSeconds <= 0) {
-            getUnit().setState(CreepState.Running);
+            if (!getUnit().isDead()) {
+                getUnit().setState(CreepState.Running);
+            }
             getUnit().removeAbility(this);
         }
     }
