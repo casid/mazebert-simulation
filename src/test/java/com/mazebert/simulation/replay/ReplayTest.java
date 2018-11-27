@@ -44,7 +44,7 @@ public class ReplayTest {
 
         try (ReplayWriter replayWriter = new ReplayWriter(Files.newOutputStream(replay.toPath(), CREATE, WRITE, TRUNCATE_EXISTING))) {
             replayWriter.writeHeader(header);
-            replayWriter.writeTurn(turn);
+            replayWriter.writeFrame(turn);
         }
 
         try (StreamReplayReader replayReader = new StreamReplayReader(Files.newInputStream(replay.toPath(), StandardOpenOption.READ))) {

@@ -1,6 +1,7 @@
 package com.mazebert.simulation.gateways;
 
 import com.mazebert.simulation.messages.Turn;
+import com.mazebert.simulation.replay.ReplayReader;
 import com.mazebert.simulation.replay.data.ReplayHeader;
 
 import java.util.List;
@@ -11,6 +12,8 @@ public interface ReplayWriterGateway {
     void writeHeader(ReplayHeader header);
 
     void writeTurn(int currentTurnNumber, List<Turn> playerTurns);
+
+    void writePreviousReplay(ReplayReader reader);
 
     void close();
 }

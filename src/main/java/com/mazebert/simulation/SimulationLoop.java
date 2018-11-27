@@ -1,13 +1,13 @@
 package com.mazebert.simulation;
 
-import com.mazebert.simulation.replay.ReplayReader;
+import com.mazebert.java8.Consumer;
 
 public strictfp class SimulationLoop {
 
     private final String threadName;
     private final Context context;
 
-    private ReplayReader replayReader;
+    private Consumer<Simulation> beforeStartConsumer;
 
     private volatile boolean running;
     private Thread thread;
@@ -17,8 +17,12 @@ public strictfp class SimulationLoop {
         this.context = context;
     }
 
-    public void start(ReplayReader replayReader) {
-        this.replayReader = replayReader;
+    public void start() {
+        start(null);
+    }
+
+    public void start(Consumer<Simulation> beforeStartConsumer) {
+        this.beforeStartConsumer = beforeStartConsumer;
 
         running = true;
         thread = new Thread(this::run);
@@ -39,10 +43,8 @@ public strictfp class SimulationLoop {
         Sim.setContext(context);
 
         Simulation simulation = new Simulation();
-        if (replayReader != null) {
-            replayReader.readHeader();
-            simulation.load(replayReader);
-            replayReader.close();
+        if (beforeStartConsumer != null) {
+            beforeStartConsumer.accept(simulation);
         }
         simulation.start();
         while (running) {

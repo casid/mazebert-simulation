@@ -43,18 +43,31 @@ public strictfp class ReplayWriter implements ReplayWriterGateway, AutoCloseable
                 replayFrame.playerTurns[i] = ReplayTurn.fromTurn(playerTurns.get(i));
             }
 
-            writeTurn(replayFrame);
+            writeFrame(replayFrame);
         }
     }
 
-    public void writeTurn(ReplayFrame turn) {
+    @Override
+    public void writePreviousReplay(ReplayReader reader) {
+        writeHeader(reader.readHeader());
+        while (true) {
+            ReplayFrame frame = reader.readFrame();
+            if (frame != null) {
+                writeFrame(frame);
+            } else {
+                break;
+            }
+        }
+    }
+
+    public void writeFrame(ReplayFrame turn) {
         writer.writeObjectNullable(turn);
     }
 
     @Override
     public void close() {
         try {
-            writeTurn(null); // mark end of stream
+            writeFrame(null); // mark end of stream
             writer.flush();
             writer.close();
         } catch (IOException e) {
