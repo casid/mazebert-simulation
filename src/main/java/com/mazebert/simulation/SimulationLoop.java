@@ -6,6 +6,7 @@ public strictfp class SimulationLoop {
     private final Context context;
 
     private volatile boolean running;
+    private Thread thread;
 
     public SimulationLoop(String threadName, Context context) {
         this.threadName = threadName;
@@ -14,13 +15,18 @@ public strictfp class SimulationLoop {
 
     public void start() {
         running = true;
-        Thread thread = new Thread(this::run);
+        thread = new Thread(this::run);
         thread.setName(threadName);
         thread.start();
     }
 
     public void stop() {
         running = false;
+        try {
+            thread.join();
+        } catch (InterruptedException e) {
+            // Okay then
+        }
     }
 
     private void run() {
@@ -31,5 +37,7 @@ public strictfp class SimulationLoop {
         while (running) {
             simulation.process();
         }
+
+        simulation.stop();
     }
 }

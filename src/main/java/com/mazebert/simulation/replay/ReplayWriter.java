@@ -51,6 +51,7 @@ public strictfp class ReplayWriter implements ReplayWriterGateway, AutoCloseable
         write(turn);
     }
 
+    @Override
     public void close() {
         try {
             writer.flush();

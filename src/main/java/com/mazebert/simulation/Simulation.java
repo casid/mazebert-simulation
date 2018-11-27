@@ -63,6 +63,10 @@ public strictfp class Simulation {
         schedule(Collections.emptyList(), 1);
     }
 
+    public void stop() {
+        replayWriterGateway.close();
+    }
+
     public void load(ReplayReader replayReader) {
         HashHistory hashHistory = new HashHistory(2);
         hashHistory.add(0);

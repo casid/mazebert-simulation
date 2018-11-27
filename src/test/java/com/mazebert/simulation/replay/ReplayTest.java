@@ -13,6 +13,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
 
 import static java.nio.file.StandardOpenOption.*;
@@ -46,12 +47,15 @@ public class ReplayTest {
             replayWriter.writeTurn(turn);
         }
 
-        try (PathReplayReader replayReader = new PathReplayReader(replay.toPath())) {
+        try (StreamReplayReader replayReader = new StreamReplayReader(Files.newInputStream(replay.toPath(), StandardOpenOption.READ))) {
             ReplayHeader readHeader = replayReader.readHeader();
             assertThat(readHeader).isEqualToComparingFieldByFieldRecursively(header);
 
             ReplayFrame readFrame = replayReader.readFrame();
             assertThat(readFrame).isEqualToComparingFieldByFieldRecursively(turn);
+
+            ReplayFrame frame2 = replayReader.readFrame();
+            assertThat(frame2).isNull();
         }
     }
 }

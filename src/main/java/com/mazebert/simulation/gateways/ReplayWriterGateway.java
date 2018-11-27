@@ -11,4 +11,6 @@ public interface ReplayWriterGateway {
     void writeHeader(ReplayHeader header);
 
     void writeTurn(int currentTurnNumber, List<Turn> playerTurns);
+
+    void close();
 }
