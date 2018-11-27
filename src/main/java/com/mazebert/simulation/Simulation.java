@@ -44,23 +44,31 @@ public strictfp class Simulation {
     }
 
     public void start() {
-        if (replayWriterGateway.isWriteEnabled()) {
-            ReplayHeader header = new ReplayHeader();
-            header.playerId = playerGateway.getPlayerId();
-            header.playerCount = playerGateway.getPlayerCount();
-            replayWriterGateway.writeHeader(header);
-        }
+        if (gameGateway.getGame().id == null) {
 
-        List<Command> commands = new ArrayList<>();
-        if (playerGateway.isHost()) {
-            InitGameCommand initGameCommand = new InitGameCommand();
-            initGameCommand.gameId = UuidRandomPlugin.createSeed();
-            initGameCommand.rounds = 250;
-            commands.add(initGameCommand);
-        }
-        schedule(commands, 0);
+            if (replayWriterGateway.isWriteEnabled()) {
+                ReplayHeader header = new ReplayHeader();
+                header.playerId = playerGateway.getPlayerId();
+                header.playerCount = playerGateway.getPlayerCount();
+                replayWriterGateway.writeHeader(header);
+            }
 
-        schedule(Collections.emptyList(), 1);
+            List<Command> commands = new ArrayList<>();
+            if (playerGateway.isHost()) {
+                InitGameCommand initGameCommand = new InitGameCommand();
+                initGameCommand.gameId = UuidRandomPlugin.createSeed();
+                initGameCommand.rounds = 250;
+                commands.add(initGameCommand);
+            }
+            schedule(commands, 0);
+
+            schedule(Collections.emptyList(), 1);
+        } else {
+            schedule(Collections.emptyList(), turnGateway.getCurrentTurnNumber());
+            schedule(Collections.emptyList(), turnGateway.getCurrentTurnNumber() + 1);
+
+            simulationListeners.onGameInitialized.dispatch();
+        }
     }
 
     public void stop() {

@@ -27,7 +27,7 @@ public strictfp class ReplayWriter implements ReplayWriterGateway, AutoCloseable
 
     @Override
     public void writeHeader(ReplayHeader header) {
-        write(header);
+        writer.writeObjectNonNull(header);
     }
 
     @Override
@@ -48,12 +48,13 @@ public strictfp class ReplayWriter implements ReplayWriterGateway, AutoCloseable
     }
 
     public void writeTurn(ReplayFrame turn) {
-        write(turn);
+        writer.writeObjectNullable(turn);
     }
 
     @Override
     public void close() {
         try {
+            writeTurn(null); // mark end of stream
             writer.flush();
             writer.close();
         } catch (IOException e) {
@@ -70,7 +71,4 @@ public strictfp class ReplayWriter implements ReplayWriterGateway, AutoCloseable
         return false;
     }
 
-    private void write(Object object) {
-        writer.writeObjectNonNull(object);
-    }
 }

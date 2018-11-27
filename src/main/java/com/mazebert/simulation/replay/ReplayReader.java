@@ -7,4 +7,6 @@ public interface ReplayReader {
     ReplayHeader readHeader();
 
     ReplayFrame readFrame();
+
+    void close();
 }

@@ -4,12 +4,8 @@ import com.mazebert.simulation.replay.data.ReplayFrame;
 import com.mazebert.simulation.replay.data.ReplayHeader;
 import org.jusecase.bitpack.stream.StreamBitReader;
 
-import java.io.EOFException;
 import java.io.IOException;
 import java.io.InputStream;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.StandardOpenOption;
 
 public strictfp class StreamReplayReader implements AutoCloseable, ReplayReader {
     private final StreamBitReader reader;
@@ -25,14 +21,15 @@ public strictfp class StreamReplayReader implements AutoCloseable, ReplayReader 
 
     @Override
     public ReplayFrame readFrame() {
-        try {
-            return reader.readObjectNonNull(ReplayFrame.class);
-        } catch (RuntimeException e) {
-            return null;
-        }
+        return reader.readObjectNullable(ReplayFrame.class);
     }
 
-    public void close() throws IOException {
-        reader.close();
+    @Override
+    public void close() {
+        try {
+            reader.close();
+        } catch (IOException e) {
+            e.printStackTrace(); // TODO log
+        }
     }
 }

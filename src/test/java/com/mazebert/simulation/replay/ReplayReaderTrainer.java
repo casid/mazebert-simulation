@@ -23,6 +23,11 @@ public class ReplayReaderTrainer implements ReplayReader {
         return turns.remove();
     }
 
+    @Override
+    public void close() {
+
+    }
+
     public void givenTurn(ReplayFrame turn) {
         turns.add(turn);
     }
