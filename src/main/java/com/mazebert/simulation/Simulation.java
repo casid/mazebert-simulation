@@ -104,8 +104,7 @@ public strictfp class Simulation {
 
         for (Turn playerTurn : playerTurns) {
             if (playerTurn.hash != myHash) {
-                // TODO handle it!! This means game over.
-                System.err.println("Oh shit, we have a dsync with player " + playerTurn.playerId + ". Mine: " + myHash + ", theirs: " + playerTurn.hash + "(My turn: " + myTurn + ", theirs: " + playerTurn.turnNumber);
+                throw new DsyncException("Oh shit, we have a dsync with player " + playerTurn.playerId + ". Mine: " + myHash + ", theirs: " + playerTurn.hash + "(My turn: " + myTurn + ", theirs: " + playerTurn.turnNumber);
             }
         }
     }
