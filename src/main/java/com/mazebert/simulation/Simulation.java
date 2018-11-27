@@ -71,15 +71,15 @@ public strictfp class Simulation {
 
             int turnNumbersToSimulate = replayFrame.turnNumber - turnGateway.getCurrentTurnNumber();
             for (int i = 0; i < turnNumbersToSimulate; ++i) {
-                if (i == turnNumbersToSimulate - 1) {
-                    List<Turn> playerTurns = replayFrame.getTurns();
-                    simulateTurn(playerTurns, true);
-                    checkHashes(playerTurns, hash.get(), replayFrame.turnNumber);
-                } else {
-                    simulateTurn(Collections.emptyList(), false);
-                }
+                simulateTurn(Collections.emptyList(), false);
                 turnGateway.incrementTurnNumber();
             }
+
+            List<Turn> playerTurns = replayFrame.getTurns();
+            hashGameState();
+            simulateTurn(playerTurns, false);
+            checkHashes(playerTurns, hash.get(), replayFrame.turnNumber);
+            turnGateway.incrementTurnNumber();
         }
     }
 

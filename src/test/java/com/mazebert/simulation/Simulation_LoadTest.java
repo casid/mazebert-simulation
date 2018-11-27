@@ -1,5 +1,6 @@
 package com.mazebert.simulation;
 
+import com.mazebert.simulation.commands.InitGameCommand;
 import com.mazebert.simulation.commands.NextWaveCommand;
 import com.mazebert.simulation.gateways.GameGateway;
 import com.mazebert.simulation.gateways.TurnGateway;
@@ -12,6 +13,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
+import java.util.UUID;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.catchThrowable;
@@ -38,7 +40,7 @@ strictfp class Simulation_LoadTest extends SimTest {
     @Test
     void oneTurn() {
         ReplayFrame turn = new ReplayFrame();
-        turn.turnNumber = 1;
+        turn.turnNumber = 0;
         turn.playerTurns = new ReplayTurn[1];
         turn.playerTurns[0] = new ReplayTurn();
         replayReaderTrainer.givenTurn(turn);
@@ -62,7 +64,26 @@ strictfp class Simulation_LoadTest extends SimTest {
 
         whenSimulationIsLoaded();
 
-        assertThat(simulation.getPlayTimeInSeconds()).isEqualTo(4.2000003f);
+        assertThat(simulation.getPlayTimeInSeconds()).isEqualTo(4.3f);
+    }
+
+    @Test
+    void initGameTurn() {
+        ReplayFrame turn = new ReplayFrame();
+        turn.turnNumber = 0;
+        turn.playerTurns = new ReplayTurn[1];
+        turn.playerTurns[0] = new ReplayTurn();
+        turn.playerTurns[0].commands = new ArrayList<>();
+        InitGameCommand initGameCommand = new InitGameCommand();
+        initGameCommand.gameId = new UUID(0, 0);
+        initGameCommand.rounds = 10;
+        turn.playerTurns[0].commands.add(initGameCommand);
+        replayReaderTrainer.givenTurn(turn);
+
+        whenSimulationIsLoaded();
+
+        assertThat(simulation.getPlayTimeInSeconds()).isEqualTo(0.1f);
+        assertThat(commandExecutorTrainer.getLastCommand()).isSameAs(initGameCommand);
     }
 
     @Test
@@ -80,7 +101,7 @@ strictfp class Simulation_LoadTest extends SimTest {
         assertThat(commandExecutorTrainer.getLastCommand()).isInstanceOf(NextWaveCommand.class);
         assertThat(commandExecutorTrainer.getLastCommand().turnNumber).isEqualTo(13);
         assertThat(commandExecutorTrainer.getLastCommand().playerId).isEqualTo(1);
-        assertThat(simulation.getPlayTimeInSeconds()).isEqualTo(1.3000001f);
+        assertThat(simulation.getPlayTimeInSeconds()).isEqualTo(1.4f);
     }
 
     @Test
