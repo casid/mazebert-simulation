@@ -3,7 +3,7 @@ package com.mazebert.simulation;
 import com.mazebert.simulation.gateways.NoMessageGateway;
 import com.mazebert.simulation.gateways.NoReplayWriterGateway;
 import com.mazebert.simulation.gateways.ReplayPlayerGateway;
-import com.mazebert.simulation.gateways.ReplayTurnGateway;
+import com.mazebert.simulation.gateways.TurnGateway;
 import com.mazebert.simulation.replay.ReplayReader;
 import com.mazebert.simulation.replay.data.ReplayHeader;
 
@@ -15,17 +15,12 @@ public strictfp class SimulationValidator {
         context.messageGateway = new NoMessageGateway();
 
         ReplayHeader replayHeader = replayReader.readHeader();
-        ReplayTurnGateway turnGateway = new ReplayTurnGateway(replayHeader, replayReader);
-        context.turnGateway = turnGateway;
+        context.turnGateway = new TurnGateway(replayHeader.playerCount);
         context.playerGateway = new ReplayPlayerGateway(replayHeader);
 
         Sim.setContext(context);
         Simulation simulation = new Simulation();
-        simulation.start();
-
-        while (turnGateway.hasNext()) {
-            simulation.process();
-        }
+        simulation.load(replayReader);
 
         return simulation;
     }

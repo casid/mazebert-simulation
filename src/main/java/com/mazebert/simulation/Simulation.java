@@ -8,6 +8,8 @@ import com.mazebert.simulation.messages.Turn;
 import com.mazebert.simulation.plugins.SleepPlugin;
 import com.mazebert.simulation.plugins.random.UuidRandomPlugin;
 import com.mazebert.simulation.projectiles.ProjectileGateway;
+import com.mazebert.simulation.replay.ReplayReader;
+import com.mazebert.simulation.replay.data.ReplayFrame;
 import com.mazebert.simulation.replay.data.ReplayHeader;
 import com.mazebert.simulation.units.Unit;
 
@@ -36,6 +38,10 @@ public strictfp class Simulation {
     private float turnTimeInSeconds = turnTimeInMillis / 1000.0f;
     private Hash hash = new Hash();
 
+    public Simulation() {
+        commandExecutor.init();
+    }
+
     public void start() {
         if (replayWriterGateway.isWriteEnabled()) {
             ReplayHeader header = new ReplayHeader();
@@ -43,8 +49,6 @@ public strictfp class Simulation {
             header.playerCount = playerGateway.getPlayerCount();
             replayWriterGateway.writeHeader(header);
         }
-
-        commandExecutor.init();
 
         List<Command> requests = new ArrayList<>();
         if (playerGateway.isHost()) {
@@ -56,6 +60,27 @@ public strictfp class Simulation {
         schedule(requests, 0);
 
         schedule(Collections.emptyList(), 1);
+    }
+
+    public void load(ReplayReader replayReader) {
+        while (true) {
+            ReplayFrame replayFrame = replayReader.readFrame();
+            if (replayFrame == null) {
+                return;
+            }
+
+            int turnNumbersToSimulate = replayFrame.turnNumber - turnGateway.getCurrentTurnNumber();
+            for (int i = 0; i < turnNumbersToSimulate; ++i) {
+                if (i == turnNumbersToSimulate - 1) {
+                    List<Turn> playerTurns = replayFrame.getTurns();
+                    simulateTurn(playerTurns, true);
+                    checkHashes(playerTurns, hash.get(), replayFrame.turnNumber);
+                } else {
+                    simulateTurn(Collections.emptyList(), false);
+                }
+                turnGateway.incrementTurnNumber();
+            }
+        }
     }
 
     public void process() {
@@ -86,7 +111,7 @@ public strictfp class Simulation {
         }
 
         if (replayWriterGateway.isWriteEnabled()) {
-            replayWriterGateway.writeTurn(playerTurns);
+            replayWriterGateway.writeTurn(turnGateway.getCurrentTurnNumber(), playerTurns);
         }
 
         sleepPlugin.sleepUntil(start, turnTimeInNanos);
@@ -102,18 +127,28 @@ public strictfp class Simulation {
             }
         }
 
+        checkHashes(playerTurns, myHash, myTurn);
+    }
+
+    private void checkHashes(List<Turn> playerTurns, int expected, int myTurn) {
         for (Turn playerTurn : playerTurns) {
-            if (playerTurn.hash != myHash) {
-                throw new DsyncException("Oh shit, we have a dsync with player " + playerTurn.playerId + ". Mine: " + myHash + ", theirs: " + playerTurn.hash + "(My turn: " + myTurn + ", theirs: " + playerTurn.turnNumber);
+            if (playerTurn.hash != expected) {
+                throw new DsyncException("Oh shit, we have a dsync with player " + playerTurn.playerId + ". Mine: " + expected + ", theirs: " + playerTurn.hash + "(My turn: " + myTurn + ", theirs: " + playerTurn.turnNumber);
             }
         }
     }
 
     private void simulateTurn(List<Turn> playerTurns) {
+        simulateTurn(playerTurns, true);
+    }
+
+    private void simulateTurn(List<Turn> playerTurns, boolean hash) {
         simulatePlayerTurns(playerTurns);
         simulateUnits();
         simulateProjectiles();
-        hashGameState();
+        if (hash) {
+            hashGameState();
+        }
     }
 
     private void simulateUnits() {
