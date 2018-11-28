@@ -44,6 +44,11 @@ public strictfp class CardDustCritAbility extends StackableAbility<Tower> {
     }
 
     @Override
+    public boolean isVisibleToUser() {
+        return true;
+    }
+
+    @Override
     public String getTitle() {
         return "Critical Dust";
     }

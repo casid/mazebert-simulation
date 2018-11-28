@@ -1,6 +1,6 @@
 package com.mazebert.simulation.gateways;
 
-public strictfp interface PlayerGateway {
+public interface PlayerGateway {
     int getPlayerId();
     int getPlayerCount();
 
