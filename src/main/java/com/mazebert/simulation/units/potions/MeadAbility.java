@@ -65,6 +65,11 @@ public class MeadAbility extends StackableAbility<Tower> {
     }
 
     @Override
+    public boolean isVisibleToUser() {
+        return true;
+    }
+
+    @Override
     public String getTitle() {
         return "Rage of the Viking!";
     }
