@@ -419,6 +419,22 @@ public strictfp abstract class Tower extends Unit implements CooldownUnit, Card,
         this.itemQuality = itemQuality;
     }
 
+    private Item[] getItemsCopy() {
+        Item[] copy = new Item[items.length];
+        System.arraycopy(items, 0, copy, 0, items.length);
+        return copy;
+    }
+
+    public Item[] removeAllItems() {
+        Item[] items = getItemsCopy();
+
+        for (int i = getInventorySize() - 1; i >= 0; --i) {
+            setItem(i, null);
+        }
+
+        return items;
+    }
+
     public void addAttackSpeed(float amount) {
         attackSpeedAdd += amount;
     }

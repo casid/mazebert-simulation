@@ -1,10 +1,15 @@
 package com.mazebert.simulation.usecases;
 
+import com.mazebert.simulation.CommandExecutor;
 import com.mazebert.simulation.SimulationListeners;
 import com.mazebert.simulation.commands.BuildTowerCommand;
+import com.mazebert.simulation.commands.EquipItemCommand;
 import com.mazebert.simulation.gateways.TurnGateway;
 import com.mazebert.simulation.gateways.UnitGateway;
 import com.mazebert.simulation.plugins.random.RandomPluginTrainer;
+import com.mazebert.simulation.units.items.BabySword;
+import com.mazebert.simulation.units.items.ItemType;
+import com.mazebert.simulation.units.towers.Dandelion;
 import com.mazebert.simulation.units.towers.Hitman;
 import com.mazebert.simulation.units.towers.Tower;
 import com.mazebert.simulation.units.towers.TowerType;
@@ -25,6 +30,9 @@ class BuildTowerTest extends UsecaseTest<BuildTowerCommand> {
     public BuildTowerTest() {
         unitGateway = new UnitGateway();
         simulationListeners = new SimulationListeners();
+        commandExecutor = new CommandExecutor();
+        commandExecutor.init();
+
         turnGateway = new TurnGateway(1);
         randomPlugin = randomPluginTrainer;
     }
@@ -89,6 +97,55 @@ class BuildTowerTest extends UsecaseTest<BuildTowerCommand> {
 
         assertThat(onErrorCalled).isTrue();
         assertThat(onCompleteCalled).isFalse();
+    }
+
+    @Test
+    void replace() {
+        givenTowerIsAlreadyBuilt();
+        givenItemIsEquipped(ItemType.BabySword, 1);
+
+        wizard.towerStash.add(TowerType.Dandelion);
+        request.towerType = TowerType.Dandelion;
+        whenRequestIsExecuted();
+
+        assertThat(builtTower).isInstanceOf(Dandelion.class);
+        assertThat(wizard.towerStash.size()).isEqualTo(0);
+        assertThat(wizard.itemStash.size()).isEqualTo(0);
+        assertThat(builtTower.getItem(1)).isInstanceOf(BabySword.class);
+    }
+
+    @Test
+    void replace_fullInventory() {
+        givenTowerIsAlreadyBuilt();
+        givenItemIsEquipped(ItemType.BabySword, 0);
+        givenItemIsEquipped(ItemType.BabySword, 1);
+        givenItemIsEquipped(ItemType.BabySword, 2);
+        givenItemIsEquipped(ItemType.BabySword, 3);
+
+        wizard.towerStash.add(TowerType.Dandelion);
+        request.towerType = TowerType.Dandelion;
+        whenRequestIsExecuted();
+
+        assertThat(builtTower).isInstanceOf(Dandelion.class);
+        assertThat(wizard.towerStash.size()).isEqualTo(0);
+        assertThat(wizard.itemStash.size()).isEqualTo(0);
+        assertThat(builtTower.getItem(0)).isInstanceOf(BabySword.class);
+        assertThat(builtTower.getItem(1)).isInstanceOf(BabySword.class);
+        assertThat(builtTower.getItem(2)).isInstanceOf(BabySword.class);
+        assertThat(builtTower.getItem(3)).isInstanceOf(BabySword.class);
+    }
+
+    private void givenTowerIsAlreadyBuilt() {
+        whenRequestIsExecuted();
+    }
+
+    private void givenItemIsEquipped(ItemType itemType, int inventoryIndex) {
+        wizard.itemStash.add(itemType);
+        EquipItemCommand equipItem = new EquipItemCommand();
+        equipItem.itemType = itemType;
+        equipItem.inventoryIndex = inventoryIndex;
+        equipItem.playerId = 1;
+        commandExecutor.executeVoid(equipItem);
     }
 
     @Override
