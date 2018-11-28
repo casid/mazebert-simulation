@@ -2,11 +2,9 @@ package com.mazebert.simulation.usecases;
 
 import com.mazebert.simulation.Sim;
 import com.mazebert.simulation.commands.DrinkPotionCommand;
-import com.mazebert.simulation.commands.EquipItemCommand;
 import com.mazebert.simulation.gateways.UnitGateway;
 import com.mazebert.simulation.units.abilities.Ability;
-import com.mazebert.simulation.units.items.Item;
-import com.mazebert.simulation.units.items.ItemType;
+import com.mazebert.simulation.units.potions.Potion;
 import com.mazebert.simulation.units.towers.Tower;
 import com.mazebert.simulation.units.wizards.Wizard;
 
@@ -24,9 +22,11 @@ public strictfp class DrinkPotion extends Usecase<DrinkPotionCommand> {
         }
 
         if (wizard.potionStash.remove(command.potionType)) {
-            for (Ability ability : command.potionType.instance.getAbilities()) {
+            Potion potion = command.potionType.instance;
+            for (Ability ability : potion.getAbilities()) {
                 tower.addAbility(ability);
             }
+            tower.onPotionConsumed.dispatch(tower, potion);
         }
     }
 }
