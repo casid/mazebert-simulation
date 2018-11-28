@@ -11,8 +11,6 @@ public strictfp enum PotionType implements CardType<Potion> {
     // 1) DO NOT ALTER EXISTING IDS!
     // 2) DO NOT REUSE DELETED IDS!
     // 3) ADD NEW IDS TO THE BOTTOM!
-
-    // TODO add these
     CommonDamage(1, CommonDamage.class),
     CommonSpeed(2, CommonSpeed.class),
     CommonCrit(3, CommonCrit.class),
@@ -36,7 +34,7 @@ public strictfp enum PotionType implements CardType<Potion> {
     CardDustLuck(21, CardDustLuck.class),
     CardDustLevel(22, CardDustLevel.class),
     CardDustVital(23, CardDustVital.class),
-//    DrinkAll(24, DrinkAll.class),
+    DrinkAll(24, DrinkAll.class),
     ;
 
     private static PotionType[] LOOKUP;
