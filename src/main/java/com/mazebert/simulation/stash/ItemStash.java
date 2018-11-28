@@ -1,6 +1,5 @@
 package com.mazebert.simulation.stash;
 
-import com.mazebert.simulation.CardType;
 import com.mazebert.simulation.units.items.Item;
 import com.mazebert.simulation.units.items.ItemType;
 
