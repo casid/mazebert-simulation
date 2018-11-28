@@ -1,5 +1,6 @@
 package com.mazebert.simulation.usecases;
 
+import com.mazebert.simulation.Balancing;
 import com.mazebert.simulation.CommandExecutor;
 import com.mazebert.simulation.SimulationListeners;
 import com.mazebert.simulation.commands.BuildTowerCommand;
@@ -7,8 +8,7 @@ import com.mazebert.simulation.commands.EquipItemCommand;
 import com.mazebert.simulation.gateways.TurnGateway;
 import com.mazebert.simulation.gateways.UnitGateway;
 import com.mazebert.simulation.plugins.random.RandomPluginTrainer;
-import com.mazebert.simulation.units.items.BabySword;
-import com.mazebert.simulation.units.items.ItemType;
+import com.mazebert.simulation.units.items.*;
 import com.mazebert.simulation.units.towers.Dandelion;
 import com.mazebert.simulation.units.towers.Hitman;
 import com.mazebert.simulation.units.towers.Tower;
@@ -118,9 +118,9 @@ class BuildTowerTest extends UsecaseTest<BuildTowerCommand> {
     void replace_fullInventory() {
         givenTowerIsAlreadyBuilt();
         givenItemIsEquipped(ItemType.BabySword, 0);
-        givenItemIsEquipped(ItemType.BabySword, 1);
-        givenItemIsEquipped(ItemType.BabySword, 2);
-        givenItemIsEquipped(ItemType.BabySword, 3);
+        givenItemIsEquipped(ItemType.WoodenStaff, 1);
+        givenItemIsEquipped(ItemType.MeatMallet, 2);
+        givenItemIsEquipped(ItemType.MonsterTeeth, 3);
 
         wizard.towerStash.add(TowerType.Dandelion);
         request.towerType = TowerType.Dandelion;
@@ -130,9 +130,24 @@ class BuildTowerTest extends UsecaseTest<BuildTowerCommand> {
         assertThat(wizard.towerStash.size()).isEqualTo(0);
         assertThat(wizard.itemStash.size()).isEqualTo(0);
         assertThat(builtTower.getItem(0)).isInstanceOf(BabySword.class);
-        assertThat(builtTower.getItem(1)).isInstanceOf(BabySword.class);
-        assertThat(builtTower.getItem(2)).isInstanceOf(BabySword.class);
-        assertThat(builtTower.getItem(3)).isInstanceOf(BabySword.class);
+        assertThat(builtTower.getItem(1)).isInstanceOf(WoodenStaff.class);
+        assertThat(builtTower.getItem(2)).isInstanceOf(MeatMallet.class);
+        assertThat(builtTower.getItem(3)).isInstanceOf(MonsterTeeth.class);
+    }
+
+    @Test
+    void replace_stats() {
+        givenTowerIsAlreadyBuilt();
+        builtTower.setKills(50);
+        builtTower.setExperience(300);
+
+        wizard.towerStash.add(TowerType.Dandelion);
+        request.towerType = TowerType.Dandelion;
+        whenRequestIsExecuted();
+
+        assertThat(builtTower.getKills()).isEqualTo(50);
+        assertThat(builtTower.getExperience()).isEqualTo(300);
+        assertThat(builtTower.getLevel()).isEqualTo(Balancing.getTowerLevelForExperience(300));
     }
 
     private void givenTowerIsAlreadyBuilt() {
