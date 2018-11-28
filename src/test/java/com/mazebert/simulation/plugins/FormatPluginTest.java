@@ -38,6 +38,15 @@ class FormatPluginTest {
     }
 
     @Test
+    void damage_crit() {
+        assertThat(format.damage(599.4, 0)).isEqualTo("599");
+        assertThat(format.damage(599.4, 1)).isEqualTo("599!");
+        assertThat(format.damage(599.4, 2)).isEqualTo("599!!");
+        assertThat(format.damage(599.4, 3)).isEqualTo("599!!!");
+        assertThat(format.damage(599.4, 4)).isEqualTo("599!!!!");
+    }
+
+    @Test
     void money() {
         assertThat(format.money(Long.MAX_VALUE)).isEqualTo("9,223,372T");
     }

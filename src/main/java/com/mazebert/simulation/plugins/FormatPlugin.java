@@ -54,6 +54,17 @@ public strictfp class FormatPlugin {
         return positiveNumber(damage);
     }
 
+    public String damage(double damage, int multicrit) {
+        String damageText = damage(damage);
+        StringBuilder result = new StringBuilder(damageText.length() + multicrit);
+        result.append(damageText);
+        for (int i = 0; i < multicrit; ++i) {
+            result.append('!');
+        }
+
+        return result.toString();
+    }
+
     public String money(double amount) {
         return positiveNumber(amount);
     }
