@@ -20,7 +20,7 @@ public strictfp enum PotionType implements CardType<Potion> {
     UncommonDamage(5, UncommonDamage.class),
     UncommonSpeed(6, UncommonSpeed.class),
     UncommonCrit(7, UncommonCrit.class),
-//    UncommonDrops(8, UncommonDrops.class),
+    UncommonDrops(8, UncommonDrops.class),
 //    RareDamage(9, RareDamage.class),
 //    RareSpeed(10, RareSpeed.class),
 //    RareCrit(11, RareCrit.class),

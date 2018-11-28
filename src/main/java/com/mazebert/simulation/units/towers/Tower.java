@@ -459,4 +459,12 @@ public strictfp abstract class Tower extends Unit implements CooldownUnit, Card,
     public void setChanceToMiss(float chanceToMiss) {
         this.chanceToMiss = chanceToMiss;
     }
+
+    public void addItemChance(float amount) {
+        itemChance += amount;
+    }
+
+    public void addItemQuality(float amount) {
+        itemQuality += amount;
+    }
 }
