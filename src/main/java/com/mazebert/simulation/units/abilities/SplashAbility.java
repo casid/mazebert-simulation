@@ -3,7 +3,6 @@ package com.mazebert.simulation.units.abilities;
 import com.mazebert.simulation.Sim;
 import com.mazebert.simulation.gateways.UnitGateway;
 import com.mazebert.simulation.listeners.OnDamageListener;
-import com.mazebert.simulation.plugins.FormatPlugin;
 import com.mazebert.simulation.units.creeps.Creep;
 import com.mazebert.simulation.units.towers.Tower;
 
@@ -43,7 +42,7 @@ public strictfp class SplashAbility extends Ability<Tower> implements OnDamageLi
     }
 
     @Override
-    public void onDamage(Object origin, Creep target, double damage) {
+    public void onDamage(Object origin, Creep target, double damage, int multicrits) {
         if (origin == this) {
             return;
         }
@@ -52,7 +51,7 @@ public strictfp class SplashAbility extends Ability<Tower> implements OnDamageLi
         unitGateway.forEachInRange(target.getX(), target.getY(), getRange(), Creep.class, creep -> {
             if (creep != target) {
                 creep.receiveDamage(splashDamage);
-                getUnit().onDamage.dispatch(this, creep, damage);
+                getUnit().onDamage.dispatch(this, creep, damage, 0);
             }
         });
     }

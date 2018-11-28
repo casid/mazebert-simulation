@@ -22,7 +22,7 @@ public strictfp class StunAbility extends Ability<Tower> implements OnDamageList
     }
 
     @Override
-    public void onDamage(Object origin, Creep target, double damage) {
+    public void onDamage(Object origin, Creep target, double damage, int multicrits) {
         if (target.isDead()) {
             return;
         }

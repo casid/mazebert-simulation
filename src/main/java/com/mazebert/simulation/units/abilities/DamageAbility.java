@@ -44,17 +44,20 @@ public strictfp class DamageAbility extends Ability<Tower> implements OnAttackLi
 
         float critChance = tower.getCritChance();
 
-        for (int i = 0; i < tower.getMulticrit(); ++i) {
+        int maxMulticrit = tower.getMulticrit();
+        int rolledMulticrits = 0;
+        for (int i = 0; i < maxMulticrit; ++i) {
             if (randomPlugin.getFloatAbs() < critChance) {
                 damage += baseDamage * tower.getCritDamage();
                 critChance *= 0.8f;
+                ++rolledMulticrits;
             } else {
                 break;
             }
         }
 
         target.receiveDamage(damage);
-        tower.onDamage.dispatch(this, target, damage);
+        tower.onDamage.dispatch(this, target, damage, rolledMulticrits);
 
         if (target.isDead()) {
             tower.onKill.dispatch(target);

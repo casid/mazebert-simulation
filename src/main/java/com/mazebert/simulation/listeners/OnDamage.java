@@ -8,9 +8,9 @@ public strictfp class OnDamage extends Signal<OnDamageListener> {
         super(OnDamageListener.class);
     }
 
-    public void dispatch(Object origin, Creep target, double damage) {
+    public void dispatch(Object origin, Creep target, double damage, int multicrits) {
         for (int i = 0; i < size; ++i) {
-            listeners[i].onDamage(origin, target, damage);
+            listeners[i].onDamage(origin, target, damage, multicrits);
         }
     }
 }
