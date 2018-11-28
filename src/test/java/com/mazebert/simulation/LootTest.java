@@ -56,6 +56,7 @@ public class LootTest extends SimTest {
     @Test
     void loot_babySword() {
         randomPluginTrainer.givenFloatAbs(
+                0.0f, // crit roll
                 0.0f, // This is a drop
                 0.99f, // The rarity of this drop is common
                 0.0f, // This is an item drop
@@ -72,6 +73,7 @@ public class LootTest extends SimTest {
     @Test
     void loot_twoBabySwords() {
         randomPluginTrainer.givenFloatAbs(
+                0.0f, // crit roll
                 0.0f, // This is a drop
                 0.99f, // The rarity of this drop is common
                 0.0f, // This is an item drop
@@ -92,6 +94,7 @@ public class LootTest extends SimTest {
     @Test
     void loot_woodenStaff() {
         randomPluginTrainer.givenFloatAbs(
+                0.0f, // crit roll
                 0.0f, // This is a drop
                 0.99f, // The rarity of this drop is common
                 0.0f, // This is an item drop
@@ -108,6 +111,7 @@ public class LootTest extends SimTest {
     @Test
     void loot_oneBabySwordOnSecondTry() {
         randomPluginTrainer.givenFloatAbs(
+                0.0f, // crit roll
                 0.9f, // No drop
                 0.0f, // This is a drop
                 0.99f, // The rarity of this drop is common
@@ -125,6 +129,7 @@ public class LootTest extends SimTest {
     @Test
     void loot_twoGuaranteedBabySwords() {
         randomPluginTrainer.givenFloatAbs(
+                0.0f, // crit roll
                 // Guaranteed drop, no need to roll
                 0.99f, // The rarity of this drop is common
                 0.0f, // This is an item drop
@@ -146,6 +151,7 @@ public class LootTest extends SimTest {
     @Test
     void loot_legendary_noneAvailable() {
         randomPluginTrainer.givenFloatAbs(
+                0.0f, // crit roll
                 0.0f, // This is a drop
                 0.001f, // The rarity of this drop is legendary
                 0.0f, // This is an item drop
@@ -174,6 +180,7 @@ public class LootTest extends SimTest {
     @Test
     void loot_itemLevel_onlyOneFit() {
         randomPluginTrainer.givenFloatAbs(
+                0.0f, // crit roll
                 0.0f, // This is a drop
                 0.01f, // The rarity of this drop is uncommon
                 0.0f, // This is an item drop
@@ -190,6 +197,7 @@ public class LootTest extends SimTest {
     @Test
     void loot_itemLevel_onlyOneFit2() {
         randomPluginTrainer.givenFloatAbs(
+                0.0f, // crit roll
                 0.0f, // This is a drop
                 0.01f, // The rarity of this drop is uncommon
                 0.0f, // This is an item drop
@@ -207,6 +215,7 @@ public class LootTest extends SimTest {
     @Test
     void loot_nothing() {
         randomPluginTrainer.givenFloatAbs(
+                0.0f, // crit roll
                 0.9f // No drop
         );
         creep.setMaxDrops(1);
@@ -219,6 +228,7 @@ public class LootTest extends SimTest {
     @Test
     void loot_potion() {
         randomPluginTrainer.givenFloatAbs(
+                0.0f, // crit roll
                 0.0f, // This is a drop
                 0.99f, // The rarity of this drop is common
                 0.9f, // This is a potion drop
