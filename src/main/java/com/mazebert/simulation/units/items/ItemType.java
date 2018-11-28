@@ -12,12 +12,12 @@ public strictfp enum ItemType implements CardType<Item> {
     // 2) DO NOT REUSE DELETED IDS!
     // 3) ADD NEW IDS TO THE BOTTOM!
     WoodenStaff(1, WoodenStaff.class),
-//    LeatherBoots(2, LeatherBoots.class),
-//    WellDoneSteak(3, WellDoneSteak.class),
+    LeatherBoots(2, LeatherBoots.class),
+    WellDoneSteak(3, WellDoneSteak.class),
     BabySword(4, BabySword.class),
-//    SchoolBook(5, SchoolBook.class),
-//    WetTowel(6, WetTowel.class),
-//    Pumpkin(7, Pumpkin.class),
+    SchoolBook(5, SchoolBook.class),
+    WetTowel(6, WetTowel.class),
+    Pumpkin(7, Pumpkin.class),
 //    MediumSteak(8, MediumSteak.class),
 //    Handbag(9, Handbag.class),
 //    GoldCoins(10, GoldCoins.class),

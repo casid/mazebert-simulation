@@ -487,4 +487,8 @@ public strictfp abstract class Tower extends Unit implements CooldownUnit, Card,
             onKill.dispatch(creep);
         }
     }
+
+    public void addExperienceModifier(float amount) {
+        experienceModifier += amount;
+    }
 }

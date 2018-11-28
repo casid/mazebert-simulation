@@ -17,7 +17,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class LootTest extends SimTest {
 
-    private static final float BABY_SWORD_ROLL = 0.6f;
+    private static final float BABY_SWORD_ROLL = 0.42f;
+    private static final float BABY_SWORD_ROLL_ILVL_1 = 0.58f;
     private static final float WOODEN_STAFF_ROLL = 0.0f;
 
     RandomPluginTrainer randomPluginTrainer = new RandomPluginTrainer();
@@ -155,7 +156,7 @@ public class LootTest extends SimTest {
                 0.0f, // This is a drop
                 0.001f, // The rarity of this drop is legendary
                 0.0f, // This is an item drop
-                BABY_SWORD_ROLL // It's a baby sword!
+                BABY_SWORD_ROLL_ILVL_1 // It's a baby sword!
         );
         creep.setMaxDrops(1);
         creep.setMaxItemLevel(1);
