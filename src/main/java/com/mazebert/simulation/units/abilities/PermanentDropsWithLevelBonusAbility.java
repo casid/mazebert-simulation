@@ -26,10 +26,9 @@ public abstract strictfp class PermanentDropsWithLevelBonusAbility extends Stack
     }
 
     @Override
-    public void addStack() {
-        super.addStack();
-        chance.addStack();
-        quality.addStack();
+    protected void updateStacks() {
+        chance.setStackCount(getStackCount());
+        quality.setStackCount(getStackCount());
     }
 
     @Override

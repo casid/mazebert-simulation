@@ -35,8 +35,7 @@ public abstract strictfp class AttributeWithLevelBonusAbility extends StackableA
     }
 
     @Override
-    public void addStack() {
-        super.addStack();
+    protected void updateStacks() {
         updateBonus();
     }
 
@@ -62,13 +61,5 @@ public abstract strictfp class AttributeWithLevelBonusAbility extends StackableA
     @Override
     public boolean isVisibleToUser() {
         return true;
-    }
-
-    protected String formatPercentStats(String unit) {
-        String result = formatPlugin.percentWithSignAndUnit(bonus) + " " + unit;
-        if (bonusPerLevel != 0) {
-            result += " (" + formatPlugin.percentWithSignAndUnit(bonusPerLevel) + "/level)";
-        }
-        return result;
     }
 }

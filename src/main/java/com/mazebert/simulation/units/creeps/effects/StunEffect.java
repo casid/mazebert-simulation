@@ -36,4 +36,8 @@ public strictfp class StunEffect extends StackableAbility<Creep> implements OnUp
     public void setDuration(float duration) {
         remainingSeconds = duration;
     }
+
+    @Override
+    protected void updateStacks() {
+    }
 }

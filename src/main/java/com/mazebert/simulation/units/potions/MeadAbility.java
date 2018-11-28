@@ -24,16 +24,8 @@ public strictfp class MeadAbility extends StackableAbility<Tower> {
     }
 
     @Override
-    public void addStack() {
+    protected void updateStacks() {
         removeEffect();
-        super.addStack();
-        addEffect();
-    }
-
-    @Override
-    public void removeStack() {
-        removeEffect();
-        super.removeStack();
         addEffect();
     }
 

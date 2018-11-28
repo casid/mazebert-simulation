@@ -26,10 +26,9 @@ public abstract strictfp class PermanentCritWithLevelBonusAbility extends Stacka
     }
 
     @Override
-    public void addStack() {
-        super.addStack();
-        chance.addStack();
-        damage.addStack();
+    protected void updateStacks() {
+        chance.setStackCount(getStackCount());
+        damage.setStackCount(getStackCount());
     }
 
     @Override
