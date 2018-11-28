@@ -4,9 +4,13 @@ import com.mazebert.simulation.Sim;
 import com.mazebert.simulation.SimulationListeners;
 import com.mazebert.simulation.commands.BuildTowerCommand;
 import com.mazebert.simulation.gateways.UnitGateway;
+import com.mazebert.simulation.units.abilities.Ability;
 import com.mazebert.simulation.units.items.Item;
 import com.mazebert.simulation.units.towers.Tower;
 import com.mazebert.simulation.units.wizards.Wizard;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public strictfp class BuildTower extends Usecase<BuildTowerCommand> {
 
@@ -33,6 +37,20 @@ public strictfp class BuildTower extends Usecase<BuildTowerCommand> {
             simulationListeners.onUnitAdded.dispatch(tower);
 
             if (oldTower != null) {
+                List<Ability> permanentAbilities = new ArrayList<>();
+                for (Ability ability : oldTower.getAbilities()) {
+                    if (ability.isPermanent()) {
+                        permanentAbilities.add(ability);
+                    }
+                }
+
+                for (Ability permanentAbility : permanentAbilities) {
+                    do {
+                        oldTower.removeAbility(permanentAbility);
+                        tower.addAbility(permanentAbility);
+                    } while (permanentAbility.getUnit() != null);
+                }
+
                 Item[] items = oldTower.removeAllItems();
                 for (int i = 0; i < items.length; ++i) {
                     tower.setItem(i, items[i]);

@@ -4,11 +4,13 @@ import com.mazebert.simulation.Balancing;
 import com.mazebert.simulation.CommandExecutor;
 import com.mazebert.simulation.SimulationListeners;
 import com.mazebert.simulation.commands.BuildTowerCommand;
+import com.mazebert.simulation.commands.DrinkPotionCommand;
 import com.mazebert.simulation.commands.EquipItemCommand;
 import com.mazebert.simulation.gateways.TurnGateway;
 import com.mazebert.simulation.gateways.UnitGateway;
 import com.mazebert.simulation.plugins.random.RandomPluginTrainer;
 import com.mazebert.simulation.units.items.*;
+import com.mazebert.simulation.units.potions.PotionType;
 import com.mazebert.simulation.units.towers.Dandelion;
 import com.mazebert.simulation.units.towers.Hitman;
 import com.mazebert.simulation.units.towers.Tower;
@@ -150,17 +152,55 @@ class BuildTowerTest extends UsecaseTest<BuildTowerCommand> {
         assertThat(builtTower.getLevel()).isEqualTo(Balancing.getTowerLevelForExperience(300));
     }
 
+    @Test
+    void replace_potions() {
+        givenTowerIsAlreadyBuilt();
+        givenPotionIsDrank(PotionType.CommonSpeed);
+        givenPotionIsDrank(PotionType.CommonCrit);
+
+        wizard.towerStash.add(TowerType.Dandelion);
+        request.towerType = TowerType.Dandelion;
+        whenRequestIsExecuted();
+
+        assertThat(builtTower.getCritChance()).isEqualTo(0.0582f);
+        assertThat(builtTower.getCritDamage()).isEqualTo(0.351f);
+        assertThat(builtTower.getAttackSpeedAdd()).isEqualTo(0.0402f);
+    }
+
+    @Test
+    void replace_potionStack() {
+        givenTowerIsAlreadyBuilt();
+        for (int i = 0; i < 10; ++i) {
+            givenPotionIsDrank(PotionType.CommonCrit);
+        }
+
+        wizard.towerStash.add(TowerType.Dandelion);
+        request.towerType = TowerType.Dandelion;
+        whenRequestIsExecuted();
+
+        assertThat(builtTower.getCritChance()).isEqualTo(0.132f);
+        assertThat(builtTower.getCritDamage()).isEqualTo(1.2600001f);
+    }
+
     private void givenTowerIsAlreadyBuilt() {
         whenRequestIsExecuted();
     }
 
     private void givenItemIsEquipped(ItemType itemType, int inventoryIndex) {
         wizard.itemStash.add(itemType);
-        EquipItemCommand equipItem = new EquipItemCommand();
-        equipItem.itemType = itemType;
-        equipItem.inventoryIndex = inventoryIndex;
-        equipItem.playerId = 1;
-        commandExecutor.executeVoid(equipItem);
+        EquipItemCommand command = new EquipItemCommand();
+        command.itemType = itemType;
+        command.inventoryIndex = inventoryIndex;
+        command.playerId = wizard.getPlayerId();
+        commandExecutor.executeVoid(command);
+    }
+
+    private void givenPotionIsDrank(PotionType potionType) {
+        wizard.potionStash.add(potionType);
+        DrinkPotionCommand command = new DrinkPotionCommand();
+        command.potionType = potionType;
+        command.playerId = wizard.getPlayerId();
+        commandExecutor.executeVoid(command);
     }
 
     @Override
