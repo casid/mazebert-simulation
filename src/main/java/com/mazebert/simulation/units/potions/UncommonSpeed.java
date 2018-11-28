@@ -2,24 +2,24 @@ package com.mazebert.simulation.units.potions;
 
 import com.mazebert.simulation.Rarity;
 
-public strictfp class UncommonDamage extends Potion {
-    public UncommonDamage() {
-        super(new UncommonDamageAbility());
+public strictfp class UncommonSpeed extends Potion {
+    public UncommonSpeed() {
+        super(new UncommonSpeedAbility());
     }
 
     @Override
     public String getIcon() {
-        return "9002_DamagePotion";
+        return "9001_SpeedPotion";
     }
 
     @Override
     public String getName() {
-        return "Potion of Strength";
+        return "Potion of Speed";
     }
 
     @Override
     public String getDescription() {
-        return "Violence is the last refuge of the incompetent. Cheers!";
+        return "If you fall behind, run faster.";
     }
 
     @Override

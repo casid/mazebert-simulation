@@ -2,24 +2,24 @@ package com.mazebert.simulation.units.potions;
 
 import com.mazebert.simulation.Rarity;
 
-public strictfp class UncommonDamage extends Potion {
-    public UncommonDamage() {
-        super(new UncommonDamageAbility());
+public strictfp class UncommonCrit extends Potion {
+    public UncommonCrit() {
+        super(new UncommonCritAbility());
     }
 
     @Override
     public String getIcon() {
-        return "9002_DamagePotion";
+        return "9000_CritPotion";
     }
 
     @Override
     public String getName() {
-        return "Potion of Strength";
+        return "Potion of Crit";
     }
 
     @Override
     public String getDescription() {
-        return "Violence is the last refuge of the incompetent. Cheers!";
+        return "Reaching the critical mass will leave a funny taste on your tounge!";
     }
 
     @Override
