@@ -4,8 +4,8 @@ import com.mazebert.simulation.listeners.OnLevelChangedListener;
 import com.mazebert.simulation.units.towers.Tower;
 
 public abstract strictfp class AttributeWithLevelBonusAbility extends StackableAbility<Tower> implements OnLevelChangedListener {
-    protected final float bonus;
-    protected final float bonusPerLevel;
+    public final float bonus;
+    public final float bonusPerLevel;
 
     private float currentBonus;
 

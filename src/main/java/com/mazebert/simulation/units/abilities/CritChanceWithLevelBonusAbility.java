@@ -1,6 +1,6 @@
 package com.mazebert.simulation.units.abilities;
 
-public abstract strictfp class CritChanceWithLevelBonusAbility extends AttributeWithLevelBonusAbility {
+public strictfp class CritChanceWithLevelBonusAbility extends AttributeWithLevelBonusAbility {
     public CritChanceWithLevelBonusAbility(float bonus, float bonusPerLevel) {
         super(bonus, bonusPerLevel);
     }
