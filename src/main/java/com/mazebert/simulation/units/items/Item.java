@@ -3,14 +3,15 @@ package com.mazebert.simulation.units.items;
 import com.mazebert.simulation.Card;
 import com.mazebert.simulation.Rarity;
 import com.mazebert.simulation.units.abilities.Ability;
-import com.mazebert.simulation.units.towers.Tower;
+
+import java.util.Arrays;
+import java.util.List;
 
 public strictfp abstract class Item implements Card {
-    private final Ability<Tower>[] abilities;
+    private final List<Ability> abilities;
 
-    @SafeVarargs
-    public Item(Ability<Tower> ... abilities) {
-        this.abilities = abilities;
+    public Item(Ability... abilities) {
+        this.abilities = Arrays.asList(abilities);
     }
 
     @Override
@@ -35,7 +36,8 @@ public strictfp abstract class Item implements Card {
 
     public abstract String getIcon();
 
-    public Ability<Tower>[] getAbilities() {
+    @Override
+    public List<Ability> getAbilities() {
         return abilities;
     }
 }

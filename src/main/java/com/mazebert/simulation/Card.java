@@ -1,5 +1,9 @@
 package com.mazebert.simulation;
 
+import com.mazebert.simulation.units.abilities.Ability;
+
+import java.util.List;
+
 public interface Card {
     String getName();
 
@@ -18,4 +22,6 @@ public interface Card {
     boolean isDark();
 
     String getSinceVersion();
+
+    List<Ability> getAbilities();
 }
