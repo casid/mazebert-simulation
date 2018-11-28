@@ -32,10 +32,10 @@ public strictfp enum PotionType implements CardType<Potion> {
     EssenceOfWisdom(17, EssenceOfWisdom.class),
     EssenceOfLuck(18, EssenceOfLuck.class),
     AngelicElixir(19, AngelicElixir.class),
-//    CardDustCrit(20, CardDustCrit.class),
-//    CardDustLuck(21, CardDustLuck.class),
-//    CardDustLevel(22, CardDustLevel.class),
-//    CardDustVital(23, CardDustVital.class),
+    CardDustCrit(20, CardDustCrit.class),
+    CardDustLuck(21, CardDustLuck.class),
+    CardDustLevel(22, CardDustLevel.class),
+    CardDustVital(23, CardDustVital.class),
 //    DrinkAll(24, DrinkAll.class),
     ;
 

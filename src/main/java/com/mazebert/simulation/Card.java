@@ -4,7 +4,7 @@ import com.mazebert.simulation.units.abilities.Ability;
 
 import java.util.List;
 
-public interface Card {
+public strictfp interface Card {
     String getName();
 
     String getDescription();
