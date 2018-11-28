@@ -92,12 +92,11 @@ public strictfp enum ItemType implements CardType<Item> {
 
     public final int id;
     public final Class<? extends Item> itemClass;
-    public final Item instance;
+    public Item instance;
 
     ItemType(int id, Class<? extends Item> itemClass) {
         this.id = id;
         this.itemClass = itemClass;
-        this.instance = create();
     }
 
     public static ItemType forId(int id) {
@@ -119,6 +118,9 @@ public strictfp enum ItemType implements CardType<Item> {
 
     @Override
     public Item instance() {
+        if (instance == null) {
+            instance = create();
+        }
         return instance;
     }
 

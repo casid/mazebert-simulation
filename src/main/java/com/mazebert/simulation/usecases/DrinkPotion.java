@@ -22,7 +22,7 @@ public strictfp class DrinkPotion extends Usecase<DrinkPotionCommand> {
         }
 
         if (wizard.potionStash.remove(command.potionType)) {
-            Potion potion = command.potionType.instance;
+            Potion potion = command.potionType.instance();
             for (Ability ability : potion.getAbilities()) {
                 tower.addAbility(ability);
             }

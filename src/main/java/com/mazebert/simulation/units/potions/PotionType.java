@@ -52,12 +52,11 @@ public strictfp enum PotionType implements CardType<Potion> {
 
     public final int id;
     public final Class<? extends Potion> potionClass;
-    public final Potion instance;
+    private Potion instance;
 
     PotionType(int id, Class<? extends Potion> potionClass) {
         this.id = id;
         this.potionClass = potionClass;
-        this.instance = create();
     }
 
     public static PotionType forId(int id) {
@@ -79,6 +78,9 @@ public strictfp enum PotionType implements CardType<Potion> {
 
     @Override
     public Potion instance() {
+        if (instance == null) {
+            instance = create();
+        }
         return instance;
     }
 
