@@ -1,16 +1,20 @@
 package com.mazebert.simulation.units.potions;
 
 import com.mazebert.simulation.Sim;
+import com.mazebert.simulation.SimulationListeners;
 import com.mazebert.simulation.units.abilities.Ability;
 import com.mazebert.simulation.units.towers.Tower;
 
 public strictfp class SacrificeAbility extends Ability<Tower> {
+    private final SimulationListeners simulationListeners = Sim.context().simulationListeners;
+
     @Override
     protected void initialize(Tower unit) {
         super.initialize(unit);
 
-        // TODO notification?
-        //Mazebert.instance.hud.showTowerNotification(tower, "Tower sacrificed!", 0xff0000);
+        if (simulationListeners.areNotificationsEnabled()) {
+            simulationListeners.showNotification(getUnit(), "Tower sacrificed!", 0xff0000);
+        }
 
         Sim.context().gameGateway.getGame().health += 0.01f * getUnit().getLevel();
         Sim.context().unitGateway.destroyTower(getUnit());

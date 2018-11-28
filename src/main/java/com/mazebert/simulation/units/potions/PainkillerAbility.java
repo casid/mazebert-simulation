@@ -2,6 +2,7 @@ package com.mazebert.simulation.units.potions;
 
 import com.mazebert.java8.Consumer;
 import com.mazebert.simulation.Sim;
+import com.mazebert.simulation.SimulationListeners;
 import com.mazebert.simulation.gateways.UnitGateway;
 import com.mazebert.simulation.listeners.OnUpdateListener;
 import com.mazebert.simulation.units.abilities.Ability;
@@ -9,6 +10,8 @@ import com.mazebert.simulation.units.creeps.Creep;
 import com.mazebert.simulation.units.towers.Tower;
 
 public strictfp class PainkillerAbility extends Ability<Tower> implements OnUpdateListener, Consumer<Creep> {
+    private final SimulationListeners simulationListeners = Sim.context().simulationListeners;
+
     private float burndown = 3;
     private int nextBurndownTick = (int) burndown;
 
@@ -28,12 +31,14 @@ public strictfp class PainkillerAbility extends Ability<Tower> implements OnUpda
     public void onUpdate(float dt) {
         if (burndown <= nextBurndownTick) {
             if (nextBurndownTick > 0) {
-                // TODO notification?
-                // Mazebert.instance.hud.showTowerNotification(tower, _nextBurndownTick + "!", 0xff9900);
+                if (simulationListeners.areNotificationsEnabled()) {
+                    simulationListeners.showNotification(getUnit(), nextBurndownTick + "!", 0xff9900);
+                }
                 --nextBurndownTick;
             } else {
-                // TODO notification?
-                // Mazebert.instance.hud.showTowerNotification(tower, "KA-BOOM!!!", 0xff9900);
+                if (simulationListeners.areNotificationsEnabled()) {
+                    simulationListeners.showNotification(getUnit(), "KA-BOOM!!!", 0xff9900);
+                }
                 UnitGateway unitGateway = Sim.context().unitGateway;
                 unitGateway.forEachInRange(getUnit().getX(), getUnit().getY(), getUnit().getLevel(), Creep.class, this);
                 unitGateway.destroyTower(getUnit());
