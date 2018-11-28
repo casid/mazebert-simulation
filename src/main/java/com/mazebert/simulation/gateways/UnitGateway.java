@@ -3,7 +3,9 @@ package com.mazebert.simulation.gateways;
 import com.mazebert.java8.Consumer;
 import com.mazebert.simulation.Sim;
 import com.mazebert.simulation.units.Unit;
-import com.mazebert.simulation.units.creeps.Creep;
+import com.mazebert.simulation.units.items.Item;
+import com.mazebert.simulation.units.items.ItemType;
+import com.mazebert.simulation.units.towers.Tower;
 import com.mazebert.simulation.units.wizards.Wizard;
 
 import java.util.ArrayList;
@@ -127,5 +129,16 @@ public strictfp class UnitGateway {
             }
         }
         return false;
+    }
+
+    public void destroyTower(Tower tower) {
+        Item[] items = tower.removeAllItems();
+        for (Item item : items) {
+            if (item != null) {
+                Wizard wizard = getWizard(tower.getPlayerId());
+                wizard.itemStash.add(ItemType.forItem(item));
+            }
+        }
+        removeUnit(tower);
     }
 }

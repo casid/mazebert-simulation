@@ -40,4 +40,9 @@ public strictfp abstract class Potion implements Card {
     public List<Ability> getAbilities() {
         return abilities;
     }
+
+    @SuppressWarnings("unused") // For user interface to show warning hint
+    public boolean isDestructive() {
+        return false;
+    }
 }

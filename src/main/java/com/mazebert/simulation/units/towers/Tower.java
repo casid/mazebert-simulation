@@ -479,4 +479,11 @@ public strictfp abstract class Tower extends Unit implements CooldownUnit, Card,
     public void addLuck(float amount) {
         luck += amount;
     }
+
+    public void kill(Creep creep) {
+        if (!creep.isDead()) {
+            creep.setHealth(0);
+            onKill.dispatch(creep);
+        }
+    }
 }
