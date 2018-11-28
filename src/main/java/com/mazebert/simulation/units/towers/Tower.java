@@ -475,4 +475,8 @@ public strictfp abstract class Tower extends Unit implements CooldownUnit, Card,
     public void addItemQuality(float amount) {
         itemQuality += amount;
     }
+
+    public void addLuck(float amount) {
+        luck += amount;
+    }
 }
