@@ -1,9 +1,7 @@
 package com.mazebert.simulation.commands.serializers;
 
-import com.mazebert.simulation.commands.BuildTowerCommand;
 import com.mazebert.simulation.commands.EquipItemCommand;
 import com.mazebert.simulation.units.items.ItemType;
-import com.mazebert.simulation.units.towers.TowerType;
 import org.jusecase.bitpack.BitReader;
 import org.jusecase.bitpack.BitSerializer;
 import org.jusecase.bitpack.BitWriter;

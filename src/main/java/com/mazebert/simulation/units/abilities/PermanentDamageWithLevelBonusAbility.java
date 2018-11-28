@@ -1,6 +1,6 @@
 package com.mazebert.simulation.units.abilities;
 
-public class PermanentDamageWithLevelBonusAbility extends DamageWithLevelBonusAbility {
+public strictfp class PermanentDamageWithLevelBonusAbility extends DamageWithLevelBonusAbility {
     public PermanentDamageWithLevelBonusAbility(float bonus, float bonusPerLevel) {
         super(bonus, bonusPerLevel);
     }

@@ -6,7 +6,7 @@ import com.mazebert.simulation.messages.Turn;
 import java.util.Collections;
 import java.util.List;
 
-public class ReplayTurn {
+public strictfp class ReplayTurn {
     public int hash;
     public List<Command> commands = Collections.emptyList();
 

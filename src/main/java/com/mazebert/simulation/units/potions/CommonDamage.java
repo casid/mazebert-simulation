@@ -2,7 +2,7 @@ package com.mazebert.simulation.units.potions;
 
 import com.mazebert.simulation.Rarity;
 
-public class CommonDamage extends Potion {
+public strictfp class CommonDamage extends Potion {
     public CommonDamage() {
         super(new CommonDamageAbility());
     }
