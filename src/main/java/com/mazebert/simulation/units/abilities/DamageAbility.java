@@ -32,6 +32,11 @@ public strictfp class DamageAbility extends Ability<Tower> implements OnAttackLi
         }
 
         Tower tower = getUnit();
+        if (tower.getChanceToMiss() > 0 && tower.isNegativeAbilityTriggered(tower.getChanceToMiss())) {
+            tower.onMiss.dispatch(this, target);
+            return;
+        }
+
         double baseDamage = tower.rollBaseDamage(randomPlugin);
         baseDamage += tower.getAddedAbsoluteBaseDamage();
         baseDamage = baseDamage * (1.0 + tower.getAddedRelativeBaseDamage());

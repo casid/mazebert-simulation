@@ -231,6 +231,28 @@ public class DamageAbilityTest extends SimTest {
         assertThat(tower.getLevel()).isEqualTo(1);
     }
 
+    @Test
+    void missChance_miss() {
+        tower.setBaseDamage(10.0f);
+        tower.setChanceToMiss(0.5f);
+        randomPluginTrainer.givenFloatAbs(0.1f);
+
+        whenTowerAttacks();
+
+        assertThat(creep.getHealth()).isEqualTo(100);
+    }
+
+    @Test
+    void missChance_hit() {
+        tower.setBaseDamage(10.0f);
+        tower.setChanceToMiss(0.5f);
+        randomPluginTrainer.givenFloatAbs(0.6f);
+
+        whenTowerAttacks();
+
+        assertThat(creep.getHealth()).isEqualTo(90);
+    }
+
     private void whenTowerAttacks() {
         tower.simulate(1.0f);
     }

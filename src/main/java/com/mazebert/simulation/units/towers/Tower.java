@@ -17,6 +17,7 @@ public strictfp abstract class Tower extends Unit implements CooldownUnit, Card,
     public final OnDamage onDamage = new OnDamage();
     public final OnLevelChanged onLevelChanged = new OnLevelChanged();
     public final OnKill onKill = new OnKill();
+    public final OnMiss onMiss = new OnMiss();
     public final OnItemEquipped onItemEquipped = new OnItemEquipped();
 
     private int level;
@@ -33,6 +34,7 @@ public strictfp abstract class Tower extends Unit implements CooldownUnit, Card,
     private float critChance = 0.05f;
     private float critDamage = 0.25f;
     private int multicrit = 1;
+    private float chanceToMiss;
     private float luck = 1.0f; // factor 1 is regular luck of every tower
     private float itemChance = 1.0f; // 1.0 is 100% item chance (normal, not good not bad)
     private float itemQuality = 1.0f; // 1.0 is 100% item quality (normal, not good not bad)
@@ -67,6 +69,7 @@ public strictfp abstract class Tower extends Unit implements CooldownUnit, Card,
         hash.add(critChance);
         hash.add(critDamage);
         hash.add(multicrit);
+        hash.add(chanceToMiss);
         hash.add(luck);
         hash.add(itemChance);
         hash.add(itemQuality);
@@ -300,6 +303,10 @@ public strictfp abstract class Tower extends Unit implements CooldownUnit, Card,
         return Sim.context().randomPlugin.getFloatAbs() <= chance;
     }
 
+    public boolean isNegativeAbilityTriggered(float chance) {
+        return Sim.context().randomPlugin.getFloatAbs() * luck <= chance;
+    }
+
     public int getKills() {
         return kills;
     }
@@ -371,10 +378,12 @@ public strictfp abstract class Tower extends Unit implements CooldownUnit, Card,
         }
     }
 
+    @SuppressWarnings("unused") // Used by UI
     public double calculateAverageBaseDamageForDisplay() {
         return minBaseDamage + 0.5 * (maxBaseDamage - minBaseDamage);
     }
 
+    @SuppressWarnings("unused") // Used by UI
     public double calculateAverageDamageForDisplay() {
         // Calculate average base damage between min and max.
         double averageBaseDamage = minBaseDamage + (maxBaseDamage - minBaseDamage + 1) * 0.5;
@@ -437,5 +446,17 @@ public strictfp abstract class Tower extends Unit implements CooldownUnit, Card,
 
     public void addAttackSpeed(float amount) {
         attackSpeedAdd += amount;
+    }
+
+    public void addChanceToMiss(float amount) {
+        chanceToMiss += amount;
+    }
+
+    public float getChanceToMiss() {
+        return chanceToMiss;
+    }
+
+    public void setChanceToMiss(float chanceToMiss) {
+        this.chanceToMiss = chanceToMiss;
     }
 }
