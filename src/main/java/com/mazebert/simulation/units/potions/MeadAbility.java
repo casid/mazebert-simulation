@@ -3,7 +3,7 @@ package com.mazebert.simulation.units.potions;
 import com.mazebert.simulation.units.abilities.StackableAbility;
 import com.mazebert.simulation.units.towers.Tower;
 
-public class MeadAbility extends StackableAbility<Tower> {
+public strictfp class MeadAbility extends StackableAbility<Tower> {
     private static final float damageBonus = 0.14f;
     private static final float critChanceBonus = 0.02f;
     private static final float critDamageBonus = 0.2f;

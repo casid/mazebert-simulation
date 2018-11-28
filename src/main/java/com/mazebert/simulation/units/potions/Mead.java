@@ -2,7 +2,7 @@ package com.mazebert.simulation.units.potions;
 
 import com.mazebert.simulation.Rarity;
 
-public class Mead extends Potion {
+public strictfp class Mead extends Potion {
 
     public Mead() {
         super(new MeadAbility());
