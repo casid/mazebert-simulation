@@ -8,7 +8,7 @@ import com.mazebert.simulation.units.abilities.Ability;
 import com.mazebert.simulation.units.creeps.Creep;
 import com.mazebert.simulation.units.towers.Tower;
 
-public class PainkillerAbility extends Ability<Tower> implements OnUpdateListener, Consumer<Creep> {
+public strictfp class PainkillerAbility extends Ability<Tower> implements OnUpdateListener, Consumer<Creep> {
     private float burndown = 3;
     private int nextBurndownTick = (int) burndown;
 

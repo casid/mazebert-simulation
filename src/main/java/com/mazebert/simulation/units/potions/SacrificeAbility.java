@@ -4,7 +4,7 @@ import com.mazebert.simulation.Sim;
 import com.mazebert.simulation.units.abilities.Ability;
 import com.mazebert.simulation.units.towers.Tower;
 
-public class SacrificeAbility extends Ability<Tower> {
+public strictfp class SacrificeAbility extends Ability<Tower> {
     @Override
     protected void initialize(Tower unit) {
         super.initialize(unit);

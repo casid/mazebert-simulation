@@ -3,7 +3,7 @@ package com.mazebert.simulation.units.potions;
 import com.mazebert.simulation.units.abilities.Ability;
 import com.mazebert.simulation.units.towers.Tower;
 
-public class NillosAbility extends Ability<Tower> {
+public strictfp class NillosAbility extends Ability<Tower> {
     private static final float luckAdd = 0.2f;
     private static final float attackSpeedAdd = 0.4f;
     private static final float itemChance = 0.2f;
