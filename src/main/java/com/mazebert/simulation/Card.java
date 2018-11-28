@@ -21,6 +21,18 @@ public interface Card {
 
     boolean isDark();
 
+    default boolean isForgeable() {
+        return true;
+    }
+
+    default boolean isSupporterReward() {
+        return false;
+    }
+
+    default boolean isTradingAllowed() {
+        return true;
+    }
+
     String getSinceVersion();
 
     List<Ability> getAbilities();
