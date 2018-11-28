@@ -135,11 +135,18 @@ public strictfp abstract class Tower extends Unit implements CooldownUnit, Card,
     }
 
     public int getMulticrit() {
+        if (multicrit < 1) {
+            return 1;
+        }
         return multicrit;
     }
 
     public void setMulticrit(int multicrit) {
         this.multicrit = multicrit;
+    }
+
+    public void addMulticrit(int amount) {
+        multicrit += amount;
     }
 
     public float getAddedRelativeBaseDamage() {
@@ -393,6 +400,7 @@ public strictfp abstract class Tower extends Unit implements CooldownUnit, Card,
 
         // Calculate average crit amount and damage.
         double critChance = this.critDamage;
+        int multicrit = getMulticrit();
         for (int i = 0; i < multicrit; ++i)
         {
             if (critChance > 0.0)
