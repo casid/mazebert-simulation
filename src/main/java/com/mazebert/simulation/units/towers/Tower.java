@@ -418,4 +418,8 @@ public strictfp abstract class Tower extends Unit implements CooldownUnit, Card,
     public void setItemQuality(float itemQuality) {
         this.itemQuality = itemQuality;
     }
+
+    public void addAttackSpeed(float amount) {
+        attackSpeedAdd += amount;
+    }
 }

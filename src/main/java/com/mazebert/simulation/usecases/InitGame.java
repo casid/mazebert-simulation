@@ -47,7 +47,9 @@ public strictfp class InitGame extends Usecase<InitGameCommand> {
             }
             wizard.itemStash.add(ItemType.BabySword);
             wizard.itemStash.add(ItemType.WoodenStaff);
-            wizard.potionStash.add(PotionType.CommonDamage);
+            for (PotionType value : PotionType.values()) {
+                wizard.potionStash.add(value);
+            }
             unitGateway.addUnit(wizard);
         }
 
