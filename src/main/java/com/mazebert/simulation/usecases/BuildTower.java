@@ -15,7 +15,6 @@ import java.util.List;
 public strictfp class BuildTower extends Usecase<BuildTowerCommand> {
 
     private final UnitGateway unitGateway = Sim.context().unitGateway;
-    private final SimulationListeners simulationListeners = Sim.context().simulationListeners;
 
     @Override
     public void execute(BuildTowerCommand command) {
@@ -25,7 +24,6 @@ public strictfp class BuildTower extends Usecase<BuildTowerCommand> {
             Tower oldTower = unitGateway.findUnit(Tower.class, command.playerId, command.x, command.y);
             if (oldTower != null) {
                 unitGateway.removeUnit(oldTower);
-                simulationListeners.onUnitRemoved.dispatch(oldTower);
             }
 
             Tower tower = command.towerType.create();
@@ -34,7 +32,6 @@ public strictfp class BuildTower extends Usecase<BuildTowerCommand> {
             tower.setY(command.y);
 
             unitGateway.addUnit(tower);
-            simulationListeners.onUnitAdded.dispatch(tower);
 
             if (oldTower != null) {
                 List<Ability> permanentAbilities = new ArrayList<>();

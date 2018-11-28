@@ -150,12 +150,11 @@ public strictfp class WaveSpawner implements OnGameStartedListener, OnWaveStarte
         creep.onTargetReached.add(this);
 
         unitGateway.addUnit(creep);
-        simulationListeners.onUnitAdded.dispatch(creep);
     }
 
     @Override
     public void onDead(Creep creep) {
-        removeCreep(creep);
+        unitGateway.removeUnit(creep);
     }
 
     @Override
@@ -171,11 +170,7 @@ public strictfp class WaveSpawner implements OnGameStartedListener, OnWaveStarte
 
     @Override
     public void onTargetReached(Creep creep) {
-        removeCreep(creep);
+        unitGateway.removeUnit(creep);
     }
 
-    private void removeCreep(Creep creep) {
-        unitGateway.removeUnit(creep);
-        simulationListeners.onUnitRemoved.dispatch(creep);
-    }
 }

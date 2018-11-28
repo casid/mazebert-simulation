@@ -1,7 +1,9 @@
 package com.mazebert.simulation.gateways;
 
 import com.mazebert.java8.Consumer;
+import com.mazebert.simulation.Sim;
 import com.mazebert.simulation.units.Unit;
+import com.mazebert.simulation.units.creeps.Creep;
 import com.mazebert.simulation.units.wizards.Wizard;
 
 import java.util.ArrayList;
@@ -14,6 +16,9 @@ public strictfp class UnitGateway {
 
     public void addUnit(Unit unit) {
         units.add(unit);
+        if (Sim.context().simulationListeners != null) {
+            Sim.context().simulationListeners.onUnitAdded.dispatch(unit);
+        }
     }
 
     public List<Unit> getUnits() {
@@ -25,6 +30,10 @@ public strictfp class UnitGateway {
             units.remove(unit);
         } else {
             unitsToRemove.add(unit);
+        }
+
+        if (Sim.context().simulationListeners != null) {
+            Sim.context().simulationListeners.onUnitRemoved.dispatch(unit);
         }
     }
 
