@@ -12,6 +12,7 @@ import com.mazebert.simulation.gateways.WaveGateway;
 import com.mazebert.simulation.maps.BloodMoor;
 import com.mazebert.simulation.plugins.random.UuidRandomPlugin;
 import com.mazebert.simulation.units.items.ItemType;
+import com.mazebert.simulation.units.potions.PotionType;
 import com.mazebert.simulation.units.towers.TowerType;
 import com.mazebert.simulation.units.wizards.Wizard;
 
@@ -46,6 +47,7 @@ public strictfp class InitGame extends Usecase<InitGameCommand> {
             }
             wizard.itemStash.add(ItemType.BabySword);
             wizard.itemStash.add(ItemType.WoodenStaff);
+            wizard.potionStash.add(PotionType.CommonDamage);
             unitGateway.addUnit(wizard);
         }
 
