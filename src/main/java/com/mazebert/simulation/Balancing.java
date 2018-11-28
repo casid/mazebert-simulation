@@ -194,6 +194,10 @@ public strictfp class Balancing {
     }
 
     private static Stash calculateDropStash(Wizard wizard, float diceThrow) {
-        return wizard.itemStash;
+        if (diceThrow < 0.66f) {
+            return wizard.itemStash;
+        } else {
+            return wizard.potionStash;
+        }
     }
 }

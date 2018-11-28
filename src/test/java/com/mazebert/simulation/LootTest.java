@@ -7,6 +7,7 @@ import com.mazebert.simulation.units.abilities.AttackAbility;
 import com.mazebert.simulation.units.abilities.DamageAbility;
 import com.mazebert.simulation.units.creeps.Creep;
 import com.mazebert.simulation.units.items.ItemType;
+import com.mazebert.simulation.units.potions.PotionType;
 import com.mazebert.simulation.units.towers.Tower;
 import com.mazebert.simulation.units.wizards.Wizard;
 import org.junit.jupiter.api.BeforeEach;
@@ -213,6 +214,22 @@ public class LootTest extends SimTest {
         whenTowerAttacks();
 
         assertThat(wizard.itemStash.size()).isEqualTo(0);
+    }
+
+    @Test
+    void loot_potion() {
+        randomPluginTrainer.givenFloatAbs(
+                0.0f, // This is a drop
+                0.99f, // The rarity of this drop is common
+                0.9f, // This is a potion drop
+                0.0f // It's a common damage potion!
+        );
+        creep.setMaxDrops(1);
+
+        whenTowerAttacks();
+
+        assertThat(wizard.potionStash.get(0).amount).isEqualTo(1);
+        assertThat(wizard.potionStash.get(0).cardType).isEqualTo(PotionType.CommonDamage);
     }
 
     private void whenTowerAttacks() {

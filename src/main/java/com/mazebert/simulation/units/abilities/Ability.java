@@ -32,6 +32,10 @@ public abstract strictfp class Ability<U extends Unit> {
         this.unit = null;
     }
 
+    public boolean isPermanent() {
+        return false;
+    }
+
     public U getUnit() {
         return unit;
     }

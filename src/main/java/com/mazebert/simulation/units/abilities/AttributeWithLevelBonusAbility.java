@@ -1,6 +1,5 @@
 package com.mazebert.simulation.units.abilities;
 
-import com.mazebert.simulation.Sim;
 import com.mazebert.simulation.listeners.OnLevelChangedListener;
 import com.mazebert.simulation.units.towers.Tower;
 

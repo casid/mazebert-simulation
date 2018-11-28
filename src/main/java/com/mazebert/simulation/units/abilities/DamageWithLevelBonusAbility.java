@@ -1,7 +1,5 @@
 package com.mazebert.simulation.units.abilities;
 
-import com.mazebert.simulation.Sim;
-
 public abstract strictfp class DamageWithLevelBonusAbility extends AttributeWithLevelBonusAbility {
     public DamageWithLevelBonusAbility(float bonus, float bonusPerLevel) {
         super(bonus, bonusPerLevel);
