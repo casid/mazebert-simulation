@@ -40,8 +40,12 @@ public strictfp class DamageSystem {
             }
         }
 
-        creep.receiveDamage(damage);
-        tower.onDamage.dispatch(origin, creep, damage, rolledMulticrits);
+        dealDamage(origin, tower, creep, damage, rolledMulticrits);
+    }
+
+    public void dealDamage(Object origin, Tower tower, Creep creep, double damage, int multicrits) {
+        creep.setHealth(creep.getHealth() - damage);
+        tower.onDamage.dispatch(origin, creep, damage, multicrits);
 
         if (creep.isDead()) {
             tower.onKill.dispatch(creep);

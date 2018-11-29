@@ -1,10 +1,15 @@
 package com.mazebert.simulation.units.creeps.effects;
 
+import com.mazebert.simulation.Sim;
 import com.mazebert.simulation.listeners.OnUpdateListener;
-import com.mazebert.simulation.units.abilities.StackableAbility;
+import com.mazebert.simulation.systems.DamageSystem;
+import com.mazebert.simulation.units.abilities.StackableByOriginAbility;
 import com.mazebert.simulation.units.creeps.Creep;
+import com.mazebert.simulation.units.towers.Tower;
 
-public strictfp class PoisonEffect extends StackableAbility<Creep> implements OnUpdateListener {
+public strictfp class PoisonEffect extends StackableByOriginAbility<Creep> implements OnUpdateListener {
+
+    private final DamageSystem damageSystem = Sim.context().damageSystem;
 
     private float totalSeconds;
     private float remainingSeconds;
@@ -23,19 +28,18 @@ public strictfp class PoisonEffect extends StackableAbility<Creep> implements On
     }
 
     @Override
-    protected void updateStacks() {
-        // not used
-    }
-
-    @Override
     public void onUpdate(float dt) {
-        double damage = remainingDamage * dt / totalSeconds;
-        getUnit().receiveDamage(damage);
-        remainingDamage -= damage;
-
-        remainingSeconds -= dt;
-        if (remainingSeconds <= 0) {
+        if (getUnit().isDead()) {
             getUnit().removeAbility(this);
+        } else {
+            double damage = remainingDamage * dt / totalSeconds;
+            damageSystem.dealDamage(this, (Tower) getOrigin(), getUnit(), damage, 0);
+            remainingDamage -= damage;
+
+            remainingSeconds -= dt;
+            if (remainingSeconds <= 0) {
+                getUnit().removeAbility(this);
+            }
         }
     }
 

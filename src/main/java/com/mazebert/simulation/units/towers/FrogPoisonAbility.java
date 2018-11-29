@@ -2,12 +2,11 @@ package com.mazebert.simulation.units.towers;
 
 import com.mazebert.simulation.units.abilities.PoisonAbility;
 import com.mazebert.simulation.units.creeps.Creep;
-import com.mazebert.simulation.units.creeps.effects.FrogPoisonEffect;
 
 public strictfp class FrogPoisonAbility extends PoisonAbility {
 
     public FrogPoisonAbility() {
-        super(FrogPoisonEffect.class, 3.0f);
+        super(3.0f);
     }
 
     @Override

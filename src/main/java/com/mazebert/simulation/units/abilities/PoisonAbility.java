@@ -6,11 +6,9 @@ import com.mazebert.simulation.units.creeps.effects.PoisonEffect;
 import com.mazebert.simulation.units.towers.Tower;
 
 public abstract strictfp class PoisonAbility extends Ability<Tower> implements OnDamageListener {
-    private final Class<? extends PoisonEffect> effectClass;
     private final float duration;
 
-    public PoisonAbility(Class<? extends PoisonEffect> effectClass, float duration) {
-        this.effectClass = effectClass;
+    public PoisonAbility(float duration) {
         this.duration = duration;
     }
 
@@ -28,7 +26,11 @@ public abstract strictfp class PoisonAbility extends Ability<Tower> implements O
 
     @Override
     public void onDamage(Object origin, Creep target, double damage, int multicrits) {
-        PoisonEffect poisonEffect = target.addAbilityStack(effectClass);
+        if (origin instanceof PoisonEffect) {
+            return;
+        }
+
+        PoisonEffect poisonEffect = target.addAbilityStack(getUnit(), PoisonEffect.class);
         poisonEffect.addPoison(duration, calculatePoisonDamage(target, damage, multicrits));
     }
 

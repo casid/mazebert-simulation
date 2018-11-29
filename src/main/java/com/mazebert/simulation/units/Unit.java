@@ -5,6 +5,7 @@ import com.mazebert.simulation.hash.Hashable;
 import com.mazebert.simulation.listeners.OnUpdate;
 import com.mazebert.simulation.units.abilities.Ability;
 import com.mazebert.simulation.units.abilities.StackableAbility;
+import com.mazebert.simulation.units.abilities.StackableByOriginAbility;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -75,12 +76,37 @@ public abstract strictfp class Unit implements Hashable {
                 return result;
             }
         }
+        return addAbilityByClass(abilityClass);
+    }
+
+    @SuppressWarnings("unchecked")
+    public <T extends StackableByOriginAbility> T addAbilityStack(Object origin, Class<T> abilityClass) {
+        T result = null;
+        for (Ability ability : abilities) {
+            if (ability.getClass() == abilityClass) {
+                StackableByOriginAbility stackableByOriginAbility = (StackableByOriginAbility)ability;
+                if (stackableByOriginAbility.getOrigin() == origin) {
+                    result = (T) ability;
+                    break;
+                }
+            }
+        }
+
+        if (result == null) {
+            result = addAbilityByClass(abilityClass);
+            result.setOrigin(origin);
+        }
+
+        return result;
+    }
+
+    private <T extends Ability> T addAbilityByClass(Class<T> abilityClass) {
         try {
             T ability = abilityClass.newInstance();
             addAbilityInternal(ability);
             return ability;
         } catch (Throwable e) {
-            throw new RuntimeException("Failed to initialize", e);
+            throw new RuntimeException("Failed to initialize ability " + abilityClass, e);
         }
     }
 

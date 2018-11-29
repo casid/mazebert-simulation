@@ -2,6 +2,7 @@ package com.mazebert.simulation.units.abilities;
 
 import com.mazebert.simulation.Path;
 import com.mazebert.simulation.SimTest;
+import com.mazebert.simulation.Wave;
 import com.mazebert.simulation.gateways.UnitGateway;
 import com.mazebert.simulation.plugins.random.RandomPluginTrainer;
 import com.mazebert.simulation.systems.DamageSystem;
@@ -33,7 +34,7 @@ public strictfp class PoisonAbilityTest extends SimTest {
         tower.setBaseRange(5.0f);
         tower.addAbility(new AttackAbility());
         tower.addAbility(new InstantDamageAbility());
-        poisonAbility = new PoisonAbility(PoisonEffect.class, 3.0f) {
+        poisonAbility = new PoisonAbility(3.0f) {
             @Override
             protected double calculatePoisonDamage(Creep target, double damage, int multicrits) {
                 return 3 * damage;
@@ -44,6 +45,7 @@ public strictfp class PoisonAbilityTest extends SimTest {
         tower.setBaseDamage(10.0f);
 
         creep = new Creep();
+        creep.setWave(new Wave());
         creep.setX(2);
         creep.setY(2);
         creep.setPath(new Path(2.0f, 2.0f, 2.0f, 3.0f));
