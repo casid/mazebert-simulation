@@ -18,6 +18,7 @@ public strictfp abstract class Tower extends Unit implements CooldownUnit, Card,
     public final OnKill onKill = new OnKill();
     public final OnMiss onMiss = new OnMiss();
     public final OnLevelChanged onLevelChanged = new OnLevelChanged();
+    public final OnRangeChanged onRangeChanged = new OnRangeChanged();
     public final OnItemEquipped onItemEquipped = new OnItemEquipped();
     public final OnPotionConsumed onPotionConsumed = new OnPotionConsumed();
 
@@ -27,6 +28,7 @@ public strictfp abstract class Tower extends Unit implements CooldownUnit, Card,
     private float baseCooldown = Float.MAX_VALUE;
     private float attackSpeedAdd;
     private float baseRange = 1.0f;
+    private float addedRange = 0.0f;
     private float damageSpread; // [0, 1], 0=constant damage, 1=max spread damage
     private float minBaseDamage;
     private float maxBaseDamage;
@@ -523,5 +525,14 @@ public strictfp abstract class Tower extends Unit implements CooldownUnit, Card,
     public void populateCustomTowerBonus(CustomTowerBonus bonus) {
         bonus.value = "Custom bonus:";
         bonus.title = "-";
+    }
+
+    public void addRange(float amount) {
+        addedRange += amount;
+        onRangeChanged.dispatch(this);
+    }
+
+    public float getRange() {
+        return StrictMath.max(1, baseRange + addedRange);
     }
 }

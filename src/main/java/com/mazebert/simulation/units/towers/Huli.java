@@ -23,7 +23,7 @@ public strictfp class Huli extends Tower {
         addAbility(new ProjectileDamageAbility(ProjectileViewType.Banana, 11.8f));
         addAbility(new HuliStun());
         addAbility(new HuliEat());
-        // mojo
+        addAbility(new HuliMojo());
     }
 
     @Override

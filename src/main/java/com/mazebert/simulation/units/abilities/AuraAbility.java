@@ -17,7 +17,7 @@ public abstract strictfp class AuraAbility<S extends Unit, T extends Unit> exten
     private final UnitGateway unitGateway = Sim.context().unitGateway;
 
     private final Class<T> targetClass;
-    private final float range;
+    private float range;
 
     private T[] active;
     private int activeSize;
@@ -25,6 +25,14 @@ public abstract strictfp class AuraAbility<S extends Unit, T extends Unit> exten
     public AuraAbility(Class<T> targetClass, float range) {
         this.targetClass = targetClass;
         this.range = range;
+    }
+
+    public void setRange(float range) {
+        this.range = range;
+    }
+
+    public int getActiveSize() {
+        return activeSize;
     }
 
     @SuppressWarnings("unchecked")
@@ -54,11 +62,17 @@ public abstract strictfp class AuraAbility<S extends Unit, T extends Unit> exten
 
     @Override
     public void accept(T unit) {
-        unit.visited = true;
+        if (isQualifiedForAura(unit)) {
+            unit.visited = true;
 
-        if (!containsTarget(unit)) {
-            addTarget(unit);
+            if (!containsTarget(unit)) {
+                addTarget(unit);
+            }
         }
+    }
+
+    protected boolean isQualifiedForAura(T unit) {
+        return true;
     }
 
     private void markAllCurrentTargetsAsUnvisited() {
