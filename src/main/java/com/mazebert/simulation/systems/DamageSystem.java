@@ -1,39 +1,23 @@
-package com.mazebert.simulation.units.abilities;
+package com.mazebert.simulation.systems;
 
-import com.mazebert.simulation.Sim;
-import com.mazebert.simulation.listeners.OnAttackListener;
 import com.mazebert.simulation.plugins.random.RandomPlugin;
 import com.mazebert.simulation.units.creeps.Creep;
 import com.mazebert.simulation.units.towers.Tower;
 
-public strictfp class DamageAbility extends Ability<Tower> implements OnAttackListener {
-    private final RandomPlugin randomPlugin = Sim.context().randomPlugin;
+public strictfp class DamageSystem {
+    private final RandomPlugin randomPlugin;
 
-    @Override
-    protected void initialize(Tower unit) {
-        super.initialize(unit);
-        unit.onAttack.add(this);
+    public DamageSystem(RandomPlugin randomPlugin) {
+        this.randomPlugin = randomPlugin;
     }
 
-    @Override
-    protected void dispose(Tower unit) {
-        unit.onAttack.remove(this);
-        super.dispose(unit);
-    }
-
-    @Override
-    public void onAttack(Creep target) {
-        dealDamage(target);
-    }
-
-    protected void dealDamage(Creep target) {
-        if (target.isDead()) {
+    public void dealDamage(Object origin, Tower tower, Creep creep) {
+        if (creep.isDead()) {
             return;
         }
 
-        Tower tower = getUnit();
         if (tower.getChanceToMiss() > 0 && tower.isNegativeAbilityTriggered(tower.getChanceToMiss())) {
-            tower.onMiss.dispatch(this, target);
+            tower.onMiss.dispatch(this, creep);
             return;
         }
 
@@ -56,11 +40,11 @@ public strictfp class DamageAbility extends Ability<Tower> implements OnAttackLi
             }
         }
 
-        target.receiveDamage(damage);
-        tower.onDamage.dispatch(this, target, damage, rolledMulticrits);
+        creep.receiveDamage(damage);
+        tower.onDamage.dispatch(origin, creep, damage, rolledMulticrits);
 
-        if (target.isDead()) {
-            tower.onKill.dispatch(target);
+        if (creep.isDead()) {
+            tower.onKill.dispatch(creep);
         }
     }
 }

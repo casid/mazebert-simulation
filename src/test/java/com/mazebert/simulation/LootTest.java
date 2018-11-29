@@ -2,9 +2,10 @@ package com.mazebert.simulation;
 
 import com.mazebert.simulation.gateways.UnitGateway;
 import com.mazebert.simulation.plugins.random.RandomPluginTrainer;
+import com.mazebert.simulation.systems.DamageSystem;
 import com.mazebert.simulation.units.TestTower;
 import com.mazebert.simulation.units.abilities.AttackAbility;
-import com.mazebert.simulation.units.abilities.DamageAbility;
+import com.mazebert.simulation.units.abilities.InstantDamageAbility;
 import com.mazebert.simulation.units.creeps.Creep;
 import com.mazebert.simulation.units.items.ItemType;
 import com.mazebert.simulation.units.potions.PotionType;
@@ -31,13 +32,14 @@ public class LootTest extends SimTest {
     void setUp() {
         unitGateway = new UnitGateway();
         randomPlugin = randomPluginTrainer;
+        damageSystem = new DamageSystem(randomPlugin);
 
         // Setup of tower is so that no random numbers are required for damage calculation
         tower = new TestTower();
         tower.setBaseCooldown(1.0f);
         tower.setBaseRange(1.0f);
         tower.addAbility(new AttackAbility());
-        tower.addAbility(new DamageAbility());
+        tower.addAbility(new InstantDamageAbility());
         tower.setCritChance(0.0f);
         tower.setDamageSpread(0);
         tower.setBaseDamage(1000);

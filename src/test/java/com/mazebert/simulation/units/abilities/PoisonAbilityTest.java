@@ -4,6 +4,7 @@ import com.mazebert.simulation.Path;
 import com.mazebert.simulation.SimTest;
 import com.mazebert.simulation.gateways.UnitGateway;
 import com.mazebert.simulation.plugins.random.RandomPluginTrainer;
+import com.mazebert.simulation.systems.DamageSystem;
 import com.mazebert.simulation.units.TestTower;
 import com.mazebert.simulation.units.creeps.Creep;
 import com.mazebert.simulation.units.creeps.effects.PoisonEffect;
@@ -25,12 +26,13 @@ public strictfp class PoisonAbilityTest extends SimTest {
     void setUp() {
         unitGateway = new UnitGateway();
         randomPlugin = randomPluginTrainer;
+        damageSystem = new DamageSystem(randomPlugin);
 
         tower = new TestTower();
         tower.setBaseCooldown(1.0f);
         tower.setBaseRange(5.0f);
         tower.addAbility(new AttackAbility());
-        tower.addAbility(new DamageAbility());
+        tower.addAbility(new InstantDamageAbility());
         poisonAbility = new PoisonAbility(PoisonEffect.class, 3.0f) {
             @Override
             protected double calculatePoisonDamage(Creep target, double damage, int multicrits) {

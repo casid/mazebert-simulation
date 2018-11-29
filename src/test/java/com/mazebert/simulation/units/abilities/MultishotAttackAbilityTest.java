@@ -3,6 +3,7 @@ package com.mazebert.simulation.units.abilities;
 import com.mazebert.simulation.SimTest;
 import com.mazebert.simulation.gateways.UnitGateway;
 import com.mazebert.simulation.plugins.random.RandomPluginTrainer;
+import com.mazebert.simulation.systems.DamageSystem;
 import com.mazebert.simulation.units.TestTower;
 import com.mazebert.simulation.units.creeps.Creep;
 import com.mazebert.simulation.units.towers.Tower;
@@ -25,6 +26,7 @@ public class MultishotAttackAbilityTest extends SimTest {
     void setUp() {
         unitGateway = new UnitGateway();
         randomPlugin = randomPluginTrainer;
+        damageSystem = new DamageSystem(randomPlugin);
 
         tower = new TestTower();
         tower.setBaseCooldown(1.0f);
@@ -32,7 +34,7 @@ public class MultishotAttackAbilityTest extends SimTest {
         multishot = new AttackAbility();
         multishot.setTargets(2);
         tower.addAbility(multishot);
-        tower.addAbility(new DamageAbility());
+        tower.addAbility(new InstantDamageAbility());
         tower.setCritChance(0.0f);
         tower.setBaseDamage(10.0f);
 

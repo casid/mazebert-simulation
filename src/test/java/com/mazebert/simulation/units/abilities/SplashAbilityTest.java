@@ -3,6 +3,7 @@ package com.mazebert.simulation.units.abilities;
 import com.mazebert.simulation.SimTest;
 import com.mazebert.simulation.gateways.UnitGateway;
 import com.mazebert.simulation.plugins.random.RandomPluginTrainer;
+import com.mazebert.simulation.systems.DamageSystem;
 import com.mazebert.simulation.units.TestTower;
 import com.mazebert.simulation.units.creeps.Creep;
 import com.mazebert.simulation.units.towers.Tower;
@@ -25,12 +26,13 @@ public class SplashAbilityTest extends SimTest {
     void setUp() {
         unitGateway = new UnitGateway();
         randomPlugin = randomPluginTrainer;
+        damageSystem = new DamageSystem(randomPlugin);
 
         tower = new TestTower();
         tower.setBaseCooldown(1.0f);
         tower.setBaseRange(5.0f);
         tower.addAbility(new AttackAbility());
-        tower.addAbility(new DamageAbility());
+        tower.addAbility(new InstantDamageAbility());
         splashAbility = new SplashAbility();
         splashAbility.setRange(1);
         splashAbility.setDamageFactor(0.4f);

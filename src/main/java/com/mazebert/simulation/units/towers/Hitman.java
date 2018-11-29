@@ -3,12 +3,9 @@ package com.mazebert.simulation.units.towers;
 import com.mazebert.simulation.AttackType;
 import com.mazebert.simulation.Element;
 import com.mazebert.simulation.Rarity;
-import com.mazebert.simulation.projectiles.ProjectileViewType;
 import com.mazebert.simulation.units.Gender;
 import com.mazebert.simulation.units.abilities.AttackAbility;
-import com.mazebert.simulation.units.abilities.DamageAbility;
-import com.mazebert.simulation.units.abilities.DelayedDamageAbility;
-import com.mazebert.simulation.units.abilities.ProjectileDamageAbility;
+import com.mazebert.simulation.units.abilities.InstantDamageAbility;
 
 public strictfp class Hitman extends Tower {
     public Hitman() {
@@ -21,7 +18,7 @@ public strictfp class Hitman extends Tower {
         setElement(Element.Metropolis);
 
         addAbility(new AttackAbility());
-        addAbility(new DamageAbility());
+        addAbility(new InstantDamageAbility());
         addAbility(new HitmanHeadshotAbility());
     }
 
