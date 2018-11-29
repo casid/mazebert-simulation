@@ -12,10 +12,17 @@ import java.util.List;
 
 public abstract strictfp class Unit implements Hashable {
 
+    // This works since the simulation runs single threaded
+    private static final List<Ability> ABILITIES_TO_DISPOSE = new ArrayList<>();
+
     public final OnUpdate onUpdate = new OnUpdate();
 
     // For game display usage
+    @SuppressWarnings("unused")
     public transient UnitView view;
+
+    // For simulation usage
+    public transient boolean visited;
 
     private int playerId; // The player this unit belongs to
     private float x;
@@ -84,7 +91,7 @@ public abstract strictfp class Unit implements Hashable {
         T result = null;
         for (Ability ability : abilities) {
             if (ability.getClass() == abilityClass) {
-                StackableByOriginAbility stackableByOriginAbility = (StackableByOriginAbility)ability;
+                StackableByOriginAbility stackableByOriginAbility = (StackableByOriginAbility) ability;
                 if (stackableByOriginAbility.getOrigin() == origin) {
                     result = (T) ability;
                     break;
@@ -148,10 +155,21 @@ public abstract strictfp class Unit implements Hashable {
         return abilities;
     }
 
-    public Ability getAbility(Class<? extends Ability> abilityClass) {
+    @SuppressWarnings("unchecked")
+    public <A extends Ability> A getAbility(Class<A> abilityClass) {
         for (Ability ability : abilities) {
             if (abilityClass.isAssignableFrom(ability.getClass())) {
-                return ability;
+                return (A) ability;
+            }
+        }
+        return null;
+    }
+
+    @SuppressWarnings("unchecked")
+    public <A extends Ability> A getAbility(Class<A> abilityClass, Object origin) {
+        for (Ability ability : abilities) {
+            if (abilityClass.isAssignableFrom(ability.getClass()) && ability.getOrigin() == origin) {
+                return (A) ability;
             }
         }
         return null;
@@ -168,5 +186,20 @@ public abstract strictfp class Unit implements Hashable {
         return dx <= range && dy <= range;
     }
 
+    @SuppressWarnings("unused") // Used by client
     public abstract String getModelId();
+
+    public void dispose() {
+        ABILITIES_TO_DISPOSE.clear();
+        ABILITIES_TO_DISPOSE.addAll(abilities);
+
+        for (Ability ability : ABILITIES_TO_DISPOSE) {
+            if (ability.getUnit() != null) {
+                ability.dispose();
+            }
+        }
+
+        abilities.clear();
+        ABILITIES_TO_DISPOSE.clear();
+    }
 }

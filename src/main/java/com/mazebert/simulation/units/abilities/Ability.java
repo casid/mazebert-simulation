@@ -8,6 +8,7 @@ public abstract strictfp class Ability<U extends Unit> {
 
     protected final FormatPlugin formatPlugin = Sim.context().formatPlugin;
 
+    private Object origin;
     private U unit;
 
     public final void init(U unit) {
@@ -34,6 +35,14 @@ public abstract strictfp class Ability<U extends Unit> {
 
     public boolean isPermanent() {
         return false;
+    }
+
+    public void setOrigin(Object origin) {
+        this.origin = origin;
+    }
+
+    public Object getOrigin() {
+        return origin;
     }
 
     public U getUnit() {

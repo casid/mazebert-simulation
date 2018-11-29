@@ -55,6 +55,8 @@ public strictfp class BuildTower extends Usecase<BuildTowerCommand> {
 
                 tower.setExperience(oldTower.getExperience());
                 tower.setKills(oldTower.getKills());
+
+                oldTower.dispose();
             }
 
             if (command.onComplete != null) {
