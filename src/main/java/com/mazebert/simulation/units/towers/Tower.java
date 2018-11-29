@@ -4,6 +4,7 @@ import com.mazebert.simulation.*;
 import com.mazebert.simulation.hash.Hash;
 import com.mazebert.simulation.listeners.*;
 import com.mazebert.simulation.plugins.random.RandomPlugin;
+import com.mazebert.simulation.systems.LootSystem;
 import com.mazebert.simulation.units.CooldownUnit;
 import com.mazebert.simulation.units.Gender;
 import com.mazebert.simulation.units.Unit;
@@ -327,7 +328,7 @@ public strictfp abstract class Tower extends Unit implements CooldownUnit, Card,
     public void onKill(Creep target) {
         setExperience(experience + experienceModifier * target.getExperienceModifier() * target.getExperience());
         ++kills;
-        Balancing.loot(this, target);
+        LootSystem.loot(this, target);
     }
 
     public float getExperience() {
