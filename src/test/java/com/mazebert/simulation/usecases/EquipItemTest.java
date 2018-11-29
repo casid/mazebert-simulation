@@ -30,12 +30,12 @@ public class EquipItemTest extends UsecaseTest<EquipItemCommand> {
         request.inventoryIndex = 0;
 
         wizard = new Wizard();
-        wizard.setPlayerId(1);
+        wizard.playerId = 1;
         wizard.itemStash.add(request.itemType);
         unitGateway.addUnit(wizard);
 
         tower = new TestTower();
-        tower.setPlayerId(1);
+        tower.setWizard(wizard);
         tower.setX(4);
         tower.setY(6);
         unitGateway.addUnit(tower);

@@ -42,7 +42,7 @@ class BuildTowerTest extends UsecaseTest<BuildTowerCommand> {
     @BeforeEach
     void setUp() {
         wizard = new Wizard();
-        wizard.setPlayerId(1);
+        wizard.playerId = 1;
         wizard.towerStash.add(TowerType.Hitman);
         unitGateway.addUnit(wizard);
 
@@ -142,6 +142,8 @@ class BuildTowerTest extends UsecaseTest<BuildTowerCommand> {
         givenTowerIsAlreadyBuilt();
         builtTower.setKills(50);
         builtTower.setExperience(300);
+        builtTower.setBestHit(1000);
+        builtTower.setTotalDamage(56000);
 
         wizard.towerStash.add(TowerType.Dandelion);
         request.towerType = TowerType.Dandelion;
@@ -150,6 +152,8 @@ class BuildTowerTest extends UsecaseTest<BuildTowerCommand> {
         assertThat(builtTower.getKills()).isEqualTo(50);
         assertThat(builtTower.getExperience()).isEqualTo(300);
         assertThat(builtTower.getLevel()).isEqualTo(Balancing.getTowerLevelForExperience(300));
+        assertThat(builtTower.getBestHit()).isEqualTo(0); // best hit is reset
+        assertThat(builtTower.getTotalDamage()).isEqualTo(56000);
     }
 
     @Test

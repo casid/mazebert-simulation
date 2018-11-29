@@ -4,7 +4,6 @@ import com.mazebert.simulation.*;
 import com.mazebert.simulation.hash.Hash;
 import com.mazebert.simulation.listeners.*;
 import com.mazebert.simulation.plugins.random.RandomPlugin;
-import com.mazebert.simulation.systems.LootSystem;
 import com.mazebert.simulation.units.CooldownUnit;
 import com.mazebert.simulation.units.Gender;
 import com.mazebert.simulation.units.Unit;
@@ -44,10 +43,12 @@ public strictfp abstract class Tower extends Unit implements CooldownUnit, Card,
     private Gender gender;
     private AttackType attackType;
     private float experienceModifier = 1.0f; // factor 1 is regular experience gain
+    private float goldModifier = 1.0f; // factor 1 is regular gold gain
+    private double bestHit;
+    private double totalDamage;
+    private int kills;
 
     private Item[] items = new Item[4];
-
-    private int kills;
 
     public Tower() {
         onKill.add(this);
@@ -79,7 +80,9 @@ public strictfp abstract class Tower extends Unit implements CooldownUnit, Card,
         hash.add(gender);
         hash.add(attackType);
         hash.add(experienceModifier);
-
+        hash.add(goldModifier);
+        hash.add(bestHit);
+        hash.add(totalDamage);
         hash.add(kills);
     }
 
@@ -407,18 +410,14 @@ public strictfp abstract class Tower extends Unit implements CooldownUnit, Card,
         // Calculate average crit amount and damage.
         double critChance = this.critDamage;
         int multicrit = getMulticrit();
-        for (int i = 0; i < multicrit; ++i)
-        {
-            if (critChance > 0.0)
-            {
+        for (int i = 0; i < multicrit; ++i) {
+            if (critChance > 0.0) {
                 // Add average critical strike damage to the final damage.
                 damage += averageBaseDamage * critDamage * Math.min(1.0, critChance);
 
                 // Reduce crit chance for next multicrit by 20%.
                 critChance *= 0.8;
-            }
-            else
-            {
+            } else {
                 break;
             }
         }
@@ -491,6 +490,30 @@ public strictfp abstract class Tower extends Unit implements CooldownUnit, Card,
             creep.setHealth(0);
             onKill.dispatch(creep);
         }
+    }
+
+    public float getGoldModifier() {
+        return goldModifier;
+    }
+
+    public void setGoldModifier(float goldModifier) {
+        this.goldModifier = goldModifier;
+    }
+
+    public double getBestHit() {
+        return bestHit;
+    }
+
+    public void setBestHit(double bestHit) {
+        this.bestHit = bestHit;
+    }
+
+    public double getTotalDamage() {
+        return totalDamage;
+    }
+
+    public void setTotalDamage(double totalDamage) {
+        this.totalDamage = totalDamage;
     }
 
     public void addExperienceModifier(float amount) {

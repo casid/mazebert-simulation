@@ -6,19 +6,38 @@ import com.mazebert.simulation.stash.PotionStash;
 import com.mazebert.simulation.stash.TowerStash;
 import com.mazebert.simulation.units.Currency;
 import com.mazebert.simulation.units.Unit;
+import com.mazebert.simulation.units.towers.TowerType;
 
 public strictfp class Wizard extends Unit {
     public final TowerStash towerStash = new TowerStash();
     public final ItemStash itemStash = new ItemStash();
     public final PotionStash potionStash = new PotionStash();
+
+    public int playerId;
     public long money;
     public Currency currency = Currency.Gold;
+    public double bestHit;
+    public double totalDamage;
+    public TowerType bestHitTower;
+
+    public Wizard() {
+        setWizard(this);
+    }
 
     @Override
     public void hash(Hash hash) {
         super.hash(hash);
 
         hash.add(towerStash);
+        hash.add(itemStash);
+        hash.add(potionStash);
+
+        hash.add(playerId);
+        hash.add(money);
+        hash.add(currency);
+
+        hash.add(bestHit);
+        hash.add(totalDamage);
     }
 
     @Override

@@ -5,7 +5,7 @@ import com.mazebert.simulation.units.towers.Tower;
 
 public class LootSystemTrainer extends LootSystem {
     public LootSystemTrainer() {
-        super(null, null);
+        super(null);
     }
 
     @Override

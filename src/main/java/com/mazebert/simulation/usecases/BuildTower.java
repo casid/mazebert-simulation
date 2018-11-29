@@ -22,7 +22,7 @@ public strictfp class BuildTower extends Usecase<BuildTowerCommand> {
 
         if (wizard.towerStash.remove(command.towerType)) {
             Tower tower = command.towerType.create();
-            tower.setPlayerId(command.playerId);
+            tower.setWizard(wizard);
             tower.setX(command.x);
             tower.setY(command.y);
 
@@ -49,6 +49,7 @@ public strictfp class BuildTower extends Usecase<BuildTowerCommand> {
 
                 tower.setExperience(oldTower.getExperience());
                 tower.setKills(oldTower.getKills());
+                tower.setTotalDamage(oldTower.getTotalDamage());
 
                 unitGateway.removeUnit(oldTower);
             }

@@ -10,6 +10,7 @@ import com.mazebert.simulation.units.TestTower;
 import com.mazebert.simulation.units.creeps.Creep;
 import com.mazebert.simulation.units.creeps.CreepState;
 import com.mazebert.simulation.units.towers.Tower;
+import com.mazebert.simulation.units.wizards.Wizard;
 import org.assertj.core.data.Percentage;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -20,6 +21,7 @@ public class InstantDamageAbilityTest extends SimTest {
 
     RandomPluginTrainer randomPluginTrainer = new RandomPluginTrainer();
 
+    Wizard wizard;
     Tower tower;
     Creep creep;
 
@@ -30,12 +32,17 @@ public class InstantDamageAbilityTest extends SimTest {
         damageSystem = new DamageSystem(randomPlugin);
         lootSystem = new LootSystemTrainer();
 
+        wizard = new Wizard();
+        unitGateway.addUnit(wizard);
+
         tower = new TestTower();
+        tower.setWizard(wizard);
         tower.setBaseCooldown(1.0f);
         tower.setBaseRange(1.0f);
         tower.addAbility(new AttackAbility());
         tower.addAbility(new InstantDamageAbility());
         tower.setCritChance(0.0f);
+        unitGateway.addUnit(tower);
 
         creep = new Creep();
         creep.setWave(new Wave());
@@ -255,6 +262,66 @@ public class InstantDamageAbilityTest extends SimTest {
         whenTowerAttacks();
 
         assertThat(creep.getHealth()).isEqualTo(90);
+    }
+
+    @Test
+    void stats() {
+        tower.setBaseDamage(10.0f);
+
+        whenTowerAttacks();
+
+        assertThat(tower.getBestHit()).isEqualTo(10);
+        assertThat(tower.getTotalDamage()).isEqualTo(10);
+    }
+
+    @Test
+    void stats_bestHitMustBeBetter() {
+        tower.setBestHit(100);
+        tower.setBaseDamage(10.0f);
+
+        whenTowerAttacks();
+
+        assertThat(tower.getBestHit()).isEqualTo(100);
+    }
+
+    @Test
+    void stats_totalDamageIsAdded() {
+        tower.setTotalDamage(1000);
+        tower.setBaseDamage(10.0f);
+
+        whenTowerAttacks();
+
+        assertThat(tower.getTotalDamage()).isEqualTo(1010);
+    }
+
+    @Test
+    void stats_wizard() {
+        tower.setBaseDamage(10.0f);
+
+        whenTowerAttacks();
+
+        assertThat(wizard.bestHit).isEqualTo(10);
+        assertThat(wizard.totalDamage).isEqualTo(10);
+    }
+
+    @Test
+    void stats_wizard_bestHitMustBeBetter() {
+        wizard.bestHit = 100;
+        tower.setBaseDamage(10.0f);
+
+        whenTowerAttacks();
+
+        assertThat(wizard.bestHit).isEqualTo(100);
+    }
+
+    @Test
+    void stats_wizard_totalDamageIsAdded() {
+        wizard.totalDamage = 1000;
+        tower.setBaseDamage(10.0f);
+
+        whenTowerAttacks();
+
+        assertThat(wizard.totalDamage).isEqualTo(1010);
     }
 
     private void whenTowerAttacks() {

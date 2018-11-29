@@ -4,7 +4,6 @@ import com.mazebert.simulation.Balancing;
 import com.mazebert.simulation.CardType;
 import com.mazebert.simulation.Rarity;
 import com.mazebert.simulation.Sim;
-import com.mazebert.simulation.gateways.UnitGateway;
 import com.mazebert.simulation.plugins.random.RandomPlugin;
 import com.mazebert.simulation.stash.Stash;
 import com.mazebert.simulation.units.creeps.Creep;
@@ -12,17 +11,15 @@ import com.mazebert.simulation.units.towers.Tower;
 import com.mazebert.simulation.units.wizards.Wizard;
 
 public strictfp class LootSystem {
-    private final UnitGateway unitGateway;
     private final RandomPlugin randomPlugin;
 
-    public LootSystem(UnitGateway unitGateway, RandomPlugin randomPlugin) {
-        this.unitGateway = unitGateway;
+    public LootSystem(RandomPlugin randomPlugin) {
         this.randomPlugin = randomPlugin;
     }
 
     @SuppressWarnings("unchecked")
     public void loot(Tower tower, Creep creep) {
-        Wizard wizard = unitGateway.getWizard(tower.getPlayerId());
+        Wizard wizard = tower.getWizard();
 
         int minDrops = creep.getMinDrops();
         int maxDrops = creep.getMaxDrops();

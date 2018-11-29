@@ -27,12 +27,12 @@ public strictfp class DrinkPotionTest extends UsecaseTest<DrinkPotionCommand> {
         request.towerY = 6;
 
         wizard = new Wizard();
-        wizard.setPlayerId(1);
+        wizard.playerId = 1;
         wizard.potionStash.add(request.potionType);
         unitGateway.addUnit(wizard);
 
         tower = new TestTower();
-        tower.setPlayerId(1);
+        tower.setWizard(wizard);
         tower.setX(4);
         tower.setY(6);
         unitGateway.addUnit(tower);

@@ -3,6 +3,8 @@ package com.mazebert.simulation.systems;
 import com.mazebert.simulation.plugins.random.RandomPlugin;
 import com.mazebert.simulation.units.creeps.Creep;
 import com.mazebert.simulation.units.towers.Tower;
+import com.mazebert.simulation.units.towers.TowerType;
+import com.mazebert.simulation.units.wizards.Wizard;
 
 public strictfp class DamageSystem {
     private final RandomPlugin randomPlugin;
@@ -40,15 +42,40 @@ public strictfp class DamageSystem {
             }
         }
 
+        updateBestHit(tower, damage);
+
         dealDamage(origin, tower, creep, damage, rolledMulticrits);
     }
 
     public void dealDamage(Object origin, Tower tower, Creep creep, double damage, int multicrits) {
+        updateTotalDamage(tower, damage);
+
         creep.setHealth(creep.getHealth() - damage);
         tower.onDamage.dispatch(origin, creep, damage, multicrits);
 
         if (creep.isDead()) {
             tower.onKill.dispatch(creep);
+        }
+    }
+
+    private void updateBestHit(Tower tower, double damage) {
+        if (damage > tower.getBestHit()) {
+            tower.setBestHit(damage);
+
+            Wizard wizard = tower.getWizard();
+            if (wizard != null && damage > wizard.bestHit) {
+                wizard.bestHit = damage;
+                wizard.bestHitTower = TowerType.forTower(tower);
+            }
+        }
+    }
+
+    private void updateTotalDamage(Tower tower, double damage) {
+        tower.setTotalDamage(tower.getTotalDamage() + damage);
+
+        Wizard wizard = tower.getWizard();
+        if (wizard != null) {
+            wizard.totalDamage += damage;
         }
     }
 }

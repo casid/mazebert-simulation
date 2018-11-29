@@ -34,10 +34,14 @@ public class LootTest extends SimTest {
         unitGateway = new UnitGateway();
         randomPlugin = randomPluginTrainer;
         damageSystem = new DamageSystemTrainer();
-        lootSystem = new LootSystem(unitGateway, randomPlugin);
+        lootSystem = new LootSystem(randomPlugin);
+
+        wizard = new Wizard();
+        unitGateway.addUnit(wizard);
 
         // Setup of tower is so that no random numbers are required for damage calculation
         tower = new TestTower();
+        tower.setWizard(wizard);
         tower.setBaseCooldown(1.0f);
         tower.setBaseRange(1.0f);
         tower.addAbility(new AttackAbility());
@@ -53,9 +57,6 @@ public class LootTest extends SimTest {
         creep.setWave(wave);
         creep.setMaxItemLevel(100);
         unitGateway.addUnit(creep);
-
-        wizard = new Wizard();
-        unitGateway.addUnit(wizard);
     }
 
     @Test

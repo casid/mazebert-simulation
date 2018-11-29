@@ -6,6 +6,7 @@ import com.mazebert.simulation.listeners.OnUpdate;
 import com.mazebert.simulation.units.abilities.Ability;
 import com.mazebert.simulation.units.abilities.StackableAbility;
 import com.mazebert.simulation.units.abilities.StackableByOriginAbility;
+import com.mazebert.simulation.units.wizards.Wizard;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,10 +22,10 @@ public abstract strictfp class Unit implements Hashable {
     @SuppressWarnings("unused")
     public transient UnitView view;
 
-    // For simulation usage
+    // Internal flag for simulation usage
     public transient boolean visited;
 
-    private int playerId; // The player this unit belongs to
+    private Wizard wizard; // The wizard this unit belongs to
     private float x;
     private float y;
 
@@ -36,17 +37,23 @@ public abstract strictfp class Unit implements Hashable {
 
     @Override
     public void hash(Hash hash) {
-        hash.add(playerId);
         hash.add(x);
         hash.add(y);
     }
 
-    public int getPlayerId() {
-        return playerId;
+    public Wizard getWizard() {
+        return wizard;
     }
 
-    public void setPlayerId(int playerId) {
-        this.playerId = playerId;
+    public int getPlayerId() {
+        if (wizard == null) {
+            return 0;
+        }
+        return wizard.playerId;
+    }
+
+    public void setWizard(Wizard wizard) {
+        this.wizard = wizard;
     }
 
     public float getX() {
