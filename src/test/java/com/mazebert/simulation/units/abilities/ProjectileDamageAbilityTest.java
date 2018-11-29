@@ -7,6 +7,7 @@ import com.mazebert.simulation.plugins.random.RandomPluginTrainer;
 import com.mazebert.simulation.projectiles.Projectile;
 import com.mazebert.simulation.projectiles.ProjectileGateway;
 import com.mazebert.simulation.systems.DamageSystem;
+import com.mazebert.simulation.systems.LootSystemTrainer;
 import com.mazebert.simulation.units.TestTower;
 import com.mazebert.simulation.units.creeps.Creep;
 import com.mazebert.simulation.units.towers.Tower;
@@ -20,13 +21,13 @@ public strictfp class ProjectileDamageAbilityTest extends SimTest {
 
     Tower tower = new TestTower();
     Creep creep = new Creep();
-    float speed = 1.0f;
 
     @BeforeEach
     void setUp() {
         unitGateway = new UnitGateway();
         randomPlugin = new RandomPluginTrainer();
         damageSystem = new DamageSystem(randomPlugin);
+        lootSystem = new LootSystemTrainer();
         projectileGateway = new ProjectileGateway();
 
         tower.setBaseCooldown(1.0f);

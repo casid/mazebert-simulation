@@ -8,6 +8,7 @@ import com.mazebert.simulation.plugins.SleepPlugin;
 import com.mazebert.simulation.plugins.random.UuidRandomPlugin;
 import com.mazebert.simulation.projectiles.ProjectileGateway;
 import com.mazebert.simulation.systems.DamageSystem;
+import com.mazebert.simulation.systems.LootSystem;
 
 public strictfp class Context {
     // Connection to app
@@ -33,6 +34,7 @@ public strictfp class Context {
 
     // Logic
     public DamageSystem damageSystem;
+    public LootSystem lootSystem;
     public CommandExecutor commandExecutor;
 
     // Temp instances

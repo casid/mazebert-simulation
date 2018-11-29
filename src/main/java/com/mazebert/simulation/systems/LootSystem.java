@@ -4,6 +4,7 @@ import com.mazebert.simulation.Balancing;
 import com.mazebert.simulation.CardType;
 import com.mazebert.simulation.Rarity;
 import com.mazebert.simulation.Sim;
+import com.mazebert.simulation.gateways.UnitGateway;
 import com.mazebert.simulation.plugins.random.RandomPlugin;
 import com.mazebert.simulation.stash.Stash;
 import com.mazebert.simulation.units.creeps.Creep;
@@ -11,10 +12,17 @@ import com.mazebert.simulation.units.towers.Tower;
 import com.mazebert.simulation.units.wizards.Wizard;
 
 public strictfp class LootSystem {
+    private final UnitGateway unitGateway;
+    private final RandomPlugin randomPlugin;
+
+    public LootSystem(UnitGateway unitGateway, RandomPlugin randomPlugin) {
+        this.unitGateway = unitGateway;
+        this.randomPlugin = randomPlugin;
+    }
+
     @SuppressWarnings("unchecked")
-    public static void loot(Tower tower, Creep creep) {
-        Wizard wizard = Sim.context().unitGateway.getWizard(tower.getPlayerId());
-        RandomPlugin randomPlugin = Sim.context().randomPlugin;
+    public void loot(Tower tower, Creep creep) {
+        Wizard wizard = unitGateway.getWizard(tower.getPlayerId());
 
         int minDrops = creep.getMinDrops();
         int maxDrops = creep.getMaxDrops();
@@ -54,7 +62,7 @@ public strictfp class LootSystem {
         }
     }
 
-    private static float[] calculateDropChancesForRarity(Tower tower, Creep creep) {
+    private float[] calculateDropChancesForRarity(Tower tower, Creep creep) {
         float dropQualityProgress = StrictMath.min(1.0f,
                 0.8f * StrictMath.min(1.0f, (float) StrictMath.sqrt(creep.getWave().round / 120.0f)) + // Current round affects item quality as well, max quality at lvl ??.
                         0.6f * getTowerItemQualityFactor(tower.getItemQuality()));
@@ -70,7 +78,7 @@ public strictfp class LootSystem {
         return result;
     }
 
-    private static float getTowerItemChanceFactor(float linearChance) {
+    private float getTowerItemChanceFactor(float linearChance) {
         if (linearChance > 0.0f) {
             return (2.0f * linearChance) / (1.0f + linearChance);
         } else {
@@ -78,7 +86,7 @@ public strictfp class LootSystem {
         }
     }
 
-    private static float getTowerItemQualityFactor(float linearChance) {
+    private float getTowerItemQualityFactor(float linearChance) {
         if (linearChance > 0.0f) {
             return (Balancing.DROP_QUALITY_CONST * (linearChance - 1.0f)) / (1.0f + (Balancing.DROP_QUALITY_CONST * (linearChance - 1.0f)));
         } else {
@@ -86,7 +94,7 @@ public strictfp class LootSystem {
         }
     }
 
-    private static Rarity calculateDropRarity(float[] rarityChances, float diceThrow) {
+    private Rarity calculateDropRarity(float[] rarityChances, float diceThrow) {
         // Find rarity that fits the dice throw.
         for (int i = Rarity.values().length - 1; i >= 0; --i) {
             if (diceThrow <= rarityChances[i]) {
@@ -97,7 +105,7 @@ public strictfp class LootSystem {
         return Rarity.Common;
     }
 
-    private static Stash calculateDropStash(Wizard wizard, float diceThrow) {
+    private Stash calculateDropStash(Wizard wizard, float diceThrow) {
         if (diceThrow < 0.66f) {
             return wizard.itemStash;
         } else {

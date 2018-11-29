@@ -5,6 +5,7 @@ import com.mazebert.simulation.Wave;
 import com.mazebert.simulation.gateways.UnitGateway;
 import com.mazebert.simulation.plugins.random.RandomPluginTrainer;
 import com.mazebert.simulation.systems.DamageSystem;
+import com.mazebert.simulation.systems.LootSystemTrainer;
 import com.mazebert.simulation.units.TestTower;
 import com.mazebert.simulation.units.creeps.Creep;
 import com.mazebert.simulation.units.creeps.CreepState;
@@ -27,6 +28,7 @@ public class InstantDamageAbilityTest extends SimTest {
         unitGateway = new UnitGateway();
         randomPlugin = randomPluginTrainer;
         damageSystem = new DamageSystem(randomPlugin);
+        lootSystem = new LootSystemTrainer();
 
         tower = new TestTower();
         tower.setBaseCooldown(1.0f);

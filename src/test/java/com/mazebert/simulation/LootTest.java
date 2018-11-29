@@ -2,7 +2,8 @@ package com.mazebert.simulation;
 
 import com.mazebert.simulation.gateways.UnitGateway;
 import com.mazebert.simulation.plugins.random.RandomPluginTrainer;
-import com.mazebert.simulation.systems.DamageSystem;
+import com.mazebert.simulation.systems.DamageSystemTrainer;
+import com.mazebert.simulation.systems.LootSystem;
 import com.mazebert.simulation.units.TestTower;
 import com.mazebert.simulation.units.abilities.AttackAbility;
 import com.mazebert.simulation.units.abilities.InstantDamageAbility;
@@ -32,7 +33,8 @@ public class LootTest extends SimTest {
     void setUp() {
         unitGateway = new UnitGateway();
         randomPlugin = randomPluginTrainer;
-        damageSystem = new DamageSystem(randomPlugin);
+        damageSystem = new DamageSystemTrainer();
+        lootSystem = new LootSystem(unitGateway, randomPlugin);
 
         // Setup of tower is so that no random numbers are required for damage calculation
         tower = new TestTower();
@@ -59,7 +61,6 @@ public class LootTest extends SimTest {
     @Test
     void loot_babySword() {
         randomPluginTrainer.givenFloatAbs(
-                0.0f, // crit roll
                 0.0f, // This is a drop
                 0.99f, // The rarity of this drop is common
                 0.0f, // This is an item drop
@@ -76,7 +77,6 @@ public class LootTest extends SimTest {
     @Test
     void loot_twoBabySwords() {
         randomPluginTrainer.givenFloatAbs(
-                0.0f, // crit roll
                 0.0f, // This is a drop
                 0.99f, // The rarity of this drop is common
                 0.0f, // This is an item drop
@@ -97,7 +97,6 @@ public class LootTest extends SimTest {
     @Test
     void loot_woodenStaff() {
         randomPluginTrainer.givenFloatAbs(
-                0.0f, // crit roll
                 0.0f, // This is a drop
                 0.99f, // The rarity of this drop is common
                 0.0f, // This is an item drop
@@ -114,7 +113,6 @@ public class LootTest extends SimTest {
     @Test
     void loot_oneBabySwordOnSecondTry() {
         randomPluginTrainer.givenFloatAbs(
-                0.0f, // crit roll
                 0.9f, // No drop
                 0.0f, // This is a drop
                 0.99f, // The rarity of this drop is common
@@ -132,7 +130,6 @@ public class LootTest extends SimTest {
     @Test
     void loot_twoGuaranteedBabySwords() {
         randomPluginTrainer.givenFloatAbs(
-                0.0f, // crit roll
                 // Guaranteed drop, no need to roll
                 0.99f, // The rarity of this drop is common
                 0.0f, // This is an item drop
@@ -154,7 +151,6 @@ public class LootTest extends SimTest {
     @Test
     void loot_legendary_noneAvailable() {
         randomPluginTrainer.givenFloatAbs(
-                0.0f, // crit roll
                 0.0f, // This is a drop
                 0.001f, // The rarity of this drop is legendary
                 0.0f, // This is an item drop
@@ -183,7 +179,6 @@ public class LootTest extends SimTest {
     @Test
     void loot_itemLevel_onlyOneFit() {
         randomPluginTrainer.givenFloatAbs(
-                0.0f, // crit roll
                 0.0f, // This is a drop
                 0.01f, // The rarity of this drop is uncommon
                 0.0f, // This is an item drop
@@ -200,7 +195,6 @@ public class LootTest extends SimTest {
     @Test
     void loot_itemLevel_onlyOneFit2() {
         randomPluginTrainer.givenFloatAbs(
-                0.0f, // crit roll
                 0.0f, // This is a drop
                 0.01f, // The rarity of this drop is uncommon
                 0.0f, // This is an item drop
@@ -218,7 +212,6 @@ public class LootTest extends SimTest {
     @Test
     void loot_nothing() {
         randomPluginTrainer.givenFloatAbs(
-                0.0f, // crit roll
                 0.9f // No drop
         );
         creep.setMaxDrops(1);
@@ -231,7 +224,6 @@ public class LootTest extends SimTest {
     @Test
     void loot_potion() {
         randomPluginTrainer.givenFloatAbs(
-                0.0f, // crit roll
                 0.0f, // This is a drop
                 0.99f, // The rarity of this drop is common
                 0.9f, // This is a potion drop
