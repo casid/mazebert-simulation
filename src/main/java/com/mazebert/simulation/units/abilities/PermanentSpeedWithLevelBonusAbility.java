@@ -6,7 +6,7 @@ public abstract strictfp class PermanentSpeedWithLevelBonusAbility extends Speed
     }
 
     public String getDescription() {
-        return "The attack speed of the carrier is permanently increased by " + formatPlugin.percent(bonus) + "%.";
+        return "The attack speed of the carrier is permanently increased by " + format.percent(bonus) + "%.";
     }
 
     @Override

@@ -46,9 +46,9 @@ public strictfp class TearsAbility extends Ability<Tower> {
 
     @Override
     public String getDescription() {
-        return "+ " + formatPlugin.percent(damage) + "% damage\n" +
-                "+ " + formatPlugin.percent(critDamage) + "% crit damage\n" +
-                "+ " + formatPlugin.percent(critChance) + "% crit chance\n" +
+        return "+ " + format.percent(damage) + "% damage\n" +
+                "+ " + format.percent(critDamage) + "% crit damage\n" +
+                "+ " + format.percent(critChance) + "% crit chance\n" +
                 "+ " + multicrit + " multicrit";
     }
 }

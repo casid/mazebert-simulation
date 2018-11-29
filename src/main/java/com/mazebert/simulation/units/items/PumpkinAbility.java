@@ -14,6 +14,6 @@ public strictfp class PumpkinAbility extends SpeedWithLevelBonusAbility {
 
     @Override
     public String getDescription() {
-        return "While playing with the pumpkin, the attack speed of the carrier is\ndecreased by " + formatPlugin.percent(-bonus) + "%.";
+        return "While playing with the pumpkin, the attack speed of the carrier is\ndecreased by " + format.percent(-bonus) + "%.";
     }
 }

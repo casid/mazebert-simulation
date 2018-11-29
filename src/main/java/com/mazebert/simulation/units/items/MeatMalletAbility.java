@@ -1,7 +1,5 @@
 package com.mazebert.simulation.units.items;
 
-import com.mazebert.simulation.Sim;
-import com.mazebert.simulation.units.abilities.Ability;
 import com.mazebert.simulation.units.abilities.DamageWithLevelBonusAbility;
 import com.mazebert.simulation.units.towers.Tower;
 
@@ -41,6 +39,6 @@ public strictfp class MeatMalletAbility extends DamageWithLevelBonusAbility {
 
     @Override
     public String getDescription() {
-        return "Damage increased by " + formatPlugin.percent(bonus) + "%\nCrit chance reduced by " + formatPlugin.percent(critChanceMalus) + "%";
+        return "Damage increased by " + format.percent(bonus) + "%\nCrit chance reduced by " + format.percent(critChanceMalus) + "%";
     }
 }

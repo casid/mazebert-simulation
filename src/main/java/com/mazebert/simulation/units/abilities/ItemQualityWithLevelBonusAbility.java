@@ -15,7 +15,7 @@ public strictfp class ItemQualityWithLevelBonusAbility extends AttributeWithLeve
     }
 
     public String getDescription() {
-        return "The item quality of the carrier is\nincreased by " + formatPlugin.percent(bonus) + "%.";
+        return "The item quality of the carrier is\nincreased by " + format.percent(bonus) + "%.";
     }
 
     @Override
@@ -24,6 +24,6 @@ public strictfp class ItemQualityWithLevelBonusAbility extends AttributeWithLeve
             return null;
         }
 
-        return "+ " + formatPlugin.percent(bonusPerLevel) + "% item quality per level.";
+        return "+ " + format.percent(bonusPerLevel) + "% item quality per level.";
     }
 }

@@ -27,7 +27,7 @@ public strictfp class WolfAura extends Ability<Tower> {
 
     @Override
     public String getLevelBonus() {
-        return "+ " + formatPlugin.percent(WolfSystem.CRIT_CHANCE) + "% crit chance" +
-                "+ " + formatPlugin.percent(WolfSystem.CRIT_DAMAGE) + "% crit damage";
+        return "+ " + format.percent(WolfSystem.CRIT_CHANCE) + "% crit chance" +
+                "+ " + format.percent(WolfSystem.CRIT_DAMAGE) + "% crit damage";
     }
 }

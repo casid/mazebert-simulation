@@ -15,7 +15,7 @@ public abstract strictfp class DamageWithLevelBonusAbility extends AttributeWith
     }
 
     public String getDescription() {
-        return "The carrier's damage is increased by " + formatPlugin.percent(bonus) + "%.";
+        return "The carrier's damage is increased by " + format.percent(bonus) + "%.";
     }
 
     @Override
@@ -23,6 +23,6 @@ public abstract strictfp class DamageWithLevelBonusAbility extends AttributeWith
         if (bonusPerLevel <= 0.0f) {
             return null;
         }
-        return "+ " + formatPlugin.percent(bonusPerLevel) + "% damage per level.";
+        return "+ " + format.percent(bonusPerLevel) + "% damage per level.";
     }
 }

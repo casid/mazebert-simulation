@@ -15,7 +15,7 @@ public abstract strictfp class SpeedWithLevelBonusAbility extends AttributeWithL
     }
 
     public String getDescription() {
-        return "The attack speed of the carrier is increased by " + formatPlugin.percent(bonus) + "%.";
+        return "The attack speed of the carrier is increased by " + format.percent(bonus) + "%.";
     }
 
     @Override
@@ -23,6 +23,6 @@ public abstract strictfp class SpeedWithLevelBonusAbility extends AttributeWithL
         if (bonusPerLevel <= 0.0f) {
             return null;
         }
-        return "+ " + formatPlugin.percent(bonusPerLevel) + "% attack speed per level.";
+        return "+ " + format.percent(bonusPerLevel) + "% attack speed per level.";
     }
 }

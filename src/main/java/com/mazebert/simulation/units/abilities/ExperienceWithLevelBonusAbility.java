@@ -15,7 +15,7 @@ public abstract strictfp class ExperienceWithLevelBonusAbility extends Attribute
     }
 
     public String getDescription() {
-        return "The carrier of this item gains " + formatPlugin.percent(bonus) + "% more experience.";
+        return "The carrier of this item gains " + format.percent(bonus) + "% more experience.";
     }
 
     @Override
@@ -23,6 +23,6 @@ public abstract strictfp class ExperienceWithLevelBonusAbility extends Attribute
         if (bonusPerLevel <= 0.0f) {
             return null;
         }
-        return "+ " + formatPlugin.percent(bonusPerLevel) + "% experience bonus per level.";
+        return "+ " + format.percent(bonusPerLevel) + "% experience bonus per level.";
     }
 }

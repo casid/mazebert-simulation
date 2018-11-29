@@ -15,7 +15,7 @@ public strictfp class CritDamageWithLevelBonusAbility extends AttributeWithLevel
     }
 
     public String getDescription() {
-        return "The crit damage of the carrier is\nincreased by " + formatPlugin.percent(bonus) + "%.";
+        return "The crit damage of the carrier is\nincreased by " + format.percent(bonus) + "%.";
     }
 
     @Override
@@ -24,6 +24,6 @@ public strictfp class CritDamageWithLevelBonusAbility extends AttributeWithLevel
             return null;
         }
 
-        return "+ " + formatPlugin.percent(bonusPerLevel) + "% crit damage per level.";
+        return "+ " + format.percent(bonusPerLevel) + "% crit damage per level.";
     }
 }

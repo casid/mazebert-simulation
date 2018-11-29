@@ -6,7 +6,7 @@ public strictfp class PermanentDamageWithLevelBonusAbility extends DamageWithLev
     }
 
     public String getDescription() {
-        return "The carrier's damage is permanently increased by " + formatPlugin.percent(bonus) + "%.";
+        return "The carrier's damage is permanently increased by " + format.percent(bonus) + "%.";
     }
 
     @Override

@@ -1,8 +1,6 @@
 package com.mazebert.simulation.units.potions;
 
 import com.mazebert.simulation.units.abilities.PermanentLuckWithLevelBonusAbility;
-import com.mazebert.simulation.units.abilities.StackableAbility;
-import com.mazebert.simulation.units.towers.Tower;
 
 public strictfp class CardDustLuckAbility extends PermanentLuckWithLevelBonusAbility {
 
@@ -17,6 +15,6 @@ public strictfp class CardDustLuckAbility extends PermanentLuckWithLevelBonusAbi
 
     @Override
     public String getDescription() {
-        return "+ " + formatPlugin.percent(bonus) + "% luck";
+        return "+ " + format.percent(bonus) + "% luck";
     }
 }

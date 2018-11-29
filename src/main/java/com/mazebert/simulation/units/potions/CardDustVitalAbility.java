@@ -25,6 +25,6 @@ public strictfp class CardDustVitalAbility extends Ability<Tower> {
 
     @Override
     public String getDescription() {
-        return "+ " + formatPlugin.percent(health) + "% player health";
+        return "+ " + format.percent(health) + "% player health";
     }
 }

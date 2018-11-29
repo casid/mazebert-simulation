@@ -66,7 +66,7 @@ public strictfp class SplashAbility extends Ability<Tower> implements OnDamageLi
     }
 
     public String getDescription() {
-        return "Creeps in " + range + " range around the target receive " + formatPlugin.percent(damageFactor) + "% damage.";
+        return "Creeps in " + range + " range around the target receive " + format.percent(damageFactor) + "% damage.";
     }
 
     public String getIconFile() {

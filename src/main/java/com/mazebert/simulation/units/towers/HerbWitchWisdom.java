@@ -29,7 +29,7 @@ public strictfp class HerbWitchWisdom extends Ability<Tower> {
 
     @Override
     public String getDescription() {
-        return "Herb Witch gains " + formatPlugin.percent(experienceBonus) + "% more experience.";
+        return "Herb Witch gains " + format.percent(experienceBonus) + "% more experience.";
     }
 
     @Override

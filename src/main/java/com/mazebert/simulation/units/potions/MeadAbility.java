@@ -73,9 +73,9 @@ public strictfp class MeadAbility extends StackableAbility<Tower> {
 
     @Override
     public String getLevelBonus() {
-        return "+ " + formatPlugin.percent(damageBonus) + "% damage.\n" +
-                "+ " + formatPlugin.percent(critChanceBonus) + "% crit chance.\n" +
-                "+ " + formatPlugin.percent(critDamageBonus) + "% crit damage.\n" +
-                "+ " + formatPlugin.percent(attackMalus) + "% chance to miss the target.";
+        return "+ " + format.percent(damageBonus) + "% damage.\n" +
+                "+ " + format.percent(critChanceBonus) + "% crit chance.\n" +
+                "+ " + format.percent(critDamageBonus) + "% crit damage.\n" +
+                "+ " + format.percent(attackMalus) + "% chance to miss the target.";
     }
 }

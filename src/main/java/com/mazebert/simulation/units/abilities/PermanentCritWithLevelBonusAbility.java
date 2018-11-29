@@ -48,7 +48,7 @@ public abstract strictfp class PermanentCritWithLevelBonusAbility extends Stacka
 
     @Override
     public String getDescription() {
-        return "The crit damage of the carrier is permanently increased by " + formatPlugin.percent(damage.bonus) + "%. The crit chance is permanently increased by " + formatPlugin.percent(chance.bonus) + "%";
+        return "The crit damage of the carrier is permanently increased by " + format.percent(damage.bonus) + "%. The crit chance is permanently increased by " + format.percent(chance.bonus) + "%";
     }
 
     @Override

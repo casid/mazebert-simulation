@@ -6,7 +6,7 @@ import com.mazebert.simulation.units.Unit;
 
 public abstract strictfp class Ability<U extends Unit> {
 
-    protected final FormatPlugin formatPlugin = Sim.context().formatPlugin;
+    protected final FormatPlugin format = Sim.context().formatPlugin;
 
     private Object origin;
     private U unit;

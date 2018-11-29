@@ -15,7 +15,7 @@ public strictfp class LuckWithLevelBonusAbility extends AttributeWithLevelBonusA
     }
 
     public String getDescription() {
-        return "The luck of the carrier is\nincreased by " + formatPlugin.percent(bonus) + "%.";
+        return "The luck of the carrier is\nincreased by " + format.percent(bonus) + "%.";
     }
 
     @Override
@@ -24,6 +24,6 @@ public strictfp class LuckWithLevelBonusAbility extends AttributeWithLevelBonusA
             return null;
         }
 
-        return "+ " + formatPlugin.percent(bonusPerLevel) + "% luck per level.";
+        return "+ " + format.percent(bonusPerLevel) + "% luck per level.";
     }
 }

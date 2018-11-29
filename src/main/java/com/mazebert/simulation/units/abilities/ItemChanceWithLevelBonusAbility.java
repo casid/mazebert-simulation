@@ -15,7 +15,7 @@ public strictfp class ItemChanceWithLevelBonusAbility extends AttributeWithLevel
     }
 
     public String getDescription() {
-        return "The item chance of the carrier is\nincreased by " + formatPlugin.percent(bonus) + "%.";
+        return "The item chance of the carrier is\nincreased by " + format.percent(bonus) + "%.";
     }
 
     @Override
@@ -24,6 +24,6 @@ public strictfp class ItemChanceWithLevelBonusAbility extends AttributeWithLevel
             return null;
         }
 
-        return "+ " + formatPlugin.percent(bonusPerLevel) + "% item chance per level.";
+        return "+ " + format.percent(bonusPerLevel) + "% item chance per level.";
     }
 }

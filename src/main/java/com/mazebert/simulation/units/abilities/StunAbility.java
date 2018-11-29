@@ -68,6 +68,6 @@ public strictfp class StunAbility extends Ability<Tower> implements OnDamageList
 
     @Override
     public String getDescription() {
-        return "Each attack has a " + formatPlugin.percent(chance) + "% chance to stun the creep for " + duration + "s.";
+        return "Each attack has a " + format.percent(chance) + "% chance to stun the creep for " + duration + "s.";
     }
 }

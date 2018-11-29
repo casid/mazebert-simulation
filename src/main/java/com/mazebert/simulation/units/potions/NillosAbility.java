@@ -46,9 +46,9 @@ public strictfp class NillosAbility extends Ability<Tower> {
 
     @Override
     public String getDescription() {
-        return "+ " + formatPlugin.percent(luckAdd) + "% luck\n" +
-                "+ " + formatPlugin.percent(attackSpeedAdd) + "% attack speed\n" +
-                "+ " + formatPlugin.percent(itemChance) + "% item chance\n" +
-                "+ " + formatPlugin.percent(itemQuality) + "% item quality";
+        return "+ " + format.percent(luckAdd) + "% luck\n" +
+                "+ " + format.percent(attackSpeedAdd) + "% attack speed\n" +
+                "+ " + format.percent(itemChance) + "% item chance\n" +
+                "+ " + format.percent(itemQuality) + "% item quality";
     }
 }

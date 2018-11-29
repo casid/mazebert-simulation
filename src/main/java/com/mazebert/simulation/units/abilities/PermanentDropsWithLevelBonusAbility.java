@@ -48,7 +48,7 @@ public abstract strictfp class PermanentDropsWithLevelBonusAbility extends Stack
 
     @Override
     public String getDescription() {
-        return "The item chance and item quality of the carrier are permanently increased by " + formatPlugin.percent(chance.bonus) + "%.";
+        return "The item chance and item quality of the carrier are permanently increased by " + format.percent(chance.bonus) + "%.";
     }
 
     @Override

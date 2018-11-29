@@ -15,7 +15,7 @@ public strictfp class CritChanceWithLevelBonusAbility extends AttributeWithLevel
     }
 
     public String getDescription() {
-        return "The crit chance of the carrier is\nincreased by " + formatPlugin.percent(bonus) + "%.";
+        return "The crit chance of the carrier is\nincreased by " + format.percent(bonus) + "%.";
     }
 
     @Override
@@ -24,6 +24,6 @@ public strictfp class CritChanceWithLevelBonusAbility extends AttributeWithLevel
             return null;
         }
 
-        return "+ " + formatPlugin.percent(bonusPerLevel) + "% crit chance per level.";
+        return "+ " + format.percent(bonusPerLevel) + "% crit chance per level.";
     }
 }
