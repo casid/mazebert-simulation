@@ -1,6 +1,6 @@
 package com.mazebert.simulation.units.potions;
 
-public abstract class TutorialPotion extends Potion {
+public abstract strictfp class TutorialPotion extends Potion {
     @Override
     public String getName() {
         return "A Drink from the Developer";

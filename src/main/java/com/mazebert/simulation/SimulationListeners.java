@@ -3,7 +3,7 @@ package com.mazebert.simulation;
 import com.mazebert.simulation.listeners.*;
 import com.mazebert.simulation.units.Unit;
 
-public class SimulationListeners {
+public strictfp class SimulationListeners {
     public final OnGameInitialized onGameInitialized = new OnGameInitialized();
     public final OnGameCountDown onGameCountDown = new OnGameCountDown();
     public final OnGameStarted onGameStarted = new OnGameStarted();

@@ -3,17 +3,17 @@ package com.mazebert.simulation.units.creeps.effects;
 import com.mazebert.simulation.listeners.OnUpdateListener;
 import com.mazebert.simulation.units.abilities.StackableAbility;
 import com.mazebert.simulation.units.creeps.Creep;
-import com.mazebert.simulation.units.creeps.CreepState;
 
-public strictfp class StunEffect extends StackableAbility<Creep> implements OnUpdateListener {
+public strictfp class PoisonEffect extends StackableAbility<Creep> implements OnUpdateListener {
+
+    private float totalSeconds;
     private float remainingSeconds;
+    private double remainingDamage;
 
     @Override
     protected void initialize(Creep unit) {
         super.initialize(unit);
         unit.onUpdate.add(this);
-
-        unit.setState(CreepState.Hit);
     }
 
     @Override
@@ -23,22 +23,25 @@ public strictfp class StunEffect extends StackableAbility<Creep> implements OnUp
     }
 
     @Override
+    protected void updateStacks() {
+        // not used
+    }
+
+    @Override
     public void onUpdate(float dt) {
+        double damage = remainingDamage * dt / totalSeconds;
+        getUnit().receiveDamage(damage);
+        remainingDamage -= damage;
+
         remainingSeconds -= dt;
         if (remainingSeconds <= 0) {
-            if (!getUnit().isDead()) {
-                getUnit().setState(CreepState.Running);
-            }
             getUnit().removeAbility(this);
         }
     }
 
-    public void setDuration(float duration) {
+    public void addPoison(float duration, double damage) {
+        totalSeconds = duration;
         remainingSeconds = duration;
-    }
-
-    @Override
-    protected void updateStacks() {
-        // not used
+        remainingDamage += damage;
     }
 }

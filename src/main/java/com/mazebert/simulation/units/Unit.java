@@ -2,11 +2,9 @@ package com.mazebert.simulation.units;
 
 import com.mazebert.simulation.hash.Hash;
 import com.mazebert.simulation.hash.Hashable;
-import com.mazebert.simulation.units.abilities.Ability;
 import com.mazebert.simulation.listeners.OnUpdate;
+import com.mazebert.simulation.units.abilities.Ability;
 import com.mazebert.simulation.units.abilities.StackableAbility;
-import com.mazebert.simulation.units.creeps.Creep;
-import com.mazebert.simulation.units.creeps.effects.StunEffect;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -62,7 +60,7 @@ public abstract strictfp class Unit implements Hashable {
     @SuppressWarnings("unchecked")
     public void addAbility(Ability ability) {
         if (ability instanceof StackableAbility) {
-            addAbilityStack(((StackableAbility)ability).getClass());
+            addAbilityStack(((StackableAbility) ability).getClass());
         } else {
             addAbilityInternal(ability);
         }
@@ -103,7 +101,7 @@ public abstract strictfp class Unit implements Hashable {
 
     public void removeAbility(Ability ability) {
         if (ability instanceof StackableAbility) {
-            removeAbilityStack(((StackableAbility)ability).getClass());
+            removeAbilityStack(((StackableAbility) ability).getClass());
         } else {
             removeAbilityInternal(ability);
         }
@@ -122,6 +120,15 @@ public abstract strictfp class Unit implements Hashable {
 
     public List<Ability> getAbilities() {
         return abilities;
+    }
+
+    public Ability getAbility(Class<? extends Ability> abilityClass) {
+        for (Ability ability : abilities) {
+            if (abilityClass.isAssignableFrom(ability.getClass())) {
+                return ability;
+            }
+        }
+        return null;
     }
 
     public final boolean isInRange(Unit other, float range) {
