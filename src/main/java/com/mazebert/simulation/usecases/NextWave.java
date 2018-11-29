@@ -9,6 +9,12 @@ public strictfp class NextWave extends Usecase<NextWaveCommand> {
 
     @Override
     public void execute(NextWaveCommand command) {
-        simulationListeners.onWaveStarted.dispatch();
+        if (Sim.context().gameCountDown != null) {
+            Sim.context().gameCountDown.stop();
+        } else if (Sim.context().waveCountDown != null) {
+            Sim.context().waveCountDown.stop();
+        } else {
+            simulationListeners.onWaveStarted.dispatch();
+        }
     }
 }

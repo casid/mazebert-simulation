@@ -60,8 +60,10 @@ public strictfp class InitGame extends Usecase<InitGameCommand> {
             waveGateway.setTotalWaves(command.rounds);
             waveGateway.generateMissingWaves(randomPlugin);
 
-            new GameCountDown().start();
-            new WaveSpawner();
+            Sim.context().gameCountDown = new GameCountDown();
+            Sim.context().waveSpawner = new WaveSpawner();
+
+            Sim.context().gameCountDown.start();
         }
 
         simulationListeners.onGameInitialized.dispatch();

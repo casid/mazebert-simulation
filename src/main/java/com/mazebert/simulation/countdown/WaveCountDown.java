@@ -1,6 +1,7 @@
 package com.mazebert.simulation.countdown;
 
 import com.mazebert.simulation.Balancing;
+import com.mazebert.simulation.Sim;
 import com.mazebert.simulation.SimulationListeners;
 
 public strictfp class WaveCountDown extends CountDown {
@@ -12,6 +13,7 @@ public strictfp class WaveCountDown extends CountDown {
     @Override
     protected void onCountDownReached(SimulationListeners simulationListeners) {
         simulationListeners.onWaveStarted.dispatch();
+        Sim.context().waveCountDown = null;
     }
 
     @Override

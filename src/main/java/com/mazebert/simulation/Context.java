@@ -1,14 +1,13 @@
 package com.mazebert.simulation;
 
+import com.mazebert.simulation.countdown.GameCountDown;
+import com.mazebert.simulation.countdown.WaveCountDown;
 import com.mazebert.simulation.gateways.*;
 import com.mazebert.simulation.plugins.FormatPlugin;
 import com.mazebert.simulation.plugins.SleepPlugin;
-import com.mazebert.simulation.plugins.random.RandomPlugin;
 import com.mazebert.simulation.plugins.random.UuidRandomPlugin;
 import com.mazebert.simulation.projectiles.ProjectileGateway;
 import com.mazebert.simulation.systems.DamageSystem;
-
-import java.util.EnumMap;
 
 public strictfp class Context {
     // Connection to app
@@ -35,5 +34,10 @@ public strictfp class Context {
     // Logic
     public DamageSystem damageSystem;
     public CommandExecutor commandExecutor;
+
+    // Temp instances
+    public GameCountDown gameCountDown;
+    public WaveCountDown waveCountDown;
+    public WaveSpawner waveSpawner;
     public final float[] tempChancesForRarity = new float[Rarity.values().length];
 }

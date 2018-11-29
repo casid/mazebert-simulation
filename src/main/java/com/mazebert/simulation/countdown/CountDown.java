@@ -20,7 +20,6 @@ public strictfp abstract class CountDown implements OnUpdateListener {
     public void onUpdate(float dt) {
         secondsPassed += dt;
         if (secondsPassed >= seconds) {
-            onCountDownReached(simulationListeners);
             stop();
         } else if((int)secondsPassed > lastUpdate) {
             onCountDownUpdated((int)seconds - (int)secondsPassed);
@@ -34,6 +33,7 @@ public strictfp abstract class CountDown implements OnUpdateListener {
     }
 
     public void stop() {
+        onCountDownReached(simulationListeners);
         simulationListeners.onUpdate.remove(this);
     }
 
