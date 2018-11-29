@@ -8,8 +8,10 @@ import com.mazebert.simulation.plugins.random.UuidRandomPlugin;
 import com.mazebert.simulation.projectiles.ProjectileGateway;
 import com.mazebert.simulation.systems.DamageSystem;
 import com.mazebert.simulation.systems.LootSystem;
+import com.mazebert.simulation.systems.WolfSystem;
 
 public strictfp class ContextProvider {
+    @SuppressWarnings("unused") // Used by client
     public static Context createContext() {
         return createContext(true);
     }
@@ -27,6 +29,8 @@ public strictfp class ContextProvider {
         context.randomPlugin = new UuidRandomPlugin();
         context.formatPlugin = new FormatPlugin();
 
+        context.simulationListeners = new SimulationListeners();
+
         context.difficultyGateway = new DifficultyGateway();
         context.gameGateway = new GameGateway();
         context.unitGateway = new UnitGateway();
@@ -36,9 +40,8 @@ public strictfp class ContextProvider {
 
         context.damageSystem = new DamageSystem(context.randomPlugin);
         context.lootSystem = new LootSystem(context.unitGateway, context.randomPlugin);
+        context.wolfSystem = new WolfSystem(context.simulationListeners);
         context.commandExecutor = new CommandExecutor();
-
-        context.simulationListeners = new SimulationListeners();
 
         return context;
     }

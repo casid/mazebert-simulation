@@ -16,7 +16,7 @@ public strictfp enum TowerType implements CardType<Tower> {
     Rabbit(3, Rabbit.class),
     Frog(4, Frog.class),
     HerbWitch(5, HerbWitch.class),
-//    Wolf(6, Wolf.class),
+    Wolf(6, Wolf.class),
 //    HuliTheMonkey(7, HuliTheMonkey.class),
 //    BearHunter(8, BearHunter.class),
 //    Viking(9, Viking.class),

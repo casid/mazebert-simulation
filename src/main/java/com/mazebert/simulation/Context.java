@@ -9,6 +9,7 @@ import com.mazebert.simulation.plugins.random.UuidRandomPlugin;
 import com.mazebert.simulation.projectiles.ProjectileGateway;
 import com.mazebert.simulation.systems.DamageSystem;
 import com.mazebert.simulation.systems.LootSystem;
+import com.mazebert.simulation.systems.WolfSystem;
 
 public strictfp class Context {
     // Connection to app
@@ -35,6 +36,7 @@ public strictfp class Context {
     // Logic
     public DamageSystem damageSystem;
     public LootSystem lootSystem;
+    public WolfSystem wolfSystem;
     public CommandExecutor commandExecutor;
 
     // Temp instances
