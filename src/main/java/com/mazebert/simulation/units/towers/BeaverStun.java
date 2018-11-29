@@ -2,9 +2,9 @@ package com.mazebert.simulation.units.towers;
 
 import com.mazebert.simulation.units.abilities.StunAbility;
 
-public strictfp class BeaverStunAbility extends StunAbility {
+public strictfp class BeaverStun extends StunAbility {
 
-    public BeaverStunAbility() {
+    public BeaverStun() {
         setChance(0.2f);
         setDuration(0.8f);
     }

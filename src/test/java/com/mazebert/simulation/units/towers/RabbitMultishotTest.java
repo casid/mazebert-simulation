@@ -7,15 +7,15 @@ import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class RabbitMultishotAbilityTest extends SimTest {
+public class RabbitMultishotTest extends SimTest {
 
     Tower tower;
-    RabbitMultishotAbility multishot;
+    RabbitMultishot multishot;
 
     @BeforeEach
     void setUp() {
         tower = new TestTower();
-        multishot = new RabbitMultishotAbility();
+        multishot = new RabbitMultishot();
         tower.addAbility(multishot);
     }
 

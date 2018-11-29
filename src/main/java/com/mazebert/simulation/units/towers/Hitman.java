@@ -19,7 +19,7 @@ public strictfp class Hitman extends Tower {
 
         addAbility(new AttackAbility());
         addAbility(new InstantDamageAbility());
-        addAbility(new HitmanHeadshotAbility());
+        addAbility(new HitmanHeadshot());
     }
 
     @Override

@@ -17,7 +17,7 @@ public strictfp class Rabbit extends Tower {
         setGender(Gender.Male);
         setElement(Element.Nature);
 
-        addAbility(new RabbitMultishotAbility());
+        addAbility(new RabbitMultishot());
         addAbility(new ProjectileDamageAbility(ProjectileViewType.Carrot, 11.8f));
     }
 

@@ -20,7 +20,7 @@ public strictfp class Beaver extends Tower {
         setElement(Element.Nature);
 
         addAbility(new AttackAbility());
-        addAbility(new BeaverStunAbility());
+        addAbility(new BeaverStun());
         addAbility(new ProjectileDamageAbility(ProjectileViewType.Wood, 14));
     }
 

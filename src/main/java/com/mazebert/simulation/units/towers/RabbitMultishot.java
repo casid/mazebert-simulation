@@ -3,9 +3,9 @@ package com.mazebert.simulation.units.towers;
 import com.mazebert.simulation.listeners.OnLevelChangedListener;
 import com.mazebert.simulation.units.abilities.AttackAbility;
 
-public strictfp class RabbitMultishotAbility extends AttackAbility implements OnLevelChangedListener {
+public strictfp class RabbitMultishot extends AttackAbility implements OnLevelChangedListener {
 
-    public RabbitMultishotAbility() {
+    public RabbitMultishot() {
         super(2);
     }
 

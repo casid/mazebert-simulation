@@ -2,7 +2,7 @@ package com.mazebert.simulation.units.towers;
 
 import com.mazebert.simulation.units.abilities.Ability;
 
-public strictfp class HitmanHeadshotAbility extends Ability<Tower> {
+public strictfp class HitmanHeadshot extends Ability<Tower> {
     private final float critChanceBonus = 0.25f;
     private final float critDamageBonus = 0.25f;
 

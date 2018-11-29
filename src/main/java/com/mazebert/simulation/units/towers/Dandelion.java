@@ -19,7 +19,7 @@ public strictfp class Dandelion extends Tower {
         setElement(Element.Nature);
 
         addAbility(new AttackAbility());
-        addAbility(new DandelionSplashAbility());
+        addAbility(new DandelionSplash());
         addAbility(new ProjectileDamageAbility(ProjectileViewType.Dandelion, 10));
     }
 
