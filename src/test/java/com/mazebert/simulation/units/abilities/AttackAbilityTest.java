@@ -159,6 +159,17 @@ public class AttackAbilityTest extends SimTest implements OnAttackListener {
         thenUnitsAreAttacked(creep, anotherCreep);
     }
 
+    @Test
+    void attack_cooldownIsSpared() {
+        creep.setX(1000);
+        tower.simulate(1.0f);
+        thenNoUnitIsAttacked();
+
+        creep.setX(1);
+        tower.simulate(0.1f);
+        thenUnitIsAttacked(creep);
+    }
+
     @Override
     public void onAttack(Creep target) {
         attackedUnits.add(target);
