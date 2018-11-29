@@ -21,7 +21,7 @@ public strictfp class Frog extends Tower {
 
         addAbility(new AttackAbility());
         addAbility(new FrogPoisonAbility());
-        addAbility(new ProjectileDamageAbility(ProjectileViewType.Venom, 12));
+        addAbility(new ProjectileDamageAbility(ProjectileViewType.FrogSpit, 12));
     }
 
     @Override
