@@ -209,7 +209,7 @@ class InitGameTest extends UsecaseTest<InitGameCommand> {
         assertThat(wizard).isNotNull();
         assertThat(wizard.towerStash.size()).isGreaterThan(0);
         assertThat(wizard.towerStash.get(0).getCardType()).isEqualTo(TowerType.Frog);
-        assertThat(wizard.towerStash.get(0).getAmount()).isEqualTo(2);
+        assertThat(wizard.towerStash.get(0).getAmount()).isEqualTo(3);
     }
 
     @Test

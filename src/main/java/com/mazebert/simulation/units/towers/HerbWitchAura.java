@@ -2,7 +2,7 @@ package com.mazebert.simulation.units.towers;
 
 import com.mazebert.simulation.units.abilities.AuraAbility;
 
-public class HerbWitchAura extends AuraAbility<Tower, Tower> {
+public strictfp class HerbWitchAura extends AuraAbility<Tower, Tower> {
 
     public HerbWitchAura() {
         super(Tower.class, 1);
