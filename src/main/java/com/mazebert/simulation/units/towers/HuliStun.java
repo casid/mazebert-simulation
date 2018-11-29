@@ -10,6 +10,16 @@ public strictfp class HuliStun extends StunAbility {
     }
 
     @Override
+    public String getStunText() {
+        return "Slipped on banana!";
+    }
+
+    @Override
+    public int getStunColor() {
+        return 0xffff00;
+    }
+
+    @Override
     public boolean isVisibleToUser() {
         return false;
     }

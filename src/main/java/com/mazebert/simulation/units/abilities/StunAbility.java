@@ -1,5 +1,6 @@
 package com.mazebert.simulation.units.abilities;
 
+import com.mazebert.simulation.Sim;
 import com.mazebert.simulation.listeners.OnDamageListener;
 import com.mazebert.simulation.units.creeps.Creep;
 import com.mazebert.simulation.units.creeps.effects.StunEffect;
@@ -33,7 +34,19 @@ public strictfp class StunAbility extends Ability<Tower> implements OnDamageList
         if (getUnit().isAbilityTriggered(chance)) {
             StunEffect stunEffect = target.addAbilityStack(StunEffect.class);
             stunEffect.setDuration(duration);
+
+            if (Sim.context().simulationListeners.areNotificationsEnabled()) {
+                Sim.context().simulationListeners.showNotification(target, getStunText(), getStunColor());
+            }
         }
+    }
+
+    public int getStunColor() {
+        return 0xefefef;
+    }
+
+    public String getStunText() {
+        return "Stunned!";
     }
 
     private boolean isStunPossible(Object origin) {
