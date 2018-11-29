@@ -21,18 +21,12 @@ public strictfp class BuildTower extends Usecase<BuildTowerCommand> {
         Wizard wizard = unitGateway.getWizard(command.playerId);
 
         if (wizard.towerStash.remove(command.towerType)) {
-            Tower oldTower = unitGateway.findUnit(Tower.class, command.playerId, command.x, command.y);
-            if (oldTower != null) {
-                unitGateway.removeUnit(oldTower);
-            }
-
             Tower tower = command.towerType.create();
             tower.setPlayerId(command.playerId);
             tower.setX(command.x);
             tower.setY(command.y);
 
-            unitGateway.addUnit(tower);
-
+            Tower oldTower = unitGateway.findUnit(Tower.class, command.playerId, command.x, command.y);
             if (oldTower != null) {
                 List<Ability> permanentAbilities = new ArrayList<>();
                 for (Ability ability : oldTower.getAbilities()) {
@@ -56,8 +50,10 @@ public strictfp class BuildTower extends Usecase<BuildTowerCommand> {
                 tower.setExperience(oldTower.getExperience());
                 tower.setKills(oldTower.getKills());
 
-                oldTower.dispose();
+                unitGateway.removeUnit(oldTower);
             }
+
+            unitGateway.addUnit(tower);
 
             if (command.onComplete != null) {
                 command.onComplete.run();

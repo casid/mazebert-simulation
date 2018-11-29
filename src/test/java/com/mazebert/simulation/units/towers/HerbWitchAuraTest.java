@@ -133,7 +133,6 @@ class HerbWitchAuraTest extends SimTest {
 
         herbWitch.simulate(0.1f);
         unitGateway.removeUnit(herbWitch);
-        herbWitch.dispose();
 
         for (Tower tower : towerList) {
             assertThat(tower.getAttackSpeedAdd()).isEqualTo(0.0f);
