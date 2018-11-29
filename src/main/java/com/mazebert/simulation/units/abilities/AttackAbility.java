@@ -36,7 +36,7 @@ public strictfp class AttackAbility extends CooldownAbility<Tower> {
     }
 
     @Override
-    boolean onCooldownReached() {
+    protected boolean onCooldownReached() {
         boolean anythingAttacked = false;
         for (int i = 0; i < currentTargets.length; ++i) {
             currentTargets[i] = findTarget(i);

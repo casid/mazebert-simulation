@@ -40,5 +40,5 @@ public abstract strictfp class CooldownAbility<U extends Unit & CooldownUnit> ex
         return getUnit().getCooldown();
     }
 
-    abstract boolean onCooldownReached();
+    protected abstract boolean onCooldownReached();
 }

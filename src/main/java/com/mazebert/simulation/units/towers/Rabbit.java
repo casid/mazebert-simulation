@@ -58,7 +58,7 @@ public strictfp class Rabbit extends Tower {
 
     @Override
     public void populateCustomTowerBonus(CustomTowerBonus bonus) {
-        bonus.title = "Carrots";
+        bonus.title = "Carrots:";
         bonus.value = "" + getAbility(RabbitMultishot.class).getTargets();
     }
 }

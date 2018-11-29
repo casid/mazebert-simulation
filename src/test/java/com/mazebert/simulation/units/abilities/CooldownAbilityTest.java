@@ -117,7 +117,7 @@ public class CooldownAbilityTest {
     private class MyCooldownAbility extends CooldownAbility<Tower> {
 
         @Override
-        boolean onCooldownReached() {
+        protected boolean onCooldownReached() {
             if (active) {
                 actionCount++;
             }
