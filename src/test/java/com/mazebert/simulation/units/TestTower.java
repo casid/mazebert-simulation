@@ -1,6 +1,7 @@
 package com.mazebert.simulation.units;
 
 import com.mazebert.simulation.Rarity;
+import com.mazebert.simulation.units.towers.CustomTowerBonus;
 import com.mazebert.simulation.units.towers.Tower;
 
 import java.util.UUID;
@@ -43,5 +44,9 @@ public class TestTower extends Tower {
     @Override
     protected float getGoldCostFactor() {
         return 1;
+    }
+
+    @Override
+    public void populateCustomTowerBonus(CustomTowerBonus bonus) {
     }
 }

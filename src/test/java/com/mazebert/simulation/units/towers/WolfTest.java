@@ -57,4 +57,20 @@ strictfp class WolfTest extends SimTest {
         assertThat(smallerWolf.getCritChance()).isEqualTo(0.055f);
         assertThat(wolf.getCritChance()).isEqualTo(0.049999997f);
     }
+
+    @Test
+    void customTowerBonus() {
+        Wolf smallerWolf = new Wolf();
+        smallerWolf.setExperience(Balancing.getTowerExperienceForLevel(1));
+        unitGateway.addUnit(smallerWolf);
+
+        CustomTowerBonus bonus = new CustomTowerBonus();
+        smallerWolf.populateCustomTowerBonus(bonus);
+        assertThat(bonus.title).isEqualTo("Status:");
+        assertThat(bonus.value).isEqualTo("Pack wolf");
+
+        wolf.populateCustomTowerBonus(bonus);
+        assertThat(bonus.title).isEqualTo("Status:");
+        assertThat(bonus.value).isEqualTo("Alpha wolf");
+    }
 }

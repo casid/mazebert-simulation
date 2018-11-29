@@ -496,4 +496,9 @@ public strictfp abstract class Tower extends Unit implements CooldownUnit, Card,
     public void addExperienceModifier(float amount) {
         experienceModifier += amount;
     }
+
+    public void populateCustomTowerBonus(CustomTowerBonus bonus) {
+        bonus.value = "Custom bonus:";
+        bonus.title = "-";
+    }
 }

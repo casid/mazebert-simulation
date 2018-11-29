@@ -3,6 +3,7 @@ package com.mazebert.simulation;
 import com.mazebert.simulation.gateways.*;
 import com.mazebert.simulation.plugins.SleepPluginTrainer;
 import com.mazebert.simulation.projectiles.ProjectileGateway;
+import com.mazebert.simulation.systems.WolfSystem;
 import org.junit.jupiter.api.BeforeEach;
 
 public abstract class SimulationTest extends SimTest {
@@ -36,6 +37,7 @@ public abstract class SimulationTest extends SimTest {
         unitGateway = new UnitGateway();
         turnGateway = new TurnGateway(playerCount);
         projectileGateway = new ProjectileGateway();
+        wolfSystem = new WolfSystem(simulationListeners);
 
         simulation = new Simulation();
     }

@@ -125,4 +125,8 @@ public strictfp class WolfSystem implements OnUnitAddedListener, OnLevelChangedL
             }
         }
     }
+
+    public boolean isAlphaWolf(Wolf wolf) {
+        return alphaWolf == wolf;
+    }
 }

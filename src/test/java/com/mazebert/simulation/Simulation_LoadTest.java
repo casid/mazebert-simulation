@@ -9,6 +9,7 @@ import com.mazebert.simulation.projectiles.ProjectileGateway;
 import com.mazebert.simulation.replay.ReplayReaderTrainer;
 import com.mazebert.simulation.replay.data.ReplayFrame;
 import com.mazebert.simulation.replay.data.ReplayTurn;
+import com.mazebert.simulation.systems.WolfSystem;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -33,6 +34,7 @@ strictfp class Simulation_LoadTest extends SimTest {
         simulationListeners = new SimulationListeners();
         projectileGateway = new ProjectileGateway();
         gameGateway = new GameGateway();
+        wolfSystem = new WolfSystem(simulationListeners);
 
         simulation = new Simulation();
     }
