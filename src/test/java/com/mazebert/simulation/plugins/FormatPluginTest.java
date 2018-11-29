@@ -63,4 +63,12 @@ class FormatPluginTest {
         assertThat(format.percent(0.0000001f)).isEqualTo("0.00001");
         assertThat(format.percent(0.00000001f)).isEqualTo("0");
     }
+
+    @Test
+    void experienceGain() {
+        assertThat(format.experienceGain(1)).isEqualTo("+1XP");
+        assertThat(format.experienceGain(1.2f)).isEqualTo("+1.2XP");
+        assertThat(format.experienceGain(10.2f)).isEqualTo("+10.2XP");
+        assertThat(format.experienceGain(120f)).isEqualTo("+120XP");
+    }
 }

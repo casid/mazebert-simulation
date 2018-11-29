@@ -114,4 +114,12 @@ public strictfp class FormatPlugin {
 
         return "0%";
     }
+
+    public String experience(float value) {
+        return oneFractionFormat.format(value);
+    }
+
+    public String experienceGain(float value) {
+        return "+" + experience(value) + "XP";
+    }
 }

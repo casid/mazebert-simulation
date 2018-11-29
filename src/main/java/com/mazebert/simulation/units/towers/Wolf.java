@@ -21,6 +21,7 @@ public strictfp class Wolf extends Tower {
         addAbility(new AttackAbility());
         addAbility(new InstantDamageAbility());
         addAbility(new WolfAura());
+        addAbility(new WolfPack());
     }
 
     @Override

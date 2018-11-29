@@ -5,7 +5,6 @@ import com.mazebert.simulation.units.abilities.Ability;
 
 public strictfp class WolfAura extends Ability<Tower> {
 
-
     @Override
     public boolean isVisibleToUser() {
         return true;

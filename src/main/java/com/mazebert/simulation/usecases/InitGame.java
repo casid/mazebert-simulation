@@ -33,10 +33,9 @@ public strictfp class InitGame extends Usecase<InitGameCommand> {
         for (int playerId = 1; playerId <= playerGateway.getPlayerCount(); ++playerId) {
             Wizard wizard = new Wizard();
             wizard.setPlayerId(playerId);
-            for (int i = 0; i < 2; ++i) {
-                wizard.towerStash.add(TowerType.Frog);
-            }
             for (TowerType towerType : TowerType.values()) {
+                wizard.towerStash.add(towerType);
+                wizard.towerStash.add(towerType);
                 wizard.towerStash.add(towerType);
             }
             wizard.itemStash.add(ItemType.BabySword);
