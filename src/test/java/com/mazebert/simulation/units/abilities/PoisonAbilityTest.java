@@ -66,7 +66,17 @@ public strictfp class PoisonAbilityTest extends SimTest {
         creep.simulate(0.1f);
         assertThat(creep.getHealth()).isEqualTo(88.99999998509884);
         creep.simulate(1.0f);
-        assertThat(creep.getHealth()).isEqualTo(79.33333332339923);
+        assertThat(creep.getHealth()).isEqualTo(79.00000031909038);
+    }
+
+    @Test
+    void poisonCausesDamageOverTime_total() {
+        whenTowerAttacks();
+
+        creep.simulate(1.0f);
+        creep.simulate(1.0f);
+        creep.simulate(1.0f);
+        assertThat(creep.getHealth()).isEqualTo(60); // 100 - 10 - 30
     }
 
     @Test
@@ -79,6 +89,18 @@ public strictfp class PoisonAbilityTest extends SimTest {
         assertThat(creep.getAbility(PoisonEffect.class)).isNotNull();
         creep.simulate(1.0f);
         assertThat(creep.getAbility(PoisonEffect.class)).isNull();
+    }
+
+    @Test
+    void poisonIsRemoved_smallTicks() {
+        whenTowerAttacks();
+
+        // 30 ticks to simulate 3 seconds
+        for (int i = 0; i < 30; ++i) {
+            creep.simulate(0.1f);
+        }
+
+        assertThat(creep.getHealth()).isEqualTo(60.000006109475166); // 100 - 10 - 30
     }
 
     @Test

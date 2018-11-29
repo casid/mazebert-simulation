@@ -11,7 +11,6 @@ public strictfp class PoisonEffect extends StackableByOriginAbility<Creep> imple
 
     private final DamageSystem damageSystem = Sim.context().damageSystem;
 
-    private float totalSeconds;
     private float remainingSeconds;
     private double remainingDamage;
 
@@ -32,7 +31,7 @@ public strictfp class PoisonEffect extends StackableByOriginAbility<Creep> imple
         if (getUnit().isDead()) {
             getUnit().removeAbility(this);
         } else {
-            double damage = remainingDamage * dt / totalSeconds;
+            double damage = remainingDamage * dt / remainingSeconds;
             damageSystem.dealDamage(this, (Tower) getOrigin(), getUnit(), damage, 0);
             remainingDamage -= damage;
 
@@ -44,7 +43,6 @@ public strictfp class PoisonEffect extends StackableByOriginAbility<Creep> imple
     }
 
     public void addPoison(float duration, double damage) {
-        totalSeconds = duration;
         remainingSeconds = duration;
         remainingDamage += damage;
     }
