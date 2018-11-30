@@ -97,7 +97,7 @@ public class StunAbilityTest extends SimTest {
 
     @Test
     void stun_increasedByLuck() {
-        randomPluginTrainer.givenFloatAbs(2 * stunAbility.getChance());
+        randomPluginTrainer.givenFloatAbs(1.99f * stunAbility.getChance());
         tower.setLuck(2.0f);
 
         whenTowerAttacks();
