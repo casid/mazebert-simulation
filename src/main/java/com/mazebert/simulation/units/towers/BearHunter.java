@@ -18,6 +18,8 @@ public strictfp class BearHunter extends Tower {
         setElement(Element.Nature);
 
         addAbility(new BearHunterPlaceTrap());
+        addAbility(new BearHunterSpeed());
+        addAbility(new BearHunterSplash());
     }
 
     @Override

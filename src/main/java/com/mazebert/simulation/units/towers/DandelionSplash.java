@@ -4,7 +4,6 @@ import com.mazebert.simulation.units.abilities.SplashAbility;
 
 public class DandelionSplash extends SplashAbility {
     public DandelionSplash() {
-        setRange(1);
-        setDamageFactor(0.33f);
+        super(1, 0.33f);
     }
 }

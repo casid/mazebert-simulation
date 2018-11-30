@@ -15,6 +15,14 @@ public strictfp class SplashAbility extends Ability<Tower> implements OnDamageLi
     private int range;
     private float damageFactor;
 
+    public SplashAbility() {
+    }
+
+    public SplashAbility(int range, float damageFactor) {
+        this.range = range;
+        this.damageFactor = damageFactor;
+    }
+
     @Override
     protected void initialize(Tower unit) {
         super.initialize(unit);
