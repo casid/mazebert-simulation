@@ -31,6 +31,10 @@ public abstract strictfp class AuraAbility<S extends Unit, T extends Unit> exten
         this.range = range;
     }
 
+    public float getRange() {
+        return range;
+    }
+
     public int getActiveSize() {
         return activeSize;
     }

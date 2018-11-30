@@ -22,7 +22,7 @@ public strictfp enum TowerType implements CardType<Tower> {
     Viking(9, Viking.class),
     Ganesha(10, Ganesha.class),
     Balu(11, Balu.class),
-//    Manitou(12, Manitou.class),
+    Manitou(12, Manitou.class),
     Hitman(13, Hitman.class),
 //    Scientist(14, Scientist.class),
 //    PocketThief(15, PocketThief.class),
