@@ -66,6 +66,7 @@ public strictfp class Balu extends Tower {
 
     @Override
     public void populateCustomTowerBonus(CustomTowerBonus bonus) {
-        // TODO
+        bonus.title = "Cuddled:";
+        bonus.value = getAbility(BaluCuddle.class).getCuddleAmount() + "x";
     }
 }

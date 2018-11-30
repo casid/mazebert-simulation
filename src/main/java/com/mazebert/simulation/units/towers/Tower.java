@@ -204,6 +204,10 @@ public strictfp abstract class Tower extends Unit implements CooldownUnit, Card,
 
     @Override
     public float getCooldown() {
+        return getCooldown(baseCooldown);
+    }
+
+    public float getCooldown(float baseCooldown) {
         float modifier = getAttackSpeedModifier();
         if (modifier <= 0) {
             return Balancing.MAX_COOLDOWN;

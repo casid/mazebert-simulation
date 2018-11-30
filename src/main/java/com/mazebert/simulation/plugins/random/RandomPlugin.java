@@ -1,5 +1,6 @@
 package com.mazebert.simulation.plugins.random;
 
+import java.util.List;
 import java.util.UUID;
 
 public strictfp abstract class RandomPlugin {
@@ -45,5 +46,9 @@ public strictfp abstract class RandomPlugin {
 
     public <T> T get(T[] array) {
         return array[getInt(0, array.length - 1)];
+    }
+
+    public <T> T get(List<T> list) {
+        return list.get(getInt(0, list.size() - 1));
     }
 }
