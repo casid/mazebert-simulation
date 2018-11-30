@@ -191,8 +191,11 @@ public abstract strictfp class Unit implements Hashable {
     }
 
     public boolean isInRange(float x, float y, float range) {
-        float dx = StrictMath.abs(this.x - x);
-        float dy = StrictMath.abs(this.y - y);
+        float dx = this.x - x;
+        float dy = this.y - y;
+
+        if (dx < 0) dx = -dx;
+        if (dy < 0) dy = -dy;
 
         return dx <= range && dy <= range;
     }
