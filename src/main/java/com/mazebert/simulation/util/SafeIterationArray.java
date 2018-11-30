@@ -67,6 +67,20 @@ public strictfp class SafeIterationArray<T> {
     }
 
     @SuppressWarnings("unchecked")
+    public void forEach(IndexConsumer<T> consumer) {
+        pushIteration();
+        try {
+            for (int i = 0; i < size; ++i) {
+                if (elements[i] != null) {
+                    consumer.accept(i, (T) elements[i]);
+                }
+            }
+        } finally {
+            popIteration();
+        }
+    }
+
+    @SuppressWarnings("unchecked")
     public T find(Predicate<T> predicate) {
         pushIteration();
         try {
@@ -108,5 +122,9 @@ public strictfp class SafeIterationArray<T> {
             throw new IllegalStateException("Unsafe operation: calling get during iteration!");
         }
         return (T) elements[index];
+    }
+
+    public interface IndexConsumer<T> {
+        void accept(int index, T element);
     }
 }

@@ -40,6 +40,15 @@ public strictfp class UnitGateway {
         }
     }
 
+    @SuppressWarnings("unchecked")
+    public <U extends Unit> void removeAll(Class<U> unitClass, Predicate<U> predicate) {
+        units.forEach((index, unit) -> {
+            if (unitClass.isAssignableFrom(unit.getClass()) && predicate.test((U) unit)) {
+                units.remove(index);
+            }
+        });
+    }
+
     public <U extends Unit> U findUnitInRange(Unit unit, float range, Class<U> unitClass) {
         return findUnitInRange(unit.getX(), unit.getY(), range, unitClass);
     }

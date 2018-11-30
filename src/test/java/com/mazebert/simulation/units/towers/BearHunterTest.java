@@ -98,6 +98,7 @@ strictfp class BearHunterTest extends SimTest {
 
         assertThat(creep.getHealth()).isEqualTo(80);
 
+        // No trap left for next creep
         Creep nextCreep = new Creep();
         nextCreep.setX(17);
         nextCreep.setY(14);
@@ -105,6 +106,15 @@ strictfp class BearHunterTest extends SimTest {
 
         trap.simulate(0.1f);
         assertThat(nextCreep.getHealth()).isEqualTo(100);
+    }
+
+    @Test
+    void trapsAreRemovedWithTower() {
+        whenTrapIsPlaced();
+        whenTrapIsPlaced();
+
+        unitGateway.removeUnit(bearHunter);
+        assertThat(unitGateway.hasUnits(BearHunterTrap.class)).isFalse();
     }
 
     private void whenTrapIsPlaced() {

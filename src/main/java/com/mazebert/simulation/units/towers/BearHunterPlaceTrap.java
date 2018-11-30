@@ -47,7 +47,7 @@ public strictfp class BearHunterPlaceTrap extends CooldownAbility<Tower> impleme
 
     @Override
     public void onUnitRemoved(Unit unit) {
-        // TODO dispose all traps
+        unitGateway.removeAll(BearHunterTrap.class, this);
     }
 
     @Override
@@ -115,5 +115,30 @@ public strictfp class BearHunterPlaceTrap extends CooldownAbility<Tower> impleme
                 }
             }
         }
+    }
+
+    @Override
+    public boolean isVisibleToUser() {
+        return true;
+    }
+
+    @Override
+    public String getTitle() {
+        return "Bear Trap";
+    }
+
+    @Override
+    public String getDescription() {
+        return "Every " + format.cooldown(getUnit().getBaseCooldown()) + "s the bear hunter places a trap somewhere in his range. Traps can stack.";
+    }
+
+    @Override
+    public String getIconFile() {
+        return "0028_hide_512";
+    }
+
+    @Override
+    public String getLevelBonus() {
+        return "+ 0.5% attackspeed per level\n- 70% damage to air";
     }
 }
