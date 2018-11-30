@@ -29,4 +29,16 @@ class GaneshaTest extends SimTest {
 
         assertThat(tower.getExperienceModifier()).isEqualTo(1.2f);
     }
+
+    @Test
+    void grantsMoreExperienceToOtherTower_scalesWithGaneshaLevel() {
+        TestTower tower = new TestTower();
+        tower.setX(1);
+        unitGateway.addUnit(tower);
+
+        ganesha.setLevel(20);
+        ganesha.simulate(0.1f);
+
+        assertThat(tower.getExperienceModifier()).isEqualTo(1.3f);
+    }
 }
