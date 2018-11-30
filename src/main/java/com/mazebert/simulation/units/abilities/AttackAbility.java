@@ -10,13 +10,19 @@ public strictfp class AttackAbility extends CooldownAbility<Tower> {
     private final UnitGateway unitGateway = Sim.context().unitGateway;
 
     private Creep[] currentTargets;
+    private boolean canAttackSameTarget;
 
     public AttackAbility() {
         this(1);
     }
 
     public AttackAbility(int targets) {
-        currentTargets = new Creep[targets];
+        this(targets, false);
+    }
+
+    public AttackAbility(int targets, boolean canAttackSameTarget) {
+        this.currentTargets = new Creep[targets];
+        this.canAttackSameTarget = canAttackSameTarget;
     }
 
     @Override
@@ -54,7 +60,11 @@ public strictfp class AttackAbility extends CooldownAbility<Tower> {
             return currentTargets[i];
         }
 
-        return unitGateway.findUnitInRange(tower, tower.getBaseRange(), Creep.class, currentTargets);
+        if (canAttackSameTarget) {
+            return unitGateway.findUnitInRange(tower, tower.getBaseRange(), Creep.class);
+        } else {
+            return unitGateway.findUnitInRange(tower, tower.getBaseRange(), Creep.class, currentTargets);
+        }
     }
 
     public void setTargets(int targets) {
