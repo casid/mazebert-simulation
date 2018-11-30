@@ -8,14 +8,10 @@ import com.mazebert.simulation.units.items.Item;
 import com.mazebert.simulation.units.items.ItemType;
 import com.mazebert.simulation.units.towers.Tower;
 import com.mazebert.simulation.units.wizards.Wizard;
-
-import java.util.ArrayList;
-import java.util.List;
+import com.mazebert.simulation.util.SafeIterationArray;
 
 public strictfp class UnitGateway {
-    private final List<Unit> units = new ArrayList<>();
-    private final List<Unit> unitsToRemove = new ArrayList<>();
-    private boolean removeDirectly = true;
+    private final SafeIterationArray<Unit> units = new SafeIterationArray<>();
 
     public void addUnit(Unit unit) {
         units.add(unit);
@@ -34,12 +30,7 @@ public strictfp class UnitGateway {
     }
 
     public void removeUnit(Unit unit) {
-        if (removeDirectly) {
-            units.remove(unit);
-        } else {
-            unitsToRemove.add(unit);
-        }
-
+        units.remove(unit);
         unit.onUnitRemoved.dispatch(unit);
 
         unit.dispose();
@@ -55,12 +46,7 @@ public strictfp class UnitGateway {
 
     @SuppressWarnings("unchecked")
     public <U extends Unit> U findUnitInRange(float x, float y, float range, Class<U> unitClass) {
-        for (Unit unit : units) {
-            if (unitClass.isAssignableFrom(unit.getClass()) && unit.isInRange(x, y, range)) {
-                return (U) unit;
-            }
-        }
-        return null;
+        return (U) units.find(unit -> unitClass.isAssignableFrom(unit.getClass()) && unit.isInRange(x, y, range));
     }
 
     @SuppressWarnings("unchecked")
@@ -70,12 +56,7 @@ public strictfp class UnitGateway {
 
     @SuppressWarnings("unchecked")
     public <U extends Unit> U findUnitInRange(float x, float y, float range, Class<U> unitClass, U[] excludedUnits) {
-        for (Unit unit : units) {
-            if (unitClass.isAssignableFrom(unit.getClass()) && unit.isInRange(x, y, range) && !contains(excludedUnits, unit)) {
-                return (U) unit;
-            }
-        }
-        return null;
+        return (U) units.find(unit -> unitClass.isAssignableFrom(unit.getClass()) && unit.isInRange(x, y, range) && !contains(excludedUnits, unit));
     }
 
     private <U extends Unit> boolean contains(U[] excludedUnits, U unit) {
@@ -89,59 +70,30 @@ public strictfp class UnitGateway {
 
     @SuppressWarnings("unchecked")
     public <U extends Unit> U findUnit(Class<U> unitClass, int playerId) {
-        for (Unit unit : units) {
-            if (unitClass.isAssignableFrom(unit.getClass()) && unit.getPlayerId() == playerId) {
-                return (U) unit;
-            }
-        }
-        return null;
+        return (U) units.find(unit -> unitClass.isAssignableFrom(unit.getClass()) && unit.getPlayerId() == playerId);
     }
 
     @SuppressWarnings("unchecked")
     public <U extends Unit> U findUnit(Class<U> unitClass, int playerId, int x, int y) {
-        for (Unit unit : units) {
-            if (unitClass.isAssignableFrom(unit.getClass()) && unit.getPlayerId() == playerId && unit.getX() == x && unit.getY() == y) {
-                return (U) unit;
-            }
-        }
-        return null;
+        return (U) units.find(unit -> unitClass.isAssignableFrom(unit.getClass()) && unit.getPlayerId() == playerId && unit.getX() == x && unit.getY() == y);
     }
 
     @SuppressWarnings("unchecked")
     public <U extends Unit> U findUnit(Class<U> unitClass, int playerId, int x, int y, Predicate<U> predicate) {
-        for (Unit unit : units) {
-            if (unitClass.isAssignableFrom(unit.getClass()) && unit.getPlayerId() == playerId && unit.getX() == x && unit.getY() == y && predicate.test((U)unit)) {
-                return (U) unit;
-            }
-        }
-        return null;
+        return (U) units.find(unit -> unitClass.isAssignableFrom(unit.getClass()) && unit.getPlayerId() == playerId && unit.getX() == x && unit.getY() == y && predicate.test((U) unit));
     }
 
     public void forEach(Consumer<Unit> unitConsumer) {
-        for (Unit unit : units) {
-            unitConsumer.accept(unit);
-        }
+        units.forEach(unitConsumer);
     }
 
     @SuppressWarnings("unchecked")
     public <U extends Unit> void forEachInRange(float x, float y, float range, Class<U> unitClass, Consumer<U> unitConsumer) {
-        for (Unit unit : units) {
+        units.forEach(unit -> {
             if (unitClass.isAssignableFrom(unit.getClass()) && unit.isInRange(x, y, range)) {
                 unitConsumer.accept((U) unit);
             }
-        }
-    }
-
-    public void startIteration() {
-        removeDirectly = false;
-    }
-
-    public void endIteration() {
-        removeDirectly = true;
-        if (!unitsToRemove.isEmpty()) {
-            units.removeAll(unitsToRemove);
-            unitsToRemove.clear();
-        }
+        });
     }
 
     public Wizard getWizard(int playerId) {
@@ -149,21 +101,11 @@ public strictfp class UnitGateway {
     }
 
     public boolean hasUnit(Unit unit) {
-        for (Unit u : units) {
-            if (u == unit) {
-                return true;
-            }
-        }
-        return false;
+        return units.find(u -> u == unit) != null;
     }
 
     public boolean hasUnits(Class<? extends Unit> unitClass) {
-        for (Unit unit : units) {
-            if (unitClass.isAssignableFrom(unit.getClass()) && !unitsToRemove.contains(unit)) {
-                return true;
-            }
-        }
-        return false;
+        return units.find(u -> unitClass.isAssignableFrom(u.getClass())) != null;
     }
 
     public void destroyTower(Tower tower) {
