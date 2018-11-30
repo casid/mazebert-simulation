@@ -41,4 +41,44 @@ class GaneshaTest extends SimTest {
 
         assertThat(tower.getExperienceModifier()).isEqualTo(1.3f);
     }
+
+    @Test
+    void levelsUpWhenOtherTowerDoes_oneLevel() {
+        ganesha.setLevel(10);
+        TestTower tower = new TestTower();
+        tower.setX(1);
+        unitGateway.addUnit(tower);
+
+        ganesha.simulate(0.1f);
+        tower.setLevel(1);
+
+        assertThat(ganesha.getLevel()).isEqualTo(11);
+    }
+
+    @Test
+    void levelsUpWhenOtherTowerDoes_tenLevels() {
+        ganesha.setLevel(10);
+        TestTower tower = new TestTower();
+        tower.setX(1);
+        unitGateway.addUnit(tower);
+
+        ganesha.simulate(0.1f);
+        tower.setLevel(10);
+
+        assertThat(ganesha.getLevel()).isEqualTo(20);
+    }
+
+    @Test
+    void doesNothingIfOtherTowerLevelsDown() {
+        ganesha.setLevel(10);
+        TestTower tower = new TestTower();
+        tower.setX(1);
+        tower.setLevel(10);
+        unitGateway.addUnit(tower);
+
+        ganesha.simulate(0.1f);
+        tower.setLevel(8);
+
+        assertThat(ganesha.getLevel()).isEqualTo(10);
+    }
 }

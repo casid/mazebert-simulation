@@ -44,7 +44,7 @@ class HerbWitchAuraTest extends SimTest {
     @Test
     void oneTower_outOfRange() {
         TestTower tower = new TestTower();
-        tower.setX(2);
+        tower.setX(3);
         unitGateway.addUnit(tower);
 
         herbWitch.simulate(0.1f);

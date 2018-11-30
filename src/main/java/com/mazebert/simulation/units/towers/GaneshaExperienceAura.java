@@ -2,20 +2,19 @@ package com.mazebert.simulation.units.towers;
 
 import com.mazebert.simulation.units.abilities.AuraAbility;
 
-public strictfp class HerbWitchAura extends AuraAbility<Tower, Tower> {
-
-    public HerbWitchAura() {
-        super(Tower.class, 2);
+public strictfp class GaneshaExperienceAura extends AuraAbility<Tower, Tower> {
+    public GaneshaExperienceAura() {
+        super(Tower.class, 3);
     }
 
     @Override
     protected void onAuraEntered(Tower unit) {
-        unit.addAbility(new HerbWitchAuraEffect(getUnit()));
+        unit.addAbility(new GaneshaExperienceAuraEffect(getUnit()));
     }
 
     @Override
     protected void onAuraLeft(Tower unit) {
-        HerbWitchAuraEffect ability = unit.getAbility(HerbWitchAuraEffect.class, getUnit());
+        GaneshaExperienceAuraEffect ability = unit.getAbility(GaneshaExperienceAuraEffect.class, getUnit());
         if (ability != null) {
             unit.removeAbility(ability);
         }
@@ -28,21 +27,21 @@ public strictfp class HerbWitchAura extends AuraAbility<Tower, Tower> {
 
     @Override
     public String getTitle() {
-        return "Tasty potions";
+        return "Wisdom of the gods";
     }
 
     @Override
     public String getDescription() {
-        return "The attack speed of allies within 2 fields is increased by 10%.";
+        return "Allies within 3 fields gain 20% more experience.";
     }
 
     @Override
     public String getIconFile() {
-        return "0053_charge_512";
+        return "0013_flowers_512";
     }
 
     @Override
     public String getLevelBonus() {
-        return "+ 0.5% attack speed per level.";
+        return "+ 0.5% experience gain per level.";
     }
 }

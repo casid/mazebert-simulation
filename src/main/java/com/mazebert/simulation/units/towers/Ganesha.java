@@ -16,7 +16,8 @@ public strictfp class Ganesha extends Tower {
         setGender(Gender.Male);
         setElement(Element.Nature);
 
-        addAbility(new GaneshaAura());
+        addAbility(new GaneshaExperienceAura());
+        addAbility(new GaneshaLevelAura());
     }
 
     @Override
@@ -57,11 +58,5 @@ public strictfp class Ganesha extends Tower {
     @Override
     public String getModelId() {
         return "ganesha";
-    }
-
-    @Override
-    public void populateCustomTowerBonus(CustomTowerBonus bonus) {
-        bonus.title = "Bananas:";
-        bonus.value = "" + getAbility(HuliEat.class).getBananasEaten();
     }
 }
