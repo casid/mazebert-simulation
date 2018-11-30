@@ -20,7 +20,7 @@ import static java.nio.file.StandardOpenOption.*;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @ExtendWith(TemporaryFolderExtension.class)
-public class ReplayTest {
+public class ReplayIT {
 
     File replay;
 
