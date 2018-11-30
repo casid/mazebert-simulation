@@ -24,6 +24,8 @@ public strictfp class BearHunterPlaceTrap extends CooldownAbility<Tower> impleme
     private int[] possibleGridIndices;
     private int possibleGridIndicesSize;
 
+    private transient int tempCount;
+
     @Override
     protected void initialize(Tower unit) {
         super.initialize(unit);
@@ -83,6 +85,12 @@ public strictfp class BearHunterPlaceTrap extends CooldownAbility<Tower> impleme
         }
 
         return true;
+    }
+
+    public int getActiveTrapCount() {
+        tempCount = 0;
+        unitGateway.forEach(BearHunterTrap.class, this, trap -> tempCount += trap.getStackCount());
+        return tempCount;
     }
 
     @Override

@@ -7,6 +7,8 @@ import com.mazebert.simulation.units.Gender;
 
 public strictfp class BearHunter extends Tower {
 
+    private final BearHunterPlaceTrap placeTrap;
+
     public BearHunter() {
         setBaseCooldown(5.0f);
         setBaseRange(1.0f);
@@ -17,7 +19,7 @@ public strictfp class BearHunter extends Tower {
         setGender(Gender.Male);
         setElement(Element.Nature);
 
-        addAbility(new BearHunterPlaceTrap());
+        addAbility(placeTrap = new BearHunterPlaceTrap());
         addAbility(new BearHunterSpeed());
         addAbility(new BearHunterSplash());
     }
@@ -66,4 +68,11 @@ public strictfp class BearHunter extends Tower {
     public int getImageOffsetOnCardY() {
         return -10;
     }
+
+    @Override
+    public void populateCustomTowerBonus(CustomTowerBonus bonus) {
+        bonus.title = "Active traps:";
+        bonus.value = "" + placeTrap.getActiveTrapCount();
+    }
+
 }

@@ -97,6 +97,15 @@ public strictfp class UnitGateway {
     }
 
     @SuppressWarnings("unchecked")
+    public <U extends Unit> void forEach(Class<U> unitClass, Predicate<U> predicate, Consumer<U> unitConsumer) {
+        units.forEach(unit -> {
+            if (unitClass.isAssignableFrom(unit.getClass()) && predicate.test((U)unit)) {
+                unitConsumer.accept((U) unit);
+            }
+        });
+    }
+
+    @SuppressWarnings("unchecked")
     public <U extends Unit> void forEachInRange(float x, float y, float range, Class<U> unitClass, Consumer<U> unitConsumer) {
         units.forEach(unit -> {
             if (unitClass.isAssignableFrom(unit.getClass()) && unit.isInRange(x, y, range)) {

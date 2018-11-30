@@ -117,6 +117,21 @@ strictfp class BearHunterTest extends SimTest {
         assertThat(unitGateway.hasUnits(BearHunterTrap.class)).isFalse();
     }
 
+    @Test
+    void activeTrapsStats() {
+        randomPluginTrainer.givenFloatAbs(0, 0.9f, 0.7f, 0.1f, 0.2f);
+
+        whenTrapIsPlaced();
+        whenTrapIsPlaced();
+        whenTrapIsPlaced();
+        whenTrapIsPlaced();
+        whenTrapIsPlaced();
+
+        CustomTowerBonus bonus = new CustomTowerBonus();
+        bearHunter.populateCustomTowerBonus(bonus);
+        assertThat(bonus.value).isEqualTo("5");
+    }
+
     private void whenTrapIsPlaced() {
         bearHunter.simulate(5.0f);
     }
