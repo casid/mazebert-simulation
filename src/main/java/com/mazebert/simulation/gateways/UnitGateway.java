@@ -10,7 +10,7 @@ import com.mazebert.simulation.units.towers.Tower;
 import com.mazebert.simulation.units.wizards.Wizard;
 import com.mazebert.simulation.util.SafeIterationArray;
 
-public strictfp class UnitGateway {
+public strictfp final class UnitGateway {
     private final SafeIterationArray<Unit> units = new SafeIterationArray<>();
 
     public void addUnit(Unit unit) {

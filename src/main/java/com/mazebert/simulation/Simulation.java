@@ -89,7 +89,9 @@ public strictfp class Simulation {
             int turnNumbersToSimulate = replayFrame.turnNumber - turnGateway.getCurrentTurnNumber();
             for (int i = 0; i < turnNumbersToSimulate; ++i) {
                 simulateTurn(Collections.emptyList());
-                hashHistory.add(hash.get());
+                if (i >= turnNumbersToSimulate - 2) { // only the last two frames need to be hashed
+                    hashHistory.add(hash.get());
+                }
                 turnGateway.incrementTurnNumber();
             }
 

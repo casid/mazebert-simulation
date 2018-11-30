@@ -2,7 +2,7 @@ package com.mazebert.simulation.hash;
 
 import java.util.UUID;
 
-public strictfp class Hash {
+public strictfp final class Hash {
     private int result;
 
     public void add(boolean value) {

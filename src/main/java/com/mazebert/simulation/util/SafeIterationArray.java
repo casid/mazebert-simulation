@@ -5,7 +5,7 @@ import com.mazebert.java8.Predicate;
 
 import java.util.Arrays;
 
-public strictfp class SafeIterationArray<T> {
+public strictfp final class SafeIterationArray<T> {
     private static final int LOAD_FACTOR = 2;
 
     private Object[] elements;
