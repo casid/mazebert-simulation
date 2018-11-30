@@ -19,7 +19,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-public strictfp class Simulation {
+public strictfp final class Simulation {
 
     private final CommandExecutor commandExecutor = Sim.context().commandExecutor;
     private final LocalCommandGateway localCommandGateway = Sim.context().localCommandGateway;
@@ -175,7 +175,7 @@ public strictfp class Simulation {
     }
 
     private void simulateProjectiles() {
-        projectileGateway.update(turnTimeInSeconds);
+        projectileGateway.simulate(turnTimeInSeconds);
     }
 
     private void hashGameState() {

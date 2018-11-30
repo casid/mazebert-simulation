@@ -73,7 +73,7 @@ public strictfp class ProjectileDamageAbilityTest extends SimTest {
         projectileDamageAbility.setSpeed(0.5f);
 
         whenTowerAttacks();
-        projectileGateway.update(0.1f);
+        projectileGateway.simulate(0.1f);
 
         Projectile projectile = projectileGateway.get(0);
         assertThat(projectile.x).isEqualTo(0.05f);
@@ -87,7 +87,7 @@ public strictfp class ProjectileDamageAbilityTest extends SimTest {
         projectileDamageAbility.setSpeed(0.5f);
 
         whenTowerAttacks();
-        projectileGateway.update(0.1f);
+        projectileGateway.simulate(0.1f);
 
         Projectile projectile = projectileGateway.get(0);
         assertThat(projectile.x).isEqualTo(0.0f);
@@ -101,7 +101,7 @@ public strictfp class ProjectileDamageAbilityTest extends SimTest {
         projectileDamageAbility.setSpeed(0.5f);
 
         whenTowerAttacks();
-        projectileGateway.update(0.1f);
+        projectileGateway.simulate(0.1f);
 
         Projectile projectile = projectileGateway.get(0);
         assertThat(projectile.x).isEqualTo(0.03535534f);
@@ -113,11 +113,11 @@ public strictfp class ProjectileDamageAbilityTest extends SimTest {
         projectileDamageAbility.setSpeed(1);
         whenTowerAttacks();
 
-        projectileGateway.update(0.5f); // tick
+        projectileGateway.simulate(0.5f); // tick
         thenProjectileAmountIs(1);
         assertThat(creep.getHealth()).isEqualTo(100);
 
-        projectileGateway.update(0.5f); // tack
+        projectileGateway.simulate(0.5f); // tack
         thenProjectileAmountIs(0);
         assertThat(creep.getHealth()).isEqualTo(90);
     }
@@ -129,7 +129,7 @@ public strictfp class ProjectileDamageAbilityTest extends SimTest {
 
         whenTowerAttacks();
 
-        projectileGateway.update(0.5f); // tick
+        projectileGateway.simulate(0.5f); // tick
         thenProjectileAmountIs(1);
         assertThat(creep.getHealth()).isEqualTo(100);
     }
@@ -146,7 +146,7 @@ public strictfp class ProjectileDamageAbilityTest extends SimTest {
 
     private void whenTowerAttacks() {
         tower.simulate(1.0f);
-        projectileGateway.update(0.1f);
+        projectileGateway.simulate(0.1f);
     }
 
     private void thenProjectileAmountIs(int expected) {

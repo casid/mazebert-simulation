@@ -24,6 +24,7 @@ public class LootTest extends SimTest {
     private static final float WOODEN_STAFF_ROLL = 0.0f;
 
     RandomPluginTrainer randomPluginTrainer = new RandomPluginTrainer();
+    DamageSystemTrainer damageSystemTrainer = new DamageSystemTrainer();
 
     Wizard wizard;
     Tower tower;
@@ -33,23 +34,20 @@ public class LootTest extends SimTest {
     void setUp() {
         unitGateway = new UnitGateway();
         randomPlugin = randomPluginTrainer;
-        damageSystem = new DamageSystemTrainer();
+        damageSystem = damageSystemTrainer;
         lootSystem = new LootSystem(randomPlugin);
 
         wizard = new Wizard();
         unitGateway.addUnit(wizard);
 
-        // Setup of tower is so that no random numbers are required for damage calculation
         tower = new TestTower();
         tower.setWizard(wizard);
         tower.setBaseCooldown(1.0f);
         tower.setBaseRange(1.0f);
         tower.addAbility(new AttackAbility());
         tower.addAbility(new InstantDamageAbility());
-        tower.setCritChance(0.0f);
-        tower.setDamageSpread(0);
-        tower.setBaseDamage(1000);
-        tower.setMulticrit(0);
+
+        damageSystemTrainer.givenConstantDamage(1000); // one shot!
 
         creep = new Creep();
         Wave wave = new Wave();

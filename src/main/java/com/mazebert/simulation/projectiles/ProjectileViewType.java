@@ -5,5 +5,6 @@ public strictfp enum ProjectileViewType {
     Wood,
     Carrot,
     FrogSpit,
-    Banana
+    Banana,
+    Axe
 }

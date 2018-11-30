@@ -4,7 +4,7 @@ import com.mazebert.simulation.units.Unit;
 import com.mazebert.simulation.units.creeps.Creep;
 import com.mazebert.simulation.util.ObjectPool;
 
-public strictfp class ProjectileGateway {
+public strictfp final class ProjectileGateway {
     private ObjectPool<Projectile> pool = new ObjectPool<>(Projectile::new, Projectile.class, 10);
 
     public int getSize() {
@@ -28,7 +28,7 @@ public strictfp class ProjectileGateway {
         return pool.getActive()[index];
     }
 
-    public void update(float dt) {
+    public void simulate(float dt) {
         Projectile[] projectiles = pool.getActive();
         int size = pool.getActiveSize();
         for (int i = 0; i < size; ++i) {
@@ -41,6 +41,7 @@ public strictfp class ProjectileGateway {
         }
     }
 
+    @SuppressWarnings("unused") // Used by client
     public void initNewProjectiles(ProjectileInitializer initializer) {
         Projectile[] projectiles = pool.getActive();
         int size = pool.getActiveSize();
