@@ -25,8 +25,12 @@ public strictfp class UnitGateway {
         }
     }
 
-    public List<Unit> getUnits() {
-        return units;
+    public Unit getUnit(int index) {
+        return units.get(index);
+    }
+
+    public int getAmount() {
+        return units.size();
     }
 
     public void removeUnit(Unit unit) {
@@ -113,6 +117,12 @@ public strictfp class UnitGateway {
         return null;
     }
 
+    public void forEach(Consumer<Unit> unitConsumer) {
+        for (Unit unit : units) {
+            unitConsumer.accept(unit);
+        }
+    }
+
     @SuppressWarnings("unchecked")
     public <U extends Unit> void forEachInRange(float x, float y, float range, Class<U> unitClass, Consumer<U> unitConsumer) {
         for (Unit unit : units) {
@@ -136,6 +146,15 @@ public strictfp class UnitGateway {
 
     public Wizard getWizard(int playerId) {
         return findUnit(Wizard.class, playerId);
+    }
+
+    public boolean hasUnit(Unit unit) {
+        for (Unit u : units) {
+            if (u == unit) {
+                return true;
+            }
+        }
+        return false;
     }
 
     public boolean hasUnits(Class<? extends Unit> unitClass) {

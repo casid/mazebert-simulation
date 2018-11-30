@@ -164,13 +164,12 @@ public strictfp class Simulation {
     }
 
     private void simulateUnits() {
-        unitGateway.startIteration();
-        for (Unit unit : unitGateway.getUnits()) {
-            unit.simulate(turnTimeInSeconds);
-        }
-        unitGateway.endIteration();
-
+        unitGateway.forEach(this::simulateUnit);
         simulationListeners.onUpdate.dispatch(turnTimeInSeconds);
+    }
+
+    private void simulateUnit(Unit unit) {
+        unit.simulate(turnTimeInSeconds);
     }
 
     private void simulateProjectiles() {
@@ -180,9 +179,11 @@ public strictfp class Simulation {
     private void hashGameState() {
         hash.reset();
         hash.add(gameGateway.getGame());
-        for (Unit unit : unitGateway.getUnits()) {
-            unit.hash(hash);
-        }
+        unitGateway.forEach(this::hashUnit);
+    }
+
+    private void hashUnit(Unit unit) {
+        unit.hash(hash);
     }
 
     private void simulatePlayerTurns(List<Turn> playerTurns) {

@@ -47,7 +47,7 @@ public class WaveSpawnerTest extends SimTest {
     @Test
     void noWaveExists() {
         whenGameIsStarted();
-        assertThat(unitGateway.getUnits()).hasSize(0);
+        assertThat(unitGateway.getAmount()).isEqualTo(0);
         assertThat(waveGateway.getCurrentRound()).isEqualTo(0);
     }
 
@@ -113,7 +113,7 @@ public class WaveSpawnerTest extends SimTest {
 
         whenGameIsStarted();
 
-        assertThat(unitGateway.getUnits()).hasSize(1);
+        assertThat(unitGateway.getAmount()).isEqualTo(1);
     }
 
     @Test
@@ -125,10 +125,10 @@ public class WaveSpawnerTest extends SimTest {
         waveGateway.addWave(wave);
 
         whenGameIsStarted();
-        assertThat(unitGateway.getUnits()).hasSize(1);
+        assertThat(unitGateway.getAmount()).isEqualTo(1);
 
         whenGameIsUpdated();
-        assertThat(unitGateway.getUnits()).hasSize(2);
+        assertThat(unitGateway.getAmount()).isEqualTo(2);
     }
 
     @Test
@@ -141,16 +141,16 @@ public class WaveSpawnerTest extends SimTest {
         randomPluginTrainer.givenFloatAbs(0.99f); // will use maxSecondsToNextCreep
 
         whenGameIsStarted();
-        assertThat(unitGateway.getUnits()).hasSize(1);
+        assertThat(unitGateway.getAmount()).isEqualTo(1);
 
         whenGameIsUpdated();
-        assertThat(unitGateway.getUnits()).hasSize(1);
+        assertThat(unitGateway.getAmount()).isEqualTo(1);
 
         whenGameIsUpdated();
-        assertThat(unitGateway.getUnits()).hasSize(1);
+        assertThat(unitGateway.getAmount()).isEqualTo(1);
 
         whenGameIsUpdated();
-        assertThat(unitGateway.getUnits()).hasSize(2);
+        assertThat(unitGateway.getAmount()).isEqualTo(2);
     }
 
     @Test
@@ -160,16 +160,16 @@ public class WaveSpawnerTest extends SimTest {
         givenBossWave();
 
         whenGameIsStarted();
-        assertThat(unitGateway.getUnits()).hasSize(1);
+        assertThat(unitGateway.getAmount()).isEqualTo(1);
         Creep creep = getCreep(0);
         creep.setHealth(0.0f);
-        assertThat(unitGateway.getUnits()).hasSize(1);
+        assertThat(unitGateway.getAmount()).isEqualTo(1);
         creep.simulate(1.0f);
-        assertThat(unitGateway.getUnits()).hasSize(1);
+        assertThat(unitGateway.getAmount()).isEqualTo(1);
         creep.simulate(1.0f);
 
         assertThat(creep.getState()).isEqualTo(CreepState.Dead);
-        assertThat(unitGateway.getUnits()).isEmpty();
+        assertThat(unitGateway.getAmount()).isEqualTo(0);
         assertThat(removedUnit.get()).isSameAs(creep);
     }
 
@@ -196,7 +196,7 @@ public class WaveSpawnerTest extends SimTest {
         whenGameIsUpdated();
 
         assertThat(waveFinished).isTrue();
-        assertThat(unitGateway.getUnits()).isNotEmpty();
+        assertThat(unitGateway.getAmount()).isGreaterThan(0);
     }
 
     @Test
@@ -210,7 +210,7 @@ public class WaveSpawnerTest extends SimTest {
         whenGameIsUpdated(Balancing.WAVE_COUNTDOWN_SECONDS);
         whenGameIsUpdated();
 
-        assertThat(unitGateway.getUnits()).hasSize(1);
+        assertThat(unitGateway.getAmount()).isEqualTo(1);
     }
 
     @Test
@@ -222,7 +222,7 @@ public class WaveSpawnerTest extends SimTest {
 
         creep.simulate(1.0f);
 
-        assertThat(unitGateway.getUnits()).isEmpty();
+        assertThat(unitGateway.getAmount()).isEqualTo(0);
     }
 
     @Test
@@ -236,7 +236,7 @@ public class WaveSpawnerTest extends SimTest {
         whenGameIsUpdated(Balancing.WAVE_COUNTDOWN_SECONDS);
         whenGameIsUpdated();
 
-        assertThat(unitGateway.getUnits()).isNotEmpty();
+        assertThat(unitGateway.getAmount()).isGreaterThan(0);
     }
 
     @Test
@@ -424,7 +424,7 @@ public class WaveSpawnerTest extends SimTest {
     }
 
     private Creep getCreep(int index) {
-        return (Creep) unitGateway.getUnits().get(index);
+        return (Creep) unitGateway.getUnit(index);
     }
 
     private void givenBossWave() {
@@ -461,6 +461,6 @@ public class WaveSpawnerTest extends SimTest {
     private void whenCreepIsKilled(Creep creep) {
         creep.setHealth(0.0f);
         creep.simulate(Creep.DEATH_TIME);
-        assertThat(unitGateway.getUnits()).doesNotContain(creep);
+        assertThat(unitGateway.hasUnit(creep)).isFalse();
     }
 }
