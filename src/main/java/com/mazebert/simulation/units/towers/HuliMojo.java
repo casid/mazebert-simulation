@@ -5,7 +5,7 @@ import com.mazebert.simulation.listeners.OnRangeChangedListener;
 import com.mazebert.simulation.units.Gender;
 import com.mazebert.simulation.units.abilities.AuraAbility;
 
-public class HuliMojo extends AuraAbility<Tower, Tower> implements OnLevelChangedListener, OnRangeChangedListener {
+public strictfp class HuliMojo extends AuraAbility<Tower, Tower> implements OnLevelChangedListener, OnRangeChangedListener {
 
     private static final float CRIT_CHANCE_PER_TOWER = 0.04f;
     private static final float CRIT_CHANCE_PER_LEVEL = 0.0003f;

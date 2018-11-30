@@ -28,17 +28,6 @@ public strictfp class WolfSystem implements OnUnitAddedListener, OnLevelChangedL
         this.simulationListeners = simulationListeners;
     }
 
-    public void init() {
-        this.simulationListeners.onUnitAdded.add(this);
-        this.simulationListeners.onUnitRemoved.add(this);
-    }
-
-    // TODO actually call this from simulation!
-    public void dispose() {
-        simulationListeners.onUnitAdded.remove(this);
-        this.simulationListeners.onUnitRemoved.remove(this);
-    }
-
     @Override
     public void onUnitAdded(Unit unit) {
         if (unit instanceof Wolf) {

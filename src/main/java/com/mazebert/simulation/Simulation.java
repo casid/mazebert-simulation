@@ -41,7 +41,6 @@ public strictfp class Simulation {
 
     public Simulation() {
         commandExecutor.init();
-        Sim.context().wolfSystem.init();
     }
 
     public void start() {

@@ -2,6 +2,8 @@ package com.mazebert.simulation.units;
 
 import com.mazebert.simulation.hash.Hash;
 import com.mazebert.simulation.hash.Hashable;
+import com.mazebert.simulation.listeners.OnUnitAdded;
+import com.mazebert.simulation.listeners.OnUnitRemoved;
 import com.mazebert.simulation.listeners.OnUpdate;
 import com.mazebert.simulation.units.abilities.Ability;
 import com.mazebert.simulation.units.abilities.StackableAbility;
@@ -16,6 +18,8 @@ public abstract strictfp class Unit implements Hashable {
     // This works since the simulation runs single threaded
     private static final List<Ability> ABILITIES_TO_DISPOSE = new ArrayList<>();
 
+    public final OnUnitAdded onUnitAdded = new OnUnitAdded(); // Only dispatched when this unit is added to the game
+    public final OnUnitRemoved onUnitRemoved = new OnUnitRemoved(); // Only dispatched when this unit is removed from the game
     public final OnUpdate onUpdate = new OnUpdate();
 
     // For game display usage
