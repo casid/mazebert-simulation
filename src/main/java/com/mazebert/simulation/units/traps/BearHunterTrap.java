@@ -8,7 +8,7 @@ import com.mazebert.simulation.systems.DamageSystem.DamageInfo;
 import com.mazebert.simulation.units.creeps.Creep;
 import com.mazebert.simulation.units.towers.Tower;
 
-public class BearHunterTrap extends Trap {
+public strictfp class BearHunterTrap extends Trap {
     private final DamageSystem damageSystem = Sim.context().damageSystem;
     private final UnitGateway unitGateway = Sim.context().unitGateway;
 

@@ -2,7 +2,7 @@ package com.mazebert.simulation.units.traps;
 
 import com.mazebert.simulation.units.Unit;
 
-public abstract class Trap extends Unit {
+public abstract strictfp class Trap extends Unit {
     private int stackCount;
 
     public int getStackCount() {
