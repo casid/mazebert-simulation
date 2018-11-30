@@ -6,7 +6,11 @@ import com.mazebert.simulation.units.towers.Tower;
 import com.mazebert.simulation.units.towers.TowerType;
 import com.mazebert.simulation.units.wizards.Wizard;
 
+import java.util.Arrays;
+
 public strictfp class DamageSystem {
+    private static final DamageInfo DAMAGE_INFO = new DamageInfo();
+
     private final RandomPlugin randomPlugin;
 
     public DamageSystem(RandomPlugin randomPlugin) {
@@ -23,6 +27,13 @@ public strictfp class DamageSystem {
             return;
         }
 
+        rollDamage(tower);
+        updateBestHit(tower, DAMAGE_INFO.damage);
+        dealDamage(origin, tower, creep, DAMAGE_INFO.damage, DAMAGE_INFO.multicrits);
+    }
+
+    // Caution: you get a shared object, so only read the info you need. do not pass it around!
+    public DamageInfo rollDamage(Tower tower) {
         double baseDamage = tower.rollBaseDamage(randomPlugin);
         baseDamage += tower.getAddedAbsoluteBaseDamage();
         baseDamage = baseDamage * (1.0 + tower.getAddedRelativeBaseDamage());
@@ -42,9 +53,10 @@ public strictfp class DamageSystem {
             }
         }
 
-        updateBestHit(tower, damage);
+        DAMAGE_INFO.damage = damage;
+        DAMAGE_INFO.multicrits = rolledMulticrits;
 
-        dealDamage(origin, tower, creep, damage, rolledMulticrits);
+        return DAMAGE_INFO;
     }
 
     public void dealDamage(Object origin, Tower tower, Creep creep, double damage, int multicrits) {
@@ -76,6 +88,44 @@ public strictfp class DamageSystem {
         Wizard wizard = tower.getWizard();
         if (wizard != null) {
             wizard.totalDamage += damage;
+        }
+    }
+
+    public static final class DamageInfo {
+        public double damage;
+        public int multicrits;
+    }
+
+    public static final class DamageHistory {
+        private static final int INITIAL_CAPACITY = 10;
+        private static final int LOAD_FACTOR = 2;
+
+        private double[] damage;
+        private int[] multicrits;
+        private int size;
+
+        public DamageHistory() {
+            damage = new double[INITIAL_CAPACITY];
+            multicrits = new int[INITIAL_CAPACITY];
+        }
+
+        public void add(DamageInfo damageInfo) {
+            if (size + 1 > damage.length) {
+                damage = Arrays.copyOf(damage, size * LOAD_FACTOR);
+                multicrits = Arrays.copyOf(multicrits, size * LOAD_FACTOR);
+            }
+            damage[size++] = damageInfo.damage;
+            multicrits[size++] = damageInfo.multicrits;
+        }
+
+        public int size() {
+            return size;
+        }
+
+        public DamageInfo get(int index) {
+            DAMAGE_INFO.damage = damage[index];
+            DAMAGE_INFO.multicrits = multicrits[index];
+            return DAMAGE_INFO;
         }
     }
 }

@@ -1,5 +1,6 @@
 package com.mazebert.simulation.units.towers;
 
+import com.mazebert.java8.Predicate;
 import com.mazebert.simulation.Sim;
 import com.mazebert.simulation.SimulationListeners;
 import com.mazebert.simulation.gateways.GameGateway;
@@ -14,10 +15,7 @@ import com.mazebert.simulation.units.Unit;
 import com.mazebert.simulation.units.abilities.CooldownAbility;
 import com.mazebert.simulation.units.traps.BearHunterTrap;
 
-import java.util.ArrayList;
-import java.util.List;
-
-public strictfp class BearHunterPlaceTrap extends CooldownAbility<Tower> implements OnUnitAddedListener, OnUnitRemovedListener, OnRangeChangedListener {
+public strictfp class BearHunterPlaceTrap extends CooldownAbility<Tower> implements OnUnitAddedListener, OnUnitRemovedListener, OnRangeChangedListener, Predicate<BearHunterTrap> {
     private final UnitGateway unitGateway = Sim.context().unitGateway;
     private final GameGateway gameGateway = Sim.context().gameGateway;
     private final RandomPlugin randomPlugin = Sim.context().randomPlugin;
@@ -25,7 +23,6 @@ public strictfp class BearHunterPlaceTrap extends CooldownAbility<Tower> impleme
 
     private int[] possibleGridIndices;
     private int possibleGridIndicesSize;
-    private List<BearHunterTrap> traps = new ArrayList<>();
 
     @Override
     protected void initialize(Tower unit) {
@@ -72,10 +69,10 @@ public strictfp class BearHunterPlaceTrap extends CooldownAbility<Tower> impleme
 
             BearHunterTrap trap = getTrap(x, y);
             if (trap == null) {
-                trap = new BearHunterTrap();
+                trap = new BearHunterTrap(getUnit());
+                trap.setWizard(getUnit().getWizard());
                 trap.setX(x);
                 trap.setY(y);
-                traps.add(trap);
                 unitGateway.addUnit(trap);
             }
             trap.addStack();
@@ -88,13 +85,13 @@ public strictfp class BearHunterPlaceTrap extends CooldownAbility<Tower> impleme
         return true;
     }
 
+    @Override
+    public boolean test(BearHunterTrap bearHunterTrap) {
+        return bearHunterTrap.getOrigin() == getUnit();
+    }
+
     private BearHunterTrap getTrap(int x, int y) {
-        for (BearHunterTrap trap : traps) {
-            if (trap.getX() == x && trap.getY() == y) {
-                return trap;
-            }
-        }
-        return null;
+        return unitGateway.findUnit(BearHunterTrap.class, getUnit().getPlayerId(), x, y, this);
     }
 
     private void calculatePossibleGridIndices() {

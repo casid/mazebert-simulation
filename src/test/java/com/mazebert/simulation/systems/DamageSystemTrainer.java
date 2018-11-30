@@ -12,4 +12,12 @@ public class DamageSystemTrainer extends DamageSystem {
     public void dealDamage(Object origin, Tower tower, Creep creep) {
         dealDamage(origin, tower, creep, tower.getMinBaseDamage(), 0); // constant damage for better testability of other stuff
     }
+
+    @Override
+    public DamageInfo rollDamage(Tower tower) {
+        DamageInfo damageInfo = new DamageInfo();
+        damageInfo.damage = 10; // constant damage for better testability of other stuff
+        damageInfo.multicrits = 0;
+        return damageInfo;
+    }
 }

@@ -1,6 +1,7 @@
 package com.mazebert.simulation.gateways;
 
 import com.mazebert.java8.Consumer;
+import com.mazebert.java8.Predicate;
 import com.mazebert.simulation.Sim;
 import com.mazebert.simulation.units.Unit;
 import com.mazebert.simulation.units.items.Item;
@@ -96,6 +97,16 @@ public strictfp class UnitGateway {
     public <U extends Unit> U findUnit(Class<U> unitClass, int playerId, int x, int y) {
         for (Unit unit : units) {
             if (unitClass.isAssignableFrom(unit.getClass()) && unit.getPlayerId() == playerId && unit.getX() == x && unit.getY() == y) {
+                return (U) unit;
+            }
+        }
+        return null;
+    }
+
+    @SuppressWarnings("unchecked")
+    public <U extends Unit> U findUnit(Class<U> unitClass, int playerId, int x, int y, Predicate<U> predicate) {
+        for (Unit unit : units) {
+            if (unitClass.isAssignableFrom(unit.getClass()) && unit.getPlayerId() == playerId && unit.getX() == x && unit.getY() == y && predicate.test((U)unit)) {
                 return (U) unit;
             }
         }
