@@ -18,8 +18,9 @@ public strictfp class Viking extends Tower {
         setGender(Gender.Male);
         setElement(Element.Nature);
 
-        addAbility(new VikingMultishot());
         addAbility(new ProjectileDamageAbility(ProjectileViewType.Axe, 6));
+        addAbility(new VikingMultishot());
+        addAbility(new VikingMead());
     }
 
     @Override

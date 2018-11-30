@@ -315,7 +315,7 @@ public strictfp abstract class Tower extends Unit implements CooldownUnit, Card,
         if (chance > Balancing.MAX_TRIGGER_CHANCE) {
             chance = Balancing.MAX_TRIGGER_CHANCE;
         }
-        return Sim.context().randomPlugin.getFloatAbs() <= chance;
+        return Sim.context().randomPlugin.getFloatAbs() < chance;
     }
 
     public boolean isNegativeAbilityTriggered(float chance) {

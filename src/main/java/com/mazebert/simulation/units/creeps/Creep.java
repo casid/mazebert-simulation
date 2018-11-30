@@ -32,7 +32,7 @@ public strictfp class Creep extends Unit {
     private int maxDrops;
     private int minDrops;
     private int maxItemLevel;
-    private float dropChance;
+    private float dropChance = 1.0f;
     private int armor;
     private float experience;
     private float experienceModifier = 1.0f;

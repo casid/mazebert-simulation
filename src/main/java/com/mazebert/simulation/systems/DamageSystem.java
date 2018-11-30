@@ -59,6 +59,10 @@ public strictfp class DamageSystem {
     }
 
     public void dealDamage(Object origin, Tower tower, Creep creep, double damage, int multicrits) {
+        if (creep.isDead()) {
+            return;
+        }
+
         updateBestHit(tower, damage);
         updateTotalDamage(tower, damage);
 

@@ -2,36 +2,86 @@ package com.mazebert.simulation.units.towers;
 
 import com.mazebert.simulation.SimTest;
 import com.mazebert.simulation.gateways.UnitGateway;
+import com.mazebert.simulation.plugins.random.RandomPluginTrainer;
 import com.mazebert.simulation.projectiles.ProjectileGateway;
 import com.mazebert.simulation.systems.DamageSystemTrainer;
+import com.mazebert.simulation.systems.LootSystemTrainer;
 import com.mazebert.simulation.units.creeps.Creep;
+import com.mazebert.simulation.units.potions.PotionType;
+import com.mazebert.simulation.units.wizards.Wizard;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 class VikingTest extends SimTest {
+    RandomPluginTrainer randomPluginTrainer = new RandomPluginTrainer();
+    DamageSystemTrainer damageSystemTrainer = new DamageSystemTrainer();
+
+    Wizard wizard;
     Viking viking;
+    Creep creep;
 
     @BeforeEach
     void setUp() {
+        randomPlugin = randomPluginTrainer;
         unitGateway = new UnitGateway();
         projectileGateway = new ProjectileGateway();
-        damageSystem = new DamageSystemTrainer();
+        damageSystem = damageSystemTrainer;
+        lootSystem = new LootSystemTrainer();
+
+        wizard = new Wizard();
+        unitGateway.addUnit(wizard);
 
         viking = new Viking();
+        viking.setWizard(wizard);
         unitGateway.addUnit(viking);
+
+        creep = new Creep();
+        unitGateway.addUnit(creep);
     }
 
     @Test
     void attack_canHitSameCreepWithTwoAxesAtOnce() {
-        Creep creep = new Creep();
-        unitGateway.addUnit(creep);
+        whenVikingAttacks();
 
+        assertThat(creep.getHealth()).isEqualTo(80);
+    }
+
+    @Test
+    void kill_canDropMead_drop() {
+        randomPluginTrainer.givenFloatAbs(0.0f);
+        damageSystemTrainer.givenConstantDamage(1000);
+
+        whenVikingAttacks();
+
+        assertThat(wizard.potionStash.get(PotionType.Mead).getAmount()).isEqualTo(1);
+    }
+
+    @Test
+    void kill_canDropMead_noDrop() {
+        randomPluginTrainer.givenFloatAbs(0.9f);
+        damageSystemTrainer.givenConstantDamage(1000);
+
+        whenVikingAttacks();
+
+        assertThat(wizard.potionStash.get(PotionType.Mead)).isNull();
+    }
+
+    @Test
+    void kill_canDropMead_badDropChanceOfCreep_noDrop() {
+        randomPluginTrainer.givenFloatAbs(0.0f);
+        damageSystemTrainer.givenConstantDamage(1000);
+        creep.setDropChance(0);
+
+        whenVikingAttacks();
+
+        assertThat(wizard.potionStash.get(PotionType.Mead)).isNull();
+    }
+
+    private void whenVikingAttacks() {
         viking.simulate(3.0f); // attack
         projectileGateway.simulate(1.0f); // projectile spawning
         projectileGateway.simulate(1.0f); // projectile hitting
-
-        assertThat(creep.getHealth()).isEqualTo(80);
     }
 }
