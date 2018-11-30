@@ -41,6 +41,6 @@ public strictfp class BearHunterTrap extends Trap {
 
     @Override
     public String getModelId() {
-        return null;
+        return "trap";
     }
 }
