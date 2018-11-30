@@ -6,6 +6,7 @@ import com.mazebert.simulation.Rarity;
 import com.mazebert.simulation.projectiles.ProjectileViewType;
 import com.mazebert.simulation.units.Gender;
 import com.mazebert.simulation.units.abilities.ProjectileDamageAbility;
+import com.mazebert.simulation.units.potions.MeadAbility;
 
 public strictfp class Viking extends Tower {
 
@@ -71,6 +72,15 @@ public strictfp class Viking extends Tower {
     @Override
     public void populateCustomTowerBonus(CustomTowerBonus bonus) {
         bonus.title = "Mead:";
-        bonus.value = "" + getAbility(HuliEat.class).getBananasEaten(); // TODO
+        bonus.value = "" + getConsumedMeadCount();
+    }
+
+    private int getConsumedMeadCount() {
+        MeadAbility meadPotionAbility = getAbility(MeadAbility.class);
+        if (meadPotionAbility == null) {
+           return 0;
+        } else {
+            return meadPotionAbility.getStackCount();
+        }
     }
 }

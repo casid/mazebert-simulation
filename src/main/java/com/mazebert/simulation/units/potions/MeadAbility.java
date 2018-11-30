@@ -2,6 +2,7 @@ package com.mazebert.simulation.units.potions;
 
 import com.mazebert.simulation.units.abilities.StackableAbility;
 import com.mazebert.simulation.units.towers.Tower;
+import com.mazebert.simulation.units.towers.Viking;
 
 public strictfp class MeadAbility extends StackableAbility<Tower> {
     private static final float damageBonus = 0.14f;
@@ -9,7 +10,7 @@ public strictfp class MeadAbility extends StackableAbility<Tower> {
     private static final float critDamageBonus = 0.2f;
     private static final float attackMalus = 0.01f;
 
-    private boolean effectAdded;
+    private int addedStacks;
 
     @Override
     protected void initialize(Tower unit) {
@@ -31,20 +32,19 @@ public strictfp class MeadAbility extends StackableAbility<Tower> {
 
     private void addEffect() {
         if (isVikingTower()) {
-            applyEffect(+1);
-            effectAdded = true;
+            applyEffect(getStackCount());
+            addedStacks = getStackCount();
         }
     }
 
     private void removeEffect() {
-        if (effectAdded) {
-            applyEffect(-1);
-            effectAdded = false;
+        if (addedStacks > 0) {
+            applyEffect(-addedStacks);
+            addedStacks = 0;
         }
     }
 
-    private void applyEffect(int factor) {
-        int stacks = factor * getStackCount();
+    private void applyEffect(int stacks) {
         getUnit().addAddedRelativeBaseDamage(stacks * damageBonus);
         getUnit().addCritChance(stacks * critChanceBonus);
         getUnit().addCritDamage(stacks * critDamageBonus);
@@ -52,8 +52,7 @@ public strictfp class MeadAbility extends StackableAbility<Tower> {
     }
 
     private boolean isVikingTower() {
-        // TODO implement with Viking
-        return false;
+        return getUnit() instanceof Viking;
     }
 
     @Override
