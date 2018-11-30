@@ -28,7 +28,6 @@ public strictfp class DamageSystem {
         }
 
         rollDamage(tower);
-        updateBestHit(tower, DAMAGE_INFO.damage);
         dealDamage(origin, tower, creep, DAMAGE_INFO.damage, DAMAGE_INFO.multicrits);
     }
 
@@ -60,6 +59,7 @@ public strictfp class DamageSystem {
     }
 
     public void dealDamage(Object origin, Tower tower, Creep creep, double damage, int multicrits) {
+        updateBestHit(tower, damage);
         updateTotalDamage(tower, damage);
 
         creep.setHealth(creep.getHealth() - damage);
