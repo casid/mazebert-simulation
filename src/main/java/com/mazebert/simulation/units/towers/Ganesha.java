@@ -42,7 +42,7 @@ public strictfp class Ganesha extends Tower {
 
     @Override
     public Rarity getRarity() {
-        return Rarity.Rare;
+        return Rarity.Unique;
     }
 
     @Override
