@@ -31,6 +31,14 @@ public strictfp class MapGrid {
         return height;
     }
 
+    public int getX(int index) {
+       return index % width;
+    }
+
+    public int getY(int index) {
+        return index / width;
+    }
+
     public void setTile(int x, int y, Tile tile) {
         if (x >= 0 && y >= 0 && x < width && y < height) {
             tiles[x + y * width] = tile;
@@ -47,6 +55,14 @@ public strictfp class MapGrid {
 
     public Tile getTile(int x, int y) {
         return x >= 0 && y >= 0 && x < width && y < height ? tiles[x + y * width] : null;
+    }
+
+    public Tile getTile(int index) {
+        return index >= 0 && index < tiles.length ? tiles[index] : null;
+    }
+
+    public int getIndex(int x, int y) {
+        return x + y * width;
     }
 
     public Path findPath(int srcX, int srcY, int dstX, int dstY) {

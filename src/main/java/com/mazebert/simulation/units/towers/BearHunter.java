@@ -1,0 +1,67 @@
+package com.mazebert.simulation.units.towers;
+
+import com.mazebert.simulation.AttackType;
+import com.mazebert.simulation.Element;
+import com.mazebert.simulation.Rarity;
+import com.mazebert.simulation.units.Gender;
+
+public strictfp class BearHunter extends Tower {
+
+    public BearHunter() {
+        setBaseCooldown(5.0f);
+        setBaseRange(1.0f);
+        setAttackType(AttackType.Ber);
+        setStrength(0.45f);
+        setDamageSpread(0.1f);
+        setDamageAgainstAir(0.3f);
+        setGender(Gender.Male);
+        setElement(Element.Nature);
+
+        addAbility(new BearHunterPlaceTrap());
+    }
+
+    @Override
+    protected float getGoldCostFactor() {
+        return 0.98f;
+    }
+
+    @Override
+    public String getName() {
+        return "Bear Hunter";
+    }
+
+    @Override
+    public String getDescription() {
+        return "This sneaky old trapper knows how to survive in the wild.";
+    }
+
+    @Override
+    public String getAuthor() {
+        return "Daniel Gerhardt";
+    }
+
+    @Override
+    public Rarity getRarity() {
+        return Rarity.Rare;
+    }
+
+    @Override
+    public int getItemLevel() {
+        return 45;
+    }
+
+    @Override
+    public String getSinceVersion() {
+        return "0.2";
+    }
+
+    @Override
+    public String getModelId() {
+        return "bearhunter";
+    }
+
+    @Override
+    public int getImageOffsetOnCardY() {
+        return -10;
+    }
+}

@@ -37,6 +37,7 @@ public strictfp abstract class Tower extends Unit implements CooldownUnit, Card,
     private float critChance = 0.05f;
     private float critDamage = 0.25f;
     private int multicrit = 1;
+    private float damageAgainstAir = 1;
     private float chanceToMiss;
     private float luck = 1.0f; // factor 1 is regular luck of every tower
     private float itemChance = 1.0f; // 1.0 is 100% item chance (normal, not good not bad)
@@ -74,6 +75,7 @@ public strictfp abstract class Tower extends Unit implements CooldownUnit, Card,
         hash.add(critChance);
         hash.add(critDamage);
         hash.add(multicrit);
+        hash.add(damageAgainstAir);
         hash.add(chanceToMiss);
         hash.add(luck);
         hash.add(itemChance);
@@ -534,5 +536,19 @@ public strictfp abstract class Tower extends Unit implements CooldownUnit, Card,
 
     public float getRange() {
         return StrictMath.max(1, baseRange + addedRange);
+    }
+
+    public int getTilesInRange() {
+        int range = (int)getRange();
+        range = 2 * range + 1;
+        return range * range;
+    }
+
+    public float getDamageAgainstAir() {
+        return damageAgainstAir;
+    }
+
+    public void setDamageAgainstAir(float damageAgainstAir) {
+        this.damageAgainstAir = damageAgainstAir;
     }
 }
