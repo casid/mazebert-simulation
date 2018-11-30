@@ -1,5 +1,6 @@
 package com.mazebert.simulation.units;
 
+import com.mazebert.java8.Consumer;
 import com.mazebert.simulation.hash.Hash;
 import com.mazebert.simulation.hash.Hashable;
 import com.mazebert.simulation.listeners.OnUnitAdded;
@@ -9,14 +10,9 @@ import com.mazebert.simulation.units.abilities.Ability;
 import com.mazebert.simulation.units.abilities.StackableAbility;
 import com.mazebert.simulation.units.abilities.StackableByOriginAbility;
 import com.mazebert.simulation.units.wizards.Wizard;
-
-import java.util.ArrayList;
-import java.util.List;
+import com.mazebert.simulation.util.SafeIterationArray;
 
 public abstract strictfp class Unit implements Hashable {
-
-    // This works since the simulation runs single threaded
-    private static final List<Ability> ABILITIES_TO_DISPOSE = new ArrayList<>();
 
     public final OnUnitAdded onUnitAdded = new OnUnitAdded(); // Only dispatched when this unit is added to the game
     public final OnUnitRemoved onUnitRemoved = new OnUnitRemoved(); // Only dispatched when this unit is removed from the game
@@ -33,7 +29,7 @@ public abstract strictfp class Unit implements Hashable {
     private float x;
     private float y;
 
-    private final List<Ability> abilities = new ArrayList<>();
+    private final SafeIterationArray<Ability> abilities = new SafeIterationArray<>();
 
     public void simulate(float dt) {
         onUpdate.dispatch(dt);
@@ -87,28 +83,20 @@ public abstract strictfp class Unit implements Hashable {
 
     @SuppressWarnings("unchecked")
     public <T extends StackableAbility> T addAbilityStack(Class<T> abilityClass) {
-        for (Ability ability : abilities) {
-            if (ability.getClass() == abilityClass) {
-                T result = (T) ability;
-                result.addStack();
-                return result;
-            }
+        T ability = (T)abilities.find(a -> a.getClass() == abilityClass);
+
+        if (ability == null) {
+            ability = addAbilityByClass(abilityClass);
+        } else {
+            ability.addStack();
         }
-        return addAbilityByClass(abilityClass);
+
+        return ability;
     }
 
     @SuppressWarnings("unchecked")
     public <T extends StackableByOriginAbility> T addAbilityStack(Object origin, Class<T> abilityClass) {
-        T result = null;
-        for (Ability ability : abilities) {
-            if (ability.getClass() == abilityClass) {
-                StackableByOriginAbility stackableByOriginAbility = (StackableByOriginAbility) ability;
-                if (stackableByOriginAbility.getOrigin() == origin) {
-                    result = (T) ability;
-                    break;
-                }
-            }
-        }
+        T result = (T)abilities.find(a -> a.getClass() == abilityClass && a.getOrigin() == origin);
 
         if (result == null) {
             result = addAbilityByClass(abilityClass);
@@ -130,17 +118,16 @@ public abstract strictfp class Unit implements Hashable {
 
     @SuppressWarnings({"unchecked", "UnusedReturnValue"})
     public <T extends StackableAbility> T removeAbilityStack(Class<T> abilityClass) {
-        for (Ability ability : abilities) {
-            if (ability.getClass() == abilityClass) {
-                T result = (T) ability;
-                result.removeStack();
-                if (result.getStackCount() <= 0) {
-                    removeAbilityInternal(ability);
-                }
-                return result;
+        T ability = (T)abilities.find(a -> a.getClass() == abilityClass);
+
+        if (ability != null) {
+            ability.removeStack();
+            if (ability.getStackCount() <= 0) {
+                removeAbilityInternal(ability);
             }
         }
-        return null;
+
+        return ability;
     }
 
     public void removeAbility(Ability ability) {
@@ -162,28 +149,22 @@ public abstract strictfp class Unit implements Hashable {
         abilities.remove(ability);
     }
 
-    public List<Ability> getAbilities() {
-        return abilities;
+    public void forEachAbility(Consumer<Ability> consumer) {
+        abilities.forEach(consumer);
     }
 
     @SuppressWarnings("unchecked")
     public <A extends Ability> A getAbility(Class<A> abilityClass) {
-        for (Ability ability : abilities) {
-            if (abilityClass.isAssignableFrom(ability.getClass())) {
-                return (A) ability;
-            }
-        }
-        return null;
+        return (A)abilities.find(a -> abilityClass.isAssignableFrom(a.getClass()));
     }
 
     @SuppressWarnings("unchecked")
     public <A extends Ability> A getAbility(Class<A> abilityClass, Object origin) {
-        for (Ability ability : abilities) {
-            if (abilityClass.isAssignableFrom(ability.getClass()) && ability.getOrigin() == origin) {
-                return (A) ability;
-            }
-        }
-        return null;
+        return (A)abilities.find(a -> abilityClass.isAssignableFrom(a.getClass()) && a.getOrigin() == origin);
+    }
+
+    public int getAbilityCount() {
+        return abilities.size();
     }
 
     public final boolean isInRange(Unit other, float range) {
@@ -204,16 +185,9 @@ public abstract strictfp class Unit implements Hashable {
     public abstract String getModelId();
 
     public void dispose() {
-        ABILITIES_TO_DISPOSE.clear();
-        ABILITIES_TO_DISPOSE.addAll(abilities);
-
-        for (Ability ability : ABILITIES_TO_DISPOSE) {
-            if (ability.getUnit() != null) {
-                ability.dispose();
-            }
-        }
-
-        abilities.clear();
-        ABILITIES_TO_DISPOSE.clear();
+        abilities.forEachIndexed((index, ability) -> {
+            ability.dispose();
+            abilities.remove(index);
+        });
     }
 }

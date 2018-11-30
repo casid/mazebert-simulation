@@ -42,7 +42,7 @@ public strictfp class UnitGateway {
 
     @SuppressWarnings("unchecked")
     public <U extends Unit> void removeAll(Class<U> unitClass, Predicate<U> predicate) {
-        units.forEach((index, unit) -> {
+        units.forEachIndexed((index, unit) -> {
             if (unitClass.isAssignableFrom(unit.getClass()) && predicate.test((U) unit)) {
                 units.remove(index);
             }

@@ -67,7 +67,7 @@ public strictfp class SafeIterationArray<T> {
     }
 
     @SuppressWarnings("unchecked")
-    public void forEach(IndexConsumer<T> consumer) {
+    public void forEachIndexed(IndexConsumer<T> consumer) {
         pushIteration();
         try {
             for (int i = 0; i < size; ++i) {

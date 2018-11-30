@@ -1,7 +1,6 @@
 package com.mazebert.simulation.usecases;
 
 import com.mazebert.simulation.Sim;
-import com.mazebert.simulation.SimulationListeners;
 import com.mazebert.simulation.commands.BuildTowerCommand;
 import com.mazebert.simulation.gateways.UnitGateway;
 import com.mazebert.simulation.units.abilities.Ability;
@@ -29,11 +28,11 @@ public strictfp class BuildTower extends Usecase<BuildTowerCommand> {
             Tower oldTower = unitGateway.findUnit(Tower.class, command.playerId, command.x, command.y);
             if (oldTower != null) {
                 List<Ability> permanentAbilities = new ArrayList<>();
-                for (Ability ability : oldTower.getAbilities()) {
+                oldTower.forEachAbility(ability -> {
                     if (ability.isPermanent()) {
                         permanentAbilities.add(ability);
                     }
-                }
+                });
 
                 for (Ability permanentAbility : permanentAbilities) {
                     do {

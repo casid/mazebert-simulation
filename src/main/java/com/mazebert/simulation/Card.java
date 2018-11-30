@@ -1,8 +1,7 @@
 package com.mazebert.simulation;
 
+import com.mazebert.java8.Consumer;
 import com.mazebert.simulation.units.abilities.Ability;
-
-import java.util.List;
 
 public interface Card {
     String getName();
@@ -35,5 +34,5 @@ public interface Card {
 
     String getSinceVersion();
 
-    List<Ability> getAbilities();
+    void forEachAbility(Consumer<Ability> consumer);
 }

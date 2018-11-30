@@ -65,7 +65,7 @@ public class StunAbilityTest extends SimTest {
         assertThat(creep.getState()).isEqualTo(CreepState.Hit);
         creep.simulate(stunAbility.getDuration());
         assertThat(creep.getState()).isEqualTo(CreepState.Running);
-        assertThat(creep.getAbilities()).isEmpty();
+        assertThat(creep.getAbilityCount()).isEqualTo(0);
     }
 
     @Test

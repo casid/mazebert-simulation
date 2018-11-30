@@ -7,7 +7,6 @@ import com.mazebert.simulation.plugins.random.RandomPlugin;
 import com.mazebert.simulation.units.CooldownUnit;
 import com.mazebert.simulation.units.Gender;
 import com.mazebert.simulation.units.Unit;
-import com.mazebert.simulation.units.abilities.Ability;
 import com.mazebert.simulation.units.creeps.Creep;
 import com.mazebert.simulation.units.items.Item;
 
@@ -366,17 +365,13 @@ public strictfp abstract class Tower extends Unit implements CooldownUnit, Card,
     public void setItem(int index, Item item) {
         Item previousItem = items[index];
         if (previousItem != null) {
-            for (Ability ability : previousItem.getAbilities()) {
-                removeAbility(ability);
-            }
+            previousItem.forEachAbility(this::removeAbility);
         }
 
         items[index] = item;
 
         if (item != null) {
-            for (Ability ability : item.getAbilities()) {
-                addAbility(ability);
-            }
+            item.forEachAbility(this::addAbility);
         }
 
         onItemEquipped.dispatch(this, index, previousItem, item);

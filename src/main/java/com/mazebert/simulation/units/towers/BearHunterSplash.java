@@ -2,7 +2,7 @@ package com.mazebert.simulation.units.towers;
 
 import com.mazebert.simulation.units.abilities.SplashAbility;
 
-public class BearHunterSplash extends SplashAbility {
+public strictfp class BearHunterSplash extends SplashAbility {
     public BearHunterSplash() {
         super(2, 0.4f);
     }
