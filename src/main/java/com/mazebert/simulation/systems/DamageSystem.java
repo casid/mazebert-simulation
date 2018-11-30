@@ -114,8 +114,9 @@ public strictfp class DamageSystem {
                 damage = Arrays.copyOf(damage, size * LOAD_FACTOR);
                 multicrits = Arrays.copyOf(multicrits, size * LOAD_FACTOR);
             }
-            damage[size++] = damageInfo.damage;
-            multicrits[size++] = damageInfo.multicrits;
+            damage[size] = damageInfo.damage;
+            multicrits[size] = damageInfo.multicrits;
+            size++;
         }
 
         public int size() {
