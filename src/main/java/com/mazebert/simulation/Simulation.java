@@ -37,9 +37,11 @@ public strictfp final class Simulation {
     private long turnTimeInMillis = 100;
     private long turnTimeInNanos = TimeUnit.MILLISECONDS.toNanos(turnTimeInMillis);
     private float turnTimeInSeconds = turnTimeInMillis / 1000.0f;
+    private float playTimeInSeconds;
     private Hash hash = new Hash();
 
     public Simulation() {
+        Sim.context().simulation = this;
         commandExecutor.init();
     }
 
@@ -113,8 +115,12 @@ public strictfp final class Simulation {
         turnGateway.incrementTurnNumber();
     }
 
+    public void adjustSpeed(float factor) {
+        turnTimeInSeconds *= factor;
+    }
+
     public float getPlayTimeInSeconds() {
-        return turnGateway.getCurrentTurnNumber() * turnTimeInSeconds;
+        return playTimeInSeconds;
     }
 
     private void simulate(List<Turn> playerTurns) {
@@ -162,6 +168,8 @@ public strictfp final class Simulation {
         simulatePlayerTurns(playerTurns);
         simulateUnits();
         hashGameState();
+
+        playTimeInSeconds += turnTimeInSeconds;
     }
 
     private void simulateUnits() {

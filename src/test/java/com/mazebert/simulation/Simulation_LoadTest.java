@@ -64,7 +64,7 @@ strictfp class Simulation_LoadTest extends SimTest {
 
         whenSimulationIsLoaded();
 
-        assertThat(simulation.getPlayTimeInSeconds()).isEqualTo(4.3f);
+        assertThat(simulation.getPlayTimeInSeconds()).isEqualTo(4.2999983f);
     }
 
     @Test
@@ -101,7 +101,7 @@ strictfp class Simulation_LoadTest extends SimTest {
         assertThat(commandExecutorTrainer.getLastCommand()).isInstanceOf(NextWaveCommand.class);
         assertThat(commandExecutorTrainer.getLastCommand().turnNumber).isEqualTo(13);
         assertThat(commandExecutorTrainer.getLastCommand().playerId).isEqualTo(1);
-        assertThat(simulation.getPlayTimeInSeconds()).isEqualTo(1.4f);
+        assertThat(simulation.getPlayTimeInSeconds()).isEqualTo(1.4000002f);
     }
 
     @Test

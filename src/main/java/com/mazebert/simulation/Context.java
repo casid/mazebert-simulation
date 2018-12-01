@@ -40,6 +40,7 @@ public strictfp class Context {
     public ExperienceSystem experienceSystem;
     public WolfSystem wolfSystem;
     public CommandExecutor commandExecutor;
+    public Simulation simulation;
 
     // Temp instances
     public GameCountDown gameCountDown;
