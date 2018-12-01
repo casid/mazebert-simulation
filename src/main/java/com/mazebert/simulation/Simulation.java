@@ -37,6 +37,8 @@ public strictfp final class Simulation {
     private long turnTimeInMillis = 100;
     private long turnTimeInNanos = TimeUnit.MILLISECONDS.toNanos(turnTimeInMillis);
     private float turnTimeInSeconds = turnTimeInMillis / 1000.0f;
+    private float unmodifiedTurnTimeInSeconds = turnTimeInSeconds;
+    private float timeModifier = 1;
     private float playTimeInSeconds;
     private Hash hash = new Hash();
 
@@ -116,7 +118,13 @@ public strictfp final class Simulation {
     }
 
     public void adjustSpeed(float factor) {
-        turnTimeInSeconds *= factor;
+        timeModifier *= factor;
+        turnTimeInSeconds = unmodifiedTurnTimeInSeconds * timeModifier;
+    }
+
+    @SuppressWarnings("unused") // Used by client
+    public float getTimeModifier() {
+        return timeModifier;
     }
 
     public float getPlayTimeInSeconds() {
