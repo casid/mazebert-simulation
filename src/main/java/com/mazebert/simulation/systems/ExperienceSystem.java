@@ -1,8 +1,11 @@
 package com.mazebert.simulation.systems;
 
+import com.mazebert.simulation.Sim;
+import com.mazebert.simulation.SimulationListeners;
 import com.mazebert.simulation.Wave;
 import com.mazebert.simulation.WaveType;
 import com.mazebert.simulation.gateways.DifficultyGateway;
+import com.mazebert.simulation.plugins.FormatPlugin;
 import com.mazebert.simulation.plugins.PlayerLevelPlugin;
 import com.mazebert.simulation.units.creeps.Creep;
 import com.mazebert.simulation.units.wizards.Wizard;
@@ -11,9 +14,11 @@ public strictfp class ExperienceSystem {
     private static final PlayerLevelPlugin playerLevelPlugin = new PlayerLevelPlugin();
 
     private final DifficultyGateway difficultyGateway;
+    private final SimulationListeners simulationListeners;
 
-    public ExperienceSystem(DifficultyGateway difficultyGateway) {
+    public ExperienceSystem(DifficultyGateway difficultyGateway, SimulationListeners simulationListeners) {
         this.difficultyGateway = difficultyGateway;
+        this.simulationListeners = simulationListeners;
     }
 
     public void grantExperience(Wizard wizard, Wave wave, Creep lastCreep) {
@@ -54,7 +59,14 @@ public strictfp class ExperienceSystem {
         }
 
         double progress = 1.0 - lastCreep.getHealth() / lastCreep.getMaxHealth();
-        return StrictMath.round(progress * 111 * getExperienceModifier(wizard));
+        long experience = StrictMath.round(progress * 111 * getExperienceModifier(wizard));
+
+        if (simulationListeners.areNotificationsEnabled()) {
+            FormatPlugin format = Sim.context().formatPlugin;
+            simulationListeners.showGlobalNotification(format.percent((float) progress) + "% challenge damage! (" + format.experienceGain(experience) + ")");
+        }
+
+        return experience;
     }
 
     private double getExperienceModifier(Wizard wizard) {

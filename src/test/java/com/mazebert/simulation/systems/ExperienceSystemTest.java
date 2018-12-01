@@ -1,9 +1,6 @@
 package com.mazebert.simulation.systems;
 
-import com.mazebert.simulation.Difficulty;
-import com.mazebert.simulation.SimTest;
-import com.mazebert.simulation.Wave;
-import com.mazebert.simulation.WaveType;
+import com.mazebert.simulation.*;
 import com.mazebert.simulation.gateways.DifficultyGateway;
 import com.mazebert.simulation.units.creeps.Creep;
 import com.mazebert.simulation.units.wizards.Wizard;
@@ -21,7 +18,8 @@ class ExperienceSystemTest extends SimTest {
     void setUp() {
         difficultyGateway = new DifficultyGateway();
         difficultyGateway.setDifficulty(Difficulty.Normal);
-        experienceSystem = new ExperienceSystem(difficultyGateway);
+        simulationListeners = new SimulationListeners();
+        experienceSystem = new ExperienceSystem(difficultyGateway, simulationListeners);
 
         wizard = new Wizard();
         wave = new Wave();
