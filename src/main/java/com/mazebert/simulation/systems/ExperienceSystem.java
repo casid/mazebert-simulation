@@ -22,7 +22,9 @@ public strictfp class ExperienceSystem {
         wizard.experience += experience;
         int level = playerLevelPlugin.getLevelForExperience(wizard.experience);
         if (wizard.level != level) {
+            int oldLevel = wizard.level;
             wizard.level = level;
+            wizard.onLevelChanged.dispatch(wizard, oldLevel, level);
         }
     }
 

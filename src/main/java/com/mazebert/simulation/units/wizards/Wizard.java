@@ -1,6 +1,7 @@
 package com.mazebert.simulation.units.wizards;
 
 import com.mazebert.simulation.hash.Hash;
+import com.mazebert.simulation.listeners.OnLevelChanged;
 import com.mazebert.simulation.stash.ItemStash;
 import com.mazebert.simulation.stash.PotionStash;
 import com.mazebert.simulation.stash.TowerStash;
@@ -9,6 +10,8 @@ import com.mazebert.simulation.units.Unit;
 import com.mazebert.simulation.units.towers.TowerType;
 
 public strictfp class Wizard extends Unit {
+    public final OnLevelChanged onLevelChanged = new OnLevelChanged();
+
     public final TowerStash towerStash = new TowerStash();
     public final ItemStash itemStash = new ItemStash();
     public final PotionStash potionStash = new PotionStash();
