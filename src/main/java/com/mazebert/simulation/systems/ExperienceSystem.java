@@ -1,8 +1,10 @@
 package com.mazebert.simulation.systems;
 
 import com.mazebert.simulation.Wave;
+import com.mazebert.simulation.WaveType;
 import com.mazebert.simulation.gateways.DifficultyGateway;
 import com.mazebert.simulation.plugins.PlayerLevelPlugin;
+import com.mazebert.simulation.units.creeps.Creep;
 import com.mazebert.simulation.units.wizards.Wizard;
 
 public strictfp class ExperienceSystem {
@@ -14,8 +16,10 @@ public strictfp class ExperienceSystem {
         this.difficultyGateway = difficultyGateway;
     }
 
-    public void grantExperience(Wizard wizard, Wave wave) {
-        grantExperience(wizard, calculateExperienceForCompletingRound(wizard, wave.round));
+    public void grantExperience(Wizard wizard, Wave wave, Creep lastCreep) {
+        long experienceForRound = calculateExperienceForCompletingRound(wizard, wave.round);
+        long experienceForCreep = calculateExperienceForCreep(wizard, wave, lastCreep);
+        grantExperience(wizard, experienceForRound + experienceForCreep);
     }
 
     public void grantExperience(Wizard wizard, long experience) {
@@ -42,6 +46,15 @@ public strictfp class ExperienceSystem {
         }
 
         return StrictMath.round(experience);
+    }
+
+    private long calculateExperienceForCreep(Wizard wizard, Wave wave, Creep lastCreep) {
+        if (wave.type != WaveType.Challenge) {
+            return 0;
+        }
+
+        double progress = 1.0 - lastCreep.getHealth() / lastCreep.getMaxHealth();
+        return StrictMath.round(progress * 111 * getExperienceModifier(wizard));
     }
 
     private double getExperienceModifier(Wizard wizard) {

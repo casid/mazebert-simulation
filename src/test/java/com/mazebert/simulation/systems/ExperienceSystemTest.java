@@ -3,7 +3,9 @@ package com.mazebert.simulation.systems;
 import com.mazebert.simulation.Difficulty;
 import com.mazebert.simulation.SimTest;
 import com.mazebert.simulation.Wave;
+import com.mazebert.simulation.WaveType;
 import com.mazebert.simulation.gateways.DifficultyGateway;
+import com.mazebert.simulation.units.creeps.Creep;
 import com.mazebert.simulation.units.wizards.Wizard;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -13,14 +15,17 @@ import static org.assertj.core.api.Assertions.assertThat;
 class ExperienceSystemTest extends SimTest {
     Wizard wizard;
     Wave wave;
+    Creep lastCreep;
 
     @BeforeEach
     void setUp() {
         difficultyGateway = new DifficultyGateway();
+        difficultyGateway.setDifficulty(Difficulty.Normal);
         experienceSystem = new ExperienceSystem(difficultyGateway);
 
         wizard = new Wizard();
         wave = new Wave();
+        lastCreep = new Creep();
     }
 
     @Test
@@ -41,7 +46,7 @@ class ExperienceSystemTest extends SimTest {
     void round10() {
         wave.round = 10;
         whenExperienceIsGranted();
-        assertThat(wizard.experience).isEqualTo(2);
+        assertThat(wizard.experience).isEqualTo(3);
     }
 
     @Test
@@ -49,29 +54,29 @@ class ExperienceSystemTest extends SimTest {
         wave.round = 10;
         wizard.experienceModifier = 10;
         whenExperienceIsGranted();
-        assertThat(wizard.experience).isEqualTo(25);
+        assertThat(wizard.experience).isEqualTo(33);
     }
 
     @Test
     void round100() {
         wave.round = 100;
         whenExperienceIsGranted();
-        assertThat(wizard.experience).isEqualTo(19);
+        assertThat(wizard.experience).isEqualTo(25);
     }
 
     @Test
     void round10000() {
         wave.round = 10000;
         whenExperienceIsGranted();
-        assertThat(wizard.experience).isEqualTo(74); // capped
+        assertThat(wizard.experience).isEqualTo(99); // capped
     }
 
     @Test
     void round10000_normal() {
         wave.round = 10000;
-        difficultyGateway.setDifficulty(Difficulty.Normal);
+        difficultyGateway.setDifficulty(Difficulty.Easy);
         whenExperienceIsGranted();
-        assertThat(wizard.experience).isEqualTo(99); // capped
+        assertThat(wizard.experience).isEqualTo(74); // capped
     }
 
     @Test
@@ -105,7 +110,30 @@ class ExperienceSystemTest extends SimTest {
         assertThat(wizard.level).isEqualTo(200);
     }
 
+    @Test
+    void challenge_noDamageDealt() {
+        wave.type = WaveType.Challenge;
+        whenExperienceIsGranted();
+        assertThat(wizard.experience).isEqualTo(1);
+    }
+
+    @Test
+    void challenge_allDamageDealt() {
+        wave.type = WaveType.Challenge;
+        lastCreep.setHealth(0);
+        whenExperienceIsGranted();
+        assertThat(wizard.experience).isEqualTo(112);
+    }
+
+    @Test
+    void challenge_halfDamageDealt() {
+        wave.type = WaveType.Challenge;
+        lastCreep.setHealth(50);
+        whenExperienceIsGranted();
+        assertThat(wizard.experience).isEqualTo(57);
+    }
+
     private void whenExperienceIsGranted() {
-        experienceSystem.grantExperience(wizard, wave);
+        experienceSystem.grantExperience(wizard, wave, lastCreep);
     }
 }

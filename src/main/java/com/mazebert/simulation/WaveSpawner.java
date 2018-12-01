@@ -167,13 +167,13 @@ public strictfp class WaveSpawner implements OnGameStartedListener, OnWaveStarte
         if (unit instanceof Creep) {
             Creep creep = (Creep) unit;
             if (--creep.getWave().creepCount <= 0) {
-                completeWave(creep.getWave());
+                completeWave(creep.getWave(), creep);
             }
         }
     }
 
-    private void completeWave(Wave wave) {
-        unitGateway.forEach(Wizard.class, wizard -> completeWave(wizard, wave));
+    private void completeWave(Wave wave, Creep lastCreep) {
+        unitGateway.forEach(Wizard.class, wizard -> completeWave(wizard, wave, lastCreep));
 
         simulationListeners.onWaveFinished.dispatch(wave);
 
@@ -183,8 +183,8 @@ public strictfp class WaveSpawner implements OnGameStartedListener, OnWaveStarte
         }
     }
 
-    private void completeWave(Wizard wizard, Wave wave) {
-        experienceSystem.grantExperience(wizard, wave);
+    private void completeWave(Wizard wizard, Wave wave, Creep lastCreep) {
+        experienceSystem.grantExperience(wizard, wave, lastCreep);
         lootSystem.researchTower(wizard, wave.round);
     }
 
