@@ -1,9 +1,6 @@
 package com.mazebert.simulation.systems;
 
-import com.mazebert.simulation.Balancing;
-import com.mazebert.simulation.CardType;
-import com.mazebert.simulation.Rarity;
-import com.mazebert.simulation.Sim;
+import com.mazebert.simulation.*;
 import com.mazebert.simulation.plugins.random.RandomPlugin;
 import com.mazebert.simulation.stash.Stash;
 import com.mazebert.simulation.units.creeps.Creep;
@@ -12,12 +9,14 @@ import com.mazebert.simulation.units.wizards.Wizard;
 
 public strictfp class LootSystem {
     private final RandomPlugin randomPlugin;
+    private final SimulationListeners simulationListeners;
 
-    public LootSystem(RandomPlugin randomPlugin) {
+    public LootSystem(RandomPlugin randomPlugin, SimulationListeners simulationListeners) {
         this.randomPlugin = randomPlugin;
+        this.simulationListeners = simulationListeners;
     }
 
-    @SuppressWarnings("unchecked")
+
     public void loot(Tower tower, Creep creep) {
         Wizard wizard = tower.getWizard();
 
@@ -52,11 +51,17 @@ public strictfp class LootSystem {
                         rarity = Rarity.values()[rarity.ordinal() - 1];
                     }
                 } else {
-                    stash.add(drop);
+                    dropCard(wizard, creep, stash, drop);
                     break;
                 }
             }
         }
+    }
+
+    @SuppressWarnings("unchecked")
+    public void dropCard(Wizard wizard, Creep creep, Stash stash, CardType drop) {
+        stash.add(drop);
+        simulationListeners.onCardDropped.dispatch(wizard, creep, drop.instance());
     }
 
     private float[] calculateDropChancesForRarity(Tower tower, Creep creep) {

@@ -39,7 +39,7 @@ public strictfp class ContextProvider {
         context.projectileGateway = new ProjectileGateway();
 
         context.damageSystem = new DamageSystem(context.randomPlugin);
-        context.lootSystem = new LootSystem(context.randomPlugin);
+        context.lootSystem = new LootSystem(context.randomPlugin, context.simulationListeners);
         context.wolfSystem = new WolfSystem(context.simulationListeners);
         context.commandExecutor = new CommandExecutor();
 

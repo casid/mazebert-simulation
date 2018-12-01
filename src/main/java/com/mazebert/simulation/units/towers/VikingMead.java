@@ -1,13 +1,18 @@
 package com.mazebert.simulation.units.towers;
 
+import com.mazebert.simulation.Sim;
 import com.mazebert.simulation.listeners.OnKillListener;
+import com.mazebert.simulation.systems.LootSystem;
 import com.mazebert.simulation.units.abilities.Ability;
 import com.mazebert.simulation.units.creeps.Creep;
 import com.mazebert.simulation.units.potions.PotionType;
+import com.mazebert.simulation.units.wizards.Wizard;
 
 public class VikingMead extends Ability<Tower> implements OnKillListener {
 
     private static final float CHANCE = 0.01f;
+
+    private final LootSystem lootSystem = Sim.context().lootSystem;
 
     @Override
     protected void initialize(Tower unit) {
@@ -24,7 +29,8 @@ public class VikingMead extends Ability<Tower> implements OnKillListener {
     @Override
     public void onKill(Creep target) {
         if (getUnit().isAbilityTriggered(CHANCE * StrictMath.min(1, target.getDropChance()))) {
-            getUnit().getWizard().potionStash.add(PotionType.Mead);
+            Wizard wizard = getUnit().getWizard();
+            lootSystem.dropCard(wizard, target, wizard.potionStash, PotionType.Mead);
         }
     }
 

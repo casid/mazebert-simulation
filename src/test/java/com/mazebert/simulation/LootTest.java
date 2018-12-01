@@ -32,10 +32,11 @@ public class LootTest extends SimTest {
 
     @BeforeEach
     void setUp() {
+        simulationListeners = new SimulationListeners();
         unitGateway = new UnitGateway();
         randomPlugin = randomPluginTrainer;
         damageSystem = damageSystemTrainer;
-        lootSystem = new LootSystem(randomPlugin);
+        lootSystem = new LootSystem(randomPlugin, simulationListeners);
 
         wizard = new Wizard();
         unitGateway.addUnit(wizard);
