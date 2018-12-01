@@ -34,7 +34,7 @@ public class WaveSpawnerTest extends SimTest {
     @BeforeEach
     void setUp() {
         simulationListeners = new SimulationListeners();
-        simulationListeners.onWaveFinished.add(() -> waveFinished = true);
+        simulationListeners.onWaveFinished.add(wave -> waveFinished = true);
 
         unitGateway = new UnitGateway();
         waveGateway = new WaveGateway();

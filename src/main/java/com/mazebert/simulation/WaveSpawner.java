@@ -173,7 +173,7 @@ public strictfp class WaveSpawner implements OnGameStartedListener, OnWaveStarte
     private void completeWave(Wave wave) {
         unitGateway.forEach(Wizard.class, wizard -> lootSystem.researchTower(wizard, wave.round));
 
-        simulationListeners.onWaveFinished.dispatch();
+        simulationListeners.onWaveFinished.dispatch(wave);
 
         if (Sim.context().waveCountDown == null) {
             Sim.context().waveCountDown = new WaveCountDown();

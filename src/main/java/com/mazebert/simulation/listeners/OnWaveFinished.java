@@ -1,5 +1,6 @@
 package com.mazebert.simulation.listeners;
 
+import com.mazebert.simulation.Wave;
 import org.jusecase.signals.Signal;
 
 public strictfp class OnWaveFinished extends Signal<OnWaveFinishedListener> {
@@ -8,9 +9,9 @@ public strictfp class OnWaveFinished extends Signal<OnWaveFinishedListener> {
     }
 
 
-    public void dispatch() {
+    public void dispatch(Wave wave) {
         for (int i = 0; i < size; ++i) {
-            listeners[i].onWaveFinished();
+            listeners[i].onWaveFinished(wave);
         }
     }
 }
