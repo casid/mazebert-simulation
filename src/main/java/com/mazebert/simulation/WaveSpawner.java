@@ -184,6 +184,10 @@ public strictfp class WaveSpawner implements OnGameStartedListener, OnWaveStarte
     }
 
     private void completeWave(Wizard wizard, Wave wave, Creep lastCreep) {
+        if (simulationListeners.areNotificationsEnabled()) {
+            simulationListeners.showNotification(wizard, "Completed round " + wave.round);
+        }
+
         experienceSystem.grantExperience(wizard, wave, lastCreep);
         lootSystem.researchTower(wizard, wave.round);
     }

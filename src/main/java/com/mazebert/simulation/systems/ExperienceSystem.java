@@ -63,7 +63,7 @@ public strictfp class ExperienceSystem {
 
         if (simulationListeners.areNotificationsEnabled()) {
             FormatPlugin format = Sim.context().formatPlugin;
-            simulationListeners.showGlobalNotification(format.percent((float) progress) + "% challenge damage! (" + format.experienceGain(experience) + ")");
+            simulationListeners.showNotification(wizard, format.percent((float) progress) + "% challenge damage! (" + format.experienceGain(experience) + ")");
         }
 
         return experience;

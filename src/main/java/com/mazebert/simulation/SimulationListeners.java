@@ -29,11 +29,11 @@ public strictfp class SimulationListeners {
         onNotification.dispatch(unit, text, color);
     }
 
-    public void showExperienceGainNotification(Unit unit, float experience) {
-        showNotification(unit, Sim.context().formatPlugin.experienceGain(experience), 0x88ff22);
+    public void showNotification(Unit unit, String text) {
+        showNotification(unit, text, 0xffffff);
     }
 
-    public void showGlobalNotification(String text) {
-        onNotification.dispatch(text);
+    public void showExperienceGainNotification(Unit unit, float experience) {
+        showNotification(unit, Sim.context().formatPlugin.experienceGain(experience), 0x88ff22);
     }
 }

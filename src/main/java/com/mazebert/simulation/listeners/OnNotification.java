@@ -13,10 +13,4 @@ public strictfp class OnNotification extends Signal<OnNotificationListener> {
             listeners[i].onNotification(unit, text, color);
         }
     }
-
-    public void dispatch(String text) {
-        for (int i = 0; i < size; ++i) {
-            listeners[i].onGlobalNotification(text);
-        }
-    }
 }
