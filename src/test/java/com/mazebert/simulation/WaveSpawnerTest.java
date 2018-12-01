@@ -432,7 +432,7 @@ public class WaveSpawnerTest extends SimTest {
     }
 
     @Test
-    void roundCompleted() {
+    void roundCompleted_allKilled() {
         givenBossWave();
 
         whenGameIsStarted();
@@ -441,6 +441,27 @@ public class WaveSpawnerTest extends SimTest {
 
         assertThat(waveFinished).isTrue();
         assertThat(wizard.towerStash.size()).isEqualTo(1); // Tower research
+    }
+
+    @Test
+    void roundCompleted_allCreepsReachTarget_earlyCall() {
+        givenBossWave();
+        whenGameIsStarted();
+        Creep creep = getCreep(0);
+        creep.setPath(new Path(0.0f, 0.0f, 0.0f, 1.0f));
+
+        whenPlayerCallsNextWave();
+
+        creep.simulate(1.0f);
+        whenGameIsUpdated();
+
+        assertThat(waveFinished).isTrue();
+        assertThat(wizard.towerStash.size()).isEqualTo(1); // Tower research
+    }
+
+    private void whenPlayerCallsNextWave() {
+        waveSpawner.onWaveStarted();
+        whenGameIsUpdated();
     }
 
     private Creep getCreep(int index) {
