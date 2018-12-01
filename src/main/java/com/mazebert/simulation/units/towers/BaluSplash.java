@@ -2,7 +2,7 @@ package com.mazebert.simulation.units.towers;
 
 import com.mazebert.simulation.units.abilities.SplashAbility;
 
-public class BaluSplash extends SplashAbility {
+public strictfp class BaluSplash extends SplashAbility {
     public BaluSplash() {
         super(3, 0.5f);
     }

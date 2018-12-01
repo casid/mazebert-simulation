@@ -9,7 +9,7 @@ import com.mazebert.simulation.units.abilities.CooldownAbility;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BaluCuddle extends CooldownAbility<Tower> {
+public strictfp class BaluCuddle extends CooldownAbility<Tower> {
 
     public static final float BASE_COOLDOWN = 20.0f;
     public static final float SLOW_DOWN = 1.0f;

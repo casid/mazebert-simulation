@@ -2,7 +2,7 @@ package com.mazebert.simulation.units.towers;
 
 import com.mazebert.simulation.units.abilities.CooldownAbility;
 
-public class BaluCuddleEffect extends CooldownAbility<Tower> {
+public strictfp class BaluCuddleEffect extends CooldownAbility<Tower> {
 
     @Override
     protected float getCooldown() {

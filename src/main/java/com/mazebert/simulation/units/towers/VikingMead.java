@@ -8,7 +8,7 @@ import com.mazebert.simulation.units.creeps.Creep;
 import com.mazebert.simulation.units.potions.PotionType;
 import com.mazebert.simulation.units.wizards.Wizard;
 
-public class VikingMead extends Ability<Tower> implements OnKillListener {
+public strictfp class VikingMead extends Ability<Tower> implements OnKillListener {
 
     private static final float CHANCE = 0.01f;
 

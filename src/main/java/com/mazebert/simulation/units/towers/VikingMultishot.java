@@ -2,7 +2,7 @@ package com.mazebert.simulation.units.towers;
 
 import com.mazebert.simulation.units.abilities.AttackAbility;
 
-public class VikingMultishot extends AttackAbility {
+public strictfp class VikingMultishot extends AttackAbility {
 
     public VikingMultishot() {
         super(2, true);
