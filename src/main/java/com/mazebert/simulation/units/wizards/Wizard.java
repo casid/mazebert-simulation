@@ -14,6 +14,9 @@ public strictfp class Wizard extends Unit {
     public final PotionStash potionStash = new PotionStash();
 
     public int playerId;
+    public long experience;
+    public double experienceModifier = 1;
+    public int level = 1;
     public long money;
     public Currency currency = Currency.Gold;
     public double bestHit;
@@ -33,6 +36,9 @@ public strictfp class Wizard extends Unit {
         hash.add(potionStash);
 
         hash.add(playerId);
+        hash.add(experience);
+        hash.add(experienceModifier);
+        hash.add(level);
         hash.add(money);
         hash.add(currency);
 

@@ -7,6 +7,7 @@ import com.mazebert.simulation.plugins.SleepPlugin;
 import com.mazebert.simulation.plugins.random.UuidRandomPlugin;
 import com.mazebert.simulation.projectiles.ProjectileGateway;
 import com.mazebert.simulation.systems.DamageSystem;
+import com.mazebert.simulation.systems.ExperienceSystem;
 import com.mazebert.simulation.systems.LootSystem;
 import com.mazebert.simulation.systems.WolfSystem;
 
@@ -40,6 +41,7 @@ public strictfp class ContextProvider {
 
         context.damageSystem = new DamageSystem(context.randomPlugin);
         context.lootSystem = new LootSystem(context.randomPlugin, context.simulationListeners);
+        context.experienceSystem = new ExperienceSystem(context.difficultyGateway);
         context.wolfSystem = new WolfSystem(context.simulationListeners);
         context.commandExecutor = new CommandExecutor();
 
