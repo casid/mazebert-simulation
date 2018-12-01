@@ -10,6 +10,8 @@ import com.mazebert.simulation.units.towers.Tower;
 import com.mazebert.simulation.units.wizards.Wizard;
 import com.mazebert.simulation.util.SafeIterationArray;
 
+import java.util.concurrent.atomic.AtomicInteger;
+
 public strictfp final class UnitGateway {
     private final SafeIterationArray<Unit> units = new SafeIterationArray<>();
 
@@ -27,6 +29,16 @@ public strictfp final class UnitGateway {
 
     public int getAmount() {
         return units.size();
+    }
+
+    public <U extends Unit> int getAmount(Class<U> unitClass) {
+        AtomicInteger amount = new AtomicInteger();
+        units.forEach(unit -> {
+            if (unitClass.isAssignableFrom(unit.getClass())) {
+                amount.incrementAndGet();
+            }
+        });
+        return amount.get();
     }
 
     public void removeUnit(Unit unit) {
@@ -94,6 +106,15 @@ public strictfp final class UnitGateway {
 
     public void forEach(Consumer<Unit> unitConsumer) {
         units.forEach(unitConsumer);
+    }
+
+    @SuppressWarnings("unchecked")
+    public <U extends Unit> void forEach(Class<U> unitClass, Consumer<U> unitConsumer) {
+        units.forEach(unit -> {
+            if (unitClass.isAssignableFrom(unit.getClass())) {
+                unitConsumer.accept((U) unit);
+            }
+        });
     }
 
     @SuppressWarnings("unchecked")

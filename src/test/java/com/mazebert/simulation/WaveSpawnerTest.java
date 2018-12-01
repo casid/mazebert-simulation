@@ -6,10 +6,12 @@ import com.mazebert.simulation.gateways.UnitGateway;
 import com.mazebert.simulation.gateways.WaveGateway;
 import com.mazebert.simulation.maps.BloodMoor;
 import com.mazebert.simulation.plugins.random.RandomPluginTrainer;
+import com.mazebert.simulation.systems.LootSystem;
 import com.mazebert.simulation.units.Unit;
 import com.mazebert.simulation.units.creeps.Creep;
 import com.mazebert.simulation.units.creeps.CreepState;
 import com.mazebert.simulation.units.creeps.CreepType;
+import com.mazebert.simulation.units.wizards.Wizard;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -25,6 +27,8 @@ public class WaveSpawnerTest extends SimTest {
 
     WaveSpawner waveSpawner;
 
+    Wizard wizard;
+
     boolean waveFinished;
 
     @BeforeEach
@@ -37,17 +41,21 @@ public class WaveSpawnerTest extends SimTest {
         randomPlugin = randomPluginTrainer;
         difficultyGateway = new DifficultyGateway();
         gameGateway = new GameGateway();
+        lootSystem = new LootSystem(randomPlugin, simulationListeners);
 
         gameGateway.getGame().map = new BloodMoor();
 
         waveSpawner = new WaveSpawner();
         waveGateway.setTotalWaves(250);
+
+        wizard = new Wizard();
+        unitGateway.addUnit(wizard);
     }
 
     @Test
     void noWaveExists() {
         whenGameIsStarted();
-        assertThat(unitGateway.getAmount()).isEqualTo(0);
+        assertThat(unitGateway.getAmount(Creep.class)).isEqualTo(0);
         assertThat(waveGateway.getCurrentRound()).isEqualTo(0);
     }
 
@@ -113,7 +121,7 @@ public class WaveSpawnerTest extends SimTest {
 
         whenGameIsStarted();
 
-        assertThat(unitGateway.getAmount()).isEqualTo(1);
+        assertThat(unitGateway.getAmount(Creep.class)).isEqualTo(1);
     }
 
     @Test
@@ -125,10 +133,10 @@ public class WaveSpawnerTest extends SimTest {
         waveGateway.addWave(wave);
 
         whenGameIsStarted();
-        assertThat(unitGateway.getAmount()).isEqualTo(1);
+        assertThat(unitGateway.getAmount(Creep.class)).isEqualTo(1);
 
         whenGameIsUpdated();
-        assertThat(unitGateway.getAmount()).isEqualTo(2);
+        assertThat(unitGateway.getAmount(Creep.class)).isEqualTo(2);
     }
 
     @Test
@@ -141,16 +149,16 @@ public class WaveSpawnerTest extends SimTest {
         randomPluginTrainer.givenFloatAbs(0.99f); // will use maxSecondsToNextCreep
 
         whenGameIsStarted();
-        assertThat(unitGateway.getAmount()).isEqualTo(1);
+        assertThat(unitGateway.getAmount(Creep.class)).isEqualTo(1);
 
         whenGameIsUpdated();
-        assertThat(unitGateway.getAmount()).isEqualTo(1);
+        assertThat(unitGateway.getAmount(Creep.class)).isEqualTo(1);
 
         whenGameIsUpdated();
-        assertThat(unitGateway.getAmount()).isEqualTo(1);
+        assertThat(unitGateway.getAmount(Creep.class)).isEqualTo(1);
 
         whenGameIsUpdated();
-        assertThat(unitGateway.getAmount()).isEqualTo(2);
+        assertThat(unitGateway.getAmount(Creep.class)).isEqualTo(2);
     }
 
     @Test
@@ -160,16 +168,16 @@ public class WaveSpawnerTest extends SimTest {
         givenBossWave();
 
         whenGameIsStarted();
-        assertThat(unitGateway.getAmount()).isEqualTo(1);
+        assertThat(unitGateway.getAmount(Creep.class)).isEqualTo(1);
         Creep creep = getCreep(0);
         creep.setHealth(0.0f);
-        assertThat(unitGateway.getAmount()).isEqualTo(1);
+        assertThat(unitGateway.getAmount(Creep.class)).isEqualTo(1);
         creep.simulate(1.0f);
-        assertThat(unitGateway.getAmount()).isEqualTo(1);
+        assertThat(unitGateway.getAmount(Creep.class)).isEqualTo(1);
         creep.simulate(1.0f);
 
         assertThat(creep.getState()).isEqualTo(CreepState.Dead);
-        assertThat(unitGateway.getAmount()).isEqualTo(0);
+        assertThat(unitGateway.getAmount(Creep.class)).isEqualTo(0);
         assertThat(removedUnit.get()).isSameAs(creep);
     }
 
@@ -196,7 +204,7 @@ public class WaveSpawnerTest extends SimTest {
         whenGameIsUpdated();
 
         assertThat(waveFinished).isTrue();
-        assertThat(unitGateway.getAmount()).isGreaterThan(0);
+        assertThat(unitGateway.getAmount(Creep.class)).isGreaterThan(0);
     }
 
     @Test
@@ -210,7 +218,7 @@ public class WaveSpawnerTest extends SimTest {
         whenGameIsUpdated(Balancing.WAVE_COUNTDOWN_SECONDS);
         whenGameIsUpdated();
 
-        assertThat(unitGateway.getAmount()).isEqualTo(1);
+        assertThat(unitGateway.getAmount(Creep.class)).isEqualTo(1);
     }
 
     @Test
@@ -222,7 +230,7 @@ public class WaveSpawnerTest extends SimTest {
 
         creep.simulate(1.0f);
 
-        assertThat(unitGateway.getAmount()).isEqualTo(0);
+        assertThat(unitGateway.getAmount(Creep.class)).isEqualTo(0);
     }
 
     @Test
@@ -236,7 +244,7 @@ public class WaveSpawnerTest extends SimTest {
         whenGameIsUpdated(Balancing.WAVE_COUNTDOWN_SECONDS);
         whenGameIsUpdated();
 
-        assertThat(unitGateway.getAmount()).isGreaterThan(0);
+        assertThat(unitGateway.getAmount(Creep.class)).isGreaterThan(0);
     }
 
     @Test
@@ -320,7 +328,7 @@ public class WaveSpawnerTest extends SimTest {
         assertThat(getCreep(0).getMinDrops()).isEqualTo(0);
         assertThat(getCreep(0).getMaxDrops()).isEqualTo(4);
         assertThat(getCreep(0).getDropChance()).isEqualTo(5.0f);
-        assertThat(getCreep(0).getMaxItemLevel()).isEqualTo(2);
+        assertThat(getCreep(0).getMaxItemLevel()).isEqualTo(3);
     }
 
     @Test
@@ -423,14 +431,27 @@ public class WaveSpawnerTest extends SimTest {
         assertThat(getCreep(0).getType()).isEqualTo(CreepType.Rat);
     }
 
+    @Test
+    void roundCompleted() {
+        givenBossWave();
+
+        whenGameIsStarted();
+        whenCreepIsKilled(getCreep(0));
+        whenGameIsUpdated();
+
+        assertThat(waveFinished).isTrue();
+        assertThat(wizard.towerStash.size()).isEqualTo(1); // Tower research
+    }
+
     private Creep getCreep(int index) {
-        return (Creep) unitGateway.getUnit(index);
+        return (Creep) unitGateway.getUnit(1 + index); // first unit is our wizard
     }
 
     private void givenBossWave() {
         Wave wave = new Wave();
         wave.creepCount = 1;
         wave.type = WaveType.Boss;
+        wave.round = 1;
         waveGateway.addWave(wave);
     }
 

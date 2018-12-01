@@ -16,7 +16,6 @@ public strictfp class LootSystem {
         this.simulationListeners = simulationListeners;
     }
 
-
     public void loot(Tower tower, Creep creep) {
         Wizard wizard = tower.getWizard();
 
@@ -42,26 +41,37 @@ public strictfp class LootSystem {
             diceThrow = randomPlugin.getFloatAbs();
             Stash stash = calculateDropStash(wizard, diceThrow);
 
-            while (rarity.ordinal() >= Rarity.Common.ordinal()) {
-                CardType drop = stash.getRandomDrop(rarity, maxItemLevel, randomPlugin);
-                if (drop == null) {
-                    if (rarity == Rarity.Common) {
-                        break;
-                    } else {
-                        rarity = Rarity.values()[rarity.ordinal() - 1];
-                    }
-                } else {
-                    dropCard(wizard, creep, stash, drop);
-                    break;
-                }
-            }
+            rollCardDrop(wizard, creep, maxItemLevel, rarity, stash);
         }
+    }
+
+    public void researchTower(Wizard wizard, int round) {
+        float[] rarityChances = calculateDropChancesForTowerRarity(round);
+        Rarity rarity = calculateDropRarity(rarityChances, randomPlugin.getFloatAbs());
+
+        rollCardDrop(wizard, null, round, rarity, wizard.towerStash);
     }
 
     @SuppressWarnings("unchecked")
     public void dropCard(Wizard wizard, Creep creep, Stash stash, CardType drop) {
         stash.add(drop);
         simulationListeners.onCardDropped.dispatch(wizard, creep, drop.instance());
+    }
+
+    private void rollCardDrop(Wizard wizard, Creep creep, int maxItemLevel, Rarity rarity, Stash stash) {
+        while (rarity.ordinal() >= Rarity.Common.ordinal()) {
+            CardType drop = stash.getRandomDrop(rarity, maxItemLevel, randomPlugin);
+            if (drop == null) {
+                if (rarity == Rarity.Common) {
+                    break;
+                } else {
+                    rarity = Rarity.values()[rarity.ordinal() - 1];
+                }
+            } else {
+                dropCard(wizard, creep, stash, drop);
+                break;
+            }
+        }
     }
 
     private float[] calculateDropChancesForRarity(Tower tower, Creep creep) {
@@ -75,6 +85,19 @@ public strictfp class LootSystem {
         result[Rarity.Legendary.ordinal()] = 0.5f * result[Rarity.Unique.ordinal()];
         result[Rarity.Rare.ordinal()] = result[Rarity.Unique.ordinal()] + 0.25f * dropQualityProgress * dropQualityProgress;
         result[Rarity.Uncommon.ordinal()] = result[Rarity.Rare.ordinal()] + 0.25f * dropQualityProgress;
+        result[Rarity.Common.ordinal()] = 1.0f;
+
+        return result;
+    }
+
+    private float[] calculateDropChancesForTowerRarity(int round) {
+        float dropQualityProgress = StrictMath.min(1.0f, (float)StrictMath.sqrt(0.01f * round)); // Current round affects tower rarity as well.
+
+        float[] result = Sim.context().tempChancesForRarity;
+        result[Rarity.Unique.ordinal()] = 0.25f * dropQualityProgress * dropQualityProgress * dropQualityProgress;
+        result[Rarity.Legendary.ordinal()] = 0.5f * result[Rarity.Unique.ordinal()];
+        result[Rarity.Rare.ordinal()] = result[Rarity.Unique.ordinal()] + 0.25f * dropQualityProgress * dropQualityProgress;
+        result[Rarity.Uncommon.ordinal()] = result[Rarity.Rare.ordinal()] + (0.15f + 0.1f * dropQualityProgress);
         result[Rarity.Common.ordinal()] = 1.0f;
 
         return result;

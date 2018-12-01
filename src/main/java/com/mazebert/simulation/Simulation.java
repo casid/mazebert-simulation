@@ -161,21 +161,17 @@ public strictfp final class Simulation {
     private void simulateTurn(List<Turn> playerTurns) {
         simulatePlayerTurns(playerTurns);
         simulateUnits();
-        simulateProjectiles();
         hashGameState();
     }
 
     private void simulateUnits() {
         unitGateway.forEach(this::simulateUnit);
+        projectileGateway.simulate(turnTimeInSeconds);
         simulationListeners.onUpdate.dispatch(turnTimeInSeconds);
     }
 
     private void simulateUnit(Unit unit) {
         unit.simulate(turnTimeInSeconds);
-    }
-
-    private void simulateProjectiles() {
-        projectileGateway.simulate(turnTimeInSeconds);
     }
 
     private void hashGameState() {

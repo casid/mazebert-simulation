@@ -7,8 +7,10 @@ import com.mazebert.simulation.gateways.UnitGateway;
 import com.mazebert.simulation.gateways.WaveGateway;
 import com.mazebert.simulation.listeners.*;
 import com.mazebert.simulation.plugins.random.RandomPlugin;
+import com.mazebert.simulation.systems.LootSystem;
 import com.mazebert.simulation.units.Unit;
 import com.mazebert.simulation.units.creeps.Creep;
+import com.mazebert.simulation.units.wizards.Wizard;
 
 import java.util.ArrayDeque;
 import java.util.Queue;
@@ -20,6 +22,7 @@ public strictfp class WaveSpawner implements OnGameStartedListener, OnWaveStarte
     private final RandomPlugin randomPlugin = Sim.context().randomPlugin;
     private final DifficultyGateway difficultyGateway = Sim.context().difficultyGateway;
     private final GameGateway gameGateway = Sim.context().gameGateway;
+    private final LootSystem lootSystem = Sim.context().lootSystem;
 
     private Queue<Creep> creepQueue = new ArrayDeque<>();
     private float countdownForNextCreepToSend;
@@ -162,12 +165,19 @@ public strictfp class WaveSpawner implements OnGameStartedListener, OnWaveStarte
         if (unit instanceof Creep) {
             Creep creep = (Creep) unit;
             if (--creep.getWave().creepCount <= 0 && !unitGateway.hasUnits(Creep.class)) {
-                simulationListeners.onWaveFinished.dispatch();
-                if (Sim.context().waveCountDown == null) {
-                    Sim.context().waveCountDown = new WaveCountDown();
-                    Sim.context().waveCountDown.start();
-                }
+                completeWave(creep.getWave());
             }
+        }
+    }
+
+    private void completeWave(Wave wave) {
+        unitGateway.forEach(Wizard.class, wizard -> lootSystem.researchTower(wizard, wave.round));
+
+        simulationListeners.onWaveFinished.dispatch();
+
+        if (Sim.context().waveCountDown == null) {
+            Sim.context().waveCountDown = new WaveCountDown();
+            Sim.context().waveCountDown.start();
         }
     }
 
