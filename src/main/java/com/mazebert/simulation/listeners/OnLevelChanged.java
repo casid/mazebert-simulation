@@ -1,6 +1,6 @@
 package com.mazebert.simulation.listeners;
 
-import com.mazebert.simulation.units.towers.Tower;
+import com.mazebert.simulation.units.Unit;
 import org.jusecase.signals.Signal;
 
 public strictfp class OnLevelChanged extends Signal<OnLevelChangedListener> {
@@ -8,9 +8,9 @@ public strictfp class OnLevelChanged extends Signal<OnLevelChangedListener> {
         super(OnLevelChangedListener.class);
     }
 
-    public void dispatch(Tower tower, int oldLevel, int newLevel) {
+    public void dispatch(Unit unit, int oldLevel, int newLevel) {
         for (int i = 0; i < size; ++i) {
-            listeners[i].onLevelChanged(tower, oldLevel, newLevel);
+            listeners[i].onLevelChanged(unit, oldLevel, newLevel);
         }
     }
 }

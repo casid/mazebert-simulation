@@ -1,6 +1,7 @@
 package com.mazebert.simulation.units.abilities;
 
 import com.mazebert.simulation.listeners.OnLevelChangedListener;
+import com.mazebert.simulation.units.Unit;
 import com.mazebert.simulation.units.towers.Tower;
 
 public abstract strictfp class AttributeWithLevelBonusAbility extends StackableAbility<Tower> implements OnLevelChangedListener {
@@ -54,7 +55,7 @@ public abstract strictfp class AttributeWithLevelBonusAbility extends StackableA
     protected abstract void addToAttribute(float amount);
 
     @Override
-    public void onLevelChanged(Tower tower, int oldLevel, int newLevel) {
+    public void onLevelChanged(Unit unit, int oldLevel, int newLevel) {
         updateBonus();
     }
 

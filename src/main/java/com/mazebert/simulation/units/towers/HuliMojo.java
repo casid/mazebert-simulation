@@ -3,6 +3,7 @@ package com.mazebert.simulation.units.towers;
 import com.mazebert.simulation.listeners.OnLevelChangedListener;
 import com.mazebert.simulation.listeners.OnRangeChangedListener;
 import com.mazebert.simulation.units.Gender;
+import com.mazebert.simulation.units.Unit;
 import com.mazebert.simulation.units.abilities.AuraAbility;
 
 public strictfp class HuliMojo extends AuraAbility<Tower, Tower> implements OnLevelChangedListener, OnRangeChangedListener {
@@ -31,7 +32,7 @@ public strictfp class HuliMojo extends AuraAbility<Tower, Tower> implements OnLe
     }
 
     @Override
-    public void onLevelChanged(Tower tower, int oldLevel, int newLevel) {
+    public void onLevelChanged(Unit unit, int oldLevel, int newLevel) {
         updateBonus();
     }
 

@@ -1,6 +1,7 @@
 package com.mazebert.simulation.units.towers;
 
 import com.mazebert.simulation.listeners.OnLevelChangedListener;
+import com.mazebert.simulation.units.Unit;
 import com.mazebert.simulation.units.abilities.AttackAbility;
 
 public strictfp class RabbitMultishot extends AttackAbility implements OnLevelChangedListener {
@@ -22,7 +23,7 @@ public strictfp class RabbitMultishot extends AttackAbility implements OnLevelCh
     }
 
     @Override
-    public void onLevelChanged(Tower tower, int oldLevel, int newLevel) {
+    public void onLevelChanged(Unit unit, int oldLevel, int newLevel) {
         int targets = 2;
         if (newLevel >= 16) {
             targets = 3;

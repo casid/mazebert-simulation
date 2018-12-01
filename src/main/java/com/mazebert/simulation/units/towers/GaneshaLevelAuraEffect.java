@@ -2,6 +2,7 @@ package com.mazebert.simulation.units.towers;
 
 import com.mazebert.simulation.Balancing;
 import com.mazebert.simulation.listeners.OnLevelChangedListener;
+import com.mazebert.simulation.units.Unit;
 import com.mazebert.simulation.units.abilities.Ability;
 
 public strictfp class GaneshaLevelAuraEffect extends Ability<Tower> implements OnLevelChangedListener {
@@ -22,8 +23,8 @@ public strictfp class GaneshaLevelAuraEffect extends Ability<Tower> implements O
     }
 
     @Override
-    public void onLevelChanged(Tower tower, int oldLevel, int newLevel) {
-        if (tower instanceof Ganesha) {
+    public void onLevelChanged(Unit unit, int oldLevel, int newLevel) {
+        if (unit instanceof Ganesha) {
             return;
         }
 

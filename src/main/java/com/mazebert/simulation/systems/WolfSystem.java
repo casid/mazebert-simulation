@@ -5,7 +5,6 @@ import com.mazebert.simulation.listeners.OnLevelChangedListener;
 import com.mazebert.simulation.listeners.OnUnitAddedListener;
 import com.mazebert.simulation.listeners.OnUnitRemovedListener;
 import com.mazebert.simulation.units.Unit;
-import com.mazebert.simulation.units.towers.Tower;
 import com.mazebert.simulation.units.towers.Wolf;
 
 import java.util.ArrayList;
@@ -53,7 +52,7 @@ public strictfp class WolfSystem implements OnUnitAddedListener, OnLevelChangedL
     }
 
     @Override
-    public void onLevelChanged(Tower tower, int oldLevel, int newLevel) {
+    public void onLevelChanged(Unit unit, int oldLevel, int newLevel) {
         update();
     }
 

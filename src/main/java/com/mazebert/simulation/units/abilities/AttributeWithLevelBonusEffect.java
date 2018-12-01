@@ -1,6 +1,7 @@
 package com.mazebert.simulation.units.abilities;
 
 import com.mazebert.simulation.listeners.OnLevelChangedListener;
+import com.mazebert.simulation.units.Unit;
 import com.mazebert.simulation.units.towers.Tower;
 
 public abstract strictfp class AttributeWithLevelBonusEffect extends Ability<Tower> implements OnLevelChangedListener {
@@ -33,7 +34,7 @@ public abstract strictfp class AttributeWithLevelBonusEffect extends Ability<Tow
     }
 
     @Override
-    public void onLevelChanged(Tower tower, int oldLevel, int newLevel) {
+    public void onLevelChanged(Unit unit, int oldLevel, int newLevel) {
         removeBonus();
         addBonus();
     }
