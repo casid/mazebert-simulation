@@ -59,9 +59,11 @@ public abstract strictfp class AuraAbility<S extends Unit, T extends Unit> exten
 
     @Override
     public void onUpdate(float dt) {
-        markAllCurrentTargetsAsUnvisited();
-        unitGateway.forEachInRange(getUnit().getX(), getUnit().getY(), range, targetClass, this);
-        removeAllUnvisitedTargets();
+        if (active != null) {
+            markAllCurrentTargetsAsUnvisited();
+            unitGateway.forEachInRange(getUnit().getX(), getUnit().getY(), range, targetClass, this);
+            removeAllUnvisitedTargets();
+        }
     }
 
     @Override
