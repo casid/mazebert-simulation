@@ -50,12 +50,25 @@ public strictfp class WaveGateway implements ReadonlyWaveGateway {
     public Wave generateWave(RandomPlugin randomPlugin, int round) {
         Wave wave = new Wave();
         wave.round = round;
-        wave.type = randomPlugin.get(RANDOM_WAVE_TYPES);
+        wave.type = calculateWaveType(randomPlugin, round);
         wave.creepCount = wave.type.creepCount;
         wave.minSecondsToNextCreep = wave.type.getMinSecondsToNextCreep();
         wave.maxSecondsToNextCreep = wave.type.getMaxSecondsToNextCreep();
         wave.creepType = rollCreepType(wave, randomPlugin);
         return wave;
+    }
+
+    public WaveType calculateWaveType(RandomPlugin randomPlugin, int round) {
+        if (round > 0 && round % 50 == 0) {
+            return WaveType.Horseman;
+        }
+        if (round > 0 && round % 14 == 0) {
+            return WaveType.MassChallenge;
+        }
+        if (round > 0 && round % 7 == 0) {
+            return WaveType.Challenge;
+        }
+        return randomPlugin.get(RANDOM_WAVE_TYPES);
     }
 
     private CreepType rollCreepType(Wave wave, RandomPlugin randomPlugin) {

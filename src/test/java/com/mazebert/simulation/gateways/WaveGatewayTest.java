@@ -68,18 +68,35 @@ class WaveGatewayTest extends SimTest {
         assertThat(wave.maxSecondsToNextCreep).isEqualTo(3.2f);
     }
 
-    // TODO
-//    @Test
-//    void waveGeneration_challenge() {
-//        round = 7;
-//
-//        whenWaveIsGenerated();
-//
-//        assertThat(wave.type).isEqualTo(WaveType.Challenge);
-//        assertThat(wave.creepCount).isEqualTo(5);
-//        assertThat(wave.minSecondsToNextCreep).isEqualTo(1.6f);
-//        assertThat(wave.maxSecondsToNextCreep).isEqualTo(3.2f);
-//    }
+    @Test
+    void waveGeneration_challenge() {
+        round = 7;
+
+        whenWaveIsGenerated();
+
+        assertThat(wave.type).isEqualTo(WaveType.Challenge);
+        assertThat(wave.creepCount).isEqualTo(1);
+    }
+
+    @Test
+    void waveGeneration_massChallenge() {
+        round = 14;
+
+        whenWaveIsGenerated();
+
+        assertThat(wave.type).isEqualTo(WaveType.MassChallenge);
+        assertThat(wave.creepCount).isEqualTo(20);
+    }
+
+    @Test
+    void waveGeneration_horseman() {
+        round = 50;
+
+        whenWaveIsGenerated();
+
+        assertThat(wave.type).isEqualTo(WaveType.Horseman);
+        assertThat(wave.creepCount).isEqualTo(1);
+    }
 
     private void whenWaveIsGenerated() {
         wave = waveGateway.generateWave(randomPlugin, round);
