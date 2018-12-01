@@ -42,16 +42,20 @@ public strictfp class WaveGateway implements ReadonlyWaveGateway {
     public void generateMissingWaves(RandomPlugin randomPlugin) {
         int missingWaves = StrictMath.min(totalWaves - currentRound, WaveGateway.WAVES_IN_ADVANCE) - waves.size();
         for (int i = 0; i < missingWaves; ++i) {
-            Wave wave = new Wave();
-            wave.round = ++generatedWaves;
-            wave.type = randomPlugin.get(RANDOM_WAVE_TYPES);
-            wave.creepCount = wave.type.creepCount;
-            wave.minSecondsToNextCreep = wave.type.getMinSecondsToNextCreep();
-            wave.maxSecondsToNextCreep = wave.type.getMaxSecondsToNextCreep();
-            wave.creepType = rollCreepType(wave, randomPlugin);
-
+            Wave wave = generateWave(randomPlugin, ++generatedWaves);
             addWave(wave);
         }
+    }
+
+    public Wave generateWave(RandomPlugin randomPlugin, int round) {
+        Wave wave = new Wave();
+        wave.round = round;
+        wave.type = randomPlugin.get(RANDOM_WAVE_TYPES);
+        wave.creepCount = wave.type.creepCount;
+        wave.minSecondsToNextCreep = wave.type.getMinSecondsToNextCreep();
+        wave.maxSecondsToNextCreep = wave.type.getMaxSecondsToNextCreep();
+        wave.creepType = rollCreepType(wave, randomPlugin);
+        return wave;
     }
 
     private CreepType rollCreepType(Wave wave, RandomPlugin randomPlugin) {
