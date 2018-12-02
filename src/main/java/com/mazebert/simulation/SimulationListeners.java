@@ -13,6 +13,7 @@ public strictfp class SimulationListeners {
     public final OnWaveFinished onWaveFinished = new OnWaveFinished();
 
     public final OnUpdate onUpdate = new OnUpdate();
+    public final OnPause onPause = new OnPause();
 
     public final OnUnitAdded onUnitAdded = new OnUnitAdded();
     public final OnUnitRemoved onUnitRemoved = new OnUnitRemoved();

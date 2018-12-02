@@ -40,6 +40,7 @@ public strictfp final class Simulation {
     private float unmodifiedTurnTimeInSeconds = turnTimeInSeconds;
     private float timeModifier = 1;
     private float playTimeInSeconds;
+    private boolean pause;
     private Hash hash = new Hash();
 
     public Simulation() {
@@ -79,6 +80,13 @@ public strictfp final class Simulation {
         replayWriterGateway.close();
     }
 
+    public void setPause(int playerId, boolean pause) {
+        if (this.pause != pause) {
+            this.pause = pause;
+            simulationListeners.onPause.dispatch(playerId, pause);
+        }
+    }
+
     public void load(ReplayReader replayReader) {
         HashHistory hashHistory = new HashHistory(2);
         hashHistory.add(0);
@@ -92,9 +100,11 @@ public strictfp final class Simulation {
 
             int turnNumbersToSimulate = replayFrame.turnNumber - turnGateway.getCurrentTurnNumber();
             for (int i = 0; i < turnNumbersToSimulate; ++i) {
-                simulateTurn(Collections.emptyList());
                 if (i >= turnNumbersToSimulate - 2) { // only the last two frames need to be hashed
+                    simulateTurn(Collections.emptyList());
                     hashHistory.add(hash.get());
+                } else {
+                    simulateTurn(Collections.emptyList(), false);
                 }
                 turnGateway.incrementTurnNumber();
             }
@@ -173,11 +183,19 @@ public strictfp final class Simulation {
     }
 
     private void simulateTurn(List<Turn> playerTurns) {
-        simulatePlayerTurns(playerTurns);
-        simulateUnits();
-        hashGameState();
+        simulateTurn(playerTurns, true);
+    }
 
-        playTimeInSeconds += turnTimeInSeconds;
+    private void simulateTurn(List<Turn> playerTurns, boolean hash) {
+        simulatePlayerTurns(playerTurns);
+        if (!pause) {
+            simulateUnits();
+            if (hash) {
+                hashGameState();
+            }
+
+            playTimeInSeconds += turnTimeInSeconds;
+        }
     }
 
     private void simulateUnits() {
