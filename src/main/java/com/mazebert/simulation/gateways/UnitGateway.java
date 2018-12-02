@@ -17,8 +17,8 @@ public strictfp final class UnitGateway {
 
     public void addUnit(Unit unit) {
         units.add(unit);
-        unit.onUnitAdded.dispatch(unit);
         Sim.context().simulationListeners.onUnitAdded.dispatch(unit);
+        unit.onUnitAdded.dispatch(unit);
     }
 
     public Unit getUnit(int index) {
@@ -42,7 +42,6 @@ public strictfp final class UnitGateway {
     public void removeUnit(Unit unit) {
         units.remove(unit);
         unit.onUnitRemoved.dispatch(unit);
-
         Sim.context().simulationListeners.onUnitRemoved.dispatch(unit);
 
         unit.dispose();

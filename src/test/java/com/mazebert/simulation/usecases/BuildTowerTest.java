@@ -172,6 +172,18 @@ class BuildTowerTest extends UsecaseTest<BuildTowerCommand> {
     }
 
     @Test
+    void replace_potions_tears() {
+        givenTowerIsAlreadyBuilt();
+        givenPotionIsDrank(PotionType.Tears);
+
+        wizard.towerStash.add(TowerType.Dandelion);
+        request.towerType = TowerType.Dandelion;
+        whenRequestIsExecuted();
+
+        assertThat(builtTower.getMulticrit()).isEqualTo(2);
+    }
+
+    @Test
     void replace_potionStack() {
         givenTowerIsAlreadyBuilt();
         for (int i = 0; i < 10; ++i) {

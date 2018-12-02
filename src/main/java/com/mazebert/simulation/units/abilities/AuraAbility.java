@@ -8,6 +8,7 @@ import com.mazebert.simulation.listeners.OnUnitAddedListener;
 import com.mazebert.simulation.listeners.OnUnitRemovedListener;
 import com.mazebert.simulation.listeners.OnUpdateListener;
 import com.mazebert.simulation.units.Unit;
+import com.mazebert.simulation.units.creeps.Creep;
 
 import java.lang.reflect.Array;
 import java.util.Arrays;
@@ -54,8 +55,8 @@ public abstract strictfp class AuraAbility<S extends Unit, T extends Unit> exten
         if (hasMovingTargets()) {
             unit.onUpdate.add(this);
         }
-        simulationListeners.onUnitAdded.add(this);
-        simulationListeners.onUnitRemoved.add(this);
+        unit.onUnitAdded.add(this);
+        unit.onUnitRemoved.add(this);
         this.active = (T[]) Array.newInstance(targetClass, 9);
     }
 
@@ -65,14 +66,14 @@ public abstract strictfp class AuraAbility<S extends Unit, T extends Unit> exten
         removeAllUnvisitedTargets();
         this.active = null;
 
-        simulationListeners.onUnitAdded.remove(this);
-        simulationListeners.onUnitRemoved.remove(this);
+        unit.onUnitAdded.remove(this);
+        unit.onUnitRemoved.remove(this);
         unit.onUpdate.remove(this);
         super.dispose(unit);
     }
 
     protected boolean hasMovingTargets() {
-        return false;
+        return targetClass.isAssignableFrom(Creep.class);
     }
 
     @Override
@@ -82,12 +83,30 @@ public abstract strictfp class AuraAbility<S extends Unit, T extends Unit> exten
 
     @Override
     public void onUnitAdded(Unit unit) {
-        update();
+        if (unit == getUnit()) {
+            unit.onUnitAdded.remove(this);
+            unit.onUnitRemoved.remove(this);
+            simulationListeners.onUnitAdded.add(this);
+            simulationListeners.onUnitRemoved.add(this);
+        }
+
+        if (targetClass.isAssignableFrom(unit.getClass())) {
+            update();
+        }
     }
 
     @Override
     public void onUnitRemoved(Unit unit) {
-        update();
+        if (unit == getUnit()) {
+            unit.onUnitAdded.add(this);
+            unit.onUnitRemoved.add(this);
+            simulationListeners.onUnitAdded.remove(this);
+            simulationListeners.onUnitRemoved.remove(this);
+        }
+
+        if (targetClass.isAssignableFrom(unit.getClass())) {
+            update();
+        }
     }
 
     private void update() {

@@ -4,6 +4,7 @@ import com.mazebert.simulation.Sim;
 import com.mazebert.simulation.commands.BuildTowerCommand;
 import com.mazebert.simulation.gateways.UnitGateway;
 import com.mazebert.simulation.units.abilities.Ability;
+import com.mazebert.simulation.units.abilities.StackableAbility;
 import com.mazebert.simulation.units.items.Item;
 import com.mazebert.simulation.units.towers.Tower;
 import com.mazebert.simulation.units.wizards.Wizard;
@@ -51,10 +52,13 @@ public strictfp class BuildTower extends Usecase<BuildTowerCommand> {
         });
 
         for (Ability permanentAbility : permanentAbilities) {
-            do {
-                oldTower.removeAbility(permanentAbility);
-                newTower.addAbility(permanentAbility);
-            } while (permanentAbility.getUnit() != null);
+            if (permanentAbility instanceof StackableAbility) {
+                do {
+                    transferPermanentAbility(oldTower, newTower, permanentAbility);
+                } while (permanentAbility.getUnit() != null);
+            } else {
+                transferPermanentAbility(oldTower, newTower, permanentAbility);
+            }
         }
 
         Item[] items = oldTower.removeAllItems();
@@ -67,5 +71,10 @@ public strictfp class BuildTower extends Usecase<BuildTowerCommand> {
         newTower.setTotalDamage(oldTower.getTotalDamage());
 
         unitGateway.removeUnit(oldTower);
+    }
+
+    private void transferPermanentAbility(Tower oldTower, Tower newTower, Ability permanentAbility) {
+        oldTower.removeAbility(permanentAbility);
+        newTower.addAbility(permanentAbility);
     }
 }
