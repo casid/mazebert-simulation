@@ -1,12 +1,15 @@
 package com.mazebert.simulation.listeners;
 
 import com.mazebert.simulation.units.Unit;
-import org.jusecase.signals.Signal;
 
-public strictfp class OnUnitRemoved extends Signal<OnUnitRemovedListener> {
+public strictfp class OnUnitRemoved extends ExposedSignal<OnUnitRemovedListener> {
     public void dispatch(Unit unit) {
         for (OnUnitRemovedListener listener : this) {
             listener.onUnitRemoved(unit);
+        }
+
+        if (isExposed()) {
+            dispatchExposed(l -> l.onUnitRemoved(unit));
         }
     }
 }

@@ -1,11 +1,7 @@
 package com.mazebert.simulation.listeners;
 
-import org.jusecase.signals.Signal;
-
-public strictfp class OnWaveCountDown extends Signal<OnWaveCountDownListener> {
+public strictfp class OnWaveCountDown extends ExposedSignal<OnWaveCountDownListener> {
     public void dispatch(int remainingSeconds) {
-        for (OnWaveCountDownListener listener : this) {
-            listener.onWaveCountDown(remainingSeconds);
-        }
+        dispatchAll(l -> l.onWaveCountDown(remainingSeconds));
     }
 }

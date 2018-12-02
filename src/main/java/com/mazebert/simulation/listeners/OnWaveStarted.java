@@ -1,11 +1,7 @@
 package com.mazebert.simulation.listeners;
 
-import org.jusecase.signals.Signal;
-
-public strictfp class OnWaveStarted extends Signal<OnWaveStartedListener> {
+public strictfp class OnWaveStarted extends ExposedSignal<OnWaveStartedListener> {
     public void dispatch() {
-        for (OnWaveStartedListener listener : this) {
-            listener.onWaveStarted();
-        }
+        dispatchAll(OnWaveStartedListener::onWaveStarted);
     }
 }

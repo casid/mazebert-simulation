@@ -1,11 +1,7 @@
 package com.mazebert.simulation.listeners;
 
-import org.jusecase.signals.Signal;
-
-public strictfp class OnGameCountDown extends Signal<OnGameCountDownListener> {
+public strictfp class OnGameCountDown extends ExposedSignal<OnGameCountDownListener> {
     public void dispatch(int remainingSeconds) {
-        for (OnGameCountDownListener listener : this) {
-            listener.onGameCountDown(remainingSeconds);
-        }
+        dispatchAll(l -> l.onGameCountDown(remainingSeconds));
     }
 }

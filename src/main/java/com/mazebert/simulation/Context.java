@@ -3,6 +3,7 @@ package com.mazebert.simulation;
 import com.mazebert.simulation.countdown.GameCountDown;
 import com.mazebert.simulation.countdown.WaveCountDown;
 import com.mazebert.simulation.gateways.*;
+import com.mazebert.simulation.plugins.ClientPlugin;
 import com.mazebert.simulation.plugins.FormatPlugin;
 import com.mazebert.simulation.plugins.SleepPlugin;
 import com.mazebert.simulation.plugins.random.UuidRandomPlugin;
@@ -21,6 +22,7 @@ public strictfp class Context {
     public UuidRandomPlugin randomPlugin;
     public SleepPlugin sleepPlugin;
     public FormatPlugin formatPlugin;
+    public ClientPlugin clientPlugin;
 
     // Gateways
     public GameGateway gameGateway;
