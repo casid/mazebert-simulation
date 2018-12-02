@@ -134,6 +134,9 @@ public strictfp final class Simulation {
 
     @SuppressWarnings("unused") // Used by client
     public float getTimeModifier() {
+        if (pause) {
+            return 0;
+        }
         return timeModifier;
     }
 

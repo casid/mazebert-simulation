@@ -130,7 +130,11 @@ public strictfp class Creep extends Unit {
         return result;
     }
 
+    @SuppressWarnings("unused") // Used by client
     public WalkResult predictWalk(float x, float y, float dt, WalkResult result) {
+        if (dt == 0) {
+            return null;
+        }
         if (freshCoordinates) {
             freshCoordinates = false;
             x = getX();
