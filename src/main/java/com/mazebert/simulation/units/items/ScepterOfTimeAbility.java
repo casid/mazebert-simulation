@@ -18,6 +18,11 @@ public strictfp class ScepterOfTimeAbility extends Ability<Unit> {
     }
 
     @Override
+    public boolean isVisibleToUser() {
+        return true;
+    }
+
+    @Override
     public String getTitle() {
         return "Ancient perception";
     }
