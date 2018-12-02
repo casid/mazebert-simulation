@@ -29,6 +29,7 @@ public strictfp class Creep extends Unit {
     private CreepType type;
     private CreepState state = CreepState.Running;
     private int gold;
+    private float goldModifier = 1;
     private int maxDrops;
     private int minDrops;
     private int maxItemLevel;
@@ -54,6 +55,7 @@ public strictfp class Creep extends Unit {
         hash.add(type);
         hash.add(state);
         hash.add(gold);
+        hash.add(goldModifier);
         hash.add(maxDrops);
         hash.add(minDrops);
         hash.add(maxItemLevel);
@@ -310,6 +312,14 @@ public strictfp class Creep extends Unit {
 
     public void setDropChance(float dropChance) {
         this.dropChance = dropChance;
+    }
+
+    public float getGoldModifier() {
+        return goldModifier;
+    }
+
+    public void setGoldModifier(float goldModifier) {
+        this.goldModifier = goldModifier;
     }
 
     public static class WalkResult {

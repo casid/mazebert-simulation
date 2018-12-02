@@ -1,5 +1,6 @@
 package com.mazebert.simulation.usecases;
 
+import com.mazebert.simulation.Balancing;
 import com.mazebert.simulation.Sim;
 import com.mazebert.simulation.SimulationListeners;
 import com.mazebert.simulation.WaveSpawner;
@@ -33,6 +34,7 @@ public strictfp class InitGame extends Usecase<InitGameCommand> {
         for (int playerId = 1; playerId <= playerGateway.getPlayerCount(); ++playerId) {
             Wizard wizard = new Wizard();
             wizard.playerId = playerId;
+            wizard.addGold(Balancing.STARTING_GOLD);
             for (TowerType towerType : TowerType.values()) {
                 wizard.towerStash.add(towerType);
                 wizard.towerStash.add(towerType);

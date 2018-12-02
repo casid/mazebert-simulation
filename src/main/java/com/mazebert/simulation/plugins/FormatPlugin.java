@@ -65,8 +65,12 @@ public strictfp class FormatPlugin {
         return result.toString();
     }
 
-    public String money(double amount) {
+    public String gold(double amount) {
         return positiveNumber(amount);
+    }
+
+    public String goldGain(double amount) {
+        return "+" + gold(amount);
     }
 
     private String positiveNumber(double value) {

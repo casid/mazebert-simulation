@@ -237,6 +237,38 @@ public class LootTest extends SimTest {
         assertThat(wizard.potionStash.get(0).cardType).isEqualTo(PotionType.CommonDamage);
     }
 
+    @Test
+    void loot_gold() {
+        wizard.gold = 200;
+        creep.setGold(10);
+
+        whenTowerAttacks();
+
+        assertThat(wizard.gold).isEqualTo(210);
+    }
+
+    @Test
+    void loot_gold_towerMod() {
+        wizard.gold = 200;
+        creep.setGold(10);
+        tower.setGoldModifier(2);
+
+        whenTowerAttacks();
+
+        assertThat(wizard.gold).isEqualTo(220);
+    }
+
+    @Test
+    void loot_gold_creepMod() {
+        wizard.gold = 200;
+        creep.setGold(10);
+        creep.setGoldModifier(4);
+
+        whenTowerAttacks();
+
+        assertThat(wizard.gold).isEqualTo(240);
+    }
+
     private void whenTowerAttacks() {
         tower.simulate(1.0f);
     }

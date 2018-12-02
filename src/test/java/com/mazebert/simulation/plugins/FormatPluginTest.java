@@ -48,7 +48,7 @@ class FormatPluginTest {
 
     @Test
     void money() {
-        assertThat(format.money(Long.MAX_VALUE)).isEqualTo("9,223,372T");
+        assertThat(format.gold(Long.MAX_VALUE)).isEqualTo("9,223,372T");
     }
 
     @Test

@@ -14,6 +14,7 @@ import java.util.List;
 import java.util.UUID;
 
 import static com.mazebert.simulation.Balancing.GAME_COUNTDOWN_SECONDS;
+import static com.mazebert.simulation.Balancing.STARTING_GOLD;
 import static org.assertj.core.api.Assertions.assertThat;
 
 class InitGameTest extends UsecaseTest<InitGameCommand> {
@@ -154,6 +155,7 @@ class InitGameTest extends UsecaseTest<InitGameCommand> {
 
         Wizard wizard = unitGateway.getWizard(request.playerId);
         assertThat(wizard).isNotNull();
+        assertThat(wizard.gold).isEqualTo(STARTING_GOLD);
         assertThat(wizard.towerStash.size()).isGreaterThan(0);
         //assertThat(wizard.towerStash.get(0).getCardType()).isEqualTo(TowerType.Frog);
         //assertThat(wizard.towerStash.get(0).getAmount()).isEqualTo(3);

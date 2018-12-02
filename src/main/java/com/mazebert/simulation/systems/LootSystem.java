@@ -43,6 +43,14 @@ public strictfp class LootSystem {
 
             rollCardDrop(wizard, creep, maxItemLevel, rarity, stash);
         }
+
+        if (creep.getGold() > 0) {
+            int gold = StrictMath.round(creep.getGold() * creep.getGoldModifier() * tower.getGoldModifier());
+            if (simulationListeners.areNotificationsEnabled()) {
+                simulationListeners.showNotification(creep, Sim.context().formatPlugin.goldGain(gold), 0xffff00);
+            }
+            wizard.addGold(gold);
+        }
     }
 
     public void researchTower(Wizard wizard, int round) {
