@@ -19,7 +19,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 class VikingTest extends SimTest {
     RandomPluginTrainer randomPluginTrainer = new RandomPluginTrainer();
-    DamageSystemTrainer damageSystemTrainer = new DamageSystemTrainer();
+    DamageSystemTrainer damageSystemTrainer;
 
     Wizard wizard;
     Viking viking;
@@ -31,7 +31,7 @@ class VikingTest extends SimTest {
         randomPlugin = randomPluginTrainer;
         unitGateway = new UnitGateway();
         projectileGateway = new ProjectileGateway();
-        damageSystem = damageSystemTrainer;
+        damageSystem = damageSystemTrainer = new DamageSystemTrainer(simulationListeners);
         lootSystem = new LootSystemTrainer();
 
         commandExecutor = new CommandExecutor();

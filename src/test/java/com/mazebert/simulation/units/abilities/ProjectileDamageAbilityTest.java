@@ -26,7 +26,7 @@ public strictfp class ProjectileDamageAbilityTest extends SimTest {
     void setUp() {
         unitGateway = new UnitGateway();
         randomPlugin = new RandomPluginTrainer();
-        damageSystem = new DamageSystem(randomPlugin);
+        damageSystem = new DamageSystem(randomPlugin, simulationListeners, formatPlugin);
         lootSystem = new LootSystemTrainer();
         projectileGateway = new ProjectileGateway();
 

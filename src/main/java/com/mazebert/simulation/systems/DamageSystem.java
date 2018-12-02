@@ -1,5 +1,7 @@
 package com.mazebert.simulation.systems;
 
+import com.mazebert.simulation.SimulationListeners;
+import com.mazebert.simulation.plugins.FormatPlugin;
 import com.mazebert.simulation.plugins.random.RandomPlugin;
 import com.mazebert.simulation.units.creeps.Creep;
 import com.mazebert.simulation.units.towers.Tower;
@@ -12,9 +14,13 @@ public strictfp class DamageSystem {
     private static final DamageInfo DAMAGE_INFO = new DamageInfo();
 
     private final RandomPlugin randomPlugin;
+    private final SimulationListeners simulationListeners;
+    private final FormatPlugin formatPlugin;
 
-    public DamageSystem(RandomPlugin randomPlugin) {
+    public DamageSystem(RandomPlugin randomPlugin, SimulationListeners simulationListeners, FormatPlugin formatPlugin) {
         this.randomPlugin = randomPlugin;
+        this.simulationListeners = simulationListeners;
+        this.formatPlugin = formatPlugin;
     }
 
     public void dealDamage(Object origin, Tower tower, Creep creep) {
@@ -68,6 +74,10 @@ public strictfp class DamageSystem {
 
         creep.setHealth(creep.getHealth() - damage);
         tower.onDamage.dispatch(origin, creep, damage, multicrits);
+
+        if (multicrits > 0 && simulationListeners.areNotificationsEnabled()) {
+            simulationListeners.showNotification(tower, formatPlugin.damage(damage, multicrits), 0xff0000);
+        }
 
         if (creep.isDead()) {
             tower.onKill.dispatch(creep);

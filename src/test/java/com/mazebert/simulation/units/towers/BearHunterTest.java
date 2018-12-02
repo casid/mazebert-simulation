@@ -26,7 +26,7 @@ strictfp class BearHunterTest extends SimTest {
         unitGateway = new UnitGateway();
         gameGateway = new GameGateway();
         gameGateway.getGame().map = new BloodMoor();
-        damageSystem = new DamageSystemTrainer();
+        damageSystem = new DamageSystemTrainer(simulationListeners);
 
         randomPlugin = randomPluginTrainer;
 

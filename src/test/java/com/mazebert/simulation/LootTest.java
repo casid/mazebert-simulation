@@ -24,7 +24,7 @@ public class LootTest extends SimTest {
     private static final float WOODEN_STAFF_ROLL = 0.0f;
 
     RandomPluginTrainer randomPluginTrainer = new RandomPluginTrainer();
-    DamageSystemTrainer damageSystemTrainer = new DamageSystemTrainer();
+    DamageSystemTrainer damageSystemTrainer;
 
     Wizard wizard;
     Tower tower;
@@ -35,7 +35,7 @@ public class LootTest extends SimTest {
         simulationListeners = new SimulationListeners();
         unitGateway = new UnitGateway();
         randomPlugin = randomPluginTrainer;
-        damageSystem = damageSystemTrainer;
+        damageSystem = damageSystemTrainer = new DamageSystemTrainer(simulationListeners);
         lootSystem = new LootSystem(randomPlugin, simulationListeners);
 
         wizard = new Wizard();
