@@ -27,30 +27,7 @@ public strictfp class BuildTower extends Usecase<BuildTowerCommand> {
 
             Tower oldTower = unitGateway.findUnit(Tower.class, command.playerId, command.x, command.y);
             if (oldTower != null) {
-                List<Ability> permanentAbilities = new ArrayList<>();
-                oldTower.forEachAbility(ability -> {
-                    if (ability.isPermanent()) {
-                        permanentAbilities.add(ability);
-                    }
-                });
-
-                for (Ability permanentAbility : permanentAbilities) {
-                    do {
-                        oldTower.removeAbility(permanentAbility);
-                        tower.addAbility(permanentAbility);
-                    } while (permanentAbility.getUnit() != null);
-                }
-
-                Item[] items = oldTower.removeAllItems();
-                for (int i = 0; i < items.length; ++i) {
-                    tower.setItem(i, items[i]);
-                }
-
-                tower.setExperience(oldTower.getExperience());
-                tower.setKills(oldTower.getKills());
-                tower.setTotalDamage(oldTower.getTotalDamage());
-
-                unitGateway.removeUnit(oldTower);
+                replace(oldTower, tower);
             }
 
             unitGateway.addUnit(tower);
@@ -65,4 +42,30 @@ public strictfp class BuildTower extends Usecase<BuildTowerCommand> {
         }
     }
 
+    private void replace(Tower oldTower, Tower newTower) {
+        List<Ability> permanentAbilities = new ArrayList<>();
+        oldTower.forEachAbility(ability -> {
+            if (ability.isPermanent()) {
+                permanentAbilities.add(ability);
+            }
+        });
+
+        for (Ability permanentAbility : permanentAbilities) {
+            do {
+                oldTower.removeAbility(permanentAbility);
+                newTower.addAbility(permanentAbility);
+            } while (permanentAbility.getUnit() != null);
+        }
+
+        Item[] items = oldTower.removeAllItems();
+        for (int i = 0; i < items.length; ++i) {
+            newTower.setItem(i, items[i]);
+        }
+
+        newTower.setExperience(oldTower.getExperience());
+        newTower.setKills(oldTower.getKills());
+        newTower.setTotalDamage(oldTower.getTotalDamage());
+
+        unitGateway.removeUnit(oldTower);
+    }
 }
