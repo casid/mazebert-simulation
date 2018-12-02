@@ -4,13 +4,9 @@ import com.mazebert.simulation.units.creeps.Creep;
 import org.jusecase.signals.Signal;
 
 public strictfp class OnDamage extends Signal<OnDamageListener> {
-    public OnDamage() {
-        super(OnDamageListener.class);
-    }
-
-    public void dispatch(Object origin, Creep target, double damage, int multicrits) {
-        for (int i = 0; i < size; ++i) {
-            listeners[i].onDamage(origin, target, damage, multicrits);
+   public void dispatch(Object origin, Creep target, double damage, int multicrits) {
+        for (OnDamageListener listener : this) {
+            listener.onDamage(origin, target, damage, multicrits);
         }
     }
 }
