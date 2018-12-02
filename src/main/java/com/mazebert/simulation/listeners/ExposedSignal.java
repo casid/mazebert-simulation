@@ -7,7 +7,7 @@ import org.jusecase.signals.Signal;
 public strictfp class ExposedSignal<Listener> extends Signal<Listener> {
     public final Signal<Listener> client = new Signal<>();
 
-    protected boolean isExposed() {
+    public boolean isExposed() {
         return client.size() > 0;
     }
 

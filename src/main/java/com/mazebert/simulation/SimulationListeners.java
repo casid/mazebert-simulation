@@ -23,7 +23,7 @@ public strictfp class SimulationListeners {
     public final OnNotification onNotification = new OnNotification();
 
     public boolean areNotificationsEnabled() {
-        return onNotification.size() > 0;
+        return onNotification.isExposed();
     }
 
     public void showNotification(Unit unit, String text, int color) {
