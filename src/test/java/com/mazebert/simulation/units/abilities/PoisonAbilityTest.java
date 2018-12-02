@@ -2,6 +2,7 @@ package com.mazebert.simulation.units.abilities;
 
 import com.mazebert.simulation.Path;
 import com.mazebert.simulation.SimTest;
+import com.mazebert.simulation.SimulationListeners;
 import com.mazebert.simulation.Wave;
 import com.mazebert.simulation.gateways.UnitGateway;
 import com.mazebert.simulation.plugins.random.RandomPluginTrainer;
@@ -25,6 +26,7 @@ public strictfp class PoisonAbilityTest extends SimTest {
 
     @BeforeEach
     void setUp() {
+        simulationListeners = new SimulationListeners();
         unitGateway = new UnitGateway();
         randomPlugin = randomPluginTrainer;
         damageSystem = new DamageSystem(randomPlugin, simulationListeners, formatPlugin);

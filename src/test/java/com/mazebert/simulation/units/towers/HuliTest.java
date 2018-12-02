@@ -90,14 +90,12 @@ strictfp class HuliTest extends SimTest {
 
     @Test
     void mojo_noFemaleTowersAround() {
-        huli.simulate(0.1f);
         assertThat(huli.getCritChance()).isEqualTo(0.05f);
     }
 
     @Test
     void mojo_oneFemaleTowerAround() {
         unitGateway.addUnit(new HerbWitch());
-        huli.simulate(0.1f);
         assertThat(huli.getCritChance()).isEqualTo(0.09f);
     }
 
@@ -105,9 +103,7 @@ strictfp class HuliTest extends SimTest {
     void mojo_oneFemaleTowerRemoved() {
         HerbWitch herbWitch = new HerbWitch();
         unitGateway.addUnit(herbWitch);
-        huli.simulate(0.1f);
         unitGateway.removeUnit(herbWitch);
-        huli.simulate(0.1f);
 
         assertThat(huli.getCritChance()).isEqualTo(0.050000004f);
     }
@@ -117,8 +113,6 @@ strictfp class HuliTest extends SimTest {
         unitGateway.addUnit(new HerbWitch());
         unitGateway.addUnit(new HerbWitch());
 
-        huli.simulate(0.1f);
-
         assertThat(huli.getCritChance()).isEqualTo(0.13f);
     }
 
@@ -127,7 +121,6 @@ strictfp class HuliTest extends SimTest {
         unitGateway.addUnit(new HerbWitch());
         unitGateway.addUnit(new HerbWitch());
 
-        huli.simulate(0.1f);
         huli.setLevel(10);
 
         assertThat(huli.getCritChance()).isEqualTo(0.13599999f);
@@ -138,7 +131,6 @@ strictfp class HuliTest extends SimTest {
         HerbWitch herbWitch = new HerbWitch();
         herbWitch.setX(4);
         unitGateway.addUnit(herbWitch);
-        huli.simulate(0.1f);
 
         assertThat(huli.getCritChance()).isEqualTo(0.05f);
     }
@@ -148,10 +140,8 @@ strictfp class HuliTest extends SimTest {
         HerbWitch herbWitch = new HerbWitch();
         herbWitch.setX(4);
         unitGateway.addUnit(herbWitch);
-        huli.simulate(0.1f);
 
         huli.addRange(1);
-        huli.simulate(0.1f);
 
         assertThat(huli.getCritChance()).isEqualTo(0.09f);
     }

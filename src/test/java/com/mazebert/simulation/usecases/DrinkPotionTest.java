@@ -1,5 +1,6 @@
 package com.mazebert.simulation.usecases;
 
+import com.mazebert.simulation.SimulationListeners;
 import com.mazebert.simulation.commands.DrinkPotionCommand;
 import com.mazebert.simulation.gateways.UnitGateway;
 import com.mazebert.simulation.units.TestTower;
@@ -17,6 +18,7 @@ public strictfp class DrinkPotionTest extends UsecaseTest<DrinkPotionCommand> {
 
     @BeforeEach
     void setUp() {
+        simulationListeners = new SimulationListeners();
         unitGateway = new UnitGateway();
 
         usecase = new DrinkPotion();

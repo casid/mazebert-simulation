@@ -93,9 +93,6 @@ strictfp class BearHunterTest extends SimTest {
         creep.setY(14);
         unitGateway.addUnit(creep);
 
-        BearHunterTrap trap = unitGateway.findUnitInRange(17, 14, 0, BearHunterTrap.class);
-        trap.simulate(0.1f);
-
         assertThat(creep.getHealth()).isEqualTo(80);
 
         // No trap left for next creep
@@ -104,7 +101,6 @@ strictfp class BearHunterTest extends SimTest {
         nextCreep.setY(14);
         unitGateway.addUnit(nextCreep);
 
-        trap.simulate(0.1f);
         assertThat(nextCreep.getHealth()).isEqualTo(100);
     }
 

@@ -1,6 +1,7 @@
 package com.mazebert.simulation.units.abilities;
 
 import com.mazebert.simulation.SimTest;
+import com.mazebert.simulation.SimulationListeners;
 import com.mazebert.simulation.gateways.UnitGateway;
 import com.mazebert.simulation.listeners.OnAttackListener;
 import com.mazebert.simulation.units.TestTower;
@@ -23,6 +24,7 @@ public class AttackAbilityTest extends SimTest implements OnAttackListener {
 
     @BeforeEach
     void setUp() {
+        simulationListeners = new SimulationListeners();
         unitGateway = new UnitGateway();
 
         tower = new TestTower();

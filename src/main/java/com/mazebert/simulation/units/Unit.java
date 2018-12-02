@@ -29,7 +29,7 @@ public abstract strictfp class Unit implements Hashable {
     private float x;
     private float y;
 
-    private final SafeIterationArray<Ability> abilities = new SafeIterationArray<>();
+    private SafeIterationArray<Ability> abilities = new SafeIterationArray<>();
 
     public void simulate(float dt) {
         onUpdate.dispatch(dt);
@@ -189,5 +189,10 @@ public abstract strictfp class Unit implements Hashable {
             ability.dispose();
             abilities.remove(index);
         });
+        abilities = null;
+    }
+
+    public boolean isDisposed() {
+        return abilities == null;
     }
 }

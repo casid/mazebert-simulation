@@ -2,7 +2,10 @@ package com.mazebert.simulation.units.abilities;
 
 import com.mazebert.java8.Consumer;
 import com.mazebert.simulation.Sim;
+import com.mazebert.simulation.SimulationListeners;
 import com.mazebert.simulation.gateways.UnitGateway;
+import com.mazebert.simulation.listeners.OnUnitAddedListener;
+import com.mazebert.simulation.listeners.OnUnitRemovedListener;
 import com.mazebert.simulation.listeners.OnUpdateListener;
 import com.mazebert.simulation.units.Unit;
 
@@ -13,7 +16,8 @@ import java.util.Arrays;
  * @param <S> aura source
  * @param <T> aura target
  */
-public abstract strictfp class AuraAbility<S extends Unit, T extends Unit> extends Ability<S> implements OnUpdateListener, Consumer<T> {
+public abstract strictfp class AuraAbility<S extends Unit, T extends Unit> extends Ability<S> implements OnUpdateListener, Consumer<T>, OnUnitAddedListener, OnUnitRemovedListener {
+    private final SimulationListeners simulationListeners = Sim.context().simulationListeners;
     private final UnitGateway unitGateway = Sim.context().unitGateway;
 
     private final Class<T> targetClass;
@@ -28,7 +32,10 @@ public abstract strictfp class AuraAbility<S extends Unit, T extends Unit> exten
     }
 
     public void setRange(float range) {
-        this.range = range;
+        if (this.range != range) {
+            this.range = range;
+            update();
+        }
     }
 
     public float getRange() {
@@ -43,7 +50,12 @@ public abstract strictfp class AuraAbility<S extends Unit, T extends Unit> exten
     @Override
     protected void initialize(S unit) {
         super.initialize(unit);
-        unit.onUpdate.add(this);
+
+        if (hasMovingTargets()) {
+            unit.onUpdate.add(this);
+        }
+        simulationListeners.onUnitAdded.add(this);
+        simulationListeners.onUnitRemoved.add(this);
         this.active = (T[]) Array.newInstance(targetClass, 9);
     }
 
@@ -53,12 +65,32 @@ public abstract strictfp class AuraAbility<S extends Unit, T extends Unit> exten
         removeAllUnvisitedTargets();
         this.active = null;
 
+        simulationListeners.onUnitAdded.remove(this);
+        simulationListeners.onUnitRemoved.remove(this);
         unit.onUpdate.remove(this);
         super.dispose(unit);
     }
 
+    protected boolean hasMovingTargets() {
+        return false;
+    }
+
     @Override
     public void onUpdate(float dt) {
+        update();
+    }
+
+    @Override
+    public void onUnitAdded(Unit unit) {
+        update();
+    }
+
+    @Override
+    public void onUnitRemoved(Unit unit) {
+        update();
+    }
+
+    private void update() {
         if (active != null) {
             markAllCurrentTargetsAsUnvisited();
             unitGateway.forEachInRange(getUnit().getX(), getUnit().getY(), range, targetClass, this);

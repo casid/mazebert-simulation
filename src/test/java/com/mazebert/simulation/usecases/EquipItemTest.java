@@ -1,5 +1,6 @@
 package com.mazebert.simulation.usecases;
 
+import com.mazebert.simulation.SimulationListeners;
 import com.mazebert.simulation.commands.EquipItemCommand;
 import com.mazebert.simulation.gateways.UnitGateway;
 import com.mazebert.simulation.units.TestTower;
@@ -19,6 +20,7 @@ public class EquipItemTest extends UsecaseTest<EquipItemCommand> {
 
     @BeforeEach
     void setUp() {
+        simulationListeners = new SimulationListeners();
         unitGateway = new UnitGateway();
 
         usecase = new EquipItem();

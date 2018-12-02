@@ -1,6 +1,7 @@
 package com.mazebert.simulation.units.towers;
 
 import com.mazebert.simulation.SimTest;
+import com.mazebert.simulation.SimulationListeners;
 import com.mazebert.simulation.gateways.UnitGateway;
 import com.mazebert.simulation.units.TestTower;
 import org.junit.jupiter.api.BeforeEach;
@@ -17,6 +18,7 @@ class HerbWitchAuraTest extends SimTest {
 
     @BeforeEach
     void setUp() {
+        simulationListeners = new SimulationListeners();
         unitGateway = new UnitGateway();
 
         herbWitch = new HerbWitch();
@@ -25,8 +27,6 @@ class HerbWitchAuraTest extends SimTest {
 
     @Test
     void herbWitchOnly() {
-        herbWitch.simulate(0.1f);
-
         assertThat(herbWitch.getAttackSpeedAdd()).isEqualTo(0.1f);
     }
 
@@ -36,8 +36,6 @@ class HerbWitchAuraTest extends SimTest {
         tower.setX(1);
         unitGateway.addUnit(tower);
 
-        herbWitch.simulate(0.1f);
-
         assertThat(tower.getAttackSpeedAdd()).isEqualTo(0.1f);
     }
 
@@ -46,8 +44,6 @@ class HerbWitchAuraTest extends SimTest {
         TestTower tower = new TestTower();
         tower.setX(3);
         unitGateway.addUnit(tower);
-
-        herbWitch.simulate(0.1f);
 
         assertThat(tower.getAttackSpeedAdd()).isEqualTo(0.0f);
     }
@@ -70,10 +66,8 @@ class HerbWitchAuraTest extends SimTest {
         TestTower tower = new TestTower();
         tower.setX(1);
         unitGateway.addUnit(tower);
-        herbWitch.simulate(0.1f);
 
         unitGateway.removeUnit(tower);
-        herbWitch.simulate(0.1f);
 
         assertThat(tower.getAttackSpeedAdd()).isEqualTo(0.0f);
     }
@@ -83,15 +77,13 @@ class HerbWitchAuraTest extends SimTest {
         TestTower tower = new TestTower();
         tower.setX(1);
         unitGateway.addUnit(tower);
-        herbWitch.simulate(0.1f);
 
         unitGateway.removeUnit(tower);
-        herbWitch.simulate(0.1f);
 
-        unitGateway.addUnit(tower);
-        herbWitch.simulate(0.1f);
+        TestTower tower2 = new TestTower();
+        unitGateway.addUnit(tower2);
 
-        assertThat(tower.getAttackSpeedAdd()).isEqualTo(0.1f);
+        assertThat(tower2.getAttackSpeedAdd()).isEqualTo(0.1f);
     }
 
     @Test
@@ -102,8 +94,6 @@ class HerbWitchAuraTest extends SimTest {
             towerList.add(tower);
             unitGateway.addUnit(tower);
         }
-
-        herbWitch.simulate(0.1f);
 
         for (Tower tower : towerList) {
             assertThat(tower.getAttackSpeedAdd()).isEqualTo(0.1f);
@@ -116,7 +106,6 @@ class HerbWitchAuraTest extends SimTest {
         tower.setX(1);
         unitGateway.addUnit(tower);
 
-        herbWitch.simulate(0.1f);
         herbWitch.setLevel(10);
 
         assertThat(tower.getAttackSpeedAdd()).isEqualTo(0.15f);
@@ -131,7 +120,6 @@ class HerbWitchAuraTest extends SimTest {
             unitGateway.addUnit(tower);
         }
 
-        herbWitch.simulate(0.1f);
         unitGateway.removeUnit(herbWitch);
 
         for (Tower tower : towerList) {

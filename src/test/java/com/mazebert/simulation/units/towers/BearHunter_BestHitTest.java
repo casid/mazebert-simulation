@@ -8,7 +8,6 @@ import com.mazebert.simulation.maps.BloodMoor;
 import com.mazebert.simulation.plugins.random.RandomPluginTrainer;
 import com.mazebert.simulation.systems.DamageSystem;
 import com.mazebert.simulation.units.creeps.Creep;
-import com.mazebert.simulation.units.traps.BearHunterTrap;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -46,8 +45,6 @@ strictfp class BearHunter_BestHitTest extends SimTest {
         creep.setX(17);
         creep.setY(14);
         unitGateway.addUnit(creep);
-        BearHunterTrap trap = unitGateway.findUnitInRange(17, 14, 0, BearHunterTrap.class);
-        trap.simulate(0.1f);
 
         assertThat(bearHunter.getBestHit()).isGreaterThan(0);
     }

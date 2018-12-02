@@ -1,6 +1,7 @@
 package com.mazebert.simulation.units.towers;
 
 import com.mazebert.simulation.SimTest;
+import com.mazebert.simulation.SimulationListeners;
 import com.mazebert.simulation.gateways.UnitGateway;
 import com.mazebert.simulation.units.TestTower;
 import org.junit.jupiter.api.BeforeEach;
@@ -13,6 +14,7 @@ class GaneshaTest extends SimTest {
 
     @BeforeEach
     void setUp() {
+        simulationListeners = new SimulationListeners();
         unitGateway = new UnitGateway();
 
         ganesha = new Ganesha();
@@ -25,8 +27,6 @@ class GaneshaTest extends SimTest {
         tower.setX(1);
         unitGateway.addUnit(tower);
 
-        ganesha.simulate(0.1f);
-
         assertThat(tower.getExperienceModifier()).isEqualTo(1.2f);
     }
 
@@ -37,7 +37,6 @@ class GaneshaTest extends SimTest {
         unitGateway.addUnit(tower);
 
         ganesha.setLevel(20);
-        ganesha.simulate(0.1f);
 
         assertThat(tower.getExperienceModifier()).isEqualTo(1.3f);
     }
@@ -49,7 +48,6 @@ class GaneshaTest extends SimTest {
         tower.setX(1);
         unitGateway.addUnit(tower);
 
-        ganesha.simulate(0.1f);
         tower.setLevel(1);
 
         assertThat(ganesha.getLevel()).isEqualTo(11);
@@ -62,7 +60,6 @@ class GaneshaTest extends SimTest {
         tower.setX(1);
         unitGateway.addUnit(tower);
 
-        ganesha.simulate(0.1f);
         tower.setLevel(10);
 
         assertThat(ganesha.getLevel()).isEqualTo(20);
@@ -76,7 +73,6 @@ class GaneshaTest extends SimTest {
         tower.setLevel(10);
         unitGateway.addUnit(tower);
 
-        ganesha.simulate(0.1f);
         tower.setLevel(8);
 
         assertThat(ganesha.getLevel()).isEqualTo(10);

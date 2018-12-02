@@ -18,9 +18,7 @@ public strictfp final class UnitGateway {
     public void addUnit(Unit unit) {
         units.add(unit);
         unit.onUnitAdded.dispatch(unit);
-        if (Sim.context().simulationListeners != null) {
-            Sim.context().simulationListeners.onUnitAdded.dispatch(unit);
-        }
+        Sim.context().simulationListeners.onUnitAdded.dispatch(unit);
     }
 
     public Unit getUnit(int index) {
@@ -45,11 +43,9 @@ public strictfp final class UnitGateway {
         units.remove(unit);
         unit.onUnitRemoved.dispatch(unit);
 
-        unit.dispose();
+        Sim.context().simulationListeners.onUnitRemoved.dispatch(unit);
 
-        if (Sim.context().simulationListeners != null) {
-            Sim.context().simulationListeners.onUnitRemoved.dispatch(unit);
-        }
+        unit.dispose();
     }
 
     @SuppressWarnings("unchecked")
