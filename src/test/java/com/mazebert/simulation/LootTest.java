@@ -3,6 +3,7 @@ package com.mazebert.simulation;
 import com.mazebert.simulation.gateways.UnitGateway;
 import com.mazebert.simulation.plugins.random.RandomPluginTrainer;
 import com.mazebert.simulation.systems.DamageSystemTrainer;
+import com.mazebert.simulation.systems.ExperienceSystem;
 import com.mazebert.simulation.systems.LootSystem;
 import com.mazebert.simulation.units.TestTower;
 import com.mazebert.simulation.units.abilities.AttackAbility;
@@ -35,8 +36,9 @@ public class LootTest extends SimTest {
         simulationListeners = new SimulationListeners();
         unitGateway = new UnitGateway();
         randomPlugin = randomPluginTrainer;
-        damageSystem = damageSystemTrainer = new DamageSystemTrainer(simulationListeners);
-        lootSystem = new LootSystem(randomPlugin, simulationListeners);
+        damageSystem = damageSystemTrainer = new DamageSystemTrainer();
+        lootSystem = new LootSystem();
+        experienceSystem = new ExperienceSystem();
 
         wizard = new Wizard();
         unitGateway.addUnit(wizard);

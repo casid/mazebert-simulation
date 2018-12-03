@@ -1,5 +1,6 @@
 package com.mazebert.simulation.systems;
 
+import com.mazebert.simulation.Sim;
 import com.mazebert.simulation.SimulationListeners;
 import com.mazebert.simulation.plugins.FormatPlugin;
 import com.mazebert.simulation.plugins.random.RandomPlugin;
@@ -13,15 +14,9 @@ import java.util.Arrays;
 public strictfp class DamageSystem {
     private static final DamageInfo DAMAGE_INFO = new DamageInfo();
 
-    private final RandomPlugin randomPlugin;
-    private final SimulationListeners simulationListeners;
-    private final FormatPlugin formatPlugin;
-
-    public DamageSystem(RandomPlugin randomPlugin, SimulationListeners simulationListeners, FormatPlugin formatPlugin) {
-        this.randomPlugin = randomPlugin;
-        this.simulationListeners = simulationListeners;
-        this.formatPlugin = formatPlugin;
-    }
+    private final RandomPlugin randomPlugin = Sim.context().randomPlugin;
+    private final SimulationListeners simulationListeners = Sim.context().simulationListeners;
+    private final FormatPlugin formatPlugin = Sim.context().formatPlugin;
 
     public void dealDamage(Object origin, Tower tower, Creep creep) {
         if (creep.isDead()) {

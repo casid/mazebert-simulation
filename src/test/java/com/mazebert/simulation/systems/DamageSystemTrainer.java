@@ -1,15 +1,10 @@
 package com.mazebert.simulation.systems;
 
-import com.mazebert.simulation.SimulationListeners;
 import com.mazebert.simulation.units.creeps.Creep;
 import com.mazebert.simulation.units.towers.Tower;
 
 public class DamageSystemTrainer extends DamageSystem {
     private double constantDamage = 10;  // constant damage for better testability of other stuff
-
-    public DamageSystemTrainer(SimulationListeners simulationListeners) {
-        super(null, simulationListeners, null);
-    }
 
     public void givenConstantDamage(double constantDamage) {
         this.constantDamage = constantDamage;

@@ -1,6 +1,6 @@
 package com.mazebert.simulation.systems;
 
-import com.mazebert.simulation.SimulationListeners;
+import com.mazebert.simulation.Sim;
 import com.mazebert.simulation.listeners.OnLevelChangedListener;
 import com.mazebert.simulation.listeners.OnUnitAddedListener;
 import com.mazebert.simulation.listeners.OnUnitRemovedListener;
@@ -14,7 +14,7 @@ public strictfp class WolfSystem implements OnUnitAddedListener, OnLevelChangedL
     public static final float CRIT_CHANCE = 0.005f;
     public static final float CRIT_DAMAGE = 0.02f;
 
-    private final SimulationListeners simulationListeners;
+    private final ExperienceSystem experienceSystem = Sim.context().experienceSystem;
 
     private List<Wolf> wolves = new ArrayList<>();
     private Wolf alphaWolf;
@@ -22,10 +22,6 @@ public strictfp class WolfSystem implements OnUnitAddedListener, OnLevelChangedL
     private float critChance;
     private float critDamage;
 
-
-    public WolfSystem(SimulationListeners simulationListeners) {
-        this.simulationListeners = simulationListeners;
-    }
 
     @Override
     public void onUnitAdded(Unit unit) {
@@ -104,10 +100,7 @@ public strictfp class WolfSystem implements OnUnitAddedListener, OnLevelChangedL
     public void giveExperienceToOtherWolfTowers(Wolf wolfToIgnore, int xp) {
         for (Wolf wolf : wolves) {
             if (wolf != wolfToIgnore) {
-                wolf.addExperience(xp);
-                if (simulationListeners.areNotificationsEnabled()) {
-                    simulationListeners.showExperienceGainNotification(wolf, xp);
-                }
+                experienceSystem.grantExperience(wolf, xp);
             }
         }
     }

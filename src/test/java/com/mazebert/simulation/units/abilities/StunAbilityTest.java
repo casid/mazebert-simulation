@@ -28,7 +28,7 @@ public class StunAbilityTest extends SimTest {
     void setUp() {
         unitGateway = new UnitGateway();
         randomPlugin = randomPluginTrainer;
-        damageSystem = new DamageSystem(randomPlugin, simulationListeners, formatPlugin);
+        damageSystem = new DamageSystem();
         simulationListeners = new SimulationListeners();
 
         tower = new TestTower();

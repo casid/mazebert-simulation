@@ -19,7 +19,7 @@ class ExperienceSystemTest extends SimTest {
         difficultyGateway = new DifficultyGateway();
         difficultyGateway.setDifficulty(Difficulty.Normal);
         simulationListeners = new SimulationListeners();
-        experienceSystem = new ExperienceSystem(difficultyGateway, simulationListeners);
+        experienceSystem = new ExperienceSystem();
 
         wizard = new Wizard();
         wave = new Wave();

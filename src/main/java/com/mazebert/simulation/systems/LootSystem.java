@@ -8,13 +8,8 @@ import com.mazebert.simulation.units.towers.Tower;
 import com.mazebert.simulation.units.wizards.Wizard;
 
 public strictfp class LootSystem {
-    private final RandomPlugin randomPlugin;
-    private final SimulationListeners simulationListeners;
-
-    public LootSystem(RandomPlugin randomPlugin, SimulationListeners simulationListeners) {
-        this.randomPlugin = randomPlugin;
-        this.simulationListeners = simulationListeners;
-    }
+    private final RandomPlugin randomPlugin = Sim.context().randomPlugin;
+    private final SimulationListeners simulationListeners = Sim.context().simulationListeners;
 
     public void loot(Tower tower, Creep creep) {
         Wizard wizard = tower.getWizard();

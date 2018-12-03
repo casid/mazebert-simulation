@@ -336,13 +336,13 @@ public strictfp abstract class Tower extends Unit implements CooldownUnit, Card,
 
     @Override
     public void onKill(Creep target) {
-        addExperience(target.getExperienceModifier() * target.getExperience());
+        Sim.context().experienceSystem.grantExperience(this, target.getExperienceModifier() * target.getExperience());
         ++kills;
         Sim.context().lootSystem.loot(this, target);
     }
 
     public void addExperience(float experience) {
-        setExperience(this.experience + experienceModifier * experience);
+        setExperience(this.experience + experience);
     }
 
     public float getExperience() {

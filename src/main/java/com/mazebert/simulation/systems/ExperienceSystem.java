@@ -8,17 +8,21 @@ import com.mazebert.simulation.gateways.DifficultyGateway;
 import com.mazebert.simulation.plugins.FormatPlugin;
 import com.mazebert.simulation.plugins.PlayerLevelPlugin;
 import com.mazebert.simulation.units.creeps.Creep;
+import com.mazebert.simulation.units.towers.Tower;
 import com.mazebert.simulation.units.wizards.Wizard;
 
 public strictfp class ExperienceSystem {
     private static final PlayerLevelPlugin playerLevelPlugin = new PlayerLevelPlugin();
 
-    private final DifficultyGateway difficultyGateway;
-    private final SimulationListeners simulationListeners;
+    private final DifficultyGateway difficultyGateway = Sim.context().difficultyGateway;
+    private final SimulationListeners simulationListeners = Sim.context().simulationListeners;
 
-    public ExperienceSystem(DifficultyGateway difficultyGateway, SimulationListeners simulationListeners) {
-        this.difficultyGateway = difficultyGateway;
-        this.simulationListeners = simulationListeners;
+    public void grantExperience(Tower tower, float experience) {
+        experience *= tower.getExperienceModifier();
+        tower.addExperience(experience);
+        if (simulationListeners.areNotificationsEnabled()) {
+            simulationListeners.showExperienceGainNotification(tower, experience);
+        }
     }
 
     public void grantExperience(Wizard wizard, Wave wave, Creep lastCreep) {

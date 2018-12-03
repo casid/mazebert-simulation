@@ -3,7 +3,9 @@ package com.mazebert.simulation.units.towers;
 import com.mazebert.simulation.Balancing;
 import com.mazebert.simulation.SimTest;
 import com.mazebert.simulation.SimulationListeners;
+import com.mazebert.simulation.gateways.DifficultyGateway;
 import com.mazebert.simulation.gateways.UnitGateway;
+import com.mazebert.simulation.systems.ExperienceSystem;
 import com.mazebert.simulation.systems.WolfSystem;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -17,7 +19,9 @@ strictfp class WolfTest extends SimTest {
     void setUp() {
         simulationListeners = new SimulationListeners();
         unitGateway = new UnitGateway();
-        wolfSystem = new WolfSystem(simulationListeners);
+        difficultyGateway = new DifficultyGateway();
+        experienceSystem = new ExperienceSystem();
+        wolfSystem = new WolfSystem();
 
         wolf = new Wolf();
         wolf.setExperience(Balancing.getTowerExperienceForLevel(10));

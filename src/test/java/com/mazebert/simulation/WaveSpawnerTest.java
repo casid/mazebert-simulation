@@ -42,8 +42,8 @@ public class WaveSpawnerTest extends SimTest {
         randomPlugin = randomPluginTrainer;
         difficultyGateway = new DifficultyGateway();
         gameGateway = new GameGateway();
-        lootSystem = new LootSystem(randomPlugin, simulationListeners);
-        experienceSystem = new ExperienceSystem(difficultyGateway, simulationListeners);
+        lootSystem = new LootSystem();
+        experienceSystem = new ExperienceSystem();
 
         gameGateway.getGame().map = new BloodMoor();
 

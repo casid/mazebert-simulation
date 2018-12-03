@@ -28,7 +28,7 @@ public class MultishotAttackAbilityTest extends SimTest {
         simulationListeners = new SimulationListeners();
         unitGateway = new UnitGateway();
         randomPlugin = randomPluginTrainer;
-        damageSystem = new DamageSystem(randomPlugin, simulationListeners, formatPlugin);
+        damageSystem = new DamageSystem();
 
         tower = new TestTower();
         tower.setBaseCooldown(1.0f);

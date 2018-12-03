@@ -8,6 +8,7 @@ import com.mazebert.simulation.gateways.UnitGateway;
 import com.mazebert.simulation.plugins.random.RandomPluginTrainer;
 import com.mazebert.simulation.projectiles.ProjectileGateway;
 import com.mazebert.simulation.systems.DamageSystemTrainer;
+import com.mazebert.simulation.systems.ExperienceSystem;
 import com.mazebert.simulation.systems.LootSystemTrainer;
 import com.mazebert.simulation.units.creeps.Creep;
 import com.mazebert.simulation.units.potions.PotionType;
@@ -31,8 +32,9 @@ class VikingTest extends SimTest {
         randomPlugin = randomPluginTrainer;
         unitGateway = new UnitGateway();
         projectileGateway = new ProjectileGateway();
-        damageSystem = damageSystemTrainer = new DamageSystemTrainer(simulationListeners);
+        damageSystem = damageSystemTrainer = new DamageSystemTrainer();
         lootSystem = new LootSystemTrainer();
+        experienceSystem = new ExperienceSystem();
 
         commandExecutor = new CommandExecutor();
         commandExecutor.init();

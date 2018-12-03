@@ -26,7 +26,7 @@ strictfp class BearHunter_BestHitTest extends SimTest {
         gameGateway.getGame().map = new BloodMoor();
 
         randomPlugin = randomPluginTrainer;
-        damageSystem = new DamageSystem(randomPlugin, simulationListeners, formatPlugin);
+        damageSystem = new DamageSystem();
 
         bearHunter = new BearHunter();
         bearHunter.setBaseDamage(10);
