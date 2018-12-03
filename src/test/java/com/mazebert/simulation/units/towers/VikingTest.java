@@ -56,6 +56,17 @@ class VikingTest extends SimTest {
     }
 
     @Test
+    void attack_canHitTwoCreeps() {
+        Creep anotherCreep = new Creep();
+        unitGateway.addUnit(anotherCreep);
+
+        whenVikingAttacks();
+
+        assertThat(creep.getHealth()).isEqualTo(90);
+        assertThat(anotherCreep.getHealth()).isEqualTo(90);
+    }
+
+    @Test
     void kill_canDropMead_drop() {
         randomPluginTrainer.givenFloatAbs(0.0f);
         damageSystemTrainer.givenConstantDamage(1000);
