@@ -17,12 +17,16 @@ public strictfp class ExperienceSystem {
     private final DifficultyGateway difficultyGateway = Sim.context().difficultyGateway;
     private final SimulationListeners simulationListeners = Sim.context().simulationListeners;
 
-    public void grantExperience(Tower tower, float experience) {
+    public void grantExperience(Tower tower, float experience, boolean showNotification) {
         experience *= tower.getExperienceModifier();
         tower.addExperience(experience);
-        if (simulationListeners.areNotificationsEnabled()) {
+        if (showNotification && simulationListeners.areNotificationsEnabled()) {
             simulationListeners.showExperienceGainNotification(tower, experience);
         }
+    }
+
+    public void grantExperience(Tower tower, float experience) {
+        grantExperience(tower, experience, true);
     }
 
     public void grantExperience(Wizard wizard, Wave wave, Creep lastCreep) {
