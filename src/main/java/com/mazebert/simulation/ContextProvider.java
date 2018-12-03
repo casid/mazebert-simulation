@@ -6,10 +6,6 @@ import com.mazebert.simulation.plugins.NoSleepPlugin;
 import com.mazebert.simulation.plugins.SleepPlugin;
 import com.mazebert.simulation.plugins.random.UuidRandomPlugin;
 import com.mazebert.simulation.projectiles.ProjectileGateway;
-import com.mazebert.simulation.systems.DamageSystem;
-import com.mazebert.simulation.systems.ExperienceSystem;
-import com.mazebert.simulation.systems.LootSystem;
-import com.mazebert.simulation.systems.WolfSystem;
 
 public strictfp class ContextProvider {
     @SuppressWarnings("unused") // Used by client
@@ -39,10 +35,6 @@ public strictfp class ContextProvider {
         context.localCommandGateway = new LocalCommandGateway();
         context.projectileGateway = new ProjectileGateway();
 
-        context.damageSystem = new DamageSystem();
-        context.lootSystem = new LootSystem();
-        context.experienceSystem = new ExperienceSystem();
-        context.wolfSystem = new WolfSystem();
         context.commandExecutor = new CommandExecutor();
 
         return context;

@@ -44,8 +44,7 @@ public strictfp final class Simulation {
     private Hash hash = new Hash();
 
     public Simulation() {
-        Sim.context().simulation = this;
-        commandExecutor.init();
+        Sim.context().init(this);
     }
 
     public void start() {

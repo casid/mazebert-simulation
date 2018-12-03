@@ -49,4 +49,14 @@ public strictfp class Context {
     public WaveCountDown waveCountDown;
     public WaveSpawner waveSpawner;
     public final float[] tempChancesForRarity = new float[Rarity.values().length];
+
+    public void init(Simulation simulation) {
+        damageSystem = new DamageSystem();
+        lootSystem = new LootSystem();
+        experienceSystem = new ExperienceSystem();
+        wolfSystem = new WolfSystem();
+
+        this.simulation = simulation;
+        commandExecutor.init();
+    }
 }
