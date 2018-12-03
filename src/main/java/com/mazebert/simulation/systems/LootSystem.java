@@ -19,6 +19,11 @@ public strictfp class LootSystem {
     public void loot(Tower tower, Creep creep) {
         Wizard wizard = tower.getWizard();
 
+        lootCards(wizard, tower, creep);
+        lootGold(wizard, tower, creep);
+    }
+
+    private void lootCards(Wizard wizard, Tower tower, Creep creep) {
         int minDrops = creep.getMinDrops();
         int maxDrops = creep.getMaxDrops();
         int maxItemLevel = creep.getMaxItemLevel();
@@ -43,7 +48,9 @@ public strictfp class LootSystem {
 
             rollCardDrop(wizard, creep, maxItemLevel, rarity, stash);
         }
+    }
 
+    private void lootGold(Wizard wizard, Tower tower, Creep creep) {
         if (creep.getGold() > 0) {
             int gold = StrictMath.round(creep.getGold() * creep.getGoldModifier() * tower.getGoldModifier());
             if (simulationListeners.areNotificationsEnabled()) {
