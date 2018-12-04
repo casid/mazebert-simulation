@@ -1,0 +1,65 @@
+package com.mazebert.simulation.units.towers;
+
+import com.mazebert.simulation.AttackType;
+import com.mazebert.simulation.Element;
+import com.mazebert.simulation.Rarity;
+import com.mazebert.simulation.units.Gender;
+import com.mazebert.simulation.units.abilities.AttackAbility;
+import com.mazebert.simulation.units.abilities.InstantDamageAbility;
+
+public strictfp class ElectricChair extends Tower {
+
+    public ElectricChair() {
+        setBaseCooldown(2.5f);
+        setBaseRange(1);
+        setAttackType(AttackType.Vex);
+        setStrength(0.55f);
+        setDamageSpread(0.5f);
+        setGender(Gender.Unknown);
+        setElement(Element.Metropolis);
+
+        addAbility(new AttackAbility());
+        addAbility(new InstantDamageAbility());
+        addAbility(new ElectricChairLightning());
+    }
+
+    @Override
+    public String getName() {
+        return "Electric Chair";
+    }
+
+    @Override
+    public String getDescription() {
+        return "This electric chair can't hold back its energy if any criminal comes into range.";
+    }
+
+    @Override
+    public Rarity getRarity() {
+        return Rarity.Uncommon;
+    }
+
+    @Override
+    public int getItemLevel() {
+        return 1;
+    }
+
+    @Override
+    public int getImageOffsetOnCardY() {
+        return 8;
+    }
+
+    @Override
+    public String getSinceVersion() {
+        return "0.1";
+    }
+
+    @Override
+    public String getModelId() {
+        return "electric_chair";
+    }
+
+    @Override
+    protected float getGoldCostFactor() {
+        return 1.25f;
+    }
+}

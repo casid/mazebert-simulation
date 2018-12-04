@@ -14,6 +14,7 @@ public strictfp abstract class Tower extends Unit implements CooldownUnit, Card,
 
     public final OnAttack onAttack = new OnAttack();
     public final OnDamage onDamage = new OnDamage();
+    public final OnChain onChain = new OnChain();
     public final OnKill onKill = new OnKill();
     public final OnMiss onMiss = new OnMiss();
     public final OnLevelChanged onLevelChanged = new OnLevelChanged();
