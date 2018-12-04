@@ -1,17 +1,19 @@
 package com.mazebert.simulation.units.abilities;
 
 import com.mazebert.java8.Consumer;
-import com.mazebert.java8.Predicate;
 import com.mazebert.simulation.Sim;
 import com.mazebert.simulation.gateways.UnitGateway;
 import com.mazebert.simulation.listeners.OnDamageListener;
+import com.mazebert.simulation.projectiles.ChainViewType;
 import com.mazebert.simulation.systems.DamageSystem;
 import com.mazebert.simulation.units.creeps.Creep;
 import com.mazebert.simulation.units.towers.Tower;
 
-public strictfp class ChainAbility extends Ability<Tower> implements OnDamageListener, Consumer<Creep>, Predicate<Creep> {
+public strictfp class ChainAbility extends Ability<Tower> implements OnDamageListener, Consumer<Creep> {
     private final UnitGateway unitGateway = Sim.context().unitGateway;
     private final DamageSystem damageSystem = Sim.context().damageSystem;
+
+    private final ChainViewType viewType;
 
     private int maxChains = -1;
 
@@ -20,7 +22,8 @@ public strictfp class ChainAbility extends Ability<Tower> implements OnDamageLis
     private Creep[] chainedCreeps;
     private int chainedCreepCount;
 
-    public ChainAbility(int maxChains) {
+    public ChainAbility(ChainViewType viewType, int maxChains) {
+        this.viewType = viewType;
         setMaxChains(maxChains);
     }
 
@@ -43,6 +46,10 @@ public strictfp class ChainAbility extends Ability<Tower> implements OnDamageLis
         }
     }
 
+    public int getMaxChains() {
+        return maxChains;
+    }
+
     @Override
     public void onDamage(Object origin, Creep target, double damage, int multicrits) {
         if (sourceCreep != null) {
@@ -50,7 +57,7 @@ public strictfp class ChainAbility extends Ability<Tower> implements OnDamageLis
         }
 
         beginChain(target, damage);
-        unitGateway.forEach(Creep.class, this, this);
+        unitGateway.forEach(Creep.class, this);
         endChain();
     }
 
@@ -61,7 +68,7 @@ public strictfp class ChainAbility extends Ability<Tower> implements OnDamageLis
     }
 
     private void endChain() {
-        getUnit().onChain.dispatch(sourceCreep, chainedCreeps, chainedCreepCount);
+        getUnit().onChain.dispatch(viewType, sourceCreep, chainedCreeps, chainedCreepCount);
 
         sourceCreep = null;
         for (int i = 0; i < chainedCreepCount; ++i) {
@@ -72,19 +79,17 @@ public strictfp class ChainAbility extends Ability<Tower> implements OnDamageLis
 
     @Override
     public void accept(Creep creep) {
-        chainedCreeps[chainedCreepCount++] = creep;
-        damageSystem.dealDamage(this, getUnit(), creep, chainDamage, 0);
-    }
-
-    @SuppressWarnings("RedundantIfStatement")
-    @Override
-    public boolean test(Creep creep) {
         if (creep == sourceCreep) {
-            return false;
+            return;
+        }
+        if (creep.isDead()) {
+            return;
         }
         if (chainedCreepCount >= maxChains) {
-            return false;
+            return;
         }
-        return true;
+
+        chainedCreeps[chainedCreepCount++] = creep;
+        damageSystem.dealDamage(this, getUnit(), creep, chainDamage, 0);
     }
 }

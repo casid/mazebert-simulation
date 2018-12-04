@@ -62,4 +62,10 @@ public strictfp class ElectricChair extends Tower {
     protected float getGoldCostFactor() {
         return 1.25f;
     }
+
+    @Override
+    public void populateCustomTowerBonus(CustomTowerBonus bonus) {
+        bonus.title = "Chains:";
+        bonus.value = "+" + getAbility(ElectricChairLightning.class).getMaxChains();
+    }
 }

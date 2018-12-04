@@ -65,6 +65,23 @@ class ElectricChairTest extends SimTest {
     }
 
     @Test
+    void attack_three_oneDead() {
+        Creep creep1 = new Creep();
+        unitGateway.addUnit(creep1);
+        Creep creep2 = new Creep();
+        creep2.setHealth(0);
+        unitGateway.addUnit(creep2);
+        Creep creep3 = new Creep();
+        unitGateway.addUnit(creep3);
+
+        whenTowerAttacks();
+
+        assertThat(creep1.getHealth()).isEqualTo(90);
+        assertThat(creep2.getHealth()).isEqualTo(0);
+        assertThat(creep3.getHealth()).isEqualTo(90);
+    }
+
+    @Test
     void attack_three_afterLevelUp() {
         Creep creep1 = new Creep();
         unitGateway.addUnit(creep1);
@@ -79,6 +96,25 @@ class ElectricChairTest extends SimTest {
         assertThat(creep1.getHealth()).isEqualTo(90);
         assertThat(creep2.getHealth()).isEqualTo(90);
         assertThat(creep3.getHealth()).isEqualTo(90);
+    }
+
+    @Test
+    void customBonus() {
+        CustomTowerBonus bonus = new CustomTowerBonus();
+        electricChair.populateCustomTowerBonus(bonus);
+        assertThat(bonus.title).isEqualTo("Chains:");
+        assertThat(bonus.value).isEqualTo("+1");
+    }
+
+    @Test
+    void customBonus_level() {
+        electricChair.setLevel(14 * 2);
+
+        CustomTowerBonus bonus = new CustomTowerBonus();
+        electricChair.populateCustomTowerBonus(bonus);
+
+        assertThat(bonus.title).isEqualTo("Chains:");
+        assertThat(bonus.value).isEqualTo("+3");
     }
 
     private void whenTowerAttacks() {

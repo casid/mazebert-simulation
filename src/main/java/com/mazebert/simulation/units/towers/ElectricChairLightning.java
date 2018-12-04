@@ -1,12 +1,13 @@
 package com.mazebert.simulation.units.towers;
 
 import com.mazebert.simulation.listeners.OnLevelChangedListener;
+import com.mazebert.simulation.projectiles.ChainViewType;
 import com.mazebert.simulation.units.Unit;
 import com.mazebert.simulation.units.abilities.ChainAbility;
 
 public strictfp class ElectricChairLightning extends ChainAbility implements OnLevelChangedListener {
     public ElectricChairLightning() {
-        super(1);
+        super(ChainViewType.Lightning, 1);
     }
 
     @Override
@@ -39,6 +40,11 @@ public strictfp class ElectricChairLightning extends ChainAbility implements OnL
     @Override
     public String getIconFile() {
         return "0068_lightning_512";
+    }
+
+    @Override
+    public String getDescription() {
+        return "The electricity of this chair is so strong, that it jumps to 1 other creep on the map.";
     }
 
     @Override
