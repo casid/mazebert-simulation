@@ -3,6 +3,7 @@ package com.mazebert.simulation.systems;
 import com.mazebert.simulation.*;
 import com.mazebert.simulation.plugins.random.RandomPlugin;
 import com.mazebert.simulation.stash.Stash;
+import com.mazebert.simulation.units.Unit;
 import com.mazebert.simulation.units.creeps.Creep;
 import com.mazebert.simulation.units.towers.Tower;
 import com.mazebert.simulation.units.wizards.Wizard;
@@ -47,12 +48,20 @@ public strictfp class LootSystem {
 
     private void lootGold(Wizard wizard, Tower tower, Creep creep) {
         if (creep.getGold() > 0) {
-            int gold = StrictMath.round(creep.getGold() * creep.getGoldModifier() * tower.getGoldModifier());
-            if (simulationListeners.areNotificationsEnabled()) {
-                simulationListeners.showNotification(creep, Sim.context().formatPlugin.goldGain(gold), 0xffff00);
-            }
-            wizard.addGold(gold);
+            grantGold(wizard, creep, creep.getGold() * tower.getGoldModifier());
         }
+    }
+
+    public void grantGold(Wizard wizard, Unit source, float gold) {
+        int goldRounded = StrictMath.round(gold * source.getGoldModifier() * wizard.getGoldModifier());
+        addGold(wizard, source, goldRounded);
+    }
+
+    public void addGold(Wizard wizard, Unit source, int gold) {
+        if (simulationListeners.areNotificationsEnabled()) {
+            simulationListeners.showNotification(source, Sim.context().formatPlugin.goldGain(gold), 0xffff00);
+        }
+        wizard.addGold(gold);
     }
 
     public void researchTower(Wizard wizard, int round) {

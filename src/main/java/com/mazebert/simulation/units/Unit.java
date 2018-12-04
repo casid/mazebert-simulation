@@ -195,4 +195,8 @@ public abstract strictfp class Unit implements Hashable {
     public boolean isDisposed() {
         return abilities == null;
     }
+
+    public float getGoldModifier() {
+        return 1;
+    }
 }

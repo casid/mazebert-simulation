@@ -2,6 +2,7 @@ package com.mazebert.simulation.units.abilities;
 
 import com.mazebert.simulation.Sim;
 import com.mazebert.simulation.plugins.FormatPlugin;
+import com.mazebert.simulation.units.Currency;
 import com.mazebert.simulation.units.Unit;
 
 public abstract strictfp class Ability<U extends Unit> {
@@ -67,5 +68,12 @@ public abstract strictfp class Ability<U extends Unit> {
 
     public String getLevelBonus() {
         return "";
+    }
+
+    protected Currency getCurrency() {
+        if (getUnit().getWizard() != null) {
+            return getUnit().getWizard().currency;
+        }
+        return Currency.Gold;
     }
 }
