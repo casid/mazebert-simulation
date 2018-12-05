@@ -41,16 +41,19 @@ public strictfp class SimulationLoop {
 
     private void run() {
         Sim.setContext(context);
+        try {
+            Simulation simulation = new Simulation();
+            if (beforeStartConsumer != null) {
+                beforeStartConsumer.accept(simulation);
+            }
+            simulation.start();
+            while (running) {
+                simulation.process();
+            }
 
-        Simulation simulation = new Simulation();
-        if (beforeStartConsumer != null) {
-            beforeStartConsumer.accept(simulation);
+            simulation.stop();
+        } finally {
+            Sim.resetContext();
         }
-        simulation.start();
-        while (running) {
-            simulation.process();
-        }
-
-        simulation.stop();
     }
 }

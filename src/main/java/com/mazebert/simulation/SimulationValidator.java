@@ -19,9 +19,12 @@ public strictfp class SimulationValidator {
         context.playerGateway = new ReplayPlayerGateway(replayHeader);
 
         Sim.setContext(context);
-        Simulation simulation = new Simulation();
-        simulation.load(replayReader);
-
-        return simulation;
+        try {
+            Simulation simulation = new Simulation();
+            simulation.load(replayReader);
+            return simulation;
+        } finally {
+            Sim.resetContext();
+        }
     }
 }

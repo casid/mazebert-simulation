@@ -16,4 +16,8 @@ public strictfp class Sim {
     static void setContext(Context testContext) {
         context.set(testContext);
     }
+
+    static void resetContext() {
+        context.remove();
+    }
 }
