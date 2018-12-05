@@ -8,10 +8,7 @@ import com.mazebert.simulation.plugins.FormatPlugin;
 import com.mazebert.simulation.plugins.SleepPlugin;
 import com.mazebert.simulation.plugins.random.UuidRandomPlugin;
 import com.mazebert.simulation.projectiles.ProjectileGateway;
-import com.mazebert.simulation.systems.DamageSystem;
-import com.mazebert.simulation.systems.ExperienceSystem;
-import com.mazebert.simulation.systems.LootSystem;
-import com.mazebert.simulation.systems.WolfSystem;
+import com.mazebert.simulation.systems.*;
 
 public strictfp class Context {
     // Connection to app
@@ -41,6 +38,7 @@ public strictfp class Context {
     public LootSystem lootSystem;
     public ExperienceSystem experienceSystem;
     public WolfSystem wolfSystem;
+    public PubSystem pubSystem;
     public CommandExecutor commandExecutor;
     public Simulation simulation;
 
@@ -55,6 +53,7 @@ public strictfp class Context {
         lootSystem = new LootSystem();
         experienceSystem = new ExperienceSystem();
         wolfSystem = new WolfSystem();
+        pubSystem = new PubSystem();
 
         this.simulation = simulation;
         commandExecutor.init();

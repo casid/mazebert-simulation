@@ -11,5 +11,6 @@ public strictfp class CommandExecutor extends ManualUsecaseExecutor {
         addUsecase(new EquipItem());
         addUsecase(new DrinkPotion());
         addUsecase(new Pause());
+        addUsecase(new ActivateAbility());
     }
 }

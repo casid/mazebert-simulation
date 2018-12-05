@@ -18,14 +18,18 @@ public abstract strictfp class AttributeWithLevelBonusEffect extends Ability<Tow
     @Override
     protected void initialize(Tower unit) {
         super.initialize(unit);
-        getOriginTower().onLevelChanged.add(this);
+        if (bonusPerLevel != 0) {
+            getOriginTower().onLevelChanged.add(this);
+        }
         addBonus();
     }
 
     @Override
     protected void dispose(Tower unit) {
         removeBonus();
-        getOriginTower().onLevelChanged.remove(this);
+        if (bonusPerLevel != 0) {
+            getOriginTower().onLevelChanged.remove(this);
+        }
         super.dispose(unit);
     }
 

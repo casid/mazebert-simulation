@@ -22,7 +22,7 @@ public strictfp class Pub extends Tower {
         addAbility(new AttackAbility());
         addAbility(new ProjectileDamageAbility(ProjectileViewType.Beer, 6));
         addAbility(new PubAura());
-
+        addAbility(new PubParty());
     }
 
     @Override
