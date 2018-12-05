@@ -3,8 +3,8 @@ package com.mazebert.simulation.units.towers;
 import com.mazebert.simulation.units.abilities.AuraAbility;
 import com.mazebert.simulation.units.creeps.Creep;
 
-public strictfp class ElvisSoundAura extends AuraAbility<Tower, Creep> {
-    public ElvisSoundAura() {
+public strictfp class ElvisAura extends AuraAbility<Tower, Creep> {
+    public ElvisAura() {
         super(Creep.class, 1);
     }
 

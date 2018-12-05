@@ -20,7 +20,7 @@ public strictfp class Elvis extends Tower {
 
         addAbility(new AttackAbility());
         addAbility(new InstantDamageAbility());
-        addAbility(new ElvisSoundAura());
+        addAbility(new ElvisAura());
     }
 
     @Override
@@ -61,5 +61,10 @@ public strictfp class Elvis extends Tower {
     @Override
     protected float getGoldCostFactor() {
         return 0.95f;
+    }
+
+    @Override
+    public String getAuthor() {
+        return "Thomas Pircher";
     }
 }
