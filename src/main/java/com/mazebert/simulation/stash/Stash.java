@@ -16,6 +16,8 @@ public abstract strictfp class Stash<T extends Card> implements ReadonlyStash<T>
     private final Map<Object, StashEntry<T>> entryByType;
     private final EnumMap<Rarity, CardType<T>[]> cardByDropRarity;
 
+    private transient int lastViewedIndex;
+
     protected Stash(Map<Object, StashEntry<T>> entryByType) {
         this.entryByType = entryByType;
         this.cardByDropRarity = populateCardByDropRarity();
@@ -86,10 +88,31 @@ public abstract strictfp class Stash<T extends Card> implements ReadonlyStash<T>
     }
 
     @Override
+    public int getIndex(CardType<T> cardType) {
+        int size = entries.size();
+        for (int i = 0; i < size; ++i) {
+            if (entries.get(i).cardType == cardType) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    @Override
     public void hash(Hash hash) {
         for (StashEntry<T> entry : entries) {
             hash.add(entry);
         }
+    }
+
+    @Override
+    public void setLastViewedIndex(int lastViewedIndex) {
+        this.lastViewedIndex = lastViewedIndex;
+    }
+
+    @Override
+    public int getLastViewedIndex() {
+        return lastViewedIndex;
     }
 
     public CardType<T> getRandomDrop(Rarity rarity, int maxItemLevel, RandomPlugin randomPlugin) {
