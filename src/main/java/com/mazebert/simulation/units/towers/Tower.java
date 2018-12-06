@@ -551,4 +551,8 @@ public strictfp abstract class Tower extends Unit implements CooldownUnit, Card,
     public void setDamageAgainstAir(float damageAgainstAir) {
         this.damageAgainstAir = damageAgainstAir;
     }
+
+    public void addGoldModifer(float amount) {
+        this.goldModifier += amount;
+    }
 }

@@ -24,9 +24,12 @@ public strictfp class Wizard extends Unit {
     public int level = 1;
     public long gold;
     public Currency currency = Currency.Gold;
+    public float interestBonus;
+
     public double bestHit;
     public double totalDamage;
     public TowerType bestHitTower;
+
 
     public Wizard() {
         setWizard(this);
@@ -46,6 +49,7 @@ public strictfp class Wizard extends Unit {
         hash.add(level);
         hash.add(gold);
         hash.add(currency);
+        hash.add(interestBonus);
 
         hash.add(bestHit);
         hash.add(totalDamage);
