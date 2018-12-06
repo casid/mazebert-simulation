@@ -10,6 +10,6 @@ public strictfp class PubAuraEffect extends AttributeWithLevelBonusEffect {
 
     @Override
     protected void addToAttribute(float amount) {
-        getUnit().addAttackSpeed(amount);
+        getUnit().addAddedRelativeBaseDamage(amount);
     }
 }

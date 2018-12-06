@@ -36,18 +36,21 @@ public strictfp class FormatPlugin {
     }
 
     public String cooldown(float cooldown) {
-        String result;
-        if (cooldown < 0.1f) {
-            result = twoFractionFormat.format(cooldown) + "s";
-        } else {
-            result = oneFractionFormat.format(cooldown) + "s";
-        }
+        String result = seconds(cooldown);
         if (cooldown >= Balancing.MAX_COOLDOWN) {
             result += " (max)";
         } else if (cooldown <= Balancing.MIN_COOLDOWN) {
             result += " (min)";
         }
         return result;
+    }
+
+    public String seconds(float seconds) {
+        if (seconds < 0.1f) {
+            return twoFractionFormat.format(seconds) + "s";
+        } else {
+            return oneFractionFormat.format(seconds) + "s";
+        }
     }
 
     public String damage(double damage) {

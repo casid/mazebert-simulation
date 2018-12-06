@@ -31,6 +31,7 @@ public enum ActiveAbilityType {
         return LOOKUP[id];
     }
 
+    @SuppressWarnings("unused") // by client
     public static ActiveAbilityType forAbility(ActiveAbility ability) {
         Class<? extends ActiveAbility> abilityClass = ability.getClass();
         for (ActiveAbilityType abilityType : values()) {

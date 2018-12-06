@@ -3,9 +3,7 @@ package com.mazebert.simulation.units;
 import com.mazebert.java8.Consumer;
 import com.mazebert.simulation.hash.Hash;
 import com.mazebert.simulation.hash.Hashable;
-import com.mazebert.simulation.listeners.OnUnitAdded;
-import com.mazebert.simulation.listeners.OnUnitRemoved;
-import com.mazebert.simulation.listeners.OnUpdate;
+import com.mazebert.simulation.listeners.*;
 import com.mazebert.simulation.units.abilities.Ability;
 import com.mazebert.simulation.units.abilities.StackableAbility;
 import com.mazebert.simulation.units.abilities.StackableByOriginAbility;
@@ -16,6 +14,8 @@ public abstract strictfp class Unit implements Hashable {
 
     public final OnUnitAdded onUnitAdded = new OnUnitAdded(); // Only dispatched when this unit is added to the game
     public final OnUnitRemoved onUnitRemoved = new OnUnitRemoved(); // Only dispatched when this unit is removed from the game
+    public final OnAbilityAdded onAbilityAdded = new OnAbilityAdded();
+    public final OnAbilityRemoved onAbilityRemoved = new OnAbilityRemoved();
     public final OnUpdate onUpdate = new OnUpdate();
 
     // For game display usage
@@ -164,11 +164,15 @@ public abstract strictfp class Unit implements Hashable {
     private void addAbilityInternal(Ability ability) {
         abilities.add(ability);
         ability.init(this);
+
+        onAbilityAdded.dispatch(ability);
     }
 
     private void removeAbilityInternal(Ability ability) {
         ability.dispose();
         abilities.remove(ability);
+
+        onAbilityRemoved.dispatch(ability);
     }
 
     public void forEachAbility(Consumer<Ability> consumer) {
