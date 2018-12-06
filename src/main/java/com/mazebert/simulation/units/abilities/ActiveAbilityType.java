@@ -30,4 +30,14 @@ public enum ActiveAbilityType {
     public static ActiveAbilityType forId(int id) {
         return LOOKUP[id];
     }
+
+    public static ActiveAbilityType forAbility(ActiveAbility ability) {
+        Class<? extends ActiveAbility> abilityClass = ability.getClass();
+        for (ActiveAbilityType abilityType : values()) {
+            if (abilityType.abilityClass == abilityClass) {
+                return abilityType;
+            }
+        }
+        return null;
+    }
 }
