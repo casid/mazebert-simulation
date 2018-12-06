@@ -67,7 +67,7 @@ public abstract strictfp class Ability<U extends Unit> {
     }
 
     public String getLevelBonus() {
-        return "";
+        return null;
     }
 
     protected Currency getCurrency() {
