@@ -1,6 +1,7 @@
 package com.mazebert.simulation.plugins;
 
 import com.mazebert.simulation.Balancing;
+import com.mazebert.simulation.units.Currency;
 
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
@@ -72,7 +73,14 @@ public strictfp class FormatPlugin {
         return positiveNumber(amount);
     }
 
-    public String goldGain(double amount) {
+    public String gold(int gold, Currency currency) {
+        if (gold == 1) {
+            return gold(gold) + " " + currency.singularLowercase;
+        }
+        return gold(gold) + " " + currency.pluralLowercase;
+    }
+
+    public String goldGain(int amount) {
         return "+" + gold(amount);
     }
 

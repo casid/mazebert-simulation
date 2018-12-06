@@ -189,6 +189,7 @@ public strictfp class WaveSpawner implements OnGameStartedListener, OnWaveStarte
         }
 
         experienceSystem.grantExperience(wizard, wave, lastCreep);
+        lootSystem.grantGoldInterest(wizard);
         lootSystem.researchTower(wizard, wave.round);
     }
 

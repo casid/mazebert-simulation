@@ -13,6 +13,8 @@ public strictfp class Balancing {
     public static final float DEFAULT_DROP_CHANCE = 0.04f;
     public static final float DROP_QUALITY_CONST = 0.4f;
     public static final int STARTING_GOLD = 150;
+    public static final float GOLD_INTEREST = 0.02f;
+    public static final int MAX_GOLD_INTEREST = 1000000;
 
     private static final float[] towerExperienceForLevel = new float[MAX_TOWER_LEVEL];
 

@@ -5,6 +5,7 @@ import com.mazebert.simulation.gateways.GameGateway;
 import com.mazebert.simulation.gateways.UnitGateway;
 import com.mazebert.simulation.gateways.WaveGateway;
 import com.mazebert.simulation.maps.BloodMoor;
+import com.mazebert.simulation.plugins.FormatPlugin;
 import com.mazebert.simulation.plugins.random.RandomPluginTrainer;
 import com.mazebert.simulation.systems.ExperienceSystem;
 import com.mazebert.simulation.systems.LootSystem;
@@ -36,6 +37,8 @@ public class WaveSpawnerTest extends SimTest {
     void setUp() {
         simulationListeners = new SimulationListeners();
         simulationListeners.onWaveFinished.add(wave -> waveFinished = true);
+
+        formatPlugin = new FormatPlugin();
 
         unitGateway = new UnitGateway();
         waveGateway = new WaveGateway();
@@ -470,6 +473,18 @@ public class WaveSpawnerTest extends SimTest {
         assertThat(waveFinished).isTrue();
         assertThat(wizard.towerStash.size()).isEqualTo(1); // Tower research
         assertThat(wizard.experience).isEqualTo(1);
+    }
+
+    @Test
+    void roundCompleted_interest() {
+        wizard.gold = 250;
+        givenBossWave();
+
+        whenGameIsStarted();
+        whenCreepIsKilled(getCreep(0));
+        whenGameIsUpdated();
+
+        assertThat(wizard.gold).isEqualTo(255);
     }
 
     private void whenPlayerCallsNextWave() {

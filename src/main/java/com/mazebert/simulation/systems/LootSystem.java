@@ -1,6 +1,7 @@
 package com.mazebert.simulation.systems;
 
 import com.mazebert.simulation.*;
+import com.mazebert.simulation.plugins.FormatPlugin;
 import com.mazebert.simulation.plugins.random.RandomPlugin;
 import com.mazebert.simulation.stash.Stash;
 import com.mazebert.simulation.units.Unit;
@@ -11,6 +12,7 @@ import com.mazebert.simulation.units.wizards.Wizard;
 public strictfp class LootSystem {
     private final RandomPlugin randomPlugin = Sim.context().randomPlugin;
     private final SimulationListeners simulationListeners = Sim.context().simulationListeners;
+    private final FormatPlugin formatPlugin = Sim.context().formatPlugin;
 
     public void loot(Tower tower, Creep creep) {
         Wizard wizard = tower.getWizard();
@@ -57,9 +59,21 @@ public strictfp class LootSystem {
         addGold(wizard, source, goldRounded);
     }
 
+    public void grantGoldInterest(Wizard wizard) {
+        int goldInterest =  StrictMath.round(wizard.gold * (Balancing.GOLD_INTEREST + wizard.interestBonus));
+        if (goldInterest <= 0) {
+            return;
+        }
+        if (goldInterest > Balancing.MAX_GOLD_INTEREST) {
+            goldInterest = Balancing.MAX_GOLD_INTEREST;
+        }
+        wizard.addGold(goldInterest);
+        simulationListeners.showNotification(wizard, "Interest: " + formatPlugin.gold(goldInterest, wizard.currency));
+    }
+
     public void addGold(Wizard wizard, Unit source, int gold) {
         if (simulationListeners.areNotificationsEnabled()) {
-            simulationListeners.showNotification(source, Sim.context().formatPlugin.goldGain(gold), 0xffff00);
+            simulationListeners.showNotification(source, formatPlugin.goldGain(gold), 0xffff00);
         }
         wizard.addGold(gold);
     }
