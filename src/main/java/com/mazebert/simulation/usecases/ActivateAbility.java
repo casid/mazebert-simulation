@@ -6,7 +6,7 @@ import com.mazebert.simulation.gateways.UnitGateway;
 import com.mazebert.simulation.units.abilities.ActiveAbility;
 import com.mazebert.simulation.units.towers.Tower;
 
-public class ActivateAbility extends Usecase<ActivateAbilityCommand> {
+public strictfp class ActivateAbility extends Usecase<ActivateAbilityCommand> {
     private final UnitGateway unitGateway = Sim.context().unitGateway;
 
     @Override

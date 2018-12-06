@@ -2,7 +2,7 @@ package com.mazebert.simulation.units.abilities;
 
 import com.mazebert.simulation.units.towers.PubParty;
 
-public enum ActiveAbilityType {
+public strictfp enum ActiveAbilityType {
     PubParty(1, PubParty.class),
     ;
 

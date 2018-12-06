@@ -14,7 +14,7 @@ import org.junit.jupiter.api.Test;
 import static com.mazebert.simulation.systems.PubSystem.*;
 import static org.assertj.core.api.Assertions.assertThat;
 
-class PubTest extends SimTest {
+strictfp class PubTest extends SimTest {
     Pub pub;
     TestTower otherTower;
 
@@ -37,8 +37,8 @@ class PubTest extends SimTest {
     @Test
     void onePub() {
         whenAbilityIsActivated();
-        assertThat(pub.getAddedRelativeBaseDamage()).isEqualTo(DAMAGE_BONUS_PER_PUB);
-        assertThat(otherTower.getAddedRelativeBaseDamage()).isEqualTo(DAMAGE_BONUS_PER_PUB); // bonus for one pub
+        assertThat(pub.getAddedRelativeBaseDamage()).isEqualTo(0.1f + DAMAGE_BONUS_PER_PUB);
+        assertThat(otherTower.getAddedRelativeBaseDamage()).isEqualTo(0.1f + DAMAGE_BONUS_PER_PUB); // bonus for one pub
     }
 
     @Test
@@ -47,8 +47,8 @@ class PubTest extends SimTest {
         unitGateway.addUnit(new Pub());
 
         whenAbilityIsActivated();
-        assertThat(pub.getAddedRelativeBaseDamage()).isEqualTo(3 * DAMAGE_BONUS_PER_PUB); // bonus for three pubs
-        assertThat(otherTower.getAddedRelativeBaseDamage()).isEqualTo(3 * DAMAGE_BONUS_PER_PUB); // bonus for three pubs
+        assertThat(pub.getAddedRelativeBaseDamage()).isEqualTo(0.3f + 3 * DAMAGE_BONUS_PER_PUB); // bonus for three pubs
+        assertThat(otherTower.getAddedRelativeBaseDamage()).isEqualTo(0.3f + 3 * DAMAGE_BONUS_PER_PUB); // bonus for three pubs
     }
 
     @Test
@@ -56,7 +56,7 @@ class PubTest extends SimTest {
         whenAbilityIsActivated();
         simulationListeners.onUpdate.dispatch(PARTY_TIME);
 
-        assertThat(otherTower.getAddedRelativeBaseDamage()).isEqualTo(0.0f);
+        assertThat(otherTower.getAddedRelativeBaseDamage()).isEqualTo(0.099999994f);
         assertThat(pub.getAbility(PubParty.class).getReadyProgress()).isEqualTo(0.0f);
 
         simulationListeners.onUpdate.dispatch(0.5f * COOLDOWN_TIME);
@@ -73,7 +73,7 @@ class PubTest extends SimTest {
         unitGateway.addUnit(newTower);
         simulationListeners.onUpdate.dispatch(PARTY_TIME);
 
-        assertThat(newTower.getAddedRelativeBaseDamage()).isEqualTo(0); // does not suffer after party!
+        assertThat(newTower.getAddedRelativeBaseDamage()).isEqualTo(0.1f); // does not suffer after party!
     }
 
     @Test
@@ -81,8 +81,8 @@ class PubTest extends SimTest {
         whenAbilityIsActivated();
         whenAbilityIsActivated();
 
-        assertThat(pub.getAddedRelativeBaseDamage()).isEqualTo(DAMAGE_BONUS_PER_PUB);
-        assertThat(otherTower.getAddedRelativeBaseDamage()).isEqualTo(DAMAGE_BONUS_PER_PUB);
+        assertThat(pub.getAddedRelativeBaseDamage()).isEqualTo(0.1f + DAMAGE_BONUS_PER_PUB);
+        assertThat(otherTower.getAddedRelativeBaseDamage()).isEqualTo(0.1f + DAMAGE_BONUS_PER_PUB);
     }
 
     private void whenAbilityIsActivated() {
