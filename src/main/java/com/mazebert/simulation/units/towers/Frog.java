@@ -14,7 +14,7 @@ public strictfp class Frog extends Tower {
         setBaseCooldown(3.0f);
         setBaseRange(2.0f);
         setAttackType(AttackType.Fal);
-        setStrength(0.9f);
+        setStrength(0.74f);
         setDamageSpread(0.4f);
         setGender(Gender.Male);
         setElement(Element.Nature);
