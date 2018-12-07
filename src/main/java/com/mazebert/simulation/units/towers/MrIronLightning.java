@@ -12,4 +12,24 @@ public strictfp class MrIronLightning extends InstantDamageAbility {
         super.onAttack(target);
         getUnit().onChain.dispatch(ChainViewType.Lightning, target, EMPTY, 0);
     }
+
+    @Override
+    public boolean isVisibleToUser() {
+        return true;
+    }
+
+    @Override
+    public String getTitle() {
+        return "Electro Punch";
+    }
+
+    @Override
+    public String getDescription() {
+        return "Shoots two powerful bolts of electricity. Cannot attack during construction.";
+    }
+
+    @Override
+    public String getIconFile() {
+        return "0068_lightning_512";
+    }
 }

@@ -5,9 +5,16 @@ import com.mazebert.simulation.units.items.Item;
 
 public class MrIronConstruct extends ActiveAbility {
 
+    public static final float COOLDOWN = 90;
+
     @Override
     public float getCooldown() {
-        return 90;
+        float attackSpeedModifier = getUnit().getAttackSpeedModifier();
+        if (attackSpeedModifier <= 0.0) {
+            return COOLDOWN;
+        }
+
+        return COOLDOWN / attackSpeedModifier;
     }
 
     @Override
@@ -36,5 +43,28 @@ public class MrIronConstruct extends ActiveAbility {
         // TODO set items
 
         return true;
+    }
+
+    @Override
+    public boolean isVisibleToUser() {
+        return true;
+    }
+
+    @Override
+    public String getTitle() {
+        return "Construct";
+    }
+
+    @Override
+    public String getDescription() {
+        String legendaryString = "legendary"; // TODO color
+        String uniqueString = "unique"; // TODO color
+        String setString = "set"; // TODO color
+        return "Mr. Iron leaves his battle suit for " + format.seconds(COOLDOWN) + " to improve it. All currently equipped items are removed and integrated in the suit. Cannot integrate " + legendaryString + ", " + uniqueString + " or " + setString + " items.";
+    }
+
+    @Override
+    public String getIconFile() {
+        return "mechanical_leftovers_512";
     }
 }
