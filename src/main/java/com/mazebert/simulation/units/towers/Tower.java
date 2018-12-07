@@ -21,6 +21,8 @@ public strictfp abstract class Tower extends Unit implements CooldownUnit, Card,
     public final OnRangeChanged onRangeChanged = new OnRangeChanged();
     public final OnItemEquipped onItemEquipped = new OnItemEquipped();
     public final OnPotionConsumed onPotionConsumed = new OnPotionConsumed();
+    public final OnAbilityActivated onAbilityActivated = new OnAbilityActivated();
+    public final OnAbilityReady onAbilityReady = new OnAbilityReady();
 
     private int level;
     private float experience;

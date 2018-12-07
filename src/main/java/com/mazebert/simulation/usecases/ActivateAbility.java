@@ -23,6 +23,7 @@ public strictfp class ActivateAbility extends Usecase<ActivateAbilityCommand> {
 
         if (ability.isReady()) {
             ability.activate();
+            tower.onAbilityActivated.dispatch(ability);
         }
     }
 }

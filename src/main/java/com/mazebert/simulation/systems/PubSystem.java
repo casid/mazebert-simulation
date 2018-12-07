@@ -17,11 +17,6 @@ public strictfp class PubSystem implements OnUpdateListener {
     private final UnitGateway unitGateway = Sim.context().unitGateway;
 
     private float currentPartyTimeLeft;
-    private float currentCooldownLeft;
-
-    public float getReadyProgress() {
-        return (COOLDOWN_TIME - currentCooldownLeft) / COOLDOWN_TIME;
-    }
 
     public void activate() {
         int amountOfPubs = unitGateway.getAmount(Pub.class);
@@ -29,24 +24,16 @@ public strictfp class PubSystem implements OnUpdateListener {
         unitGateway.forEach(Tower.class, tower -> tower.addAbility(new PubPartyEffect(currentBonus)));
 
         currentPartyTimeLeft = PARTY_TIME;
-        currentCooldownLeft = COOLDOWN_TIME;
         simulationListeners.onUpdate.add(this);
     }
 
     @Override
     public void onUpdate(float dt) {
-        if (currentPartyTimeLeft > 0) {
-            currentPartyTimeLeft -= dt;
-            if (currentPartyTimeLeft <= 0) {
-                unitGateway.forEach(Tower.class, tower -> tower.removeAbility(PubPartyEffect.class));
-                currentPartyTimeLeft = 0;
-            }
-        } else {
-            currentCooldownLeft -= dt;
-            if (currentCooldownLeft <= 0) {
-                currentCooldownLeft = 0;
-                simulationListeners.onUpdate.remove(this);
-            }
+        currentPartyTimeLeft -= dt;
+        if (currentPartyTimeLeft <= 0) {
+            unitGateway.forEach(Tower.class, tower -> tower.removeAbility(PubPartyEffect.class));
+            currentPartyTimeLeft = 0;
+            simulationListeners.onUpdate.remove(this);
         }
     }
 }

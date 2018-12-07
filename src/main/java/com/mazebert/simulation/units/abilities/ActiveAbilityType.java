@@ -1,9 +1,11 @@
 package com.mazebert.simulation.units.abilities;
 
+import com.mazebert.simulation.units.towers.MrIronConstruct;
 import com.mazebert.simulation.units.towers.PubParty;
 
 public strictfp enum ActiveAbilityType {
     PubParty(1, PubParty.class),
+    MrIronConstruct(2, MrIronConstruct.class),
     ;
 
     public final int id;

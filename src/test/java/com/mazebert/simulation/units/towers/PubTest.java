@@ -59,10 +59,10 @@ strictfp class PubTest extends SimTest {
         assertThat(otherTower.getAddedRelativeBaseDamage()).isEqualTo(0.099999994f);
         assertThat(pub.getAbility(PubParty.class).getReadyProgress()).isEqualTo(0.0f);
 
-        simulationListeners.onUpdate.dispatch(0.5f * COOLDOWN_TIME);
+        pub.onUpdate.dispatch(0.5f * COOLDOWN_TIME);
         assertThat(pub.getAbility(PubParty.class).getReadyProgress()).isEqualTo(0.5f);
 
-        simulationListeners.onUpdate.dispatch(0.5f * COOLDOWN_TIME);
+        pub.onUpdate.dispatch(0.5f * COOLDOWN_TIME);
         assertThat(pub.getAbility(PubParty.class).getReadyProgress()).isEqualTo(1.0f);
     }
 

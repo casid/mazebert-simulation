@@ -18,6 +18,7 @@ public strictfp class MrIron extends Tower {
 
         addAbility(new MrIronAttack());
         addAbility(new MrIronLightning());
+        addAbility(new MrIronConstruct());
     }
 
     @Override

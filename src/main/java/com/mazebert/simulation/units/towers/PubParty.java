@@ -8,13 +8,14 @@ public strictfp class PubParty extends ActiveAbility {
     private final PubSystem pubSystem = Sim.context().pubSystem;
 
     @Override
-    public float getReadyProgress() {
-        return pubSystem.getReadyProgress();
+    public float getCooldown() {
+        return PubSystem.COOLDOWN_TIME;
     }
 
     @Override
     public void activate() {
         pubSystem.activate();
+        startCooldown();
     }
 
     @Override
