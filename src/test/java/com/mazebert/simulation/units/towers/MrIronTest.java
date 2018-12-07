@@ -7,7 +7,9 @@ import com.mazebert.simulation.SimulationListeners;
 import com.mazebert.simulation.commands.ActivateAbilityCommand;
 import com.mazebert.simulation.commands.EquipItemCommand;
 import com.mazebert.simulation.gateways.UnitGateway;
+import com.mazebert.simulation.systems.DamageSystemTrainer;
 import com.mazebert.simulation.units.abilities.ActiveAbilityType;
+import com.mazebert.simulation.units.creeps.Creep;
 import com.mazebert.simulation.units.items.ItemType;
 import com.mazebert.simulation.units.items.ScepterOfTime;
 import com.mazebert.simulation.units.wizards.Wizard;
@@ -24,6 +26,7 @@ class MrIronTest extends SimTest {
     void setUp() {
         simulationListeners = new SimulationListeners();
         unitGateway = new UnitGateway();
+        damageSystem = new DamageSystemTrainer();
 
         wizard = new Wizard();
         unitGateway.addUnit(wizard);
@@ -70,6 +73,33 @@ class MrIronTest extends SimTest {
         whenAbilityIsActivated();
 
         assertThat(mrIron.getItem(0)).isInstanceOf(ScepterOfTime.class);
+    }
+
+    @Test
+    void construct_cannotAttack() {
+        Creep creep = new Creep();
+        unitGateway.addUnit(creep);
+
+        whenAbilityIsActivated();
+
+        mrIron.simulate(mrIron.getBaseCooldown());
+        assertThat(creep.getHealth()).isEqualTo(100);
+
+        mrIron.simulate(MrIronConstruct.COOLDOWN);
+        assertThat(creep.getHealth()).isEqualTo(100);
+
+        mrIron.simulate(mrIron.getBaseCooldown());
+        assertThat(creep.getHealth()).isEqualTo(80);
+    }
+
+    @Test
+    void canAttackRegulary() {
+        Creep creep = new Creep();
+        unitGateway.addUnit(creep);
+
+        mrIron.simulate(mrIron.getBaseCooldown());
+
+        assertThat(creep.getHealth()).isEqualTo(80);
     }
 
     private void givenItemIsEquipped(ItemType itemType, int inventoryIndex) {
