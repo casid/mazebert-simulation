@@ -3,6 +3,7 @@ package com.mazebert.simulation.units.towers;
 import com.mazebert.simulation.*;
 import com.mazebert.simulation.hash.Hash;
 import com.mazebert.simulation.listeners.*;
+import com.mazebert.simulation.plugins.FormatPlugin;
 import com.mazebert.simulation.plugins.random.RandomPlugin;
 import com.mazebert.simulation.units.CooldownUnit;
 import com.mazebert.simulation.units.Gender;
@@ -23,6 +24,8 @@ public strictfp abstract class Tower extends Unit implements CooldownUnit, Card,
     public final OnPotionConsumed onPotionConsumed = new OnPotionConsumed();
     public final OnAbilityActivated onAbilityActivated = new OnAbilityActivated();
     public final OnAbilityReady onAbilityReady = new OnAbilityReady();
+
+    protected final FormatPlugin format = Sim.context().formatPlugin;
 
     private int level;
     private float experience;
