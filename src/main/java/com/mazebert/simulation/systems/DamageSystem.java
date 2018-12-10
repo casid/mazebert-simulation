@@ -18,18 +18,20 @@ public strictfp class DamageSystem {
     private final SimulationListeners simulationListeners = Sim.context().simulationListeners;
     private final FormatPlugin formatPlugin = Sim.context().formatPlugin;
 
-    public void dealDamage(Object origin, Tower tower, Creep creep) {
+    public double dealDamage(Object origin, Tower tower, Creep creep) {
         if (creep.isDead()) {
-            return;
+            return 0;
         }
 
         if (tower.getChanceToMiss() > 0 && tower.isNegativeAbilityTriggered(tower.getChanceToMiss())) {
             tower.onMiss.dispatch(this, creep);
-            return;
+            return 0;
         }
 
         rollDamage(tower);
         dealDamage(origin, tower, creep, DAMAGE_INFO.damage, DAMAGE_INFO.multicrits);
+
+        return DAMAGE_INFO.damage;
     }
 
     // Caution: you get a shared object, so only read the info you need. do not pass it around!

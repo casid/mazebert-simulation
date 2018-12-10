@@ -11,8 +11,9 @@ public class DamageSystemTrainer extends DamageSystem {
     }
 
     @Override
-    public void dealDamage(Object origin, Tower tower, Creep creep) {
+    public double dealDamage(Object origin, Tower tower, Creep creep) {
         dealDamage(origin, tower, creep, constantDamage, 0);
+        return constantDamage;
     }
 
     @Override
