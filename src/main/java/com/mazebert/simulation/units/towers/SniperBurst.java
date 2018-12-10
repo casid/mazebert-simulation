@@ -2,6 +2,7 @@ package com.mazebert.simulation.units.towers;
 
 import com.mazebert.java8.Consumer;
 import com.mazebert.simulation.Sim;
+import com.mazebert.simulation.SimulationListeners;
 import com.mazebert.simulation.gateways.UnitGateway;
 import com.mazebert.simulation.listeners.OnAttackListener;
 import com.mazebert.simulation.math.Frustum;
@@ -14,6 +15,7 @@ public strictfp class SniperBurst extends Ability<Tower> implements OnAttackList
     public static final float SHOT_LENGTH = 1000;
     public static final float SPREAD_LENGTH = 500;
 
+    private final SimulationListeners simulationListeners = Sim.context().simulationListeners;
     private final UnitGateway unitGateway = Sim.context().unitGateway;
     private final DamageSystem damageSystem = Sim.context().damageSystem;
 
@@ -117,6 +119,7 @@ public strictfp class SniperBurst extends Ability<Tower> implements OnAttackList
             }
         }
 
+        simulationListeners.showNotification(tower, shots + "x", 0xffaa22);
         return shots;
     }
 
