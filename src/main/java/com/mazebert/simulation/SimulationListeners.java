@@ -12,6 +12,9 @@ public strictfp class SimulationListeners {
     public final OnWaveStarted onWaveStarted = new OnWaveStarted();
     public final OnWaveFinished onWaveFinished = new OnWaveFinished();
 
+    public final OnEarlyCallImpossible onEarlyCallImpossible = new OnEarlyCallImpossible();
+    public final OnEarlyCallPossible onEarlyCallPossible = new OnEarlyCallPossible();
+
     public final OnUpdate onUpdate = new OnUpdate();
     public final OnPause onPause = new OnPause();
 

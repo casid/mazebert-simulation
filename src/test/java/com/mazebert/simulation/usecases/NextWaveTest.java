@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.Assertions.assertThat;
 
 class NextWaveTest extends UsecaseTest<NextWaveCommand> {
-    private boolean waveStarted;
+    private int waveStarted;
 
     @BeforeEach
     void setUp() {
@@ -18,12 +18,20 @@ class NextWaveTest extends UsecaseTest<NextWaveCommand> {
 
         usecase = new NextWave();
 
-        simulationListeners.onWaveStarted.add(() -> waveStarted = true);
+        simulationListeners.onWaveStarted.add(() -> ++waveStarted);
     }
 
     @Test
     void start() {
         whenRequestIsExecuted();
-        assertThat(waveStarted).isTrue();
+        assertThat(waveStarted).isEqualTo(1);
+    }
+
+    @Test
+    void multipleTimes() {
+        whenRequestIsExecuted();
+        whenRequestIsExecuted();
+
+        assertThat(waveStarted).isEqualTo(1); // ignored
     }
 }

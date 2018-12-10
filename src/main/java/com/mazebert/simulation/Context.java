@@ -1,5 +1,6 @@
 package com.mazebert.simulation;
 
+import com.mazebert.simulation.countdown.EarlyCallCountDown;
 import com.mazebert.simulation.countdown.GameCountDown;
 import com.mazebert.simulation.countdown.WaveCountDown;
 import com.mazebert.simulation.gateways.*;
@@ -45,6 +46,7 @@ public strictfp class Context {
     // Temp instances
     public GameCountDown gameCountDown;
     public WaveCountDown waveCountDown;
+    public EarlyCallCountDown earlyCallCountDown;
     public WaveSpawner waveSpawner;
     public final float[] tempChancesForRarity = new float[Rarity.values().length];
 
