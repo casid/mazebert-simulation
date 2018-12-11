@@ -10,6 +10,8 @@ public strictfp class Balancing {
     public static final float MAX_COOLDOWN = 60.0f;
     public static final float MIN_COOLDOWN = 0.01f;
     public static final float MAX_TRIGGER_CHANCE = 0.8f;
+    public static final float STARTING_CRIT_CHANCE = 0.05f;
+    public static final float STARTING_CRIT_DAMAGE = 0.25f;
     public static final int MAX_TOWER_LEVEL = 99;
     public static final float DEFAULT_DROP_CHANCE = 0.04f;
     public static final float DROP_QUALITY_CONST = 0.4f;

@@ -23,6 +23,7 @@ public strictfp class Muli extends Tower {
         addAbility(new ProjectileDamageAbility(ProjectileViewType.Banana, 11.8f));
         addAbility(new HuliStun()); // Muli has the same invisible stun ability like his brother Huli!
         addAbility(new MuliBro());
+        addAbility(new MuliBooze());
     }
 
     @Override
@@ -83,5 +84,9 @@ public strictfp class Muli extends Tower {
 
     public void addBananas(int amount) {
         attack.addBananas(amount);
+    }
+
+    public MuliState getState() {
+        return attack.getState();
     }
 }

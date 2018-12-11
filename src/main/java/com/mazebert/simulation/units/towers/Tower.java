@@ -39,8 +39,8 @@ public strictfp abstract class Tower extends Unit implements CooldownUnit, Card,
     private float maxBaseDamage;
     private float addedRelativeBaseDamage;
     private float addedAbsoluteBaseDamage;
-    private float critChance = 0.05f;
-    private float critDamage = 0.25f;
+    private float critChance = Balancing.STARTING_CRIT_CHANCE;
+    private float critDamage = Balancing.STARTING_CRIT_DAMAGE;
     private int multicrit = 1;
     private float damageAgainstAir = 1;
     private float chanceToMiss;
