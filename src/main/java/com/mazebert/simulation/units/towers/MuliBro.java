@@ -1,0 +1,46 @@
+package com.mazebert.simulation.units.towers;
+
+import com.mazebert.simulation.units.abilities.AuraAbility;
+
+public class MuliBro extends AuraAbility<Muli, Huli> {
+    public MuliBro() {
+        super(Huli.class, 100);
+    }
+
+    @Override
+    protected void onAuraEntered(Huli unit) {
+        MuliBroEffect broEffect = new MuliBroEffect();
+        broEffect.setOrigin(getUnit());
+        unit.addAbility(broEffect);
+    }
+
+    @Override
+    protected void onAuraLeft(Huli unit) {
+        unit.removeAbility(MuliBroEffect.class);
+    }
+
+    @Override
+    protected boolean isQualifiedForAura(Huli unit) {
+        return getUnit().getPlayerId() == unit.getPlayerId();
+    }
+
+    @Override
+    public boolean isVisibleToUser() {
+        return true;
+    }
+
+    @Override
+    public String getTitle() {
+        return "Banana bro!";
+    }
+
+    @Override
+    public String getDescription() {
+        return "All Hulis on the map throw bananas to Muli. If Muli has no bananas, he can't attack!";
+    }
+
+    @Override
+    public String getIconFile() {
+        return "0028_hide_512";
+    }
+}

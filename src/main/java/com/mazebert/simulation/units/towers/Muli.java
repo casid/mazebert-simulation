@@ -7,48 +7,37 @@ import com.mazebert.simulation.projectiles.ProjectileViewType;
 import com.mazebert.simulation.units.Gender;
 import com.mazebert.simulation.units.abilities.ProjectileDamageAbility;
 
-public strictfp class Huli extends Tower {
+public strictfp class Muli extends Tower {
+    private final MuliAttack attack;
 
-    public static final ProjectileViewType PROJECTILE_VIEW_TYPE = ProjectileViewType.Banana;
-    public static final float PROJECTILE_SPEED = 11.8f;
-
-    private final HuliAttack attack;
-    private final HuliEat eat;
-
-    public Huli() {
-        setBaseCooldown(1.5f);
+    public Muli() {
+        setBaseCooldown(0.7f);
         setBaseRange(3.0f);
-        setAttackType(AttackType.Vex);
-        setStrength(0.9f);
+        setAttackType(AttackType.Fal);
+        setStrength(2.6f);
         setDamageSpread(0.1f);
         setGender(Gender.Male);
-        setElement(Element.Nature);
+        setElement(Element.Metropolis);
 
-        addAbility(attack = new HuliAttack());
-        addAbility(new ProjectileDamageAbility(PROJECTILE_VIEW_TYPE, PROJECTILE_SPEED));
-        addAbility(new HuliStun());
-        addAbility(eat = new HuliEat());
-        addAbility(new HuliMojo());
-    }
-
-    public void setInfluencedByMuli(boolean influenced) {
-        attack.setEnabled(!influenced);
-        eat.setEnabled(!influenced);
+        addAbility(attack = new MuliAttack());
+        addAbility(new ProjectileDamageAbility(ProjectileViewType.Banana, 11.8f));
+        addAbility(new HuliStun()); // Muli has the same invisible stun ability like his brother Huli!
+        addAbility(new MuliBro());
     }
 
     @Override
     protected float getGoldCostFactor() {
-        return 0.98f;
+        return 0.64f;
     }
 
     @Override
     public String getName() {
-        return "Huli the Monkey";
+        return "Muli the Evil Twin";
     }
 
     @Override
     public String getDescription() {
-        return "Huli is the king of the jungle. Adored by women, feared by his enemies.";
+        return "Muli is the brother of Huli, kidnapped by scientists when he was a baby.";
     }
 
     @Override
@@ -58,22 +47,22 @@ public strictfp class Huli extends Tower {
 
     @Override
     public Rarity getRarity() {
-        return Rarity.Rare;
+        return Rarity.Unique;
     }
 
     @Override
     public int getItemLevel() {
-        return 48;
+        return 81;
     }
 
     @Override
     public String getSinceVersion() {
-        return "0.1";
+        return "0.7";
     }
 
     @Override
     public String getModelId() {
-        return "huli_the_monkey";
+        return "muli_the_monkey";
     }
 
     @Override
@@ -84,6 +73,15 @@ public strictfp class Huli extends Tower {
     @Override
     public void populateCustomTowerBonus(CustomTowerBonus bonus) {
         bonus.title = "Bananas:";
-        bonus.value = "" + eat.getBananasEaten();
+        int bananas = attack.getBananas();
+        if (bananas > 999) {
+            bonus.value = ">999";
+        } else {
+            bonus.value = "" + bananas;
+        }
+    }
+
+    public void addBananas(int amount) {
+        attack.addBananas(amount);
     }
 }

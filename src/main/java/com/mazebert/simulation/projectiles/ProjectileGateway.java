@@ -1,7 +1,6 @@
 package com.mazebert.simulation.projectiles;
 
 import com.mazebert.simulation.units.Unit;
-import com.mazebert.simulation.units.creeps.Creep;
 import com.mazebert.simulation.util.ObjectPool;
 
 public strictfp final class ProjectileGateway {
@@ -11,7 +10,7 @@ public strictfp final class ProjectileGateway {
         return pool.getActiveSize();
     }
 
-    public void shoot(ProjectileViewType viewType, Unit source, Creep target, float speed, OnProjectileImpact onImpact) {
+    public void shoot(ProjectileViewType viewType, Unit source, Unit target, float speed, OnProjectileImpact onImpact) {
         Projectile projectile = pool.add();
         projectile.x = projectile.srcX = source.getX();
         projectile.y = projectile.srcY = source.getY();
