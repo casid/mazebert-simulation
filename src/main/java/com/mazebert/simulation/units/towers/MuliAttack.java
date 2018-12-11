@@ -26,8 +26,10 @@ public class MuliAttack extends AttackAbility {
                 return true;
             }
         } else if (state == MuliState.Drunk) {
+            simulationListeners.showNotification(getUnit(), "Hangover!", 0xbaa759);
             state = MuliState.Hangover;
-            hangoverDuration = MuliBooze.HANGOVER_DURATION;
+
+            hangoverDuration = getUnit().getCooldown(MuliBooze.HANGOVER_DURATION);
             return true;
         }
 
@@ -41,6 +43,7 @@ public class MuliAttack extends AttackAbility {
         if (state == MuliState.Hangover) {
             hangoverDuration -= dt;
             if (hangoverDuration <= 0) {
+                simulationListeners.showNotification(getUnit(), "Recovered!", 0xbaa759);
                 state = MuliState.Normal;
             }
         }
@@ -54,7 +57,6 @@ public class MuliAttack extends AttackAbility {
             tower.getWizard().addGold(-MuliBooze.GOLD);
 
             simulationListeners.showNotification(tower, "Liquor bought", 0xffff00);
-
             state = MuliState.Drunk;
         }
     }

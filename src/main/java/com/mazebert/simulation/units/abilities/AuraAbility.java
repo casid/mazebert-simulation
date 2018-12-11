@@ -88,9 +88,8 @@ public abstract strictfp class AuraAbility<S extends Unit, T extends Unit> exten
             unit.onUnitRemoved.remove(this);
             simulationListeners.onUnitAdded.add(this);
             simulationListeners.onUnitRemoved.add(this);
-        }
-
-        if (targetClass.isAssignableFrom(unit.getClass())) {
+            update();
+        } else if (targetClass.isAssignableFrom(unit.getClass())) {
             update();
         }
     }
@@ -102,9 +101,8 @@ public abstract strictfp class AuraAbility<S extends Unit, T extends Unit> exten
             unit.onUnitRemoved.add(this);
             simulationListeners.onUnitAdded.remove(this);
             simulationListeners.onUnitRemoved.remove(this);
-        }
-
-        if (targetClass.isAssignableFrom(unit.getClass())) {
+            update();
+        } else if (targetClass.isAssignableFrom(unit.getClass())) {
             update();
         }
     }

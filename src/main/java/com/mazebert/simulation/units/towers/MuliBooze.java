@@ -30,7 +30,7 @@ public class MuliBooze extends Ability<Tower> {
     public String getLevelBonus() {
         return format.percentWithSignAndUnit(CRIT_CHANCE_ADD) + " crit chance\n" +
                 format.percentWithSignAndUnit(CRIT_DAMAGE_ADD) + " crit damage\n" +
-                format.seconds(HANGOVER_DURATION) + "hangover on next attack";
+                format.seconds(HANGOVER_DURATION) + " hangover on next attack";
     }
 
     @Override

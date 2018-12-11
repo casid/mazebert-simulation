@@ -68,6 +68,19 @@ strictfp class MuliTest extends SimTest {
     }
 
     @Test
+    void huliCannotAttackCreepsWhenMuliIsAround_huliBuiltBeforeMuli() {
+        unitGateway.removeUnit(muli);
+        Huli huli = new Huli();
+        unitGateway.addUnit(huli);
+        muli = new Muli();
+        unitGateway.addUnit(muli);
+
+        whenHuliAttacks(huli);
+
+        thenBanansAre(1);
+    }
+
+    @Test
     void muliUsesBananasToAttack() {
         givenHuliProvidesBanana();
 
@@ -87,6 +100,19 @@ strictfp class MuliTest extends SimTest {
         assertThat(muli.getCritChance()).isEqualTo(Balancing.STARTING_CRIT_CHANCE + MuliBooze.CRIT_CHANCE_ADD);
         assertThat(muli.getCritDamage()).isEqualTo(Balancing.STARTING_CRIT_DAMAGE + MuliBooze.CRIT_DAMAGE_ADD);
         assertThat(wizard.gold).isEqualTo(100 - MuliBooze.GOLD);
+    }
+
+    @Test
+    void muliDrinksLiquorWhenTargetLeavesRange() {
+        givenHuliProvidesBanana();
+        Creep creep = new Creep();
+        unitGateway.addUnit(creep);
+
+        whenMuliAttacks();
+        creep.setX(100);
+        whenMuliAttacks();
+
+        assertThat(muli.getState()).isEqualTo(MuliState.Drunk);
     }
 
     @Test
