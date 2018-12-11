@@ -119,7 +119,9 @@ public strictfp class SniperBurst extends Ability<Tower> implements OnAttackList
             }
         }
 
-        simulationListeners.showNotification(tower, shots + "x", 0xffaa22);
+        if (simulationListeners.areNotificationsEnabled()) {
+            simulationListeners.showNotification(tower, shots + "x", 0xffaa22);
+        }
         return shots;
     }
 

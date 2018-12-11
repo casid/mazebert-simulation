@@ -45,7 +45,9 @@ public strictfp class HuliEat extends CooldownAbility<Tower> implements OnAttack
 
             getUnit().addAddedRelativeBaseDamage(DAMAGE_PER_BANANA);
 
-            simulationListeners.showNotification(getUnit(), "Banana eaten!", 0xffff00);
+            if (simulationListeners.areNotificationsEnabled()) {
+                simulationListeners.showNotification(getUnit(), "Banana eaten!", 0xffff00);
+            }
         }
     }
 

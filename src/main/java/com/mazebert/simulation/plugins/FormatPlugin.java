@@ -69,19 +69,27 @@ public strictfp class FormatPlugin {
         return result.toString();
     }
 
-    public String gold(double amount) {
-        return positiveNumber(amount);
+    public String gold(long amount) {
+        if (amount >= 0) {
+            return positiveNumber(amount);
+        } else {
+            return "-" + positiveNumber(-amount);
+        }
     }
 
-    public String gold(int gold, Currency currency) {
+    public String gold(long gold, Currency currency) {
         if (gold == 1) {
             return gold(gold) + " " + currency.singularLowercase;
         }
         return gold(gold) + " " + currency.pluralLowercase;
     }
 
-    public String goldGain(int amount) {
-        return "+" + gold(amount);
+    public String goldGain(long amount) {
+        if (amount >= 0) {
+            return "+" + gold(amount);
+        } else {
+            return gold(amount);
+        }
     }
 
     private String positiveNumber(double value) {
