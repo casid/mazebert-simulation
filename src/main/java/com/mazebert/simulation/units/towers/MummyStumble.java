@@ -61,4 +61,9 @@ public strictfp class MummyStumble extends Ability<Tower> implements OnAttackLis
     public String getIconFile() {
         return "0021_cloth_512";
     }
+
+    @Override
+    public String getLevelBonus() {
+        return "+ " + format.percent(chanceLevelBonus) + "% chance per level";
+    }
 }
