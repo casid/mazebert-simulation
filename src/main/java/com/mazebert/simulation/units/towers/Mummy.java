@@ -51,7 +51,7 @@ public strictfp class Mummy extends Tower {
 
     @Override
     public String getModelId() {
-        return "beaver";
+        return "mummy";
     }
 
     @Override
