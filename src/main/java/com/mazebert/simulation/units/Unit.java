@@ -1,6 +1,7 @@
 package com.mazebert.simulation.units;
 
 import com.mazebert.java8.Consumer;
+import com.mazebert.java8.Supplier;
 import com.mazebert.simulation.hash.Hash;
 import com.mazebert.simulation.hash.Hashable;
 import com.mazebert.simulation.listeners.*;
@@ -100,6 +101,19 @@ public abstract strictfp class Unit implements Hashable {
 
         if (result == null) {
             result = addAbilityByClass(abilityClass);
+            result.setOrigin(origin);
+        }
+
+        return result;
+    }
+
+    @SuppressWarnings("unchecked")
+    public <T extends StackableByOriginAbility> T addAbilityStack(Object origin, Class<T> abilityClass, Supplier<T> supplier) {
+        T result = (T)abilities.find(a -> a.getClass() == abilityClass && a.getOrigin() == origin);
+
+        if (result == null) {
+            result = supplier.get();
+            addAbilityInternal(result);
             result.setOrigin(origin);
         }
 

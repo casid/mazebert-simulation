@@ -46,7 +46,7 @@ public abstract strictfp class Ability<U extends Unit> {
         return origin;
     }
 
-    public U getUnit() {
+    public final U getUnit() {
         return unit;
     }
 
