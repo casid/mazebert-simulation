@@ -36,4 +36,8 @@ public strictfp enum WaveType {
         }
         return 1.6f;
     }
+
+    public boolean isBoss() {
+        return this == Boss || this == Challenge || this == Horseman;
+    }
 }

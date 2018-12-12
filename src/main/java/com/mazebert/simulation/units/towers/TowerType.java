@@ -35,7 +35,7 @@ public strictfp enum TowerType implements CardType<Tower> {
     Muli(22, Muli.class),
     Satellite(23, Satellite.class),
     BlackWidow(24, BlackWidow.class),
-//    Mummy(25, Mummy.class),
+    Mummy(25, Mummy.class),
 //    ScareCrow(26, ScareCrow.class),
 //    Shadow(27, Shadow.class),
 //    Gib(28, Gib.class),

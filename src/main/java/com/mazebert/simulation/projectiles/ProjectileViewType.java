@@ -10,4 +10,5 @@ public strictfp enum ProjectileViewType {
     ChemicalPotion,
     Knive,
     Beer,
+    Bandage,
 }
