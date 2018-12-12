@@ -11,4 +11,5 @@ public strictfp enum ProjectileViewType {
     Knive,
     Beer,
     Bandage,
+    Crow,
 }
