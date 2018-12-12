@@ -60,4 +60,10 @@ public strictfp class ScareCrow extends Tower {
     public String getAuthor() {
         return "Ulrich Herbricht";
     }
+
+    @Override
+    public void populateCustomTowerBonus(CustomTowerBonus bonus) {
+        bonus.title = "Crows:";
+        bonus.value = "" + getAbility(ScareCrowMultishot.class).getCrows();
+    }
 }

@@ -54,7 +54,11 @@ public strictfp class ScareCrowMultishot extends AttackAbility implements OnLeve
     }
 
     private void updateCrows() {
-        setTargets(2 + getUnit().getLevel() / 14);
+        setTargets(getCrows());
+    }
+
+    public int getCrows() {
+        return 2 + getUnit().getLevel() / 14;
     }
 
     @Override
