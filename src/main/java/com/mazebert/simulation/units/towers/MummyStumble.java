@@ -33,6 +33,9 @@ public strictfp class MummyStumble extends Ability<Tower> implements OnAttackLis
             if (target.getWave().type.isBoss()) {
                 StunEffect stunEffect = target.addAbilityStack(StunEffect.class);
                 stunEffect.setDuration(bossStunDuration);
+                if (simulationListeners.areNotificationsEnabled()) {
+                    simulationListeners.showNotification(target, "Stumble!", 0x333333);
+                }
             } else {
                 getUnit().kill(target);
                 if (simulationListeners.areNotificationsEnabled()) {
