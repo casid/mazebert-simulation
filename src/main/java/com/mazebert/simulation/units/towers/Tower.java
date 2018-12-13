@@ -42,6 +42,10 @@ public strictfp abstract class Tower extends Unit implements CooldownUnit, Card,
     private float critChance = Balancing.STARTING_CRIT_CHANCE;
     private float critDamage = Balancing.STARTING_CRIT_DAMAGE;
     private int multicrit = 1;
+    private float damageAgainstBer = 1;
+    private float damageAgainstFal = 1;
+    private float damageAgainstVex = 1;
+    private float damageAgainstZod = 1;
     private float damageAgainstAir = 1;
     private float chanceToMiss;
     private float luck = 1.0f; // factor 1 is regular luck of every tower
@@ -80,6 +84,9 @@ public strictfp abstract class Tower extends Unit implements CooldownUnit, Card,
         hash.add(critChance);
         hash.add(critDamage);
         hash.add(multicrit);
+        hash.add(damageAgainstBer);
+        hash.add(damageAgainstFal);
+        hash.add(damageAgainstVex);
         hash.add(damageAgainstAir);
         hash.add(chanceToMiss);
         hash.add(luck);
@@ -547,6 +554,38 @@ public strictfp abstract class Tower extends Unit implements CooldownUnit, Card,
         int range = (int)getRange();
         range = 2 * range + 1;
         return range * range;
+    }
+
+    public float getDamageAgainstBer() {
+        return damageAgainstBer;
+    }
+
+    public float getDamageAgainstFal() {
+        return damageAgainstFal;
+    }
+
+    public float getDamageAgainstVex() {
+        return damageAgainstVex;
+    }
+
+    public float getDamageAgainstZod() {
+        return damageAgainstZod;
+    }
+
+    public void addDamageAgainstBer(float amount) {
+        damageAgainstBer += amount;
+    }
+
+    public void addDamageAgainstFal(float amount) {
+        damageAgainstFal += amount;
+    }
+
+    public void addDamageAgainstVex(float amount) {
+        damageAgainstVex += amount;
+    }
+
+    public void addDamageAgainstZod(float amount) {
+        damageAgainstZod += amount;
     }
 
     public float getDamageAgainstAir() {

@@ -8,6 +8,7 @@ public strictfp class Wave implements Hashable {
     public int round;
     public WaveType type = WaveType.Normal;
     public CreepType creepType = CreepType.Orc;
+    public ArmorType armorType = ArmorType.Ber;
     public int creepCount;
     public float minSecondsToNextCreep;
     public float maxSecondsToNextCreep;
