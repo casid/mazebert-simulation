@@ -90,6 +90,6 @@ public strictfp class ChainAbility extends Ability<Tower> implements OnDamageLis
         }
 
         chainedCreeps[chainedCreepCount++] = creep;
-        damageSystem.dealDamage(this, getUnit(), creep, chainDamage, 0);
+        damageSystem.dealDamage(this, getUnit(), creep, chainDamage, 0, false);
     }
 }

@@ -129,7 +129,7 @@ public strictfp class SniperBurst extends Ability<Tower> implements OnAttackList
     public void accept(Creep creep) {
         double shotCount = calculateShotCount(creep);
         if (shotCount > 0) {
-            damageSystem.dealDamage(this, getUnit(), creep, currentDamage * shotCount, 0);
+            damageSystem.dealDamage(this, getUnit(), creep, currentDamage * shotCount, 0, false);
         }
     }
 

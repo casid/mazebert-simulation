@@ -12,7 +12,7 @@ public class DamageSystemTrainer extends DamageSystem {
 
     @Override
     public double dealDamage(Object origin, Tower tower, Creep creep) {
-        dealDamage(origin, tower, creep, constantDamage, 0);
+        dealDamage(origin, tower, creep, constantDamage, 0, false);
         return constantDamage;
     }
 

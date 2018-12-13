@@ -14,7 +14,9 @@ import com.mazebert.simulation.units.towers.Tower;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import static com.mazebert.simulation.units.creeps.CreepBuilder.creep;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.jusecase.Builders.a;
 
 public class StunAbilityTest extends SimTest {
     RandomPluginTrainer randomPluginTrainer = new RandomPluginTrainer();
@@ -43,7 +45,7 @@ public class StunAbilityTest extends SimTest {
         tower.setCritChance(0.0f);
         tower.setBaseDamage(10.0f);
 
-        creep = new Creep();
+        creep = a(creep());
         creep.setX(2);
         creep.setY(2);
         creep.setPath(new Path(2.0f, 2.0f, 2.0f, 3.0f));

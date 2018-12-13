@@ -32,7 +32,7 @@ public strictfp class PoisonEffect extends StackableByOriginAbility<Creep> imple
             getUnit().removeAbility(this);
         } else {
             double damage = remainingDamage * dt / remainingSeconds;
-            damageSystem.dealDamage(this, (Tower) getOrigin(), getUnit(), damage, 0);
+            damageSystem.dealDamage(this, (Tower) getOrigin(), getUnit(), damage, 0, false);
             remainingDamage -= damage;
 
             remainingSeconds -= dt;

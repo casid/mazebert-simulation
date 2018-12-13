@@ -12,7 +12,9 @@ import com.mazebert.simulation.units.traps.BearHunterTrap;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import static com.mazebert.simulation.units.creeps.CreepBuilder.creep;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.jusecase.Builders.a;
 
 strictfp class BearHunterTest extends SimTest {
     BearHunter bearHunter;
@@ -88,7 +90,7 @@ strictfp class BearHunterTest extends SimTest {
         whenTrapIsPlaced();
         whenTrapIsPlaced();
 
-        Creep creep = new Creep();
+        Creep creep = a(creep());
         creep.setX(17);
         creep.setY(14);
         unitGateway.addUnit(creep);
@@ -96,7 +98,7 @@ strictfp class BearHunterTest extends SimTest {
         assertThat(creep.getHealth()).isEqualTo(80);
 
         // No trap left for next creep
-        Creep nextCreep = new Creep();
+        Creep nextCreep = a(creep());
         nextCreep.setX(17);
         nextCreep.setY(14);
         unitGateway.addUnit(nextCreep);

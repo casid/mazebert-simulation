@@ -11,7 +11,9 @@ import com.mazebert.simulation.units.towers.Tower;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import static com.mazebert.simulation.units.creeps.CreepBuilder.creep;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.jusecase.Builders.a;
 
 public class MultishotAttackAbilityTest extends SimTest {
     RandomPluginTrainer randomPluginTrainer = new RandomPluginTrainer();
@@ -40,17 +42,17 @@ public class MultishotAttackAbilityTest extends SimTest {
         tower.setCritChance(0.0f);
         tower.setBaseDamage(10.0f);
 
-        creep1 = new Creep();
+        creep1 = a(creep());
         creep1.setX(1);
         creep1.setY(1);
         unitGateway.addUnit(creep1);
 
-        creep2 = new Creep();
+        creep2 = a(creep());
         creep2.setX(2);
         creep2.setY(1);
         unitGateway.addUnit(creep2);
 
-        creep3 = new Creep();
+        creep3 = a(creep());
         creep3.setX(3);
         creep3.setY(1);
         unitGateway.addUnit(creep3);

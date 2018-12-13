@@ -11,7 +11,9 @@ import com.mazebert.simulation.units.creeps.Creep;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import static com.mazebert.simulation.units.creeps.CreepBuilder.creep;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.jusecase.Builders.a;
 
 strictfp class BearHunter_BestHitTest extends SimTest {
     BearHunter bearHunter;
@@ -41,7 +43,7 @@ strictfp class BearHunter_BestHitTest extends SimTest {
 
         whenTrapIsPlaced();
 
-        Creep creep = new Creep();
+        Creep creep = a(creep());
         creep.setX(17);
         creep.setY(14);
         unitGateway.addUnit(creep);

@@ -33,7 +33,7 @@ public strictfp class BearHunterTrap extends Trap {
     public void trigger(Creep creep) {
         for (int i = 0; i < damageHistory.size(); ++i) {
             DamageInfo damageInfo = damageHistory.get(i);
-            damageSystem.dealDamage(this, origin, creep, damageInfo.damage, damageInfo.multicrits);
+            damageSystem.dealDamage(this, origin, creep, damageInfo.damage, damageInfo.multicrits, true);
         }
 
         unitGateway.removeUnit(this);

@@ -11,7 +11,9 @@ import com.mazebert.simulation.units.towers.Tower;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import static com.mazebert.simulation.units.creeps.CreepBuilder.creep;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.jusecase.Builders.a;
 
 public class SplashAbilityTest extends SimTest {
     RandomPluginTrainer randomPluginTrainer = new RandomPluginTrainer();
@@ -42,17 +44,17 @@ public class SplashAbilityTest extends SimTest {
         tower.setCritChance(0.0f);
         tower.setBaseDamage(10.0f);
 
-        creep1 = new Creep();
+        creep1 = a(creep());
         creep1.setX(5);
         creep1.setY(5);
         unitGateway.addUnit(creep1);
 
-        creep2 = new Creep();
+        creep2 = a(creep());
         creep2.setX(6);
         creep2.setY(5);
         unitGateway.addUnit(creep2);
 
-        creep3 = new Creep();
+        creep3 = a(creep());
         creep3.setX(5);
         creep3.setY(10);
         unitGateway.addUnit(creep3);

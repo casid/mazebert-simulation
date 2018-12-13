@@ -1,8 +1,6 @@
 package com.mazebert.simulation.units.abilities;
 
-import com.mazebert.simulation.SimTest;
-import com.mazebert.simulation.SimulationListeners;
-import com.mazebert.simulation.Wave;
+import com.mazebert.simulation.*;
 import com.mazebert.simulation.gateways.UnitGateway;
 import com.mazebert.simulation.plugins.random.RandomPluginTrainer;
 import com.mazebert.simulation.systems.DamageSystem;
@@ -163,6 +161,61 @@ public class InstantDamageAbilityTest extends SimTest {
         whenTowerAttacks();
 
         assertThat(creep.getHealth()).isEqualTo(85.0f);
+    }
+
+    @Test
+    void constantDamage_damageAgainstBer() {
+        creep.getWave().armorType = ArmorType.Ber;
+        tower.setBaseDamage(10.0f);
+        tower.addDamageAgainstBer(1.0f);
+
+        whenTowerAttacks();
+
+        assertThat(creep.getHealth()).isEqualTo(80.0f);
+    }
+
+    @Test
+    void constantDamage_damageAgainstFal() {
+        creep.getWave().armorType = ArmorType.Fal;
+        tower.setBaseDamage(10.0f);
+        tower.addDamageAgainstFal(1.0f);
+
+        whenTowerAttacks();
+
+        assertThat(creep.getHealth()).isEqualTo(80.0f);
+    }
+
+    @Test
+    void constantDamage_damageAgainstVex() {
+        creep.getWave().armorType = ArmorType.Vex;
+        tower.setBaseDamage(10.0f);
+        tower.addDamageAgainstVex(1.0f);
+
+        whenTowerAttacks();
+
+        assertThat(creep.getHealth()).isEqualTo(80.0f);
+    }
+
+    @Test
+    void constantDamage_damageAgainstZod() {
+        creep.getWave().armorType = ArmorType.Zod;
+        tower.setBaseDamage(10.0f);
+        tower.addDamageAgainstZod(1.0f);
+
+        whenTowerAttacks();
+
+        assertThat(creep.getHealth()).isEqualTo(80.0f);
+    }
+
+    @Test
+    void constantDamage_damageAgainstAir() {
+        creep.getWave().type = WaveType.Air;
+        tower.setBaseDamage(10.0f);
+        tower.setDamageAgainstAir(2.0f);
+
+        whenTowerAttacks();
+
+        assertThat(creep.getHealth()).isEqualTo(80.0f);
     }
 
     @Test

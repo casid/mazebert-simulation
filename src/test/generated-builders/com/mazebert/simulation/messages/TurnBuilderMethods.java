@@ -16,13 +16,18 @@ public interface TurnBuilderMethods<T extends Turn, B extends Builder> extends B
         return (B)this;
     }
 
-    default B withPlayerId(int value) {
-        getEntity().playerId = value;
+    default B withCommands(java.util.List value) {
+        getEntity().commands = value;
         return (B)this;
     }
 
-    default B withSimulationCommands(java.util.List value) {
-        getEntity().commands = value;
+    default B withHash(int value) {
+        getEntity().hash = value;
+        return (B)this;
+    }
+
+    default B withPlayerId(int value) {
+        getEntity().playerId = value;
         return (B)this;
     }
 

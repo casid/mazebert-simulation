@@ -1,7 +1,6 @@
 package com.mazebert.simulation.systems;
 
-import com.mazebert.simulation.Sim;
-import com.mazebert.simulation.SimulationListeners;
+import com.mazebert.simulation.*;
 import com.mazebert.simulation.plugins.FormatPlugin;
 import com.mazebert.simulation.plugins.random.RandomPlugin;
 import com.mazebert.simulation.units.creeps.Creep;
@@ -12,6 +11,9 @@ import com.mazebert.simulation.units.wizards.Wizard;
 import java.util.Arrays;
 
 public strictfp class DamageSystem {
+    private final double damageWeak = 0.7;
+    private final double damageStrong = 1.3;
+
     private static final DamageInfo DAMAGE_INFO = new DamageInfo();
 
     private final RandomPlugin randomPlugin = Sim.context().randomPlugin;
@@ -29,7 +31,7 @@ public strictfp class DamageSystem {
         }
 
         rollDamage(tower);
-        dealDamage(origin, tower, creep, DAMAGE_INFO.damage, DAMAGE_INFO.multicrits);
+        dealDamage(origin, tower, creep, DAMAGE_INFO.damage, DAMAGE_INFO.multicrits, true);
 
         return DAMAGE_INFO.damage;
     }
@@ -61,9 +63,13 @@ public strictfp class DamageSystem {
         return DAMAGE_INFO;
     }
 
-    public void dealDamage(Object origin, Tower tower, Creep creep, double damage, int multicrits) {
+    public void dealDamage(Object origin, Tower tower, Creep creep, double damage, int multicrits, boolean modify) {
         if (creep.isDead()) {
             return;
+        }
+
+        if (modify) {
+            damage = modifyDamage(tower, creep, damage);
         }
 
         updateBestHit(tower, damage);
@@ -79,6 +85,71 @@ public strictfp class DamageSystem {
         if (creep.isDead()) {
             tower.onKill.dispatch(creep);
         }
+    }
+
+    private double modifyDamage(Tower tower, Creep creep, double damage) {
+        damage *= calculateWaveDamageFactor(tower, creep.getWave());
+        if (damage < 0) {
+            damage = 0;
+        }
+        return damage;
+    }
+
+    private double calculateWaveDamageFactor(Tower tower, Wave wave) {
+        double damageFactor = calculateArmorDamageFactor(tower.getAttackType(), wave.armorType);
+        if (wave.type == WaveType.Air) {
+            damageFactor *= tower.getDamageAgainstAir();
+        }
+
+        switch (wave.armorType) {
+            case Ber:
+                damageFactor *= tower.getDamageAgainstBer();
+                break;
+            case Fal:
+                damageFactor *= tower.getDamageAgainstFal();
+                break;
+            case Vex:
+                damageFactor *= tower.getDamageAgainstVex();
+                break;
+            case Zod:
+                damageFactor *= tower.getDamageAgainstZod();
+                break;
+        }
+
+        return damageFactor;
+    }
+
+    private double calculateArmorDamageFactor(AttackType attackType, ArmorType armorType) {
+        switch (attackType) {
+            case Ber:
+                switch (armorType) {
+                    case Ber:
+                        return 1.0;
+                    case Fal:
+                        return damageWeak;
+                    case Vex:
+                        return damageStrong;
+                }
+            case Fal:
+                switch (armorType) {
+                    case Ber:
+                        return damageStrong;
+                    case Fal:
+                        return 1.0;
+                    case Vex:
+                        return damageWeak;
+                }
+            case Vex:
+                switch (armorType) {
+                    case Ber:
+                        return damageWeak;
+                    case Fal:
+                        return damageStrong;
+                    case Vex:
+                        return 1.0;
+                }
+        }
+        return 1.0;
     }
 
     private void updateBestHit(Tower tower, double damage) {
