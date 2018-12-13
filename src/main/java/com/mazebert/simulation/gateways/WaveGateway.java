@@ -1,5 +1,6 @@
 package com.mazebert.simulation.gateways;
 
+import com.mazebert.simulation.ArmorType;
 import com.mazebert.simulation.Wave;
 import com.mazebert.simulation.WaveType;
 import com.mazebert.simulation.plugins.random.RandomPlugin;
@@ -14,6 +15,7 @@ public strictfp class WaveGateway implements ReadonlyWaveGateway {
     private static final WaveType[] RANDOM_WAVE_TYPES = {WaveType.Normal, WaveType.Mass, WaveType.Boss, WaveType.Air};
     private static final CreepType[] RANDOM_AIR_CREEP_TYPES = {CreepType.AirDragon};
     private static final CreepType[] RANDOM_GROUND_CREEP_TYPES = {CreepType.Orc, CreepType.Rat, CreepType.Spider};
+    private static final ArmorType[] RANDOM_ARMOR_TYPES = {ArmorType.Ber, ArmorType.Fal, ArmorType.Vex};
 
     private Queue<Wave> waves = new ArrayDeque<>(WAVES_IN_ADVANCE);
     private int totalWaves;
@@ -55,6 +57,7 @@ public strictfp class WaveGateway implements ReadonlyWaveGateway {
         wave.minSecondsToNextCreep = wave.type.getMinSecondsToNextCreep();
         wave.maxSecondsToNextCreep = wave.type.getMaxSecondsToNextCreep();
         wave.creepType = rollCreepType(wave, randomPlugin);
+        wave.armorType = rollArmorType(wave, randomPlugin);
         return wave;
     }
 
@@ -79,6 +82,17 @@ public strictfp class WaveGateway implements ReadonlyWaveGateway {
                 return CreepType.Horseman;
         }
         return randomPlugin.get(RANDOM_GROUND_CREEP_TYPES);
+    }
+
+    private ArmorType rollArmorType(Wave wave, RandomPlugin randomPlugin) {
+        switch (wave.type) {
+            case Challenge:
+            case MassChallenge:
+            case Horseman:
+                return ArmorType.Zod;
+        }
+
+        return randomPlugin.get(RANDOM_ARMOR_TYPES);
     }
 
     @Override

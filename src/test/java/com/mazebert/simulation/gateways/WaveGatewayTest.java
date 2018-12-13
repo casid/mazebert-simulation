@@ -1,5 +1,6 @@
 package com.mazebert.simulation.gateways;
 
+import com.mazebert.simulation.ArmorType;
 import com.mazebert.simulation.SimTest;
 import com.mazebert.simulation.Wave;
 import com.mazebert.simulation.WaveType;
@@ -69,6 +70,27 @@ class WaveGatewayTest extends SimTest {
     }
 
     @Test
+    void waveGeneration_armorType_ber() {
+        randomPluginTrainer.givenFloatAbs(0.0f, 0.0f);
+        whenWaveIsGenerated();
+        assertThat(wave.armorType).isEqualTo(ArmorType.Ber);
+    }
+
+    @Test
+    void waveGeneration_armorType_fal() {
+        randomPluginTrainer.givenFloatAbs(0.0f, 0.4f);
+        whenWaveIsGenerated();
+        assertThat(wave.armorType).isEqualTo(ArmorType.Fal);
+    }
+
+    @Test
+    void waveGeneration_armorType_vex() {
+        randomPluginTrainer.givenFloatAbs(0.0f, 0.8f);
+        whenWaveIsGenerated();
+        assertThat(wave.armorType).isEqualTo(ArmorType.Vex);
+    }
+
+    @Test
     void waveGeneration_challenge() {
         round = 7;
 
@@ -76,6 +98,7 @@ class WaveGatewayTest extends SimTest {
 
         assertThat(wave.type).isEqualTo(WaveType.Challenge);
         assertThat(wave.creepCount).isEqualTo(1);
+        assertThat(wave.armorType).isEqualTo(ArmorType.Zod);
     }
 
     @Test
@@ -86,6 +109,7 @@ class WaveGatewayTest extends SimTest {
 
         assertThat(wave.type).isEqualTo(WaveType.MassChallenge);
         assertThat(wave.creepCount).isEqualTo(20);
+        assertThat(wave.armorType).isEqualTo(ArmorType.Zod);
     }
 
     @Test
@@ -96,6 +120,7 @@ class WaveGatewayTest extends SimTest {
 
         assertThat(wave.type).isEqualTo(WaveType.Horseman);
         assertThat(wave.creepCount).isEqualTo(1);
+        assertThat(wave.armorType).isEqualTo(ArmorType.Zod);
     }
 
     private void whenWaveIsGenerated() {
