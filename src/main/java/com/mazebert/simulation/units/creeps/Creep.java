@@ -322,6 +322,10 @@ public strictfp class Creep extends Unit {
         this.goldModifier = goldModifier;
     }
 
+    public void addArmor(int amount) {
+        armor += amount;
+    }
+
     public static class WalkResult {
         private float[] position = new float[2];
         private float[] direction = new float[2];
