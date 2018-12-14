@@ -58,6 +58,20 @@ strictfp class GibTest extends SimTest {
     }
 
     @Test
+    void maxStacks_attacksResetFreeze() {
+        whenGibAttacks();
+        whenGibAttacks();
+        whenGibAttacks();
+
+        creep.simulate(1.0f);
+        creep.simulate(1.0f);
+        whenGibAttacks();
+        creep.simulate(1.0f);
+
+        assertThat(creep.getSpeedModifier()).isEqualTo(0.7289999f);
+    }
+
+    @Test
     void maxStacksIncreaseWithLevel() {
         gib.setLevel(14);
 

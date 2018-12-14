@@ -23,18 +23,24 @@ public class SlowEffect extends StackableByOriginAbility<Creep> implements OnUpd
         super.dispose(unit);
     }
 
-    public void addStack(float slowMultiplier, float duration) {
-        totalMultiplier *= slowMultiplier;
-        getUnit().setSpeedModifier(getUnit().getSpeedModifier() * slowMultiplier);
+    public void addStack(float slowMultiplier, float duration, int maxStacks) {
+        if (stackCount < maxStacks) {
+            totalMultiplier *= slowMultiplier;
+            getUnit().setSpeedModifier(getUnit().getSpeedModifier() * slowMultiplier);
+            ++stackCount;
+        }
         remainingSeconds = duration;
-        ++stackCount;
     }
 
     @Override
     public void onUpdate(float dt) {
-        remainingSeconds -= dt;
-        if (remainingSeconds <= 0.0f) {
+        if (getUnit().isDead()) {
             getUnit().removeAbility(this);
+        } else {
+            remainingSeconds -= dt;
+            if (remainingSeconds <= 0.0f) {
+                getUnit().removeAbility(this);
+            }
         }
     }
 

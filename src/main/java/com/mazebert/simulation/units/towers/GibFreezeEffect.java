@@ -9,8 +9,8 @@ public class GibFreezeEffect extends SlowEffect {
     private final SimulationListeners simulationListeners = Sim.context().simulationListeners;
 
     @Override
-    public void addStack(float slowMultiplier, float duration) {
-        super.addStack(slowMultiplier, duration);
+    public void addStack(float slowMultiplier, float duration, int maxStacks) {
+        super.addStack(slowMultiplier, duration, maxStacks);
         getUnit().addArmor(1);
 
         if (simulationListeners.areNotificationsEnabled()) {

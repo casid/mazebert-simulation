@@ -26,9 +26,7 @@ public strictfp class GibFreeze extends Ability<Tower> implements OnDamageListen
     @Override
     public void onDamage(Object origin, Creep target, double damage, int multicrits) {
         GibFreezeEffect effect = target.addAbilityStack(getUnit(), GibFreezeEffect.class);
-        if (effect.getStackCount() < getMaxStackCount()) {
-            effect.addStack(slowMultiplier, slowDuration);
-        }
+        effect.addStack(slowMultiplier, slowDuration, getMaxStackCount());
     }
 
     public int getMaxStackCount() {
