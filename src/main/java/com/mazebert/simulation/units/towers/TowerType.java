@@ -39,7 +39,7 @@ public strictfp enum TowerType implements CardType<Tower> {
     ScareCrow(26, ScareCrow.class),
     Shadow(27, Shadow.class),
     Gib(28, Gib.class),
-//    TheWitch(29, TheWitch.class),
+    KnusperHexe(29, KnusperHexe.class),
 //    TheForge(30, TheForge.class),
 //    Cube(31, Cube.class),
 //    AcolyteOfGreed(32, AcolyteOfGreed.class),
