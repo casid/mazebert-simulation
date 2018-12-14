@@ -148,6 +148,17 @@ public strictfp class ProjectileDamageAbilityTest extends SimTest {
         assertThat(creep.getHealth()).isEqualTo(0);
     }
 
+    @Test
+    void projectileIsUpdated_sourceIsRemoved() {
+        projectileDamageAbility.setSpeed(1);
+
+        whenTowerAttacks();
+
+        projectileGateway.simulate(0.5f); // tick
+        unitGateway.removeUnit(tower);
+        projectileGateway.simulate(0.5f); // tick
+    }
+
     private void whenTowerAttacks() {
         tower.simulate(1.0f);
         projectileGateway.simulate(0.1f);

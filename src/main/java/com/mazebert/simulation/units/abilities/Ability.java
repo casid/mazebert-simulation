@@ -26,6 +26,10 @@ public abstract strictfp class Ability<U extends Unit> {
         dispose(unit);
     }
 
+    public final boolean isDisposed() {
+        return this.unit == null;
+    }
+
     protected void initialize(U unit) {
         this.unit = unit;
     }

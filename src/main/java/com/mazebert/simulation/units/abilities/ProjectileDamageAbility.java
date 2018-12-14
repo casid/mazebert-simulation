@@ -44,6 +44,9 @@ public strictfp class ProjectileDamageAbility extends Ability<Tower> implements 
 
     @Override
     public void onProjectileImpact(Projectile projectile) {
+        if (isDisposed()) {
+            return;
+        }
         damageSystem.dealDamage(this, getUnit(), (Creep) projectile.target);
     }
 
