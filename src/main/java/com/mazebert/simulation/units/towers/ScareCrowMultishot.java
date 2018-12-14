@@ -11,6 +11,7 @@ public strictfp class ScareCrowMultishot extends AttackAbility implements OnLeve
     private final SimulationListeners simulationListeners = Sim.context().simulationListeners;
 
     private boolean crowsNeedToReturn;
+    private int crows = 1;
 
     public ScareCrowMultishot() {
         super(1, true);
@@ -54,7 +55,10 @@ public strictfp class ScareCrowMultishot extends AttackAbility implements OnLeve
     }
 
     private void updateCrows() {
-        setTargets(getCrows());
+        int crows = getCrows();
+        int delta = crows - this.crows;
+        setTargets(getTargets() + delta);
+        this.crows = crows;
     }
 
     public int getCrows() {

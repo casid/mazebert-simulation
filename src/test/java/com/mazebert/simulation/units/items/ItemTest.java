@@ -20,11 +20,15 @@ public strictfp class ItemTest extends SimTest {
         wizard = new Wizard();
         unitGateway.addUnit(wizard);
 
-        tower = new TestTower();
+        tower = createTower();
         unitGateway.addUnit(tower);
 
         commandExecutor = new CommandExecutor();
         commandExecutor.init();
+    }
+
+    protected Tower createTower() {
+        return new TestTower();
     }
 
     protected void whenItemIsEquipped(ItemType itemType) {
