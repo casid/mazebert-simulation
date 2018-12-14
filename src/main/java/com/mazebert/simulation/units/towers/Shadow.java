@@ -15,7 +15,7 @@ public strictfp class Shadow extends Tower {
         setBaseCooldown(1.0f);
         setBaseRange(4.0f);
         setAttackType(AttackType.All);
-        setStrength(1.2f);
+        setStrength(0.9f);
         setDamageSpread(0.5f);
         setGender(Gender.Unknown);
         setElement(Element.Darkness);
