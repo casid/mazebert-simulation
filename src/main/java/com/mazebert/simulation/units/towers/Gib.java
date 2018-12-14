@@ -60,7 +60,7 @@ public strictfp class Gib extends Tower {
 
     @Override
     public String getModelId() {
-        return "shadow";
+        return "gib";
     }
 
     @Override

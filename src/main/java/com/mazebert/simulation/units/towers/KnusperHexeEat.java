@@ -52,7 +52,7 @@ public strictfp class KnusperHexeEat extends Ability<KnusperHexe> implements OnA
 
     @Override
     public String getTitle() {
-        return "Hello little child";
+        return "Knusper";
     }
 
     @Override
