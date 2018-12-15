@@ -12,7 +12,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-strictfp class DarkForgeTest extends SimTest {
+strictfp class DarkForge_CraftTest extends SimTest {
     RandomPluginTrainer randomPluginTrainer = new RandomPluginTrainer();
 
     Wizard wizard;

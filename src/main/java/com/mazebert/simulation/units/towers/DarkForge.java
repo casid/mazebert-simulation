@@ -21,6 +21,7 @@ public strictfp class DarkForge extends Tower {
         addAbility(new AttackAbility());
         addAbility(new InstantDamageAbility());
         addAbility(new DarkForgeCraft());
+        addAbility(new DarkForgeCurse());
     }
 
     @Override

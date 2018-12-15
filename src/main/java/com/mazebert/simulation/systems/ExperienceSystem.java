@@ -18,10 +18,12 @@ public strictfp class ExperienceSystem {
     private final SimulationListeners simulationListeners = Sim.context().simulationListeners;
 
     public void grantExperience(Tower tower, float experience, boolean showNotification) {
-        experience *= tower.getExperienceModifier();
+        if (experience > 0) {
+            experience *= tower.getExperienceModifier();
+        }
         tower.addExperience(experience);
         if (showNotification && simulationListeners.areNotificationsEnabled()) {
-            simulationListeners.showExperienceGainNotification(tower, experience);
+            simulationListeners.showExperienceNotification(tower, experience);
         }
     }
 
@@ -71,7 +73,7 @@ public strictfp class ExperienceSystem {
 
         if (simulationListeners.areNotificationsEnabled()) {
             FormatPlugin format = Sim.context().formatPlugin;
-            simulationListeners.showNotification(wizard, format.percent((float) progress) + "% challenge damage! (" + format.experienceGain(experience) + ")");
+            simulationListeners.showNotification(wizard, format.percent((float) progress) + "% challenge damage! (" + format.experienceWithSignAndUnit(experience) + ")");
         }
 
         return experience;

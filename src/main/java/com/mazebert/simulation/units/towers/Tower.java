@@ -18,6 +18,7 @@ public strictfp abstract class Tower extends Unit implements CooldownUnit, Card,
     public final OnChain onChain = new OnChain();
     public final OnKill onKill = new OnKill();
     public final OnMiss onMiss = new OnMiss();
+    public final OnExperienceChanged onExperienceChanged = new OnExperienceChanged();
     public final OnLevelChanged onLevelChanged = new OnLevelChanged();
     public final OnRangeChanged onRangeChanged = new OnRangeChanged();
     public final OnItemEquipped onItemEquipped = new OnItemEquipped();
@@ -354,8 +355,10 @@ public strictfp abstract class Tower extends Unit implements CooldownUnit, Card,
         Sim.context().lootSystem.loot(this, target);
     }
 
-    public void addExperience(float experience) {
-        setExperience(this.experience + experience);
+    public void addExperience(float amount) {
+        float oldExperience = experience;
+        setExperience(experience + amount);
+        onExperienceChanged.dispatch(this, oldExperience, experience);
     }
 
     public float getExperience() {

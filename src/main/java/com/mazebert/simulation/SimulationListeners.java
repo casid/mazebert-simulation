@@ -37,7 +37,8 @@ public strictfp class SimulationListeners {
         showNotification(unit, text, 0xffffff);
     }
 
-    public void showExperienceGainNotification(Unit unit, float experience) {
-        showNotification(unit, Sim.context().formatPlugin.experienceGain(experience), 0x88ff22);
+    public void showExperienceNotification(Unit unit, float experience) {
+        int color = experience > 0 ? 0x88ff22 : 0xaa4422;
+        showNotification(unit, Sim.context().formatPlugin.experienceWithSignAndUnit(experience), color);
     }
 }

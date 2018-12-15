@@ -71,10 +71,11 @@ class FormatPluginTest {
     }
 
     @Test
-    void experienceGain() {
-        assertThat(format.experienceGain(1)).isEqualTo("+1XP");
-        assertThat(format.experienceGain(1.2f)).isEqualTo("+1.2XP");
-        assertThat(format.experienceGain(10.2f)).isEqualTo("+10.2XP");
-        assertThat(format.experienceGain(120f)).isEqualTo("+120XP");
+    void experienceWithSignAndUnit() {
+        assertThat(format.experienceWithSignAndUnit(1)).isEqualTo("+1XP");
+        assertThat(format.experienceWithSignAndUnit(1.2f)).isEqualTo("+1.2XP");
+        assertThat(format.experienceWithSignAndUnit(10.2f)).isEqualTo("+10.2XP");
+        assertThat(format.experienceWithSignAndUnit(120f)).isEqualTo("+120XP");
+        assertThat(format.experienceWithSignAndUnit(-20f)).isEqualTo("-20XP");
     }
 }

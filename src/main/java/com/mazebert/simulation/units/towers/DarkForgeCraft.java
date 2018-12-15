@@ -79,4 +79,24 @@ public strictfp class DarkForgeCraft extends Ability<Tower> implements OnUnitAdd
 
         return possibleItems;
     }
+
+    @Override
+    public boolean isVisibleToUser() {
+        return true;
+    }
+
+    @Override
+    public String getTitle() {
+        return "Dark items";
+    }
+
+    @Override
+    public String getDescription() {
+        return "Every round there is a " + format.percent(CHANCE) + "% chance to create a dark item. The item level depends on the level of the Forge.";
+    }
+
+    @Override
+    public String getIconFile() {
+        return "0094_One_Handed_Hammer_512";
+    }
 }
