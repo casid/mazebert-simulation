@@ -7,7 +7,7 @@ import com.mazebert.simulation.units.towers.Tower;
 public strictfp class TridentAbility extends Ability<Tower> {
 
     private static final float attackSpeedMalus = -0.7f;
-    private static final float damageMalus = -0.8f;
+    private static final float damageMalus = -1.0f;
 
     @Override
     protected void initialize(Tower unit) {
@@ -43,11 +43,6 @@ public strictfp class TridentAbility extends Ability<Tower> {
 
     @Override
     public String getDescription() {
-        return "Attack two additional targets";
-    }
-
-    @Override
-    public String getLevelBonus() {
-        return format.percentWithSignAndUnit(attackSpeedMalus) + " attack speed\n" + format.percentWithSignAndUnit(damageMalus) + " damage";
+        return "+2 additional targets\n" + format.percentWithSignAndUnit(attackSpeedMalus) + " attack speed\n" + format.percentWithSignAndUnit(damageMalus) + " damage";
     }
 }

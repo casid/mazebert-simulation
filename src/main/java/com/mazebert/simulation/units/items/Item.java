@@ -40,4 +40,13 @@ public strictfp abstract class Item implements Card {
             consumer.accept(ability);
         }
     }
+
+    public boolean containsAbility(Class<? extends Ability> abilityClass) {
+        for (Ability ability : abilities) {
+            if (abilityClass.isAssignableFrom(ability.getClass())) {
+                return true;
+            }
+        }
+        return false;
+    }
 }

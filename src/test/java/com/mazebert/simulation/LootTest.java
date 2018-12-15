@@ -203,7 +203,7 @@ public class LootTest extends SimTest {
                 0.9f // It's a meat mallet!
         );
         creep.setMaxDrops(1);
-        creep.setMaxItemLevel(ItemType.MonsterTeeth.instance.getItemLevel());
+        creep.setMaxItemLevel(ItemType.MonsterTeeth.instance().getItemLevel());
 
         whenTowerAttacks();
 

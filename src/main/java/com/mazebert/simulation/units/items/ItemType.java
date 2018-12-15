@@ -54,7 +54,7 @@ public strictfp enum ItemType implements CardType<Item> {
 //    ImpatienceWrathWatch(41, ImpatienceWrathWatch.class),
 //    ImpatienceWrathTrain(42, ImpatienceWrathTrain.class),
 //    ImpatienceWrathForce(43, ImpatienceWrathForce.class),
-//    DarkBabySword(44, DarkBabySword.class),
+    DarkBabySword(44, DarkBabySword.class),
 //    DarkGoldCoins(45, DarkGoldCoins.class),
 //    DarkRingOfGreed(46, DarkRingOfGreed.class),
 //    DarkMeatMallet(47, DarkMeatMallet.class),
@@ -93,7 +93,7 @@ public strictfp enum ItemType implements CardType<Item> {
 
     public final int id;
     public final Class<? extends Item> itemClass;
-    public Item instance;
+    private Item instance;
 
     ItemType(int id, Class<? extends Item> itemClass) {
         this.id = id;
