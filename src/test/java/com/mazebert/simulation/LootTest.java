@@ -168,6 +168,42 @@ public class LootTest extends SimTest {
     }
 
     @Test
+    void loot_unique_onlyOnce1() {
+        randomPluginTrainer.givenFloatAbs(
+                0.0f, // This is a drop
+                0.001f, // The rarity of this drop is unique
+                0.0f, // This is an item drop
+                0.0f // It's a scepter of time!
+        );
+        creep.setMaxDrops(1);
+        creep.setMaxItemLevel(120);
+
+        whenTowerAttacks();
+
+        assertThat(wizard.itemStash.get(0).amount).isEqualTo(1);
+        assertThat(wizard.itemStash.get(0).cardType).isEqualTo(ItemType.ScepterOfTime);
+    }
+
+    @Test
+    void loot_unique_onlyOnce2() {
+        wizard.itemStash.add(ItemType.ScepterOfTime); // already in possession
+        wizard.itemStash.remove(ItemType.ScepterOfTime); // even if it's in use now ...
+        randomPluginTrainer.givenFloatAbs(
+                0.0f, // This is a drop
+                0.001f, // The rarity of this drop is unique
+                0.0f, // This is an item drop
+                0.0f // It's a scepter of time!
+        );
+        creep.setMaxDrops(1);
+        creep.setMaxItemLevel(120);
+
+        whenTowerAttacks();
+
+        assertThat(wizard.itemStash.size()).isEqualTo(1);
+        assertThat(wizard.itemStash.get(0).cardType).isEqualTo(ItemType.MonsterTeeth); // ... no scepter will drop!
+    }
+
+    @Test
     void loot_itemLevel_tooLow() {
         creep.setMaxItemLevel(0);
         creep.setMinDrops(1);

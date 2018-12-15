@@ -86,24 +86,26 @@ public strictfp class LootSystem {
     }
 
     @SuppressWarnings("unchecked")
-    public void dropCard(Wizard wizard, Creep creep, Stash stash, CardType drop) {
+    public boolean dropCard(Wizard wizard, Creep creep, Stash stash, CardType drop) {
+        if (stash.isUniqueAlreadyDropped(drop)) {
+            return false;
+        }
+
         stash.add(drop);
         simulationListeners.onCardDropped.dispatch(wizard, creep, drop.instance());
+        return true;
     }
 
     private void rollCardDrop(Wizard wizard, Creep creep, int maxItemLevel, Rarity rarity, Stash stash) {
         while (rarity.ordinal() >= Rarity.Common.ordinal()) {
             CardType drop = stash.getRandomDrop(rarity, maxItemLevel, randomPlugin);
-            if (drop == null) {
-                if (rarity == Rarity.Common) {
-                    break;
-                } else {
-                    rarity = Rarity.values()[rarity.ordinal() - 1];
-                }
-            } else {
-                dropCard(wizard, creep, stash, drop);
-                break;
+            if (drop != null && dropCard(wizard, creep, stash, drop)) {
+                return;
             }
+            if (rarity == Rarity.Common) {
+                return;
+            }
+            rarity = Rarity.values()[rarity.ordinal() - 1];
         }
     }
 

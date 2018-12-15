@@ -57,7 +57,11 @@ public abstract strictfp class Stash<T extends Card> implements ReadonlyStash<T>
             entry = new StashEntry<>(cardType);
             entries.add(entry);
             entryByType.put(cardType, entry);
-            uniques.add(cardType);
+
+            T card = cardType.instance();
+            if (card.getRarity() == Rarity.Unique || card.getRarity() == Rarity.Legendary) {
+                uniques.add(cardType);
+            }
         } else {
             ++entry.amount;
         }
