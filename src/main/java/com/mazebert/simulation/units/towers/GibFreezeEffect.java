@@ -5,7 +5,7 @@ import com.mazebert.simulation.SimulationListeners;
 import com.mazebert.simulation.units.creeps.Creep;
 import com.mazebert.simulation.units.creeps.effects.SlowEffect;
 
-public class GibFreezeEffect extends SlowEffect {
+public strictfp class GibFreezeEffect extends SlowEffect {
     private final SimulationListeners simulationListeners = Sim.context().simulationListeners;
 
     @Override

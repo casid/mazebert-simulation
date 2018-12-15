@@ -6,7 +6,7 @@ import com.mazebert.simulation.systems.ExperienceSystem;
 import com.mazebert.simulation.units.abilities.Ability;
 import com.mazebert.simulation.units.creeps.Creep;
 
-public class BlackWidowKill extends Ability<Tower> implements OnKillListener {
+public strictfp class BlackWidowKill extends Ability<Tower> implements OnKillListener {
     private static final int XP = 4;
 
     private final ExperienceSystem experienceSystem = Sim.context().experienceSystem;

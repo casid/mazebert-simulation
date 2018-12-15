@@ -4,7 +4,7 @@ import com.mazebert.simulation.Balancing;
 import com.mazebert.simulation.Sim;
 import com.mazebert.simulation.SimulationListeners;
 
-public class EarlyCallCountDown extends CountDown {
+public strictfp class EarlyCallCountDown extends CountDown {
     public EarlyCallCountDown() {
         super(Balancing.EARLY_CALL_COUNTDOWN_SECONDS);
     }

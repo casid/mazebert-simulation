@@ -2,7 +2,7 @@ package com.mazebert.simulation.units.towers;
 
 import com.mazebert.simulation.units.abilities.Ability;
 
-public class MuliBooze extends Ability<Tower> {
+public strictfp class MuliBooze extends Ability<Tower> {
     public static final float CHANCE = 0.1f;
     public static final int GOLD = 20;
 

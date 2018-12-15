@@ -8,7 +8,7 @@ import com.mazebert.simulation.units.abilities.AttackAbility;
  * Thus, this class is merly a UI ability.
  * The actual implementation is in the burst ability.
  */
-public class SniperAttack extends AttackAbility {
+public strictfp class SniperAttack extends AttackAbility {
     public static final float CHANCE = 0.3f;
     public static final float CHANCE_PER_LEVEL = 0.003f;
     public static final int MAX_SHOTS = 256;

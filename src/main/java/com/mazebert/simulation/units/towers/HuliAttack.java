@@ -2,7 +2,7 @@ package com.mazebert.simulation.units.towers;
 
 import com.mazebert.simulation.units.abilities.AttackAbility;
 
-public class HuliAttack extends AttackAbility {
+public strictfp class HuliAttack extends AttackAbility {
     private boolean enabled = true;
 
     @Override

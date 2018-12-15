@@ -4,7 +4,7 @@ import com.mazebert.simulation.listeners.OnUpdateListener;
 import com.mazebert.simulation.units.abilities.StackableByOriginAbility;
 import com.mazebert.simulation.units.creeps.Creep;
 
-public class SlowEffect extends StackableByOriginAbility<Creep> implements OnUpdateListener {
+public strictfp class SlowEffect extends StackableByOriginAbility<Creep> implements OnUpdateListener {
     private int stackCount;
     private float totalMultiplier = 1;
     private float remainingSeconds;

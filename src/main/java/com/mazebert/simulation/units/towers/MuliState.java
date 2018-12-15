@@ -1,6 +1,6 @@
 package com.mazebert.simulation.units.towers;
 
-public enum MuliState {
+public strictfp enum MuliState {
     Normal,
     Drunk,
     Hangover

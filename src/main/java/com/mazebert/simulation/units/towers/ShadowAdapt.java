@@ -8,7 +8,7 @@ import com.mazebert.simulation.plugins.random.RandomPlugin;
 import com.mazebert.simulation.units.abilities.Ability;
 import com.mazebert.simulation.units.creeps.Creep;
 
-public class ShadowAdapt extends Ability<Tower> implements OnDamageListener {
+public strictfp class ShadowAdapt extends Ability<Tower> implements OnDamageListener {
 
     private static final float chance = 0.05f;
     private static final float chanceLevelBonus = 0.0005f;

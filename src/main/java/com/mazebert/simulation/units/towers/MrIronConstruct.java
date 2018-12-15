@@ -3,7 +3,7 @@ package com.mazebert.simulation.units.towers;
 import com.mazebert.simulation.units.abilities.ActiveAbility;
 import com.mazebert.simulation.units.items.Item;
 
-public class MrIronConstruct extends ActiveAbility {
+public strictfp class MrIronConstruct extends ActiveAbility {
 
     public static final float COOLDOWN = 90;
 

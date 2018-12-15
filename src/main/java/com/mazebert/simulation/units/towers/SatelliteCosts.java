@@ -7,7 +7,7 @@ import com.mazebert.simulation.plugins.random.RandomPlugin;
 import com.mazebert.simulation.units.abilities.Ability;
 import com.mazebert.simulation.units.creeps.Creep;
 
-public class SatelliteCosts extends Ability<Tower> implements OnAttackListener {
+public strictfp class SatelliteCosts extends Ability<Tower> implements OnAttackListener {
     private final SimulationListeners simulationListeners = Sim.context().simulationListeners;
     private final RandomPlugin randomPlugin = Sim.context().randomPlugin;
 

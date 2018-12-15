@@ -2,7 +2,7 @@ package com.mazebert.simulation.units.towers;
 
 import com.mazebert.simulation.units.abilities.AuraAbility;
 
-public class MuliBro extends AuraAbility<Muli, Huli> {
+public strictfp class MuliBro extends AuraAbility<Muli, Huli> {
     public MuliBro() {
         super(Huli.class, 100);
     }

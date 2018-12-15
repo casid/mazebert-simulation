@@ -5,7 +5,7 @@ import com.mazebert.simulation.SimulationListeners;
 import com.mazebert.simulation.plugins.random.RandomPlugin;
 import com.mazebert.simulation.units.abilities.AttackAbility;
 
-public class MuliAttack extends AttackAbility {
+public strictfp class MuliAttack extends AttackAbility {
     private final SimulationListeners simulationListeners = Sim.context().simulationListeners;
     private final RandomPlugin randomPlugin = Sim.context().randomPlugin;
 
