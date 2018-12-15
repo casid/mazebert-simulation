@@ -15,11 +15,14 @@ public abstract strictfp class Stash<T extends Card> implements ReadonlyStash<T>
     private final List<StashEntry<T>> entries = new ArrayList<>();
     private final Map<Object, StashEntry<T>> entryByType;
     private final EnumMap<Rarity, CardType<T>[]> cardByDropRarity;
+    private final Set<CardType<T>> uniques;
 
     private transient int lastViewedIndex;
 
-    protected Stash(Map<Object, StashEntry<T>> entryByType) {
+    @SuppressWarnings("unchecked")
+    protected Stash(Map<Object, StashEntry<T>> entryByType, Set uniques) {
         this.entryByType = entryByType;
+        this.uniques = uniques;
         this.cardByDropRarity = populateCardByDropRarity();
     }
 
@@ -54,6 +57,7 @@ public abstract strictfp class Stash<T extends Card> implements ReadonlyStash<T>
             entry = new StashEntry<>(cardType);
             entries.add(entry);
             entryByType.put(cardType, entry);
+            uniques.add(cardType);
         } else {
             ++entry.amount;
         }
@@ -70,6 +74,10 @@ public abstract strictfp class Stash<T extends Card> implements ReadonlyStash<T>
             return true;
         }
         return false;
+    }
+
+    public boolean isUniqueAlreadyDropped(CardType<T> cardType) {
+        return uniques.contains(cardType);
     }
 
     @Override

@@ -13,7 +13,7 @@ public strictfp class ItemStash extends Stash<Item> {
 
     @SuppressWarnings("unchecked")
     public ItemStash() {
-        super(new EnumMap(ItemType.class));
+        super(new EnumMap(ItemType.class), EnumSet.noneOf(ItemType.class));
         populateDarkItems();
     }
 

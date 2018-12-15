@@ -7,6 +7,7 @@ import com.mazebert.simulation.listeners.OnUnitAddedListener;
 import com.mazebert.simulation.listeners.OnUnitRemovedListener;
 import com.mazebert.simulation.listeners.OnWaveFinishedListener;
 import com.mazebert.simulation.plugins.random.RandomPlugin;
+import com.mazebert.simulation.stash.ItemStash;
 import com.mazebert.simulation.units.Unit;
 import com.mazebert.simulation.units.abilities.Ability;
 import com.mazebert.simulation.units.items.ItemType;
@@ -65,14 +66,13 @@ public strictfp class DarkForgeCraft extends Ability<Tower> implements OnUnitAdd
     protected List<ItemType> calculatePossibleItems() {
         // TODO solve dark, legendary item drops!
 
-        // TODO dark, unique cards only once!
-
         int itemLevel = getUnit().getLevel();
 
-        EnumSet<ItemType> darkItems = getUnit().getWizard().itemStash.getDarkItems();
+        ItemStash itemStash = getUnit().getWizard().itemStash;
+        EnumSet<ItemType> darkItems = itemStash.getDarkItems();
         List<ItemType> possibleItems = new ArrayList<>(darkItems.size());
         for (ItemType darkItem : darkItems) {
-            if (darkItem.instance().getItemLevel() <= itemLevel) {
+            if (darkItem.instance().getItemLevel() <= itemLevel && !itemStash.isUniqueAlreadyDropped(darkItem)) {
                 possibleItems.add(darkItem);
             }
         }

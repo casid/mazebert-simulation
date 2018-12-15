@@ -47,6 +47,27 @@ strictfp class DarkForge_CraftTest extends SimTest {
         thenNoItemIsCrafted();
     }
 
+    @Test
+    void darkBlade() {
+        darkForge.setLevel(66);
+        randomPluginTrainer.givenFloatAbs(0.0f, 0.99f);
+
+        whenWaveIsFinished();
+
+        thenItemIsCrafted(ItemType.DarkBlade);
+    }
+
+    @Test
+    void darkBlade_onlyOnce() {
+        wizard.itemStash.add(ItemType.DarkBlade);
+        darkForge.setLevel(66);
+        randomPluginTrainer.givenFloatAbs(0.0f, 0.99f);
+
+        whenWaveIsFinished();
+
+        assertThat(wizard.itemStash.get(ItemType.DarkBlade).getAmount()).isEqualTo(1);
+    }
+
     private void whenWaveIsFinished() {
         simulationListeners.onWaveFinished.dispatch(new Wave());
     }
