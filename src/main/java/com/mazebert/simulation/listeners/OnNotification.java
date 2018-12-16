@@ -7,4 +7,8 @@ public strictfp class OnNotification extends ExposedSignal<OnNotificationListene
     public void dispatch(Unit unit, String text, int color) {
         dispatchAll(l -> l.onNotification(unit, text, color));
     }
+
+    public void dispatch(String sound, String group, float volume) {
+        dispatchAll(l -> l.onSound(sound, group, volume));
+    }
 }

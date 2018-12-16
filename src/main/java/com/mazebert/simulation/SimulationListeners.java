@@ -41,4 +41,12 @@ public strictfp class SimulationListeners {
         int color = experience > 0 ? 0x88ff22 : 0xaa4422;
         showNotification(unit, Sim.context().formatPlugin.experienceWithSignAndUnit(experience), color);
     }
+
+    public void soundNotification(String sound, String group, float volume) {
+        onNotification.dispatch(sound, group, volume);
+    }
+
+    public void soundNotification(String sound) {
+        onNotification.dispatch(sound, null, 1.0f);
+    }
 }

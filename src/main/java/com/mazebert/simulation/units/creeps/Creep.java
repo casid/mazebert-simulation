@@ -35,6 +35,7 @@ public strictfp class Creep extends Unit {
     private int maxItemLevel;
     private float dropChance = 1.0f;
     private int armor;
+    private float damageModifier = 1.0f;
     private float experience;
     private float experienceModifier = 1.0f;
 
@@ -61,6 +62,7 @@ public strictfp class Creep extends Unit {
         hash.add(maxItemLevel);
         hash.add(dropChance);
         hash.add(armor);
+        hash.add(damageModifier);
         hash.add(experience);
         hash.add(experienceModifier);
     }
@@ -375,6 +377,18 @@ public strictfp class Creep extends Unit {
 
     public void warpInTime(float warpSeconds) {
         walk(warpSeconds);
+    }
+
+    public float getDamageModifier() {
+        return damageModifier;
+    }
+
+    public void setDamageModifier(float damageModifier) {
+        this.damageModifier = damageModifier;
+    }
+
+    public void addDamageModifier(float amount) {
+        damageModifier += amount;
     }
 
     public static class WalkResult {

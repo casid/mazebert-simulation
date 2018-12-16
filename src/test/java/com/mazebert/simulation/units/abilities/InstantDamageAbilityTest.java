@@ -219,6 +219,16 @@ public class InstantDamageAbilityTest extends SimTest {
     }
 
     @Test
+    void constantDamage_damageModifier() {
+        creep.setDamageModifier(2.0f);
+        tower.setBaseDamage(10.0f);
+
+        whenTowerAttacks();
+
+        assertThat(creep.getHealth()).isEqualTo(80.0f);
+    }
+
+    @Test
     void constantDamage_kill() {
         tower.setBaseDamage(1000.0f);
 

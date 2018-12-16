@@ -105,6 +105,49 @@ strictfp class NoviceWizardTest extends SimTest {
         assertThat(creep.getY()).isEqualTo(3);
     }
 
+    @Test
+    void banish_good() {
+        randomPluginTrainer.givenFloatAbs(
+                0.0f, // spell triggered
+                0.6f, // banish
+                0.9f // more damage
+        );
+
+        whenNoviceWizardAttacks();
+
+        assertThat(creep.getDamageModifier()).isEqualTo(1.5f);
+    }
+
+    @Test
+    void banish_good_doesNotStack() {
+        randomPluginTrainer.givenFloatAbs(
+                0.0f, // spell triggered
+                0.6f, // banish
+                0.9f, // more damage
+                0.0f, // spell triggered
+                0.6f, // banish
+                0.9f // more damage
+        );
+
+        whenNoviceWizardAttacks();
+        whenNoviceWizardAttacks();
+
+        assertThat(creep.getDamageModifier()).isEqualTo(1.5f);
+    }
+
+    @Test
+    void banish_bad() {
+        randomPluginTrainer.givenFloatAbs(
+                0.0f, // spell triggered
+                0.6f, // banish
+                0.0f // less damage
+        );
+
+        whenNoviceWizardAttacks();
+
+        assertThat(creep.getDamageModifier()).isEqualTo(0.5f);
+    }
+
     private void whenNoviceWizardAttacks() {
         noviceWizard.simulate(noviceWizard.getBaseCooldown());
         projectileGateway.simulate(0.5f);

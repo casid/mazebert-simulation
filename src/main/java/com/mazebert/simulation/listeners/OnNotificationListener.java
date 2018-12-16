@@ -4,4 +4,5 @@ import com.mazebert.simulation.units.Unit;
 
 public interface OnNotificationListener {
     void onNotification(Unit unit, String text, int color);
+    void onSound(String sound, String group, float volume);
 }

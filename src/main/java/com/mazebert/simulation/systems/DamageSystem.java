@@ -89,6 +89,7 @@ public strictfp class DamageSystem {
 
     private double modifyDamage(Tower tower, Creep creep, double damage) {
         damage *= calculateWaveDamageFactor(tower, creep.getWave());
+        damage *= creep.getDamageModifier();
         if (damage < 0) {
             damage = 0;
         }
