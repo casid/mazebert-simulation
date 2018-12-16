@@ -2,6 +2,7 @@ package com.mazebert.simulation.units.towers;
 
 import com.mazebert.simulation.*;
 import com.mazebert.simulation.commands.BuildTowerCommand;
+import com.mazebert.simulation.gateways.DifficultyGateway;
 import com.mazebert.simulation.gateways.GameGateway;
 import com.mazebert.simulation.gateways.UnitGateway;
 import com.mazebert.simulation.gateways.WaveGateway;
@@ -32,6 +33,7 @@ strictfp class AcolyteOfGreedTest extends SimTest {
         gameGateway = new GameGateway();
         gameGateway.getGame().map = new BloodMoor();
 
+        difficultyGateway = new DifficultyGateway();
         waveSpawner = new WaveSpawner();
 
         commandExecutor = new CommandExecutor();
@@ -70,6 +72,8 @@ strictfp class AcolyteOfGreedTest extends SimTest {
         assertThat(goblin.getMaxDrops()).isEqualTo(4);
         assertThat(goblin.getGold()).isEqualTo(93);
         assertThat(goblin.getArmor()).isEqualTo(100);
+        assertThat(goblin.getHealth()).isEqualTo(8123.0);
+        assertThat(goblin.getMaxHealth()).isEqualTo(goblin.getHealth());
     }
 
     @Test

@@ -72,10 +72,14 @@ public strictfp class WaveSpawner implements OnGameStartedListener, OnWaveStarte
     public void spawnTreasureGoblins(Wizard wizard, int amount) {
         Wave wave = waveGateway.generateGoblinWave();
 
+        double health = Balancing.getTotalCreepHitpoints(wave.round, difficultyGateway.getDifficulty());
+
         for (int i = 0; i < amount; ++i) {
             Creep goblin = new Creep();
             goblin.setWizard(wizard);
             goblin.setWave(wave);
+            goblin.setHealth(health);
+            goblin.setMaxHealth(health);
             goblin.setDropChance(4.0f);
             goblin.setMinDrops(1);
             goblin.setMaxDrops(4);
