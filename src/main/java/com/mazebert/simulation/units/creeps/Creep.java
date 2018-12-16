@@ -71,20 +71,7 @@ public strictfp class Creep extends Unit {
 
         switch (state) {
             case Running:
-                float distanceToWalk = getSpeed() * dt;
-                TEMP.pathIndex = pathIndex;
-                WalkResult result = walk(getX(), getY(), distanceToWalk, TEMP);
-                if (result != null) {
-                    pathIndex = result.pathIndex;
-                    setX(result.getX());
-                    setY(result.getY());
-
-                    freshCoordinates = true;
-
-                    if (pathIndex >= path.size() - 1) {
-                        onTargetReached.dispatch(this);
-                    }
-                }
+                walk(dt);
                 break;
             case Death:
                 deathTime += dt;
@@ -96,7 +83,32 @@ public strictfp class Creep extends Unit {
         }
     }
 
+    private void walk(float dt) {
+        float distanceToWalk = getSpeed() * dt;
+        TEMP.pathIndex = pathIndex;
+        WalkResult result = walk(getX(), getY(), distanceToWalk, TEMP);
+        if (result != null) {
+            pathIndex = result.pathIndex;
+            setX(result.getX());
+            setY(result.getY());
+
+            freshCoordinates = true;
+
+            if (pathIndex >= path.size() - 1) {
+                onTargetReached.dispatch(this);
+            }
+        }
+    }
+
     private WalkResult walk(float x, float y, float distanceToWalk, WalkResult result) {
+        if (distanceToWalk >= 0.0f) {
+            return walkForward(x, y, distanceToWalk, result);
+        } else {
+            return walkBackward(x, y, distanceToWalk, result);
+        }
+    }
+
+    private WalkResult walkForward(float x, float y, float distanceToWalk, WalkResult result) {
         if (state != CreepState.Running) {
             return null;
         }
@@ -117,16 +129,51 @@ public strictfp class Creep extends Unit {
         float dx = tx - x;
         float dy = ty - y;
 
-        float distance = (float)StrictMath.sqrt(dx * dx + dy * dy);
+        float distance = (float) StrictMath.sqrt(dx * dx + dy * dy);
         if (distance <= distanceToWalk) {
             result.position[0] = tx;
             result.position[1] = ty;
             ++result.pathIndex;
 
-            walk(tx, ty, distanceToWalk - distance, result);
+            walkForward(tx, ty, distanceToWalk - distance, result);
         } else {
             result.position[0] = x + distanceToWalk * dx / distance;
             result.position[1] = y + distanceToWalk * dy / distance;
+        }
+
+        return result;
+    }
+
+    private WalkResult walkBackward(float x, float y, float distanceToWalk, WalkResult result) {
+        if (state != CreepState.Running) {
+            return null;
+        }
+
+        if (distanceToWalk >= 0.0f) {
+            return null;
+        }
+
+        int targetIndex = result.pathIndex;
+        if (targetIndex < 0) {
+            return null;
+        }
+
+        float[] target = path.get(targetIndex, result.position);
+        float tx = target[0];
+        float ty = target[1];
+
+        float dx = tx - x;
+        float dy = ty - y;
+
+        float distance = (float) StrictMath.sqrt(dx * dx + dy * dy);
+        if (distance <= -distanceToWalk) {
+            result.position[0] = tx;
+            result.position[1] = ty;
+            --result.pathIndex;
+            walkBackward(tx, ty, distanceToWalk + distance, result);
+        } else {
+            result.position[0] = x - distanceToWalk * dx / distance;
+            result.position[1] = y - distanceToWalk * dy / distance;
         }
 
         return result;
@@ -324,6 +371,10 @@ public strictfp class Creep extends Unit {
 
     public void addArmor(int amount) {
         armor += amount;
+    }
+
+    public void warpInTime(float warpSeconds) {
+        walk(warpSeconds);
     }
 
     public static class WalkResult {
