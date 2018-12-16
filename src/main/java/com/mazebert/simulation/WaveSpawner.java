@@ -27,7 +27,9 @@ public strictfp class WaveSpawner implements OnGameStartedListener, OnWaveStarte
     private final ExperienceSystem experienceSystem = Sim.context().experienceSystem;
 
     private Queue<Creep> creepQueue = new ArrayDeque<>();
+    private Queue<Creep> goblinQueue = new ArrayDeque<>();
     private float countdownForNextCreepToSend;
+    private float countdownForNextGoblinToSend;
 
     public WaveSpawner() {
         simulationListeners.onGameStarted.add(this);
@@ -48,16 +50,41 @@ public strictfp class WaveSpawner implements OnGameStartedListener, OnWaveStarte
 
     @Override
     public void onUpdate(float dt) {
-        if (creepQueue.isEmpty()) {
-            return;
+        if (!creepQueue.isEmpty()) {
+            countdownForNextCreepToSend -= dt;
+            if (countdownForNextCreepToSend <= 0.0f) {
+                Creep creep = creepQueue.remove();
+                spawnCreep(creep);
+
+                countdownForNextCreepToSend = calculateCountdownForNextCreepToSend(creep.getWave());
+            }
+        } else if (!goblinQueue.isEmpty()) {
+            countdownForNextGoblinToSend -= dt;
+            if (countdownForNextGoblinToSend <= 0.0f) {
+                Creep creep = goblinQueue.remove();
+                spawnCreep(creep);
+
+                countdownForNextGoblinToSend = calculateCountdownForNextCreepToSend(creep.getWave());
+            }
         }
+    }
 
-        countdownForNextCreepToSend -= dt;
-        if (countdownForNextCreepToSend <= 0.0f) {
-            Creep creep = creepQueue.remove();
-            spawnCreep(creep);
+    public void spawnTreasureGoblins(Wizard wizard, int amount) {
+        Wave wave = waveGateway.generateGoblinWave();
 
-            countdownForNextCreepToSend = calculateCountdownForNextCreepToSend(creep.getWave());
+        for (int i = 0; i < amount; ++i) {
+            Creep goblin = new Creep();
+            goblin.setWizard(wizard);
+            goblin.setWave(wave);
+            goblin.setDropChance(4.0f);
+            goblin.setMinDrops(1);
+            goblin.setMaxDrops(4);
+            goblin.setMaxItemLevel(wave.round);
+            goblin.setGold(Balancing.getGoldForRound(wave.round));
+
+            goblin.setArmor(wave.round + 50);
+
+            goblinQueue.add(goblin);
         }
     }
 
@@ -166,8 +193,10 @@ public strictfp class WaveSpawner implements OnGameStartedListener, OnWaveStarte
     public void onUnitRemoved(Unit unit) {
         if (unit instanceof Creep) {
             Creep creep = (Creep) unit;
-            if (--creep.getWave().creepCount <= 0) {
-                completeWave(creep.getWave(), creep);
+            Wave wave = creep.getWave();
+
+            if (wave.origin == WaveOrigin.Game && --wave.creepCount <= 0) {
+                completeWave(wave, creep);
             }
         }
     }

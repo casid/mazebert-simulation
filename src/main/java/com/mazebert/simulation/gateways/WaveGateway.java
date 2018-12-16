@@ -2,6 +2,7 @@ package com.mazebert.simulation.gateways;
 
 import com.mazebert.simulation.ArmorType;
 import com.mazebert.simulation.Wave;
+import com.mazebert.simulation.WaveOrigin;
 import com.mazebert.simulation.WaveType;
 import com.mazebert.simulation.plugins.random.RandomPlugin;
 import com.mazebert.simulation.units.creeps.CreepType;
@@ -51,6 +52,7 @@ public strictfp class WaveGateway implements ReadonlyWaveGateway {
 
     public Wave generateWave(RandomPlugin randomPlugin, int round) {
         Wave wave = new Wave();
+        wave.origin = WaveOrigin.Game;
         wave.round = round;
         wave.type = calculateWaveType(randomPlugin, round);
         wave.creepCount = wave.type.creepCount;
@@ -58,6 +60,18 @@ public strictfp class WaveGateway implements ReadonlyWaveGateway {
         wave.maxSecondsToNextCreep = wave.type.getMaxSecondsToNextCreep();
         wave.creepType = rollCreepType(wave, randomPlugin);
         wave.armorType = rollArmorType(wave, randomPlugin);
+        return wave;
+    }
+
+    public Wave generateGoblinWave() {
+        Wave wave = new Wave();
+        wave.origin = WaveOrigin.Treasure;
+        wave.round = getCurrentRound();
+        wave.type = WaveType.Normal;
+        wave.minSecondsToNextCreep = wave.type.getMinSecondsToNextCreep();
+        wave.maxSecondsToNextCreep = wave.type.getMaxSecondsToNextCreep();
+        wave.creepType = CreepType.Gnome;
+        wave.armorType = ArmorType.Zod;
         return wave;
     }
 

@@ -6,6 +6,7 @@ import com.mazebert.simulation.units.creeps.CreepType;
 
 public strictfp class Wave implements Hashable {
     public int round;
+    public WaveOrigin origin = WaveOrigin.Game;
     public WaveType type = WaveType.Normal;
     public CreepType creepType = CreepType.Orc;
     public ArmorType armorType = ArmorType.Ber;

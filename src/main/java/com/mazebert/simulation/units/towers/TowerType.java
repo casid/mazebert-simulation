@@ -41,8 +41,8 @@ public strictfp enum TowerType implements CardType<Tower> {
     Gib(28, Gib.class),
     KnusperHexe(29, KnusperHexe.class),
     DarkForge(30, DarkForge.class),
-//    Cube(31, Cube.class),
-//    AcolyteOfGreed(32, AcolyteOfGreed.class),
+    //Cube(31, Cube.class), Cube is no longer in use by now
+    AcolyteOfGreed(32, AcolyteOfGreed.class),
 //    NoviceWizard(33, NoviceWizard.class),
 //    Spider(34, Spider.class),
 //    BloodDemon(35, BloodDemon.class),
