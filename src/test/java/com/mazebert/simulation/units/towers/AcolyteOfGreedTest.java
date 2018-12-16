@@ -63,6 +63,7 @@ strictfp class AcolyteOfGreedTest extends SimTest {
         assertThat(wave.armorType).isEqualTo(ArmorType.Zod);
 
         assertThat(goblin.getWizard()).isSameAs(wizard);
+        assertThat(goblin.getType()).isEqualTo(wave.creepType);
         assertThat(goblin.getDropChance()).isEqualTo(4.0f);
         assertThat(goblin.getMaxItemLevel()).isEqualTo(50);
         assertThat(goblin.getMinDrops()).isEqualTo(1);

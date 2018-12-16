@@ -43,4 +43,29 @@ public strictfp class AcolyteOfGreedBattlecry extends Ability<Tower> implements 
         }
         return 5;
     }
+
+    @Override
+    public boolean isVisibleToUser() {
+        return true;
+    }
+
+    @Override
+    public String getTitle() {
+        return "GobGob! (Battlecry)";
+    }
+
+    @Override
+    public String getDescription() {
+        return "Treasure goblins are summoned, at the time you build the Acolyte.";
+    }
+
+    @Override
+    public String getLevelBonus() {
+        return "1 goblin at level 1-29\n2 goblins at level 30-59\n3 goblins at level 60-98\n5 goblins at level 99";
+    }
+
+    @Override
+    public String getIconFile() {
+        return "0041_purpledebuff_512";
+    }
 }

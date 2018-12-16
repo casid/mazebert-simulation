@@ -81,8 +81,8 @@ public strictfp class WaveSpawner implements OnGameStartedListener, OnWaveStarte
             goblin.setMaxDrops(4);
             goblin.setMaxItemLevel(wave.round);
             goblin.setGold(Balancing.getGoldForRound(wave.round));
-
             goblin.setArmor(wave.round + 50);
+            goblin.setType(wave.creepType);
 
             goblinQueue.add(goblin);
         }
