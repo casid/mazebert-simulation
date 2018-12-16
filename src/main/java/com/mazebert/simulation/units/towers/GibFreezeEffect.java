@@ -9,13 +9,16 @@ public strictfp class GibFreezeEffect extends SlowEffect {
     private final SimulationListeners simulationListeners = Sim.context().simulationListeners;
 
     @Override
-    public void addStack(float slowMultiplier, float duration, int maxStacks) {
-        super.addStack(slowMultiplier, duration, maxStacks);
-        getUnit().addArmor(1);
+    public boolean addStack(float slowMultiplier, float duration, int maxStacks) {
+        if (super.addStack(slowMultiplier, duration, maxStacks)) {
+            getUnit().addArmor(1);
 
-        if (simulationListeners.areNotificationsEnabled()) {
-            simulationListeners.showNotification(getUnit(), "Frozen!", 0x3355aa);
+            if (simulationListeners.areNotificationsEnabled()) {
+                simulationListeners.showNotification(getUnit(), "Frozen!", 0x3355aa);
+            }
+            return true;
         }
+        return false;
     }
 
     @Override

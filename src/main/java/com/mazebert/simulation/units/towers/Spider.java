@@ -9,31 +9,31 @@ import com.mazebert.simulation.units.abilities.AttackAbility;
 import com.mazebert.simulation.units.abilities.AttackSoundAbility;
 import com.mazebert.simulation.units.abilities.ProjectileDamageAbility;
 
-public strictfp class NoviceWizard extends Tower {
+public strictfp class Spider extends Tower {
 
-    public NoviceWizard() {
-        setBaseCooldown(2.5f);
-        setBaseRange(3.0f);
-        setAttackType(AttackType.Vex);
-        setStrength(0.5f);
-        setDamageSpread(0.7f);
-        setGender(Gender.Male);
+    public Spider() {
+        setBaseCooldown(2.0f);
+        setBaseRange(4.0f);
+        setAttackType(AttackType.Fal);
+        setStrength(0.6f);
+        setDamageSpread(0.4f);
+        setGender(Gender.Female);
         setElement(Element.Darkness);
 
         addAbility(new AttackAbility());
-        addAbility(new AttackSoundAbility("sounds/spell.mp3", null, 0.2f));
-        addAbility(new ProjectileDamageAbility(ProjectileViewType.Spell, 13.0f));
-        addAbility(new NoviceWizardSpell());
+        addAbility(new AttackSoundAbility("sounds/web-spit.mp3"));
+        addAbility(new ProjectileDamageAbility(ProjectileViewType.Web, 11.8f));
+        addAbility(new SpiderWeb());
     }
 
     @Override
     public String getName() {
-        return "Twisted Novice Wizard";
+        return "Small Spider";
     }
 
     @Override
     public String getDescription() {
-        return "I'll kill you. I'll kill you all!\nAh-hahahah!";
+        return "When I'm grown up, I will eat my mate. Nom, nom!";
     }
 
     @Override
@@ -53,21 +53,21 @@ public strictfp class NoviceWizard extends Tower {
 
     @Override
     public String getModelId() {
-        return "novice_wizard";
+        return "spider";
     }
 
     @Override
     public String getAuthor() {
-        return "syotos";
+        return "Vigi";
     }
 
     @Override
     protected float getGoldCostFactor() {
-        return 1.05f;
+        return 0.8f;
     }
 
     @Override
     public int getImageOffsetOnCardY() {
-        return 8;
+        return 22;
     }
 }
