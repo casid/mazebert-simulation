@@ -15,7 +15,7 @@ public strictfp class Solara extends Tower {
         setBaseCooldown(4.0f);
         setBaseRange(2.0f);
         setAttackType(AttackType.Vex);
-        setStrength(0.25f);
+        setStrength(0.1f);
         setDamageSpread(0.4f);
         setGender(Gender.Female);
         setElement(Element.Darkness);
