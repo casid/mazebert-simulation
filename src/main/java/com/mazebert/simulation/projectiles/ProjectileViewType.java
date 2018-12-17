@@ -14,4 +14,5 @@ public strictfp enum ProjectileViewType {
     Crow,
     Spell,
     Web,
+    Fireball,
 }
