@@ -5,6 +5,7 @@ import com.mazebert.simulation.Element;
 import com.mazebert.simulation.Rarity;
 import com.mazebert.simulation.units.Gender;
 import com.mazebert.simulation.units.abilities.AttackAbility;
+import com.mazebert.simulation.units.abilities.AttackSoundAbility;
 import com.mazebert.simulation.units.abilities.InstantDamageAbility;
 
 public strictfp class Hitman extends Tower {
@@ -18,6 +19,7 @@ public strictfp class Hitman extends Tower {
         setElement(Element.Metropolis);
 
         addAbility(new AttackAbility());
+        addAbility(new AttackSoundAbility("sounds/gun-gunshot-02.mp3"));
         addAbility(new InstantDamageAbility());
         addAbility(new HitmanHeadshot());
     }
