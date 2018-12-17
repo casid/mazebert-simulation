@@ -15,14 +15,14 @@ public abstract strictfp class Stash<T extends Card> implements ReadonlyStash<T>
     private final List<StashEntry<T>> entries = new ArrayList<>();
     private final Map<Object, StashEntry<T>> entryByType;
     private final EnumMap<Rarity, CardType<T>[]> cardByDropRarity;
-    private final Set<CardType<T>> uniques;
+    private final Map<Object, T> droppedUniques;
 
     private transient int lastViewedIndex;
 
     @SuppressWarnings("unchecked")
-    protected Stash(Map<Object, StashEntry<T>> entryByType, Set uniques) {
+    protected Stash(Map<Object, StashEntry<T>> entryByType, Map<Object, T> uniques) {
         this.entryByType = entryByType;
-        this.uniques = uniques;
+        this.droppedUniques = uniques;
         this.cardByDropRarity = populateCardByDropRarity();
     }
 
@@ -54,20 +54,15 @@ public abstract strictfp class Stash<T extends Card> implements ReadonlyStash<T>
     public void add(CardType<T> cardType) {
         StashEntry<T> entry = get(cardType);
         if (entry == null) {
-            entry = new StashEntry<>(cardType);
+            entry = createEntry(cardType);
             entries.add(entry);
             entryByType.put(cardType, entry);
-
-            T card = cardType.instance();
-            if (card.getRarity() == Rarity.Unique || card.getRarity() == Rarity.Legendary) {
-                uniques.add(cardType);
-            }
         } else {
             ++entry.amount;
         }
     }
 
-    public boolean remove(CardType<T> cardType) {
+    public T remove(CardType<T> cardType) {
         StashEntry<T> entry = get(cardType);
         if (entry != null) {
             --entry.amount;
@@ -75,13 +70,17 @@ public abstract strictfp class Stash<T extends Card> implements ReadonlyStash<T>
                 entries.remove(entry);
                 entryByType.remove(cardType);
             }
-            return true;
+            return createCard(entry);
         }
-        return false;
+        return null;
     }
 
     public boolean isUniqueAlreadyDropped(CardType<T> cardType) {
-        return uniques.contains(cardType);
+        return droppedUniques.containsKey(cardType);
+    }
+
+    public void setUnique(CardType<T> cardType, T card) {
+        droppedUniques.put(cardType, card);
     }
 
     @Override
@@ -151,6 +150,30 @@ public abstract strictfp class Stash<T extends Card> implements ReadonlyStash<T>
         // TODO check if unique/legendary card has already dropped
 
         return possibleDrops[dropIndex];
+    }
+
+    private boolean isUnique(CardType<T> cardType) {
+        T card = cardType.instance();
+        return card.getRarity() == Rarity.Unique || card.getRarity() == Rarity.Legendary;
+    }
+
+    private StashEntry<T> createEntry(CardType<T> cardType) {
+        if (isUnique(cardType)) {
+            if (!droppedUniques.containsKey(cardType)) {
+                setUnique(cardType, cardType.create());
+            }
+            return new StashEntry<>(cardType, droppedUniques.get(cardType));
+        } else {
+            return new StashEntry<>(cardType);
+        }
+    }
+
+    private T createCard(StashEntry<T> entry) {
+        if (entry.card == entry.cardType.instance()) {
+            return entry.cardType.create();
+        } else {
+            return entry.card;
+        }
     }
 
     protected abstract CardType<T>[] getPossibleDrops();

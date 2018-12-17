@@ -401,6 +401,10 @@ public strictfp abstract class Tower extends Unit implements CooldownUnit, Card,
         addedRelativeBaseDamage += amount;
     }
 
+    public void addAddedAbsoluteBaseDamage(float amount) {
+        addedAbsoluteBaseDamage += amount;
+    }
+
     public int getInventorySize() {
         return items.length;
     }

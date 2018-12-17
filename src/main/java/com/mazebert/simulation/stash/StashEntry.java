@@ -11,8 +11,12 @@ public strictfp class StashEntry<T extends Card> implements ReadonlyStashEntry<T
     public int amount;
 
     public StashEntry(CardType<T> cardType) {
+        this(cardType, cardType.instance());
+    }
+
+    public StashEntry(CardType<T> cardType, T card) {
         this.cardType = cardType;
-        this.card = cardType.instance();
+        this.card = card;
         this.amount = 1;
     }
 

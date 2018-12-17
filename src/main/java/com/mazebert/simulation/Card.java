@@ -32,6 +32,10 @@ public interface Card {
         return true;
     }
 
+    default boolean isHarmful() {
+        return false;
+    }
+
     String getSinceVersion();
 
     void forEachAbility(Consumer<Ability> consumer);

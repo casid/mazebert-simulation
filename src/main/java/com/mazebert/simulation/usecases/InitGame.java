@@ -41,7 +41,9 @@ public strictfp class InitGame extends Usecase<InitGameCommand> {
                 wizard.towerStash.add(towerType);
             }
             for (ItemType itemType : ItemType.values()) {
-                wizard.itemStash.add(itemType);
+                if (itemType != ItemType.BloodDemonBlade) {
+                    wizard.itemStash.add(itemType);
+                }
             }
             for (PotionType value : PotionType.values()) {
                 wizard.potionStash.add(value);

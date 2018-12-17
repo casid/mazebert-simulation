@@ -19,6 +19,7 @@ public strictfp class Wizard extends Unit {
     public final PotionStash potionStash = new PotionStash();
 
     public int playerId;
+    public float health = 1.0f;
     public long experience;
     public double experienceModifier = 1;
     public int level = 1;
@@ -44,6 +45,7 @@ public strictfp class Wizard extends Unit {
         hash.add(potionStash);
 
         hash.add(playerId);
+        hash.add(health);
         hash.add(experience);
         hash.add(experienceModifier);
         hash.add(level);
@@ -63,5 +65,10 @@ public strictfp class Wizard extends Unit {
     public void addGold(long amount) {
         gold += amount;
         onGoldChanged.dispatch(this, gold - amount, gold);
+    }
+
+    public void addHealth(float amount) {
+        health += amount;
+        // TODO dispatch?
     }
 }

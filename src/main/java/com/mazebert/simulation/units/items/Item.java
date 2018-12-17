@@ -42,11 +42,16 @@ public strictfp abstract class Item implements Card {
     }
 
     public boolean containsAbility(Class<? extends Ability> abilityClass) {
+        return getAbility(abilityClass) != null;
+    }
+
+    @SuppressWarnings("unchecked")
+    public <T extends Ability> T getAbility(Class<T> abilityClass) {
         for (Ability ability : abilities) {
             if (abilityClass.isAssignableFrom(ability.getClass())) {
-                return true;
+                return (T)ability;
             }
         }
-        return false;
+        return null;
     }
 }

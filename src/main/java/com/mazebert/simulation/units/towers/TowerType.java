@@ -45,7 +45,7 @@ public strictfp enum TowerType implements CardType<Tower> {
     AcolyteOfGreed(32, AcolyteOfGreed.class),
     NoviceWizard(33, NoviceWizard.class),
     Spider(34, Spider.class),
-//    BloodDemon(35, BloodDemon.class),
+    BloodDemon(35, BloodDemon.class),
     Solara(36, Solara.class),
 //    AbyssKing(37, AbyssKing.class),
 //    TheRipper(38, TheRipper.class),
