@@ -2,6 +2,7 @@ package com.mazebert.simulation.units.wizards;
 
 import com.mazebert.simulation.hash.Hash;
 import com.mazebert.simulation.listeners.OnGoldChanged;
+import com.mazebert.simulation.listeners.OnHealthChanged;
 import com.mazebert.simulation.listeners.OnLevelChanged;
 import com.mazebert.simulation.stash.ItemStash;
 import com.mazebert.simulation.stash.PotionStash;
@@ -11,6 +12,7 @@ import com.mazebert.simulation.units.Unit;
 import com.mazebert.simulation.units.towers.TowerType;
 
 public strictfp class Wizard extends Unit {
+    public final OnHealthChanged onHealthChanged = new OnHealthChanged();
     public final OnLevelChanged onLevelChanged = new OnLevelChanged();
     public final OnGoldChanged onGoldChanged = new OnGoldChanged();
 
@@ -69,6 +71,6 @@ public strictfp class Wizard extends Unit {
 
     public void addHealth(float amount) {
         health += amount;
-        // TODO dispatch?
+        onHealthChanged.dispatch(this, health - amount, health);
     }
 }

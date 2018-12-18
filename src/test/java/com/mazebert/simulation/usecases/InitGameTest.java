@@ -5,6 +5,7 @@ import com.mazebert.simulation.commands.InitGameCommand;
 import com.mazebert.simulation.gateways.*;
 import com.mazebert.simulation.maps.BloodMoor;
 import com.mazebert.simulation.plugins.random.RandomPluginTrainer;
+import com.mazebert.simulation.systems.GameSystem;
 import com.mazebert.simulation.units.wizards.Wizard;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -18,8 +19,8 @@ import static com.mazebert.simulation.Balancing.STARTING_GOLD;
 import static org.assertj.core.api.Assertions.assertThat;
 
 class InitGameTest extends UsecaseTest<InitGameCommand> {
-
     RandomPluginTrainer randomPluginTrainer = new RandomPluginTrainer();
+    PlayerGatewayTrainer playerGatewayTrainer = new PlayerGatewayTrainer();
 
     boolean gameStarted;
 
@@ -27,11 +28,12 @@ class InitGameTest extends UsecaseTest<InitGameCommand> {
     void setUp() {
         randomPlugin = randomPluginTrainer;
         simulationListeners = new SimulationListeners();
-        playerGateway = new PlayerGatewayTrainer();
+        playerGateway = playerGatewayTrainer;
         waveGateway = new WaveGateway();
         gameGateway = new GameGateway();
         unitGateway = new UnitGateway();
         difficultyGateway = new DifficultyGateway();
+        gameSystem = new GameSystem();
 
         usecase = new InitGame();
 
@@ -147,6 +149,26 @@ class InitGameTest extends UsecaseTest<InitGameCommand> {
         request.rounds = 0;
         whenRequestIsExecuted();
         assertThat(simulationListeners.onUpdate.size()).isEqualTo(0);
+    }
+
+    @Test
+    void gameEnd() {
+        whenRequestIsExecuted();
+        Wizard wizard = unitGateway.getWizard(request.playerId);
+        wizard.addHealth(-1.0f);
+
+        assertThat(gameGateway.getGame().health).isEqualTo(0);
+    }
+
+    @Test
+    void healthLost_player1() {
+        playerGatewayTrainer.givenPlayerCount(2);
+
+        whenRequestIsExecuted();
+        Wizard wizard = unitGateway.getWizard(request.playerId);
+        wizard.addHealth(-1.0f);
+
+        assertThat(gameGateway.getGame().health).isEqualTo(0.5f);
     }
 
     @Test

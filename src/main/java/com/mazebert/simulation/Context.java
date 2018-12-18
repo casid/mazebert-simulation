@@ -35,6 +35,7 @@ public strictfp class Context {
     public ProjectileGateway projectileGateway;
 
     // Logic
+    public GameSystem gameSystem;
     public DamageSystem damageSystem;
     public LootSystem lootSystem;
     public ExperienceSystem experienceSystem;
@@ -51,6 +52,7 @@ public strictfp class Context {
     public final float[] tempChancesForRarity = new float[Rarity.values().length];
 
     public void init(Simulation simulation) {
+        gameSystem = new GameSystem();
         damageSystem = new DamageSystem();
         lootSystem = new LootSystem();
         experienceSystem = new ExperienceSystem();
