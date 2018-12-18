@@ -2,10 +2,7 @@ package com.mazebert.simulation.units.towers;
 
 import com.mazebert.simulation.*;
 import com.mazebert.simulation.commands.BuildTowerCommand;
-import com.mazebert.simulation.gateways.DifficultyGateway;
-import com.mazebert.simulation.gateways.GameGateway;
-import com.mazebert.simulation.gateways.UnitGateway;
-import com.mazebert.simulation.gateways.WaveGateway;
+import com.mazebert.simulation.gateways.*;
 import com.mazebert.simulation.maps.BloodMoor;
 import com.mazebert.simulation.plugins.random.RandomPluginTrainer;
 import com.mazebert.simulation.units.TestTower;
@@ -26,6 +23,7 @@ strictfp class AcolyteOfGreedTest extends SimTest {
         simulationListeners = new SimulationListeners();
         unitGateway = new UnitGateway();
         randomPlugin = new RandomPluginTrainer();
+        playerGateway = new PlayerGatewayTrainer();
 
         waveGateway = new WaveGateway();
         waveGateway.setCurrentRound(50);

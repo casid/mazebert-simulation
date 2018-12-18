@@ -27,7 +27,8 @@ public class LootTest extends SimTest {
     RandomPluginTrainer randomPluginTrainer = new RandomPluginTrainer();
     DamageSystemTrainer damageSystemTrainer;
 
-    Wizard wizard;
+    Wizard wizard1;
+    Wizard wizard2;
     Tower tower;
     Creep creep;
 
@@ -40,11 +41,16 @@ public class LootTest extends SimTest {
         lootSystem = new LootSystem();
         experienceSystem = new ExperienceSystem();
 
-        wizard = new Wizard();
-        unitGateway.addUnit(wizard);
+        wizard1 = new Wizard();
+        wizard1.playerId = 1;
+        unitGateway.addUnit(wizard1);
+
+        wizard2 = new Wizard();
+        wizard2.playerId = 2;
+        unitGateway.addUnit(wizard2);
 
         tower = new TestTower();
-        tower.setWizard(wizard);
+        tower.setWizard(wizard1);
         tower.setBaseCooldown(1.0f);
         tower.setBaseRange(1.0f);
         tower.addAbility(new AttackAbility());
@@ -53,6 +59,7 @@ public class LootTest extends SimTest {
         damageSystemTrainer.givenConstantDamage(1000); // one shot!
 
         creep = new Creep();
+        creep.setWizard(wizard1);
         Wave wave = new Wave();
         wave.round = 1;
         creep.setWave(wave);
@@ -72,8 +79,25 @@ public class LootTest extends SimTest {
 
         whenTowerAttacks();
 
-        assertThat(wizard.itemStash.get(0).amount).isEqualTo(1);
-        assertThat(wizard.itemStash.get(0).cardType).isEqualTo(ItemType.BabySword);
+        assertThat(wizard1.itemStash.get(0).amount).isEqualTo(1);
+        assertThat(wizard1.itemStash.get(0).cardType).isEqualTo(ItemType.BabySword);
+    }
+
+    @Test
+    void loot_belongsToOtherWizard() {
+        creep.setWizard(wizard2);
+        randomPluginTrainer.givenFloatAbs(
+                0.0f, // This is a drop
+                0.99f, // The rarity of this drop is common
+                0.0f, // This is an item drop
+                BABY_SWORD_ROLL // It's a baby sword!
+        );
+        creep.setMaxDrops(1);
+
+        whenTowerAttacks();
+
+        assertThat(wizard2.itemStash.get(0).amount).isEqualTo(1);
+        assertThat(wizard2.itemStash.get(0).cardType).isEqualTo(ItemType.BabySword);
     }
 
     @Test
@@ -92,8 +116,8 @@ public class LootTest extends SimTest {
 
         whenTowerAttacks();
 
-        assertThat(wizard.itemStash.get(0).amount).isEqualTo(2);
-        assertThat(wizard.itemStash.get(0).cardType).isEqualTo(ItemType.BabySword);
+        assertThat(wizard1.itemStash.get(0).amount).isEqualTo(2);
+        assertThat(wizard1.itemStash.get(0).cardType).isEqualTo(ItemType.BabySword);
     }
 
     @Test
@@ -108,8 +132,8 @@ public class LootTest extends SimTest {
 
         whenTowerAttacks();
 
-        assertThat(wizard.itemStash.get(0).amount).isEqualTo(1);
-        assertThat(wizard.itemStash.get(0).cardType).isEqualTo(ItemType.WoodenStaff);
+        assertThat(wizard1.itemStash.get(0).amount).isEqualTo(1);
+        assertThat(wizard1.itemStash.get(0).cardType).isEqualTo(ItemType.WoodenStaff);
     }
 
     @Test
@@ -125,8 +149,8 @@ public class LootTest extends SimTest {
 
         whenTowerAttacks();
 
-        assertThat(wizard.itemStash.get(0).amount).isEqualTo(1);
-        assertThat(wizard.itemStash.get(0).cardType).isEqualTo(ItemType.BabySword);
+        assertThat(wizard1.itemStash.get(0).amount).isEqualTo(1);
+        assertThat(wizard1.itemStash.get(0).cardType).isEqualTo(ItemType.BabySword);
     }
 
     @Test
@@ -146,8 +170,8 @@ public class LootTest extends SimTest {
 
         whenTowerAttacks();
 
-        assertThat(wizard.itemStash.get(0).amount).isEqualTo(2);
-        assertThat(wizard.itemStash.get(0).cardType).isEqualTo(ItemType.BabySword);
+        assertThat(wizard1.itemStash.get(0).amount).isEqualTo(2);
+        assertThat(wizard1.itemStash.get(0).cardType).isEqualTo(ItemType.BabySword);
     }
 
     @Test
@@ -163,8 +187,8 @@ public class LootTest extends SimTest {
 
         whenTowerAttacks();
 
-        assertThat(wizard.itemStash.get(0).amount).isEqualTo(1);
-        assertThat(wizard.itemStash.get(0).cardType).isEqualTo(ItemType.BabySword);
+        assertThat(wizard1.itemStash.get(0).amount).isEqualTo(1);
+        assertThat(wizard1.itemStash.get(0).cardType).isEqualTo(ItemType.BabySword);
     }
 
     @Test
@@ -180,14 +204,14 @@ public class LootTest extends SimTest {
 
         whenTowerAttacks();
 
-        assertThat(wizard.itemStash.get(0).amount).isEqualTo(1);
-        assertThat(wizard.itemStash.get(0).cardType).isEqualTo(ItemType.ScepterOfTime);
+        assertThat(wizard1.itemStash.get(0).amount).isEqualTo(1);
+        assertThat(wizard1.itemStash.get(0).cardType).isEqualTo(ItemType.ScepterOfTime);
     }
 
     @Test
     void loot_unique_onlyOnce2() {
-        wizard.itemStash.add(ItemType.ScepterOfTime); // already in possession
-        wizard.itemStash.remove(ItemType.ScepterOfTime); // even if it's in use now ...
+        wizard1.itemStash.add(ItemType.ScepterOfTime); // already in possession
+        wizard1.itemStash.remove(ItemType.ScepterOfTime); // even if it's in use now ...
         randomPluginTrainer.givenFloatAbs(
                 0.0f, // This is a drop
                 0.001f, // The rarity of this drop is unique
@@ -199,8 +223,8 @@ public class LootTest extends SimTest {
 
         whenTowerAttacks();
 
-        assertThat(wizard.itemStash.size()).isEqualTo(1);
-        assertThat(wizard.itemStash.get(0).cardType).isEqualTo(ItemType.MonsterTeeth); // ... no scepter will drop!
+        assertThat(wizard1.itemStash.size()).isEqualTo(1);
+        assertThat(wizard1.itemStash.get(0).cardType).isEqualTo(ItemType.MonsterTeeth); // ... no scepter will drop!
     }
 
     @Test
@@ -211,7 +235,7 @@ public class LootTest extends SimTest {
 
         whenTowerAttacks();
 
-        assertThat(wizard.itemStash.size()).isEqualTo(0);
+        assertThat(wizard1.itemStash.size()).isEqualTo(0);
     }
 
     @Test
@@ -226,8 +250,8 @@ public class LootTest extends SimTest {
 
         whenTowerAttacks();
 
-        assertThat(wizard.itemStash.get(0).amount).isEqualTo(1);
-        assertThat(wizard.itemStash.get(0).cardType).isEqualTo(ItemType.MeatMallet);
+        assertThat(wizard1.itemStash.get(0).amount).isEqualTo(1);
+        assertThat(wizard1.itemStash.get(0).cardType).isEqualTo(ItemType.MeatMallet);
     }
 
     @Test
@@ -243,8 +267,8 @@ public class LootTest extends SimTest {
 
         whenTowerAttacks();
 
-        assertThat(wizard.itemStash.get(0).amount).isEqualTo(1);
-        assertThat(wizard.itemStash.get(0).cardType).isEqualTo(ItemType.MonsterTeeth);
+        assertThat(wizard1.itemStash.get(0).amount).isEqualTo(1);
+        assertThat(wizard1.itemStash.get(0).cardType).isEqualTo(ItemType.MonsterTeeth);
     }
 
     @Test
@@ -256,7 +280,7 @@ public class LootTest extends SimTest {
 
         whenTowerAttacks();
 
-        assertThat(wizard.itemStash.size()).isEqualTo(0);
+        assertThat(wizard1.itemStash.size()).isEqualTo(0);
     }
 
     @Test
@@ -271,40 +295,40 @@ public class LootTest extends SimTest {
 
         whenTowerAttacks();
 
-        assertThat(wizard.potionStash.get(0).amount).isEqualTo(1);
-        assertThat(wizard.potionStash.get(0).cardType).isEqualTo(PotionType.CommonDamage);
+        assertThat(wizard1.potionStash.get(0).amount).isEqualTo(1);
+        assertThat(wizard1.potionStash.get(0).cardType).isEqualTo(PotionType.CommonDamage);
     }
 
     @Test
     void loot_gold() {
-        wizard.gold = 200;
+        wizard1.gold = 200;
         creep.setGold(10);
 
         whenTowerAttacks();
 
-        assertThat(wizard.gold).isEqualTo(210);
+        assertThat(wizard1.gold).isEqualTo(210);
     }
 
     @Test
     void loot_gold_towerMod() {
-        wizard.gold = 200;
+        wizard1.gold = 200;
         creep.setGold(10);
         tower.setGoldModifier(2);
 
         whenTowerAttacks();
 
-        assertThat(wizard.gold).isEqualTo(220);
+        assertThat(wizard1.gold).isEqualTo(220);
     }
 
     @Test
     void loot_gold_creepMod() {
-        wizard.gold = 200;
+        wizard1.gold = 200;
         creep.setGold(10);
         creep.setGoldModifier(4);
 
         whenTowerAttacks();
 
-        assertThat(wizard.gold).isEqualTo(240);
+        assertThat(wizard1.gold).isEqualTo(240);
     }
 
     private void whenTowerAttacks() {

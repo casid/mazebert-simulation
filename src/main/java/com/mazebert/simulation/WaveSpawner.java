@@ -91,7 +91,11 @@ public strictfp class WaveSpawner implements OnGameStartedListener, OnWaveStarte
     }
 
     private float calculateCountdownForNextCreepToSend(Wave wave) {
-        return randomPlugin.getFloat(wave.minSecondsToNextCreep, wave.maxSecondsToNextCreep);
+        float countdown = randomPlugin.getFloat(wave.minSecondsToNextCreep, wave.maxSecondsToNextCreep);
+        if (wave.creepCount > 1) {
+            countdown /= playerGateway.getPlayerCount();
+        }
+        return countdown;
     }
 
     private void startNextWave() {

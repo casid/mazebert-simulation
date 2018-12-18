@@ -15,7 +15,7 @@ public strictfp class LootSystem {
     private final FormatPlugin formatPlugin = Sim.context().formatPlugin;
 
     public void loot(Tower tower, Creep creep) {
-        Wizard wizard = tower.getWizard();
+        Wizard wizard = creep.getWizard();
 
         lootCards(wizard, tower, creep);
         lootGold(wizard, tower, creep);
