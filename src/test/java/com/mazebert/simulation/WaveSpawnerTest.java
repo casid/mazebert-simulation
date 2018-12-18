@@ -265,6 +265,30 @@ public class WaveSpawnerTest extends SimTest {
     }
 
     @Test
+    void creepReachesTarget_challenge() {
+        givenWave(WaveType.Challenge);
+        whenGameIsStarted();
+        Creep creep = getCreep(0);
+        creep.setPath(new Path(0.0f, 0.0f, 0.0f, 1.0f));
+
+        creep.simulate(1.0f);
+
+        assertThat(wizard.health).isEqualTo(1.0f);
+    }
+
+    @Test
+    void creepReachesTarget_massChallenge() {
+        givenWave(WaveType.MassChallenge);
+        whenGameIsStarted();
+        Creep creep = getCreep(0);
+        creep.setPath(new Path(0.0f, 0.0f, 0.0f, 1.0f));
+
+        creep.simulate(1.0f);
+
+        assertThat(wizard.health).isEqualTo(1.0f);
+    }
+
+    @Test
     void creepReachesTarget_normal_damaged() {
         givenNormalWave();
         whenGameIsStarted();
