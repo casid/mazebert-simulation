@@ -239,6 +239,47 @@ public class WaveSpawnerTest extends SimTest {
     }
 
     @Test
+    void creepReachesTarget_normal() {
+        givenNormalWave();
+        whenGameIsStarted();
+        Creep creep = getCreep(0);
+        creep.setPath(new Path(0.0f, 0.0f, 0.0f, 1.0f));
+
+        creep.simulate(1.0f);
+
+        assertThat(unitGateway.getAmount(Creep.class)).isEqualTo(0);
+        assertThat(wizard.health).isEqualTo(0.95f);
+    }
+
+    @Test
+    void creepReachesTarget_mass() {
+        givenWave(WaveType.Mass);
+        whenGameIsStarted();
+        Creep creep = getCreep(0);
+        creep.setPath(new Path(0.0f, 0.0f, 0.0f, 1.0f));
+
+        creep.simulate(1.0f);
+
+        assertThat(unitGateway.getAmount(Creep.class)).isEqualTo(0);
+        assertThat(wizard.health).isEqualTo(0.975f);
+    }
+
+    @Test
+    void creepReachesTarget_normal_damaged() {
+        givenNormalWave();
+        whenGameIsStarted();
+        Creep creep = getCreep(0);
+        creep.setMaxHealth(100);
+        creep.setHealth(80);
+        creep.setPath(new Path(0.0f, 0.0f, 0.0f, 1.0f));
+
+        creep.simulate(1.0f);
+
+        assertThat(unitGateway.getAmount(Creep.class)).isEqualTo(0);
+        assertThat(wizard.health).isEqualTo(0.96f);
+    }
+
+    @Test
     void allCreepsReachTarget() {
         givenBossWave();
         whenGameIsStarted();
@@ -497,9 +538,17 @@ public class WaveSpawnerTest extends SimTest {
     }
 
     private void givenBossWave() {
+        givenWave(WaveType.Boss);
+    }
+
+    private void givenNormalWave() {
+        givenWave(WaveType.Normal);
+    }
+
+    private void givenWave(WaveType waveType) {
         Wave wave = new Wave();
-        wave.creepCount = 1;
-        wave.type = WaveType.Boss;
+        wave.creepCount = waveType.creepCount;
+        wave.type = waveType;
         wave.round = 1;
         waveGateway.addWave(wave);
     }

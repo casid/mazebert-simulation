@@ -19,7 +19,7 @@ public strictfp class Creep extends Unit {
     public final OnTargetReached onTargetReached = new OnTargetReached();
     public final OnHealthChanged onHealthChanged = new OnHealthChanged();
 
-    private double health = 100.0f;
+    private double health = 100.0;
     private double maxHealth = health;
     private Wave wave;
     private float baseSpeed = 1.0f;

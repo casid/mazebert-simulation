@@ -124,13 +124,15 @@ public strictfp class WaveSpawner implements OnGameStartedListener, OnWaveStarte
             creep.setWave(wave);
             creep.setHealth(healthOfOneCreep);
             creep.setMaxHealth(healthOfOneCreep);
-            creep.setGold(i == creepIndexWithRemainingGold ? goldOfOneCreep + goldRemaining : goldOfOneCreep);
+            creep.setGold(i / playerCount == creepIndexWithRemainingGold ? goldOfOneCreep + goldRemaining : goldOfOneCreep);
             creep.setArmor(round);
             creep.setExperience(experienceOfOneCreep);
             applyWaveAttributes(creep, wave);
 
             creepQueue.add(creep);
         }
+
+        wave.remainingCreepCount = spawnCount;
 
         waveGateway.generateMissingWaves(randomPlugin);
     }
@@ -203,7 +205,7 @@ public strictfp class WaveSpawner implements OnGameStartedListener, OnWaveStarte
             Creep creep = (Creep) unit;
             Wave wave = creep.getWave();
 
-            if (wave.origin == WaveOrigin.Game && --wave.creepCount <= 0) {
+            if (wave.origin == WaveOrigin.Game && --wave.remainingCreepCount <= 0) {
                 completeWave(wave, creep);
             }
         }
@@ -235,7 +237,7 @@ public strictfp class WaveSpawner implements OnGameStartedListener, OnWaveStarte
         Wave wave = creep.getWave();
         if (wave.type != WaveType.Challenge && wave.type != WaveType.MassChallenge) {
             Wizard wizard = creep.getWizard();
-            float leaked = Balancing.PENALTY_FOR_LEAKING_ENTIRE_ROUND;
+            float leaked = Balancing.PENALTY_FOR_LEAKING_ENTIRE_ROUND * (float)(creep.getHealth() / creep.getMaxHealth()) / wave.creepCount;
             wizard.addHealth(-leaked);
         }
 
