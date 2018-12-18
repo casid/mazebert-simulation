@@ -1,10 +1,7 @@
 package com.mazebert.simulation;
 
 import com.mazebert.simulation.countdown.WaveCountDown;
-import com.mazebert.simulation.gateways.DifficultyGateway;
-import com.mazebert.simulation.gateways.GameGateway;
-import com.mazebert.simulation.gateways.UnitGateway;
-import com.mazebert.simulation.gateways.WaveGateway;
+import com.mazebert.simulation.gateways.*;
 import com.mazebert.simulation.listeners.*;
 import com.mazebert.simulation.plugins.random.RandomPlugin;
 import com.mazebert.simulation.systems.ExperienceSystem;
@@ -25,6 +22,7 @@ public strictfp class WaveSpawner implements OnGameStartedListener, OnWaveStarte
     private final GameGateway gameGateway = Sim.context().gameGateway;
     private final LootSystem lootSystem = Sim.context().lootSystem;
     private final ExperienceSystem experienceSystem = Sim.context().experienceSystem;
+    private final PlayerGateway playerGateway = Sim.context().playerGateway;
 
     private Queue<Creep> creepQueue = new ArrayDeque<>();
     private Queue<Creep> goblinQueue = new ArrayDeque<>();
@@ -115,8 +113,14 @@ public strictfp class WaveSpawner implements OnGameStartedListener, OnWaveStarte
         float experienceOfAllCreeps = Balancing.getExperienceForRound(round, wave.type);
         float experienceOfOneCreep = experienceOfAllCreeps / wave.creepCount;
 
-        for (int i = 0; i < wave.creepCount; ++i) {
+        int playerCount = playerGateway.getPlayerCount();
+        int spawnCount = wave.creepCount * playerCount;
+        for (int i = 0; i < spawnCount; ++i) {
+            int playerId = (i % playerCount) + 1;
+            Wizard wizard = unitGateway.getWizard(playerId);
+
             Creep creep = new Creep();
+            creep.setWizard(wizard);
             creep.setWave(wave);
             creep.setHealth(healthOfOneCreep);
             creep.setMaxHealth(healthOfOneCreep);
@@ -228,6 +232,13 @@ public strictfp class WaveSpawner implements OnGameStartedListener, OnWaveStarte
 
     @Override
     public void onTargetReached(Creep creep) {
+        Wave wave = creep.getWave();
+        if (wave.type != WaveType.Challenge && wave.type != WaveType.MassChallenge) {
+            Wizard wizard = creep.getWizard();
+            float leaked = Balancing.PENALTY_FOR_LEAKING_ENTIRE_ROUND;
+            wizard.addHealth(-leaked);
+        }
+
         unitGateway.removeUnit(creep);
     }
 

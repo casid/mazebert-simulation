@@ -1,9 +1,6 @@
 package com.mazebert.simulation;
 
-import com.mazebert.simulation.gateways.DifficultyGateway;
-import com.mazebert.simulation.gateways.GameGateway;
-import com.mazebert.simulation.gateways.UnitGateway;
-import com.mazebert.simulation.gateways.WaveGateway;
+import com.mazebert.simulation.gateways.*;
 import com.mazebert.simulation.maps.BloodMoor;
 import com.mazebert.simulation.plugins.FormatPlugin;
 import com.mazebert.simulation.plugins.random.RandomPluginTrainer;
@@ -42,6 +39,7 @@ public class WaveSpawnerTest extends SimTest {
 
         unitGateway = new UnitGateway();
         waveGateway = new WaveGateway();
+        playerGateway = new PlayerGatewayTrainer();
         randomPlugin = randomPluginTrainer;
         difficultyGateway = new DifficultyGateway();
         gameGateway = new GameGateway();
@@ -54,6 +52,7 @@ public class WaveSpawnerTest extends SimTest {
         waveGateway.setTotalWaves(250);
 
         wizard = new Wizard();
+        wizard.playerId = 1;
         unitGateway.addUnit(wizard);
     }
 
@@ -236,6 +235,7 @@ public class WaveSpawnerTest extends SimTest {
         creep.simulate(1.0f);
 
         assertThat(unitGateway.getAmount(Creep.class)).isEqualTo(0);
+        assertThat(wizard.health).isEqualTo(0.5f);
     }
 
     @Test
