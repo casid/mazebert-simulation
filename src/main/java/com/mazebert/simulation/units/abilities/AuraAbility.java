@@ -171,6 +171,12 @@ public abstract strictfp class AuraAbility<S extends Unit, T extends Unit> exten
         onAuraEntered(unit);
     }
 
+    protected void forEach(Consumer<T> consumer) {
+        for (int i = 0; i < activeSize; ++i) {
+            consumer.accept(active[i]);
+        }
+    }
+
     protected abstract void onAuraEntered(T unit);
 
     protected abstract void onAuraLeft(T unit);

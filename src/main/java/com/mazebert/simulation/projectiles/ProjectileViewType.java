@@ -13,6 +13,7 @@ public strictfp enum ProjectileViewType {
     Bandage,
     Crow,
     Spell,
+    BlueSpell,
     Web,
     Fireball,
 }
