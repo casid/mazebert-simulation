@@ -67,4 +67,9 @@ public strictfp class AbyssKingAura extends AuraAbility<AbyssKing, Tower> {
                 format.percentWithSignAndUnit(critDamagePerUndead) + " crit damage" +
                 format.percentWithSignAndUnit(critChancePerUndead) + " crit chance";
     }
+
+    @Override
+    public String getIconFile() {
+        return "0041_purpledebuff_512";
+    }
 }
