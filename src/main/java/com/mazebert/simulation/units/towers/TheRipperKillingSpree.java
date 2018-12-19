@@ -53,7 +53,7 @@ public class TheRipperKillingSpree extends CooldownAbility<Tower> implements OnK
     public void onKill(Creep target) {
         if (!isActive) {
             addBonus();
-            if (!simulationListeners.areNotificationsEnabled()) {
+            if (simulationListeners.areNotificationsEnabled()) {
                 simulationListeners.soundNotification("sounds/slash-killing-spree.mp3");
                 simulationListeners.showNotification(getUnit(), "Killing Spree!", 0xff0000);
             }
