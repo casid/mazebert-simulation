@@ -22,16 +22,7 @@ public strictfp class BuildTower extends Usecase<BuildTowerCommand> {
 
         Tower tower = wizard.towerStash.remove(command.towerType);
         if (tower != null) {
-            tower.setWizard(wizard);
-            tower.setX(command.x);
-            tower.setY(command.y);
-
-            Tower oldTower = unitGateway.findUnit(Tower.class, command.playerId, command.x, command.y);
-            if (oldTower != null) {
-                replace(oldTower, tower);
-            }
-
-            unitGateway.addUnit(tower);
+            summonTower(tower, wizard, command.x, command.y);
 
             if (command.onComplete != null) {
                 command.onComplete.run();
@@ -41,6 +32,19 @@ public strictfp class BuildTower extends Usecase<BuildTowerCommand> {
                 command.onError.run();
             }
         }
+    }
+
+    public void summonTower(Tower tower, Wizard wizard, int x, int y) {
+        tower.setWizard(wizard);
+        tower.setX(x);
+        tower.setY(y);
+
+        Tower oldTower = unitGateway.findUnit(Tower.class, wizard.getPlayerId(), x, y);
+        if (oldTower != null) {
+            replace(oldTower, tower);
+        }
+
+        unitGateway.addUnit(tower);
     }
 
     private void replace(Tower oldTower, Tower newTower) {
