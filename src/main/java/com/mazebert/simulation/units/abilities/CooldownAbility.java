@@ -1,8 +1,8 @@
 package com.mazebert.simulation.units.abilities;
 
+import com.mazebert.simulation.listeners.OnUpdateListener;
 import com.mazebert.simulation.units.CooldownUnit;
 import com.mazebert.simulation.units.Unit;
-import com.mazebert.simulation.listeners.OnUpdateListener;
 
 public abstract strictfp class CooldownAbility<U extends Unit & CooldownUnit> extends Ability<U> implements OnUpdateListener {
     private float passedTime;
@@ -14,7 +14,7 @@ public abstract strictfp class CooldownAbility<U extends Unit & CooldownUnit> ex
     }
 
     @Override
-    public void dispose(U unit) {
+    protected void dispose(U unit) {
         unit.onUpdate.remove(this);
         super.dispose(unit);
     }
