@@ -9,6 +9,7 @@ import com.mazebert.simulation.plugins.random.RandomPlugin;
 import com.mazebert.simulation.units.Gender;
 import com.mazebert.simulation.units.Unit;
 import com.mazebert.simulation.units.abilities.Ability;
+import com.mazebert.simulation.units.wizards.Wizard;
 import com.mazebert.simulation.usecases.BuildTower;
 
 public strictfp class KiwiEggHatch extends Ability<KiwiEgg> implements OnUnitAddedListener, OnWaveFinishedListener {
@@ -53,8 +54,9 @@ public strictfp class KiwiEggHatch extends Ability<KiwiEgg> implements OnUnitAdd
         }
 
         BuildTower buildTower = new BuildTower();
-        buildTower.summonTower(kiwi, getUnit().getWizard(), (int) getUnit().getX(), (int) getUnit().getY());
-        getUnit().getWizard().towerStash.setUnique(TowerType.Kiwi, kiwi);
+        Wizard wizard = getUnit().getWizard();
+        wizard.towerStash.setUnique(TowerType.Kiwi, kiwi);
+        buildTower.summonTower(kiwi, wizard, (int) getUnit().getX(), (int) getUnit().getY());
 
         if (simulationListeners.areNotificationsEnabled()) {
             simulationListeners.showNotification(kiwi, "Kiwi hatched", 0x9e6120);
