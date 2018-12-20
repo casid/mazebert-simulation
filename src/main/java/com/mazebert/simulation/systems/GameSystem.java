@@ -31,9 +31,9 @@ public strictfp class GameSystem implements OnHealthChangedListener {
         wizard.playerId = playerId;
         wizard.addGold(Balancing.STARTING_GOLD);
         for (TowerType towerType : TowerType.values()) {
-            wizard.towerStash.add(towerType);
-            wizard.towerStash.add(towerType);
-            wizard.towerStash.add(towerType);
+            if (towerType != TowerType.Kiwi) {
+                wizard.towerStash.add(towerType);
+            }
         }
         for (ItemType itemType : ItemType.values()) {
             if (itemType != ItemType.BloodDemonBlade) {

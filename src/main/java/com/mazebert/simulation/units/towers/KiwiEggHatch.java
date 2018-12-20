@@ -54,6 +54,7 @@ public strictfp class KiwiEggHatch extends Ability<KiwiEgg> implements OnUnitAdd
 
         BuildTower buildTower = new BuildTower();
         buildTower.summonTower(kiwi, getUnit().getWizard(), (int) getUnit().getX(), (int) getUnit().getY());
+        getUnit().getWizard().towerStash.setUnique(TowerType.Kiwi, kiwi);
 
         if (simulationListeners.areNotificationsEnabled()) {
             simulationListeners.showNotification(kiwi, "Kiwi hatched", 0x9e6120);
