@@ -54,6 +54,8 @@ public class KiwiHaka extends ActiveAbility {
             simulationListeners.soundNotification("sounds/haka.mp3");
             simulationListeners.showNotification(getUnit(), "Haka!", 0xffab00);
         }
+
+        startCooldown();
     }
 
     private void end() {
@@ -88,6 +90,6 @@ public class KiwiHaka extends ActiveAbility {
 
     @Override
     public String getLevelBonus() {
-        return "Cooldown " + format.seconds(DURATION);
+        return "Cooldown " + format.seconds(COOLDOWN);
     }
 }
