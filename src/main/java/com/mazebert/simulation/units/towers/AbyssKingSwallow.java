@@ -10,18 +10,16 @@ public strictfp class AbyssKingSwallow extends AuraAbility<AbyssKing, Creep> imp
     public static final float chancePerLevel = 0.001f;
 
     public AbyssKingSwallow() {
-        super(Creep.class, 1);
+        super(Creep.class);
     }
 
     @Override
     protected void initialize(AbyssKing unit) {
         super.initialize(unit);
-        unit.onRangeChanged.add(this);
     }
 
     @Override
     protected void dispose(AbyssKing unit) {
-        unit.onRangeChanged.remove(this);
         super.dispose(unit);
     }
 
@@ -33,11 +31,6 @@ public strictfp class AbyssKingSwallow extends AuraAbility<AbyssKing, Creep> imp
     @Override
     protected void onAuraLeft(Creep unit) {
         unit.removeAbilityStack(getUnit(), AbyssKingSwallowEffect.class);
-    }
-
-    @Override
-    public void onRangeChanged(Tower tower) {
-        setRange(tower.getRange());
     }
 
     @Override

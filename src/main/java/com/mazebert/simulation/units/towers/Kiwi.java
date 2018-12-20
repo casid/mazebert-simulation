@@ -1,21 +1,25 @@
 package com.mazebert.simulation.units.towers;
 
 import com.mazebert.simulation.AttackType;
-import com.mazebert.simulation.Balancing;
 import com.mazebert.simulation.Element;
 import com.mazebert.simulation.Rarity;
 import com.mazebert.simulation.units.Gender;
+import com.mazebert.simulation.units.abilities.InstantDamageAbility;
 
 public strictfp class Kiwi extends Tower {
 
     public Kiwi() {
-        setBaseCooldown(Balancing.MAX_COOLDOWN);
+        setBaseCooldown(5.0f);
         setBaseRange(1);
         setAttackType(AttackType.Ber);
-        setStrength(0.0f);
-        setDamageSpread(0.0f);
+        setStrength(0.33f);
+        setDamageSpread(0.1f);
         setGender(Gender.Unknown);
         setElement(Element.Nature);
+
+        addAbility(new InstantDamageAbility());
+        addAbility(new KiwiHaka());
+        addAbility(new KiwiKick());
     }
 
     @Override
@@ -30,7 +34,7 @@ public strictfp class Kiwi extends Tower {
 
     @Override
     public String getDescription() {
-        return "A rare gift of Nature.";
+        return "Ringa pakia! Uma tiraha!\nTuri whatia! Hope whai ake!";
     }
 
     @Override
@@ -50,16 +54,32 @@ public strictfp class Kiwi extends Tower {
 
     @Override
     public String getSinceVersion() {
-        return "1.0";
+        return "1.3";
     }
 
     @Override
     public String getModelId() {
-        return "kiwi_egg";
+        return "kiwi";
     }
 
     @Override
     public int getImageOffsetOnCardY() {
         return 8;
+    }
+
+    @Override
+    public boolean isDropable() {
+        return false;
+    }
+
+    @Override
+    public boolean isForgeable() {
+        return false;
+    }
+
+    @Override
+    public void populateCustomTowerBonus(CustomTowerBonus bonus) {
+        bonus.title = "Cooldown:";
+        bonus.value = format.seconds(getAbility(KiwiHaka.class).getCooldown());
     }
 }

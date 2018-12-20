@@ -4,11 +4,13 @@ import com.mazebert.java8.Consumer;
 import com.mazebert.simulation.Sim;
 import com.mazebert.simulation.SimulationListeners;
 import com.mazebert.simulation.gateways.UnitGateway;
+import com.mazebert.simulation.listeners.OnRangeChangedListener;
 import com.mazebert.simulation.listeners.OnUnitAddedListener;
 import com.mazebert.simulation.listeners.OnUnitRemovedListener;
 import com.mazebert.simulation.listeners.OnUpdateListener;
 import com.mazebert.simulation.units.Unit;
 import com.mazebert.simulation.units.creeps.Creep;
+import com.mazebert.simulation.units.towers.Tower;
 
 import java.lang.reflect.Array;
 import java.util.Arrays;
@@ -17,7 +19,7 @@ import java.util.Arrays;
  * @param <S> aura source
  * @param <T> aura target
  */
-public abstract strictfp class AuraAbility<S extends Unit, T extends Unit> extends Ability<S> implements OnUpdateListener, Consumer<T>, OnUnitAddedListener, OnUnitRemovedListener {
+public abstract strictfp class AuraAbility<S extends Unit, T extends Unit> extends Ability<S> implements OnUpdateListener, Consumer<T>, OnUnitAddedListener, OnUnitRemovedListener, OnRangeChangedListener {
     private final SimulationListeners simulationListeners = Sim.context().simulationListeners;
     private final UnitGateway unitGateway = Sim.context().unitGateway;
 
@@ -26,6 +28,10 @@ public abstract strictfp class AuraAbility<S extends Unit, T extends Unit> exten
 
     private T[] active;
     private int activeSize;
+
+    public AuraAbility(Class<T> targetClass) {
+        this(targetClass, 0);
+    }
 
     public AuraAbility(Class<T> targetClass, float range) {
         this.targetClass = targetClass;
@@ -55,6 +61,13 @@ public abstract strictfp class AuraAbility<S extends Unit, T extends Unit> exten
         if (hasMovingTargets()) {
             unit.onUpdate.add(this);
         }
+
+        if (isRangeDynamic()) {
+            Tower tower = (Tower) unit;
+            tower.onRangeChanged.add(this);
+            setRange(tower.getRange());
+        }
+
         unit.onUnitAdded.add(this);
         unit.onUnitRemoved.add(this);
         this.active = (T[]) Array.newInstance(targetClass, 9);
@@ -69,11 +82,18 @@ public abstract strictfp class AuraAbility<S extends Unit, T extends Unit> exten
         unit.onUnitAdded.remove(this);
         unit.onUnitRemoved.remove(this);
         unit.onUpdate.remove(this);
+        if (unit instanceof Tower) {
+            ((Tower)unit).onRangeChanged.remove(this);
+        }
         super.dispose(unit);
     }
 
     protected boolean hasMovingTargets() {
         return targetClass.isAssignableFrom(Creep.class);
+    }
+
+    private boolean isRangeDynamic() {
+        return range == 0 && getUnit() instanceof Tower;
     }
 
     @Override
@@ -105,6 +125,11 @@ public abstract strictfp class AuraAbility<S extends Unit, T extends Unit> exten
         } else if (targetClass.isAssignableFrom(unit.getClass())) {
             update();
         }
+    }
+
+    @Override
+    public void onRangeChanged(Tower tower) {
+        setRange(tower.getRange());
     }
 
     private void update() {

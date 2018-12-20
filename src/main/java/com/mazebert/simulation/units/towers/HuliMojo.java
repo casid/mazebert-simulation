@@ -1,12 +1,11 @@
 package com.mazebert.simulation.units.towers;
 
 import com.mazebert.simulation.listeners.OnLevelChangedListener;
-import com.mazebert.simulation.listeners.OnRangeChangedListener;
 import com.mazebert.simulation.units.Gender;
 import com.mazebert.simulation.units.Unit;
 import com.mazebert.simulation.units.abilities.AuraAbility;
 
-public strictfp class HuliMojo extends AuraAbility<Tower, Tower> implements OnLevelChangedListener, OnRangeChangedListener {
+public strictfp class HuliMojo extends AuraAbility<Tower, Tower> implements OnLevelChangedListener {
 
     private static final float CRIT_CHANCE_PER_TOWER = 0.04f;
     private static final float CRIT_CHANCE_PER_LEVEL = 0.0003f;
@@ -14,31 +13,24 @@ public strictfp class HuliMojo extends AuraAbility<Tower, Tower> implements OnLe
     private float critBonus;
 
     public HuliMojo() {
-        super(Tower.class, 3);
+        super(Tower.class);
     }
 
     @Override
     protected void initialize(Tower unit) {
         super.initialize(unit);
         unit.onLevelChanged.add(this);
-        unit.onRangeChanged.add(this);
     }
 
     @Override
     protected void dispose(Tower unit) {
         unit.onLevelChanged.remove(this);
-        unit.onRangeChanged.remove(this);
         super.dispose(unit);
     }
 
     @Override
     public void onLevelChanged(Unit unit, int oldLevel, int newLevel) {
         updateBonus();
-    }
-
-    @Override
-    public void onRangeChanged(Tower tower) {
-        setRange(tower.getRange());
     }
 
     public void updateBonus() {

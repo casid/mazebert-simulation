@@ -28,7 +28,9 @@ public strictfp abstract class DurationEffect extends StackableAbility<Creep> im
     }
 
     public void setDuration(float duration) {
-        remainingSeconds = duration;
+        if (duration > remainingSeconds) {
+            remainingSeconds = duration;
+        }
     }
 
     @Override

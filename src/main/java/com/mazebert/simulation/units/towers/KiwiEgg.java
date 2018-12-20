@@ -54,7 +54,7 @@ public strictfp class KiwiEgg extends Tower {
 
     @Override
     public String getSinceVersion() {
-        return "1.0";
+        return "1.3";
     }
 
     @Override

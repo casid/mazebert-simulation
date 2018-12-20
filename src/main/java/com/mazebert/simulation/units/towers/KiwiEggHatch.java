@@ -63,4 +63,24 @@ public strictfp class KiwiEggHatch extends Ability<KiwiEgg> implements OnUnitAdd
     public int getRounds() {
         return rounds;
     }
+
+    @Override
+    public boolean isVisibleToUser() {
+        return true;
+    }
+
+    @Override
+    public String getTitle() {
+        return "Hatch";
+    }
+
+    @Override
+    public String getDescription() {
+        return "The mighty Kiwi hatches from this egg after " + ROUNDS + " rounds.";
+    }
+
+    @Override
+    public String getIconFile() {
+        return "kiwi_haka_512";
+    }
 }
