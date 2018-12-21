@@ -35,6 +35,22 @@ strictfp class StonecuttersTest extends SimTest {
     }
 
     @Test
+    void onlyStonecutters_level98() {
+        stonecutters.setLevel(98);
+        assertThat(stonecutters.getDamageAgainstFal()).isEqualTo(3.9399998f);
+        assertThat(stonecutters.getDamageAgainstBer()).isEqualTo(1.0f);
+        assertThat(stonecutters.getDamageAgainstVex()).isEqualTo(1.0f);
+    }
+
+    @Test
+    void onlyStonecutters_level99() {
+        stonecutters.setLevel(99);
+        assertThat(stonecutters.getDamageAgainstFal()).isEqualTo(3.97f);
+        assertThat(stonecutters.getDamageAgainstBer()).isEqualTo(3.97f);
+        assertThat(stonecutters.getDamageAgainstVex()).isEqualTo(3.97f);
+    }
+
+    @Test
     void someMoreTowers() {
         Tower t1 = new TestTower();
         t1.setX(10);
@@ -54,7 +70,58 @@ strictfp class StonecuttersTest extends SimTest {
         float damageBonus = 1.0f + 0.03f * (20 + 30);
         assertThat(stonecutters.getDamageAgainstFal()).isEqualTo(1.0f); // not a member
         assertThat(t1.getDamageAgainstFal()).isEqualTo(damageBonus);
+        assertThat(t1.getDamageAgainstBer()).isEqualTo(1.0f);
+        assertThat(t1.getDamageAgainstVex()).isEqualTo(1.0f);
         assertThat(t2.getDamageAgainstFal()).isEqualTo(damageBonus);
+        assertThat(t2.getDamageAgainstBer()).isEqualTo(1.0f);
+        assertThat(t2.getDamageAgainstVex()).isEqualTo(1.0f);
+    }
+
+    @Test
+    void someMoreTowers_level99() {
+        stonecutters.setLevel(99);
+        Tower t1 = new TestTower();
+        t1.setX(10);
+        t1.setY(10);
+        t1.setElement(Element.Metropolis);
+        t1.setLevel(20);
+        unitGateway.addUnit(t1);
+
+        Tower t2 = new TestTower();
+        t2.setX(-10);
+        t2.setY(-10);
+        t2.setElement(Element.Metropolis);
+        t2.setLevel(30);
+        unitGateway.addUnit(t2);
+
+        assertThat(stonecutters.getMemberCount()).isEqualTo(3);
+        assertThat(t1.getDamageAgainstFal()).isEqualTo(5.4699993f);
+        assertThat(t1.getDamageAgainstBer()).isEqualTo(5.4699993f);
+        assertThat(t1.getDamageAgainstVex()).isEqualTo(5.4699993f);
+        assertThat(t2.getDamageAgainstFal()).isEqualTo(5.47f);
+        assertThat(t2.getDamageAgainstBer()).isEqualTo(5.47f);
+        assertThat(t2.getDamageAgainstVex()).isEqualTo(5.47f);
+    }
+
+    @Test
+    void towerRemoved() {
+        Tower t1 = new TestTower();
+        t1.setX(10);
+        t1.setY(10);
+        t1.setElement(Element.Metropolis);
+        t1.setLevel(20);
+        unitGateway.addUnit(t1);
+
+        Tower t2 = new TestTower();
+        t2.setX(-10);
+        t2.setY(-10);
+        t2.setElement(Element.Metropolis);
+        t2.setLevel(30);
+        unitGateway.addUnit(t2);
+
+        unitGateway.removeUnit(stonecutters);
+        assertThat(t1.getDamageAgainstFal()).isEqualTo(0.99999994f);
+        assertThat(t2.getDamageAgainstFal()).isEqualTo(1.0f);
     }
 
     @Test

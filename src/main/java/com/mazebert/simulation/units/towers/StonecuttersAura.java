@@ -10,6 +10,7 @@ public class StonecuttersAura extends AuraAbility<Stonecutters, Tower> implement
 
     private int memberCount;
     private int memberLevel;
+    private boolean bonusForAllDamageTypes;
 
     public StonecuttersAura() {
         super(Tower.class, 10000);
@@ -37,6 +38,7 @@ public class StonecuttersAura extends AuraAbility<Stonecutters, Tower> implement
     private void updateMemberships() {
         memberCount = 0;
         memberLevel = 0;
+        bonusForAllDamageTypes = getUnit().getLevel() >= 99;
         forEach(this::updateMembership);
         forEach(this::updateMembershipEffect);
     }
@@ -50,7 +52,7 @@ public class StonecuttersAura extends AuraAbility<Stonecutters, Tower> implement
 
     private void updateMembershipEffect(Tower tower) {
         StonecuttersAuraEffect effect = tower.getAbility(StonecuttersAuraEffect.class, getUnit());
-        effect.update(memberLevel);
+        effect.update(memberLevel, bonusForAllDamageTypes);
     }
 
     public int getMemberCount() {

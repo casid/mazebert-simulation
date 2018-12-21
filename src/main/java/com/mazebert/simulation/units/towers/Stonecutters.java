@@ -23,6 +23,7 @@ public strictfp class Stonecutters extends Tower {
         addAbility(new AttackAbility());
         addAbility(new InstantDamageAbility());
         addAbility(aura = new StonecuttersAura());
+        addAbility(new StonecuttersBonus());
     }
 
     @Override
@@ -58,11 +59,6 @@ public strictfp class Stonecutters extends Tower {
     @Override
     public String getModelId() {
         return "stonecutters";
-    }
-
-    @Override
-    public String getAuthor() {
-        return "Karolin Herbricht";
     }
 
     @Override
