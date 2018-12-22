@@ -260,7 +260,7 @@ public strictfp abstract class Tower extends Unit implements CooldownUnit, Card,
 
     @Override
     public String getAuthor() {
-        return "casid";
+        return "Andy";
     }
 
     @Override

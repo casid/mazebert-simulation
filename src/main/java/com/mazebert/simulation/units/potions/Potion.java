@@ -29,7 +29,7 @@ public strictfp abstract class Potion implements Card {
 
     @Override
     public String getAuthor() {
-        return "casid";
+        return "Andy";
     }
 
     public abstract String getIcon();

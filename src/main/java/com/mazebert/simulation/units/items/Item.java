@@ -29,7 +29,7 @@ public strictfp abstract class Item implements Card {
 
     @Override
     public String getAuthor() {
-        return "casid";
+        return "Andy";
     }
 
     public abstract String getIcon();
