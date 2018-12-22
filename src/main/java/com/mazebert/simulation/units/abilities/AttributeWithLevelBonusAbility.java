@@ -43,8 +43,12 @@ public abstract strictfp class AttributeWithLevelBonusAbility extends StackableA
     protected void updateBonus() {
         removeBonus();
 
-        currentBonus = getStackCount() * (bonus + getUnit().getLevel() * bonusPerLevel);
+        currentBonus = calculateBonus();
         addToAttribute(currentBonus);
+    }
+
+    protected float calculateBonus() {
+        return getStackCount() * (bonus + getUnit().getLevel() * bonusPerLevel);
     }
 
     protected void removeBonus() {

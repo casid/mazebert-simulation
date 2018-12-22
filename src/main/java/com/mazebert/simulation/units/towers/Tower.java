@@ -21,6 +21,7 @@ public strictfp abstract class Tower extends Unit implements CooldownUnit, Card,
     public final OnExperienceChanged onExperienceChanged = new OnExperienceChanged();
     public final OnLevelChanged onLevelChanged = new OnLevelChanged();
     public final OnRangeChanged onRangeChanged = new OnRangeChanged();
+    public final OnGenderChanged onGenderChanged = new OnGenderChanged();
     public final OnItemEquipped onItemEquipped = new OnItemEquipped();
     public final OnPotionConsumed onPotionConsumed = new OnPotionConsumed();
     public final OnAbilityActivated onAbilityActivated = new OnAbilityActivated();
@@ -192,7 +193,10 @@ public strictfp abstract class Tower extends Unit implements CooldownUnit, Card,
     }
 
     public void setGender(Gender gender) {
-        this.gender = gender;
+        if (this.gender != gender) {
+            this.gender = gender;
+            onGenderChanged.dispatch(this);
+        }
     }
 
     public int getLevel() {
