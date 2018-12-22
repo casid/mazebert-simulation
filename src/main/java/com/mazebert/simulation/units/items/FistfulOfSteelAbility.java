@@ -32,6 +32,6 @@ public strictfp class FistfulOfSteelAbility extends AuraAbility<Tower, Tower> {
 
     @Override
     public String getDescription() {
-        return "The crit chance of towers in " + getRange() + " range is increased by " + format.percent(bonus) + "%.";
+        return "The crit chance of towers in " + (int)getRange() + " range is increased by " + format.percent(bonus) + "%.";
     }
 }

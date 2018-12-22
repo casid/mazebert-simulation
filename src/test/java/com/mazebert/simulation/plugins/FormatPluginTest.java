@@ -77,5 +77,6 @@ class FormatPluginTest {
         assertThat(format.experienceWithSignAndUnit(10.2f)).isEqualTo("+10.2XP");
         assertThat(format.experienceWithSignAndUnit(120f)).isEqualTo("+120XP");
         assertThat(format.experienceWithSignAndUnit(-20f)).isEqualTo("-20XP");
+        assertThat(format.experienceWithSignAndUnit(0.01f)).isEqualTo("+0.01XP");
     }
 }

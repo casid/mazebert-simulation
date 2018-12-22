@@ -139,7 +139,11 @@ public strictfp class FormatPlugin {
     }
 
     public String experience(float value) {
-        return oneFractionFormat.format(value);
+        if (value < 0.1f) {
+            return twoFractionFormat.format(value);
+        } else {
+            return oneFractionFormat.format(value);
+        }
     }
 
     public String experienceWithSignAndUnit(float value) {

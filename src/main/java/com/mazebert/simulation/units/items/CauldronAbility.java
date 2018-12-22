@@ -32,6 +32,6 @@ public strictfp class CauldronAbility extends AuraAbility<Tower, Tower> {
 
     @Override
     public String getDescription() {
-        return "The attack speed of towers in " + getRange() + " range is increased by " + format.percent(bonus) + "%.";
+        return "The attack speed of towers in " + (int)getRange() + " range is increased by " + format.percent(bonus) + "%.";
     }
 }
