@@ -34,7 +34,7 @@ public strictfp enum ItemType implements CardType<Item> {
     Cauldron(21, Cauldron.class),
     KeyOfWisdom(22, KeyOfWisdom.class),
     VikingHelmet(23, VikingHelmet.class),
-//    Barrel(24, Barrel.class),
+    Barrel(24, Barrel.class),
 //    Excalibur(25, Excalibur.class),
 //    HelmOfHades(26, HelmOfHades.class),
     MesserschmidtsReaver(27, MesserschmidtsReaver.class),
