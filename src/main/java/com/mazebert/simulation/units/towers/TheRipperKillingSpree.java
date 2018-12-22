@@ -6,7 +6,7 @@ import com.mazebert.simulation.listeners.OnKillListener;
 import com.mazebert.simulation.units.abilities.CooldownAbility;
 import com.mazebert.simulation.units.creeps.Creep;
 
-public class TheRipperKillingSpree extends CooldownAbility<Tower> implements OnKillListener {
+public strictfp class TheRipperKillingSpree extends CooldownAbility<Tower> implements OnKillListener {
     private static final float BONUS_PER_KILL = 1.0f;
     private static final float BONUS_PER_LEVEL = 0.02f;
     private static final float BONUS_TIME = 2.0f;

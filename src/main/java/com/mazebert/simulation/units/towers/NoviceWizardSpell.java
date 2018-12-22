@@ -8,7 +8,7 @@ import com.mazebert.simulation.units.abilities.Ability;
 import com.mazebert.simulation.units.abilities.ProjectileDamageAbility;
 import com.mazebert.simulation.units.creeps.Creep;
 
-public class NoviceWizardSpell extends Ability<NoviceWizard> implements OnDamageListener {
+public strictfp class NoviceWizardSpell extends Ability<NoviceWizard> implements OnDamageListener {
     public static final float warpSeconds = 3.0f;
     public static final float banishmentSeconds = 3.0f;
     public static final float banishmentAmplifier = 0.5f;

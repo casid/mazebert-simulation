@@ -4,7 +4,7 @@ import com.mazebert.simulation.Sim;
 import com.mazebert.simulation.SimulationListeners;
 import com.mazebert.simulation.units.abilities.ActiveAbility;
 
-public class KiwiHaka extends ActiveAbility {
+public strictfp class KiwiHaka extends ActiveAbility {
 
     public static final float COOLDOWN = 300.0f;
     public static final float DURATION = 16.0f;

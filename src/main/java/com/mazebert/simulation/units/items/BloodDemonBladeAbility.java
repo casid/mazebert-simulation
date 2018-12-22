@@ -3,7 +3,7 @@ package com.mazebert.simulation.units.items;
 import com.mazebert.simulation.units.abilities.Ability;
 import com.mazebert.simulation.units.towers.Tower;
 
-public class BloodDemonBladeAbility extends Ability<Tower> {
+public strictfp class BloodDemonBladeAbility extends Ability<Tower> {
 
     private float damage;
 

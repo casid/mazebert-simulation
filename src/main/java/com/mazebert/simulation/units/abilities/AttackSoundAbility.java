@@ -7,7 +7,7 @@ import com.mazebert.simulation.listeners.OnUpdateListener;
 import com.mazebert.simulation.units.creeps.Creep;
 import com.mazebert.simulation.units.towers.Tower;
 
-public class AttackSoundAbility extends Ability<Tower> implements OnAttackListener, OnUpdateListener {
+public strictfp class AttackSoundAbility extends Ability<Tower> implements OnAttackListener, OnUpdateListener {
     private final SimulationListeners simulationListeners = Sim.context().simulationListeners;
 
     private final String sound;

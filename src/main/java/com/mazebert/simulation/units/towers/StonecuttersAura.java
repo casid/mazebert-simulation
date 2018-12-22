@@ -5,7 +5,7 @@ import com.mazebert.simulation.listeners.OnLevelChangedListener;
 import com.mazebert.simulation.units.Unit;
 import com.mazebert.simulation.units.abilities.AuraAbility;
 
-public class StonecuttersAura extends AuraAbility<Stonecutters, Tower> implements OnLevelChangedListener {
+public strictfp class StonecuttersAura extends AuraAbility<Stonecutters, Tower> implements OnLevelChangedListener {
     public static final int MEMBER_LEVEL_REQUIREMENT = 20;
 
     private int memberCount;

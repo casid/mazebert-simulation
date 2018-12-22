@@ -1,6 +1,6 @@
 package com.mazebert.simulation;
 
-public enum WaveOrigin {
+public strictfp enum WaveOrigin {
     Game,
     BonusRound,
     Treasure

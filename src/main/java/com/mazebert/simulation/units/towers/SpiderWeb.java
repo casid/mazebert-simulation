@@ -6,7 +6,7 @@ import com.mazebert.simulation.listeners.OnDamageListener;
 import com.mazebert.simulation.units.abilities.Ability;
 import com.mazebert.simulation.units.creeps.Creep;
 
-public class SpiderWeb extends Ability<Tower> implements OnDamageListener {
+public strictfp class SpiderWeb extends Ability<Tower> implements OnDamageListener {
     private static final float chance = 0.18f;
     private static final float chanceAgainstBoss = 0.09f;
     private static final float slow = 0.2f;
