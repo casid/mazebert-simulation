@@ -7,7 +7,7 @@ public strictfp class GoldWithLevelBonusAbility extends AttributeWithLevelBonusA
 
     @Override
     protected void addToAttribute(float amount) {
-        getUnit().addItemChance(amount);
+        getUnit().addGoldModifer(amount);
     }
 
     public String getTitle() {
