@@ -20,7 +20,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class LootTest extends SimTest {
 
-    private static final float BABY_SWORD_ROLL = 0.42f;
+    private static final float BABY_SWORD_ROLL = 0.3f;
     private static final float BABY_SWORD_ROLL_ILVL_1 = 0.58f;
     private static final float WOODEN_STAFF_ROLL = 0.0f;
 
@@ -195,9 +195,9 @@ public class LootTest extends SimTest {
     void loot_unique_onlyOnce1() {
         randomPluginTrainer.givenFloatAbs(
                 0.0f, // This is a drop
-                0.001f, // The rarity of this drop is unique
+                0.00005f, // The rarity of this drop is unique
                 0.0f, // This is an item drop
-                0.0f // It's a scepter of time!
+                0.0f // It's a dungeon door!
         );
         creep.setMaxDrops(1);
         creep.setMaxItemLevel(120);
@@ -205,18 +205,18 @@ public class LootTest extends SimTest {
         whenTowerAttacks();
 
         assertThat(wizard1.itemStash.get(0).amount).isEqualTo(1);
-        assertThat(wizard1.itemStash.get(0).cardType).isEqualTo(ItemType.ScepterOfTime);
+        assertThat(wizard1.itemStash.get(0).cardType).isEqualTo(ItemType.DungeonDoor);
     }
 
     @Test
     void loot_unique_onlyOnce2() {
-        wizard1.itemStash.add(ItemType.ScepterOfTime); // already in possession
-        wizard1.itemStash.remove(ItemType.ScepterOfTime); // even if it's in use now ...
+        wizard1.itemStash.add(ItemType.DungeonDoor); // already in possession
+        wizard1.itemStash.remove(ItemType.DungeonDoor); // even if it's in use now ...
         randomPluginTrainer.givenFloatAbs(
                 0.0f, // This is a drop
-                0.001f, // The rarity of this drop is unique
+                0.00005f, // The rarity of this drop is unique
                 0.0f, // This is an item drop
-                0.0f // It's a scepter of time!
+                0.0f // It's a dungeon door!
         );
         creep.setMaxDrops(1);
         creep.setMaxItemLevel(120);
@@ -224,7 +224,7 @@ public class LootTest extends SimTest {
         whenTowerAttacks();
 
         assertThat(wizard1.itemStash.size()).isEqualTo(1);
-        assertThat(wizard1.itemStash.get(0).cardType).isNotEqualTo(ItemType.ScepterOfTime);
+        assertThat(wizard1.itemStash.get(0).cardType).isNotEqualTo(ItemType.DungeonDoor);
     }
 
     @Test
