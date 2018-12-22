@@ -60,13 +60,13 @@ public strictfp class AttackAbility extends CooldownAbility<Tower> {
 
     private Creep findTarget(int i) {
         Tower tower = getUnit();
-        if (currentTargets[i] != null && currentTargets[i].isInRange(tower, tower.getBaseRange())) {
+        if (currentTargets[i] != null && currentTargets[i].isInRange(tower, tower.getRange())) {
             return currentTargets[i];
         }
 
-        Creep target = unitGateway.findUnitInRange(tower, tower.getBaseRange(), Creep.class, currentTargets);
+        Creep target = unitGateway.findUnitInRange(tower, tower.getRange(), Creep.class, currentTargets);
         if (target == null && canAttackSameTarget) {
-            target = unitGateway.findUnitInRange(tower, tower.getBaseRange(), Creep.class);
+            target = unitGateway.findUnitInRange(tower, tower.getRange(), Creep.class);
         }
         return target;
     }
