@@ -3,6 +3,7 @@ package com.mazebert.simulation.gateways;
 import com.mazebert.java8.Consumer;
 import com.mazebert.java8.Predicate;
 import com.mazebert.simulation.Sim;
+import com.mazebert.simulation.plugins.random.RandomPlugin;
 import com.mazebert.simulation.units.Unit;
 import com.mazebert.simulation.units.items.Item;
 import com.mazebert.simulation.units.items.ItemType;
@@ -13,6 +14,7 @@ import com.mazebert.simulation.util.SafeIterationArray;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public strictfp final class UnitGateway {
+    private final RandomPlugin randomPlugin = Sim.context().randomPlugin;
     private final SafeIterationArray<Unit> units = new SafeIterationArray<>();
 
     public void addUnit(Unit unit) {
@@ -73,6 +75,15 @@ public strictfp final class UnitGateway {
     @SuppressWarnings("unchecked")
     public <U extends Unit> U findUnitInRange(float x, float y, float range, Class<U> unitClass, U[] excludedUnits) {
         return (U) units.find(unit -> unitClass.isAssignableFrom(unit.getClass()) && unit.isInRange(x, y, range) && !contains(excludedUnits, unit));
+    }
+
+    public <U extends Unit> U findRandomUnitInRange(Unit unit, float range, Class<U> unitClass) {
+        return findRandomUnitInRange(unit.getX(), unit.getY(), range, unitClass);
+    }
+
+    @SuppressWarnings("unchecked")
+    public <U extends Unit> U findRandomUnitInRange(float x, float y, float range, Class<U> unitClass) {
+        return (U) units.findRandom(unit -> unitClass.isAssignableFrom(unit.getClass()) && unit.isInRange(x, y, range), randomPlugin);
     }
 
     private <U extends Unit> boolean contains(U[] excludedUnits, U unit) {

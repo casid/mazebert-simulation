@@ -2,6 +2,7 @@ package com.mazebert.simulation.util;
 
 import com.mazebert.java8.Consumer;
 import com.mazebert.java8.Predicate;
+import com.mazebert.simulation.plugins.random.RandomPlugin;
 
 import java.util.Arrays;
 
@@ -87,6 +88,38 @@ public strictfp final class SafeIterationArray<T> {
             for (int i = 0; i < size; ++i) {
                 if (elements[i] != null && predicate.test((T) elements[i]) ) {
                     return (T) elements[i];
+                }
+            }
+        } finally {
+            popIteration();
+        }
+
+        return null;
+    }
+
+    @SuppressWarnings("unchecked")
+    public T findRandom(Predicate<T> predicate, RandomPlugin randomPlugin) {
+        pushIteration();
+        try {
+            int count = 0;
+            for (int i = 0; i < size; ++i) {
+                if (elements[i] != null && predicate.test((T) elements[i]) ) {
+                    ++count;
+                }
+            }
+
+            if (count == 0) {
+                return null;
+            }
+
+            int element = randomPlugin.getInt(0, count - 1);
+            count = 0;
+
+            for (int i = 0; i < size; ++i) {
+                if (elements[i] != null && predicate.test((T) elements[i]) ) {
+                    if (count++ == element) {
+                        return (T) elements[i];
+                    }
                 }
             }
         } finally {
