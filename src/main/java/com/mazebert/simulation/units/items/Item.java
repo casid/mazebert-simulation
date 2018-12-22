@@ -7,9 +7,11 @@ import com.mazebert.simulation.units.abilities.Ability;
 
 public strictfp abstract class Item implements Card {
     private final Ability[] abilities;
+    private final boolean set;
 
     public Item(Ability... abilities) {
         this.abilities = abilities;
+        this.set = containsAbility(ItemSetAbility.class);
     }
 
     @Override
@@ -25,6 +27,11 @@ public strictfp abstract class Item implements Card {
     @Override
     public boolean isDropable() {
         return true;
+    }
+
+    @Override
+    public boolean isSet() {
+        return set;
     }
 
     @Override

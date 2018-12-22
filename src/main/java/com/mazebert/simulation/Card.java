@@ -36,6 +36,10 @@ public interface Card {
         return false;
     }
 
+    default boolean isSet() {
+        return false;
+    }
+
     String getSinceVersion();
 
     void forEachAbility(Consumer<Ability> consumer);
