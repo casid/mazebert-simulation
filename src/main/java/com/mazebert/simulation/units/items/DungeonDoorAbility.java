@@ -2,7 +2,6 @@ package com.mazebert.simulation.units.items;
 
 import com.mazebert.simulation.Path;
 import com.mazebert.simulation.Sim;
-import com.mazebert.simulation.WaveSpawner;
 import com.mazebert.simulation.gateways.GameGateway;
 import com.mazebert.simulation.units.abilities.CooldownAbility;
 import com.mazebert.simulation.units.towers.Tower;
@@ -13,7 +12,6 @@ public strictfp class DungeonDoorAbility extends CooldownAbility<Tower> {
     public static final float chance = 0.33f;
     public static final float chanceBonus = 0.004f;
 
-    private final WaveSpawner waveSpawner = Sim.context().waveSpawner;
     private final GameGateway gameGateway = Sim.context().gameGateway;
 
     @Override
@@ -31,7 +29,7 @@ public strictfp class DungeonDoorAbility extends CooldownAbility<Tower> {
         if (getUnit().isAbilityTriggered(chance + getUnit().getLevel() * chanceBonus)) {
             int index = findFirstReachableIndexOnPath(gameGateway.getMap().getGroundPath());
             if (index >= 0) {
-                waveSpawner.spawnTreasureGoblin(getUnit().getWizard(), index);
+                Sim.context().waveSpawner.spawnTreasureGoblin(getUnit().getWizard(), index);
             }
         }
 
