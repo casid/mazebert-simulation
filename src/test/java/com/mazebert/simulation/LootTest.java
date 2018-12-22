@@ -224,7 +224,7 @@ public class LootTest extends SimTest {
         whenTowerAttacks();
 
         assertThat(wizard1.itemStash.size()).isEqualTo(1);
-        assertThat(wizard1.itemStash.get(0).cardType).isEqualTo(ItemType.MonsterTeeth); // ... no scepter will drop!
+        assertThat(wizard1.itemStash.get(0).cardType).isNotEqualTo(ItemType.ScepterOfTime);
     }
 
     @Test
