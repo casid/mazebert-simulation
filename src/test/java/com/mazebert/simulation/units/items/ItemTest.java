@@ -40,7 +40,9 @@ public strictfp class ItemTest extends SimTest {
     }
 
     protected void whenItemIsEquipped(ItemType itemType, int inventoryIndex) {
-        wizard.itemStash.add(itemType);
+        if (itemType != null) {
+            wizard.itemStash.add(itemType);
+        }
         EquipItemCommand command = new EquipItemCommand();
         command.itemType = itemType;
         command.inventoryIndex = inventoryIndex;

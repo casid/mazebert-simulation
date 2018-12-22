@@ -1,14 +1,15 @@
 package com.mazebert.simulation.units.potions;
 
 import com.mazebert.simulation.units.abilities.StackableAbility;
+import com.mazebert.simulation.units.items.VikingHelmetAbility;
 import com.mazebert.simulation.units.towers.Tower;
 import com.mazebert.simulation.units.towers.Viking;
 
 public strictfp class MeadAbility extends StackableAbility<Tower> {
-    private static final float damageBonus = 0.14f;
-    private static final float critChanceBonus = 0.02f;
-    private static final float critDamageBonus = 0.2f;
-    private static final float attackMalus = 0.01f;
+    public static final float damageBonus = 0.14f;
+    public static final float critChanceBonus = 0.02f;
+    public static final float critDamageBonus = 0.2f;
+    public static final float attackMalus = 0.01f;
 
     private int addedStacks;
 
@@ -22,6 +23,10 @@ public strictfp class MeadAbility extends StackableAbility<Tower> {
     protected void dispose(Tower unit) {
         removeEffect();
         super.dispose(unit);
+    }
+
+    public void update() {
+        updateStacks();
     }
 
     @Override
@@ -52,7 +57,7 @@ public strictfp class MeadAbility extends StackableAbility<Tower> {
     }
 
     private boolean isVikingTower() {
-        return getUnit() instanceof Viking;
+        return getUnit() instanceof Viking || getUnit().getAbility(VikingHelmetAbility.class) != null;
     }
 
     @Override

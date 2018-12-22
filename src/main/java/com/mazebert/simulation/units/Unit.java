@@ -183,8 +183,8 @@ public abstract strictfp class Unit implements Hashable {
     }
 
     private void removeAbilityInternal(Ability ability) {
-        ability.dispose();
         abilities.remove(ability);
+        ability.dispose();
 
         onAbilityRemoved.dispatch(ability);
     }
