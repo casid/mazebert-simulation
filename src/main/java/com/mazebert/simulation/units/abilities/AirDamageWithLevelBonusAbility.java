@@ -15,7 +15,7 @@ public abstract strictfp class AirDamageWithLevelBonusAbility extends AttributeW
     }
 
     public String getDescription() {
-        return "The damage against air is increased by " + format.percent(bonus) + "%.";
+        return "The damage against air\nis increased by " + format.percent(bonus) + "%.";
     }
 
     @Override

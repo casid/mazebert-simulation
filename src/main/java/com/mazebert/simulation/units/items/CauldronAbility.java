@@ -21,6 +21,11 @@ public strictfp class CauldronAbility extends AuraAbility<Tower, Tower> {
     }
 
     @Override
+    public boolean isVisibleToUser() {
+        return true;
+    }
+
+    @Override
     public String getTitle() {
         return "Tasty potions";
     }

@@ -21,6 +21,11 @@ public strictfp class FistfulOfSteelAbility extends AuraAbility<Tower, Tower> {
     }
 
     @Override
+    public boolean isVisibleToUser() {
+        return true;
+    }
+
+    @Override
     public String getTitle() {
         return "Enrage the crowd";
     }

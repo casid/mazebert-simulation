@@ -29,6 +29,6 @@ public strictfp class MagicMushroomAbility extends SpeedWithLevelBonusAbility {
 
     @Override
     public String getDescription() {
-        return "The attack speed of the carrier is increased by " + format.percent(bonus) + "%, but it's damage is reduced by " + format.percent(damageReduction) + "%.";
+        return "The attack speed of the carrier is increased by " + format.percent(bonus) + "%, but its damage is reduced by " + format.percent(damageReduction) + "%.";
     }
 }

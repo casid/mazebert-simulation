@@ -36,11 +36,17 @@ public strictfp class KeyOfWisdomAbility extends CooldownAbility<Tower> {
 
     @Override
     public String getTitle() {
-        return "Every " + format.cooldown(cooldown) + " a random tower in " + range + " range gains " + format.experience(experience) + " experience.";
+        return "Enlighten";
     }
 
     @Override
+    public String getDescription() {
+        return "Every " + format.cooldown(cooldown) + " a random tower in " + range + " range gains " + format.experience(experience) + " experience.";
+    }
+
+
+    @Override
     public String getLevelBonus() {
-        return "+ " + format.experience(experience) + " experience per level.";
+        return "+ " + format.experience(experienceBonus) + " experience per level.";
     }
 }

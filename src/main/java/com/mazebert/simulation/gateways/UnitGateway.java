@@ -14,7 +14,6 @@ import com.mazebert.simulation.util.SafeIterationArray;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public strictfp final class UnitGateway {
-    private final RandomPlugin randomPlugin = Sim.context().randomPlugin;
     private final SafeIterationArray<Unit> units = new SafeIterationArray<>();
 
     public void addUnit(Unit unit) {
@@ -83,7 +82,7 @@ public strictfp final class UnitGateway {
 
     @SuppressWarnings("unchecked")
     public <U extends Unit> U findRandomUnitInRange(float x, float y, float range, Class<U> unitClass) {
-        return (U) units.findRandom(unit -> unitClass.isAssignableFrom(unit.getClass()) && unit.isInRange(x, y, range), randomPlugin);
+        return (U) units.findRandom(unit -> unitClass.isAssignableFrom(unit.getClass()) && unit.isInRange(x, y, range), Sim.context().randomPlugin);
     }
 
     private <U extends Unit> boolean contains(U[] excludedUnits, U unit) {
