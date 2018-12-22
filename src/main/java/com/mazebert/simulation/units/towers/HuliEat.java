@@ -3,6 +3,7 @@ package com.mazebert.simulation.units.towers;
 import com.mazebert.simulation.Sim;
 import com.mazebert.simulation.SimulationListeners;
 import com.mazebert.simulation.listeners.OnAttackListener;
+import com.mazebert.simulation.units.Gender;
 import com.mazebert.simulation.units.abilities.CooldownAbility;
 import com.mazebert.simulation.units.creeps.Creep;
 
@@ -76,7 +77,11 @@ public strictfp class HuliEat extends CooldownAbility<Tower> implements OnAttack
 
     @Override
     public String getDescription() {
-        return "Whenever Huli eats a banana his damage is increased by 2%. Huli can eat 50 bananas.";
+        if (getUnit().getGender() == Gender.Male) {
+            return "Whenever Huli eats a banana, his damage is increased by 2%. Huli can eat 50 bananas.";
+        } else {
+            return "Whenever Huli eats a banana, her damage is increased by 2%. Huli can eat 50 bananas.";
+        }
     }
 
     @Override

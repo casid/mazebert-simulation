@@ -48,7 +48,11 @@ public strictfp class Huli extends Tower {
 
     @Override
     public String getDescription() {
-        return "Huli is the king of the jungle. Adored by women, feared by his enemies.";
+        if (getGender() == Gender.Male) {
+            return "Huli is the king of the jungle. Adored by women, feared by his enemies.";
+        } else {
+            return "Huli is the queen of the jungle. Adored by men, feared by her enemies.";
+        }
     }
 
     @Override
