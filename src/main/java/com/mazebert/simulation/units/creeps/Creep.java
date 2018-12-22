@@ -276,10 +276,15 @@ public strictfp class Creep extends Unit {
     }
 
     public void setPath(Path path) {
+        setPath(path, 0);
+    }
+
+    public void setPath(Path path, int index) {
         this.path = path;
         if (path != null && path.size() > 0) {
-            setX(path.getX(0));
-            setY(path.getY(0));
+            pathIndex = index;
+            setX(path.getX(index));
+            setY(path.getY(index));
         }
     }
 

@@ -4,6 +4,7 @@ import com.mazebert.simulation.CommandExecutor;
 import com.mazebert.simulation.SimTest;
 import com.mazebert.simulation.SimulationListeners;
 import com.mazebert.simulation.commands.EquipItemCommand;
+import com.mazebert.simulation.gateways.GameGateway;
 import com.mazebert.simulation.gateways.UnitGateway;
 import com.mazebert.simulation.plugins.random.RandomPluginTrainer;
 import com.mazebert.simulation.units.TestTower;
@@ -20,6 +21,7 @@ public strictfp class ItemTest extends SimTest {
         simulationListeners = new SimulationListeners();
         randomPlugin = randomPluginTrainer;
         unitGateway = new UnitGateway();
+        gameGateway = new GameGateway();
 
         wizard = new Wizard();
         unitGateway.addUnit(wizard);
@@ -47,6 +49,8 @@ public strictfp class ItemTest extends SimTest {
         command.itemType = itemType;
         command.inventoryIndex = inventoryIndex;
         command.playerId = wizard.getPlayerId();
+        command.towerX = (int)tower.getX();
+        command.towerY = (int)tower.getY();
         commandExecutor.executeVoid(command);
     }
 }

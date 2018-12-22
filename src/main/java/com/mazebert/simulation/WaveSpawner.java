@@ -70,24 +70,34 @@ public strictfp class WaveSpawner implements OnGameStartedListener, OnWaveStarte
     public void spawnTreasureGoblins(Wizard wizard, int amount) {
         Wave wave = waveGateway.generateGoblinWave();
 
-        double health = Balancing.getTotalCreepHitpoints(wave.round, difficultyGateway.getDifficulty());
-
         for (int i = 0; i < amount; ++i) {
-            Creep goblin = new Creep();
-            goblin.setWizard(wizard);
-            goblin.setWave(wave);
-            goblin.setHealth(health);
-            goblin.setMaxHealth(health);
-            goblin.setDropChance(4.0f);
-            goblin.setMinDrops(1);
-            goblin.setMaxDrops(4);
-            goblin.setMaxItemLevel(wave.round);
-            goblin.setGold(Balancing.getGoldForRound(wave.round));
-            goblin.setArmor(wave.round + 50);
-            goblin.setType(wave.creepType);
-
+            Creep goblin = createGoblin(wizard, wave);
             goblinQueue.add(goblin);
         }
+    }
+
+    private Creep createGoblin(Wizard wizard, Wave wave) {
+        double health = Balancing.getTotalCreepHitpoints(wave.round, difficultyGateway.getDifficulty());
+
+        Creep goblin = new Creep();
+        goblin.setWizard(wizard);
+        goblin.setWave(wave);
+        goblin.setHealth(health);
+        goblin.setMaxHealth(health);
+        goblin.setDropChance(4.0f);
+        goblin.setMinDrops(1);
+        goblin.setMaxDrops(4);
+        goblin.setMaxItemLevel(wave.round);
+        goblin.setGold(Balancing.getGoldForRound(wave.round));
+        goblin.setArmor(wave.round + 50);
+        goblin.setType(wave.creepType);
+        return goblin;
+    }
+
+    public void spawnTreasureGoblin(Wizard wizard, int pathIndex) {
+        Wave wave = waveGateway.generateGoblinWave();
+        Creep goblin = createGoblin(wizard, wave);
+        spawnCreep(goblin, pathIndex);
     }
 
     private float calculateCountdownForNextCreepToSend(Wave wave) {
@@ -191,7 +201,11 @@ public strictfp class WaveSpawner implements OnGameStartedListener, OnWaveStarte
     }
 
     private void spawnCreep(Creep creep) {
-        creep.setPath(gameGateway.getMap().getGroundPath());
+        spawnCreep(creep, 0);
+    }
+
+    private void spawnCreep(Creep creep, int pathIndex) {
+        creep.setPath(gameGateway.getMap().getGroundPath(), pathIndex);
         creep.onDead.add(this);
         creep.onTargetReached.add(this);
 
