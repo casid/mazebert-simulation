@@ -67,6 +67,8 @@ public abstract strictfp class AuraAbility<S extends Unit, T extends Unit> exten
         unit.onUnitAdded.add(this);
         unit.onUnitRemoved.add(this);
         this.active = (T[]) Array.newInstance(targetClass, 9);
+
+        updateAuraTargets();
     }
 
     @Override
