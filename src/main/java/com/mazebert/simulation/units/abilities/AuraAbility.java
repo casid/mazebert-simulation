@@ -41,16 +41,12 @@ public abstract strictfp class AuraAbility<S extends Unit, T extends Unit> exten
     public void setRange(float range) {
         if (this.range != range) {
             this.range = range;
-            update();
+            updateAuraTargets();
         }
     }
 
     public float getRange() {
         return range;
-    }
-
-    public int getActiveSize() {
-        return activeSize;
     }
 
     @SuppressWarnings("unchecked")
@@ -98,7 +94,7 @@ public abstract strictfp class AuraAbility<S extends Unit, T extends Unit> exten
 
     @Override
     public void onUpdate(float dt) {
-        update();
+        updateAuraTargets();
     }
 
     @Override
@@ -108,9 +104,9 @@ public abstract strictfp class AuraAbility<S extends Unit, T extends Unit> exten
             unit.onUnitRemoved.remove(this);
             simulationListeners.onUnitAdded.add(this);
             simulationListeners.onUnitRemoved.add(this);
-            update();
+            updateAuraTargets();
         } else if (targetClass.isAssignableFrom(unit.getClass())) {
-            update();
+            updateAuraTargets();
         }
     }
 
@@ -121,9 +117,9 @@ public abstract strictfp class AuraAbility<S extends Unit, T extends Unit> exten
             unit.onUnitRemoved.add(this);
             simulationListeners.onUnitAdded.remove(this);
             simulationListeners.onUnitRemoved.remove(this);
-            update();
+            updateAuraTargets();
         } else if (targetClass.isAssignableFrom(unit.getClass())) {
-            update();
+            updateAuraTargets();
         }
     }
 
@@ -132,7 +128,7 @@ public abstract strictfp class AuraAbility<S extends Unit, T extends Unit> exten
         setRange(tower.getRange());
     }
 
-    private void update() {
+    private void updateAuraTargets() {
         if (active != null) {
             markAllCurrentTargetsAsUnvisited();
             unitGateway.forEachInRange(getUnit().getX(), getUnit().getY(), range, targetClass, this);

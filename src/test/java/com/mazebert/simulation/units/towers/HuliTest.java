@@ -4,6 +4,7 @@ import com.mazebert.simulation.SimTest;
 import com.mazebert.simulation.SimulationListeners;
 import com.mazebert.simulation.gateways.UnitGateway;
 import com.mazebert.simulation.projectiles.ProjectileGateway;
+import com.mazebert.simulation.units.Gender;
 import com.mazebert.simulation.units.creeps.Creep;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -94,9 +95,28 @@ strictfp class HuliTest extends SimTest {
     }
 
     @Test
+    void mojo_noFemaleTowersAround_huliGenderChanged() {
+        huli.setGender(Gender.Female);
+        assertThat(huli.getCritChance()).isEqualTo(0.05f);
+    }
+
+    @Test
     void mojo_oneFemaleTowerAround() {
         unitGateway.addUnit(new HerbWitch());
         assertThat(huli.getCritChance()).isEqualTo(0.09f);
+    }
+
+    @Test
+    void mojo_oneMaleTowerAround() {
+        unitGateway.addUnit(new Viking());
+        assertThat(huli.getCritChance()).isEqualTo(0.05f);
+    }
+
+    @Test
+    void mojo_oneFemaleTowerAround_huliGenderChanged() {
+        unitGateway.addUnit(new HerbWitch());
+        huli.setGender(Gender.Female);
+        assertThat(huli.getCritChance()).isEqualTo(0.050000004f);
     }
 
     @Test
@@ -124,6 +144,16 @@ strictfp class HuliTest extends SimTest {
         huli.setLevel(10);
 
         assertThat(huli.getCritChance()).isEqualTo(0.13599999f);
+    }
+
+    @Test
+    void mojo_twoFemaleTowersAround_genderChanged() {
+        unitGateway.addUnit(new HerbWitch());
+        Tower herby = new HerbWitch();
+        unitGateway.addUnit(herby);
+        herby.setGender(Gender.Male);
+
+        assertThat(huli.getCritChance()).isEqualTo(0.089999996f);
     }
 
     @Test

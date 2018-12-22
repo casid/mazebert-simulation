@@ -1,16 +1,18 @@
 package com.mazebert.simulation.units.towers;
 
+import com.mazebert.simulation.listeners.OnGenderChangedListener;
 import com.mazebert.simulation.listeners.OnLevelChangedListener;
 import com.mazebert.simulation.units.Gender;
 import com.mazebert.simulation.units.Unit;
 import com.mazebert.simulation.units.abilities.AuraAbility;
 
-public strictfp class HuliMojo extends AuraAbility<Tower, Tower> implements OnLevelChangedListener {
+public strictfp class HuliMojo extends AuraAbility<Tower, Tower> implements OnLevelChangedListener, OnGenderChangedListener {
 
     private static final float CRIT_CHANCE_PER_TOWER = 0.04f;
     private static final float CRIT_CHANCE_PER_LEVEL = 0.0003f;
 
     private float critBonus;
+    private int otherGenders;
 
     public HuliMojo() {
         super(Tower.class);
@@ -20,11 +22,13 @@ public strictfp class HuliMojo extends AuraAbility<Tower, Tower> implements OnLe
     protected void initialize(Tower unit) {
         super.initialize(unit);
         unit.onLevelChanged.add(this);
+        unit.onGenderChanged.add(this);
     }
 
     @Override
     protected void dispose(Tower unit) {
         unit.onLevelChanged.remove(this);
+        unit.onGenderChanged.remove(this);
         super.dispose(unit);
     }
 
@@ -35,22 +39,44 @@ public strictfp class HuliMojo extends AuraAbility<Tower, Tower> implements OnLe
 
     public void updateBonus() {
         getUnit().addCritChance(-critBonus);
-        critBonus = getActiveSize() * (CRIT_CHANCE_PER_TOWER + getUnit().getLevel() * CRIT_CHANCE_PER_LEVEL);
+        critBonus = getOtherGendersInAura() * (CRIT_CHANCE_PER_TOWER + getUnit().getLevel() * CRIT_CHANCE_PER_LEVEL);
         getUnit().addCritChance(critBonus);
+    }
+
+    private int getOtherGendersInAura() {
+        otherGenders = 0;
+        forEach(this::countOtherGender);
+        return otherGenders;
+    }
+
+    private void countOtherGender(Tower tower) {
+        if (getUnit().getGender() == Gender.Male && tower.getGender() == Gender.Female) {
+            ++otherGenders;
+        }
+        if (getUnit().getGender() == Gender.Female && tower.getGender() == Gender.Male) {
+            ++otherGenders;
+        }
     }
 
     @Override
     protected boolean isQualifiedForAura(Tower unit) {
-        return unit.getGender() == Gender.Female;
+        return unit != getUnit();
     }
 
     @Override
     protected void onAuraEntered(Tower unit) {
         updateBonus();
+        unit.onGenderChanged.add(this);
     }
 
     @Override
     protected void onAuraLeft(Tower unit) {
+        updateBonus();
+        unit.onGenderChanged.remove(this);
+    }
+
+    @Override
+    public void onGenderChanged(Unit unit) {
         updateBonus();
     }
 
@@ -66,7 +92,8 @@ public strictfp class HuliMojo extends AuraAbility<Tower, Tower> implements OnLe
 
     @Override
     public String getDescription() {
-        return "Hulis crit chance is increased by " + format.percent(CRIT_CHANCE_PER_TOWER) + "% for each female tower in range.";
+        String otherGender = getUnit().getGender() == Gender.Male ? "female" : "male";
+        return "Hulis crit chance is increased by " + format.percent(CRIT_CHANCE_PER_TOWER) + "% for each " + otherGender + " tower in range.";
     }
 
     @Override
