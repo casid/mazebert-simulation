@@ -5,6 +5,7 @@ import com.mazebert.simulation.systems.WeddingRingSystem;
 import com.mazebert.simulation.units.TestTower;
 import com.mazebert.simulation.units.potions.PotionType;
 import com.mazebert.simulation.units.towers.Tower;
+import com.mazebert.simulation.units.towers.TowerType;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -113,5 +114,19 @@ strictfp class WeddingRingTest extends ItemTest {
 
         assertThat(tower.getAttackSpeedAdd()).isEqualTo(0.0f);
         assertThat(otherTower.getAttackSpeedAdd()).isEqualTo(0.04f);
+    }
+
+    @Test
+    void married_towerRemoved() {
+        whenItemIsEquipped(tower, ItemType.WeddingRing1, 0);
+        whenItemIsEquipped(otherTower, ItemType.WeddingRing2, 0);
+
+        simulationListeners.onUpdate.dispatch(WeddingRingSystem.SECONDS_FOR_MARRIAGE);
+        otherTower = whenTowerIsReplaced(otherTower, TowerType.Beaver);
+
+        whenPotionIsConsumed(tower, PotionType.CommonSpeed);
+
+        assertThat(tower.getAttackSpeedAdd()).isEqualTo(0.04f);
+        assertThat(otherTower.getAttackSpeedAdd()).isEqualTo(0.0f);
     }
 }

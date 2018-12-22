@@ -18,19 +18,15 @@ public strictfp class WeddingRingSystem implements OnPotionConsumedListener, OnU
     private int lastRemainginSeconds;
 
     public void setTower(int index, Tower tower) {
-        if (towers[index] != null) {
-            towers[index].onPotionConsumed.remove(this);
-        }
+        removeListeners();
 
         towers[index] = tower;
 
         if (towers[0] != null && towers[1] != null) {
             simulationListeners.onUpdate.add(this);
-        } else {
-            simulationListeners.onUpdate.remove(this);
+            remainingSeconds = SECONDS_FOR_MARRIAGE;
+            lastRemainginSeconds = SECONDS_FOR_MARRIAGE + 1;
         }
-        remainingSeconds = SECONDS_FOR_MARRIAGE;
-        lastRemainginSeconds = SECONDS_FOR_MARRIAGE + 1;
     }
 
     @Override
@@ -73,5 +69,14 @@ public strictfp class WeddingRingSystem implements OnPotionConsumedListener, OnU
     private void showNotficationOnBothPartners(String text) {
         simulationListeners.showNotification(towers[0], text, 0xff88aa);
         simulationListeners.showNotification(towers[1], text, 0xff88aa);
+    }
+
+    private void removeListeners() {
+        simulationListeners.onUpdate.remove(this);
+        for (Tower t : towers) {
+            if (t != null) {
+                t.onPotionConsumed.remove(this);
+            }
+        }
     }
 }
