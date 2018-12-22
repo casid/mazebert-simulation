@@ -22,7 +22,7 @@ public strictfp enum ItemType implements CardType<Item> {
     Handbag(9, Handbag.class),
     GoldCoins(10, GoldCoins.class),
     RingOfGreed(11, RingOfGreed.class),
-//    LongBow(12, LongBow.class),
+    LongBow(12, LongBow.class),
     MonsterTeeth(13, MonsterTeeth.class),
 //    MagicMushroom(14, MagicMushroom.class),
 //    LuckyPants(15, LuckyPants.class),
