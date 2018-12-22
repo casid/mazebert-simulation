@@ -25,7 +25,7 @@ public strictfp enum ItemType implements CardType<Item> {
     LongBow(12, LongBow.class),
     MonsterTeeth(13, MonsterTeeth.class),
     MagicMushroom(14, MagicMushroom.class),
-//    LuckyPants(15, LuckyPants.class),
+    LuckyPants(15, LuckyPants.class),
 //    PaintingOfSolea(16, PaintingOfSolea.class),
     MeatMallet(17, MeatMallet.class),
 //    RareSteak(18, RareSteak.class),
