@@ -75,7 +75,7 @@ public abstract strictfp class Ability<U extends Unit> {
     }
 
     protected Currency getCurrency() {
-        if (getUnit().getWizard() != null) {
+        if (getUnit() != null && getUnit().getWizard() != null) {
             return getUnit().getWizard().currency;
         }
         return Currency.Gold;
