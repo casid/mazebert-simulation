@@ -7,6 +7,7 @@ import com.mazebert.simulation.plugins.random.RandomPluginTrainer;
 import com.mazebert.simulation.systems.DamageSystem;
 import com.mazebert.simulation.units.TestTower;
 import com.mazebert.simulation.units.creeps.Creep;
+import com.mazebert.simulation.units.towers.FrogPoisonAbility;
 import com.mazebert.simulation.units.towers.Tower;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -15,7 +16,7 @@ import static com.mazebert.simulation.units.creeps.CreepBuilder.creep;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.jusecase.Builders.a;
 
-public class SplashAbilityTest extends SimTest {
+public strictfp class SplashAbilityTest extends SimTest {
     RandomPluginTrainer randomPluginTrainer = new RandomPluginTrainer();
 
     Tower tower;
@@ -87,6 +88,18 @@ public class SplashAbilityTest extends SimTest {
         whenTowerAttacks();
 
         assertThat(creep2.getHealth()).isEqualTo(99.0);
+    }
+
+    @Test
+    void poisonDamage_noDoubleDipping() {
+        tower.addAbility(new FrogPoisonAbility());
+
+        whenTowerAttacks();
+        creep1.simulate(1.0f);
+        creep2.simulate(1.0f);
+
+        assertThat(creep1.getHealth()).isEqualTo(86.66666666666667);
+        assertThat(creep2.getHealth()).isEqualTo(94.6666665871938);
     }
 
     private void whenTowerAttacks() {

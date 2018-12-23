@@ -5,6 +5,7 @@ import com.mazebert.simulation.gateways.UnitGateway;
 import com.mazebert.simulation.listeners.OnDamageListener;
 import com.mazebert.simulation.systems.DamageSystem;
 import com.mazebert.simulation.units.creeps.Creep;
+import com.mazebert.simulation.units.creeps.effects.PoisonEffect;
 import com.mazebert.simulation.units.towers.Tower;
 
 public strictfp class SplashAbility extends Ability<Tower> implements OnDamageListener {
@@ -53,7 +54,7 @@ public strictfp class SplashAbility extends Ability<Tower> implements OnDamageLi
 
     @Override
     public void onDamage(Object origin, Creep target, double damage, int multicrits) {
-        if (origin == this) {
+        if (origin == this || origin instanceof PoisonEffect) {
             return;
         }
 

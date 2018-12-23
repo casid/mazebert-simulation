@@ -119,6 +119,10 @@ public strictfp class Creep extends Unit {
             return null;
         }
 
+        if (path == null) {
+            return null;
+        }
+
         int targetIndex = result.pathIndex + 1;
         if (targetIndex >= path.size()) {
             return null;
