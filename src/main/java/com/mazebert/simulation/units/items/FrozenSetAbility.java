@@ -4,7 +4,7 @@ import java.util.EnumSet;
 
 public strictfp class FrozenSetAbility extends ItemSetAbility {
     public FrozenSetAbility() {
-        super(EnumSet.of(ItemType.FrozenWater, ItemType.FrozenHeart));
+        super(EnumSet.of(ItemType.FrozenWater, ItemType.FrozenHeart, ItemType.FrozenCandle, ItemType.FrozenBook));
     }
 
     @Override
