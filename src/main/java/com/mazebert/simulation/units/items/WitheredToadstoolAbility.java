@@ -30,7 +30,7 @@ public class WitheredToadstoolAbility extends FalDamageWithLevelBonusAbility {
     @Override
     public String getDescription() {
         return format.percentWithSignAndUnit(goldMalus) + " " + getCurrency().pluralLowercase + " bounty\n+ " +
-                format.percentWithSignAndUnit(bonus) + " damage vs Fal (" + format.percent(bonusPerLevel) + "%/level)</color>";
+                format.percentWithSignAndUnit(bonus) + " damage vs Fal <c=#fff8c6>(" + format.percent(bonusPerLevel) + "%/level)</c>";
     }
 
     @Override
