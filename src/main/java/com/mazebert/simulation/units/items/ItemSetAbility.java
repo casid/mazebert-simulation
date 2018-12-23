@@ -56,4 +56,9 @@ public abstract strictfp class ItemSetAbility extends StackableAbility<Tower> im
     }
 
     protected abstract void updateSetBonus(EnumSet<ItemType> items, int oldAmount, int newAmount);
+
+    @Override
+    public boolean isVisibleToUser() {
+        return true;
+    }
 }
