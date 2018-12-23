@@ -11,10 +11,11 @@ import com.mazebert.simulation.units.wizards.Wizard;
 import java.util.Arrays;
 
 public strictfp class DamageSystem {
-    private final double damageWeak = 0.7;
-    private final double damageStrong = 1.3;
-
     private static final DamageInfo DAMAGE_INFO = new DamageInfo();
+    private static final double ARMOR_INCREASE_DAMAGE_CONST = 0.992;
+    private static final double ARMOR_DECREASE_DAMAGE_CONST = 0.005;
+    private static final double damageWeak = 0.7;
+    private static final double damageStrong = 1.3;
 
     private final RandomPlugin randomPlugin = Sim.context().randomPlugin;
     private final SimulationListeners simulationListeners = Sim.context().simulationListeners;
@@ -90,10 +91,27 @@ public strictfp class DamageSystem {
     private double modifyDamage(Tower tower, Creep creep, double damage) {
         damage *= calculateWaveDamageFactor(tower, creep.getWave());
         damage *= creep.getDamageModifier();
+        damage *= getArmorDamageFactor(tower, creep);
         if (damage < 0) {
             damage = 0;
         }
         return damage;
+    }
+
+    private double getArmorDamageFactor(Tower tower, Creep creep) {
+        double factor = getArmorDamageFactor(creep.getArmor());
+        if (factor < 1.0 && tower.getArmorPenetration() > 0) {
+            factor += (1.0 - factor) * tower.getArmorPenetration();
+        }
+        return factor;
+    }
+
+    private double getArmorDamageFactor(int armor) {
+        if (armor < 0) {
+            return 2.0 - StrictMath.pow(ARMOR_INCREASE_DAMAGE_CONST, -armor);
+        } else {
+            return 1.0 - (ARMOR_DECREASE_DAMAGE_CONST * armor) / (1.0 + ARMOR_DECREASE_DAMAGE_CONST * armor);
+        }
     }
 
     private double calculateWaveDamageFactor(Tower tower, Wave wave) {

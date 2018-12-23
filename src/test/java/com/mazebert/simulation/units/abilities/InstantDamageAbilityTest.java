@@ -17,7 +17,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class InstantDamageAbilityTest extends SimTest {
+public strictfp class InstantDamageAbilityTest extends SimTest {
 
     RandomPluginTrainer randomPluginTrainer = new RandomPluginTrainer();
 
@@ -226,6 +226,81 @@ public class InstantDamageAbilityTest extends SimTest {
         whenTowerAttacks();
 
         assertThat(creep.getHealth()).isEqualTo(80.0f);
+    }
+
+    @Test
+    void constantDamage_armor() {
+        creep.setArmor(100);
+        tower.setBaseDamage(100.0f);
+
+        whenTowerAttacks();
+
+        assertThat(creep.getHealth()).isEqualTo(33.33333333333333);
+    }
+
+    @Test
+    void constantDamage_armor_penetration_quarter() {
+        creep.setArmor(100);
+        tower.setBaseDamage(100.0f);
+        tower.addArmorPenetration(0.25f);
+
+        whenTowerAttacks();
+
+        assertThat(creep.getHealth()).isEqualTo(25.0);
+    }
+
+    @Test
+    void constantDamage_armor_penetration_half() {
+        creep.setArmor(100);
+        tower.setBaseDamage(100.0f);
+        tower.addArmorPenetration(0.5f);
+
+        whenTowerAttacks();
+
+        assertThat(creep.getHealth()).isEqualTo(16.666666666666657);
+    }
+
+    @Test
+    void constantDamage_armor_penetration_full() {
+        creep.setArmor(100);
+        tower.setBaseDamage(100.0f);
+        tower.addArmorPenetration(1.0f);
+
+        whenTowerAttacks();
+
+        assertThat(creep.getHealth()).isEqualTo(0);
+    }
+
+    @Test
+    void constantDamage_armor_penetration_negative_ignored() {
+        creep.setArmor(100);
+        tower.setBaseDamage(100.0f);
+        tower.addArmorPenetration(-0.5f);
+
+        whenTowerAttacks();
+
+        assertThat(creep.getHealth()).isEqualTo(33.33333333333333);
+    }
+
+    @Test
+    void constantDamage_armor_negative() {
+        creep.setArmor(-100);
+        tower.setBaseDamage(10.0f);
+
+        whenTowerAttacks();
+
+        assertThat(creep.getHealth()).isEqualTo(84.47885719403078);
+    }
+
+    @Test
+    void constantDamage_armor_negative_penetrationHasNoEffect_ignored() {
+        creep.setArmor(-100);
+        tower.setBaseDamage(10.0f);
+        tower.addArmorPenetration(0.5f);
+
+        whenTowerAttacks();
+
+        assertThat(creep.getHealth()).isEqualTo(84.47885719403078);
     }
 
     @Test
