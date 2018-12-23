@@ -59,9 +59,9 @@ public strictfp class MrIronConstruct extends ActiveAbility {
 
     @Override
     public String getDescription() {
-        String legendaryString = "legendary"; // TODO color
-        String uniqueString = "unique"; // TODO color
-        String setString = "set"; // TODO color
+        String legendaryString = "<c=#ffab00>legendary</c>";
+        String uniqueString = "<c=#a800ff>unique</c>";
+        String setString = "<c=#00ee00>set</c>";
         return "Mr. Iron leaves his battle suit for " + format.seconds(COOLDOWN) + " to improve it. All currently equipped items are removed and integrated in the suit. Cannot integrate " + legendaryString + ", " + uniqueString + " or " + setString + " items.";
     }
 
