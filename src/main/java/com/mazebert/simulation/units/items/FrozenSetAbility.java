@@ -9,11 +9,17 @@ public strictfp class FrozenSetAbility extends ItemSetAbility {
 
     @Override
     protected void updateSetBonus(EnumSet<ItemType> items, int oldAmount, int newAmount) {
-        if (newAmount == 2 && oldAmount < 2) {
+        if (newAmount >= 2 && oldAmount < 2) {
             getUnit().addAbility(new FrozenSetSlowAbility());
         }
         if (newAmount < 2 && oldAmount >= 2) {
             getUnit().removeAbility(FrozenSetSlowAbility.class);
+        }
+        if (newAmount >= 4 && oldAmount < 4) {
+            getUnit().addAbility(new FrozenSetSummonAbility());
+        }
+        if (newAmount < 4 && oldAmount >= 4) {
+            getUnit().removeAbility(FrozenSetSummonAbility.class);
         }
     }
 

@@ -20,6 +20,7 @@ import com.mazebert.simulation.units.wizards.Wizard;
 
 public strictfp class ItemTest extends SimTest {
     protected RandomPluginTrainer randomPluginTrainer = new RandomPluginTrainer();
+    protected DamageSystemTrainer damageSystemTrainer = new DamageSystemTrainer();
 
     protected Wizard wizard;
     protected Tower tower;
@@ -29,7 +30,7 @@ public strictfp class ItemTest extends SimTest {
         randomPlugin = randomPluginTrainer;
         unitGateway = new UnitGateway();
         gameGateway = new GameGateway();
-        damageSystem = new DamageSystemTrainer();
+        damageSystem = damageSystemTrainer;
         lootSystem = new LootSystemTrainer();
         experienceSystem = new ExperienceSystem();
 
@@ -37,6 +38,7 @@ public strictfp class ItemTest extends SimTest {
         unitGateway.addUnit(wizard);
 
         tower = createTower();
+        tower.setWizard(wizard);
         unitGateway.addUnit(tower);
 
         commandExecutor = new CommandExecutor();

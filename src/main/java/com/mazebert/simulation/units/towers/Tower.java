@@ -10,6 +10,7 @@ import com.mazebert.simulation.units.Gender;
 import com.mazebert.simulation.units.Unit;
 import com.mazebert.simulation.units.creeps.Creep;
 import com.mazebert.simulation.units.items.Item;
+import com.mazebert.simulation.units.items.ItemType;
 
 public strictfp abstract class Tower extends Unit implements CooldownUnit, Card, OnKillListener {
 
@@ -482,6 +483,14 @@ public strictfp abstract class Tower extends Unit implements CooldownUnit, Card,
         }
 
         return items;
+    }
+
+    public void removeItem(ItemType type) {
+        for (int i = getInventorySize() - 1; i >= 0; --i) {
+            if (items[i] != null && ItemType.forItem(items[i]) == type) {
+                setItem(i, null);
+            }
+        }
     }
 
     public void addAttackSpeed(float amount) {
