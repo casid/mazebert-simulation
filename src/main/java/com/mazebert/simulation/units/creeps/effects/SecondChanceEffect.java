@@ -8,6 +8,7 @@ import com.mazebert.simulation.units.creeps.Creep;
 
 public strictfp class SecondChanceEffect extends Ability<Creep> implements OnDeadListener {
     private final RandomPlugin randomPlugin = Sim.context().randomPlugin;
+    private int resurrections;
 
     @Override
     protected void initialize(Creep unit) {
@@ -23,8 +24,9 @@ public strictfp class SecondChanceEffect extends Ability<Creep> implements OnDea
 
     @Override
     public void onDead(Creep creep) {
-        if (randomPlugin.getFloatAbs() < 0.5f) {
+        if (resurrections < 4 && randomPlugin.getFloatAbs() < 0.5f) {
             creep.resurrect(0.5 * creep.getMaxHealth());
+            ++resurrections;
         }
     }
 }

@@ -72,6 +72,16 @@ public strictfp class SecondChanceEffectTest extends SimTest {
     }
 
     @Test
+    void resurrect_notInfinitly() {
+        for (int i = 0; i < 5; ++i) {
+            whenTowerAttacks();
+            creep.simulate(Creep.DEATH_TIME);
+        }
+
+        assertThat(unitGateway.hasUnit(creep)).isFalse();
+    }
+
+    @Test
     void resurrect_chance() {
         randomPluginTrainer.givenFloatAbs(0.5f);
 
