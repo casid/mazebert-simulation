@@ -46,7 +46,7 @@ public strictfp enum ItemType implements CardType<Item> {
     NorlsFuryAmulet(33, NorlsFuryAmulet.class),
     FrozenWater(34, FrozenWater.class),
     FrozenHeart(35, FrozenHeart.class),
-//    FrozenCandle(36, FrozenCandle.class),
+    FrozenCandle(36, FrozenCandle.class),
 //    FrozenBook(37, FrozenBook.class),
 //    WitheredCactus(38, WitheredCactus.class),
 //    WitheredToadstool(39, WitheredToadstool.class),
