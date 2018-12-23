@@ -10,7 +10,7 @@ public abstract strictfp class ItemSetAbility extends StackableAbility<Tower> im
     private final EnumSet<ItemType> allItems;
     private final EnumSet<ItemType> currentItems = EnumSet.noneOf(ItemType.class);
 
-    protected ItemSetAbility(EnumSet<ItemType> allItems) {
+    public ItemSetAbility(EnumSet<ItemType> allItems) {
         this.allItems = allItems;
     }
 

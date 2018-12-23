@@ -9,6 +9,9 @@ import com.mazebert.simulation.commands.EquipItemCommand;
 import com.mazebert.simulation.gateways.GameGateway;
 import com.mazebert.simulation.gateways.UnitGateway;
 import com.mazebert.simulation.plugins.random.RandomPluginTrainer;
+import com.mazebert.simulation.systems.DamageSystemTrainer;
+import com.mazebert.simulation.systems.ExperienceSystem;
+import com.mazebert.simulation.systems.LootSystemTrainer;
 import com.mazebert.simulation.units.TestTower;
 import com.mazebert.simulation.units.potions.PotionType;
 import com.mazebert.simulation.units.towers.Tower;
@@ -26,6 +29,9 @@ public strictfp class ItemTest extends SimTest {
         randomPlugin = randomPluginTrainer;
         unitGateway = new UnitGateway();
         gameGateway = new GameGateway();
+        damageSystem = new DamageSystemTrainer();
+        lootSystem = new LootSystemTrainer();
+        experienceSystem = new ExperienceSystem();
 
         wizard = new Wizard();
         unitGateway.addUnit(wizard);
