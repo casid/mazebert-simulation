@@ -229,6 +229,12 @@ public strictfp class Creep extends Unit {
         }
     }
 
+    public void resurrect(double health) {
+        this.maxHealth = health;
+        this.health = health;
+        setState(CreepState.Running);
+    }
+
     public boolean isDead() {
         return health <= 0.0f;
     }

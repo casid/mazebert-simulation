@@ -221,7 +221,9 @@ public strictfp class WaveSpawner implements OnGameStartedListener, OnWaveStarte
 
     @Override
     public void onDead(Creep creep) {
-        unitGateway.removeUnit(creep);
+        if (creep.isDead()) {
+            unitGateway.removeUnit(creep);
+        }
     }
 
     @Override
