@@ -57,7 +57,7 @@ public strictfp enum ItemType implements CardType<Item> {
     DarkBabySword(44, DarkBabySword.class),
     DarkGoldCoins(45, DarkGoldCoins.class),
     DarkRingOfGreed(46, DarkRingOfGreed.class),
-//    DarkMeatMallet(47, DarkMeatMallet.class),
+    DarkMeatMallet(47, DarkMeatMallet.class),
 //    DarkCauldron(48, DarkCauldron.class),
 //    DarkFistfulOfSteel(49, DarkFistfulOfSteel.class),
     DarkBlade(50, DarkBlade.class),
