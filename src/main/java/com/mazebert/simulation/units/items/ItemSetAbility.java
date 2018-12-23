@@ -31,6 +31,10 @@ public abstract strictfp class ItemSetAbility extends StackableAbility<Tower> im
         // not used
     }
 
+    protected int getAmount() {
+        return currentItems.size();
+    }
+
     @Override
     public void onItemEquipped(Tower tower, int index, Item oldItem, Item newItem) {
         int oldAmount = currentItems.size();

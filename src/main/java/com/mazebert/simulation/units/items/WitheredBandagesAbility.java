@@ -3,7 +3,7 @@ package com.mazebert.simulation.units.items;
 import com.mazebert.simulation.units.abilities.SpeedWithLevelBonusAbility;
 import com.mazebert.simulation.units.towers.Tower;
 
-public class WitheredBandagesAbility extends SpeedWithLevelBonusAbility {
+public strictfp class WitheredBandagesAbility extends SpeedWithLevelBonusAbility {
     private static final float luckBonus = 0.1f;
 
     public WitheredBandagesAbility() {

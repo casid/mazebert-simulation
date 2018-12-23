@@ -244,14 +244,14 @@ public class LootTest extends SimTest {
                 0.0f, // This is a drop
                 0.01f, // The rarity of this drop is uncommon
                 0.0f, // This is an item drop
-                0.9f // It's a meat mallet!
+                0.9f // It's a *!
         );
         creep.setMaxDrops(1);
 
         whenTowerAttacks();
 
         assertThat(wizard1.itemStash.get(0).amount).isEqualTo(1);
-        assertThat(wizard1.itemStash.get(0).cardType).isEqualTo(ItemType.MeatMallet);
+        assertThat(wizard1.itemStash.get(0).cardType).isEqualTo(ItemType.WitheredCactus);
     }
 
     @Test

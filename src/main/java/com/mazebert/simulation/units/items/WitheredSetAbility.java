@@ -29,6 +29,11 @@ public strictfp class WitheredSetAbility extends ItemSetAbility implements OnDam
             if (getUnit().isAbilityTriggered(0.02f)) {
                 target.warpInTime(-1.0f);
             }
+
+            if (getAmount() >= 3) {
+                WitheredSetEffect effect = target.addAbilityStack(WitheredSetEffect.class);
+                effect.setDuration(6.0f);
+            }
         }
     }
 

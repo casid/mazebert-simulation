@@ -23,7 +23,7 @@ public strictfp abstract class DurationEffect extends StackableAbility<Creep> im
     public void onUpdate(float dt) {
         remainingSeconds -= dt;
         if (remainingSeconds <= 0) {
-            getUnit().removeAbility(this);
+            getUnit().removeAllAbilityStacks(this);
         }
     }
 

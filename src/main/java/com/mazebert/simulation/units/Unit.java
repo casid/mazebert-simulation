@@ -88,9 +88,8 @@ public abstract strictfp class Unit implements Hashable {
 
         if (ability == null) {
             ability = addAbilityByClass(abilityClass);
-        } else {
-            ability.addStack();
         }
+        ability.addStack();
 
         return ability;
     }
@@ -142,6 +141,12 @@ public abstract strictfp class Unit implements Hashable {
         }
 
         return ability;
+    }
+
+    @SuppressWarnings("unchecked")
+    public <T extends StackableAbility> void removeAllAbilityStacks(T ability) {
+        ability.removeAllStacks();
+        removeAbilityInternal(ability);
     }
 
     @SuppressWarnings("unchecked")

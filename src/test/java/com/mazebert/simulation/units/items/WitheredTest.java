@@ -11,12 +11,13 @@ import static com.mazebert.simulation.units.creeps.CreepBuilder.creep;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.jusecase.Builders.a;
 
-public class WitheredTest extends ItemTest {
+public strictfp class WitheredTest extends ItemTest {
 
     Creep creep;
 
     @BeforeEach
     void setUp() {
+        tower.addRange(10);
         tower.addAbility(new AttackAbility());
         tower.addAbility(new InstantDamageAbility());
 
@@ -54,6 +55,52 @@ public class WitheredTest extends ItemTest {
         whenTowerAttacks();
 
         assertThat(creep.getX()).isEqualTo(0);
+    }
+
+    @Test
+    void threeItems() {
+        whenItemIsEquipped(ItemType.WitheredCactus, 3);
+        whenItemIsEquipped(ItemType.WitheredToadstool, 1);
+        whenItemIsEquipped(ItemType.WitheredBandages, 2);
+        whenTowerAttacks();
+
+        assertThat(creep.getDamageModifier()).isEqualTo(1.03f);
+    }
+
+    @Test
+    void threeItems_stacks() {
+        whenItemIsEquipped(ItemType.WitheredCactus, 3);
+        whenItemIsEquipped(ItemType.WitheredToadstool, 1);
+        whenItemIsEquipped(ItemType.WitheredBandages, 2);
+        whenTowerAttacks();
+        whenTowerAttacks();
+        whenTowerAttacks();
+
+        assertThat(creep.getDamageModifier()).isEqualTo(1.0899999f);
+    }
+
+    @Test
+    void threeItems_expire() {
+        whenItemIsEquipped(ItemType.WitheredCactus, 3);
+        whenItemIsEquipped(ItemType.WitheredToadstool, 1);
+        whenItemIsEquipped(ItemType.WitheredBandages, 2);
+        whenTowerAttacks();
+        whenTowerAttacks();
+        whenTowerAttacks();
+        creep.simulate(6.0f);
+
+        assertThat(creep.getDamageModifier()).isEqualTo(0.99999994f);
+    }
+
+    @Test
+    void threeItems_oneDropped() {
+        whenItemIsEquipped(ItemType.WitheredCactus, 3);
+        whenItemIsEquipped(ItemType.WitheredToadstool, 1);
+        whenItemIsEquipped(ItemType.WitheredBandages, 2);
+        whenItemIsEquipped(null, 3);
+        whenTowerAttacks();
+
+        assertThat(creep.getDamageModifier()).isEqualTo(1.0f);
     }
 
     private void whenTowerAttacks() {

@@ -3,7 +3,7 @@ package com.mazebert.simulation.units.items;
 import com.mazebert.simulation.units.abilities.FalDamageWithLevelBonusAbility;
 import com.mazebert.simulation.units.towers.Tower;
 
-public class WitheredToadstoolAbility extends FalDamageWithLevelBonusAbility {
+public strictfp class WitheredToadstoolAbility extends FalDamageWithLevelBonusAbility {
     private static final float goldMalus = -0.3f;
 
     public WitheredToadstoolAbility() {
