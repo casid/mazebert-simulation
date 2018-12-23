@@ -146,9 +146,6 @@ public abstract strictfp class Stash<T extends Card> implements ReadonlyStash<T>
         }
 
         int dropIndex = randomPlugin.getInt(0, amount - 1);
-
-        // TODO check if unique/legendary card has already dropped
-
         return possibleDrops[dropIndex];
     }
 
