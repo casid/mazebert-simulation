@@ -5,6 +5,7 @@ import com.mazebert.simulation.Wave;
 import com.mazebert.simulation.WaveOrigin;
 import com.mazebert.simulation.WaveType;
 import com.mazebert.simulation.plugins.random.RandomPlugin;
+import com.mazebert.simulation.units.creeps.CreepModifier;
 import com.mazebert.simulation.units.creeps.CreepType;
 
 import java.util.ArrayDeque;
@@ -60,6 +61,8 @@ public strictfp class WaveGateway implements ReadonlyWaveGateway {
         wave.maxSecondsToNextCreep = wave.type.getMaxSecondsToNextCreep();
         wave.creepType = rollCreepType(wave, randomPlugin);
         wave.armorType = rollArmorType(wave, randomPlugin);
+        wave.creepModifier1 = rollCreepModifier1(wave, randomPlugin);
+        wave.creepModifier2 = rollCreepModifier2(wave, randomPlugin);
         return wave;
     }
 
@@ -107,6 +110,38 @@ public strictfp class WaveGateway implements ReadonlyWaveGateway {
         }
 
         return randomPlugin.get(RANDOM_ARMOR_TYPES);
+    }
+
+    private CreepModifier rollCreepModifier1(Wave wave, RandomPlugin randomPlugin) {
+        switch (wave.type) {
+            case Challenge:
+            case MassChallenge:
+            case Horseman:
+                return null;
+        }
+
+        if (randomPlugin.getFloatAbs() < 0.3f) {
+            return null;
+        }
+
+        return randomPlugin.get(CreepModifier.values());
+    }
+
+    private CreepModifier rollCreepModifier2(Wave wave, RandomPlugin randomPlugin) {
+        if (wave.creepModifier1 == null) {
+            return null;
+        }
+
+        if (randomPlugin.getFloatAbs() < 0.3f) {
+            return null;
+        }
+
+        CreepModifier modifier = randomPlugin.get(CreepModifier.values());
+        if (!modifier.isCompatible(wave.creepModifier1)) {
+            return null;
+        }
+
+        return modifier;
     }
 
     @Override

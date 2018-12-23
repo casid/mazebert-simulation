@@ -5,6 +5,7 @@ import com.mazebert.simulation.SimTest;
 import com.mazebert.simulation.Wave;
 import com.mazebert.simulation.WaveType;
 import com.mazebert.simulation.plugins.random.RandomPluginTrainer;
+import com.mazebert.simulation.units.creeps.CreepModifier;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -88,6 +89,38 @@ class WaveGatewayTest extends SimTest {
         randomPluginTrainer.givenFloatAbs(0.0f, 0.8f);
         whenWaveIsGenerated();
         assertThat(wave.armorType).isEqualTo(ArmorType.Vex);
+    }
+
+    @Test
+    void waveGeneration_modifiers() {
+        randomPluginTrainer.givenFloatAbs(0.0f, 0.0f, 0.0f, 0.0f);
+        whenWaveIsGenerated();
+        assertThat(wave.creepModifier1).isEqualTo(null);
+        assertThat(wave.creepModifier2).isEqualTo(null);
+    }
+
+    @Test
+    void waveGeneration_modifiers_fast() {
+        randomPluginTrainer.givenFloatAbs(0.0f, 0.0f, 0.0f, 0.31f, 0.0f);
+        whenWaveIsGenerated();
+        assertThat(wave.creepModifier1).isEqualTo(CreepModifier.Fast);
+        assertThat(wave.creepModifier2).isEqualTo(null);
+    }
+
+    @Test
+    void waveGeneration_modifiers_fast_wisdom() {
+        randomPluginTrainer.givenFloatAbs(0.0f, 0.0f, 0.0f, 0.31f, 0.0f, 0.31f, 0.4f);
+        whenWaveIsGenerated();
+        assertThat(wave.creepModifier1).isEqualTo(CreepModifier.Fast);
+        assertThat(wave.creepModifier2).isEqualTo(CreepModifier.Wisdom);
+    }
+
+    @Test
+    void waveGeneration_modifiers_fast_slow_notPossible() {
+        randomPluginTrainer.givenFloatAbs(0.0f, 0.0f, 0.0f, 0.31f, 0.0f, 0.31f, 0.2f);
+        whenWaveIsGenerated();
+        assertThat(wave.creepModifier1).isEqualTo(CreepModifier.Fast);
+        assertThat(wave.creepModifier2).isEqualTo(null);
     }
 
     @Test
