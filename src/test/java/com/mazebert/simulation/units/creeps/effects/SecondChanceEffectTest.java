@@ -4,6 +4,7 @@ import com.mazebert.simulation.SimTest;
 import com.mazebert.simulation.SimulationListeners;
 import com.mazebert.simulation.WaveSpawner;
 import com.mazebert.simulation.gateways.UnitGateway;
+import com.mazebert.simulation.plugins.ClientPluginTrainer;
 import com.mazebert.simulation.plugins.random.RandomPluginTrainer;
 import com.mazebert.simulation.systems.DamageSystemTrainer;
 import com.mazebert.simulation.systems.ExperienceSystem;
@@ -38,6 +39,7 @@ public strictfp class SecondChanceEffectTest extends SimTest {
         lootSystem = new LootSystemTrainer();
         experienceSystem = new ExperienceSystem();
         waveSpawner = new WaveSpawner();
+        clientPlugin = new ClientPluginTrainer();
 
         tower = new TestTower();
         tower.addAbility(new AttackAbility());
@@ -46,6 +48,10 @@ public strictfp class SecondChanceEffectTest extends SimTest {
 
         creep = a(creep());
         creep.addAbility(new SecondChanceEffect());
+        creep.setExperience(10);
+        creep.setGold(23);
+        creep.setMinDrops(1);
+        creep.setMaxDrops(2);
         creep.onDead.add(waveSpawner);
         unitGateway.addUnit(creep);
     }
@@ -58,6 +64,10 @@ public strictfp class SecondChanceEffectTest extends SimTest {
         assertThat(creep.getState()).isEqualTo(CreepState.Running);
         assertThat(creep.getHealth()).isEqualTo(50);
         assertThat(creep.getMaxHealth()).isEqualTo(50);
+        assertThat(creep.getGold()).isEqualTo(0);
+        assertThat(creep.getExperience()).isEqualTo(0);
+        assertThat(creep.getMinDrops()).isEqualTo(0);
+        assertThat(creep.getMaxDrops()).isEqualTo(0);
         assertThat(unitGateway.hasUnit(creep)).isTrue();
     }
 

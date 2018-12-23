@@ -230,6 +230,10 @@ public strictfp class Creep extends Unit {
     public void resurrect(double health) {
         this.maxHealth = health;
         this.health = health;
+        this.experience = 0;
+        this.gold = 0;
+        this.maxDrops = 0;
+        this.minDrops = 0;
         setState(CreepState.Running);
         onResurrect.dispatch(this);
     }
