@@ -3,10 +3,7 @@ package com.mazebert.simulation.units.creeps;
 import com.mazebert.simulation.Path;
 import com.mazebert.simulation.Wave;
 import com.mazebert.simulation.hash.Hash;
-import com.mazebert.simulation.listeners.OnDead;
-import com.mazebert.simulation.listeners.OnDeath;
-import com.mazebert.simulation.listeners.OnHealthChanged;
-import com.mazebert.simulation.listeners.OnTargetReached;
+import com.mazebert.simulation.listeners.*;
 import com.mazebert.simulation.units.Unit;
 
 public strictfp class Creep extends Unit {
@@ -16,6 +13,7 @@ public strictfp class Creep extends Unit {
 
     public final OnDeath onDeath = new OnDeath();
     public final OnDead onDead = new OnDead();
+    public final OnResurrect onResurrect = new OnResurrect();
     public final OnTargetReached onTargetReached = new OnTargetReached();
     public final OnHealthChanged onHealthChanged = new OnHealthChanged();
 
@@ -233,6 +231,7 @@ public strictfp class Creep extends Unit {
         this.maxHealth = health;
         this.health = health;
         setState(CreepState.Running);
+        onResurrect.dispatch(this);
     }
 
     public boolean isDead() {
