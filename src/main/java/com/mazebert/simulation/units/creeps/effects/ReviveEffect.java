@@ -6,7 +6,7 @@ import com.mazebert.simulation.plugins.random.RandomPlugin;
 import com.mazebert.simulation.units.abilities.Ability;
 import com.mazebert.simulation.units.creeps.Creep;
 
-public strictfp class SecondChanceEffect extends Ability<Creep> implements OnDeadListener {
+public strictfp class ReviveEffect extends Ability<Creep> implements OnDeadListener {
     private final RandomPlugin randomPlugin = Sim.context().randomPlugin;
     private int resurrections;
 

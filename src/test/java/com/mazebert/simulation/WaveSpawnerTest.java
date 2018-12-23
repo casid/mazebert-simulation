@@ -11,7 +11,7 @@ import com.mazebert.simulation.units.creeps.Creep;
 import com.mazebert.simulation.units.creeps.CreepModifier;
 import com.mazebert.simulation.units.creeps.CreepState;
 import com.mazebert.simulation.units.creeps.CreepType;
-import com.mazebert.simulation.units.creeps.effects.SecondChanceEffect;
+import com.mazebert.simulation.units.creeps.effects.ReviveEffect;
 import com.mazebert.simulation.units.wizards.Wizard;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -420,13 +420,13 @@ public strictfp class WaveSpawnerTest extends SimTest {
         Wave wave = new Wave();
         wave.creepCount = 1;
         wave.creepType = CreepType.Orc;
-        wave.creepModifier1 = CreepModifier.SecondChance;
+        wave.creepModifier1 = CreepModifier.Revive;
         waveGateway.addWave(wave);
 
         whenAllCreepsAreSpawned();
 
         assertThat(getCreep(0).getHealth()).isEqualTo(128);
-        assertThat(getCreep(0).getAbility(SecondChanceEffect.class)).isNotNull();
+        assertThat(getCreep(0).getAbility(ReviveEffect.class)).isNotNull();
     }
 
     @Test

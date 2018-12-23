@@ -1,6 +1,6 @@
 package com.mazebert.simulation.units.creeps;
 
-import com.mazebert.simulation.units.creeps.effects.SecondChanceEffect;
+import com.mazebert.simulation.units.creeps.effects.ReviveEffect;
 
 public strictfp enum CreepModifier {
     Fast,
@@ -8,7 +8,7 @@ public strictfp enum CreepModifier {
     Wisdom,
     Rich,
     Armor,
-    SecondChance,
+    Revive,
     ;
 
     public void apply(Creep creep) {
@@ -32,10 +32,10 @@ public strictfp enum CreepModifier {
             case Armor:
                 creep.addArmor(30);
                 break;
-            case SecondChance:
+            case Revive:
                 creep.setMaxHealth(creep.getMaxHealth() / 2);
                 creep.setHealth(creep.getMaxHealth());
-                creep.addAbility(new SecondChanceEffect());
+                creep.addAbility(new ReviveEffect());
                 break;
         }
     }

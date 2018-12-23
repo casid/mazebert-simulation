@@ -22,7 +22,7 @@ import static com.mazebert.simulation.units.creeps.CreepBuilder.creep;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.jusecase.Builders.a;
 
-public strictfp class SecondChanceEffectTest extends SimTest {
+public strictfp class ReviveEffectTest extends SimTest {
     RandomPluginTrainer randomPluginTrainer = new RandomPluginTrainer();
     DamageSystemTrainer damageSystemTrainer = new DamageSystemTrainer();
 
@@ -47,7 +47,7 @@ public strictfp class SecondChanceEffectTest extends SimTest {
         unitGateway.addUnit(tower);
 
         creep = a(creep());
-        creep.addAbility(new SecondChanceEffect());
+        creep.addAbility(new ReviveEffect());
         creep.setExperience(10);
         creep.setGold(23);
         creep.setMinDrops(1);
