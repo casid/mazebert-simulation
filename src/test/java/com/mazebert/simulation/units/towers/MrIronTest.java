@@ -10,6 +10,7 @@ import com.mazebert.simulation.gateways.UnitGateway;
 import com.mazebert.simulation.systems.DamageSystemTrainer;
 import com.mazebert.simulation.units.abilities.ActiveAbilityType;
 import com.mazebert.simulation.units.creeps.Creep;
+import com.mazebert.simulation.units.items.FrozenBook;
 import com.mazebert.simulation.units.items.ItemType;
 import com.mazebert.simulation.units.items.ScepterOfTime;
 import com.mazebert.simulation.units.wizards.Wizard;
@@ -73,6 +74,15 @@ class MrIronTest extends SimTest {
         whenAbilityIsActivated();
 
         assertThat(mrIron.getItem(0)).isInstanceOf(ScepterOfTime.class);
+    }
+
+    @Test
+    void construct_noSets() {
+        givenItemIsEquipped(ItemType.FrozenBook, 0);
+
+        whenAbilityIsActivated();
+
+        assertThat(mrIron.getItem(0)).isInstanceOf(FrozenBook.class);
     }
 
     @Test

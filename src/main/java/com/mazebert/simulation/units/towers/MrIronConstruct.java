@@ -34,13 +34,15 @@ public strictfp class MrIronConstruct extends ActiveAbility {
             return false;
         }
 
+        if (item.isSet()) {
+            return false;
+        }
+
         switch (item.getRarity()) {
             case Unique:
             case Legendary:
                 return false;
         }
-
-        // TODO set items
 
         return true;
     }
