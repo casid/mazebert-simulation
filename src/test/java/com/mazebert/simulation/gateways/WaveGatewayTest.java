@@ -124,6 +124,14 @@ class WaveGatewayTest extends SimTest {
     }
 
     @Test
+    void waveGeneration_modifiers_same_same_notPossible() {
+        randomPluginTrainer.givenFloatAbs(0.0f, 0.0f, 0.0f, 0.31f, 0.4f, 0.31f, 0.4f);
+        whenWaveIsGenerated();
+        assertThat(wave.creepModifier1).isEqualTo(CreepModifier.Wisdom);
+        assertThat(wave.creepModifier2).isEqualTo(null);
+    }
+
+    @Test
     void waveGeneration_challenge() {
         round = 7;
 

@@ -198,6 +198,13 @@ public strictfp class WaveSpawner implements OnGameStartedListener, OnWaveStarte
         }
 
         creep.setType(wave.creepType);
+
+        if (wave.creepModifier1 != null) {
+            wave.creepModifier1.apply(creep);
+            if (wave.creepModifier2 != null) {
+                wave.creepModifier2.apply(creep);
+            }
+        }
     }
 
     private void spawnCreep(Creep creep) {

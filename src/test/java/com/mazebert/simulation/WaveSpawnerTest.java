@@ -8,8 +8,10 @@ import com.mazebert.simulation.systems.ExperienceSystem;
 import com.mazebert.simulation.systems.LootSystem;
 import com.mazebert.simulation.units.Unit;
 import com.mazebert.simulation.units.creeps.Creep;
+import com.mazebert.simulation.units.creeps.CreepModifier;
 import com.mazebert.simulation.units.creeps.CreepState;
 import com.mazebert.simulation.units.creeps.CreepType;
+import com.mazebert.simulation.units.creeps.effects.SecondChanceEffect;
 import com.mazebert.simulation.units.wizards.Wizard;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -20,7 +22,7 @@ import java.util.concurrent.atomic.AtomicReference;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class WaveSpawnerTest extends SimTest {
+public strictfp class WaveSpawnerTest extends SimTest {
 
     RandomPluginTrainer randomPluginTrainer = new RandomPluginTrainer();
 
@@ -355,6 +357,91 @@ public class WaveSpawnerTest extends SimTest {
         whenAllCreepsAreSpawned();
 
         assertThat(getCreep(0).getArmor()).isEqualTo(10);
+    }
+
+    @Test
+    void modifier_rich() {
+        Wave wave = new Wave();
+        wave.creepCount = 1;
+        wave.creepType = CreepType.Orc;
+        wave.creepModifier1 = CreepModifier.Rich;
+        waveGateway.addWave(wave);
+
+        whenAllCreepsAreSpawned();
+
+        assertThat(getCreep(0).getGold()).isEqualTo(81);
+    }
+
+    @Test
+    void modifier_fast() {
+        Wave wave = new Wave();
+        wave.creepCount = 1;
+        wave.creepType = CreepType.Orc;
+        wave.creepModifier1 = CreepModifier.Fast;
+        waveGateway.addWave(wave);
+
+        whenAllCreepsAreSpawned();
+
+        assertThat(getCreep(0).getSpeedModifier()).isEqualTo(1.5f);
+        assertThat(getCreep(0).getMaxHealth()).isEqualTo(170.66666666666666);
+        assertThat(getCreep(0).getHealth()).isEqualTo(170.66666666666666);
+    }
+
+    @Test
+    void modifier_slow() {
+        Wave wave = new Wave();
+        wave.creepCount = 1;
+        wave.creepType = CreepType.Orc;
+        wave.creepModifier1 = CreepModifier.Slow;
+        waveGateway.addWave(wave);
+
+        whenAllCreepsAreSpawned();
+
+        assertThat(getCreep(0).getSpeedModifier()).isEqualTo(0.6666667f);
+        assertThat(getCreep(0).getMaxHealth()).isEqualTo(384);
+        assertThat(getCreep(0).getHealth()).isEqualTo(384);
+    }
+
+    @Test
+    void modifier_armor() {
+        Wave wave = new Wave();
+        wave.creepCount = 1;
+        wave.creepType = CreepType.Orc;
+        wave.creepModifier1 = CreepModifier.Armor;
+        waveGateway.addWave(wave);
+
+        whenAllCreepsAreSpawned();
+
+        assertThat(getCreep(0).getArmor()).isEqualTo(31);
+    }
+
+    @Test
+    void modifier_secondChance() {
+        Wave wave = new Wave();
+        wave.creepCount = 1;
+        wave.creepType = CreepType.Orc;
+        wave.creepModifier1 = CreepModifier.SecondChance;
+        waveGateway.addWave(wave);
+
+        whenAllCreepsAreSpawned();
+
+        assertThat(getCreep(0).getHealth()).isEqualTo(128);
+        assertThat(getCreep(0).getAbility(SecondChanceEffect.class)).isNotNull();
+    }
+
+    @Test
+    void modifier_rich_wisdom() {
+        Wave wave = new Wave();
+        wave.creepCount = 1;
+        wave.creepType = CreepType.Orc;
+        wave.creepModifier1 = CreepModifier.Rich;
+        wave.creepModifier2 = CreepModifier.Wisdom;
+        waveGateway.addWave(wave);
+
+        whenAllCreepsAreSpawned();
+
+        assertThat(getCreep(0).getGold()).isEqualTo(81);
+        assertThat(getCreep(0).getExperienceModifier()).isEqualTo(1.6f);
     }
 
     @Test
