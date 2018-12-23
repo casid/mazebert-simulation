@@ -131,6 +131,10 @@ public strictfp final class Simulation {
         turnTimeInSeconds = unmodifiedTurnTimeInSeconds * timeModifier;
     }
 
+    public boolean isPause() {
+        return pause;
+    }
+
     @SuppressWarnings("unused") // Used by client
     public float getTimeModifier() {
         if (pause) {
