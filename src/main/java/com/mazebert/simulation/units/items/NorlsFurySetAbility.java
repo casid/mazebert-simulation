@@ -2,7 +2,7 @@ package com.mazebert.simulation.units.items;
 
 import java.util.EnumSet;
 
-public class NorlsFurySetAbility extends ItemSetAbility {
+public strictfp class NorlsFurySetAbility extends ItemSetAbility {
     private static final float bonus = 0.1f;
 
     public NorlsFurySetAbility() {

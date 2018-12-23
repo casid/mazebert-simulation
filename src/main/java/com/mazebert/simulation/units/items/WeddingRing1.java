@@ -1,6 +1,6 @@
 package com.mazebert.simulation.units.items;
 
-public class WeddingRing1 extends WeddingRing {
+public strictfp class WeddingRing1 extends WeddingRing {
     public WeddingRing1() {
         super(0);
     }

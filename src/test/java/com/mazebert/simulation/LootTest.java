@@ -20,7 +20,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class LootTest extends SimTest {
 
-    private static final float BABY_SWORD_ROLL = 0.3f;
+    private static final float BABY_SWORD_ROLL = 0.2f;
     private static final float BABY_SWORD_ROLL_ILVL_1 = 0.58f;
     private static final float WOODEN_STAFF_ROLL = 0.0f;
 

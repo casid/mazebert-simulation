@@ -64,6 +64,11 @@ public strictfp enum TowerType implements CardType<Tower> {
     }
 
     @Override
+    public int id() {
+        return id;
+    }
+
+    @Override
     public Tower instance() {
         if (instance == null) {
             instance = create();

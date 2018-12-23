@@ -182,7 +182,11 @@ public abstract strictfp class Stash<T extends Card> implements ReadonlyStash<T>
 
         @Override
         public int compare(CardType<? extends Card> o1, CardType<? extends Card> o2) {
-            return Integer.compare(o1.instance().getItemLevel(), o2.instance().getItemLevel());
+            int result = Integer.compare(o1.instance().getItemLevel(), o2.instance().getItemLevel());
+            if (result == 0) {
+                result = Integer.compare(o1.id(), o2.id());
+            }
+            return result;
         }
     }
 }

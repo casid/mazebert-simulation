@@ -78,6 +78,11 @@ public strictfp enum PotionType implements CardType<Potion> {
     }
 
     @Override
+    public int id() {
+        return id;
+    }
+
+    @Override
     public Potion instance() {
         if (instance == null) {
             instance = create();

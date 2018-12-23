@@ -118,6 +118,11 @@ public strictfp enum ItemType implements CardType<Item> {
     }
 
     @Override
+    public int id() {
+        return id;
+    }
+
+    @Override
     public Item instance() {
         if (instance == null) {
             instance = create();
