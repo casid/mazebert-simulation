@@ -6,6 +6,7 @@ import org.jusecase.executors.manual.ManualUsecaseExecutor;
 public strictfp class CommandExecutor extends ManualUsecaseExecutor {
     public void init() {
         addUsecase(new InitGame());
+        addUsecase(new InitPlayer());
         addUsecase(new BuildTower());
         addUsecase(new NextWave());
         addUsecase(new EquipItem());

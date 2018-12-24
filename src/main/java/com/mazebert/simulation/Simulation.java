@@ -2,6 +2,7 @@ package com.mazebert.simulation;
 
 import com.mazebert.simulation.commands.Command;
 import com.mazebert.simulation.commands.InitGameCommand;
+import com.mazebert.simulation.commands.InitPlayerCommand;
 import com.mazebert.simulation.gateways.*;
 import com.mazebert.simulation.hash.Hash;
 import com.mazebert.simulation.hash.HashHistory;
@@ -47,32 +48,37 @@ public strictfp final class Simulation {
         Sim.context().init(this);
     }
 
-    public void start() {
-        if (gameGateway.getGame().id == null) {
-
-            if (replayWriterGateway.isWriteEnabled()) {
-                ReplayHeader header = new ReplayHeader();
-                header.playerId = playerGateway.getPlayerId();
-                header.playerCount = playerGateway.getPlayerCount();
-                replayWriterGateway.writeHeader(header);
-            }
-
-            List<Command> commands = new ArrayList<>();
-            if (playerGateway.isHost()) {
-                InitGameCommand initGameCommand = new InitGameCommand();
-                initGameCommand.gameId = UuidRandomPlugin.createSeed();
-                initGameCommand.rounds = 250;
-                commands.add(initGameCommand);
-            }
-            schedule(commands, 0);
-
-            schedule(Collections.emptyList(), 1);
-        } else {
-            schedule(Collections.emptyList(), turnGateway.getCurrentTurnNumber());
-            schedule(Collections.emptyList(), turnGateway.getCurrentTurnNumber() + 1);
-
-            simulationListeners.onGameInitialized.dispatch();
+    public void start(InitGameCommand initGameCommand, InitPlayerCommand initPlayerCommand) {
+        if (replayWriterGateway.isWriteEnabled()) {
+            ReplayHeader header = new ReplayHeader();
+            header.playerId = playerGateway.getPlayerId();
+            header.playerCount = playerGateway.getPlayerCount();
+            replayWriterGateway.writeHeader(header);
         }
+
+        scheduleInitGame(initGameCommand);
+        scheduleInitPlayer(initPlayerCommand);
+    }
+
+    public void resume() {
+        schedule(Collections.emptyList(), turnGateway.getCurrentTurnNumber());
+        schedule(Collections.emptyList(), turnGateway.getCurrentTurnNumber() + 1);
+
+        simulationListeners.onGameInitialized.dispatch();
+    }
+
+    private void scheduleInitGame(InitGameCommand initGameCommand) {
+        List<Command> commands = new ArrayList<>();
+        if (initGameCommand != null) {
+            commands.add(initGameCommand);
+        }
+        schedule(commands, 0);
+    }
+
+    private void scheduleInitPlayer(InitPlayerCommand initPlayerCommand) {
+        List<Command> commands = new ArrayList<>();
+        commands.add(initPlayerCommand);
+        schedule(commands, 1);
     }
 
     public void stop() {

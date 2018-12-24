@@ -1,12 +1,16 @@
 package com.mazebert.simulation;
 
 import com.mazebert.java8.Consumer;
+import com.mazebert.simulation.commands.InitGameCommand;
+import com.mazebert.simulation.commands.InitPlayerCommand;
 
 public strictfp class SimulationLoop {
 
     private final String threadName;
     private final Context context;
 
+    private InitGameCommand initGameCommand;
+    private InitPlayerCommand initPlayerCommand;
     private Consumer<Simulation> beforeStartConsumer;
 
     private volatile boolean running;
@@ -17,11 +21,17 @@ public strictfp class SimulationLoop {
         this.context = context;
     }
 
-    public void start() {
-        start(null);
+    public void start(InitGameCommand initGameCommand, InitPlayerCommand initPlayerCommand) {
+        start(initGameCommand, initPlayerCommand, null);
     }
 
-    public void start(Consumer<Simulation> beforeStartConsumer) {
+    public void resume(Consumer<Simulation> beforeStartConsumer) {
+        start(null, null, beforeStartConsumer);
+    }
+
+    private void start(InitGameCommand initGameCommand, InitPlayerCommand initPlayerCommand, Consumer<Simulation> beforeStartConsumer) {
+        this.initGameCommand = initGameCommand;
+        this.initPlayerCommand = initPlayerCommand;
         this.beforeStartConsumer = beforeStartConsumer;
 
         running = true;
@@ -45,8 +55,10 @@ public strictfp class SimulationLoop {
             Simulation simulation = new Simulation();
             if (beforeStartConsumer != null) {
                 beforeStartConsumer.accept(simulation);
+                simulation.resume();
+            } else {
+                simulation.start(initGameCommand, initPlayerCommand);
             }
-            simulation.start();
             while (running) {
                 simulation.process();
             }
