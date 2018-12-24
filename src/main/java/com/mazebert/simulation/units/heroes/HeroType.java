@@ -13,7 +13,7 @@ public strictfp enum HeroType implements CardType<Hero> {
     // 3) ADD NEW IDS TO THE BOTTOM!
     LittleFinger(1, LittleFinger.class),
     ShadowMane(2, ShadowMane.class),
-//    Lycaon(3, Lycaon.class),
+    Lycaon(3, Lycaon.class),
 //    Roderic(4, Roderic.class),
 //    CookieMonster(5, CookieMonster.class),
 //    InnKeeper(6, InnKeeper.class),
