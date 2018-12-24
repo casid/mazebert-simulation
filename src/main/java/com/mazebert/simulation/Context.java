@@ -51,6 +51,7 @@ public strictfp class Context {
     public EarlyCallCountDown earlyCallCountDown;
     public WaveSpawner waveSpawner;
     public final float[] tempChancesForRarity = new float[Rarity.values().length];
+    public int skippedSeconds;
 
     public void init(Simulation simulation) {
         gameSystem = new GameSystem();

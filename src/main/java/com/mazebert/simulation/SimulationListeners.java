@@ -15,6 +15,7 @@ public strictfp class SimulationListeners {
 
     public final OnEarlyCallImpossible onEarlyCallImpossible = new OnEarlyCallImpossible();
     public final OnEarlyCallPossible onEarlyCallPossible = new OnEarlyCallPossible();
+    public final OnSecondsSkipped onSecondsSkipped = new OnSecondsSkipped();
 
     public final OnUpdate onUpdate = new OnUpdate();
     public final OnPause onPause = new OnPause();

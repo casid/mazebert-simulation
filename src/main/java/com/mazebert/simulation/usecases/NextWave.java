@@ -4,6 +4,7 @@ import com.mazebert.simulation.Context;
 import com.mazebert.simulation.Sim;
 import com.mazebert.simulation.SimulationListeners;
 import com.mazebert.simulation.commands.NextWaveCommand;
+import com.mazebert.simulation.countdown.CountDown;
 import com.mazebert.simulation.countdown.EarlyCallCountDown;
 
 public strictfp class NextWave extends Usecase<NextWaveCommand> {
@@ -17,9 +18,9 @@ public strictfp class NextWave extends Usecase<NextWaveCommand> {
         }
 
         if (context.gameCountDown != null) {
-            context.gameCountDown.stop();
+            skipCountDown(context, context.gameCountDown);
         } else if (context.waveCountDown != null) {
-            context.waveCountDown.stop();
+            skipCountDown(context,context.waveCountDown);
         } else {
             simulationListeners.onWaveStarted.dispatch();
         }
@@ -27,5 +28,11 @@ public strictfp class NextWave extends Usecase<NextWaveCommand> {
         context.earlyCallCountDown = new EarlyCallCountDown();
         context.earlyCallCountDown.start();
         simulationListeners.onEarlyCallImpossible.dispatch();
+    }
+
+    private void skipCountDown(Context context, CountDown countDown) {
+        context.skippedSeconds += countDown.getRemainingSeconds();
+        countDown.stop();
+        context.simulationListeners.onSecondsSkipped.dispatch();
     }
 }
