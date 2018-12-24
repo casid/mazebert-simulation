@@ -121,7 +121,7 @@ public strictfp class FormatPlugin {
         int d;
         int f;
         for (d = 0, f = 100; d < max; ++d, f *= 10) {
-            if (((int) value * f) != 0) {
+            if ((int)(value * f) != 0) {
                 break;
             }
         }
