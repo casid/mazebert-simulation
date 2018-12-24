@@ -3,6 +3,11 @@ package com.mazebert.simulation.units.heroes;
 import com.mazebert.simulation.Rarity;
 
 public strictfp class LittleFinger extends Hero {
+
+    public LittleFinger() {
+        addAbility(new LittleFingerAbility());
+    }
+
     @Override
     public String getName() {
         return "Sir Littlefinger";
