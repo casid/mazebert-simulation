@@ -53,7 +53,7 @@ public strictfp enum ItemType implements CardType<Item> {
     WitheredBandages(40, WitheredBandages.class),
     ImpatienceWrathWatch(41, ImpatienceWrathWatch.class),
     ImpatienceWrathTrain(42, ImpatienceWrathTrain.class),
-//    ImpatienceWrathForce(43, ImpatienceWrathForce.class),
+    ImpatienceWrathForce(43, ImpatienceWrathForce.class),
     DarkBabySword(44, DarkBabySword.class),
     DarkGoldCoins(45, DarkGoldCoins.class),
     DarkRingOfGreed(46, DarkRingOfGreed.class),
