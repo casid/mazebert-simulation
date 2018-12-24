@@ -5,10 +5,13 @@ import com.mazebert.simulation.listeners.OnLevelChangedListener;
 import com.mazebert.simulation.listeners.OnUnitAddedListener;
 import com.mazebert.simulation.listeners.OnUnitRemovedListener;
 import com.mazebert.simulation.units.Unit;
+import com.mazebert.simulation.units.towers.Tower;
 import com.mazebert.simulation.units.towers.Wolf;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public strictfp class WolfSystem implements OnUnitAddedListener, OnLevelChangedListener, OnUnitRemovedListener {
     public static final float CRIT_CHANCE = 0.005f;
@@ -17,6 +20,7 @@ public strictfp class WolfSystem implements OnUnitAddedListener, OnLevelChangedL
     private final ExperienceSystem experienceSystem = Sim.context().experienceSystem;
 
     private List<Wolf> wolves = new ArrayList<>();
+    private Set<Tower> pretenders = new HashSet<>();
     private Wolf alphaWolf;
     private int packLevel;
     private float critChance;
@@ -28,9 +32,7 @@ public strictfp class WolfSystem implements OnUnitAddedListener, OnLevelChangedL
         if (unit instanceof Wolf) {
             Wolf wolf = (Wolf) unit;
             wolves.add(wolf);
-
             wolf.onLevelChanged.add(this);
-
             update();
         }
     }
@@ -40,11 +42,21 @@ public strictfp class WolfSystem implements OnUnitAddedListener, OnLevelChangedL
         if (unit instanceof Wolf) {
             Wolf wolf = (Wolf) unit;
             wolves.remove(wolf);
-
             wolf.onLevelChanged.remove(this);
-
             update();
         }
+    }
+
+    public void addPretender(Tower tower) {
+        pretenders.add(tower);
+        tower.onLevelChanged.add(this);
+        update();
+    }
+
+    public void removePretender(Tower tower) {
+        pretenders.remove(tower);
+        tower.onLevelChanged.remove(this);
+        update();
     }
 
     @Override
@@ -56,6 +68,9 @@ public strictfp class WolfSystem implements OnUnitAddedListener, OnLevelChangedL
         packLevel = 0;
         for (Wolf wolf : wolves) {
             packLevel += wolf.getLevel();
+        }
+        for (Tower pretender : pretenders) {
+            packLevel += pretender.getLevel();
         }
 
         changeAlphaWolf(findAlphaWolf());
