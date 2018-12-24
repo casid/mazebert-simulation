@@ -7,6 +7,7 @@ import com.mazebert.simulation.listeners.OnUpdateListener;
 import com.mazebert.simulation.units.potions.Potion;
 import com.mazebert.simulation.units.towers.Tower;
 
+// TODO fix for multiplayer!
 public strictfp class WeddingRingSystem implements OnPotionConsumedListener, OnUpdateListener {
     public static final int SECONDS_FOR_MARRIAGE = 20;
 
