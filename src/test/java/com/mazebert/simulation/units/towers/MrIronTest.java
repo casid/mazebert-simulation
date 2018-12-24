@@ -6,6 +6,7 @@ import com.mazebert.simulation.Simulation;
 import com.mazebert.simulation.SimulationListeners;
 import com.mazebert.simulation.commands.ActivateAbilityCommand;
 import com.mazebert.simulation.commands.EquipItemCommand;
+import com.mazebert.simulation.gateways.PlayerGatewayTrainer;
 import com.mazebert.simulation.gateways.UnitGateway;
 import com.mazebert.simulation.systems.DamageSystemTrainer;
 import com.mazebert.simulation.units.abilities.ActiveAbilityType;
@@ -28,6 +29,7 @@ class MrIronTest extends SimTest {
         simulationListeners = new SimulationListeners();
         unitGateway = new UnitGateway();
         damageSystem = new DamageSystemTrainer();
+        playerGateway = new PlayerGatewayTrainer();
 
         wizard = new Wizard();
         unitGateway.addUnit(wizard);

@@ -35,6 +35,7 @@ public strictfp class ItemTest extends SimTest {
         experienceSystem = new ExperienceSystem();
 
         wizard = new Wizard();
+        wizard.playerId = 1;
         unitGateway.addUnit(wizard);
 
         tower = createTower();

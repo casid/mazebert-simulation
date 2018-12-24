@@ -1,6 +1,7 @@
 package com.mazebert.simulation.units.items;
 
 import com.mazebert.simulation.SimulationListenersTrainer;
+import com.mazebert.simulation.gateways.PlayerGatewayTrainer;
 import com.mazebert.simulation.systems.WeddingRingSystem;
 import com.mazebert.simulation.units.TestTower;
 import com.mazebert.simulation.units.potions.PotionType;
@@ -18,9 +19,11 @@ strictfp class WeddingRingTest extends ItemTest {
     @BeforeEach
     void setUp() {
         simulationListeners = simulationListenersTrainer;
+        playerGateway = new PlayerGatewayTrainer();
         weddingRingSystem = new WeddingRingSystem();
 
         otherTower = new TestTower();
+        otherTower.setWizard(wizard);
         otherTower.setX(1);
         unitGateway.addUnit(otherTower);
     }

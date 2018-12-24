@@ -3,6 +3,7 @@ package com.mazebert.simulation;
 import com.mazebert.simulation.commands.InitGameCommand;
 import com.mazebert.simulation.commands.NextWaveCommand;
 import com.mazebert.simulation.gateways.GameGateway;
+import com.mazebert.simulation.gateways.PlayerGatewayTrainer;
 import com.mazebert.simulation.gateways.TurnGateway;
 import com.mazebert.simulation.gateways.UnitGateway;
 import com.mazebert.simulation.projectiles.ProjectileGateway;
@@ -33,6 +34,7 @@ strictfp class Simulation_LoadTest extends SimTest {
         simulationListeners = new SimulationListeners();
         projectileGateway = new ProjectileGateway();
         gameGateway = new GameGateway();
+        playerGateway = new PlayerGatewayTrainer();
 
         simulation = new Simulation();
     }

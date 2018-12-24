@@ -17,12 +17,12 @@ public strictfp class WeddingRingAbility extends Ability<Tower> {
     @Override
     protected void initialize(Tower unit) {
         super.initialize(unit);
-        system.setTower(index, unit);
+        system.setTower(unit.getPlayerId(), index, unit);
     }
 
     @Override
     protected void dispose(Tower unit) {
-        system.setTower(index, null);
+        system.setTower(unit.getPlayerId(), index, null);
         super.dispose(unit);
     }
 
