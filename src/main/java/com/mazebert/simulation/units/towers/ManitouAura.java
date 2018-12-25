@@ -41,6 +41,6 @@ public strictfp class ManitouAura extends AuraAbility<Tower, Tower> {
 
     @Override
     public String getLevelBonus() {
-        return "+" + BONUS + " multicrit for all towers\nwithin " + getRange() + " range.";
+        return "+" + BONUS + " multicrit for all towers\nwithin " + (int)getRange() + " range.";
     }
 }

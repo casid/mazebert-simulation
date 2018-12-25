@@ -33,7 +33,7 @@ public strictfp class MoneyBinAura extends AuraAbility<Tower, Tower> {
 
     @Override
     public String getDescription() {
-        return "The " + getCurrency().singularLowercase + " bonus of towers within " + getRange() + " range is increased by 60%.";
+        return "The " + getCurrency().singularLowercase + " bonus of towers within " + (int)getRange() + " range is increased by 60%.";
     }
 
     @Override
