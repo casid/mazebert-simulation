@@ -32,4 +32,8 @@ public abstract strictfp class Hero extends Unit implements Card {
     public String getModelId() {
         return null;
     }
+
+    protected String getWizardLevelRequirementText() {
+        return "<c=#fff8c6>Required wizard level: " + getItemLevel() + "</c>";
+    }
 }
