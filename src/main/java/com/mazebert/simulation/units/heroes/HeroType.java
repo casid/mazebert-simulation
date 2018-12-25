@@ -19,7 +19,7 @@ public strictfp enum HeroType implements CardType<Hero> {
     InnKeeper(6, InnKeeper.class),
 //    HoradricMage(7, HoradricMage.class),
     JesterKing(8, JesterKing.class),
-//    HardMode(9, HardMode.class),
+    Kvothe(9, Kvothe.class),
 //    LoanShark(10, LoanShark.class),
 //    JackInTheBox(11, JackInTheBox.class),
     ;
