@@ -43,4 +43,8 @@ public interface Card {
     String getSinceVersion();
 
     void forEachAbility(Consumer<Ability> consumer);
+
+    default boolean isUniqueDrop() {
+        return getRarity() == Rarity.Unique || getRarity() == Rarity.Legendary;
+    }
 }

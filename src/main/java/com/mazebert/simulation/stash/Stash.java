@@ -149,13 +149,13 @@ public abstract strictfp class Stash<T extends Card> implements ReadonlyStash<T>
         return possibleDrops[dropIndex];
     }
 
-    private boolean isUnique(CardType<T> cardType) {
+    private boolean isUniqueDrop(CardType<T> cardType) {
         T card = cardType.instance();
-        return card.getRarity() == Rarity.Unique || card.getRarity() == Rarity.Legendary;
+        return card.isUniqueDrop();
     }
 
     private StashEntry<T> createEntry(CardType<T> cardType) {
-        if (isUnique(cardType)) {
+        if (isUniqueDrop(cardType)) {
             if (!droppedUniques.containsKey(cardType)) {
                 setUnique(cardType, cardType.create());
             }
