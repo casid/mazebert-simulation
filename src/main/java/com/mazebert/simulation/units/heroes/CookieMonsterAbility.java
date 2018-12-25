@@ -1,5 +1,6 @@
 package com.mazebert.simulation.units.heroes;
 
+import com.mazebert.simulation.Context;
 import com.mazebert.simulation.listeners.OnUnitAddedListener;
 import com.mazebert.simulation.units.Currency;
 import com.mazebert.simulation.units.Unit;
@@ -15,7 +16,7 @@ public strictfp class CookieMonsterAbility extends Ability<Hero> implements OnUn
 
     @Override
     public void onUnitAdded(Unit unit) {
-        unit.getWizard().currency = Currency.Cookie;
+        Context.currency = Currency.Cookie;
     }
 
     @Override

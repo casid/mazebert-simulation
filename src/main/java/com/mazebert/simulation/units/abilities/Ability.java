@@ -1,5 +1,6 @@
 package com.mazebert.simulation.units.abilities;
 
+import com.mazebert.simulation.Context;
 import com.mazebert.simulation.Sim;
 import com.mazebert.simulation.plugins.FormatPlugin;
 import com.mazebert.simulation.units.Currency;
@@ -76,15 +77,6 @@ public abstract strictfp class Ability<U extends Unit> {
     }
 
     protected Currency getCurrency() {
-        if (getUnit() != null && getUnit().getWizard() != null) {
-            return getUnit().getWizard().currency;
-        }
-
-        Wizard wizard = Sim.context().unitGateway.getWizard(Sim.context().playerGateway.getPlayerId());
-        if (wizard != null) {
-            return wizard.currency;
-        }
-
-        return Currency.Gold;
+        return Context.currency;
     }
 }

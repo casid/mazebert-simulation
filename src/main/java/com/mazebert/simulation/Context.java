@@ -10,8 +10,11 @@ import com.mazebert.simulation.plugins.SleepPlugin;
 import com.mazebert.simulation.plugins.random.UuidRandomPlugin;
 import com.mazebert.simulation.projectiles.ProjectileGateway;
 import com.mazebert.simulation.systems.*;
+import com.mazebert.simulation.units.Currency;
 
 public strictfp class Context {
+    public static Currency currency = Currency.Gold;
+
     // Connection to app
     public SimulationListeners simulationListeners;
     public SimulationMonitor simulationMonitor;

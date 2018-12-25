@@ -26,7 +26,6 @@ public strictfp class Wizard extends Unit {
     public double experienceModifier = 1;
     public int level = 1;
     public long gold;
-    public Currency currency = Currency.Gold;
     public float interestBonus;
 
     public double bestHit;
@@ -52,7 +51,6 @@ public strictfp class Wizard extends Unit {
         hash.add(experienceModifier);
         hash.add(level);
         hash.add(gold);
-        hash.add(currency);
         hash.add(interestBonus);
 
         hash.add(bestHit);
