@@ -3,6 +3,7 @@ package com.mazebert.simulation.usecases;
 import com.mazebert.simulation.SimulationListeners;
 import com.mazebert.simulation.commands.SellTowerCommand;
 import com.mazebert.simulation.gateways.UnitGateway;
+import com.mazebert.simulation.systems.LootSystem;
 import com.mazebert.simulation.units.TestTower;
 import com.mazebert.simulation.units.items.BabySword;
 import com.mazebert.simulation.units.items.ItemType;
@@ -22,6 +23,7 @@ strictfp class SellTowerTest extends UsecaseTest<SellTowerCommand> {
     void setUp() {
         simulationListeners = new SimulationListeners();
         unitGateway = new UnitGateway();
+        lootSystem = new LootSystem();
 
         wizard = new Wizard();
         wizard.playerId = 1;
