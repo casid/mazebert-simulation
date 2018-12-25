@@ -51,4 +51,10 @@ public strictfp class SimulationListeners {
     public void soundNotification(String sound) {
         onNotification.dispatch(sound, null, 1.0f);
     }
+
+    public void randomSoundNotification(String group, float volume, String ... sounds) {
+        // Don't use simulation random generator!
+        int index = (int)(Math.random() * sounds.length);
+        soundNotification(sounds[index], group, volume);
+    }
 }

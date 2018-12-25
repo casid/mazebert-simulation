@@ -10,6 +10,16 @@ import com.mazebert.simulation.units.towers.Tower;
 public abstract strictfp class HeroTowerBuffAbility extends Ability<Hero> implements OnUnitAddedListener {
     private final SimulationListeners simulationListeners = Sim.context().simulationListeners;
 
+    private final boolean share;
+
+    public HeroTowerBuffAbility() {
+        this(false);
+    }
+
+    public HeroTowerBuffAbility(boolean share) {
+        this.share = share;
+    }
+
     @Override
     protected void initialize(Hero unit) {
         super.initialize(unit);
@@ -24,7 +34,7 @@ public abstract strictfp class HeroTowerBuffAbility extends Ability<Hero> implem
 
     @Override
     public void onUnitAdded(Unit unit) {
-        if (unit instanceof Tower && getUnit().getPlayerId() == unit.getPlayerId()) {
+        if (unit instanceof Tower && (share || getUnit().getPlayerId() == unit.getPlayerId())) {
             buffTower((Tower) unit);
         }
     }

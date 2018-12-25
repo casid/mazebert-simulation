@@ -26,6 +26,9 @@ public abstract strictfp class Unit implements Hashable {
     // Internal flag for simulation usage
     public transient boolean visited;
 
+    // Fast lookup, if this unit has consumed a permanent ability
+    private transient boolean permanentAbility;
+
     private Wizard wizard; // The wizard this unit belongs to
     private float x;
     private float y;
@@ -181,6 +184,10 @@ public abstract strictfp class Unit implements Hashable {
 
     @SuppressWarnings("unchecked")
     private void addAbilityInternal(Ability ability) {
+        if (!permanentAbility && ability.isPermanent()) {
+            permanentAbility = true;
+        }
+
         abilities.add(ability);
         ability.init(this);
 
@@ -243,5 +250,9 @@ public abstract strictfp class Unit implements Hashable {
 
     public float getGoldModifier() {
         return 1;
+    }
+
+    public boolean hasPermanentAbility() {
+        return permanentAbility;
     }
 }
