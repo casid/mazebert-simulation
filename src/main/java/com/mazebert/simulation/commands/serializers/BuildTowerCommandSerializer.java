@@ -15,15 +15,15 @@ public strictfp class BuildTowerCommandSerializer implements BitSerializer<Build
 
     @Override
     public void serialize(BitWriter writer, BuildTowerCommand object) {
-        writer.writeInt12(object.towerType.id);
-        writer.writeInt12(object.x);
-        writer.writeInt12(object.y);
+        writer.writeInt8(object.towerType.id); // TODO change all ids to unsigned int's
+        writer.writeInt8(object.x);
+        writer.writeInt8(object.y);
     }
 
     @Override
     public void deserialize(BitReader reader, BuildTowerCommand object) {
-        object.towerType = TowerType.forId(reader.readInt12());
-        object.x = reader.readInt12();
-        object.y = reader.readInt12();
+        object.towerType = TowerType.forId(reader.readInt8());
+        object.x = reader.readInt8();
+        object.y = reader.readInt8();
     }
 }

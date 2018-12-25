@@ -14,13 +14,13 @@ public strictfp class SellTowerCommandSerializer implements BitSerializer<SellTo
 
     @Override
     public void serialize(BitWriter writer, SellTowerCommand object) {
-        writer.writeInt12(object.x);
-        writer.writeInt12(object.y);
+        writer.writeInt8(object.x);
+        writer.writeInt8(object.y);
     }
 
     @Override
     public void deserialize(BitReader reader, SellTowerCommand object) {
-        object.x = reader.readInt12();
-        object.y = reader.readInt12();
+        object.x = reader.readInt8();
+        object.y = reader.readInt8();
     }
 }
