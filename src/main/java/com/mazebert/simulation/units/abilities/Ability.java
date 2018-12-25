@@ -4,6 +4,7 @@ import com.mazebert.simulation.Sim;
 import com.mazebert.simulation.plugins.FormatPlugin;
 import com.mazebert.simulation.units.Currency;
 import com.mazebert.simulation.units.Unit;
+import com.mazebert.simulation.units.wizards.Wizard;
 
 public abstract strictfp class Ability<U extends Unit> {
 
@@ -78,6 +79,12 @@ public abstract strictfp class Ability<U extends Unit> {
         if (getUnit() != null && getUnit().getWizard() != null) {
             return getUnit().getWizard().currency;
         }
+
+        Wizard wizard = Sim.context().unitGateway.getWizard(Sim.context().playerGateway.getPlayerId());
+        if (wizard != null) {
+            return wizard.currency;
+        }
+
         return Currency.Gold;
     }
 }
