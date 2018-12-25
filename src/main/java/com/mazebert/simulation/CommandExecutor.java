@@ -8,6 +8,7 @@ public strictfp class CommandExecutor extends ManualUsecaseExecutor {
         addUsecase(new InitGame());
         addUsecase(new InitPlayer());
         addUsecase(new BuildTower());
+        addUsecase(new SellTower());
         addUsecase(new NextWave());
         addUsecase(new EquipItem());
         addUsecase(new DrinkPotion());

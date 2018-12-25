@@ -23,6 +23,7 @@ public strictfp class SimulationMessageProtocol extends BitMessageProtocol {
         protocol.register(new InitGameCommandSerializer());
         protocol.register(new InitPlayerCommandSerializer());
         protocol.register(new BuildTowerCommandSerializer());
+        protocol.register(new SellTowerCommandSerializer());
         protocol.register(new NextWaveCommandSerializer());
         protocol.register(new EquipItemCommandSerializer());
         protocol.register(new DrinkPotionCommandSerializer());

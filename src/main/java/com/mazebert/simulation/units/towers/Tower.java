@@ -248,10 +248,6 @@ public strictfp abstract class Tower extends Unit implements CooldownUnit, Card,
         return attackSpeedAdd;
     }
 
-    public void setAttackSpeedAdd(float attackSpeedAdd) {
-        this.attackSpeedAdd = attackSpeedAdd;
-    }
-
     public float getAttackSpeedModifier() {
         float modifier = 1.0f + attackSpeedAdd;
         return modifier < 0 ? 0 : modifier;
@@ -283,10 +279,12 @@ public strictfp abstract class Tower extends Unit implements CooldownUnit, Card,
         this.attackType = attackType;
     }
 
+    @SuppressWarnings("unused") // by ui
     public int getImageOffsetOnCardX() {
         return 0;
     }
 
+    @SuppressWarnings("unused") // by ui
     public int getImageOffsetOnCardY() {
         return 0;
     }
@@ -459,16 +457,8 @@ public strictfp abstract class Tower extends Unit implements CooldownUnit, Card,
         return itemChance;
     }
 
-    public void setItemChance(float itemChance) {
-        this.itemChance = itemChance;
-    }
-
     public float getItemQuality() {
         return itemQuality;
-    }
-
-    public void setItemQuality(float itemQuality) {
-        this.itemQuality = itemQuality;
     }
 
     private Item[] getItemsCopy() {

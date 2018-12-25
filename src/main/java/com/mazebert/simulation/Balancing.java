@@ -17,6 +17,7 @@ public strictfp class Balancing {
     public static final float DROP_QUALITY_CONST = 0.4f;
     public static final int STARTING_GOLD = 150;
     public static final float GOLD_INTEREST = 0.02f;
+    public static final float GOLD_RETURN_WHEN_TOWER_SOLD = 0.8f;
     public static final int MAX_GOLD_INTEREST = 1000000;
     public static final float PENALTY_FOR_LEAKING_ENTIRE_ROUND = 0.5f;
 
