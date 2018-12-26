@@ -26,8 +26,6 @@ class BuildTowerTest extends UsecaseTest<BuildTowerCommand> {
 
     Wizard wizard;
     Tower builtTower;
-    boolean onErrorCalled;
-    boolean onCompleteCalled;
 
     public BuildTowerTest() {
         unitGateway = new UnitGateway();
@@ -72,33 +70,17 @@ class BuildTowerTest extends UsecaseTest<BuildTowerCommand> {
     }
 
     @Test
-    void towerIsBuilt_localCompletionHandler() {
-        request.onComplete = () -> onCompleteCalled = true;
-
+    void wizardNotFound() {
+        request.playerId = 42;
         whenRequestIsExecuted();
-
-        assertThat(onCompleteCalled).isTrue();
-        assertThat(onErrorCalled).isFalse();
+        assertThat(builtTower).isNull();
     }
 
     @Test
     void towerNotFound() {
         request.towerType = TowerType.Dandelion;
-
         whenRequestIsExecuted();
-
         assertThat(builtTower).isNull();
-    }
-
-    @Test
-    void towerNotFound_localErrorHandler() {
-        request.towerType = TowerType.Dandelion;
-        request.onError = () -> onErrorCalled = true;
-
-        whenRequestIsExecuted();
-
-        assertThat(onErrorCalled).isTrue();
-        assertThat(onCompleteCalled).isFalse();
     }
 
     @Test
