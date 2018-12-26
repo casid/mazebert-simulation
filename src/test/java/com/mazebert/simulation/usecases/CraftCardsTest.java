@@ -1,9 +1,12 @@
 package com.mazebert.simulation.usecases;
 
 import com.mazebert.simulation.CardCategory;
+import com.mazebert.simulation.CardType;
 import com.mazebert.simulation.SimulationListeners;
 import com.mazebert.simulation.commands.CraftCardsCommand;
 import com.mazebert.simulation.gateways.UnitGateway;
+import com.mazebert.simulation.listeners.OnCardsCraftedListener;
+import com.mazebert.simulation.plugins.ClientPluginTrainer;
 import com.mazebert.simulation.plugins.random.RandomPluginTrainer;
 import com.mazebert.simulation.units.items.ItemType;
 import com.mazebert.simulation.units.potions.PotionType;
@@ -12,19 +15,25 @@ import com.mazebert.simulation.units.wizards.Wizard;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.Collection;
+
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class CraftCardsTest extends UsecaseTest<CraftCardsCommand> {
+public class CraftCardsTest extends UsecaseTest<CraftCardsCommand> implements OnCardsCraftedListener {
 
     RandomPluginTrainer randomPluginTrainer = new RandomPluginTrainer();
 
     Wizard wizard;
+
+    CardType result;
+    Collection<CardType> results;
 
     @BeforeEach
     void setUp() {
         simulationListeners = new SimulationListeners();
         unitGateway = new UnitGateway();
         randomPlugin = randomPluginTrainer;
+        clientPlugin = new ClientPluginTrainer();
 
         wizard = new Wizard();
         wizard.playerId = 1;
@@ -211,7 +220,50 @@ public class CraftCardsTest extends UsecaseTest<CraftCardsCommand> {
         assertThat(wizard.itemStash.get(0).cardType).isEqualTo(ItemType.KeyOfWisdom);
     }
 
+    @Test
+    void listener_multipleCards() {
+        simulationListeners.onCardsCrafted.add(this);
+
+        wizard.itemStash.add(ItemType.BabySword);
+        wizard.itemStash.add(ItemType.BabySword);
+        wizard.itemStash.add(ItemType.BabySword);
+        wizard.itemStash.add(ItemType.BabySword);
+        request.cardCategory = CardCategory.Item;
+        request.cardType = ItemType.BabySword;
+        request.all = true;
+
+        whenRequestIsExecuted();
+
+        assertThat(results).containsExactly(ItemType.Handbag);
+    }
+
+    @Test
+    void listener_oneCard() {
+        simulationListeners.onCardsCrafted.add(this);
+
+        wizard.itemStash.craftedCommons = 3;
+        wizard.itemStash.add(ItemType.BabySword);
+        request.cardCategory = CardCategory.Item;
+        request.cardType = ItemType.BabySword;
+
+        whenRequestIsExecuted();
+
+        assertThat(result).isEqualTo(ItemType.Handbag);
+    }
+
     private void thenNoCardsAreTraded() {
         assertThat(wizard.towerStash.craftedCommons).isEqualTo(0);
+    }
+
+    @Override
+    public void onCardCrafted(Wizard wizard, CardType cardType) {
+        result = cardType;
+        assertThat(wizard).isSameAs(this.wizard);
+    }
+
+    @Override
+    public void onCardsCrafted(Wizard wizard, Collection<CardType> cardType) {
+        results = cardType;
+        assertThat(wizard).isSameAs(this.wizard);
     }
 }

@@ -24,6 +24,7 @@ public strictfp class SimulationListeners {
     public final OnUnitRemoved onUnitRemoved = new OnUnitRemoved();
 
     public final OnCardDropped onCardDropped = new OnCardDropped();
+    public final OnCardsCrafted onCardsCrafted = new OnCardsCrafted();
 
     public final OnNotification onNotification = new OnNotification();
 

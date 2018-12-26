@@ -10,6 +10,9 @@ import com.mazebert.simulation.stash.TowerStash;
 import com.mazebert.simulation.units.potions.PotionType;
 import com.mazebert.simulation.units.wizards.Wizard;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public strictfp class CraftCards extends Usecase<CraftCardsCommand> {
 
     private static final PotionType[] cardDusts = {
@@ -19,6 +22,7 @@ public strictfp class CraftCards extends Usecase<CraftCardsCommand> {
             PotionType.CardDustVital
     };
 
+    private final SimulationListeners simulationListeners = Sim.context().simulationListeners;
     private final UnitGateway unitGateway = Sim.context().unitGateway;
     private final RandomPlugin randomPlugin = Sim.context().randomPlugin;
 
@@ -35,27 +39,42 @@ public strictfp class CraftCards extends Usecase<CraftCardsCommand> {
         }
 
         if (command.all) {
-            craftAll(stash, command.cardType, wizard);
+            craftAll(wizard, stash, command.cardType);
         } else {
-            craft(stash, command.cardType, wizard);
+            craft(wizard, stash, command.cardType);
         }
     }
 
     @SuppressWarnings("unchecked")
-    public void craftAll(Stash stash, CardType cardType, Wizard wizard) {
+    public void craftAll(Wizard wizard, Stash stash, CardType cardType) {
+        List<CardType> result = null;
+
         Card card;
         while ((card = stash.remove(cardType)) != null) {
-            craft(wizard, stash, card);
+            CardType drop = craft(wizard, stash, card);
+            if (drop != null) {
+                if (result == null) {
+                    result = new ArrayList<>();
+                }
+                result.add(drop);
+            }
+        }
+
+        if (result != null) {
+            simulationListeners.onCardsCrafted.dispatch(wizard, result);
         }
     }
 
     @SuppressWarnings("unchecked")
-    public void craft(Stash stash, CardType cardType, Wizard wizard) {
+    public void craft(Wizard wizard, Stash stash, CardType cardType) {
         Card card = stash.remove(cardType);
         if (card == null) {
             return;
         }
-        craft(wizard, stash, card);
+        CardType drop = craft(wizard, stash, card);
+        if (drop != null) {
+            simulationListeners.onCardsCrafted.dispatch(wizard, drop);
+        }
     }
 
     private CardType craft(Wizard wizard, Stash stash, Card card) {
