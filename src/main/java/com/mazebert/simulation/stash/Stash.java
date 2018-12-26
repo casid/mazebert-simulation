@@ -1,11 +1,11 @@
 package com.mazebert.simulation.stash;
 
 import com.mazebert.simulation.Card;
-import com.mazebert.simulation.CardCategory;
 import com.mazebert.simulation.CardType;
 import com.mazebert.simulation.Rarity;
 import com.mazebert.simulation.hash.Hash;
 import com.mazebert.simulation.hash.Hashable;
+import com.mazebert.simulation.listeners.OnCardRemoved;
 import com.mazebert.simulation.plugins.random.RandomPlugin;
 
 import java.util.*;
@@ -17,6 +17,8 @@ public abstract strictfp class Stash<T extends Card> implements ReadonlyStash<T>
     private final Map<Object, StashEntry<T>> entryByType;
     private final EnumMap<Rarity, CardType<T>[]> cardByDropRarity;
     private final Map<Object, T> droppedUniques;
+
+    private final OnCardRemoved onCardRemoved = new OnCardRemoved();
 
     public int craftedCommons;
     public int craftedUncommons;
@@ -75,6 +77,7 @@ public abstract strictfp class Stash<T extends Card> implements ReadonlyStash<T>
                 entries.remove(entry);
                 entryByType.remove(cardType);
             }
+            onCardRemoved.dispatch(cardType, entry.amount);
             return createCard(entry);
         }
         return null;
@@ -122,13 +125,13 @@ public abstract strictfp class Stash<T extends Card> implements ReadonlyStash<T>
     }
 
     @Override
-    public void setLastViewedIndex(int lastViewedIndex) {
-        this.lastViewedIndex = lastViewedIndex;
+    public int getLastViewedIndex() {
+        return lastViewedIndex;
     }
 
     @Override
-    public int getLastViewedIndex() {
-        return lastViewedIndex;
+    public void setLastViewedIndex(int lastViewedIndex) {
+        this.lastViewedIndex = lastViewedIndex;
     }
 
     public CardType<T> getRandomDrop(Rarity rarity, int maxItemLevel, RandomPlugin randomPlugin) {
@@ -179,6 +182,11 @@ public abstract strictfp class Stash<T extends Card> implements ReadonlyStash<T>
     }
 
     protected abstract CardType<T>[] getPossibleDrops();
+
+    @Override
+    public OnCardRemoved onCardRemoved() {
+        return onCardRemoved;
+    }
 
     private static class ItemLevelComparator implements Comparator<CardType<? extends Card>> {
 
