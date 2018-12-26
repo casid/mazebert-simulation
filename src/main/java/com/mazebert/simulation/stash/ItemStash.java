@@ -1,5 +1,6 @@
 package com.mazebert.simulation.stash;
 
+import com.mazebert.simulation.CardCategory;
 import com.mazebert.simulation.units.abilities.DarkItemAbility;
 import com.mazebert.simulation.units.items.Item;
 import com.mazebert.simulation.units.items.ItemType;
@@ -32,5 +33,10 @@ public strictfp class ItemStash extends Stash<Item> {
     @Override
     protected ItemType[] getPossibleDrops() {
         return ItemType.values();
+    }
+
+    @Override
+    public CardCategory getCardCategory() {
+        return CardCategory.Item;
     }
 }

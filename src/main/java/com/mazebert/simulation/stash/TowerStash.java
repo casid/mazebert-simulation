@@ -1,5 +1,6 @@
 package com.mazebert.simulation.stash;
 
+import com.mazebert.simulation.CardCategory;
 import com.mazebert.simulation.units.towers.Tower;
 import com.mazebert.simulation.units.towers.TowerType;
 
@@ -14,5 +15,10 @@ public strictfp class TowerStash extends Stash<Tower> {
     @Override
     protected TowerType[] getPossibleDrops() {
         return TowerType.values();
+    }
+
+    @Override
+    public CardCategory getCardCategory() {
+        return CardCategory.Tower;
     }
 }

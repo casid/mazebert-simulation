@@ -1,6 +1,7 @@
 package com.mazebert.simulation.stash;
 
 import com.mazebert.simulation.Card;
+import com.mazebert.simulation.CardCategory;
 import com.mazebert.simulation.CardType;
 import com.mazebert.simulation.Rarity;
 import com.mazebert.simulation.hash.Hash;

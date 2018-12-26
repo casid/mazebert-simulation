@@ -1,5 +1,6 @@
 package com.mazebert.simulation.stash;
 
+import com.mazebert.simulation.CardCategory;
 import com.mazebert.simulation.units.potions.Potion;
 import com.mazebert.simulation.units.potions.PotionType;
 
@@ -14,5 +15,10 @@ public strictfp class PotionStash extends Stash<Potion> {
     @Override
     protected PotionType[] getPossibleDrops() {
         return PotionType.values();
+    }
+
+    @Override
+    public CardCategory getCardCategory() {
+        return CardCategory.Potion;
     }
 }
