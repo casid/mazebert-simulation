@@ -27,6 +27,8 @@ public strictfp class Wizard extends Unit {
     public int level = 1;
     public long gold;
     public float interestBonus;
+    public int requiredCraftAmount = 4;
+    public int craftedUniques;
 
     public double bestHit;
     public double totalDamage;
@@ -52,6 +54,8 @@ public strictfp class Wizard extends Unit {
         hash.add(level);
         hash.add(gold);
         hash.add(interestBonus);
+        hash.add(requiredCraftAmount);
+        hash.add(craftedUniques);
 
         hash.add(bestHit);
         hash.add(totalDamage);

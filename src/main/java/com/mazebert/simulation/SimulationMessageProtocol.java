@@ -29,5 +29,6 @@ public strictfp class SimulationMessageProtocol extends BitMessageProtocol {
         protocol.register(new DrinkPotionCommandSerializer());
         protocol.register(new PauseCommandSerializer());
         protocol.register(new ActivateAbilityCommandSerializer());
+        protocol.register(new CraftCardsCommandSerializer());
     }
 }

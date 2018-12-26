@@ -17,6 +17,10 @@ public abstract strictfp class Stash<T extends Card> implements ReadonlyStash<T>
     private final EnumMap<Rarity, CardType<T>[]> cardByDropRarity;
     private final Map<Object, T> droppedUniques;
 
+    public int craftedCommons;
+    public int craftedUncommons;
+    public int craftedRares;
+
     private transient int lastViewedIndex;
 
     @SuppressWarnings("unchecked")
