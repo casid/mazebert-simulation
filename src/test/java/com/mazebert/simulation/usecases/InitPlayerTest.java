@@ -30,7 +30,7 @@ strictfp class InitPlayerTest extends UsecaseTest<InitPlayerCommand> {
 
     @Test
     void littlefinger() {
-        request.heroId = HeroType.LittleFinger.id;
+        request.heroType = HeroType.LittleFinger;
 
         whenRequestIsExecuted();
 

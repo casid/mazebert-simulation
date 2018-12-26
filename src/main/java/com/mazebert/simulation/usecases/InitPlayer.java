@@ -16,8 +16,7 @@ public strictfp class InitPlayer extends Usecase<InitPlayerCommand> {
     }
 
     private void addHero(InitPlayerCommand command) {
-        HeroType heroType = HeroType.forId(command.heroId);
-        Hero hero = heroType.create();
+        Hero hero = command.heroType.create();
         hero.setWizard(unitGateway.getWizard(command.playerId));
         unitGateway.addUnit(hero);
     }

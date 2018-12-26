@@ -14,11 +14,11 @@ public strictfp class InitPlayerCommandSerializer implements BitSerializer<InitP
 
     @Override
     public void serialize(BitWriter writer, InitPlayerCommand object) {
-        writer.writeInt8(object.heroId);
+        EnumSerializer.writeHeroType(writer, object.heroType);
     }
 
     @Override
     public void deserialize(BitReader reader, InitPlayerCommand object) {
-        object.heroId = reader.readInt8();
+        object.heroType = EnumSerializer.readHeroType(reader);
     }
 }

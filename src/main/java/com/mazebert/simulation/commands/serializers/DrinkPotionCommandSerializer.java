@@ -15,14 +15,14 @@ public strictfp class DrinkPotionCommandSerializer implements BitSerializer<Drin
 
     @Override
     public void serialize(BitWriter writer, DrinkPotionCommand object) {
-        writer.writeInt8(object.potionType.id);
+        EnumSerializer.writePotionType(writer, object.potionType);
         writer.writeInt8(object.towerX);
         writer.writeInt8(object.towerY);
     }
 
     @Override
     public void deserialize(BitReader reader, DrinkPotionCommand object) {
-        object.potionType = PotionType.forId(reader.readInt8());
+        object.potionType = EnumSerializer.readPotionType(reader);
         object.towerX = reader.readInt8();
         object.towerY = reader.readInt8();
     }

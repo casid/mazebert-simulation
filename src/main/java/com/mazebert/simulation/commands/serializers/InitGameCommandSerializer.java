@@ -15,12 +15,12 @@ public strictfp class InitGameCommandSerializer implements BitSerializer<InitGam
     @Override
     public void serialize(BitWriter writer, InitGameCommand object) {
         writer.writeUuidNonNull(object.gameId);
-        writer.writeInt16(object.rounds);
+        writer.writeUnsignedInt12(object.rounds);
     }
 
     @Override
     public void deserialize(BitReader reader, InitGameCommand object) {
         object.gameId = reader.readUuidNonNull();
-        object.rounds = reader.readInt16();
+        object.rounds = reader.readUnsignedInt12();
     }
 }

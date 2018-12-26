@@ -15,21 +15,17 @@ public strictfp class EquipItemCommandSerializer implements BitSerializer<EquipI
 
     @Override
     public void serialize(BitWriter writer, EquipItemCommand object) {
-        if (object.itemType == null) {
-            writer.writeInt8(0);
-        } else {
-            writer.writeInt8(object.itemType.id);
-        }
+        EnumSerializer.writeItemType(writer, object.itemType);
         writer.writeInt8(object.towerX);
         writer.writeInt8(object.towerY);
-        writer.writeInt8(object.inventoryIndex);
+        writer.writeUnsignedInt3(object.inventoryIndex);
     }
 
     @Override
     public void deserialize(BitReader reader, EquipItemCommand object) {
-        object.itemType = ItemType.forId(reader.readInt8());
+        object.itemType = EnumSerializer.readItemType(reader);
         object.towerX = reader.readInt8();
         object.towerY = reader.readInt8();
-        object.inventoryIndex = reader.readInt8();
+        object.inventoryIndex = reader.readUnsignedInt3();
     }
 }
