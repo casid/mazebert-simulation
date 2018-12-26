@@ -13,4 +13,8 @@ public strictfp class OnCardsCrafted extends ExposedSignal<OnCardsCraftedListene
     public void dispatch(Wizard wizard, Collection<CardType> cards) {
         dispatchAll(l -> l.onCardsCrafted(wizard, cards));
     }
+
+    public void dispatch(Wizard wizard) {
+        dispatchAll(l -> l.onCardCrafted(wizard, null));
+    }
 }

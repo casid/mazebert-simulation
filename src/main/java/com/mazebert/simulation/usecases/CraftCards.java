@@ -62,6 +62,8 @@ public strictfp class CraftCards extends Usecase<CraftCardsCommand> {
 
         if (result != null) {
             simulationListeners.onCardsCrafted.dispatch(wizard, result);
+        } else {
+            simulationListeners.onCardsCrafted.dispatch(wizard);
         }
     }
 
@@ -71,9 +73,12 @@ public strictfp class CraftCards extends Usecase<CraftCardsCommand> {
         if (card == null) {
             return;
         }
+
         CardType drop = craft(wizard, stash, card);
         if (drop != null) {
             simulationListeners.onCardsCrafted.dispatch(wizard, drop);
+        } else {
+            simulationListeners.onCardsCrafted.dispatch(wizard);
         }
     }
 
