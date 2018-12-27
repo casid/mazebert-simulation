@@ -21,7 +21,12 @@ public strictfp class StreamReplayReader implements AutoCloseable, ReplayReader 
 
     @Override
     public ReplayFrame readFrame() {
-        return reader.readObjectNullable(ReplayFrame.class);
+        try {
+            return reader.readObjectNullable(ReplayFrame.class);
+        } catch (Exception e) {
+            e.printStackTrace(); // TODO log
+            return null;
+        }
     }
 
     @Override
