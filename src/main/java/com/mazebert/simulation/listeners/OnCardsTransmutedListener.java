@@ -1,12 +1,12 @@
 package com.mazebert.simulation.listeners;
 
 import com.mazebert.simulation.CardType;
-import com.mazebert.simulation.units.wizards.Wizard;
+import com.mazebert.simulation.Rarity;
 
 import java.util.Collection;
 
 public interface OnCardsTransmutedListener {
-    void onCardTransmuted(CardType cardType);
+    void onCardTransmuted(Rarity rarity, CardType cardType);
 
-    void onCardsTransmuted(Collection<CardType> cardType);
+    void onCardsTransmuted(Rarity rarity, Collection<CardType> cardType);
 }

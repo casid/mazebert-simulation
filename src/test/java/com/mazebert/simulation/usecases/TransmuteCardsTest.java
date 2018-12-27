@@ -2,6 +2,7 @@ package com.mazebert.simulation.usecases;
 
 import com.mazebert.simulation.CardCategory;
 import com.mazebert.simulation.CardType;
+import com.mazebert.simulation.Rarity;
 import com.mazebert.simulation.SimulationListeners;
 import com.mazebert.simulation.commands.TransmuteCardsCommand;
 import com.mazebert.simulation.gateways.UnitGateway;
@@ -326,12 +327,12 @@ public class TransmuteCardsTest extends UsecaseTest<TransmuteCardsCommand> imple
     }
 
     @Override
-    public void onCardTransmuted(CardType cardType) {
+    public void onCardTransmuted(Rarity rarity, CardType cardType) {
         result = cardType;
     }
 
     @Override
-    public void onCardsTransmuted(Collection<CardType> cardType) {
+    public void onCardsTransmuted(Rarity rarity, Collection<CardType> cardType) {
         results = cardType;
     }
 }
