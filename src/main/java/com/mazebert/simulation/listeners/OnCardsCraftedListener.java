@@ -6,7 +6,7 @@ import com.mazebert.simulation.units.wizards.Wizard;
 import java.util.Collection;
 
 public interface OnCardsCraftedListener {
-    void onCardCrafted(Wizard wizard, CardType cardType);
+    void onCardCrafted(CardType cardType);
 
-    void onCardsCrafted(Wizard wizard, Collection<CardType> cardType);
+    void onCardsCrafted(Collection<CardType> cardType);
 }

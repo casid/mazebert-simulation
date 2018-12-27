@@ -1,6 +1,7 @@
 package com.mazebert.simulation.units.wizards;
 
 import com.mazebert.simulation.hash.Hash;
+import com.mazebert.simulation.listeners.OnCardsCrafted;
 import com.mazebert.simulation.listeners.OnGoldChanged;
 import com.mazebert.simulation.listeners.OnHealthChanged;
 import com.mazebert.simulation.listeners.OnLevelChanged;
@@ -15,6 +16,7 @@ public strictfp class Wizard extends Unit {
     public final OnHealthChanged onHealthChanged = new OnHealthChanged();
     public final OnLevelChanged onLevelChanged = new OnLevelChanged();
     public final OnGoldChanged onGoldChanged = new OnGoldChanged();
+    public final OnCardsCrafted onCardsCrafted = new OnCardsCrafted();
 
     public final TowerStash towerStash = new TowerStash();
     public final ItemStash itemStash = new ItemStash();

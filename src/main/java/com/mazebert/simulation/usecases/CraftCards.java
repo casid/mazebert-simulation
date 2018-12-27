@@ -22,7 +22,6 @@ public strictfp class CraftCards extends Usecase<CraftCardsCommand> {
             PotionType.CardDustVital
     };
 
-    private final SimulationListeners simulationListeners = Sim.context().simulationListeners;
     private final UnitGateway unitGateway = Sim.context().unitGateway;
     private final RandomPlugin randomPlugin = Sim.context().randomPlugin;
 
@@ -61,9 +60,9 @@ public strictfp class CraftCards extends Usecase<CraftCardsCommand> {
         }
 
         if (result != null) {
-            simulationListeners.onCardsCrafted.dispatch(wizard, result);
+            wizard.onCardsCrafted.dispatch(result);
         } else {
-            simulationListeners.onCardsCrafted.dispatch(wizard);
+            wizard.onCardsCrafted.dispatch();
         }
     }
 
@@ -76,9 +75,9 @@ public strictfp class CraftCards extends Usecase<CraftCardsCommand> {
 
         CardType drop = craft(wizard, stash, card);
         if (drop != null) {
-            simulationListeners.onCardsCrafted.dispatch(wizard, drop);
+            wizard.onCardsCrafted.dispatch(drop);
         } else {
-            simulationListeners.onCardsCrafted.dispatch(wizard);
+            wizard.onCardsCrafted.dispatch();
         }
     }
 
