@@ -304,6 +304,23 @@ public class CraftCardsTest extends UsecaseTest<CraftCardsCommand> implements On
         assertThat(wizard.potionStash.get(2).cardType).isEqualTo(PotionType.RareCrit);
     }
 
+    @Test
+    void item_holger() {
+        wizard.itemStash.add(ItemType.BabySword);
+        wizard.itemStash.add(ItemType.WoodenStaff);
+        wizard.itemStash.add(ItemType.Handbag);
+        wizard.itemStash.add(ItemType.RingOfGreed);
+        request.cardCategory = CardCategory.Item;
+        request.cardType = ItemType.RingOfGreed;
+        wizard.itemStash.craftedCommons = 3;
+
+        whenRequestIsExecuted();
+
+        assertThat(wizard.itemStash.size()).isEqualTo(3);
+        assertThat(wizard.itemStash.craftedCommons).isEqualTo(0);
+        assertThat(wizard.itemStash.get(2).cardType).isEqualTo(ItemType.Handbag);
+    }
+
     private void thenNoCardsAreTraded() {
         assertThat(wizard.towerStash.craftedCommons).isEqualTo(0);
     }

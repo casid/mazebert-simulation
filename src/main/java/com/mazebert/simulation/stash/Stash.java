@@ -79,6 +79,9 @@ public abstract strictfp class Stash<T extends Card> implements ReadonlyStash<T>
             ++entry.amount;
 
             int oldIndex = getIndex(cardType);
+            if (index >= size()) {
+                index = size() - 1;
+            }
             StashEntry<T> oldEntry = get(index);
             entries.set(oldIndex, oldEntry);
             entries.set(index, entry);
