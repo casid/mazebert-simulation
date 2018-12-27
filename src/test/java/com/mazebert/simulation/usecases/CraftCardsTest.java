@@ -251,6 +251,59 @@ public class CraftCardsTest extends UsecaseTest<CraftCardsCommand> implements On
         assertThat(result).isEqualTo(ItemType.Handbag);
     }
 
+    @Test
+    void newCardIsAddedAtCurrentPosition() {
+        wizard.towerStash.craftedCommons = 3;
+        wizard.towerStash.add(TowerType.Beaver);
+        wizard.towerStash.add(TowerType.Dandelion);
+        wizard.towerStash.add(TowerType.Rabbit);
+
+        request.cardCategory = CardCategory.Tower;
+        request.cardType = TowerType.Dandelion;
+
+        whenRequestIsExecuted();
+
+        assertThat(wizard.towerStash.get(0).cardType).isEqualTo(TowerType.Beaver);
+        assertThat(wizard.towerStash.get(1).cardType).isEqualTo(TowerType.Frog);
+        assertThat(wizard.towerStash.get(2).cardType).isEqualTo(TowerType.Rabbit);
+    }
+
+    @Test
+    void newCardIsAddedAtCurrentPosition2() {
+        wizard.towerStash.craftedCommons = 3;
+        wizard.towerStash.add(TowerType.Beaver);
+        wizard.towerStash.add(TowerType.Dandelion);
+        wizard.towerStash.add(TowerType.Dandelion);
+        wizard.towerStash.add(TowerType.Rabbit);
+
+        request.cardCategory = CardCategory.Tower;
+        request.cardType = TowerType.Dandelion;
+
+        whenRequestIsExecuted();
+
+        assertThat(wizard.towerStash.get(0).cardType).isEqualTo(TowerType.Beaver);
+        assertThat(wizard.towerStash.get(1).cardType).isEqualTo(TowerType.Dandelion);
+        assertThat(wizard.towerStash.get(2).cardType).isEqualTo(TowerType.Frog);
+        assertThat(wizard.towerStash.get(3).cardType).isEqualTo(TowerType.Rabbit);
+    }
+
+    @Test
+    void newCardIsAddedAtCurrentPosition_potion() {
+        wizard.craftedUniques = 1;
+        wizard.potionStash.add(PotionType.UncommonCrit);
+        wizard.potionStash.add(PotionType.Painkiller);
+        wizard.potionStash.add(PotionType.RareCrit);
+
+        request.cardCategory = CardCategory.Potion;
+        request.cardType = PotionType.Painkiller;
+
+        whenRequestIsExecuted();
+
+        assertThat(wizard.potionStash.get(0).cardType).isEqualTo(PotionType.UncommonCrit);
+        assertThat(wizard.potionStash.get(1).cardType).isEqualTo(PotionType.CardDustCrit);
+        assertThat(wizard.potionStash.get(2).cardType).isEqualTo(PotionType.RareCrit);
+    }
+
     private void thenNoCardsAreTraded() {
         assertThat(wizard.towerStash.craftedCommons).isEqualTo(0);
     }

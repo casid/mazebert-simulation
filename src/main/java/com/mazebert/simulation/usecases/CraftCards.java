@@ -48,9 +48,11 @@ public strictfp class CraftCards extends Usecase<CraftCardsCommand> {
     public void craftAll(Wizard wizard, Stash stash, CardType cardType) {
         List<CardType> result = null;
 
+        int index = stash.getIndex(cardType);
+
         Card card;
         while ((card = stash.remove(cardType)) != null) {
-            CardType drop = craft(wizard, stash, card);
+            CardType drop = craft(wizard, stash, card, cardType, index);
             if (drop != null) {
                 if (result == null) {
                     result = new ArrayList<>();
@@ -68,12 +70,14 @@ public strictfp class CraftCards extends Usecase<CraftCardsCommand> {
 
     @SuppressWarnings("unchecked")
     public void craft(Wizard wizard, Stash stash, CardType cardType) {
+        int index = stash.getIndex(cardType);
+
         Card card = stash.remove(cardType);
         if (card == null) {
             return;
         }
 
-        CardType drop = craft(wizard, stash, card);
+        CardType drop = craft(wizard, stash, card, cardType, index);
         if (drop != null) {
             wizard.onCardsCrafted.dispatch(drop);
         } else {
@@ -81,29 +85,33 @@ public strictfp class CraftCards extends Usecase<CraftCardsCommand> {
         }
     }
 
-    private CardType craft(Wizard wizard, Stash stash, Card card) {
+    private CardType craft(Wizard wizard, Stash stash, Card card, CardType cardType, int index) {
         switch (card.getRarity()) {
             case Common:
-                return craftCommon(wizard, stash);
+                return craftCommon(wizard, stash, cardType, index);
             case Uncommon:
-                return craftUncommon(wizard, stash);
+                return craftUncommon(wizard, stash, cardType, index);
             case Rare:
                 return craftRare(wizard, stash);
             case Unique:
             case Legendary:
-                return craftUnique(wizard);
+                return craftUnique(wizard, stash, cardType, index);
         }
 
         return null;
     }
 
-    private CardType craftUnique(Wizard wizard) {
+    private CardType craftUnique(Wizard wizard, Stash stash, CardType cardType, int index) {
         ++wizard.craftedUniques;
         if (wizard.craftedUniques >= 2) {
             wizard.craftedUniques -= 2;
 
             PotionType drop = randomPlugin.get(cardDusts);
-            wizard.potionStash.add(drop);
+            if (stash == wizard.potionStash) {
+                insertDrop(stash, cardType, index, drop);
+            } else {
+                wizard.potionStash.add(drop);
+            }
             return drop;
         }
         return null;
@@ -133,8 +141,7 @@ public strictfp class CraftCards extends Usecase<CraftCardsCommand> {
         return wizard.requiredCraftAmount;
     }
 
-    @SuppressWarnings("unchecked")
-    private CardType craftCommon(Wizard wizard, Stash stash) {
+    private CardType craftCommon(Wizard wizard, Stash stash, CardType cardType, int index) {
         ++stash.craftedCommons;
         int requiredAmount = getRequiredAmount(wizard, stash);
         if (stash.craftedCommons >= requiredAmount) {
@@ -142,15 +149,14 @@ public strictfp class CraftCards extends Usecase<CraftCardsCommand> {
 
             CardType drop = stash.getRandomDrop(Rarity.Uncommon, Integer.MAX_VALUE, randomPlugin);
             if (drop != null) {
-                stash.add(drop);
-                return drop;
+                return insertDrop(stash, cardType, index, drop);
             }
         }
         return null;
     }
 
     @SuppressWarnings("unchecked")
-    private CardType craftUncommon(Wizard wizard, Stash stash) {
+    private CardType craftUncommon(Wizard wizard, Stash stash, CardType cardType, int index) {
         ++stash.craftedUncommons;
         int requiredAmount = getRequiredAmount(wizard, stash);
         if (stash.craftedUncommons >= requiredAmount) {
@@ -158,8 +164,7 @@ public strictfp class CraftCards extends Usecase<CraftCardsCommand> {
 
             CardType drop = stash.getRandomDrop(Rarity.Rare, Integer.MAX_VALUE, randomPlugin);
             if (drop != null) {
-                stash.add(drop);
-                return drop;
+                return insertDrop(stash, cardType, index, drop);
             }
         }
         return null;
@@ -186,5 +191,15 @@ public strictfp class CraftCards extends Usecase<CraftCardsCommand> {
         }
 
         return null;
+    }
+
+    @SuppressWarnings("unchecked")
+    private CardType insertDrop(Stash stash, CardType cardType, int index, CardType drop) {
+        if (stash.get(cardType) == null) {
+            stash.add(drop, index);
+        } else {
+            stash.add(drop, index + 1);
+        }
+        return drop;
     }
 }
