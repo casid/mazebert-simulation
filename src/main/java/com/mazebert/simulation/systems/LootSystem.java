@@ -85,6 +85,10 @@ public strictfp class LootSystem {
         rollCardDrop(wizard, null, round, rarity, wizard.towerStash);
     }
 
+    public void researchStartingTower(Wizard wizard) {
+        rollCardDrop(wizard, null, 1, Rarity.Common, wizard.towerStash);
+    }
+
     @SuppressWarnings("unchecked")
     public boolean dropCard(Wizard wizard, Creep creep, Stash stash, CardType drop) {
         if (stash.isUniqueAlreadyDropped(drop)) {

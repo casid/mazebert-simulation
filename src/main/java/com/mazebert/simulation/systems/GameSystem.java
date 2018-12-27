@@ -9,9 +9,6 @@ import com.mazebert.simulation.gateways.PlayerGateway;
 import com.mazebert.simulation.gateways.UnitGateway;
 import com.mazebert.simulation.listeners.OnHealthChangedListener;
 import com.mazebert.simulation.units.Unit;
-import com.mazebert.simulation.units.items.ItemType;
-import com.mazebert.simulation.units.potions.PotionType;
-import com.mazebert.simulation.units.towers.TowerType;
 import com.mazebert.simulation.units.wizards.Wizard;
 
 public strictfp class GameSystem implements OnHealthChangedListener {
@@ -19,6 +16,7 @@ public strictfp class GameSystem implements OnHealthChangedListener {
     private final PlayerGateway playerGateway = Sim.context().playerGateway;
     private final GameGateway gameGateway = Sim.context().gameGateway;
     private final UnitGateway unitGateway = Sim.context().unitGateway;
+    private final LootSystem lootSystem = Sim.context().lootSystem;
 
     public void addWizards() {
         for (int playerId = 1; playerId <= playerGateway.getPlayerCount(); ++playerId) {
@@ -30,29 +28,41 @@ public strictfp class GameSystem implements OnHealthChangedListener {
         Wizard wizard = new Wizard();
         wizard.playerId = playerId;
         wizard.addGold(Balancing.STARTING_GOLD);
-        for (TowerType towerType : TowerType.values()) {
-            if (towerType != TowerType.Kiwi) {
-                wizard.towerStash.add(towerType);
-            }
-        }
-        for (ItemType itemType : ItemType.values()) {
-            if (itemType != ItemType.BloodDemonBlade) {
-                wizard.itemStash.add(itemType);
-            }
-        }
-        for (PotionType value : PotionType.values()) {
-            wizard.potionStash.add(value);
-        }
+//        for (TowerType towerType : TowerType.values()) {
+////            if (towerType != TowerType.Kiwi) {
+////                wizard.towerStash.add(towerType);
+////            }
+////        }
+////        for (ItemType itemType : ItemType.values()) {
+////            if (itemType != ItemType.BloodDemonBlade) {
+////                wizard.itemStash.add(itemType);
+////            }
+////        }
+////        for (PotionType value : PotionType.values()) {
+////            wizard.potionStash.add(value);
+////        }
 
         wizard.onHealthChanged.add(this);
 
         unitGateway.addUnit(wizard);
+
+        rollStartingTowers(wizard);
+    }
+
+    private void rollStartingTowers(Wizard wizard) {
+        // Research starting towers (first 3 must be guaranteed to be affordable by the player)
+        for (int i = 0; i < 3; ++i) {
+            lootSystem.researchStartingTower(wizard);
+        }
+
+        // The last one can be anything possible for this round!
+        lootSystem.researchTower(wizard, 1);
     }
 
     @Override
     public void onHealthChanged(Unit unit, double oldHealth, double newHealth) {
         double delta = (newHealth - oldHealth) / playerGateway.getPlayerCount();
-        addGameHealth((float)delta);
+        addGameHealth((float) delta);
     }
 
     private void addGameHealth(float delta) {
