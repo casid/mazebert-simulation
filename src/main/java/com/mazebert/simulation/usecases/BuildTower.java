@@ -3,6 +3,7 @@ package com.mazebert.simulation.usecases;
 import com.mazebert.simulation.Sim;
 import com.mazebert.simulation.commands.BuildTowerCommand;
 import com.mazebert.simulation.gateways.UnitGateway;
+import com.mazebert.simulation.systems.LootSystem;
 import com.mazebert.simulation.units.abilities.Ability;
 import com.mazebert.simulation.units.abilities.StackableAbility;
 import com.mazebert.simulation.units.items.Item;
@@ -15,11 +16,17 @@ import java.util.List;
 public strictfp class BuildTower extends Usecase<BuildTowerCommand> {
 
     private final UnitGateway unitGateway = Sim.context().unitGateway;
+    private final LootSystem lootSystem = Sim.context().lootSystem;
 
     @Override
     public void execute(BuildTowerCommand command) {
         Wizard wizard = unitGateway.getWizard(command.playerId);
         if (wizard == null) {
+            return;
+        }
+
+        int goldCost = command.towerType.instance.getGoldCost();
+        if (wizard.gold < goldCost) {
             return;
         }
 
@@ -29,6 +36,8 @@ public strictfp class BuildTower extends Usecase<BuildTowerCommand> {
         }
 
         summonTower(tower, wizard, command.x, command.y);
+
+        lootSystem.addGold(wizard, tower, -goldCost);
     }
 
     public void summonTower(Tower tower, Wizard wizard, int x, int y) {

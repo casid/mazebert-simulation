@@ -9,6 +9,7 @@ import com.mazebert.simulation.commands.EquipItemCommand;
 import com.mazebert.simulation.gateways.TurnGateway;
 import com.mazebert.simulation.gateways.UnitGateway;
 import com.mazebert.simulation.plugins.random.RandomPluginTrainer;
+import com.mazebert.simulation.systems.LootSystem;
 import com.mazebert.simulation.units.items.*;
 import com.mazebert.simulation.units.potions.PotionType;
 import com.mazebert.simulation.units.towers.Dandelion;
@@ -30,6 +31,7 @@ class BuildTowerTest extends UsecaseTest<BuildTowerCommand> {
     public BuildTowerTest() {
         unitGateway = new UnitGateway();
         simulationListeners = new SimulationListeners();
+        lootSystem = new LootSystem();
         commandExecutor = new CommandExecutor();
         commandExecutor.init();
 
@@ -42,6 +44,7 @@ class BuildTowerTest extends UsecaseTest<BuildTowerCommand> {
         wizard = new Wizard();
         wizard.playerId = 1;
         wizard.towerStash.add(TowerType.Hitman);
+        wizard.gold = 500;
         unitGateway.addUnit(wizard);
 
         usecase = new BuildTower();
@@ -51,11 +54,24 @@ class BuildTowerTest extends UsecaseTest<BuildTowerCommand> {
     }
 
     @Test
+    void notEnoughGold() {
+        wizard.gold = 0;
+        whenRequestIsExecuted();
+        assertThat(builtTower).isNull();
+    }
+
+    @Test
     void towerIsBuilt() {
         whenRequestIsExecuted();
         assertThat(builtTower).isInstanceOf(Hitman.class);
         assertThat(builtTower.getLevel()).isEqualTo(1);
         assertThat(wizard.towerStash.size()).isEqualTo(0);
+    }
+
+    @Test
+    void towerIsBuilt_goldIsRemoved() {
+        whenRequestIsExecuted();
+        assertThat(wizard.gold).isEqualTo(435L);
     }
 
     @Test
