@@ -64,7 +64,7 @@ public strictfp final class Simulation {
         schedule(Collections.emptyList(), turnGateway.getCurrentTurnNumber());
         schedule(Collections.emptyList(), turnGateway.getCurrentTurnNumber() + 1);
 
-        simulationListeners.onGameInitialized.dispatch();
+        simulationListeners.onGameLoaded.dispatch();
     }
 
     private void scheduleInitGame(InitGameCommand initGameCommand) {
