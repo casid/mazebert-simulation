@@ -3,9 +3,9 @@ package com.mazebert.simulation.usecases;
 import com.mazebert.simulation.CardCategory;
 import com.mazebert.simulation.CardType;
 import com.mazebert.simulation.SimulationListeners;
-import com.mazebert.simulation.commands.CraftCardsCommand;
+import com.mazebert.simulation.commands.TransmuteCardsCommand;
 import com.mazebert.simulation.gateways.UnitGateway;
-import com.mazebert.simulation.listeners.OnCardsCraftedListener;
+import com.mazebert.simulation.listeners.OnCardsTransmutedListener;
 import com.mazebert.simulation.plugins.ClientPluginTrainer;
 import com.mazebert.simulation.plugins.random.RandomPluginTrainer;
 import com.mazebert.simulation.units.items.ItemType;
@@ -19,7 +19,7 @@ import java.util.Collection;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class CraftCardsTest extends UsecaseTest<CraftCardsCommand> implements OnCardsCraftedListener {
+public class TransmuteCardsTest extends UsecaseTest<TransmuteCardsCommand> implements OnCardsTransmutedListener {
 
     RandomPluginTrainer randomPluginTrainer = new RandomPluginTrainer();
 
@@ -39,7 +39,7 @@ public class CraftCardsTest extends UsecaseTest<CraftCardsCommand> implements On
         wizard.playerId = 1;
         unitGateway.addUnit(wizard);
 
-        usecase = new CraftCards();
+        usecase = new TransmuteCards();
         request.playerId = 1;
     }
 
@@ -69,7 +69,7 @@ public class CraftCardsTest extends UsecaseTest<CraftCardsCommand> implements On
         whenRequestIsExecuted();
 
         assertThat(wizard.towerStash.size()).isEqualTo(0);
-        assertThat(wizard.towerStash.craftedCommons).isEqualTo(1);
+        assertThat(wizard.towerStash.transmutedCommons).isEqualTo(1);
     }
 
     @Test
@@ -84,7 +84,7 @@ public class CraftCardsTest extends UsecaseTest<CraftCardsCommand> implements On
         whenRequestIsExecuted();
 
         assertThat(wizard.towerStash.size()).isEqualTo(0);
-        assertThat(wizard.towerStash.craftedCommons).isEqualTo(3);
+        assertThat(wizard.towerStash.transmutedCommons).isEqualTo(3);
     }
 
     @Test
@@ -100,7 +100,7 @@ public class CraftCardsTest extends UsecaseTest<CraftCardsCommand> implements On
         whenRequestIsExecuted();
 
         assertThat(wizard.towerStash.size()).isEqualTo(1);
-        assertThat(wizard.towerStash.craftedCommons).isEqualTo(0);
+        assertThat(wizard.towerStash.transmutedCommons).isEqualTo(0);
         assertThat(wizard.towerStash.get(0).cardType).isEqualTo(TowerType.Frog);
     }
 
@@ -117,7 +117,7 @@ public class CraftCardsTest extends UsecaseTest<CraftCardsCommand> implements On
         whenRequestIsExecuted();
 
         assertThat(wizard.itemStash.size()).isEqualTo(1);
-        assertThat(wizard.itemStash.craftedCommons).isEqualTo(0);
+        assertThat(wizard.itemStash.transmutedCommons).isEqualTo(0);
         assertThat(wizard.itemStash.get(0).cardType).isEqualTo(ItemType.Handbag);
     }
 
@@ -133,7 +133,7 @@ public class CraftCardsTest extends UsecaseTest<CraftCardsCommand> implements On
         whenRequestIsExecuted();
 
         assertThat(wizard.itemStash.size()).isEqualTo(1);
-        assertThat(wizard.itemStash.craftedCommons).isEqualTo(0);
+        assertThat(wizard.itemStash.transmutedCommons).isEqualTo(0);
         assertThat(wizard.itemStash.get(0).cardType).isEqualTo(ItemType.Handbag);
         assertThat(wizard.itemStash.get(0).amount).isEqualTo(10);
     }
@@ -149,7 +149,7 @@ public class CraftCardsTest extends UsecaseTest<CraftCardsCommand> implements On
         whenRequestIsExecuted();
 
         assertThat(wizard.potionStash.size()).isEqualTo(1);
-        assertThat(wizard.potionStash.craftedUncommons).isEqualTo(0);
+        assertThat(wizard.potionStash.transmutedUncommons).isEqualTo(0);
         assertThat(wizard.potionStash.get(0).cardType).isEqualTo(PotionType.RareDamage);
     }
 
@@ -179,7 +179,7 @@ public class CraftCardsTest extends UsecaseTest<CraftCardsCommand> implements On
         whenRequestIsExecuted();
 
         assertThat(wizard.towerStash.size()).isEqualTo(0);
-        assertThat(wizard.craftedUniques).isEqualTo(1);
+        assertThat(wizard.transmutedUniques).isEqualTo(1);
     }
 
     @Test
@@ -198,7 +198,7 @@ public class CraftCardsTest extends UsecaseTest<CraftCardsCommand> implements On
 
         assertThat(wizard.towerStash.size()).isEqualTo(0);
         assertThat(wizard.itemStash.size()).isEqualTo(0);
-        assertThat(wizard.craftedUniques).isEqualTo(0);
+        assertThat(wizard.transmutedUniques).isEqualTo(0);
         assertThat(wizard.potionStash.size()).isEqualTo(1);
         assertThat(wizard.potionStash.get(0).cardType).isEqualTo(PotionType.CardDustCrit);
     }
@@ -211,7 +211,7 @@ public class CraftCardsTest extends UsecaseTest<CraftCardsCommand> implements On
         request.cardCategory = CardCategory.Tower;
         request.cardType = TowerType.Huli;
         request.all = true;
-        wizard.requiredCraftAmount = 3;
+        wizard.requiredTransmuteAmount = 3;
 
         whenRequestIsExecuted();
 
@@ -222,7 +222,7 @@ public class CraftCardsTest extends UsecaseTest<CraftCardsCommand> implements On
 
     @Test
     void listener_multipleCards() {
-        wizard.onCardsCrafted.add(this);
+        wizard.onCardsTransmuted.add(this);
 
         wizard.itemStash.add(ItemType.BabySword);
         wizard.itemStash.add(ItemType.BabySword);
@@ -239,9 +239,9 @@ public class CraftCardsTest extends UsecaseTest<CraftCardsCommand> implements On
 
     @Test
     void listener_oneCard() {
-        wizard.onCardsCrafted.add(this);
+        wizard.onCardsTransmuted.add(this);
 
-        wizard.itemStash.craftedCommons = 3;
+        wizard.itemStash.transmutedCommons = 3;
         wizard.itemStash.add(ItemType.BabySword);
         request.cardCategory = CardCategory.Item;
         request.cardType = ItemType.BabySword;
@@ -253,7 +253,7 @@ public class CraftCardsTest extends UsecaseTest<CraftCardsCommand> implements On
 
     @Test
     void newCardIsAddedAtCurrentPosition() {
-        wizard.towerStash.craftedCommons = 3;
+        wizard.towerStash.transmutedCommons = 3;
         wizard.towerStash.add(TowerType.Beaver);
         wizard.towerStash.add(TowerType.Dandelion);
         wizard.towerStash.add(TowerType.Rabbit);
@@ -270,7 +270,7 @@ public class CraftCardsTest extends UsecaseTest<CraftCardsCommand> implements On
 
     @Test
     void newCardIsAddedAtCurrentPosition2() {
-        wizard.towerStash.craftedCommons = 3;
+        wizard.towerStash.transmutedCommons = 3;
         wizard.towerStash.add(TowerType.Beaver);
         wizard.towerStash.add(TowerType.Dandelion);
         wizard.towerStash.add(TowerType.Dandelion);
@@ -289,7 +289,7 @@ public class CraftCardsTest extends UsecaseTest<CraftCardsCommand> implements On
 
     @Test
     void newCardIsAddedAtCurrentPosition_potion() {
-        wizard.craftedUniques = 1;
+        wizard.transmutedUniques = 1;
         wizard.potionStash.add(PotionType.UncommonCrit);
         wizard.potionStash.add(PotionType.Painkiller);
         wizard.potionStash.add(PotionType.RareCrit);
@@ -312,26 +312,26 @@ public class CraftCardsTest extends UsecaseTest<CraftCardsCommand> implements On
         wizard.itemStash.add(ItemType.RingOfGreed);
         request.cardCategory = CardCategory.Item;
         request.cardType = ItemType.RingOfGreed;
-        wizard.itemStash.craftedCommons = 3;
+        wizard.itemStash.transmutedCommons = 3;
 
         whenRequestIsExecuted();
 
         assertThat(wizard.itemStash.size()).isEqualTo(3);
-        assertThat(wizard.itemStash.craftedCommons).isEqualTo(0);
+        assertThat(wizard.itemStash.transmutedCommons).isEqualTo(0);
         assertThat(wizard.itemStash.get(2).cardType).isEqualTo(ItemType.Handbag);
     }
 
     private void thenNoCardsAreTraded() {
-        assertThat(wizard.towerStash.craftedCommons).isEqualTo(0);
+        assertThat(wizard.towerStash.transmutedCommons).isEqualTo(0);
     }
 
     @Override
-    public void onCardCrafted(CardType cardType) {
+    public void onCardTransmuted(CardType cardType) {
         result = cardType;
     }
 
     @Override
-    public void onCardsCrafted(Collection<CardType> cardType) {
+    public void onCardsTransmuted(Collection<CardType> cardType) {
         results = cardType;
     }
 }

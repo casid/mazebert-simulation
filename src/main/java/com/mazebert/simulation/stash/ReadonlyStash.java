@@ -14,6 +14,10 @@ public interface ReadonlyStash<T extends Card> {
 
     OnCardRemoved onCardRemoved();
 
+    int getTransmutedCommons();
+    int getTransmutedUncommons();
+    int getTransmutedRares();
+
     @SuppressWarnings("unused") // transient value for client
     int getLastViewedIndex();
 

@@ -20,9 +20,9 @@ public abstract strictfp class Stash<T extends Card> implements ReadonlyStash<T>
 
     private final OnCardRemoved onCardRemoved = new OnCardRemoved();
 
-    public int craftedCommons;
-    public int craftedUncommons;
-    public int craftedRares;
+    public int transmutedCommons;
+    public int transmutedUncommons;
+    public int transmutedRares;
 
     private transient int lastViewedIndex;
 
@@ -201,6 +201,21 @@ public abstract strictfp class Stash<T extends Card> implements ReadonlyStash<T>
     }
 
     protected abstract CardType<T>[] getPossibleDrops();
+
+    @Override
+    public int getTransmutedCommons() {
+        return transmutedCommons;
+    }
+
+    @Override
+    public int getTransmutedUncommons() {
+        return transmutedUncommons;
+    }
+
+    @Override
+    public int getTransmutedRares() {
+        return transmutedRares;
+    }
 
     @Override
     public OnCardRemoved onCardRemoved() {

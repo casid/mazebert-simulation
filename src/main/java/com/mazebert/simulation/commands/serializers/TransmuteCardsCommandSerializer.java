@@ -1,26 +1,26 @@
 package com.mazebert.simulation.commands.serializers;
 
-import com.mazebert.simulation.commands.CraftCardsCommand;
+import com.mazebert.simulation.commands.TransmuteCardsCommand;
 import org.jusecase.bitpack.BitReader;
 import org.jusecase.bitpack.BitSerializer;
 import org.jusecase.bitpack.BitWriter;
 
-public strictfp class CraftCardsCommandSerializer implements BitSerializer<CraftCardsCommand> {
+public strictfp class TransmuteCardsCommandSerializer implements BitSerializer<TransmuteCardsCommand> {
 
     @Override
-    public CraftCardsCommand createObject() {
-        return new CraftCardsCommand();
+    public TransmuteCardsCommand createObject() {
+        return new TransmuteCardsCommand();
     }
 
     @Override
-    public void serialize(BitWriter writer, CraftCardsCommand object) {
+    public void serialize(BitWriter writer, TransmuteCardsCommand object) {
         EnumSerializer.writeTowerPotionOrItemCardCategory(writer, object.cardCategory);
         EnumSerializer.writeCardType(writer, object.cardCategory, object.cardType);
         writer.writeBoolean(object.all);
     }
 
     @Override
-    public void deserialize(BitReader reader, CraftCardsCommand object) {
+    public void deserialize(BitReader reader, TransmuteCardsCommand object) {
         object.cardCategory = EnumSerializer.readTowerPotionOrItemCardCategory(reader);
         object.cardType = EnumSerializer.readCardType(reader, object.cardCategory);
         object.all = reader.readBoolean();

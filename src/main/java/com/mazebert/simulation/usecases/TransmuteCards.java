@@ -1,10 +1,11 @@
 package com.mazebert.simulation.usecases;
 
 import com.mazebert.simulation.*;
-import com.mazebert.simulation.commands.CraftCardsCommand;
+import com.mazebert.simulation.commands.TransmuteCardsCommand;
 import com.mazebert.simulation.gateways.UnitGateway;
 import com.mazebert.simulation.plugins.random.RandomPlugin;
 import com.mazebert.simulation.stash.PotionStash;
+import com.mazebert.simulation.stash.ReadonlyStash;
 import com.mazebert.simulation.stash.Stash;
 import com.mazebert.simulation.stash.TowerStash;
 import com.mazebert.simulation.units.potions.PotionType;
@@ -13,7 +14,9 @@ import com.mazebert.simulation.units.wizards.Wizard;
 import java.util.ArrayList;
 import java.util.List;
 
-public strictfp class CraftCards extends Usecase<CraftCardsCommand> {
+public strictfp class TransmuteCards extends Usecase<TransmuteCardsCommand> {
+
+    private static final int requiredUniqueAmount = 2;
 
     private static final PotionType[] cardDusts = {
             PotionType.CardDustCrit,
@@ -22,11 +25,24 @@ public strictfp class CraftCards extends Usecase<CraftCardsCommand> {
             PotionType.CardDustVital
     };
 
+    public static float getProgress(Wizard wizard, ReadonlyStash stash, Rarity rarity) {
+        switch (rarity) {
+            case Common:
+                return (float)stash.getTransmutedCommons() / wizard.requiredTransmuteAmount;
+            case Uncommon:
+                return (float)stash.getTransmutedUncommons() / wizard.requiredTransmuteAmount;
+            case Rare:
+                return (float)stash.getTransmutedRares() / wizard.requiredTransmuteAmount;
+        }
+
+        return (float)wizard.transmutedUniques / requiredUniqueAmount;
+    }
+
     private final UnitGateway unitGateway = Sim.context().unitGateway;
     private final RandomPlugin randomPlugin = Sim.context().randomPlugin;
 
     @Override
-    public void execute(CraftCardsCommand command) {
+    public void execute(TransmuteCardsCommand command) {
         Wizard wizard = unitGateway.getWizard(command.playerId);
         if (wizard == null) {
             return;
@@ -38,21 +54,21 @@ public strictfp class CraftCards extends Usecase<CraftCardsCommand> {
         }
 
         if (command.all) {
-            craftAll(wizard, stash, command.cardType);
+            transmuteAll(wizard, stash, command.cardType);
         } else {
-            craft(wizard, stash, command.cardType);
+            transmute(wizard, stash, command.cardType);
         }
     }
 
     @SuppressWarnings("unchecked")
-    public void craftAll(Wizard wizard, Stash stash, CardType cardType) {
+    public void transmuteAll(Wizard wizard, Stash stash, CardType cardType) {
         List<CardType> result = null;
 
         int index = stash.getIndex(cardType);
 
         Card card;
         while ((card = stash.remove(cardType)) != null) {
-            CardType drop = craft(wizard, stash, card, cardType, index);
+            CardType drop = transmute(wizard, stash, card, cardType, index);
             if (drop != null) {
                 if (result == null) {
                     result = new ArrayList<>();
@@ -62,14 +78,14 @@ public strictfp class CraftCards extends Usecase<CraftCardsCommand> {
         }
 
         if (result != null) {
-            wizard.onCardsCrafted.dispatch(result);
+            wizard.onCardsTransmuted.dispatch(result);
         } else {
-            wizard.onCardsCrafted.dispatch();
+            wizard.onCardsTransmuted.dispatch();
         }
     }
 
     @SuppressWarnings("unchecked")
-    public void craft(Wizard wizard, Stash stash, CardType cardType) {
+    public void transmute(Wizard wizard, Stash stash, CardType cardType) {
         int index = stash.getIndex(cardType);
 
         Card card = stash.remove(cardType);
@@ -77,34 +93,34 @@ public strictfp class CraftCards extends Usecase<CraftCardsCommand> {
             return;
         }
 
-        CardType drop = craft(wizard, stash, card, cardType, index);
+        CardType drop = transmute(wizard, stash, card, cardType, index);
         if (drop != null) {
-            wizard.onCardsCrafted.dispatch(drop);
+            wizard.onCardsTransmuted.dispatch(drop);
         } else {
-            wizard.onCardsCrafted.dispatch();
+            wizard.onCardsTransmuted.dispatch();
         }
     }
 
-    private CardType craft(Wizard wizard, Stash stash, Card card, CardType cardType, int index) {
+    private CardType transmute(Wizard wizard, Stash stash, Card card, CardType cardType, int index) {
         switch (card.getRarity()) {
             case Common:
-                return craftCommon(wizard, stash, cardType, index);
+                return transmuteCommon(wizard, stash, cardType, index);
             case Uncommon:
-                return craftUncommon(wizard, stash, cardType, index);
+                return transmuteUncommon(wizard, stash, cardType, index);
             case Rare:
-                return craftRare(wizard, stash);
+                return transmuteRare(wizard, stash);
             case Unique:
             case Legendary:
-                return craftUnique(wizard, stash, cardType, index);
+                return transmuteUnique(wizard, stash, cardType, index);
         }
 
         return null;
     }
 
-    private CardType craftUnique(Wizard wizard, Stash stash, CardType cardType, int index) {
-        ++wizard.craftedUniques;
-        if (wizard.craftedUniques >= 2) {
-            wizard.craftedUniques -= 2;
+    private CardType transmuteUnique(Wizard wizard, Stash stash, CardType cardType, int index) {
+        ++wizard.transmutedUniques;
+        if (wizard.transmutedUniques >= requiredUniqueAmount) {
+            wizard.transmutedUniques -= requiredUniqueAmount;
 
             PotionType drop = randomPlugin.get(cardDusts);
             if (stash == wizard.potionStash) {
@@ -118,11 +134,11 @@ public strictfp class CraftCards extends Usecase<CraftCardsCommand> {
     }
 
     @SuppressWarnings("unchecked")
-    private CardType craftRare(Wizard wizard, Stash stash) {
-        ++stash.craftedRares;
+    private CardType transmuteRare(Wizard wizard, Stash stash) {
+        ++stash.transmutedRares;
         int requiredAmount = getRequiredAmount(wizard, stash);
-        if (stash.craftedRares >= requiredAmount) {
-            stash.craftedRares -= requiredAmount;
+        if (stash.transmutedRares >= requiredAmount) {
+            stash.transmutedRares -= requiredAmount;
 
             Stash nextStash = getNextStash(wizard, stash);
             CardType drop = nextStash.getRandomDrop(Rarity.Rare, Integer.MAX_VALUE, randomPlugin);
@@ -136,16 +152,16 @@ public strictfp class CraftCards extends Usecase<CraftCardsCommand> {
 
     private int getRequiredAmount(Wizard wizard, Stash stash) {
         if (stash instanceof PotionStash) {
-            return 2;
+            return requiredUniqueAmount;
         }
-        return wizard.requiredCraftAmount;
+        return wizard.requiredTransmuteAmount;
     }
 
-    private CardType craftCommon(Wizard wizard, Stash stash, CardType cardType, int index) {
-        ++stash.craftedCommons;
+    private CardType transmuteCommon(Wizard wizard, Stash stash, CardType cardType, int index) {
+        ++stash.transmutedCommons;
         int requiredAmount = getRequiredAmount(wizard, stash);
-        if (stash.craftedCommons >= requiredAmount) {
-            stash.craftedCommons -= requiredAmount;
+        if (stash.transmutedCommons >= requiredAmount) {
+            stash.transmutedCommons -= requiredAmount;
 
             CardType drop = stash.getRandomDrop(Rarity.Uncommon, Integer.MAX_VALUE, randomPlugin);
             if (drop != null) {
@@ -156,11 +172,11 @@ public strictfp class CraftCards extends Usecase<CraftCardsCommand> {
     }
 
     @SuppressWarnings("unchecked")
-    private CardType craftUncommon(Wizard wizard, Stash stash, CardType cardType, int index) {
-        ++stash.craftedUncommons;
+    private CardType transmuteUncommon(Wizard wizard, Stash stash, CardType cardType, int index) {
+        ++stash.transmutedUncommons;
         int requiredAmount = getRequiredAmount(wizard, stash);
-        if (stash.craftedUncommons >= requiredAmount) {
-            stash.craftedUncommons -= requiredAmount;
+        if (stash.transmutedUncommons >= requiredAmount) {
+            stash.transmutedUncommons -= requiredAmount;
 
             CardType drop = stash.getRandomDrop(Rarity.Rare, Integer.MAX_VALUE, randomPlugin);
             if (drop != null) {
