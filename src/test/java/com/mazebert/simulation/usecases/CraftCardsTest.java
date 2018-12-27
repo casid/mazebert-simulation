@@ -222,7 +222,7 @@ public class CraftCardsTest extends UsecaseTest<CraftCardsCommand> implements On
 
     @Test
     void listener_multipleCards() {
-        simulationListeners.onCardsCrafted.add(this);
+        wizard.onCardsCrafted.add(this);
 
         wizard.itemStash.add(ItemType.BabySword);
         wizard.itemStash.add(ItemType.BabySword);
@@ -239,7 +239,7 @@ public class CraftCardsTest extends UsecaseTest<CraftCardsCommand> implements On
 
     @Test
     void listener_oneCard() {
-        simulationListeners.onCardsCrafted.add(this);
+        wizard.onCardsCrafted.add(this);
 
         wizard.itemStash.craftedCommons = 3;
         wizard.itemStash.add(ItemType.BabySword);
@@ -256,14 +256,12 @@ public class CraftCardsTest extends UsecaseTest<CraftCardsCommand> implements On
     }
 
     @Override
-    public void onCardCrafted(Wizard wizard, CardType cardType) {
+    public void onCardCrafted(CardType cardType) {
         result = cardType;
-        assertThat(wizard).isSameAs(this.wizard);
     }
 
     @Override
-    public void onCardsCrafted(Wizard wizard, Collection<CardType> cardType) {
+    public void onCardsCrafted(Collection<CardType> cardType) {
         results = cardType;
-        assertThat(wizard).isSameAs(this.wizard);
     }
 }
