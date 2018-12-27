@@ -57,13 +57,13 @@ public strictfp class Context {
     public int skippedSeconds;
 
     public void init(Simulation simulation) {
-        gameSystem = new GameSystem();
         damageSystem = new DamageSystem();
         lootSystem = new LootSystem();
         experienceSystem = new ExperienceSystem();
         wolfSystem = new WolfSystem();
         pubSystem = new PubSystem();
         weddingRingSystem = new WeddingRingSystem();
+        gameSystem = new GameSystem();
 
         this.simulation = simulation;
         commandExecutor.init();
