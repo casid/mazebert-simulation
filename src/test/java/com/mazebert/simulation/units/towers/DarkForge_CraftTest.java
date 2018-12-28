@@ -54,7 +54,7 @@ strictfp class DarkForge_CraftTest extends SimTest {
 
         whenWaveIsFinished();
 
-        thenItemIsCrafted(ItemType.DarkBlade);
+        thenItemIsCrafted(ItemType.DarkBlade); // TODO solve dark, legendary item drops!
     }
 
     @Test

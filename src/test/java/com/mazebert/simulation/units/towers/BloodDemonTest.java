@@ -6,6 +6,7 @@ import com.mazebert.simulation.SimulationListeners;
 import com.mazebert.simulation.commands.BuildTowerCommand;
 import com.mazebert.simulation.commands.EquipItemCommand;
 import com.mazebert.simulation.gateways.UnitGateway;
+import com.mazebert.simulation.systems.LootSystem;
 import com.mazebert.simulation.units.TestTower;
 import com.mazebert.simulation.units.items.BabySword;
 import com.mazebert.simulation.units.items.BloodDemonBlade;
@@ -24,8 +25,10 @@ strictfp class BloodDemonTest extends SimTest {
     void setUp() {
         simulationListeners = new SimulationListeners();
         unitGateway = new UnitGateway();
+        lootSystem = new LootSystem();
 
         wizard = new Wizard();
+        wizard.gold = 100000;
         unitGateway.addUnit(wizard);
 
         commandExecutor = new CommandExecutor();

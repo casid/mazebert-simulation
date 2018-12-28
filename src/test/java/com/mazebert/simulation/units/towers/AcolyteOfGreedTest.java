@@ -5,6 +5,7 @@ import com.mazebert.simulation.commands.BuildTowerCommand;
 import com.mazebert.simulation.gateways.*;
 import com.mazebert.simulation.maps.BloodMoor;
 import com.mazebert.simulation.plugins.random.RandomPluginTrainer;
+import com.mazebert.simulation.systems.LootSystem;
 import com.mazebert.simulation.units.TestTower;
 import com.mazebert.simulation.units.creeps.Creep;
 import com.mazebert.simulation.units.creeps.CreepType;
@@ -32,12 +33,14 @@ strictfp class AcolyteOfGreedTest extends SimTest {
         gameGateway.getGame().map = new BloodMoor();
 
         difficultyGateway = new DifficultyGateway();
+        lootSystem = new LootSystem();
         waveSpawner = new WaveSpawner();
 
         commandExecutor = new CommandExecutor();
         commandExecutor.init();
 
         wizard = new Wizard();
+        wizard.gold = 100000;
         unitGateway.addUnit(wizard);
 
         previousTower = new TestTower();

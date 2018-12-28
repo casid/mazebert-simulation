@@ -18,6 +18,8 @@ strictfp class WeddingRingTest extends ItemTest {
 
     @BeforeEach
     void setUp() {
+        wizard.gold = 100000;
+
         simulationListeners = simulationListenersTrainer;
         playerGateway = new PlayerGatewayTrainer();
         weddingRingSystem = new WeddingRingSystem();
