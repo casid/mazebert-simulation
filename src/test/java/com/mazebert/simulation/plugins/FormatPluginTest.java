@@ -80,4 +80,9 @@ class FormatPluginTest {
         assertThat(format.experienceWithSignAndUnit(-20f)).isEqualTo("-20XP");
         assertThat(format.experienceWithSignAndUnit(0.01f)).isEqualTo("+0.01XP");
     }
+
+    @Test
+    void kills() {
+        assertThat(format.kills(Long.MAX_VALUE)).isEqualTo("9,223,372T");
+    }
 }

@@ -153,4 +153,8 @@ public strictfp class FormatPlugin {
             return experience(value) + "XP";
         }
     }
+
+    public String kills(long amount) {
+        return positiveNumber(amount);
+    }
 }

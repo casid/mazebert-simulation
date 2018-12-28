@@ -184,11 +184,16 @@ public strictfp class DamageSystem {
     }
 
     private void updateTotalDamage(Tower tower, double damage) {
-        tower.setTotalDamage(tower.getTotalDamage() + damage);
+        double totalDamage = tower.getTotalDamage() + damage;
+        tower.setTotalDamage(totalDamage);
 
         Wizard wizard = tower.getWizard();
         if (wizard != null) {
             wizard.totalDamage += damage;
+            if (totalDamage > wizard.bestTotalDamage) {
+                wizard.bestTotalDamage = totalDamage;
+                wizard.bestTotalDamageTower = TowerType.forTower(tower);
+            }
         }
     }
 

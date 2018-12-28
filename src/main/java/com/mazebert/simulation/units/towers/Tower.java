@@ -357,6 +357,11 @@ public strictfp abstract class Tower extends Unit implements CooldownUnit, Card,
     public void onKill(Creep target) {
         Sim.context().experienceSystem.grantExperience(this, target.getExperienceModifier() * target.getExperience(), false);
         ++kills;
+        ++getWizard().kills;
+        if (kills > getWizard().mostKills) {
+            getWizard().mostKills = kills;
+            getWizard().mostKillsTower = TowerType.forTower(this);
+        }
         Sim.context().lootSystem.loot(this, target);
     }
 

@@ -1,7 +1,7 @@
 package com.mazebert.simulation.plugins;
 
 public strictfp class PlayerLevelPlugin {
-    private static final int MAX_LEVEL = 200;
+    public static final int MAX_LEVEL = 200;
     private long[] playerLevelLookup = new long[MAX_LEVEL];
 
     public PlayerLevelPlugin() {

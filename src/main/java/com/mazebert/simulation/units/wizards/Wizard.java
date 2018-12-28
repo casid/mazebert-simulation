@@ -22,6 +22,7 @@ public strictfp class Wizard extends Unit {
     public final PotionStash potionStash = new PotionStash();
 
     public int playerId;
+    public String name = "Unknown Wizard"; // TODO
     public float health = 1.0f;
     public long experience;
     public double experienceModifier = 1;
@@ -32,8 +33,14 @@ public strictfp class Wizard extends Unit {
     public int transmutedUniques;
 
     public double bestHit;
-    public double totalDamage;
     public TowerType bestHitTower;
+    public double bestTotalDamage;
+    public TowerType bestTotalDamageTower;
+    public long mostKills;
+    public TowerType mostKillsTower;
+    public double totalDamage;
+    public long kills;
+    public long goldFarmed;
 
 
     public Wizard() {
@@ -49,6 +56,7 @@ public strictfp class Wizard extends Unit {
         hash.add(potionStash);
 
         hash.add(playerId);
+        // ignore name
         hash.add(health);
         hash.add(experience);
         hash.add(experienceModifier);
@@ -58,8 +66,9 @@ public strictfp class Wizard extends Unit {
         hash.add(requiredTransmuteAmount);
         hash.add(transmutedUniques);
 
-        hash.add(bestHit);
-        hash.add(totalDamage);
+        hash.add(bestHit); // TODO ignore
+        hash.add(totalDamage); // TODO ignore
+        // ignore stats
     }
 
     @Override
@@ -69,6 +78,9 @@ public strictfp class Wizard extends Unit {
 
     public void addGold(long amount) {
         gold += amount;
+        if (amount > 0) {
+            goldFarmed += amount;
+        }
         onGoldChanged.dispatch(this, gold - amount, gold);
     }
 
