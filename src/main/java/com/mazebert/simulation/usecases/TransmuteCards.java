@@ -28,14 +28,21 @@ public strictfp class TransmuteCards extends Usecase<TransmuteCardsCommand> {
     public static float getProgress(Wizard wizard, ReadonlyStash stash, Rarity rarity) {
         switch (rarity) {
             case Common:
-                return (float)stash.getTransmutedCommons() / wizard.requiredTransmuteAmount;
+                return (float)stash.getTransmutedCommons() / getRequiredAmount(wizard, stash);
             case Uncommon:
-                return (float)stash.getTransmutedUncommons() / wizard.requiredTransmuteAmount;
+                return (float)stash.getTransmutedUncommons() / getRequiredAmount(wizard, stash);
             case Rare:
-                return (float)stash.getTransmutedRares() / wizard.requiredTransmuteAmount;
+                return (float)stash.getTransmutedRares() / getRequiredAmount(wizard, stash);
         }
 
         return (float)wizard.transmutedUniques / requiredUniqueAmount;
+    }
+
+    private static int getRequiredAmount(Wizard wizard, ReadonlyStash stash) {
+        if (stash instanceof PotionStash) {
+            return requiredUniqueAmount;
+        }
+        return wizard.requiredTransmuteAmount;
     }
 
     private final UnitGateway unitGateway = Sim.context().unitGateway;
@@ -152,13 +159,6 @@ public strictfp class TransmuteCards extends Usecase<TransmuteCardsCommand> {
             }
         }
         return null;
-    }
-
-    private int getRequiredAmount(Wizard wizard, Stash stash) {
-        if (stash instanceof PotionStash) {
-            return requiredUniqueAmount;
-        }
-        return wizard.requiredTransmuteAmount;
     }
 
     private CardType transmuteCommon(Wizard wizard, Stash stash, CardType cardType, int index) {

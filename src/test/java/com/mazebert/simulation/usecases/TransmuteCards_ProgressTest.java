@@ -51,4 +51,10 @@ public class TransmuteCards_ProgressTest extends SimTest {
         wizard.transmutedUniques = 1;
         assertThat(getProgress(wizard, wizard.itemStash, Rarity.Unique)).isEqualTo(0.5f);
     }
+
+    @Test
+    void potion() {
+        wizard.potionStash.transmutedRares = 1;
+        assertThat(getProgress(wizard, wizard.potionStash, Rarity.Rare)).isEqualTo(0.5f);
+    }
 }
