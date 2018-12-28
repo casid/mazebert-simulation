@@ -70,10 +70,12 @@ public strictfp class ChainAbility extends Ability<Tower> implements OnDamageLis
     private void endChain() {
         getUnit().onChain.dispatch(viewType, sourceCreep, chainedCreeps, chainedCreepCount);
 
-        sourceCreep = null;
         for (int i = 0; i < chainedCreepCount; ++i) {
+            damageSystem.dealDamage(this, getUnit(), chainedCreeps[i], chainDamage, 0, false);
             chainedCreeps[i] = null;
         }
+
+        sourceCreep = null;
         chainedCreepCount = 0;
     }
 
@@ -90,6 +92,5 @@ public strictfp class ChainAbility extends Ability<Tower> implements OnDamageLis
         }
 
         chainedCreeps[chainedCreepCount++] = creep;
-        damageSystem.dealDamage(this, getUnit(), creep, chainDamage, 0, false);
     }
 }

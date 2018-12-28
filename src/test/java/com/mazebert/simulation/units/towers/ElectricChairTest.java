@@ -3,29 +3,45 @@ package com.mazebert.simulation.units.towers;
 import com.mazebert.simulation.SimTest;
 import com.mazebert.simulation.SimulationListeners;
 import com.mazebert.simulation.gateways.UnitGateway;
+import com.mazebert.simulation.listeners.OnChainListener;
+import com.mazebert.simulation.plugins.random.RandomPluginTrainer;
+import com.mazebert.simulation.projectiles.ChainViewType;
 import com.mazebert.simulation.systems.DamageSystemTrainer;
+import com.mazebert.simulation.systems.ExperienceSystem;
+import com.mazebert.simulation.systems.LootSystem;
 import com.mazebert.simulation.units.creeps.Creep;
+import com.mazebert.simulation.units.creeps.CreepBuilder;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.jusecase.Builders;
 
+import static com.mazebert.simulation.units.creeps.CreepBuilder.creep;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.jusecase.Builders.a;
 
-class ElectricChairTest extends SimTest {
+class ElectricChairTest extends SimTest implements OnChainListener {
     ElectricChair electricChair;
+    Creep target;
+    Creep[] chained;
 
     @BeforeEach
     void setUp() {
         simulationListeners = new SimulationListeners();
         unitGateway = new UnitGateway();
+        randomPlugin = new RandomPluginTrainer();
+
         damageSystem = new DamageSystemTrainer();
+        experienceSystem = new ExperienceSystem();
+        lootSystem = new LootSystem();
 
         electricChair = new ElectricChair();
+        electricChair.onChain.add(this);
         unitGateway.addUnit(electricChair);
     }
 
     @Test
     void attack_one() {
-        Creep creep1 = new Creep();
+        Creep creep1 = a(creep());
         unitGateway.addUnit(creep1);
 
         whenTowerAttacks();
@@ -35,9 +51,9 @@ class ElectricChairTest extends SimTest {
 
     @Test
     void attack_two() {
-        Creep creep1 = new Creep();
+        Creep creep1 = a(creep());
         unitGateway.addUnit(creep1);
-        Creep creep2 = new Creep();
+        Creep creep2 = a(creep());
         creep2.setX(100);
         creep2.setY(100);
         unitGateway.addUnit(creep2);
@@ -49,12 +65,40 @@ class ElectricChairTest extends SimTest {
     }
 
     @Test
-    void attack_three() {
-        Creep creep1 = new Creep();
+    void attack_two_firstKilled() {
+        Creep creep1 = a(creep());
+        creep1.setHealth(1);
         unitGateway.addUnit(creep1);
-        Creep creep2 = new Creep();
+        Creep creep2 = a(creep());
         unitGateway.addUnit(creep2);
-        Creep creep3 = new Creep();
+
+        whenTowerAttacks();
+
+        assertThat(target).isSameAs(creep1);
+        assertThat(chained[0]).isSameAs(creep2);
+    }
+
+    @Test
+    void attack_two_lastKilled() {
+        Creep creep1 = a(creep());
+        unitGateway.addUnit(creep1);
+        Creep creep2 = a(creep());
+        creep2.setHealth(1);
+        unitGateway.addUnit(creep2);
+
+        whenTowerAttacks();
+
+        assertThat(target).isSameAs(creep1);
+        assertThat(chained[0]).isSameAs(creep2);
+    }
+
+    @Test
+    void attack_three() {
+        Creep creep1 = a(creep());
+        unitGateway.addUnit(creep1);
+        Creep creep2 = a(creep());
+        unitGateway.addUnit(creep2);
+        Creep creep3 = a(creep());
         unitGateway.addUnit(creep3);
 
         whenTowerAttacks();
@@ -66,12 +110,12 @@ class ElectricChairTest extends SimTest {
 
     @Test
     void attack_three_oneDead() {
-        Creep creep1 = new Creep();
+        Creep creep1 = a(creep());
         unitGateway.addUnit(creep1);
-        Creep creep2 = new Creep();
+        Creep creep2 = a(creep());
         creep2.setHealth(0);
         unitGateway.addUnit(creep2);
-        Creep creep3 = new Creep();
+        Creep creep3 = a(creep());
         unitGateway.addUnit(creep3);
 
         whenTowerAttacks();
@@ -83,11 +127,11 @@ class ElectricChairTest extends SimTest {
 
     @Test
     void attack_three_afterLevelUp() {
-        Creep creep1 = new Creep();
+        Creep creep1 = a(creep());
         unitGateway.addUnit(creep1);
-        Creep creep2 = new Creep();
+        Creep creep2 = a(creep());
         unitGateway.addUnit(creep2);
-        Creep creep3 = new Creep();
+        Creep creep3 = a(creep());
         unitGateway.addUnit(creep3);
 
         electricChair.setLevel(14);
@@ -119,5 +163,11 @@ class ElectricChairTest extends SimTest {
 
     private void whenTowerAttacks() {
         electricChair.simulate(electricChair.getBaseCooldown());
+    }
+
+    @Override
+    public void onChain(ChainViewType viewType, Creep target, Creep[] chained, int chainedLength) {
+        this.target = target;
+        this.chained = chained.clone();
     }
 }
