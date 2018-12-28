@@ -34,8 +34,8 @@ public strictfp class Wizard extends Unit {
 
     public double bestHit;
     public TowerType bestHitTower;
-    public double bestTotalDamage;
-    public TowerType bestTotalDamageTower;
+    public double mostDamage;
+    public TowerType mostDamageTower;
     public long mostKills;
     public TowerType mostKillsTower;
     public double totalDamage;

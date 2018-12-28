@@ -190,9 +190,9 @@ public strictfp class DamageSystem {
         Wizard wizard = tower.getWizard();
         if (wizard != null) {
             wizard.totalDamage += damage;
-            if (totalDamage > wizard.bestTotalDamage) {
-                wizard.bestTotalDamage = totalDamage;
-                wizard.bestTotalDamageTower = TowerType.forTower(tower);
+            if (totalDamage > wizard.mostDamage) {
+                wizard.mostDamage = totalDamage;
+                wizard.mostDamageTower = TowerType.forTower(tower);
             }
         }
     }
