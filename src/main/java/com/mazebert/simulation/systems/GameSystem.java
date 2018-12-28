@@ -9,6 +9,9 @@ import com.mazebert.simulation.gateways.PlayerGateway;
 import com.mazebert.simulation.gateways.UnitGateway;
 import com.mazebert.simulation.listeners.OnHealthChangedListener;
 import com.mazebert.simulation.units.Unit;
+import com.mazebert.simulation.units.items.ItemType;
+import com.mazebert.simulation.units.potions.PotionType;
+import com.mazebert.simulation.units.towers.TowerType;
 import com.mazebert.simulation.units.wizards.Wizard;
 
 public strictfp class GameSystem implements OnHealthChangedListener {
@@ -29,18 +32,18 @@ public strictfp class GameSystem implements OnHealthChangedListener {
         wizard.playerId = playerId;
         wizard.addGold(Balancing.STARTING_GOLD);
 //        for (TowerType towerType : TowerType.values()) {
-////            if (towerType != TowerType.Kiwi) {
-////                wizard.towerStash.add(towerType);
-////            }
-////        }
-////        for (ItemType itemType : ItemType.values()) {
-////            if (itemType != ItemType.BloodDemonBlade) {
-////                wizard.itemStash.add(itemType);
-////            }
-////        }
-////        for (PotionType value : PotionType.values()) {
-////            wizard.potionStash.add(value);
-////        }
+//            if (towerType != TowerType.Kiwi) {
+//                wizard.towerStash.add(towerType);
+//            }
+//        }
+//        for (ItemType itemType : ItemType.values()) {
+//            if (itemType != ItemType.BloodDemonBlade) {
+//                wizard.itemStash.add(itemType);
+//            }
+//        }
+//        for (PotionType value : PotionType.values()) {
+//            wizard.potionStash.add(value);
+//        }
 
         wizard.onHealthChanged.add(this);
 
