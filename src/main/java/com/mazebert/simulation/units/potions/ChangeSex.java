@@ -9,7 +9,8 @@ public strictfp class ChangeSex extends Potion {
 
     @Override
     public String getIcon() {
-        return "9012_SexPotion";
+        //return "9012_SexPotion"; // TODO re-enable, when we have the image
+        return "card_dust_512";
     }
 
     @Override
