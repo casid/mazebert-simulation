@@ -3,7 +3,7 @@ package com.mazebert.simulation.units.items;
 import com.mazebert.simulation.units.abilities.AuraAbility;
 import com.mazebert.simulation.units.towers.Tower;
 
-public class UnluckyPantsAbility extends AuraAbility<Tower, Tower> {
+public strictfp class UnluckyPantsAbility extends AuraAbility<Tower, Tower> {
     public static final float bonus = 0.2f;
 
     public UnluckyPantsAbility() {

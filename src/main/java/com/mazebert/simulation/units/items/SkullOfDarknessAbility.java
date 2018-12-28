@@ -7,7 +7,7 @@ import com.mazebert.simulation.units.abilities.Ability;
 import com.mazebert.simulation.units.creeps.Creep;
 import com.mazebert.simulation.units.towers.Tower;
 
-public class SkullOfDarknessAbility extends Ability<Tower> implements OnKillListener {
+public strictfp class SkullOfDarknessAbility extends Ability<Tower> implements OnKillListener {
 
     private static final int maxHealings = 100;
     private static final float healthPerKill = 0.01f;

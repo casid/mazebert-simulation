@@ -10,7 +10,7 @@ import com.mazebert.simulation.units.towers.TowerType;
 import org.jusecase.bitpack.BitReader;
 import org.jusecase.bitpack.BitWriter;
 
-public class EnumSerializer {
+public strictfp class EnumSerializer {
     public static TowerType readTowerType(BitReader reader) {
         return TowerType.forId(reader.readUnsignedInt6());
     }

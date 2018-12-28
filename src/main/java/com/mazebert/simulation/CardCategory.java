@@ -1,6 +1,6 @@
 package com.mazebert.simulation;
 
-public enum CardCategory {
+public strictfp enum CardCategory {
     Tower(1),
     Potion(2),
     Item(3),

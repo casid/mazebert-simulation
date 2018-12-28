@@ -11,6 +11,7 @@ import com.mazebert.simulation.units.Unit;
 import com.mazebert.simulation.units.creeps.Creep;
 import com.mazebert.simulation.units.items.Item;
 import com.mazebert.simulation.units.items.ItemType;
+import com.mazebert.simulation.units.wizards.Wizard;
 
 public strictfp abstract class Tower extends Unit implements CooldownUnit, Card, OnKillListener {
 
@@ -357,10 +358,13 @@ public strictfp abstract class Tower extends Unit implements CooldownUnit, Card,
     public void onKill(Creep target) {
         Sim.context().experienceSystem.grantExperience(this, target.getExperienceModifier() * target.getExperience(), false);
         ++kills;
-        ++getWizard().kills;
-        if (kills > getWizard().mostKills) {
-            getWizard().mostKills = kills;
-            getWizard().mostKillsTower = TowerType.forTower(this);
+        Wizard wizard = getWizard();
+        if (wizard != null) {
+            ++wizard.kills;
+            if (kills > wizard.mostKills) {
+                wizard.mostKills = kills;
+                wizard.mostKillsTower = TowerType.forTower(this);
+            }
         }
         Sim.context().lootSystem.loot(this, target);
     }
