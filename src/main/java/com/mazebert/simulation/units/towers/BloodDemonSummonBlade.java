@@ -44,7 +44,7 @@ public strictfp class BloodDemonSummonBlade extends Ability<Tower> implements On
     private void dropPreviousItem() {
         Item previousItem = getUnit().getItem(0);
         if (previousItem != null) {
-            getUnit().getWizard().itemStash.add(ItemType.forItem(previousItem));
+            getUnit().getWizard().itemStash.add(previousItem.getType());
         }
     }
 

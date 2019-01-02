@@ -40,14 +40,14 @@ public abstract strictfp class ItemSetAbility extends StackableAbility<Tower> im
         int oldAmount = currentItems.size();
 
         if (newItem != null) {
-            ItemType newItemType = ItemType.forItem(newItem);
+            ItemType newItemType = newItem.getType();
             if (allItems.contains(newItemType)) {
                 currentItems.add(newItemType);
             }
         }
 
         if (oldItem != null) {
-            ItemType oldItemType = ItemType.forItem(oldItem);
+            ItemType oldItemType = oldItem.getType();
             if (allItems.contains(oldItemType)) {
                 currentItems.remove(oldItemType);
             }

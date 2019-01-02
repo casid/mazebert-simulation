@@ -107,8 +107,7 @@ public strictfp enum ItemType implements CardType<Item> {
         return LOOKUP[id];
     }
 
-    public static ItemType forItem(Item item) {
-        Class<? extends Item> itemClass = item.getClass();
+    public static ItemType forClass(Class<? extends Item> itemClass) {
         for (ItemType itemType : values()) {
             if (itemType.itemClass == itemClass) {
                 return itemType;

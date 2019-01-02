@@ -8,10 +8,12 @@ import com.mazebert.simulation.units.abilities.Ability;
 public strictfp abstract class Item implements Card {
     private final Ability[] abilities;
     private final boolean set;
+    private final ItemType type;
 
     public Item(Ability... abilities) {
         this.abilities = abilities;
         this.set = containsAbility(ItemSetAbility.class);
+        this.type = ItemType.forClass(getClass());
     }
 
     @Override
@@ -60,5 +62,9 @@ public strictfp abstract class Item implements Card {
             }
         }
         return null;
+    }
+
+    public ItemType getType() {
+        return type;
     }
 }

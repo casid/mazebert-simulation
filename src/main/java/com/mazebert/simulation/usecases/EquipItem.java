@@ -4,7 +4,6 @@ import com.mazebert.simulation.Sim;
 import com.mazebert.simulation.commands.EquipItemCommand;
 import com.mazebert.simulation.gateways.UnitGateway;
 import com.mazebert.simulation.units.items.Item;
-import com.mazebert.simulation.units.items.ItemType;
 import com.mazebert.simulation.units.towers.Tower;
 import com.mazebert.simulation.units.wizards.Wizard;
 
@@ -48,7 +47,7 @@ public strictfp class EquipItem extends Usecase<EquipItemCommand> {
     private void dropCurrentlyEquippedItem(EquipItemCommand command, Wizard wizard, Tower tower) {
         Item previousItem = tower.getItem(command.inventoryIndex);
         if (previousItem != null) {
-            wizard.itemStash.add(ItemType.forItem(previousItem));
+            wizard.itemStash.add(previousItem.getType());
         }
     }
 }
