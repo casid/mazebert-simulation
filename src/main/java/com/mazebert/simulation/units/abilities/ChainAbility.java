@@ -57,7 +57,7 @@ public strictfp class ChainAbility extends Ability<Tower> implements OnDamageLis
         }
 
         beginChain(target, damage);
-        unitGateway.forEach(Creep.class, this);
+        unitGateway.forEachCreep(this);
         endChain();
     }
 

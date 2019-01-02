@@ -4,6 +4,7 @@ import com.mazebert.java8.Consumer;
 import com.mazebert.java8.Predicate;
 import com.mazebert.simulation.Sim;
 import com.mazebert.simulation.units.Unit;
+import com.mazebert.simulation.units.creeps.Creep;
 import com.mazebert.simulation.units.items.Item;
 import com.mazebert.simulation.units.towers.Tower;
 import com.mazebert.simulation.units.wizards.Wizard;
@@ -13,9 +14,13 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 public strictfp final class UnitGateway {
     private final SafeIterationArray<Unit> units = new SafeIterationArray<>();
+    private final SafeIterationArray<Creep> creeps = new SafeIterationArray<>();
 
     public void addUnit(Unit unit) {
         units.add(unit);
+        if (unit instanceof Creep) {
+            creeps.add((Creep) unit);
+        }
         Sim.context().simulationListeners.onUnitAdded.dispatch(unit);
         unit.onUnitAdded.dispatch(unit);
     }
@@ -40,6 +45,9 @@ public strictfp final class UnitGateway {
 
     public void removeUnit(Unit unit) {
         units.remove(unit);
+        if (unit instanceof Creep) {
+            creeps.remove((Creep) unit);
+        }
         unit.onUnitRemoved.dispatch(unit);
         Sim.context().simulationListeners.onUnitRemoved.dispatch(unit);
 
@@ -55,23 +63,17 @@ public strictfp final class UnitGateway {
         });
     }
 
-    public <U extends Unit> U findUnitInRange(Unit unit, float range, Class<U> unitClass) {
-        return findUnitInRange(unit.getX(), unit.getY(), range, unitClass);
-    }
-
     @SuppressWarnings("unchecked")
     public <U extends Unit> U findUnitInRange(float x, float y, float range, Class<U> unitClass) {
         return (U) units.find(unit -> unitClass.isAssignableFrom(unit.getClass()) && unit.isInRange(x, y, range));
     }
 
-    @SuppressWarnings("unchecked")
-    public <U extends Unit> U findUnitInRange(Unit unit, float range, Class<U> unitClass, U[] excludedUnits) {
-        return findUnitInRange(unit.getX(), unit.getY(), range, unitClass, excludedUnits);
+    public Creep findCreepInRange(float x, float y, float range) {
+        return creeps.find(unit -> unit.isInRange(x, y, range));
     }
 
-    @SuppressWarnings("unchecked")
-    public <U extends Unit> U findUnitInRange(float x, float y, float range, Class<U> unitClass, U[] excludedUnits) {
-        return (U) units.find(unit -> unitClass.isAssignableFrom(unit.getClass()) && unit.isInRange(x, y, range) && !contains(excludedUnits, unit));
+    public Creep findCreepInRange(float x, float y, float range, Creep[] excludedUnits) {
+        return creeps.find(unit -> unit.isInRange(x, y, range) && !contains(excludedUnits, unit));
     }
 
     public <U extends Unit> U findRandomUnitInRange(Unit unit, float range, Class<U> unitClass) {
@@ -120,6 +122,10 @@ public strictfp final class UnitGateway {
         });
     }
 
+    public void forEachCreep(Consumer<Creep> unitConsumer) {
+        creeps.forEach(unitConsumer);
+    }
+
     @SuppressWarnings("unchecked")
     public <U extends Unit> void forEach(Class<U> unitClass, Predicate<U> predicate, Consumer<U> unitConsumer) {
         units.forEach(unit -> {
@@ -131,11 +137,19 @@ public strictfp final class UnitGateway {
 
     @SuppressWarnings("unchecked")
     public <U extends Unit> void forEachInRange(float x, float y, float range, Class<U> unitClass, Consumer<U> unitConsumer) {
-        units.forEach(unit -> {
-            if (unitClass.isAssignableFrom(unit.getClass()) && unit.isInRange(x, y, range)) {
-                unitConsumer.accept((U) unit);
-            }
-        });
+        if (unitClass == Creep.class) {
+            creeps.forEach(creep -> {
+                if (creep.isInRange(x, y, range)) {
+                    unitConsumer.accept((U) creep);
+                }
+            });
+        } else {
+            units.forEach(unit -> {
+                if (unitClass.isAssignableFrom(unit.getClass()) && unit.isInRange(x, y, range)) {
+                    unitConsumer.accept((U) unit);
+                }
+            });
+        }
     }
 
     public Wizard getWizard(int playerId) {

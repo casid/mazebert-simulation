@@ -48,7 +48,7 @@ public strictfp class SniperBurst extends Ability<Tower> implements OnAttackList
         currentShotCount = calculateShotCount();
         updateFrustum(target);
 
-        unitGateway.forEach(Creep.class, this);
+        unitGateway.forEachCreep(this);
 
         currentTarget = null;
     }
