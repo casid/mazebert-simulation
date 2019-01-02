@@ -5,7 +5,6 @@ import com.mazebert.simulation.plugins.FormatPlugin;
 import com.mazebert.simulation.plugins.random.RandomPlugin;
 import com.mazebert.simulation.units.creeps.Creep;
 import com.mazebert.simulation.units.towers.Tower;
-import com.mazebert.simulation.units.towers.TowerType;
 import com.mazebert.simulation.units.wizards.Wizard;
 
 import java.util.Arrays;
@@ -178,7 +177,7 @@ public strictfp class DamageSystem {
             Wizard wizard = tower.getWizard();
             if (wizard != null && damage > wizard.bestHit) {
                 wizard.bestHit = damage;
-                wizard.bestHitTower = TowerType.forTower(tower);
+                wizard.bestHitTower = tower.getType();
             }
         }
     }
@@ -192,7 +191,7 @@ public strictfp class DamageSystem {
             wizard.totalDamage += damage;
             if (totalDamage > wizard.mostDamage) {
                 wizard.mostDamage = totalDamage;
-                wizard.mostDamageTower = TowerType.forTower(tower);
+                wizard.mostDamageTower = tower.getType();
             }
         }
     }

@@ -65,7 +65,8 @@ public strictfp abstract class Tower extends Unit implements CooldownUnit, Card,
     private double totalDamage;
     private int kills;
 
-    private Item[] items = new Item[4];
+    private transient TowerType type;
+    private transient Item[] items = new Item[4];
 
     public Tower() {
         onKill.add(this);
@@ -363,7 +364,7 @@ public strictfp abstract class Tower extends Unit implements CooldownUnit, Card,
             ++wizard.kills;
             if (kills > wizard.mostKills) {
                 wizard.mostKills = kills;
-                wizard.mostKillsTower = TowerType.forTower(this);
+                wizard.mostKillsTower = getType();
             }
         }
         Sim.context().lootSystem.loot(this, target);
@@ -631,5 +632,12 @@ public strictfp abstract class Tower extends Unit implements CooldownUnit, Card,
 
     public float getArmorPenetration() {
         return armorPenetration;
+    }
+
+    public TowerType getType() {
+        if (type == null) {
+            type = TowerType.forClass(getClass());
+        }
+        return type;
     }
 }

@@ -104,9 +104,7 @@ public strictfp enum TowerType implements CardType<Tower> {
         return LOOKUP[id];
     }
 
-    // TODO smarter (faster) way to do this!
-    public static TowerType forTower(Tower tower) {
-        Class<? extends Tower> towerClass = tower.getClass();
+    public static TowerType forClass(Class<? extends Tower> towerClass) {
         for (TowerType towerType : values()) {
             if (towerType.towerClass == towerClass) {
                 return towerType;
