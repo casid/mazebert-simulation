@@ -15,11 +15,14 @@ import java.util.concurrent.atomic.AtomicInteger;
 public strictfp final class UnitGateway {
     private final SafeIterationArray<Unit> units = new SafeIterationArray<>();
     private final SafeIterationArray<Creep> creeps = new SafeIterationArray<>();
+    private final SafeIterationArray<Tower> towers = new SafeIterationArray<>();
 
     public void addUnit(Unit unit) {
         units.add(unit);
         if (unit instanceof Creep) {
             creeps.add((Creep) unit);
+        } else if (unit instanceof Tower) {
+            towers.add((Tower) unit);
         }
         Sim.context().simulationListeners.onUnitAdded.dispatch(unit);
         unit.onUnitAdded.dispatch(unit);
@@ -47,6 +50,8 @@ public strictfp final class UnitGateway {
         units.remove(unit);
         if (unit instanceof Creep) {
             creeps.remove((Creep) unit);
+        } else if (unit instanceof Tower) {
+            towers.remove((Tower) unit);
         }
         unit.onUnitRemoved.dispatch(unit);
         Sim.context().simulationListeners.onUnitRemoved.dispatch(unit);
@@ -126,6 +131,19 @@ public strictfp final class UnitGateway {
         creeps.forEach(unitConsumer);
     }
 
+    public void forEachTower(Consumer<Tower> unitConsumer) {
+        towers.forEach(unitConsumer);
+    }
+
+    @SuppressWarnings("unchecked")
+    public <U extends Tower> void forEachTower(Class<U> unitClass, Consumer<U> unitConsumer) {
+        towers.forEach(unit -> {
+            if (unitClass.isAssignableFrom(unit.getClass())) {
+                unitConsumer.accept((U) unit);
+            }
+        });
+    }
+
     @SuppressWarnings("unchecked")
     public <U extends Unit> void forEach(Class<U> unitClass, Predicate<U> predicate, Consumer<U> unitConsumer) {
         units.forEach(unit -> {
@@ -141,6 +159,12 @@ public strictfp final class UnitGateway {
             creeps.forEach(creep -> {
                 if (creep.isInRange(x, y, range)) {
                     unitConsumer.accept((U) creep);
+                }
+            });
+        } else if (unitClass.isAssignableFrom(Tower.class)) {
+            towers.forEach(tower -> {
+                if (tower.isInRange(x, y, range)) {
+                    unitConsumer.accept((U) tower);
                 }
             });
         } else {

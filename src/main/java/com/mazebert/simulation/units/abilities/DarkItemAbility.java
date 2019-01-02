@@ -38,7 +38,7 @@ public strictfp class DarkItemAbility extends StackableAbility<Tower> implements
             tribute = getStackCount() * TRIBUTE * (newExperience - oldExperience);
             experienceSystem.grantExperience(getUnit(), -tribute);
 
-            unitGateway.forEach(DarkForge.class, this);
+            unitGateway.forEachTower(DarkForge.class, this);
         }
     }
 
