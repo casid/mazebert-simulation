@@ -81,13 +81,8 @@ public strictfp final class UnitGateway {
         return creeps.find(unit -> unit.isInRange(x, y, range) && !contains(excludedUnits, unit));
     }
 
-    public <U extends Unit> U findRandomUnitInRange(Unit unit, float range, Class<U> unitClass) {
-        return findRandomUnitInRange(unit.getX(), unit.getY(), range, unitClass);
-    }
-
-    @SuppressWarnings("unchecked")
-    public <U extends Unit> U findRandomUnitInRange(float x, float y, float range, Class<U> unitClass) {
-        return (U) units.findRandom(unit -> unitClass.isAssignableFrom(unit.getClass()) && unit.isInRange(x, y, range), Sim.context().randomPlugin);
+    public Tower findRandomTowerInRange(float x, float y, float range) {
+        return towers.findRandom(unit -> unit.isInRange(x, y, range), Sim.context().randomPlugin);
     }
 
     private <U extends Unit> boolean contains(U[] excludedUnits, U unit) {

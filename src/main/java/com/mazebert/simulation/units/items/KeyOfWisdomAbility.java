@@ -22,7 +22,7 @@ public strictfp class KeyOfWisdomAbility extends CooldownAbility<Tower> {
 
     @Override
     protected boolean onCooldownReached() {
-        Tower tower = unitGateway.findRandomUnitInRange(getUnit(), range, Tower.class);
+        Tower tower = unitGateway.findRandomTowerInRange(getUnit().getX(), getUnit().getY(), range);
         if (tower != null) {
             experienceSystem.grantExperience(tower, experience + getUnit().getLevel() * experienceBonus);
         }
