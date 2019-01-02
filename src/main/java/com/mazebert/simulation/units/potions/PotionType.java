@@ -67,8 +67,7 @@ public strictfp enum PotionType implements CardType<Potion> {
         return LOOKUP[id];
     }
 
-    public static PotionType forPotion(Potion potion) {
-        Class<? extends Potion> potionClass = potion.getClass();
+    public static PotionType forClass(Class<? extends Potion> potionClass) {
         for (PotionType potionType : values()) {
             if (potionType.potionClass == potionClass) {
                 return potionType;

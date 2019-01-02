@@ -7,9 +7,11 @@ import com.mazebert.simulation.units.abilities.Ability;
 
 public strictfp abstract class Potion implements Card {
     private final Ability[] abilities;
+    private final PotionType type;
 
     public Potion(Ability... abilities) {
         this.abilities = abilities;
+        this.type = PotionType.forClass(getClass());
     }
 
     @Override
@@ -44,5 +46,9 @@ public strictfp abstract class Potion implements Card {
     @SuppressWarnings("unused") // For user interface to show warning hint
     public boolean isDestructive() {
         return false;
+    }
+
+    public PotionType getType() {
+        return type;
     }
 }
