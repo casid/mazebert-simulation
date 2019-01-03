@@ -156,7 +156,7 @@ public strictfp final class UnitGateway {
                     unitConsumer.accept((U) creep);
                 }
             });
-        } else if (unitClass.isAssignableFrom(Tower.class)) {
+        } else if (unitClass == Tower.class) {
             towers.forEach(tower -> {
                 if (tower.isInRange(x, y, range)) {
                     unitConsumer.accept((U) tower);
