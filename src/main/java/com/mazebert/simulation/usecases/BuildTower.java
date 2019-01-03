@@ -45,7 +45,7 @@ public strictfp class BuildTower extends Usecase<BuildTowerCommand> {
         tower.setX(x);
         tower.setY(y);
 
-        Tower oldTower = unitGateway.findUnit(Tower.class, wizard.getPlayerId(), x, y);
+        Tower oldTower = unitGateway.findTower(wizard.getPlayerId(), x, y);
         if (oldTower != null) {
             replace(oldTower, tower);
         }

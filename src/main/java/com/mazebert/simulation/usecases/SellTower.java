@@ -21,7 +21,7 @@ public strictfp class SellTower extends Usecase<SellTowerCommand> {
             return;
         }
 
-        Tower tower = unitGateway.findUnit(Tower.class, command.playerId, command.x, command.y);
+        Tower tower = unitGateway.findTower(command.playerId, command.x, command.y);
         if (tower == null) {
             return;
         }

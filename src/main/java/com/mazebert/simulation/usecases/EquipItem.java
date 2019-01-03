@@ -15,7 +15,7 @@ public strictfp class EquipItem extends Usecase<EquipItemCommand> {
     public void execute(EquipItemCommand command) {
         Wizard wizard = unitGateway.getWizard(command.playerId);
 
-        Tower tower = unitGateway.findUnit(Tower.class, command.playerId, command.towerX, command.towerY);
+        Tower tower = unitGateway.findTower(command.playerId, command.towerX, command.towerY);
         if (tower == null) {
             return;
         }

@@ -95,6 +95,10 @@ public strictfp final class UnitGateway {
         return towers.findRandom(unit -> unit.isInRange(x, y, range), Sim.context().randomPlugin);
     }
 
+    public Tower findTower(int playerId, int x, int y) {
+        return towers.find(unit -> unit.getPlayerId() == playerId && unit.getX() == x && unit.getY() == y);
+    }
+
     @SuppressWarnings("unchecked")
     public <U extends Unit> U findUnit(Class<U> unitClass, int playerId) {
         return (U) units.find(unit -> unitClass.isAssignableFrom(unit.getClass()) && unit.getPlayerId() == playerId);
