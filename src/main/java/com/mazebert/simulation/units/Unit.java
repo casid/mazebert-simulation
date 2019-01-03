@@ -60,19 +60,19 @@ public abstract strictfp class Unit implements Hashable {
         this.wizard = wizard;
     }
 
-    public float getX() {
+    public final float getX() {
         return x;
     }
 
-    public void setX(float x) {
+    public final void setX(float x) {
         this.x = x;
     }
 
-    public float getY() {
+    public final float getY() {
         return y;
     }
 
-    public void setY(float y) {
+    public final void setY(float y) {
         this.y = y;
     }
 
@@ -224,13 +224,7 @@ public abstract strictfp class Unit implements Hashable {
     }
 
     public boolean isInRange(float x, float y, float range) {
-        float dx = this.x - x;
-        float dy = this.y - y;
-
-        if (dx < 0) dx = -dx;
-        if (dy < 0) dy = -dy;
-
-        return dx <= range && dy <= range;
+        return StrictMath.abs(this.x - x) <= range && StrictMath.abs(this.y - y) <= range;
     }
 
     @SuppressWarnings("unused") // Used by client

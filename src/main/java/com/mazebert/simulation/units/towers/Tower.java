@@ -36,8 +36,10 @@ public strictfp abstract class Tower extends Unit implements CooldownUnit, Card,
     private float strength = 1.0f;
     private float baseCooldown = Float.MAX_VALUE;
     private float attackSpeedAdd;
+    private transient float cooldown;
     private float baseRange = 1.0f;
     private float addedRange = 0.0f;
+    private transient float range;
     private float damageSpread; // [0, 1], 0=constant damage, 1=max spread damage
     private float minBaseDamage;
     private float maxBaseDamage;
@@ -70,6 +72,8 @@ public strictfp abstract class Tower extends Unit implements CooldownUnit, Card,
 
     public Tower() {
         onKill.add(this);
+        updateCooldown();
+        updateRange();
     }
 
     @Override
@@ -115,6 +119,11 @@ public strictfp abstract class Tower extends Unit implements CooldownUnit, Card,
 
     public void setBaseCooldown(float baseCooldown) {
         this.baseCooldown = baseCooldown;
+        updateCooldown();
+    }
+
+    private void updateCooldown() {
+        cooldown = getCooldown(baseCooldown);
     }
 
     public float getBaseRange() {
@@ -123,6 +132,7 @@ public strictfp abstract class Tower extends Unit implements CooldownUnit, Card,
 
     public void setBaseRange(float baseRange) {
         this.baseRange = baseRange;
+        updateRange();
     }
 
     public float getMinBaseDamage() {
@@ -227,7 +237,7 @@ public strictfp abstract class Tower extends Unit implements CooldownUnit, Card,
 
     @Override
     public float getCooldown() {
-        return getCooldown(baseCooldown);
+        return cooldown;
     }
 
     public float getCooldown(float baseCooldown) {
@@ -497,6 +507,7 @@ public strictfp abstract class Tower extends Unit implements CooldownUnit, Card,
 
     public void addAttackSpeed(float amount) {
         attackSpeedAdd += amount;
+        updateCooldown();
     }
 
     public void addChanceToMiss(float amount) {
@@ -563,13 +574,18 @@ public strictfp abstract class Tower extends Unit implements CooldownUnit, Card,
         bonus.value = "-";
     }
 
-    public void addRange(float amount) {
+    public final void addRange(float amount) {
         addedRange += amount;
+        updateRange();
         onRangeChanged.dispatch(this);
     }
 
-    public float getRange() {
-        return StrictMath.max(1, baseRange + addedRange);
+    private void updateRange() {
+        range = StrictMath.max(1, baseRange + addedRange);
+    }
+
+    public final float getRange() {
+        return range;
     }
 
     public int getTilesInRange() {
