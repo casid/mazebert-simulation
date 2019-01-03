@@ -19,6 +19,7 @@ public strictfp final class UnitGateway {
 
     private final CreepInRangePredicate creepInRangePredicate = new CreepInRangePredicate();
     private final CreepInRangeExcludedPredicate creepInRangeExcludedPredicate = new CreepInRangeExcludedPredicate();
+    private final CreepInRangeConsumer creepInRangeConsumer = new CreepInRangeConsumer();
 
     public void addUnit(Unit unit) {
         units.add(unit);
@@ -151,11 +152,12 @@ public strictfp final class UnitGateway {
     @SuppressWarnings("unchecked")
     public <U extends Unit> void forEachInRange(float x, float y, float range, Class<U> unitClass, Consumer<U> unitConsumer) {
         if (unitClass == Creep.class) {
-            creeps.forEach(creep -> {
-                if (creep.isInRange(x, y, range)) {
-                    unitConsumer.accept((U) creep);
-                }
-            });
+            creepInRangeConsumer.x = x;
+            creepInRangeConsumer.y = y;
+            creepInRangeConsumer.range = range;
+            creepInRangeConsumer.unitConsumer = unitConsumer;
+            creeps.forEach(creepInRangeConsumer);
+            creepInRangeConsumer.unitConsumer = null;
         } else if (unitClass == Tower.class) {
             towers.forEach(tower -> {
                 if (tower.isInRange(x, y, range)) {
@@ -225,6 +227,22 @@ public strictfp final class UnitGateway {
                 }
             }
             return false;
+        }
+    }
+
+    private static final class CreepInRangeConsumer implements Consumer<Creep> {
+
+        public float x;
+        public float y;
+        public float range;
+        public Consumer unitConsumer;
+
+        @Override
+        public void accept(Creep creep) {
+            if (creep.isInRange(x, y, range)) {
+                //noinspection unchecked
+                unitConsumer.accept(creep);
+            }
         }
     }
 }
