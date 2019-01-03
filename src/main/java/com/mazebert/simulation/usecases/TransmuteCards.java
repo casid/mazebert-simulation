@@ -74,7 +74,7 @@ public strictfp class TransmuteCards extends Usecase<TransmuteCardsCommand> {
         int index = stash.getIndex(cardType);
 
         Card card;
-        while ((card = stash.remove(cardType)) != null) {
+        while ((card = stash.remove(cardType, false)) != null) {
             CardType drop = transmute(wizard, stash, card, cardType, index);
             if (drop != null) {
                 if (result == null) {
@@ -97,7 +97,7 @@ public strictfp class TransmuteCards extends Usecase<TransmuteCardsCommand> {
     public void transmute(Wizard wizard, Stash stash, CardType cardType) {
         int index = stash.getIndex(cardType);
 
-        Card card = stash.remove(cardType);
+        Card card = stash.remove(cardType, false);
         if (card == null) {
             return;
         }
