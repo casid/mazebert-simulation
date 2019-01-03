@@ -90,6 +90,6 @@ public strictfp class ItemTest extends SimTest {
         command.y = (int)tower.getY();
         commandExecutor.executeVoid(command);
 
-        return unitGateway.findUnit(Tower.class, wizard.getPlayerId(), command.x, command.y);
+        return unitGateway.findTower(wizard.getPlayerId(), command.x, command.y);
     }
 }

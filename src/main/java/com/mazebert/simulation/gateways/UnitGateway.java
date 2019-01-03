@@ -105,11 +105,6 @@ public strictfp final class UnitGateway {
     }
 
     @SuppressWarnings("unchecked")
-    public <U extends Unit> U findUnit(Class<U> unitClass, int playerId, int x, int y) {
-        return (U) units.find(unit -> unitClass.isAssignableFrom(unit.getClass()) && unit.getPlayerId() == playerId && unit.getX() == x && unit.getY() == y);
-    }
-
-    @SuppressWarnings("unchecked")
     public <U extends Unit> U findUnit(Class<U> unitClass, int playerId, int x, int y, Predicate<U> predicate) {
         return (U) units.find(unit -> unitClass.isAssignableFrom(unit.getClass()) && unit.getPlayerId() == playerId && unit.getX() == x && unit.getY() == y && predicate.test((U) unit));
     }
