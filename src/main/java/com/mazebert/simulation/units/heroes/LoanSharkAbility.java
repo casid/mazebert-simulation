@@ -20,9 +20,9 @@ public strictfp class LoanSharkAbility extends HeroTowerBuffAbility {
         if (unit == getUnit()) {
             unit.getWizard().addGold(startingGold);
             unit.getWizard().interestBonus += interestMalus;
+        } else {
+            super.onUnitAdded(unit);
         }
-
-        super.onUnitAdded(unit);
     }
 
     @Override
