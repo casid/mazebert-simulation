@@ -17,6 +17,9 @@ public strictfp final class UnitGateway {
     private final SafeIterationArray<Creep> creeps = new SafeIterationArray<>();
     private final SafeIterationArray<Tower> towers = new SafeIterationArray<>();
 
+    private final CreepInRangePredicate creepInRangePredicate = new CreepInRangePredicate();
+    private final CreepInRangeExcludedPredicate creepInRangeExcludedPredicate = new CreepInRangeExcludedPredicate();
+
     public void addUnit(Unit unit) {
         units.add(unit);
         if (unit instanceof Creep) {
@@ -74,24 +77,22 @@ public strictfp final class UnitGateway {
     }
 
     public Creep findCreepInRange(float x, float y, float range) {
-        return creeps.find(unit -> unit.isInRange(x, y, range));
+        creepInRangePredicate.x = x;
+        creepInRangePredicate.y = y;
+        creepInRangePredicate.range = range;
+        return creeps.find(creepInRangePredicate);
     }
 
     public Creep findCreepInRange(float x, float y, float range, Creep[] excludedUnits) {
-        return creeps.find(unit -> unit.isInRange(x, y, range) && !contains(excludedUnits, unit));
+        creepInRangeExcludedPredicate.x = x;
+        creepInRangeExcludedPredicate.y = y;
+        creepInRangeExcludedPredicate.range = range;
+        creepInRangeExcludedPredicate.excludedUnits = excludedUnits;
+        return creeps.find(creepInRangeExcludedPredicate);
     }
 
     public Tower findRandomTowerInRange(float x, float y, float range) {
         return towers.findRandom(unit -> unit.isInRange(x, y, range), Sim.context().randomPlugin);
-    }
-
-    private <U extends Unit> boolean contains(U[] excludedUnits, U unit) {
-        for (U excludedUnit : excludedUnits) {
-            if (excludedUnit == unit) {
-                return true;
-            }
-        }
-        return false;
     }
 
     @SuppressWarnings("unchecked")
@@ -192,5 +193,39 @@ public strictfp final class UnitGateway {
             }
         }
         removeUnit(tower);
+    }
+
+    private static final class CreepInRangePredicate implements Predicate<Creep> {
+
+        public float x;
+        public float y;
+        public float range;
+
+        @Override
+        public boolean test(Creep creep) {
+            return creep.isInRange(x, y, range);
+        }
+    }
+
+    private static final class CreepInRangeExcludedPredicate implements Predicate<Creep> {
+
+        public float x;
+        public float y;
+        public float range;
+        public Creep[] excludedUnits;
+
+        @Override
+        public boolean test(Creep creep) {
+            return creep.isInRange(x, y, range) && !contains(excludedUnits, creep);
+        }
+
+        private boolean contains(Creep[] excludedUnits, Creep unit) {
+            for (Creep excludedUnit : excludedUnits) {
+                if (excludedUnit == unit) {
+                    return true;
+                }
+            }
+            return false;
+        }
     }
 }
