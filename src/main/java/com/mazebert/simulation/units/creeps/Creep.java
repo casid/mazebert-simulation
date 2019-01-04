@@ -4,12 +4,14 @@ import com.mazebert.simulation.Path;
 import com.mazebert.simulation.Wave;
 import com.mazebert.simulation.hash.Hash;
 import com.mazebert.simulation.listeners.*;
+import com.mazebert.simulation.maps.FollowPath;
+import com.mazebert.simulation.maps.FollowPathResult;
 import com.mazebert.simulation.units.Unit;
 
 public strictfp class Creep extends Unit {
     public static final float DEATH_TIME = 2.0f;
 
-    private static final WalkResult TEMP = new WalkResult();
+    private static final FollowPathResult TEMP = new FollowPathResult();
 
     public final OnDeath onDeath = new OnDeath();
     public final OnDead onDead = new OnDead();
@@ -86,11 +88,11 @@ public strictfp class Creep extends Unit {
     private void walk(float dt) {
         float distanceToWalk = getSpeed() * dt;
         TEMP.pathIndex = pathIndex;
-        WalkResult result = walk(getX(), getY(), distanceToWalk, TEMP);
+        FollowPathResult result = walk(getX(), getY(), distanceToWalk, TEMP);
         if (result != null) {
             pathIndex = result.pathIndex;
-            setX(result.getX());
-            setY(result.getY());
+            setX(result.px);
+            setY(result.py);
 
             freshCoordinates = true;
 
@@ -100,91 +102,15 @@ public strictfp class Creep extends Unit {
         }
     }
 
-    private WalkResult walk(float x, float y, float distanceToWalk, WalkResult result) {
-        if (distanceToWalk >= 0.0f) {
-            return walkForward(x, y, distanceToWalk, result);
-        } else {
-            return walkBackward(x, y, distanceToWalk, result);
-        }
-    }
-
-    private WalkResult walkForward(float x, float y, float distanceToWalk, WalkResult result) {
+    private FollowPathResult walk(float x, float y, float distanceToWalk, FollowPathResult result) {
         if (state != CreepState.Running) {
             return null;
         }
-
-        if (distanceToWalk <= 0.0f) {
-            return null;
-        }
-
-        if (path == null) {
-            return null;
-        }
-
-        int targetIndex = result.pathIndex + 1;
-        if (targetIndex >= path.size()) {
-            return null;
-        }
-
-        float[] target = path.get(targetIndex, result.position);
-        float tx = target[0];
-        float ty = target[1];
-
-        float dx = tx - x;
-        float dy = ty - y;
-
-        float distance = (float) StrictMath.sqrt(dx * dx + dy * dy);
-        if (distance <= distanceToWalk) {
-            result.position[0] = tx;
-            result.position[1] = ty;
-            ++result.pathIndex;
-
-            walkForward(tx, ty, distanceToWalk - distance, result);
-        } else {
-            result.position[0] = x + distanceToWalk * dx / distance;
-            result.position[1] = y + distanceToWalk * dy / distance;
-        }
-
-        return result;
-    }
-
-    private WalkResult walkBackward(float x, float y, float distanceToWalk, WalkResult result) {
-        if (state != CreepState.Running) {
-            return null;
-        }
-
-        if (distanceToWalk >= 0.0f) {
-            return null;
-        }
-
-        int targetIndex = result.pathIndex;
-        if (targetIndex < 0) {
-            return null;
-        }
-
-        float[] target = path.get(targetIndex, result.position);
-        float tx = target[0];
-        float ty = target[1];
-
-        float dx = tx - x;
-        float dy = ty - y;
-
-        float distance = (float) StrictMath.sqrt(dx * dx + dy * dy);
-        if (distance <= -distanceToWalk) {
-            result.position[0] = tx;
-            result.position[1] = ty;
-            --result.pathIndex;
-            walkBackward(tx, ty, distanceToWalk + distance, result);
-        } else {
-            result.position[0] = x - distanceToWalk * dx / distance;
-            result.position[1] = y - distanceToWalk * dy / distance;
-        }
-
-        return result;
+        return FollowPath.followPath(x, y, distanceToWalk, path, result);
     }
 
     @SuppressWarnings("unused") // Used by client
-    public WalkResult predictWalk(float x, float y, float dt, WalkResult result) {
+    public FollowPathResult predictWalk(float x, float y, float dt, FollowPathResult result) {
         if (dt == 0) {
             return null;
         }
@@ -198,9 +124,8 @@ public strictfp class Creep extends Unit {
 
         result.pathIndex = pathIndex;
         if (walk(x, y, distanceToWalk, result) != null) {
-            float[] direction = path.get(result.pathIndex, result.direction);
-            direction[0] = result.position[0] - direction[0];
-            direction[1] = result.position[1] - direction[1];
+            result.dx = result.px - path.getX(result.pathIndex);
+            result.dy = result.py - path.getY(result.pathIndex);
         }
 
         return result;
@@ -266,10 +191,6 @@ public strictfp class Creep extends Unit {
 
     public Wave getWave() {
         return wave;
-    }
-
-    public float getBaseSpeed() {
-        return baseSpeed;
     }
 
     public void setBaseSpeed(float baseSpeed) {
@@ -409,25 +330,5 @@ public strictfp class Creep extends Unit {
         damageModifier += amount;
     }
 
-    public static class WalkResult {
-        private float[] position = new float[2];
-        private float[] direction = new float[2];
-        private int pathIndex;
 
-        public float getX() {
-            return position[0];
-        }
-
-        public float getY() {
-            return position[1];
-        }
-
-        public float getDx() {
-            return direction[0];
-        }
-
-        public float getDy() {
-            return direction[1];
-        }
-    }
 }
