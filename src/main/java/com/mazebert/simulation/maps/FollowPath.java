@@ -2,7 +2,7 @@ package com.mazebert.simulation.maps;
 
 import com.mazebert.simulation.Path;
 
-public class FollowPath {
+public strictfp class FollowPath {
 
     public static FollowPathResult followPath(float x, float y, float distanceToWalk, Path path, FollowPathResult result) {
         if (distanceToWalk >= 0.0f) {
@@ -76,6 +76,53 @@ public class FollowPath {
             result.px = x - distanceToWalk * dx / distance;
             result.py = y - distanceToWalk * dy / distance;
         }
+
+        return result;
+    }
+
+    public static FollowPathResult findClosestPointOnPath(float x, float y, Path path) {
+        FollowPathResult result = new FollowPathResult();
+        float bestDistance = Float.MAX_VALUE;
+
+        for (int i = 0; i < path.size() - 1; ++i) {
+            float ax = path.getX(i);
+            float ay = path.getY(i);
+            float bx = path.getX(i + 1) - ax;
+            float by = path.getY(i + 1) - ay;
+            float bl = (float) StrictMath.sqrt(bx * bx + by * by);
+
+            float distance = ((x - ax) * by - (y - ay) * bx) / bl;
+            if (StrictMath.abs(distance) < bestDistance) {
+                float rx = x - distance * by / bl;
+                float ry = y + distance * bx / bl;
+
+                float lambda = StrictMath.abs(bx) > StrictMath.abs(by) ? (rx - ax) / bx : (ry - ay) / by;
+                if (lambda < 0.0f || lambda > 1.0f) {
+                    if (lambda < 0.0f) {
+                        ax = path.getX(i);
+                        ay = path.getY(i);
+                    } else {
+                        ax = path.getX(i + 1);
+                        ay = path.getY(i + 1);
+                    }
+                    rx = x - ax;
+                    ry = y - ay;
+                    distance = (float) StrictMath.sqrt(rx * rx + ry * ry);
+                    if (distance < bestDistance) {
+                        result.px = ax;
+                        result.py = ay;
+                        result.pathIndex = i;
+                        bestDistance = distance;
+                    }
+                } else {
+                    result.px = rx;
+                    result.py = ry;
+                    result.pathIndex = i;
+                    bestDistance = StrictMath.abs(distance);
+                }
+            }
+        }
+
 
         return result;
     }

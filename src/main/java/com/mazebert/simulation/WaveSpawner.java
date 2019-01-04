@@ -94,10 +94,12 @@ public strictfp class WaveSpawner implements OnGameStartedListener, OnWaveStarte
         return goblin;
     }
 
-    public void spawnTreasureGoblin(Wizard wizard, int pathIndex) {
+    public void spawnTreasureGoblin(Wizard wizard, int pathIndex, float x, float y) {
         Wave wave = waveGateway.generateGoblinWave();
         Creep goblin = createGoblin(wizard, wave);
         spawnCreep(goblin, pathIndex);
+        goblin.setX(x);
+        goblin.setY(y);
     }
 
     private float calculateCountdownForNextCreepToSend(Wave wave) {

@@ -329,6 +329,4 @@ public strictfp class Creep extends Unit {
     public void addDamageModifier(float amount) {
         damageModifier += amount;
     }
-
-
 }

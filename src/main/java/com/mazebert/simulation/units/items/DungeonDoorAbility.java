@@ -1,13 +1,13 @@
 package com.mazebert.simulation.units.items;
 
-import com.mazebert.simulation.Path;
 import com.mazebert.simulation.Sim;
 import com.mazebert.simulation.gateways.GameGateway;
+import com.mazebert.simulation.maps.FollowPath;
+import com.mazebert.simulation.maps.FollowPathResult;
 import com.mazebert.simulation.units.abilities.CooldownAbility;
 import com.mazebert.simulation.units.towers.Tower;
 
 public strictfp class DungeonDoorAbility extends CooldownAbility<Tower> {
-    public static final int range = 1;
     public static final int cooldown = 60 * 3;
     public static final float chance = 0.33f;
     public static final float chanceBonus = 0.004f;
@@ -27,32 +27,11 @@ public strictfp class DungeonDoorAbility extends CooldownAbility<Tower> {
     @Override
     protected boolean onCooldownReached() {
         if (getUnit().isAbilityTriggered(chance + getUnit().getLevel() * chanceBonus)) {
-            int index = findFirstReachableIndexOnPath(gameGateway.getMap().getGroundPath());
-            if (index >= 0) {
-                Sim.context().waveSpawner.spawnTreasureGoblin(getUnit().getWizard(), index);
-            }
+            FollowPathResult result = FollowPath.findClosestPointOnPath(getUnit().getX(), getUnit().getY(), gameGateway.getMap().getGroundPath());
+            Sim.context().waveSpawner.spawnTreasureGoblin(getUnit().getWizard(), result.pathIndex, result.px, result.py);
         }
 
         return true;
-    }
-
-    private int findFirstReachableIndexOnPath(Path path) {
-        int pathLength = path.size();
-        float x = getUnit().getX();
-        float y = getUnit().getY();
-        for (int i = 0; i < pathLength; ++i) {
-            float dx = path.getX(i) - x;
-            float dy = path.getY(i) - y;
-
-            if (dx < 0.0f) dx *= -1.0f;
-            if (dy < 0.0f) dy *= -1.0f;
-
-            if (dx <= range && dy <= range) {
-                return i;
-            }
-        }
-
-        return -1;
     }
 
     @Override
@@ -67,6 +46,6 @@ public strictfp class DungeonDoorAbility extends CooldownAbility<Tower> {
 
     @Override
     public String getDescription() {
-        return "Every " + (cooldown / 60) + " minutes there is a " + format.percent(chance) + "% chance that a treasure goblin escapes the dungeon. The goblin spawns within " + range + " range of the carrier.";
+        return "Every " + (cooldown / 60) + " minutes there is a " + format.percent(chance) + "% chance that a treasure goblin escapes the dungeon. The goblin spawns next to the carrier.";
     }
 }
