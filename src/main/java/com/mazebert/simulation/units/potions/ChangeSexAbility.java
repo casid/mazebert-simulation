@@ -39,11 +39,11 @@ public strictfp class ChangeSexAbility extends Ability<Tower> {
 
     @Override
     public String getTitle() {
-        return "Sex roulette!";
+        return "Sudyumna's advice";
     }
 
     @Override
     public String getDescription() {
-        return "Female becomes male\nMale becomes female\nNo sex becomes female or male randomly";
+        return "Female becomes male\nMale becomes female\nNo sex becomes female or male";
     }
 }

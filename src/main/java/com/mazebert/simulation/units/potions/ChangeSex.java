@@ -14,12 +14,12 @@ public strictfp class ChangeSex extends Potion {
 
     @Override
     public String getName() {
-        return "Potion of sex change";
+        return "Ila's Spirit of Metamorphosis";
     }
 
     @Override
     public String getDescription() {
-        return "Use at your own risk.";
+        return "Explore the possibilities";
     }
 
     @Override
