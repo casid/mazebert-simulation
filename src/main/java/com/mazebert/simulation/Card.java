@@ -28,6 +28,10 @@ public interface Card {
         return false;
     }
 
+    default boolean isBlackMarketOffer() {
+        return false;
+    }
+
     default boolean isTradingAllowed() {
         return true;
     }
