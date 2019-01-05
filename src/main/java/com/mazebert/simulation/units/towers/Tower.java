@@ -15,6 +15,9 @@ import com.mazebert.simulation.units.wizards.Wizard;
 
 public strictfp abstract class Tower extends Unit implements CooldownUnit, Card, OnKillListener {
 
+    private static final int MIN_INVENTORY_SIZE = 4;
+    private static final int MAX_INVENTORY_SIZE = 6;
+
     public final OnAttack onAttack = new OnAttack();
     public final OnDamage onDamage = new OnDamage();
     public final OnChain onChain = new OnChain();
@@ -66,9 +69,10 @@ public strictfp abstract class Tower extends Unit implements CooldownUnit, Card,
     private double bestHit;
     private double totalDamage;
     private int kills;
+    private int inventorySize = MIN_INVENTORY_SIZE;
 
     private transient TowerType type;
-    private transient Item[] items = new Item[4];
+    private transient Item[] items = new Item[MAX_INVENTORY_SIZE];
 
     public Tower() {
         onKill.add(this);
@@ -111,6 +115,7 @@ public strictfp abstract class Tower extends Unit implements CooldownUnit, Card,
         hash.add(bestHit);
         hash.add(totalDamage);
         hash.add(kills);
+        hash.add(inventorySize);
     }
 
     public float getBaseCooldown() {
@@ -430,8 +435,27 @@ public strictfp abstract class Tower extends Unit implements CooldownUnit, Card,
         addedAbsoluteBaseDamage += amount;
     }
 
+    public void addInventorySize(int amount) {
+        inventorySize += amount;
+        if (amount < 0) {
+            for (int i = getInventorySize() - 1; i < MAX_INVENTORY_SIZE; ++i) {
+                Item item = getItem(i);
+                if (item != null) {
+                    setItem(i, null);
+                    getWizard().itemStash.add(item.getType());
+                }
+            }
+        }
+    }
+
     public int getInventorySize() {
-        return items.length;
+        if (inventorySize < MIN_INVENTORY_SIZE) {
+            return MIN_INVENTORY_SIZE;
+        }
+        if (inventorySize > MAX_INVENTORY_SIZE) {
+            return MAX_INVENTORY_SIZE;
+        }
+        return inventorySize;
     }
 
     public double rollBaseDamage(RandomPlugin randomPlugin) {
@@ -482,8 +506,8 @@ public strictfp abstract class Tower extends Unit implements CooldownUnit, Card,
     }
 
     private Item[] getItemsCopy() {
-        Item[] copy = new Item[items.length];
-        System.arraycopy(items, 0, copy, 0, items.length);
+        Item[] copy = new Item[getInventorySize()];
+        System.arraycopy(items, 0, copy, 0, copy.length);
         return copy;
     }
 

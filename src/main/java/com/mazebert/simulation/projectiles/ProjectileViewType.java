@@ -16,4 +16,5 @@ public strictfp enum ProjectileViewType {
     BlueSpell,
     Web,
     Fireball,
+    LaserBeam,
 }

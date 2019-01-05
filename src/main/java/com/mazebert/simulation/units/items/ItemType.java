@@ -70,7 +70,7 @@ public strictfp enum ItemType implements CardType<Item> {
     SpectralCape(57, SpectralCape.class),
     BowlingBall(58, BowlingBall.class),
     LightbladeAcademySword(59, LightbladeAcademySword.class),
-//    LightbladeAcademyDrone(60, LightbladeAcademyDrone.class),
+    LightbladeAcademyDrone(60, LightbladeAcademyDrone.class),
 //    TransmuteUniques(61, TransmuteUniques.class),
 //    TransmuteStack(62, TransmuteStack.class),
 //    Mjoelnir(63, Mjoelnir.class),

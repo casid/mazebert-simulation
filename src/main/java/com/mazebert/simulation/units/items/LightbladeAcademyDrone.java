@@ -2,23 +2,20 @@ package com.mazebert.simulation.units.items;
 
 import com.mazebert.simulation.Rarity;
 
-public strictfp class LightbladeAcademySword extends Item {
+public strictfp class LightbladeAcademyDrone extends Item {
 
-    private final LightbladeAcademySwordAbility ability;
-
-    public LightbladeAcademySword() {
-        super(new LightbladeAcademySwordAbility(), new LightbladeAcademySetAbility());
-        ability = getAbility(LightbladeAcademySwordAbility.class);
+    public LightbladeAcademyDrone() {
+        super(new LightbladeAcademyDroneAbility(), new LightbladeAcademySetAbility());
     }
 
     @Override
     public String getName() {
-        return "Plasma Blade";
+        return "GT1, the little robot";
     }
 
     @Override
     public String getDescription() {
-        return "An elegant weapon if you know what you're doing.";
+        return "I will train you to become the greatest warrior in the galaxy.";
     }
 
     @Override
@@ -33,12 +30,12 @@ public strictfp class LightbladeAcademySword extends Item {
 
     @Override
     public String getIcon() {
-        return ability.getBladeIcon();
+        return "gt1_512";
     }
 
     @Override
     public int getItemLevel() {
-        return 84;
+        return 54;
     }
 
     @Override
