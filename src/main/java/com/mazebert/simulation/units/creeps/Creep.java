@@ -4,14 +4,12 @@ import com.mazebert.simulation.Path;
 import com.mazebert.simulation.Wave;
 import com.mazebert.simulation.hash.Hash;
 import com.mazebert.simulation.listeners.*;
-import com.mazebert.simulation.maps.FollowPath;
 import com.mazebert.simulation.maps.FollowPathResult;
 import com.mazebert.simulation.units.Unit;
+import com.mazebert.simulation.units.abilities.FollowPathCreepAbility;
 
 public strictfp class Creep extends Unit {
     public static final float DEATH_TIME = 2.0f;
-
-    private static final FollowPathResult TEMP = new FollowPathResult();
 
     public final OnDeath onDeath = new OnDeath();
     public final OnDead onDead = new OnDead();
@@ -24,8 +22,6 @@ public strictfp class Creep extends Unit {
     private Wave wave;
     private float baseSpeed = 1.0f;
     private float speedModifier = 1.0f;
-    private Path path;
-    private int pathIndex;
     private CreepType type;
     private CreepState state = CreepState.Running;
     private int gold;
@@ -40,9 +36,13 @@ public strictfp class Creep extends Unit {
     private float experienceModifier = 1.0f;
 
     private transient float deathTime;
-    private transient volatile boolean freshCoordinates;
+    private transient final FollowPathCreepAbility followPathAbility = new FollowPathCreepAbility();
 
+    public Creep() {
+        addAbility(followPathAbility);
+    }
 
+    @SuppressWarnings("Duplicates")
     @Override
     public void hash(Hash hash) {
         super.hash(hash);
@@ -51,8 +51,6 @@ public strictfp class Creep extends Unit {
         hash.add(wave);
         hash.add(baseSpeed);
         hash.add(speedModifier);
-        // ignore path
-        // ignore pathIndex
         hash.add(type);
         hash.add(state);
         hash.add(gold);
@@ -71,64 +69,18 @@ public strictfp class Creep extends Unit {
     public void simulate(float dt) {
         super.simulate(dt);
 
-        switch (state) {
-            case Running:
-                walk(dt);
-                break;
-            case Death:
-                deathTime += dt;
-                if (deathTime >= DEATH_TIME) {
-                    setState(CreepState.Dead);
-                    onDead.dispatch(this);
-                }
-                break;
-        }
-    }
-
-    private void walk(float dt) {
-        float distanceToWalk = getSpeed() * dt;
-        TEMP.pathIndex = pathIndex;
-        FollowPathResult result = walk(getX(), getY(), distanceToWalk, TEMP);
-        if (result != null) {
-            pathIndex = result.pathIndex;
-            setX(result.px);
-            setY(result.py);
-
-            freshCoordinates = true;
-
-            if (pathIndex >= path.size() - 1) {
-                onTargetReached.dispatch(this);
+        if (state == CreepState.Death) {
+            deathTime += dt;
+            if (deathTime >= DEATH_TIME) {
+                setState(CreepState.Dead);
+                onDead.dispatch(this);
             }
         }
     }
 
-    private FollowPathResult walk(float x, float y, float distanceToWalk, FollowPathResult result) {
-        if (state != CreepState.Running) {
-            return null;
-        }
-        return FollowPath.followPath(x, y, distanceToWalk, path, result);
-    }
-
     @SuppressWarnings("unused") // Used by client
     public FollowPathResult predictWalk(float x, float y, float dt, FollowPathResult result) {
-        if (dt == 0) {
-            return null;
-        }
-        if (freshCoordinates) {
-            freshCoordinates = false;
-            x = getX();
-            y = getY();
-        }
-
-        float distanceToWalk = getSpeed() * dt;
-
-        result.pathIndex = pathIndex;
-        if (walk(x, y, distanceToWalk, result) != null) {
-            result.dx = result.px - path.getX(result.pathIndex);
-            result.dy = result.py - path.getY(result.pathIndex);
-        }
-
-        return result;
+        return followPathAbility.predict(x, y, dt, result);
     }
 
     public double getHealth() {
@@ -214,12 +166,7 @@ public strictfp class Creep extends Unit {
     }
 
     public void setPath(Path path, int index) {
-        this.path = path;
-        if (path != null && path.size() > 0) {
-            pathIndex = index;
-            setX(path.getX(index));
-            setY(path.getY(index));
-        }
+        followPathAbility.setPath(path, index);
     }
 
     public void setState(CreepState state) {
@@ -315,7 +262,7 @@ public strictfp class Creep extends Unit {
     }
 
     public void warpInTime(float warpSeconds) {
-        walk(warpSeconds);
+        followPathAbility.followPath(warpSeconds);
     }
 
     public float getDamageModifier() {

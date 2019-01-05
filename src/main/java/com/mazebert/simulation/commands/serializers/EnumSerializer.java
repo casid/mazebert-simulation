@@ -44,11 +44,11 @@ public strictfp class EnumSerializer {
     }
 
     public static ActiveAbilityType readActiveAbilityType(BitReader reader) {
-        return ActiveAbilityType.forId(reader.readUnsignedInt2());
+        return ActiveAbilityType.forId(reader.readUnsignedInt3());
     }
 
     public static void writeActiveAbilityType(BitWriter writer, ActiveAbilityType type) {
-        writer.writeUnsignedInt2(type.id);
+        writer.writeUnsignedInt3(type.id);
     }
 
     public static CardCategory readTowerPotionOrItemCardCategory(BitReader reader) {

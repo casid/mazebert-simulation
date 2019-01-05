@@ -48,6 +48,10 @@ public strictfp abstract class Map {
         return "maps/tiles.xml";
     }
 
+    public Point getStartWaypoint() {
+        return startWaypoint;
+    }
+
     public abstract int getColumns();
 
     private MapGrid createGrid() {

@@ -2,7 +2,7 @@ package com.mazebert.simulation.projectiles;
 
 import com.mazebert.simulation.units.Unit;
 
-public strictfp class Projectile {
+public strictfp final class Projectile {
     public float x;
     public float y;
     public float speed;

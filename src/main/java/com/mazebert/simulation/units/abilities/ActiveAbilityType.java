@@ -1,5 +1,6 @@
 package com.mazebert.simulation.units.abilities;
 
+import com.mazebert.simulation.units.items.BowlingBallRollAbility;
 import com.mazebert.simulation.units.towers.KiwiHaka;
 import com.mazebert.simulation.units.towers.MrIronConstruct;
 import com.mazebert.simulation.units.towers.PubParty;
@@ -8,6 +9,7 @@ public strictfp enum ActiveAbilityType {
     PubParty(1, PubParty.class),
     MrIronConstruct(2, MrIronConstruct.class),
     KiwiHaka(3, KiwiHaka.class),
+    BowlingBallRollAbility(4, BowlingBallRollAbility.class),
     ;
 
     public final int id;

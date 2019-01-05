@@ -13,7 +13,7 @@ public strictfp class FollowPath {
     }
 
     @SuppressWarnings("Duplicates")
-    public static FollowPathResult forward(float x, float y, float distanceToWalk, Path path, FollowPathResult result) {
+    private static FollowPathResult forward(float x, float y, float distanceToWalk, Path path, FollowPathResult result) {
         if (distanceToWalk <= 0.0f) {
             return null;
         }
@@ -49,7 +49,7 @@ public strictfp class FollowPath {
     }
 
     @SuppressWarnings("Duplicates")
-    public static FollowPathResult backward(float x, float y, float distanceToWalk, Path path, FollowPathResult result) {
+    private static FollowPathResult backward(float x, float y, float distanceToWalk, Path path, FollowPathResult result) {
         if (distanceToWalk >= 0.0f) {
             return null;
         }

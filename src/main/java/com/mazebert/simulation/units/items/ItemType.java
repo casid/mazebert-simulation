@@ -68,7 +68,7 @@ public strictfp enum ItemType implements CardType<Item> {
     SkullOfDarkness(55, SkullOfDarkness.class),
     SpectralDaggers(56, SpectralDaggers.class),
     SpectralCape(57, SpectralCape.class),
-//    BowlingBall(58, BowlingBall.class),
+    BowlingBall(58, BowlingBall.class),
 //    LightbladeAcademySword(59, LightbladeAcademySword.class),
 //    LightbladeAcademyDrone(60, LightbladeAcademyDrone.class),
 //    TransmuteUniques(61, TransmuteUniques.class),
