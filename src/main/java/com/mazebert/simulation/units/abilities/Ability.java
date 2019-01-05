@@ -5,7 +5,6 @@ import com.mazebert.simulation.Sim;
 import com.mazebert.simulation.plugins.FormatPlugin;
 import com.mazebert.simulation.units.Currency;
 import com.mazebert.simulation.units.Unit;
-import com.mazebert.simulation.units.wizards.Wizard;
 
 public abstract strictfp class Ability<U extends Unit> {
 
@@ -78,5 +77,9 @@ public abstract strictfp class Ability<U extends Unit> {
 
     protected Currency getCurrency() {
         return Context.currency;
+    }
+
+    protected boolean isOriginalDamage(Object origin) {
+        return origin instanceof InstantDamageAbility || origin instanceof ProjectileDamageAbility;
     }
 }

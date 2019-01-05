@@ -27,7 +27,7 @@ public strictfp class StunAbility extends Ability<Tower> implements OnDamageList
         if (target.isDead()) {
             return;
         }
-        if (!isStunPossible(origin)) {
+        if (!isOriginalDamage(origin)) {
             return;
         }
 
@@ -47,10 +47,6 @@ public strictfp class StunAbility extends Ability<Tower> implements OnDamageList
 
     public String getStunText() {
         return "Stunned!";
-    }
-
-    private boolean isStunPossible(Object origin) {
-        return origin instanceof InstantDamageAbility || origin instanceof ProjectileDamageAbility;
     }
 
     public float getChance() {

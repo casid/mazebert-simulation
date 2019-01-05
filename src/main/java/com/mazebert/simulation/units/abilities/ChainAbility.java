@@ -56,6 +56,10 @@ public strictfp class ChainAbility extends Ability<Tower> implements OnDamageLis
             return;
         }
 
+        if (!isOriginalDamage(origin)) {
+            return;
+        }
+
         chain(target, damage);
     }
 

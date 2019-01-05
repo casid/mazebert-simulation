@@ -1,8 +1,6 @@
 package com.mazebert.simulation.units.items;
 
 import com.mazebert.simulation.listeners.OnDamageListener;
-import com.mazebert.simulation.units.abilities.InstantDamageAbility;
-import com.mazebert.simulation.units.abilities.ProjectileDamageAbility;
 import com.mazebert.simulation.units.creeps.Creep;
 
 import java.util.EnumSet;
@@ -25,7 +23,7 @@ public strictfp class WitheredSetAbility extends ItemSetAbility implements OnDam
 
     @Override
     public void onDamage(Object origin, Creep target, double damage, int multicrits) {
-        if (origin instanceof ProjectileDamageAbility || origin instanceof InstantDamageAbility) {
+        if (isOriginalDamage(origin)) {
             if (getUnit().isAbilityTriggered(0.02f)) {
                 target.warpInTime(-1.0f);
             }

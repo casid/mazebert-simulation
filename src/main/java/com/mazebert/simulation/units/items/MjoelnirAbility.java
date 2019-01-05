@@ -18,7 +18,7 @@ public strictfp class MjoelnirAbility extends ChainAbility {
     protected void chain(Creep target, double damage) {
         if (++attacks >= 3) {
             attacks = 0;
-            super.chain(target, damage);
+            super.chain(target, damage * DAMAGE);
         }
     }
 
