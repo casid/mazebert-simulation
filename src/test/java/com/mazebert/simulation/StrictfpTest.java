@@ -44,7 +44,7 @@ public class StrictfpTest {
             }
 
             if (!Modifier.isStrict(method.getModifiers())) {
-                System.err.println("Method " + methodName + " is not strict");
+                System.err.println("Method " + methodName + " is not strict (Modifiers: " + Modifier.toString(method.getModifiers()) + ")");
                 return false;
             }
         }
