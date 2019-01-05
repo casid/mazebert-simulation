@@ -2,20 +2,20 @@ package com.mazebert.simulation.units.items;
 
 import com.mazebert.simulation.Rarity;
 
-public strictfp class Trident extends BlackMarketItem {
+public strictfp class Mjoelnir extends BlackMarketItem {
 
-    public Trident() {
-        super(new TridentAbility());
+    public Mjoelnir() {
+        super(new MjoelnirAbility());
     }
 
     @Override
     public String getName() {
-        return "Trident of Poseidon";
+        return "Mjoelnir";
     }
 
     @Override
     public String getDescription() {
-        return "Crafted by the three Cyclopes.";
+        return "Hammer of Thor.";
     }
 
     @Override
@@ -25,16 +25,21 @@ public strictfp class Trident extends BlackMarketItem {
 
     @Override
     public String getSinceVersion() {
-        return "1.5";
+        return "1.3";
     }
 
     @Override
     public String getIcon() {
-        return "0056_throw_512";
+        return "mjoelnir-512";
     }
 
     @Override
     public int getItemLevel() {
-        return 87;
+        return 100;
+    }
+
+    @Override
+    public String getAuthor() {
+        return "Quofum";
     }
 }
