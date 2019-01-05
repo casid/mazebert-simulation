@@ -8,7 +8,6 @@ import com.mazebert.simulation.hash.Hash;
 import com.mazebert.simulation.hash.HashHistory;
 import com.mazebert.simulation.messages.Turn;
 import com.mazebert.simulation.plugins.SleepPlugin;
-import com.mazebert.simulation.plugins.random.UuidRandomPlugin;
 import com.mazebert.simulation.projectiles.ProjectileGateway;
 import com.mazebert.simulation.replay.ReplayReader;
 import com.mazebert.simulation.replay.data.ReplayFrame;
@@ -40,6 +39,7 @@ public strictfp final class Simulation {
     private float turnTimeInSeconds = turnTimeInMillis / 1000.0f;
     private float unmodifiedTurnTimeInSeconds = turnTimeInSeconds;
     private float timeModifier = 1;
+    private float timeDilation;
     private float playTimeInSeconds;
     private boolean pause;
     private Hash hash = new Hash();
@@ -137,6 +137,7 @@ public strictfp final class Simulation {
         turnTimeInSeconds = unmodifiedTurnTimeInSeconds * timeModifier;
     }
 
+    @SuppressWarnings("unused") // use by client
     public boolean isPause() {
         return pause;
     }
@@ -147,6 +148,10 @@ public strictfp final class Simulation {
             return 0;
         }
         return timeModifier;
+    }
+
+    public float getTimeDilation() {
+        return timeDilation;
     }
 
     public float getPlayTimeInSeconds() {
@@ -171,6 +176,9 @@ public strictfp final class Simulation {
         }
 
         sleepPlugin.sleepUntil(start, turnTimeInNanos);
+        long end = sleepPlugin.nanoTime();
+
+        timeDilation = (float)turnTimeInNanos / (end - start);
     }
 
     private void checkHashes(List<Turn> playerTurns) {

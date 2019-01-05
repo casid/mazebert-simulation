@@ -1,6 +1,8 @@
 package com.mazebert.simulation.units.abilities;
 
 import com.mazebert.simulation.Path;
+import com.mazebert.simulation.Sim;
+import com.mazebert.simulation.Simulation;
 import com.mazebert.simulation.listeners.OnUpdateListener;
 import com.mazebert.simulation.maps.FollowPath;
 import com.mazebert.simulation.maps.FollowPathResult;
@@ -8,6 +10,8 @@ import com.mazebert.simulation.units.Unit;
 
 public abstract strictfp class FollowPathAbility<U extends Unit> extends Ability<U> implements OnUpdateListener {
     private static final FollowPathResult TEMP = new FollowPathResult();
+
+    private final Simulation simulation = Sim.context().simulation;
 
     private boolean freshCoordinates;
     private Path path;
@@ -69,18 +73,32 @@ public abstract strictfp class FollowPathAbility<U extends Unit> extends Ability
     }
 
     public final FollowPathResult predict(float x, float y, float dt, FollowPathResult result) {
+        if (getUnit().isDisposed()) {
+            return null;
+        }
+
         if (dt == 0) {
             return null;
         }
+
+        dt *= simulation.getTimeDilation();
+
         if (freshCoordinates) {
             freshCoordinates = false;
-            x = getUnit().getX();
-            y = getUnit().getY();
+
+            if (StrictMath.abs(x - getUnit().getX()) > 1 || StrictMath.abs(y - getUnit().getY()) > 1) {
+                x = getUnit().getX();
+                y = getUnit().getY();
+                result.pathIndex = pathIndex;
+            }
         }
 
         float distanceToWalk = getSpeed() * dt;
 
-        result.pathIndex = pathIndex;
+        if (result.pathIndex == -1) {
+            result.pathIndex = pathIndex;
+        }
+
         if (followPath(x, y, distanceToWalk, result) != null) {
             result.dx = result.px - path.getX(result.pathIndex);
             result.dy = result.py - path.getY(result.pathIndex);
