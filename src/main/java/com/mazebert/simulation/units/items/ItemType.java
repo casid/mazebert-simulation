@@ -74,7 +74,7 @@ public strictfp enum ItemType implements CardType<Item> {
     TransmuteUniques(61, TransmuteUniques.class),
     TransmuteStack(62, TransmuteStack.class),
     Mjoelnir(63, Mjoelnir.class),
-//    PoisonArrow(64, PoisonArrow.class),
+    PoisonArrow(64, PoisonArrow.class),
     Trident(65, Trident.class),
     ;
 

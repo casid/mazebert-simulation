@@ -48,6 +48,9 @@ public strictfp class GameSystem implements OnHealthChangedListener {
         wizard.itemStash.add(ItemType.ScepterOfTime);
         wizard.itemStash.add(ItemType.LightbladeAcademyDrone);
         wizard.itemStash.add(ItemType.LightbladeAcademySword);
+        wizard.itemStash.add(ItemType.PoisonArrow);
+        wizard.itemStash.add(ItemType.Mjoelnir);
+        wizard.itemStash.add(ItemType.MesserschmidtsReaver);
 
         wizard.potionStash.add(PotionType.EssenceOfWisdom);
         wizard.potionStash.add(PotionType.EssenceOfWisdom);
