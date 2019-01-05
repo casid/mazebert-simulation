@@ -14,7 +14,7 @@ public strictfp class PoisonArrowAbility extends PoisonAbility {
 
     @Override
     protected double calculatePoisonDamage(Creep target, double damage, int multicrits) {
-        return damage * (getUnit().getLevel() * damagePerLevel);
+        return damage * (PoisonArrowAbility.damage + getUnit().getLevel() * damagePerLevel);
     }
 
     @Override
