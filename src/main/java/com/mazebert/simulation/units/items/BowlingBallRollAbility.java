@@ -43,6 +43,8 @@ public strictfp class BowlingBallRollAbility extends ActiveAbility {
         if (simulationListeners.areNotificationsEnabled()) {
             simulationListeners.soundNotification("sounds/bowling-roll.mp3");
         }
+
+        startCooldown();
     }
 
     @Override
