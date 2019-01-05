@@ -40,6 +40,10 @@ public interface Card {
         return false;
     }
 
+    default boolean isInternal() {
+        return false;
+    }
+
     default boolean isSet() {
         return false;
     }
