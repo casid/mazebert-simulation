@@ -69,7 +69,7 @@ public abstract strictfp class FollowPathAbility<U extends Unit> extends Ability
     }
 
     public final FollowPathResult predict(float x, float y, float dt, FollowPathResult result) {
-        if (getUnit().isDisposed()) {
+        if (isDisposed()) {
             return null;
         }
 
