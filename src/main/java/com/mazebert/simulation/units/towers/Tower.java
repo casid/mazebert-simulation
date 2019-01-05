@@ -28,6 +28,7 @@ public strictfp abstract class Tower extends Unit implements CooldownUnit, Card,
     public final OnRangeChanged onRangeChanged = new OnRangeChanged();
     public final OnGenderChanged onGenderChanged = new OnGenderChanged();
     public final OnItemEquipped onItemEquipped = new OnItemEquipped();
+    public final OnInventorySizeChanged onInventorySizeChanged = new OnInventorySizeChanged();
     public final OnPotionConsumed onPotionConsumed = new OnPotionConsumed();
     public final OnAbilityActivated onAbilityActivated = new OnAbilityActivated();
     public final OnAbilityReady onAbilityReady = new OnAbilityReady();
@@ -446,6 +447,7 @@ public strictfp abstract class Tower extends Unit implements CooldownUnit, Card,
                 }
             }
         }
+        onInventorySizeChanged.dispatch(this);
     }
 
     public int getInventorySize() {
