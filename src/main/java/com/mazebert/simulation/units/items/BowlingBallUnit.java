@@ -4,12 +4,15 @@ import com.mazebert.simulation.Path;
 import com.mazebert.simulation.maps.FollowPathResult;
 import com.mazebert.simulation.units.Unit;
 import com.mazebert.simulation.units.abilities.FollowPathBowlingBallAbility;
+import com.mazebert.simulation.units.towers.Tower;
 
 public strictfp class BowlingBallUnit extends Unit {
 
+    private final Tower tower;
     private final FollowPathBowlingBallAbility followPathAbility = new FollowPathBowlingBallAbility();
 
-    public BowlingBallUnit() {
+    public BowlingBallUnit(Tower tower) {
+        this.tower = tower;
         addAbility(followPathAbility);
     }
 
@@ -25,5 +28,9 @@ public strictfp class BowlingBallUnit extends Unit {
     @SuppressWarnings("unused") // Used by client
     public FollowPathResult predictRoll(float x, float y, float dt, FollowPathResult result) {
         return followPathAbility.predict(x, y, dt, result);
+    }
+
+    public Tower getTower() {
+        return tower;
     }
 }

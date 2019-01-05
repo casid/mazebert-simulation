@@ -14,12 +14,13 @@ public strictfp class Wave implements Hashable {
     public CreepModifier creepModifier1;
     public CreepModifier creepModifier2;
     public int creepCount;
-    public int remainingCreepCount;
+    public transient int remainingCreepCount;
     public float minSecondsToNextCreep;
     public float maxSecondsToNextCreep;
     public float healthMultiplier = 1;
 
 
+    @SuppressWarnings("Duplicates")
     @Override
     public void hash(Hash hash) {
         hash.add(round);

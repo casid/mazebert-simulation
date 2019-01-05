@@ -21,7 +21,7 @@ public strictfp class BowlingBallRollAbility extends ActiveAbility {
 
     @Override
     public void activate() {
-        BowlingBallUnit ball = new BowlingBallUnit();
+        BowlingBallUnit ball = new BowlingBallUnit(getUnit());
         ball.setWizard(getUnit().getWizard());
 
         Map map = gameGateway.getMap();
