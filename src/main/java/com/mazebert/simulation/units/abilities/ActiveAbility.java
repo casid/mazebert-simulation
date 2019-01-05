@@ -6,6 +6,12 @@ import com.mazebert.simulation.units.towers.Tower;
 public abstract strictfp class ActiveAbility extends Ability<Tower> implements OnUpdateListener {
     private float currentCooldownLeft;
 
+    @Override
+    protected void dispose(Tower unit) {
+        getUnit().onUpdate.remove(this);
+        super.dispose(unit);
+    }
+
     public boolean isReady() {
         return getReadyProgress() >= 1.0f;
     }

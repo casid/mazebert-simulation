@@ -197,6 +197,14 @@ class BowlingBallTest extends ItemTest {
         ball = unitGateway.findUnit(BowlingBallUnit.class, wizard.getPlayerId());
     }
 
+    @Test
+    void unequip_disposedCorrectly() {
+        whenBowlingBallIsRolled();
+        whenItemIsEquipped(null, 0);
+
+        tower.simulate(BowlingBall.BALL_COOLDOWN);
+    }
+
     private void thenBallIsRemoved() {
         assertThat(unitGateway.findUnit(BowlingBallUnit.class, wizard.getPlayerId())).isNull();
     }
