@@ -10,6 +10,7 @@ import com.mazebert.simulation.gateways.UnitGateway;
 import com.mazebert.simulation.listeners.OnHealthChangedListener;
 import com.mazebert.simulation.units.Unit;
 import com.mazebert.simulation.units.items.ItemType;
+import com.mazebert.simulation.units.potions.PotionType;
 import com.mazebert.simulation.units.wizards.Wizard;
 
 public strictfp class GameSystem implements OnHealthChangedListener {
@@ -45,6 +46,16 @@ public strictfp class GameSystem implements OnHealthChangedListener {
 
         wizard.itemStash.add(ItemType.BowlingBall);
         wizard.itemStash.add(ItemType.ScepterOfTime);
+        wizard.itemStash.add(ItemType.LightbladeAcademyDrone);
+        wizard.itemStash.add(ItemType.LightbladeAcademySword);
+
+        wizard.potionStash.add(PotionType.EssenceOfWisdom);
+        wizard.potionStash.add(PotionType.EssenceOfWisdom);
+        wizard.potionStash.add(PotionType.EssenceOfWisdom);
+        wizard.potionStash.add(PotionType.EssenceOfWisdom);
+        for (int i = 0; i < 50; ++i) {
+            wizard.potionStash.add(PotionType.CardDustLevel);
+        }
 
         wizard.onHealthChanged.add(this);
 

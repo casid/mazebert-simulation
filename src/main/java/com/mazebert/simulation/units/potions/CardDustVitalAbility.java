@@ -1,16 +1,21 @@
 package com.mazebert.simulation.units.potions;
 
 import com.mazebert.simulation.Sim;
-import com.mazebert.simulation.units.abilities.Ability;
+import com.mazebert.simulation.units.abilities.StackableAbility;
 import com.mazebert.simulation.units.towers.Tower;
 
-public strictfp class CardDustVitalAbility extends Ability<Tower> {
+public strictfp class CardDustVitalAbility extends StackableAbility<Tower> {
     private static final float health = 0.2f;
 
     @Override
-    protected void initialize(Tower unit) {
-        super.initialize(unit);
+    public void addStack() {
+        super.addStack();
         Sim.context().gameGateway.getGame().health += health;
+    }
+
+    @Override
+    protected void updateStacks() {
+        // unused
     }
 
     @Override

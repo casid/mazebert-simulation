@@ -3,7 +3,7 @@ package com.mazebert.simulation.units.abilities;
 import com.mazebert.simulation.Balancing;
 import com.mazebert.simulation.units.towers.Tower;
 
-public strictfp abstract class PermanentLevelUpAbility extends Ability<Tower> {
+public strictfp abstract class PermanentLevelUpAbility extends StackableAbility<Tower> {
     private final int levels;
 
     public PermanentLevelUpAbility(int levels) {
@@ -16,11 +16,16 @@ public strictfp abstract class PermanentLevelUpAbility extends Ability<Tower> {
     }
 
     @Override
-    protected void initialize(Tower unit) {
-        super.initialize(unit);
+    public void addStack() {
+        super.addStack();
 
-        float xp = Balancing.getTowerExperienceForLevel(unit.getLevel() + levels);
-        unit.setExperience(xp + 1.0f);
+        float xp = Balancing.getTowerExperienceForLevel(getUnit().getLevel() + levels);
+        getUnit().setExperience(xp + 1.0f);
+    }
+
+    @Override
+    protected void updateStacks() {
+        // unused
     }
 
     @Override

@@ -73,6 +73,10 @@ public strictfp class ItemTest extends SimTest {
         commandExecutor.executeVoid(command);
     }
 
+    protected void whenPotionIsConsumed(PotionType potionType) {
+        whenPotionIsConsumed(tower, potionType);
+    }
+
     protected void whenPotionIsConsumed(Tower tower, PotionType potionType) {
         wizard.potionStash.add(potionType);
         DrinkPotionCommand command = new DrinkPotionCommand();
