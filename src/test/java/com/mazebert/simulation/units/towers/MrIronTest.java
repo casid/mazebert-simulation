@@ -97,7 +97,7 @@ class MrIronTest extends SimTest {
         mrIron.simulate(mrIron.getBaseCooldown());
         assertThat(creep.getHealth()).isEqualTo(100);
 
-        mrIron.simulate(MrIronConstruct.COOLDOWN);
+        simulationListeners.onUpdate.dispatch(MrIronConstruct.COOLDOWN);
         assertThat(creep.getHealth()).isEqualTo(100);
 
         mrIron.simulate(mrIron.getBaseCooldown());

@@ -202,7 +202,9 @@ class BowlingBallTest extends ItemTest {
         whenBowlingBallIsRolled();
         whenItemIsEquipped(null, 0);
 
-        tower.simulate(BowlingBall.BALL_COOLDOWN);
+        simulationListeners.onUpdate.dispatch(BowlingBall.BALL_COOLDOWN);
+
+        assertThat(item.getAbility(BowlingBallRollAbility.class).getReadyProgress()).isEqualTo(1.0f);
     }
 
     private void thenBallIsRemoved() {

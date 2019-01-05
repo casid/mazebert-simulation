@@ -1,16 +1,14 @@
 package com.mazebert.simulation.units.abilities;
 
+import com.mazebert.simulation.Sim;
+import com.mazebert.simulation.SimulationListeners;
 import com.mazebert.simulation.listeners.OnUpdateListener;
 import com.mazebert.simulation.units.towers.Tower;
 
 public abstract strictfp class ActiveAbility extends Ability<Tower> implements OnUpdateListener {
-    private float currentCooldownLeft;
+    private final SimulationListeners simulationListeners = Sim.context().simulationListeners;
 
-    @Override
-    protected void dispose(Tower unit) {
-        getUnit().onUpdate.remove(this);
-        super.dispose(unit);
-    }
+    private float currentCooldownLeft;
 
     public boolean isReady() {
         return getReadyProgress() >= 1.0f;
@@ -27,7 +25,7 @@ public abstract strictfp class ActiveAbility extends Ability<Tower> implements O
 
     protected void startCooldown() {
         currentCooldownLeft = getCooldown();
-        getUnit().onUpdate.add(this);
+        simulationListeners.onUpdate.add(this);
     }
 
     @Override
@@ -35,8 +33,10 @@ public abstract strictfp class ActiveAbility extends Ability<Tower> implements O
         currentCooldownLeft -= dt;
         if (currentCooldownLeft <= 0) {
             currentCooldownLeft = 0;
-            onAbilityReady();
-            getUnit().onUpdate.remove(this);
+            if (!isDisposed()) {
+                onAbilityReady();
+            }
+            simulationListeners.onUpdate.remove(this);
         }
     }
 
