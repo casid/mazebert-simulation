@@ -6,6 +6,7 @@ import com.mazebert.simulation.SimulationListeners;
 import com.mazebert.simulation.commands.BuildTowerCommand;
 import com.mazebert.simulation.commands.DrinkPotionCommand;
 import com.mazebert.simulation.commands.EquipItemCommand;
+import com.mazebert.simulation.gateways.DifficultyGateway;
 import com.mazebert.simulation.gateways.GameGateway;
 import com.mazebert.simulation.gateways.UnitGateway;
 import com.mazebert.simulation.plugins.random.RandomPluginTrainer;
@@ -30,6 +31,7 @@ public strictfp class ItemTest extends SimTest {
         randomPlugin = randomPluginTrainer;
         unitGateway = new UnitGateway();
         gameGateway = new GameGateway();
+        difficultyGateway = new DifficultyGateway();
         damageSystem = damageSystemTrainer;
         lootSystem = new LootSystemTrainer();
         experienceSystem = new ExperienceSystem();

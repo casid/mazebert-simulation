@@ -69,7 +69,7 @@ public strictfp class ExperienceSystem {
         }
 
         double progress = 1.0 - lastCreep.getHealth() / lastCreep.getMaxHealth();
-        long experience = StrictMath.round(progress * 111 * getExperienceModifier(wizard));
+        long experience = calculateExperience(wizard, progress * 111.0);
 
         if (simulationListeners.areNotificationsEnabled()) {
             FormatPlugin format = Sim.context().formatPlugin;
@@ -81,5 +81,9 @@ public strictfp class ExperienceSystem {
 
     private double getExperienceModifier(Wizard wizard) {
         return wizard.experienceModifier * difficultyGateway.getDifficulty().experienceModifier;
+    }
+
+    public long calculateExperience(Wizard wizard, double experience) {
+        return StrictMath.round(experience * getExperienceModifier(wizard));
     }
 }

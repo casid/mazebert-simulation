@@ -29,8 +29,12 @@ public abstract strictfp class ActiveAbility extends Ability<Tower> implements O
         currentCooldownLeft -= dt;
         if (currentCooldownLeft <= 0) {
             currentCooldownLeft = 0;
-            getUnit().onAbilityReady.dispatch(this);
+            onAbilityReady();
             getUnit().onUpdate.remove(this);
         }
+    }
+
+    protected void onAbilityReady() {
+        getUnit().onAbilityReady.dispatch(this);
     }
 }
