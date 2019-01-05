@@ -35,12 +35,15 @@ public strictfp class BuildTower extends Usecase<BuildTowerCommand> {
             return;
         }
 
-        summonTower(tower, wizard, command.x, command.y);
+        Tower oldTower = summonTower(tower, wizard, command.x, command.y);
 
         lootSystem.addGold(wizard, tower, -goldCost);
+        if (oldTower != null) {
+            lootSystem.addGold(wizard, tower, SellTower.getGoldForSelling(oldTower));
+        }
     }
 
-    public void summonTower(Tower tower, Wizard wizard, int x, int y) {
+    public Tower summonTower(Tower tower, Wizard wizard, int x, int y) {
         tower.setWizard(wizard);
         tower.setX(x);
         tower.setY(y);
@@ -51,6 +54,8 @@ public strictfp class BuildTower extends Usecase<BuildTowerCommand> {
         }
 
         unitGateway.addUnit(tower);
+
+        return oldTower;
     }
 
     private void replace(Tower oldTower, Tower newTower) {

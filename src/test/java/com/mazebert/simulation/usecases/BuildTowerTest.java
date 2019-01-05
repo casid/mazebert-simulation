@@ -196,6 +196,17 @@ class BuildTowerTest extends UsecaseTest<BuildTowerCommand> {
         assertThat(builtTower.getCritDamage()).isEqualTo(1.2600001f);
     }
 
+    @Test
+    void replace_goldReturned() {
+        givenTowerIsAlreadyBuilt();
+
+        wizard.towerStash.add(TowerType.Dandelion);
+        request.towerType = TowerType.Dandelion;
+        whenRequestIsExecuted();
+
+        assertThat(wizard.gold).isEqualTo(432L);
+    }
+
     private void givenTowerIsAlreadyBuilt() {
         whenRequestIsExecuted();
     }
