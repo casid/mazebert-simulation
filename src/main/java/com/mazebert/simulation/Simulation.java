@@ -150,6 +150,7 @@ public strictfp final class Simulation {
         return timeModifier;
     }
 
+    @SuppressWarnings("unused") // Used by client
     public float getTimeDilation() {
         return timeDilation;
     }

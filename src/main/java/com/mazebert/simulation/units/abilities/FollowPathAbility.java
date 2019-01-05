@@ -1,8 +1,6 @@
 package com.mazebert.simulation.units.abilities;
 
 import com.mazebert.simulation.Path;
-import com.mazebert.simulation.Sim;
-import com.mazebert.simulation.Simulation;
 import com.mazebert.simulation.listeners.OnUpdateListener;
 import com.mazebert.simulation.maps.FollowPath;
 import com.mazebert.simulation.maps.FollowPathResult;
@@ -10,8 +8,6 @@ import com.mazebert.simulation.units.Unit;
 
 public abstract strictfp class FollowPathAbility<U extends Unit> extends Ability<U> implements OnUpdateListener {
     private static final FollowPathResult TEMP = new FollowPathResult();
-
-    private final Simulation simulation = Sim.context().simulation;
 
     private boolean freshCoordinates;
     private Path path;
@@ -80,8 +76,6 @@ public abstract strictfp class FollowPathAbility<U extends Unit> extends Ability
         if (dt == 0) {
             return null;
         }
-
-        dt *= simulation.getTimeDilation();
 
         if (freshCoordinates) {
             freshCoordinates = false;
