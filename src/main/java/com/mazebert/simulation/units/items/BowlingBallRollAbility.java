@@ -71,6 +71,6 @@ public strictfp class BowlingBallRollAbility extends ActiveAbility {
 
     @Override
     public String getDescription() {
-        return "You can roll the ball every " + format.seconds(BALL_COOLDOWN) + ". Ground units hit by the ball have a " + format.percentWithSignAndUnit(DEATH_CHANCE) + "% chance to die instantly. Bosses deflect the ball to the gutter.";
+        return "You can roll the ball every " + format.seconds(BALL_COOLDOWN) + ". Ground units hit by the ball have a " + format.percent(DEATH_CHANCE) + "% chance to die instantly. Bosses deflect the ball to the gutter.";
     }
 }
