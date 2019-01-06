@@ -10,8 +10,8 @@ import java.util.EnumSet;
 public strictfp class InitPlayerCommand extends Command {
     public HeroType heroType;
 
-    public EnumSet<HeroType> foilHeroes;
-    public EnumSet<TowerType> foilTowers;
-    public EnumSet<PotionType> foilPotions;
-    public EnumSet<ItemType> foilItems;
+    public EnumSet<HeroType> foilHeroes = EnumSet.noneOf(HeroType.class);
+    public EnumSet<TowerType> foilTowers = EnumSet.noneOf(TowerType.class);
+    public EnumSet<PotionType> foilPotions = EnumSet.noneOf(PotionType.class);
+    public EnumSet<ItemType> foilItems = EnumSet.noneOf(ItemType.class);
 }
