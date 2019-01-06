@@ -13,6 +13,7 @@ import org.jusecase.bitpack.buffer.BufferBitReader;
 import org.jusecase.bitpack.buffer.BufferBitWriter;
 
 import java.nio.ByteBuffer;
+import java.util.EnumSet;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -98,6 +99,86 @@ public class EnumSerializerTest {
         assertThat(EnumSerializer.readTowerPotionOrItemCardCategory(reader)).isEqualTo(CardCategory.Tower);
         assertThat(EnumSerializer.readTowerPotionOrItemCardCategory(reader)).isEqualTo(CardCategory.Potion);
         assertThat(EnumSerializer.readTowerPotionOrItemCardCategory(reader)).isEqualTo(CardCategory.Item);
+    }
+
+    @Test
+    void towerSet_all() {
+        EnumSet<TowerType> all = EnumSet.allOf(TowerType.class);
+        EnumSerializer.writeTowerTypes(writer, all);
+
+        whenBufferIsFlushedAndRead();
+
+        assertThat(EnumSerializer.readTowerTypes(reader)).containsExactlyElementsOf(all);
+    }
+
+    @Test
+    void towerSet_none() {
+        EnumSet<TowerType> none = EnumSet.noneOf(TowerType.class);
+        EnumSerializer.writeTowerTypes(writer, none);
+
+        whenBufferIsFlushedAndRead();
+
+        assertThat(EnumSerializer.readTowerTypes(reader)).containsExactlyElementsOf(none);
+    }
+
+    @Test
+    void potionSet_all() {
+        EnumSet<PotionType> all = EnumSet.allOf(PotionType.class);
+        EnumSerializer.writePotionTypes(writer, all);
+
+        whenBufferIsFlushedAndRead();
+
+        assertThat(EnumSerializer.readPotionTypes(reader)).containsExactlyElementsOf(all);
+    }
+
+    @Test
+    void potionSet_none() {
+        EnumSet<PotionType> none = EnumSet.noneOf(PotionType.class);
+        EnumSerializer.writePotionTypes(writer, none);
+
+        whenBufferIsFlushedAndRead();
+
+        assertThat(EnumSerializer.readPotionTypes(reader)).containsExactlyElementsOf(none);
+    }
+
+    @Test
+    void itemSet_all() {
+        EnumSet<ItemType> all = EnumSet.allOf(ItemType.class);
+        EnumSerializer.writeItemTypes(writer, all);
+
+        whenBufferIsFlushedAndRead();
+
+        assertThat(EnumSerializer.readItemTypes(reader)).containsExactlyElementsOf(all);
+    }
+
+    @Test
+    void itemSet_none() {
+        EnumSet<ItemType> none = EnumSet.noneOf(ItemType.class);
+        EnumSerializer.writeItemTypes(writer, none);
+
+        whenBufferIsFlushedAndRead();
+
+        assertThat(EnumSerializer.readItemTypes(reader)).containsExactlyElementsOf(none);
+    }
+
+    @Test
+    void heroSet_all() {
+        EnumSet<HeroType> all = EnumSet.allOf(HeroType.class);
+        EnumSerializer.writeHeroTypes(writer, all);
+
+        whenBufferIsFlushedAndRead();
+
+        assertThat(EnumSerializer.readHeroTypes(reader)).containsExactlyElementsOf(all);
+    }
+
+    @Test
+    void heroSet_none() {
+        EnumSet<HeroType> none = EnumSet.noneOf(HeroType.class);
+        EnumSerializer.writeHeroTypes(writer, none);
+
+        whenBufferIsFlushedAndRead();
+
+        assertThat(EnumSerializer.readHeroTypes(reader)).containsExactlyElementsOf(none);
     }
 
     private void whenBufferIsFlushedAndRead() {
