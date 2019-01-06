@@ -9,6 +9,8 @@ public strictfp class SimulationListeners {
     public final OnGameCountDown onGameCountDown = new OnGameCountDown();
     public final OnGameStarted onGameStarted = new OnGameStarted();
     public final OnGameHealthChanged onGameHealthChanged = new OnGameHealthChanged();
+    public final OnGameWon onGameWon = new OnGameWon();
+    public final OnGameLost onGameLost = new OnGameLost();
 
     public final OnWaveCountDown onWaveCountDown = new OnWaveCountDown();
     public final OnWaveStarted onWaveStarted = new OnWaveStarted();

@@ -15,4 +15,8 @@ public strictfp class Game implements Hashable {
     public void hash(Hash hash) {
         hash.add(id);
     }
+
+    public boolean isLost() {
+        return health <= 0.0f;
+    }
 }

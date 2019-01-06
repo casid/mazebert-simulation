@@ -59,7 +59,7 @@ public strictfp class SimulationLoop {
             } else {
                 simulation.start(initGameCommand, initPlayerCommand);
             }
-            while (running) {
+            while (running && simulation.isRunning()) {
                 simulation.process();
             }
 

@@ -81,6 +81,10 @@ public strictfp final class Simulation {
         schedule(commands, 1);
     }
 
+    public boolean isRunning() {
+        return gameGateway.getGame().isLost();
+    }
+
     public void stop() {
         replayWriterGateway.close();
     }
@@ -97,7 +101,7 @@ public strictfp final class Simulation {
         hashHistory.add(0);
         hashHistory.add(0);
 
-        while (true) {
+        while (isRunning()) {
             ReplayFrame replayFrame = replayReader.readFrame();
             if (replayFrame == null) {
                 return;

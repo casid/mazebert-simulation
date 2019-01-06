@@ -5,6 +5,7 @@ import com.mazebert.simulation.maps.BloodMoor;
 import com.mazebert.simulation.plugins.FormatPlugin;
 import com.mazebert.simulation.plugins.random.RandomPluginTrainer;
 import com.mazebert.simulation.systems.ExperienceSystem;
+import com.mazebert.simulation.systems.GameSystem;
 import com.mazebert.simulation.systems.LootSystem;
 import com.mazebert.simulation.units.Unit;
 import com.mazebert.simulation.units.creeps.Creep;
@@ -18,6 +19,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicReference;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -46,6 +48,7 @@ public strictfp class WaveSpawnerTest extends SimTest {
         difficultyGateway = new DifficultyGateway();
         gameGateway = new GameGateway();
         lootSystem = new LootSystem();
+        gameSystem = new GameSystem();
         experienceSystem = new ExperienceSystem();
 
         gameGateway.getGame().map = new BloodMoor();
@@ -53,9 +56,7 @@ public strictfp class WaveSpawnerTest extends SimTest {
         waveSpawner = new WaveSpawner();
         waveGateway.setTotalWaves(250);
 
-        wizard = new Wizard();
-        wizard.playerId = 1;
-        unitGateway.addUnit(wizard);
+        wizard = gameSystem.addWizard(1);
     }
 
     @Test
@@ -637,6 +638,39 @@ public strictfp class WaveSpawnerTest extends SimTest {
         whenGameIsUpdated();
 
         assertThat(wizard.gold).isEqualTo(255);
+    }
+
+    @Test
+    void gameLost() {
+        AtomicBoolean gameLost = new AtomicBoolean();
+        simulationListeners.onGameLost.add(() -> gameLost.set(true));
+        gameGateway.getGame().health = 0.01f;
+        givenBossWave();
+        whenAllCreepsAreSpawned();
+        Creep creep = getCreep(0);
+        creep.setPath(new Path(0.0f, 0.0f, 0.0f, 1.0f));
+
+        creep.simulate(1.0f);
+
+        assertThat(gameGateway.getGame().health).isEqualTo(0.0f);
+        assertThat(gameLost.get()).isTrue();
+        assertThat(waveCountDown).isNull(); // No new wave to be sent
+
+    }
+
+    @Test
+    void gameWon_bonusRound() {
+        AtomicBoolean gameWon = new AtomicBoolean();
+        simulationListeners.onGameWon.add(() -> gameWon.set(true));
+        waveGateway.setTotalWaves(10);
+        waveGateway.setCurrentRound(9);
+        givenBossWave();
+
+        whenAllCreepsAreSpawned();
+        whenCreepIsKilled(getCreep(0));
+
+        assertThat(gameWon.get()).isTrue();
+        // TODO start of bonus round!
     }
 
     private void whenPlayerCallsNextWave() {

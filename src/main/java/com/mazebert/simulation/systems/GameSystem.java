@@ -26,7 +26,7 @@ public strictfp class GameSystem implements OnHealthChangedListener {
         }
     }
 
-    private void addWizard(int playerId) {
+    public Wizard addWizard(int playerId) {
         Wizard wizard = new Wizard();
         wizard.playerId = playerId;
         wizard.addGold(Balancing.STARTING_GOLD);
@@ -73,6 +73,8 @@ public strictfp class GameSystem implements OnHealthChangedListener {
         unitGateway.addUnit(wizard);
 
         rollStartingTowers(wizard);
+
+        return wizard;
     }
 
     private void rollStartingTowers(Wizard wizard) {
@@ -95,6 +97,10 @@ public strictfp class GameSystem implements OnHealthChangedListener {
         Game game = gameGateway.getGame();
         float oldHealth = game.health;
         game.health += delta;
+        if (game.health <= 0.0f) {
+            game.health = 0.0f;
+            simulationListeners.onGameLost.dispatch();
+        }
         simulationListeners.onGameHealthChanged.dispatch(oldHealth, game.health);
     }
 }

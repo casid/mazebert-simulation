@@ -38,6 +38,10 @@ public strictfp class WaveGateway implements ReadonlyWaveGateway {
         return wave;
     }
 
+    public boolean hasNextWave() {
+        return !waves.isEmpty();
+    }
+
     @Override
     public Collection<Wave> getWaves() {
         return waves;

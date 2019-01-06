@@ -46,6 +46,7 @@ public strictfp class WaveSpawner implements OnGameStartedListener, OnWaveStarte
         startNextWave();
     }
 
+    @SuppressWarnings("Duplicates")
     @Override
     public void onUpdate(float dt) {
         if (!creepQueue.isEmpty()) {
@@ -231,6 +232,10 @@ public strictfp class WaveSpawner implements OnGameStartedListener, OnWaveStarte
     @Override
     public void onUnitRemoved(Unit unit) {
         if (unit instanceof Creep) {
+            if (gameGateway.getGame().isLost()) {
+                return;
+            }
+
             Creep creep = (Creep) unit;
             Wave wave = creep.getWave();
 
@@ -246,8 +251,12 @@ public strictfp class WaveSpawner implements OnGameStartedListener, OnWaveStarte
         simulationListeners.onWaveFinished.dispatch(wave);
 
         if (Sim.context().waveCountDown == null && !unitGateway.hasUnits(Creep.class) && creepQueue.isEmpty()) {
-            Sim.context().waveCountDown = new WaveCountDown();
-            Sim.context().waveCountDown.start();
+            if (waveGateway.hasNextWave()) {
+                Sim.context().waveCountDown = new WaveCountDown();
+                Sim.context().waveCountDown.start();
+            } else {
+                simulationListeners.onGameWon.dispatch();
+            }
         }
     }
 
