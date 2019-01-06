@@ -91,6 +91,10 @@ public strictfp class LootSystem {
 
     @SuppressWarnings("unchecked")
     public boolean dropCard(Wizard wizard, Creep creep, Stash stash, CardType drop) {
+        if (drop.instance().getRarity() == Rarity.Legendary && !wizard.ownsFoilCard(drop)) {
+            return false;
+        }
+
         if (stash.isUniqueAlreadyDropped(drop)) {
             return false;
         }

@@ -1,5 +1,6 @@
 package com.mazebert.simulation.units.wizards;
 
+import com.mazebert.simulation.CardType;
 import com.mazebert.simulation.hash.Hash;
 import com.mazebert.simulation.listeners.OnCardsTransmuted;
 import com.mazebert.simulation.listeners.OnGoldChanged;
@@ -94,5 +95,23 @@ public strictfp class Wizard extends Unit {
     public void addHealth(float amount) {
         health += amount;
         onHealthChanged.dispatch(this, health - amount, health);
+    }
+
+    @SuppressWarnings("SuspiciousMethodCalls")
+    public boolean ownsFoilCard(CardType type) {
+        Class<? extends CardType> typeClass = type.getClass();
+        if (typeClass == ItemType.class) {
+            return foilItems.contains(type);
+        }
+        if (typeClass == TowerType.class) {
+            return foilTowers.contains(type);
+        }
+        if (typeClass == PotionType.class) {
+            return foilPotions.contains(type);
+        }
+        if (typeClass == HeroType.class) {
+            return foilHeroes.contains(type);
+        }
+        return false;
     }
 }

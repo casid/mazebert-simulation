@@ -175,12 +175,13 @@ public class LootTest extends SimTest {
     }
 
     @Test
-    void loot_legendary_noneAvailable() {
+    void loot_legendary_itemLevelTooLow() {
+        wizard1.foilItems.add(ItemType.UnluckyPants);
         randomPluginTrainer.givenFloatAbs(
                 0.0f, // This is a drop
-                0.001f, // The rarity of this drop is legendary
+                0.0f, // The rarity of this drop is legendary
                 0.0f, // This is an item drop
-                BABY_SWORD_ROLL_ILVL_1 // It's a baby sword!
+                BABY_SWORD_ROLL_ILVL_1
         );
         creep.setMaxDrops(1);
         creep.setMaxItemLevel(1);
@@ -189,6 +190,42 @@ public class LootTest extends SimTest {
 
         assertThat(wizard1.itemStash.get(0).amount).isEqualTo(1);
         assertThat(wizard1.itemStash.get(0).cardType).isEqualTo(ItemType.BabySword);
+    }
+
+    @Test
+    void loot_legendary_noFoilCards() {
+        wizard1.foilItems.clear();
+        randomPluginTrainer.givenFloatAbs(
+                0.0f, // This is a drop
+                0.0f, // The rarity of this drop is legendary
+                0.0f, // This is an item drop
+                0.0f
+        );
+        creep.setMaxDrops(1);
+        creep.setMaxItemLevel(1000);
+
+        whenTowerAttacks();
+
+        assertThat(wizard1.itemStash.get(0).amount).isEqualTo(1);
+        assertThat(wizard1.itemStash.get(0).cardType).isEqualTo(ItemType.DungeonDoor);
+    }
+
+    @Test
+    void loot_legendary_itemLevelOkay() {
+        wizard1.foilItems.add(ItemType.UnluckyPants);
+        randomPluginTrainer.givenFloatAbs(
+                0.0f, // This is a drop
+                0.0f, // The rarity of this drop is legendary
+                0.0f, // This is an item drop
+                0.0f
+        );
+        creep.setMaxDrops(1);
+        creep.setMaxItemLevel(1000);
+
+        whenTowerAttacks();
+
+        assertThat(wizard1.itemStash.get(0).amount).isEqualTo(1);
+        assertThat(wizard1.itemStash.get(0).cardType).isEqualTo(ItemType.UnluckyPants);
     }
 
     @Test
