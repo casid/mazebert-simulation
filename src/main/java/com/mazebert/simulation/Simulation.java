@@ -82,7 +82,7 @@ public strictfp final class Simulation {
     }
 
     public boolean isRunning() {
-        return gameGateway.getGame().isLost();
+        return !gameGateway.getGame().isLost();
     }
 
     public void stop() {
