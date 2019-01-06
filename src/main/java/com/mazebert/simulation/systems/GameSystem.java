@@ -95,6 +95,10 @@ public strictfp class GameSystem implements OnHealthChangedListener {
 
     private void addGameHealth(float delta) {
         Game game = gameGateway.getGame();
+        if (game.isLost()) {
+            return;
+        }
+
         float oldHealth = game.health;
         game.health += delta;
         if (game.health <= 0.0f) {
