@@ -47,10 +47,10 @@ public strictfp class Wizard extends Unit {
     public transient long kills;
     public transient long goldFarmed;
 
-    public transient EnumSet<HeroType> foilHeroes;
-    public transient EnumSet<TowerType> foilTowers;
-    public transient EnumSet<PotionType> foilPotions;
-    public transient EnumSet<ItemType> foilItems;
+    public transient EnumSet<HeroType> foilHeroes = EnumSet.noneOf(HeroType.class);
+    public transient EnumSet<TowerType> foilTowers = EnumSet.noneOf(TowerType.class);
+    public transient EnumSet<PotionType> foilPotions = EnumSet.noneOf(PotionType.class);
+    public transient EnumSet<ItemType> foilItems = EnumSet.noneOf(ItemType.class);
 
     public Wizard() {
         setWizard(this);

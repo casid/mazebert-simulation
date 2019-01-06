@@ -1,5 +1,6 @@
 package com.mazebert.simulation.units.towers;
 
+import com.mazebert.simulation.Rarity;
 import com.mazebert.simulation.Sim;
 import com.mazebert.simulation.SimulationListeners;
 import com.mazebert.simulation.Wave;
@@ -11,6 +12,7 @@ import com.mazebert.simulation.stash.ItemStash;
 import com.mazebert.simulation.units.Unit;
 import com.mazebert.simulation.units.abilities.Ability;
 import com.mazebert.simulation.units.items.ItemType;
+import com.mazebert.simulation.units.wizards.Wizard;
 
 import java.util.ArrayList;
 import java.util.EnumSet;
@@ -64,14 +66,16 @@ public strictfp class DarkForgeCraft extends Ability<Tower> implements OnUnitAdd
     }
 
     protected List<ItemType> calculatePossibleItems() {
-        // TODO solve dark, legendary item drops!
-
         int itemLevel = getUnit().getLevel();
 
-        ItemStash itemStash = getUnit().getWizard().itemStash;
+        Wizard wizard = getUnit().getWizard();
+        ItemStash itemStash = wizard.itemStash;
         EnumSet<ItemType> darkItems = itemStash.getDarkItems();
         List<ItemType> possibleItems = new ArrayList<>(darkItems.size());
         for (ItemType darkItem : darkItems) {
+            if (darkItem.instance().getRarity() == Rarity.Legendary && !wizard.foilItems.contains(darkItem)) {
+                continue;
+            }
             if (darkItem.instance().getItemLevel() <= itemLevel && !itemStash.isUniqueAlreadyDropped(darkItem)) {
                 possibleItems.add(darkItem);
             }

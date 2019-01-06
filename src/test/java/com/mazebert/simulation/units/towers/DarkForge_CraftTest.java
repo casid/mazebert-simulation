@@ -54,7 +54,18 @@ strictfp class DarkForge_CraftTest extends SimTest {
 
         whenWaveIsFinished();
 
-        thenItemIsCrafted(ItemType.DarkBlade); // TODO solve dark, legendary item drops!
+        thenItemIsCrafted(ItemType.DarkBlade);
+    }
+
+    @Test
+    void skullOfDarkness() {
+        wizard.foilItems.add(ItemType.SkullOfDarkness);
+        darkForge.setLevel(66);
+        randomPluginTrainer.givenFloatAbs(0.0f, 0.99f);
+
+        whenWaveIsFinished();
+
+        thenItemIsCrafted(ItemType.SkullOfDarkness);
     }
 
     @Test
