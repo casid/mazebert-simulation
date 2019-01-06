@@ -48,6 +48,7 @@ public strictfp abstract class Potion implements Card {
         return false;
     }
 
+    @Override
     public PotionType getType() {
         return type;
     }

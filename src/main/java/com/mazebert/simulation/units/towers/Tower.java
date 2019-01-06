@@ -676,6 +676,7 @@ public strictfp abstract class Tower extends Unit implements CooldownUnit, Card,
         return armorPenetration;
     }
 
+    @Override
     public TowerType getType() {
         if (type == null) {
             type = TowerType.forClass(getClass());

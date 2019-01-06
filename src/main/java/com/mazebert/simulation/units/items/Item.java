@@ -64,6 +64,7 @@ public strictfp abstract class Item implements Card {
         return null;
     }
 
+    @Override
     public ItemType getType() {
         return type;
     }

@@ -4,6 +4,8 @@ import com.mazebert.java8.Consumer;
 import com.mazebert.simulation.units.abilities.Ability;
 
 public interface Card {
+    CardType getType();
+
     String getName();
 
     String getDescription();

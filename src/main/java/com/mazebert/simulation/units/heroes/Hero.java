@@ -6,6 +6,17 @@ import com.mazebert.simulation.units.Unit;
 
 public abstract strictfp class Hero extends Unit implements Card {
 
+    private final HeroType type;
+
+    public Hero() {
+        type = HeroType.forHero(this);
+    }
+
+    @Override
+    public HeroType getType() {
+        return type;
+    }
+
     @Override
     public Rarity getDropRarity() {
         return getRarity();
