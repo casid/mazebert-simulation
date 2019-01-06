@@ -60,6 +60,14 @@ public strictfp class GameSystem implements OnHealthChangedListener {
             wizard.potionStash.add(PotionType.CardDustLevel);
         }
 
+        for (int i = 0; i < 50; ++i) {
+            wizard.itemStash.add(ItemType.BabySword);
+        }
+
+        for (int i = 0; i < 60; ++i) {
+            wizard.itemStash.add(ItemType.FrozenHeart);
+        }
+
         wizard.onHealthChanged.add(this);
 
         unitGateway.addUnit(wizard);
