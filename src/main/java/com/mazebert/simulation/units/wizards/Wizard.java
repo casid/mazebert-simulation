@@ -9,7 +9,12 @@ import com.mazebert.simulation.stash.ItemStash;
 import com.mazebert.simulation.stash.PotionStash;
 import com.mazebert.simulation.stash.TowerStash;
 import com.mazebert.simulation.units.Unit;
+import com.mazebert.simulation.units.heroes.HeroType;
+import com.mazebert.simulation.units.items.ItemType;
+import com.mazebert.simulation.units.potions.PotionType;
 import com.mazebert.simulation.units.towers.TowerType;
+
+import java.util.EnumSet;
 
 public strictfp class Wizard extends Unit {
     public final OnHealthChanged onHealthChanged = new OnHealthChanged();
@@ -32,16 +37,20 @@ public strictfp class Wizard extends Unit {
     public int requiredTransmuteAmount = 4;
     public int transmutedUniques;
 
-    public double bestHit;
-    public TowerType bestHitTower;
-    public double mostDamage;
-    public TowerType mostDamageTower;
-    public long mostKills;
-    public TowerType mostKillsTower;
-    public double totalDamage;
-    public long kills;
-    public long goldFarmed;
+    public transient double bestHit;
+    public transient TowerType bestHitTower;
+    public transient double mostDamage;
+    public transient TowerType mostDamageTower;
+    public transient long mostKills;
+    public transient TowerType mostKillsTower;
+    public transient double totalDamage;
+    public transient long kills;
+    public transient long goldFarmed;
 
+    public transient EnumSet<HeroType> foilHeroes;
+    public transient EnumSet<TowerType> foilTowers;
+    public transient EnumSet<PotionType> foilPotions;
+    public transient EnumSet<ItemType> foilItems;
 
     public Wizard() {
         setWizard(this);
@@ -66,9 +75,7 @@ public strictfp class Wizard extends Unit {
         hash.add(requiredTransmuteAmount);
         hash.add(transmutedUniques);
 
-        hash.add(bestHit); // TODO ignore
-        hash.add(totalDamage); // TODO ignore
-        // ignore stats
+        // ignore transient attributes
     }
 
     @Override

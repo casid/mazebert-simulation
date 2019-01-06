@@ -9,6 +9,8 @@ import com.mazebert.simulation.units.wizards.Wizard;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.EnumSet;
+
 import static org.assertj.core.api.Assertions.assertThat;
 
 strictfp class InitPlayerTest extends UsecaseTest<InitPlayerCommand> {
@@ -26,6 +28,7 @@ strictfp class InitPlayerTest extends UsecaseTest<InitPlayerCommand> {
         usecase = new InitPlayer();
 
         request.playerId = wizard.getPlayerId();
+        request.heroType = HeroType.Lycaon;
     }
 
     @Test
@@ -36,5 +39,14 @@ strictfp class InitPlayerTest extends UsecaseTest<InitPlayerCommand> {
 
         LittleFinger hero = unitGateway.findUnit(LittleFinger.class, wizard.playerId);
         assertThat(hero).isNotNull();
+    }
+
+    @Test
+    void foilCards() {
+        request.foilHeroes = EnumSet.of(HeroType.InnKeeper, HeroType.LoanShark);
+
+        whenRequestIsExecuted();
+
+        assertThat(wizard.foilHeroes).isSameAs(request.foilHeroes);
     }
 }

@@ -4,7 +4,7 @@ import com.mazebert.simulation.Sim;
 import com.mazebert.simulation.commands.InitPlayerCommand;
 import com.mazebert.simulation.gateways.UnitGateway;
 import com.mazebert.simulation.units.heroes.Hero;
-import com.mazebert.simulation.units.heroes.HeroType;
+import com.mazebert.simulation.units.wizards.Wizard;
 
 public strictfp class InitPlayer extends Usecase<InitPlayerCommand> {
 
@@ -12,12 +12,18 @@ public strictfp class InitPlayer extends Usecase<InitPlayerCommand> {
 
     @Override
     public void execute(InitPlayerCommand command) {
-        addHero(command);
+        Wizard wizard = unitGateway.getWizard(command.playerId);
+        addHero(wizard, command);
+
+        wizard.foilHeroes = command.foilHeroes;
+        wizard.foilTowers = command.foilTowers;
+        wizard.foilPotions = command.foilPotions;
+        wizard.foilItems = command.foilItems;
     }
 
-    private void addHero(InitPlayerCommand command) {
+    private void addHero(Wizard wizard, InitPlayerCommand command) {
         Hero hero = command.heroType.create();
-        hero.setWizard(unitGateway.getWizard(command.playerId));
+        hero.setWizard(wizard);
         unitGateway.addUnit(hero);
     }
 
