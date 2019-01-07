@@ -83,6 +83,10 @@ public strictfp final class WaveSpawner implements OnGameStartedListener, OnWave
                 if (experienceSystem.isTimeToGrantBonusRoundExperience(seconds)) {
                     unitGateway.forEach(Wizard.class, wizard -> experienceSystem.grantBonusRoundExperience(wizard, seconds));
                 }
+
+                if (seconds % Balancing.BONUS_SPAWN_COUNTDOWN_SECONDS == 0) {
+                    spawnBonusRoundWave();
+                }
             }
         }
     }

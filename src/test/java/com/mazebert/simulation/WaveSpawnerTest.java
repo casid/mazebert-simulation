@@ -712,6 +712,17 @@ public strictfp class WaveSpawnerTest extends SimTest {
     }
 
     @Test
+    void bonusRound_spawnsContinuously() {
+        whenBonusRoundIsReached();
+        bonusRoundCountDown.onUpdate(bonusRoundCountDown.getRemainingSeconds());
+        for (int i = 0; i < 50; ++i) {
+            simulationListeners.onUpdate.dispatch(1.0f);
+        }
+
+        assertThat(unitGateway.getAmount(Creep.class)).isEqualTo(50); // caps at 50 creeps max
+    }
+
+    @Test
     void bonusRound_finished() {
         AtomicBoolean gameLost = new AtomicBoolean();
         simulationListeners.onGameLost.add(() -> gameLost.set(true));
