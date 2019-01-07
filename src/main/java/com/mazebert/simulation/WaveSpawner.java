@@ -327,7 +327,7 @@ public strictfp final class WaveSpawner implements OnGameStartedListener, OnWave
     }
 
     private void spawnBonusRoundWave() {
-        if (gameGateway.getGame().health > 0) {
+        if (gameGateway.getGame().health > 0.0f) {
             // Do not allow that the queue becomes too crowded
             if (creepQueue.size() < 50 * playerGateway.getPlayerCount()) {
                 spawnWave(generateBonusRoundWave());

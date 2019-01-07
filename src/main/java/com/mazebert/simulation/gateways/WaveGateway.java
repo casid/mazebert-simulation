@@ -75,6 +75,7 @@ public strictfp class WaveGateway implements ReadonlyWaveGateway {
         wave.origin = WaveOrigin.Treasure;
         wave.round = getCurrentRound();
         wave.type = WaveType.Normal;
+        wave.creepCount = wave.type.creepCount;
         wave.minSecondsToNextCreep = wave.type.getMinSecondsToNextCreep();
         wave.maxSecondsToNextCreep = wave.type.getMaxSecondsToNextCreep();
         wave.creepType = CreepType.Gnome;

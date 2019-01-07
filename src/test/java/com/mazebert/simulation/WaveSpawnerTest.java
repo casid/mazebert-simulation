@@ -760,6 +760,17 @@ public strictfp class WaveSpawnerTest extends SimTest {
         assertThat(getCreep(0)).isSameAs(creep); // Must not be removed for death animation!
     }
 
+    @Test
+    void goblinReachesBase() {
+        waveSpawner.spawnTreasureGoblins(wizard, 1);
+        simulationListeners.onUpdate.dispatch(1.0f);
+
+        Creep goblin = unitGateway.findUnit(Creep.class, wizard.getPlayerId());
+        goblin.simulate(1000);
+
+        assertThat(wizard.health).isEqualTo(0.95f);
+    }
+
     private void whenPlayerCallsNextWave() {
         waveSpawner.onWaveStarted();
         whenGameIsUpdated();
