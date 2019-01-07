@@ -78,10 +78,14 @@ public strictfp class FormatPlugin {
     }
 
     public String gold(long gold, Currency currency) {
+        return gold(gold, currency, " ");
+    }
+
+    public String gold(long gold, Currency currency, String between) {
         if (gold == 1) {
-            return gold(gold) + " " + currency.singularLowercase;
+            return gold(gold) + between + currency.singularLowercase;
         }
-        return gold(gold) + " " + currency.pluralLowercase;
+        return gold(gold) + between + currency.pluralLowercase;
     }
 
     public String goldGain(long amount) {

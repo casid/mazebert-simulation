@@ -1,6 +1,7 @@
 package com.mazebert.simulation.plugins;
 
 import com.mazebert.simulation.Balancing;
+import com.mazebert.simulation.units.Currency;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -49,6 +50,11 @@ class FormatPluginTest {
     @Test
     void gold() {
         assertThat(format.gold(Long.MAX_VALUE)).isEqualTo("9,223,372T");
+    }
+
+    @Test
+    void gold_between() {
+        assertThat(format.gold(10, Currency.Cookie, " more ")).isEqualTo("10 more cookies");
     }
 
     @Test
