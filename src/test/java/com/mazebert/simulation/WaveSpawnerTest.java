@@ -691,6 +691,7 @@ public strictfp class WaveSpawnerTest extends SimTest {
         assertThat(creep.getArmor()).isEqualTo(10);
         assertThat(creep.getMaxDrops()).isEqualTo(0); // Bonus round creeps drop no loot
         assertThat(creep.getMinDrops()).isEqualTo(0); // Bonus round creeps drop no loot
+        assertThat(creep.getGold()).isEqualTo(0); // Bonus round creeps drop no gold
     }
 
     @Test

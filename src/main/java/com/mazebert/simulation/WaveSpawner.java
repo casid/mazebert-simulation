@@ -184,7 +184,9 @@ public strictfp final class WaveSpawner implements OnGameStartedListener, OnWave
     }
 
     private void applyWaveAttributes(Creep creep, Wave wave) {
-        if (!gameGateway.getGame().bonusRound) {
+        if (gameGateway.getGame().bonusRound) {
+            creep.setGold(0);
+        } else {
             switch (wave.type) {
                 case Normal:
                     creep.setDropChance(1.0f); // Normal drop chance.
