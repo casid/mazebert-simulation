@@ -9,6 +9,7 @@ import com.mazebert.simulation.systems.ExperienceSystem;
 import com.mazebert.simulation.systems.LootSystem;
 import com.mazebert.simulation.units.Unit;
 import com.mazebert.simulation.units.creeps.Creep;
+import com.mazebert.simulation.units.creeps.CreepType;
 import com.mazebert.simulation.units.wizards.Wizard;
 
 import java.util.ArrayDeque;
@@ -31,6 +32,7 @@ public strictfp final class WaveSpawner implements OnGameStartedListener, OnWave
     private float countdownForNextGoblinToSend;
     private boolean bonusRoundStarted;
     private double bonusRoundSeconds;
+    private int currentBonusRound;
 
     public WaveSpawner() {
         simulationListeners.onGameStarted.add(this);
@@ -124,14 +126,20 @@ public strictfp final class WaveSpawner implements OnGameStartedListener, OnWave
         return countdown;
     }
 
-    @SuppressWarnings("Duplicates")
     private void startNextWave() {
         Wave wave = waveGateway.nextWave();
         if (wave == null) {
             return;
         }
 
-        int round = waveGateway.getCurrentRound();
+        spawnWave(wave);
+
+        waveGateway.generateMissingWaves(randomPlugin);
+    }
+
+    @SuppressWarnings("Duplicates")
+    private void spawnWave(Wave wave) {
+        int round = wave.round;
 
         double healthOfAllCreeps = Balancing.getTotalCreepHitpoints(round, difficultyGateway.getDifficulty());
         double healthOfOneCreep = StrictMath.max(1, StrictMath.round(wave.healthMultiplier * healthOfAllCreeps / wave.creepCount));
@@ -164,8 +172,6 @@ public strictfp final class WaveSpawner implements OnGameStartedListener, OnWave
         }
 
         wave.remainingCreepCount = spawnCount;
-
-        waveGateway.generateMissingWaves(randomPlugin);
     }
 
     private void applyWaveAttributes(Creep creep, Wave wave) {
@@ -302,5 +308,38 @@ public strictfp final class WaveSpawner implements OnGameStartedListener, OnWave
     @Override
     public void onBonusRoundStarted() {
         bonusRoundStarted = true;
+        spawnBonusRoundWave();
+    }
+
+    private void spawnBonusRoundWave() {
+        if (gameGateway.getGame().health > 0) {
+            // Do not allow that the queue becomes too crowded
+            if (creepQueue.size() < 50 * playerGateway.getPlayerCount()) {
+                spawnWave(generateBonusRoundWave());
+                ++currentBonusRound;
+            }
+        }
+    }
+
+    private Wave generateBonusRoundWave() {
+        Wave wave = waveGateway.generateWave(randomPlugin, waveGateway.getTotalWaves() + currentBonusRound);
+        if (!isWaveSuitableForBonusRound(wave.type)) {
+            ++currentBonusRound;
+            return generateBonusRoundWave();
+        }
+
+        if (wave.type == WaveType.Air) {
+            wave.creepType = CreepType.Bat;
+        } else {
+            wave.creepType = CreepType.Troll;
+        }
+
+        wave.origin = WaveOrigin.BonusRound;
+
+        return wave;
+    }
+
+    private boolean isWaveSuitableForBonusRound(WaveType type) {
+        return type != WaveType.Horseman && type != WaveType.Challenge && type != WaveType.MassChallenge;
     }
 }

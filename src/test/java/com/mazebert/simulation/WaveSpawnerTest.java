@@ -29,6 +29,7 @@ public strictfp class WaveSpawnerTest extends SimTest {
     RandomPluginTrainer randomPluginTrainer = new RandomPluginTrainer();
 
     WaveSpawner waveSpawner;
+    Wave wave;
 
     Wizard wizard;
 
@@ -68,7 +69,7 @@ public strictfp class WaveSpawnerTest extends SimTest {
 
     @Test
     void waveIsRemoved() {
-        Wave wave = new Wave();
+        wave = new Wave();
         wave.creepCount = 1;
         waveGateway.addWave(wave);
 
@@ -133,7 +134,7 @@ public strictfp class WaveSpawnerTest extends SimTest {
 
     @Test
     void creeps() {
-        Wave wave = new Wave();
+        wave = new Wave();
         wave.creepCount = 2;
         wave.minSecondsToNextCreep = 1.0f;
         wave.maxSecondsToNextCreep = 1.0f;
@@ -148,7 +149,7 @@ public strictfp class WaveSpawnerTest extends SimTest {
 
     @Test
     void creeps_secondsToNextCreep() {
-        Wave wave = new Wave();
+        wave = new Wave();
         wave.creepCount = 2;
         wave.minSecondsToNextCreep = 1.0f;
         wave.maxSecondsToNextCreep = 2.1f;
@@ -216,7 +217,7 @@ public strictfp class WaveSpawnerTest extends SimTest {
 
     @Test
     void notAllCreepsOfWaveAreKilled() {
-        Wave wave = new Wave();
+        wave = new Wave();
         wave.creepCount = 2;
         waveGateway.addWave(wave);
 
@@ -352,8 +353,8 @@ public strictfp class WaveSpawnerTest extends SimTest {
 
     @Test
     void armor_round10() {
-        waveGateway.setCurrentRound(9);
         givenBossWave();
+        wave.round = 10;
 
         whenAllCreepsAreSpawned();
 
@@ -362,7 +363,8 @@ public strictfp class WaveSpawnerTest extends SimTest {
 
     @Test
     void modifier_rich() {
-        Wave wave = new Wave();
+        wave = new Wave();
+        wave.round = 1;
         wave.creepCount = 1;
         wave.creepType = CreepType.Orc;
         wave.creepModifier1 = CreepModifier.Rich;
@@ -375,7 +377,8 @@ public strictfp class WaveSpawnerTest extends SimTest {
 
     @Test
     void modifier_fast() {
-        Wave wave = new Wave();
+        wave = new Wave();
+        wave.round = 1;
         wave.creepCount = 1;
         wave.creepType = CreepType.Orc;
         wave.creepModifier1 = CreepModifier.Fast;
@@ -390,7 +393,8 @@ public strictfp class WaveSpawnerTest extends SimTest {
 
     @Test
     void modifier_slow() {
-        Wave wave = new Wave();
+        wave = new Wave();
+        wave.round = 1;
         wave.creepCount = 1;
         wave.creepType = CreepType.Orc;
         wave.creepModifier1 = CreepModifier.Slow;
@@ -405,7 +409,8 @@ public strictfp class WaveSpawnerTest extends SimTest {
 
     @Test
     void modifier_armor() {
-        Wave wave = new Wave();
+        wave = new Wave();
+        wave.round = 1;
         wave.creepCount = 1;
         wave.creepType = CreepType.Orc;
         wave.creepModifier1 = CreepModifier.Armor;
@@ -418,7 +423,8 @@ public strictfp class WaveSpawnerTest extends SimTest {
 
     @Test
     void modifier_secondChance() {
-        Wave wave = new Wave();
+        wave = new Wave();
+        wave.round = 1;
         wave.creepCount = 1;
         wave.creepType = CreepType.Orc;
         wave.creepModifier1 = CreepModifier.Revive;
@@ -432,7 +438,8 @@ public strictfp class WaveSpawnerTest extends SimTest {
 
     @Test
     void modifier_rich_wisdom() {
-        Wave wave = new Wave();
+        wave = new Wave();
+        wave.round = 1;
         wave.creepCount = 1;
         wave.creepType = CreepType.Orc;
         wave.creepModifier1 = CreepModifier.Rich;
@@ -456,8 +463,8 @@ public strictfp class WaveSpawnerTest extends SimTest {
 
     @Test
     void gold_boss_higherLevel() {
-        waveGateway.setCurrentRound(9);
         givenBossWave();
+        wave.round = 10;
 
         whenAllCreepsAreSpawned();
 
@@ -466,7 +473,8 @@ public strictfp class WaveSpawnerTest extends SimTest {
 
     @Test
     void gold_distributed() {
-        Wave wave = new Wave();
+        wave = new Wave();
+        wave.round = 1;
         wave.creepCount = 2;
         waveGateway.addWave(wave);
         randomPluginTrainer.givenFloatAbs(0.9f);
@@ -501,9 +509,9 @@ public strictfp class WaveSpawnerTest extends SimTest {
 
     @Test
     void health_boss_difficulty_easy() {
-        waveGateway.setCurrentRound(5);
         difficultyGateway.setDifficulty(Difficulty.Easy);
         givenBossWave();
+        wave.round = 6;
 
         whenAllCreepsAreSpawned();
 
@@ -512,9 +520,9 @@ public strictfp class WaveSpawnerTest extends SimTest {
 
     @Test
     void health_boss_difficulty_hard() {
-        waveGateway.setCurrentRound(5);
         difficultyGateway.setDifficulty(Difficulty.Hard);
         givenBossWave();
+        wave.round = 6;
 
         whenAllCreepsAreSpawned();
 
@@ -523,7 +531,8 @@ public strictfp class WaveSpawnerTest extends SimTest {
 
     @Test
     void health_distributed() {
-        Wave wave = new Wave();
+        wave = new Wave();
+        wave.round = 1;
         wave.creepCount = 2;
         waveGateway.addWave(wave);
 
@@ -535,7 +544,7 @@ public strictfp class WaveSpawnerTest extends SimTest {
 
     @Test
     void health_modifier_atLeastOnePerCreep() {
-        Wave wave = new Wave();
+        wave = new Wave();
         wave.creepCount = 2;
         wave.healthMultiplier = 0.001f;
         waveGateway.addWave(wave);
@@ -556,9 +565,9 @@ public strictfp class WaveSpawnerTest extends SimTest {
     }
 
     @Test
-    void experience_round10() {
-        waveGateway.setCurrentRound(10);
+    void experience_round11() {
         givenBossWave();
+        wave.round = 11;
 
         whenAllCreepsAreSpawned();
 
@@ -567,7 +576,7 @@ public strictfp class WaveSpawnerTest extends SimTest {
 
     @Test
     void orc() {
-        Wave wave = new Wave();
+        wave = new Wave();
         wave.creepCount = 1;
         wave.creepType = CreepType.Orc;
         waveGateway.addWave(wave);
@@ -579,7 +588,7 @@ public strictfp class WaveSpawnerTest extends SimTest {
 
     @Test
     void rat() {
-        Wave wave = new Wave();
+        wave = new Wave();
         wave.creepCount = 1;
         wave.creepType = CreepType.Rat;
         waveGateway.addWave(wave);
@@ -671,11 +680,15 @@ public strictfp class WaveSpawnerTest extends SimTest {
     }
 
     @Test
-    void bonusRound() {
+    void bonusRound_creepsAreSpawned() {
         whenBonusRoundIsReached();
         bonusRoundCountDown.onUpdate(bonusRoundCountDown.getRemainingSeconds());
-
         assertThat(bonusRoundCountDown).isNull();
+
+        simulationListeners.onUpdate.dispatch(1.0f);
+
+        Creep creep = getCreep(0);
+        assertThat(creep.getArmor()).isEqualTo(10);
     }
 
     @Test
@@ -706,7 +719,7 @@ public strictfp class WaveSpawnerTest extends SimTest {
     }
 
     private void givenWave(WaveType waveType) {
-        Wave wave = new Wave();
+        wave = new Wave();
         wave.creepCount = waveType.creepCount;
         wave.type = waveType;
         wave.round = 1;
