@@ -107,11 +107,38 @@ public strictfp class GameSystem implements OnHealthChangedListener {
                 // Kill all remaining creeps, so that the end feels satisfiying
                 unitGateway.forEachCreep(creep -> creep.setHealth(0));
 
+                if (simulationListeners.areNotificationsEnabled()) {
+                    unitGateway.forEach(Wizard.class, this::showBonusRoundCompleteNotification);
+                }
+
                 simulationListeners.onBonusRoundFinished.dispatch();
             } else {
                 simulationListeners.onGameLost.dispatch();
             }
         }
         simulationListeners.onGameHealthChanged.dispatch(oldHealth, game.health);
+    }
+
+    private void showBonusRoundCompleteNotification(Wizard wizard) {
+        int survivedSeconds = gameGateway.getGame().bonusRoundSeconds;
+
+        simulationListeners.showNotification(wizard, "Congratulations!");
+        simulationListeners.showNotification(wizard, "You survived " + survivedSeconds + " seconds after a");
+        simulationListeners.showNotification(wizard, Sim.context().waveGateway.getTotalWaves() + " wave game on " + Sim.context().difficultyGateway.getDifficulty() + ".");
+        simulationListeners.showNotification(wizard, "Your rank: " + getBonusRoundRank(survivedSeconds));
+    }
+
+    private String getBonusRoundRank(int bonusSurvivalTime) {
+        if (bonusSurvivalTime < 2 * 30) return "Novice";
+        else if (bonusSurvivalTime < 2 * 60) return "Apprentice";
+        else if (bonusSurvivalTime < 3 * 120) return "Scholar";
+        else if (bonusSurvivalTime < 4 * 180) return "Master";
+        else if (bonusSurvivalTime < 5 * 240) return "Master Defender";
+        else if (bonusSurvivalTime < 6 * 300) return "Master Commander";
+        else if (bonusSurvivalTime < 7 * 360) return "King's Hand";
+        else if (bonusSurvivalTime < 8 * 420) return "King";
+        else if (bonusSurvivalTime < 9 * 480) return "Emperor";
+        else if (bonusSurvivalTime < 10 * 540) return "Master of the Universe";
+        else return "Chuck Norris";
     }
 }
