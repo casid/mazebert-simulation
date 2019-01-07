@@ -17,11 +17,11 @@ public strictfp enum HeroType implements CardType<Hero> {
     Roderic(4, Roderic.class),
     CookieMonster(5, CookieMonster.class),
     InnKeeper(6, InnKeeper.class),
-    HoradricMage(7, HoradricMage.class), // TODO
+    HoradricMage(7, HoradricMage.class),
     JesterKing(8, JesterKing.class),
     Kvothe(9, Kvothe.class),
     LoanShark(10, LoanShark.class),
-    JackInTheBox(11, JackInTheBox.class), // TODO
+    JackInTheBox(11, JackInTheBox.class),
     ;
 
     public final int id;
