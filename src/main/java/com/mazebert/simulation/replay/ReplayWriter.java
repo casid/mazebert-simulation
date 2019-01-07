@@ -2,9 +2,9 @@ package com.mazebert.simulation.replay;
 
 import com.mazebert.simulation.gateways.ReplayWriterGateway;
 import com.mazebert.simulation.messages.Turn;
+import com.mazebert.simulation.replay.data.ReplayFrame;
 import com.mazebert.simulation.replay.data.ReplayHeader;
 import com.mazebert.simulation.replay.data.ReplayTurn;
-import com.mazebert.simulation.replay.data.ReplayFrame;
 import org.jusecase.bitpack.stream.StreamBitWriter;
 
 import java.io.IOException;
@@ -31,9 +31,10 @@ public strictfp class ReplayWriter implements ReplayWriterGateway, AutoCloseable
     }
 
     @Override
-    public void writeTurn(int currentTurnNumber, List<Turn> playerTurns) {
+    public void writeTurn(int currentTurnNumber, List<Turn> playerTurns, int myHash) {
         if (isRequiredToWriteTurn(playerTurns)) {
             replayFrame.turnNumber = currentTurnNumber;
+            replayFrame.hash = myHash;
 
             if (replayFrame.playerTurns.length != playerTurns.size()) {
                 replayFrame.playerTurns = new ReplayTurn[playerTurns.size()];
@@ -45,6 +46,14 @@ public strictfp class ReplayWriter implements ReplayWriterGateway, AutoCloseable
 
             writeFrame(replayFrame);
         }
+    }
+
+    @Override
+    public void writeEnd(int currentTurnNumber, int myHash) {
+        replayFrame.turnNumber = currentTurnNumber;
+        replayFrame.hash = myHash;
+        replayFrame.playerTurns = null;
+        writeFrame(replayFrame);
     }
 
     @Override

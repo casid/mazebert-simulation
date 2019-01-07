@@ -6,7 +6,7 @@ import org.jusecase.bitpack.BitReader;
 import org.jusecase.bitpack.BitSerializer;
 import org.jusecase.bitpack.BitWriter;
 
-public strictfp class ReplayTurnSerializer implements BitSerializer<ReplayFrame> {
+public strictfp class ReplayFrameSerializer implements BitSerializer<ReplayFrame> {
     @Override
     public ReplayFrame createObject() {
         return new ReplayFrame();
@@ -15,12 +15,14 @@ public strictfp class ReplayTurnSerializer implements BitSerializer<ReplayFrame>
     @Override
     public void serialize(BitWriter writer, ReplayFrame object) {
         writer.writeInt32(object.turnNumber);
+        writer.writeInt32(object.hash);
         writer.writeObjectsWithSameType(object.playerTurns);
     }
 
     @Override
     public void deserialize(BitReader reader, ReplayFrame object) {
         object.turnNumber = reader.readInt32();
+        object.hash = reader.readInt32();
         object.playerTurns = reader.readObjectsWithSameTypeAsArray(ReplayTurn.class);
     }
 }

@@ -86,7 +86,11 @@ public strictfp final class Simulation {
     }
 
     public void stop() {
-        replayWriterGateway.close();
+        if (replayWriterGateway.isWriteEnabled()) {
+            hashGameState();
+            replayWriterGateway.writeEnd(turnGateway.getCurrentTurnNumber(), hash.get());
+            replayWriterGateway.close();
+        }
     }
 
     public void setPause(int playerId, boolean pause) {
@@ -166,7 +170,7 @@ public strictfp final class Simulation {
     private void simulate(List<Turn> playerTurns) {
         long start = sleepPlugin.nanoTime();
 
-        checkHashes(playerTurns);
+        int myHash = checkHashes(playerTurns);
 
         if (monitor.isRequired()) {
             synchronized (monitor.get()) {
@@ -177,7 +181,7 @@ public strictfp final class Simulation {
         }
 
         if (replayWriterGateway.isWriteEnabled()) {
-            replayWriterGateway.writeTurn(turnGateway.getCurrentTurnNumber(), playerTurns);
+            replayWriterGateway.writeTurn(turnGateway.getCurrentTurnNumber(), playerTurns, myHash);
         }
 
         sleepPlugin.sleepUntil(start, turnTimeInNanos);
@@ -186,7 +190,7 @@ public strictfp final class Simulation {
         timeDilation = (float)turnTimeInNanos / (end - start);
     }
 
-    private void checkHashes(List<Turn> playerTurns) {
+    private int checkHashes(List<Turn> playerTurns) {
         int myHash = 0;
         int myTurn = 0;
         for (Turn playerTurn : playerTurns) {
@@ -197,6 +201,8 @@ public strictfp final class Simulation {
         }
 
         checkHashes(playerTurns, myHash, myTurn);
+
+        return myHash;
     }
 
     private void checkHashes(List<Turn> playerTurns, int expected, int myTurn) {

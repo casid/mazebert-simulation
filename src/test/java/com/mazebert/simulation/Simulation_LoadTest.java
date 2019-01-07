@@ -110,9 +110,9 @@ strictfp class Simulation_LoadTest extends SimTest {
     void oneTurn_dSync() {
         ReplayFrame turn = new ReplayFrame();
         turn.turnNumber = 50;
+        turn.hash = 42;
         turn.playerTurns = new ReplayTurn[1];
         turn.playerTurns[0] = new ReplayTurn();
-        turn.playerTurns[0].hash = 42;
         replayReaderTrainer.givenTurn(turn);
 
         Throwable throwable = catchThrowable(this::whenSimulationIsLoaded);

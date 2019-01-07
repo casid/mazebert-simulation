@@ -624,7 +624,7 @@ public strictfp class WaveSpawnerTest extends SimTest {
         whenGameIsUpdated();
 
         assertThat(waveFinished).isTrue();
-        assertThat(wizard.towerStash.size()).isEqualTo(1); // Tower research
+        assertThat(wizard.towerStash.size()).isEqualTo(2); // inital 4 x 1 type of tower + new tower research
         assertThat(wizard.experience).isEqualTo(1);
     }
 

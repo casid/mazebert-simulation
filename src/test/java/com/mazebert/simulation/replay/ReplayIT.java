@@ -36,11 +36,11 @@ public class ReplayIT {
 
         ReplayFrame turn = new ReplayFrame();
         turn.turnNumber = 42;
+        turn.hash = 1241932452;
         turn.playerTurns = new ReplayTurn[1];
         turn.playerTurns[0] = new ReplayTurn();
         turn.playerTurns[0].commands = new ArrayList<>();
         turn.playerTurns[0].commands.add(new NextWaveCommand());
-        turn.playerTurns[0].hash = 1241932452;
 
         try (ReplayWriter replayWriter = new ReplayWriter(Files.newOutputStream(replay.toPath(), CREATE, WRITE, TRUNCATE_EXISTING))) {
             replayWriter.writeHeader(header);

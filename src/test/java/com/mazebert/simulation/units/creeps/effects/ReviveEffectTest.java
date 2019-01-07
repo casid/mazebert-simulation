@@ -3,7 +3,9 @@ package com.mazebert.simulation.units.creeps.effects;
 import com.mazebert.simulation.SimTest;
 import com.mazebert.simulation.SimulationListeners;
 import com.mazebert.simulation.WaveSpawner;
+import com.mazebert.simulation.gateways.GameGateway;
 import com.mazebert.simulation.gateways.UnitGateway;
+import com.mazebert.simulation.gateways.WaveGateway;
 import com.mazebert.simulation.plugins.ClientPluginTrainer;
 import com.mazebert.simulation.plugins.random.RandomPluginTrainer;
 import com.mazebert.simulation.systems.DamageSystemTrainer;
@@ -34,6 +36,8 @@ public strictfp class ReviveEffectTest extends SimTest {
         simulationListeners = new SimulationListeners();
         unitGateway = new UnitGateway();
         randomPlugin = randomPluginTrainer;
+        gameGateway = new GameGateway();
+        waveGateway = new WaveGateway();
         damageSystem = damageSystemTrainer;
         damageSystemTrainer.givenConstantDamage(1000);
         lootSystem = new LootSystemTrainer();

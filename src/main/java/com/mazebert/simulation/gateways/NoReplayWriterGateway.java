@@ -18,7 +18,12 @@ public strictfp class NoReplayWriterGateway implements ReplayWriterGateway {
     }
 
     @Override
-    public void writeTurn(int currentTurnNumber, List<Turn> playerTurns) {
+    public void writeTurn(int currentTurnNumber, List<Turn> playerTurns, int myHash) {
+        throw new UnsupportedOperationException("This gateway is not designed to write anything");
+    }
+
+    @Override
+    public void writeEnd(int currentTurnNumber, int myHash) {
         throw new UnsupportedOperationException("This gateway is not designed to write anything");
     }
 
