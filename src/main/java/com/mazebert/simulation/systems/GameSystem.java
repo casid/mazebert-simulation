@@ -104,6 +104,9 @@ public strictfp class GameSystem implements OnHealthChangedListener {
         if (game.health <= 0.0f) {
             game.health = 0.0f;
             if (game.bonusRound) {
+                // Kill all remaining creeps, so that the end feels satisfiying
+                unitGateway.forEachCreep(creep -> creep.setHealth(0));
+
                 simulationListeners.onBonusRoundFinished.dispatch();
             } else {
                 simulationListeners.onGameLost.dispatch();

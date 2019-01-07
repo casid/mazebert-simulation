@@ -718,6 +718,8 @@ public strictfp class WaveSpawnerTest extends SimTest {
 
         assertThat(gameLost.get()).isFalse();
         assertThat(finished.get()).isTrue();
+        assertThat(creep.isDead()).isTrue();
+        assertThat(getCreep(0)).isSameAs(creep); // Must not be removed for death animation!
     }
 
     private void whenPlayerCallsNextWave() {
