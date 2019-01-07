@@ -103,7 +103,11 @@ public strictfp class GameSystem implements OnHealthChangedListener {
         game.health += delta;
         if (game.health <= 0.0f) {
             game.health = 0.0f;
-            simulationListeners.onGameLost.dispatch();
+            if (game.bonusRound) {
+                simulationListeners.onBonusRoundFinished.dispatch();
+            } else {
+                simulationListeners.onGameLost.dispatch();
+            }
         }
         simulationListeners.onGameHealthChanged.dispatch(oldHealth, game.health);
     }

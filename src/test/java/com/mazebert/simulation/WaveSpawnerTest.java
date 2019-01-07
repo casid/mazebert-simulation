@@ -701,6 +701,25 @@ public strictfp class WaveSpawnerTest extends SimTest {
         assertThat(gameGateway.getGame().bonusRoundSeconds).isEqualTo(1);
     }
 
+    @Test
+    void bonusRound_finished() {
+        AtomicBoolean gameLost = new AtomicBoolean();
+        simulationListeners.onGameLost.add(() -> gameLost.set(true));
+        AtomicBoolean finished = new AtomicBoolean();
+        simulationListeners.onBonusRoundFinished.add(() -> finished.set(true));
+        gameGateway.getGame().health = 0.01f; // not much health left
+        whenBonusRoundIsReached();
+        bonusRoundCountDown.onUpdate(bonusRoundCountDown.getRemainingSeconds());
+        simulationListeners.onUpdate.dispatch(1.0f);
+        Creep creep = getCreep(0);
+        creep.setPath(new Path(0.0f, 0.0f, 0.0f, 1.0f));
+
+        creep.simulate(1.0f); // creep reaches base, causing bonus round to finish
+
+        assertThat(gameLost.get()).isFalse();
+        assertThat(finished.get()).isTrue();
+    }
+
     private void whenPlayerCallsNextWave() {
         waveSpawner.onWaveStarted();
         whenGameIsUpdated();
