@@ -122,10 +122,10 @@ public strictfp class GameSystem implements OnHealthChangedListener {
     private void showBonusRoundCompleteNotification(Wizard wizard) {
         int survivedSeconds = gameGateway.getGame().bonusRoundSeconds;
 
-        simulationListeners.showNotification(wizard, "Congratulations!");
-        simulationListeners.showNotification(wizard, "You survived " + survivedSeconds + " seconds after a");
-        simulationListeners.showNotification(wizard, Sim.context().waveGateway.getTotalWaves() + " wave game on " + Sim.context().difficultyGateway.getDifficulty() + ".");
-        simulationListeners.showNotification(wizard, "Your rank: " + getBonusRoundRank(survivedSeconds));
+        simulationListeners.showNotification(wizard, "Congratulations!", Float.MAX_VALUE);
+        simulationListeners.showNotification(wizard, "You survived " + survivedSeconds + " seconds after a", Float.MAX_VALUE);
+        simulationListeners.showNotification(wizard, Sim.context().waveGateway.getTotalWaves() + " wave game on " + Sim.context().difficultyGateway.getDifficulty() + ".", Float.MAX_VALUE);
+        simulationListeners.showNotification(wizard, "Your rank: " + getBonusRoundRank(survivedSeconds), Float.MAX_VALUE);
     }
 
     private String getBonusRoundRank(int bonusSurvivalTime) {

@@ -11,4 +11,8 @@ public strictfp class OnNotification extends ExposedSignal<OnNotificationListene
     public void dispatch(String sound, String group, float volume) {
         dispatchAll(l -> l.onSound(sound, group, volume));
     }
+
+    public void dispatch(Unit unit, String text, float fadeOutTime) {
+        dispatchAll(l -> l.onNotification(unit, text, fadeOutTime));
+    }
 }

@@ -46,6 +46,10 @@ public strictfp class SimulationListeners {
         showNotification(unit, text, 0xffffff);
     }
 
+    public void showNotification(Unit unit, String text, float fadeOutTime) {
+        onNotification.dispatch(unit, text, fadeOutTime);
+    }
+
     public void showExperienceNotification(Unit unit, float experience) {
         int color = experience > 0 ? 0x88ff22 : 0xaa4422;
         showNotification(unit, Sim.context().formatPlugin.experienceWithSignAndUnit(experience), color);
