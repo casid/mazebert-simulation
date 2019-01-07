@@ -5,7 +5,7 @@ import com.mazebert.simulation.Rarity;
 public strictfp class JackInTheBox extends Hero {
 
     public JackInTheBox() {
-        //addAbility(new JackInTheBoxAbility()); // TODO
+        addAbility(new JackInTheBoxAbility());
     }
 
     @Override
