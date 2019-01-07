@@ -60,6 +60,7 @@ strictfp class Simulation_LoadTest extends SimTest {
     void oneTurn_emptyFrames() {
         ReplayFrame turn = new ReplayFrame();
         turn.turnNumber = 42;
+        turn.hash = 1602224128;
         turn.playerTurns = new ReplayTurn[1];
         turn.playerTurns[0] = new ReplayTurn();
         replayReaderTrainer.givenTurn(turn);
@@ -92,6 +93,7 @@ strictfp class Simulation_LoadTest extends SimTest {
     void oneTurn_withCommand() {
         ReplayFrame turn = new ReplayFrame();
         turn.turnNumber = 13;
+        turn.hash = 1602224128;
         turn.playerTurns = new ReplayTurn[1];
         turn.playerTurns[0] = new ReplayTurn();
         turn.playerTurns[0].commands = new ArrayList<>();
