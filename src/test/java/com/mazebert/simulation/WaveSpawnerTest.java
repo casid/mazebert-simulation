@@ -702,6 +702,16 @@ public strictfp class WaveSpawnerTest extends SimTest {
     }
 
     @Test
+    void bonusRound_experience() {
+        whenBonusRoundIsReached();
+        bonusRoundCountDown.onUpdate(bonusRoundCountDown.getRemainingSeconds());
+
+        assertThat(wizard.experience).isEqualTo(1);
+        simulationListeners.onUpdate.dispatch(30);
+        assertThat(wizard.experience).isEqualTo(83);
+    }
+
+    @Test
     void bonusRound_finished() {
         AtomicBoolean gameLost = new AtomicBoolean();
         simulationListeners.onGameLost.add(() -> gameLost.set(true));

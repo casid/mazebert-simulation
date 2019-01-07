@@ -75,9 +75,14 @@ public strictfp final class WaveSpawner implements OnGameStartedListener, OnWave
 
         if (bonusRoundStarted) {
             bonusRoundSeconds += dt;
-            if ((int)bonusRoundSeconds > gameGateway.getGame().bonusRoundSeconds) {
-                gameGateway.getGame().bonusRoundSeconds = (int)bonusRoundSeconds;
-                simulationListeners.onBonusRoundSurvived.dispatch((int)bonusRoundSeconds);
+            int seconds = (int) bonusRoundSeconds;
+            if (seconds > gameGateway.getGame().bonusRoundSeconds) {
+                gameGateway.getGame().bonusRoundSeconds = seconds;
+                simulationListeners.onBonusRoundSurvived.dispatch(seconds);
+
+                if (experienceSystem.isTimeToGrantBonusRoundExperience(seconds)) {
+                    unitGateway.forEach(Wizard.class, wizard -> experienceSystem.grantBonusRoundExperience(wizard, seconds));
+                }
             }
         }
     }
