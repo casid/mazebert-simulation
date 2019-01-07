@@ -10,10 +10,16 @@ public strictfp class Game implements Hashable {
     public UUID id;
     public Map map;
     public float health = 1.0f;
+    public boolean bonusRound;
+    public int bonusRoundSeconds;
 
     @Override
     public void hash(Hash hash) {
         hash.add(id);
+        // ignore map
+        hash.add(health);
+        hash.add(bonusRound);
+        hash.add(bonusRoundSeconds);
     }
 
     public boolean isLost() {

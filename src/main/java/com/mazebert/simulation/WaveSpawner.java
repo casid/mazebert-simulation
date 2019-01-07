@@ -1,5 +1,6 @@
 package com.mazebert.simulation;
 
+import com.mazebert.simulation.countdown.BonusRoundCountDown;
 import com.mazebert.simulation.countdown.WaveCountDown;
 import com.mazebert.simulation.gateways.*;
 import com.mazebert.simulation.listeners.*;
@@ -13,7 +14,7 @@ import com.mazebert.simulation.units.wizards.Wizard;
 import java.util.ArrayDeque;
 import java.util.Queue;
 
-public strictfp class WaveSpawner implements OnGameStartedListener, OnWaveStartedListener, OnUpdateListener, OnDeadListener, OnUnitRemovedListener, OnTargetReachedListener {
+public strictfp final class WaveSpawner implements OnGameStartedListener, OnWaveStartedListener, OnUpdateListener, OnDeadListener, OnUnitRemovedListener, OnTargetReachedListener, OnBonusRoundStartedListener {
     private final SimulationListeners simulationListeners = Sim.context().simulationListeners;
     private final WaveGateway waveGateway = Sim.context().waveGateway;
     private final UnitGateway unitGateway = Sim.context().unitGateway;
@@ -28,10 +29,13 @@ public strictfp class WaveSpawner implements OnGameStartedListener, OnWaveStarte
     private Queue<Creep> goblinQueue = new ArrayDeque<>();
     private float countdownForNextCreepToSend;
     private float countdownForNextGoblinToSend;
+    private boolean bonusRoundStarted;
+    private double bonusRoundSeconds;
 
     public WaveSpawner() {
         simulationListeners.onGameStarted.add(this);
         simulationListeners.onWaveStarted.add(this);
+        simulationListeners.onBonusRoundStarted.add(this);
         simulationListeners.onUpdate.add(this);
         simulationListeners.onUnitRemoved.add(this);
     }
@@ -64,6 +68,14 @@ public strictfp class WaveSpawner implements OnGameStartedListener, OnWaveStarte
                 spawnCreep(creep);
 
                 countdownForNextGoblinToSend = calculateCountdownForNextCreepToSend(creep.getWave());
+            }
+        }
+
+        if (bonusRoundStarted) {
+            bonusRoundSeconds += dt;
+            if ((int)bonusRoundSeconds > gameGateway.getGame().bonusRoundSeconds) {
+                gameGateway.getGame().bonusRoundSeconds = (int)bonusRoundSeconds;
+                simulationListeners.onBonusRoundSurvived.dispatch((int)bonusRoundSeconds);
             }
         }
     }
@@ -255,7 +267,10 @@ public strictfp class WaveSpawner implements OnGameStartedListener, OnWaveStarte
                 Sim.context().waveCountDown = new WaveCountDown();
                 Sim.context().waveCountDown.start();
             } else {
+                gameGateway.getGame().bonusRound = true;
                 simulationListeners.onGameWon.dispatch();
+                Sim.context().bonusRoundCountDown = new BonusRoundCountDown();
+                Sim.context().bonusRoundCountDown.start();
             }
         }
     }
@@ -282,4 +297,8 @@ public strictfp class WaveSpawner implements OnGameStartedListener, OnWaveStarte
         unitGateway.removeUnit(creep);
     }
 
+    @Override
+    public void onBonusRoundStarted() {
+        bonusRoundStarted = true;
+    }
 }

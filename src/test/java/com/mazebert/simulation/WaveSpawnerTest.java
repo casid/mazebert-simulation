@@ -662,15 +662,30 @@ public strictfp class WaveSpawnerTest extends SimTest {
     void gameWon_bonusRound() {
         AtomicBoolean gameWon = new AtomicBoolean();
         simulationListeners.onGameWon.add(() -> gameWon.set(true));
-        waveGateway.setTotalWaves(10);
-        waveGateway.setCurrentRound(9);
-        givenBossWave();
-
-        whenAllCreepsAreSpawned();
-        whenCreepIsKilled(getCreep(0));
+        whenBonusRoundIsReached();
 
         assertThat(gameWon.get()).isTrue();
-        // TODO start of bonus round!
+        assertThat(bonusRoundCountDown).isNotNull();
+        assertThat(gameGateway.getGame().bonusRound).isTrue();
+        assertThat(gameGateway.getGame().bonusRoundSeconds).isEqualTo(0);
+    }
+
+    @Test
+    void bonusRound() {
+        whenBonusRoundIsReached();
+        bonusRoundCountDown.onUpdate(bonusRoundCountDown.getRemainingSeconds());
+
+        assertThat(bonusRoundCountDown).isNull();
+    }
+
+    @Test
+    void bonusRound_seconds() {
+        whenBonusRoundIsReached();
+        bonusRoundCountDown.onUpdate(bonusRoundCountDown.getRemainingSeconds());
+
+        assertThat(gameGateway.getGame().bonusRoundSeconds).isEqualTo(0);
+        simulationListeners.onUpdate.dispatch(1.0f);
+        assertThat(gameGateway.getGame().bonusRoundSeconds).isEqualTo(1);
     }
 
     private void whenPlayerCallsNextWave() {
@@ -726,5 +741,14 @@ public strictfp class WaveSpawnerTest extends SimTest {
         creep.setHealth(0.0f);
         creep.simulate(Creep.DEATH_TIME);
         assertThat(unitGateway.hasUnit(creep)).isFalse();
+    }
+
+    private void whenBonusRoundIsReached() {
+        waveGateway.setTotalWaves(10);
+        waveGateway.setCurrentRound(9);
+        givenBossWave();
+
+        whenAllCreepsAreSpawned();
+        whenCreepIsKilled(getCreep(0));
     }
 }

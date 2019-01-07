@@ -5,6 +5,7 @@ import com.mazebert.simulation.units.towers.Tower;
 public strictfp class Balancing {
     public static final float GAME_COUNTDOWN_SECONDS = 30.0f;
     public static final float WAVE_COUNTDOWN_SECONDS = 5.0f;
+    public static final float BONUS_COUNTDOWN_SECONDS = 60.0f;
     public static final float EARLY_CALL_COUNTDOWN_SECONDS = 5.0f;
     public static final float DAMAGE_BALANCING_FACTOR = 12.0f;
     public static final float MAX_COOLDOWN = 60.0f;
