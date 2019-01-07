@@ -89,6 +89,7 @@ public strictfp final class WaveSpawner implements OnGameStartedListener, OnWave
         }
     }
 
+    @SuppressWarnings("Duplicates")
     private Creep createGoblin(Wizard wizard, Wave wave) {
         double health = Balancing.getTotalCreepHitpoints(wave.round, difficultyGateway.getDifficulty());
 
@@ -123,6 +124,7 @@ public strictfp final class WaveSpawner implements OnGameStartedListener, OnWave
         return countdown;
     }
 
+    @SuppressWarnings("Duplicates")
     private void startNextWave() {
         Wave wave = waveGateway.nextWave();
         if (wave == null) {
