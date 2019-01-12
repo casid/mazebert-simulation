@@ -45,7 +45,7 @@ public strictfp class SimulationLoop {
         try {
             thread.join();
         } catch (InterruptedException e) {
-            // Okay then
+            // Perfect, we wanted to stop anyway
         }
     }
 
@@ -64,6 +64,8 @@ public strictfp class SimulationLoop {
             }
 
             simulation.stop();
+        } catch (Throwable throwable) {
+            context.simulationListeners.onError.dispatch(throwable);
         } finally {
             Sim.resetContext();
         }
