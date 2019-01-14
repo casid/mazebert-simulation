@@ -5,7 +5,7 @@ public class PlayerGatewayTrainer implements PlayerGateway {
     private int playerCount = 1;
 
     @Override
-    public int getPlayerId() {
+    public int getLocalPlayerId() {
         return 1;
     }
 

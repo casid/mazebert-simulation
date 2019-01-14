@@ -11,7 +11,7 @@ public strictfp class ReplayPlayerGateway implements PlayerGateway {
     }
 
     @Override
-    public int getPlayerId() {
+    public int getLocalPlayerId() {
         return replayHeader.playerId;
     }
 

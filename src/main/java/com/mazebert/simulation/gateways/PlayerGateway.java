@@ -1,10 +1,6 @@
 package com.mazebert.simulation.gateways;
 
 public interface PlayerGateway {
-    int getPlayerId();
+    int getLocalPlayerId();
     int getPlayerCount();
-
-    default boolean isHost() {
-        return getPlayerId() == 1;
-    }
 }
