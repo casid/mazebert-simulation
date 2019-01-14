@@ -51,7 +51,7 @@ public strictfp final class Simulation {
     public void start(InitGameCommand initGameCommand, InitPlayerCommand initPlayerCommand) {
         if (replayWriterGateway.isWriteEnabled()) {
             ReplayHeader header = new ReplayHeader();
-            header.playerId = playerGateway.getLocalPlayerId();
+            header.playerId = playerGateway.getSimulationPlayerId();
             header.playerCount = playerGateway.getPlayerCount();
             replayWriterGateway.writeHeader(header);
         }
@@ -194,7 +194,7 @@ public strictfp final class Simulation {
         int myHash = 0;
         int myTurn = 0;
         for (Turn playerTurn : playerTurns) {
-            if (playerTurn.playerId == playerGateway.getLocalPlayerId()) {
+            if (playerTurn.playerId == playerGateway.getSimulationPlayerId()) {
                 myHash = playerTurn.hash;
                 myTurn = playerTurn.turnNumber;
             }
@@ -261,7 +261,7 @@ public strictfp final class Simulation {
 
     private void schedule(List<Command> commands, int turnNumber) {
         Turn turn = new Turn();
-        turn.playerId = playerGateway.getLocalPlayerId();
+        turn.playerId = playerGateway.getSimulationPlayerId();
         turn.turnNumber = turnNumber;
         turn.commands = commands;
         turn.hash = hash.get();
