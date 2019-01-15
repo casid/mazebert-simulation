@@ -3,6 +3,9 @@ package com.mazebert.simulation.maps;
 public strictfp class BloodMoor extends Map {
 
     public BloodMoor() {
+        setMaxScrollY(-340);
+        setMinScrollY(-1200);
+
         TileType t1 = new TileType("grass-1", 92f / 180f, 64f / 152f).buildable();
         TileType t2 = new TileType("water-1", 80f / 155f, 40f / 85f).water();
         TileType t3 = new TileType("stones-1", 92f / 181f, 50f / 143f).path();

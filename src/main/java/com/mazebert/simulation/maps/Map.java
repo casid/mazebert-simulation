@@ -14,11 +14,14 @@ public strictfp abstract class Map {
     private Point endWaypoint;
     private Path groundPath;
     private Path airPath;
+    private int maxScrollY;
+    private int minScrollY;
 
     protected void addTile(Tile tile) {
         tiles.add(tile);
     }
 
+    @SuppressWarnings("unused")
     public List<Tile> getTiles() {
         return tiles;
     }
@@ -44,12 +47,31 @@ public strictfp abstract class Map {
         return airPath;
     }
 
+    @SuppressWarnings("unused")
     public String getAtlas() {
         return "maps/tiles.xml";
     }
 
     public Point getStartWaypoint() {
         return startWaypoint;
+    }
+
+    @SuppressWarnings("unused")
+    public int getMaxScrollY() {
+        return maxScrollY;
+    }
+
+    public void setMaxScrollY(int maxScrollY) {
+        this.maxScrollY = maxScrollY;
+    }
+
+    @SuppressWarnings("unused")
+    public int getMinScrollY() {
+        return minScrollY;
+    }
+
+    public void setMinScrollY(int minScrollY) {
+        this.minScrollY = minScrollY;
     }
 
     public abstract int getColumns();
