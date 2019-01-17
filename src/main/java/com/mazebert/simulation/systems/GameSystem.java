@@ -9,8 +9,6 @@ import com.mazebert.simulation.gateways.PlayerGateway;
 import com.mazebert.simulation.gateways.UnitGateway;
 import com.mazebert.simulation.listeners.OnHealthChangedListener;
 import com.mazebert.simulation.units.Unit;
-import com.mazebert.simulation.units.items.ItemType;
-import com.mazebert.simulation.units.potions.PotionType;
 import com.mazebert.simulation.units.wizards.Wizard;
 
 public strictfp class GameSystem implements OnHealthChangedListener {
@@ -43,30 +41,6 @@ public strictfp class GameSystem implements OnHealthChangedListener {
 //        for (PotionType value : PotionType.values()) {
 //            wizard.potionStash.add(value);
 //        }
-
-        wizard.itemStash.add(ItemType.BowlingBall);
-        wizard.itemStash.add(ItemType.ScepterOfTime);
-        wizard.itemStash.add(ItemType.LightbladeAcademyDrone);
-        wizard.itemStash.add(ItemType.LightbladeAcademySword);
-        wizard.itemStash.add(ItemType.PoisonArrow);
-        wizard.itemStash.add(ItemType.Mjoelnir);
-        wizard.itemStash.add(ItemType.MesserschmidtsReaver);
-
-        wizard.potionStash.add(PotionType.EssenceOfWisdom);
-        wizard.potionStash.add(PotionType.EssenceOfWisdom);
-        wizard.potionStash.add(PotionType.EssenceOfWisdom);
-        wizard.potionStash.add(PotionType.EssenceOfWisdom);
-        for (int i = 0; i < 50; ++i) {
-            wizard.potionStash.add(PotionType.CardDustLevel);
-        }
-
-        for (int i = 0; i < 50; ++i) {
-            wizard.itemStash.add(ItemType.BabySword);
-        }
-
-        for (int i = 0; i < 60; ++i) {
-            wizard.itemStash.add(ItemType.FrozenHeart);
-        }
 
         wizard.onHealthChanged.add(this);
 
