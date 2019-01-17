@@ -78,6 +78,7 @@ public strictfp class TurnGateway {
         addTurn(turn);
     }
 
+    @SuppressWarnings("unused")
     public void onRemoteTurnReceived(Turn turn) {
         if (addTurn(turn)) {
             synchronized (turnWaiter) {
