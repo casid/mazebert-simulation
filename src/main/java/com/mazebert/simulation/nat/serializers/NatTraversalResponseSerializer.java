@@ -18,6 +18,8 @@ public class NatTraversalResponseSerializer implements BitSerializer<NatTraversa
         bitWriter.writeLong(object.dstPlayerId);
         bitWriter.writeInetAddress(object.dstAddress);
         bitWriter.writeInt32(object.dstPort);
+        bitWriter.writeInetAddress(object.dstLocalAddress);
+        bitWriter.writeInt32(object.dstLocalPort);
     }
 
     @Override
@@ -27,5 +29,7 @@ public class NatTraversalResponseSerializer implements BitSerializer<NatTraversa
         object.dstPlayerId = bitReader.readLong();
         object.dstAddress = bitReader.readInetAddress();
         object.dstPort = bitReader.readInt32();
+        object.dstLocalAddress = bitReader.readInetAddress();
+        object.dstLocalPort = bitReader.readInt32();
     }
 }

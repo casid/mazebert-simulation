@@ -11,4 +11,6 @@ public class NatTraversalResponse extends BitMessage {
     public long dstPlayerId;
     public InetAddress dstAddress;
     public int dstPort;
+    public InetAddress dstLocalAddress;
+    public int dstLocalPort;
 }
