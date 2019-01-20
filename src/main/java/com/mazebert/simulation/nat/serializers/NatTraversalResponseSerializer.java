@@ -16,10 +16,8 @@ public class NatTraversalResponseSerializer implements BitSerializer<NatTraversa
         bitWriter.writeUuidNonNull(object.gameId);
         bitWriter.writeLong(object.srcPlayerId);
         bitWriter.writeLong(object.dstPlayerId);
-        bitWriter.writeInetAddress(object.dstAddress);
-        bitWriter.writeInt32(object.dstPort);
-        bitWriter.writeInetAddress(object.dstLocalAddress);
-        bitWriter.writeInt32(object.dstLocalPort);
+        bitWriter.writeInetSocketAddress(object.dstLocalAddress);
+        bitWriter.writeInetSocketAddress(object.dstRemoteAddress);
     }
 
     @Override
@@ -27,9 +25,7 @@ public class NatTraversalResponseSerializer implements BitSerializer<NatTraversa
         object.gameId = bitReader.readUuidNonNull();
         object.srcPlayerId = bitReader.readLong();
         object.dstPlayerId = bitReader.readLong();
-        object.dstAddress = bitReader.readInetAddress();
-        object.dstPort = bitReader.readInt32();
-        object.dstLocalAddress = bitReader.readInetAddress();
-        object.dstLocalPort = bitReader.readInt32();
+        object.dstLocalAddress = bitReader.readInetSocketAddress();
+        object.dstRemoteAddress = bitReader.readInetSocketAddress();
     }
 }
