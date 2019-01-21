@@ -22,6 +22,8 @@ import java.util.concurrent.TimeUnit;
 
 public strictfp final class Simulation {
 
+    public static final long TURN_TIME_IN_MILLIS = 100;
+
     private final CommandExecutor commandExecutor = Sim.context().commandExecutor;
     private final LocalCommandGateway localCommandGateway = Sim.context().localCommandGateway;
     private final TurnGateway turnGateway = Sim.context().turnGateway;
@@ -35,9 +37,8 @@ public strictfp final class Simulation {
     private final GameGateway gameGateway = Sim.context().gameGateway;
     private final SimulationMonitor monitor = Sim.context().simulationMonitor;
 
-    private long turnTimeInMillis = 100;
-    private long turnTimeInNanos = TimeUnit.MILLISECONDS.toNanos(turnTimeInMillis);
-    private float turnTimeInSeconds = turnTimeInMillis / 1000.0f;
+    private long turnTimeInNanos = TimeUnit.MILLISECONDS.toNanos(TURN_TIME_IN_MILLIS);
+    private float turnTimeInSeconds = TURN_TIME_IN_MILLIS / 1000.0f;
     private float unmodifiedTurnTimeInSeconds = turnTimeInSeconds;
     private float timeModifier = 1;
     private float timeDilation;
