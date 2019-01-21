@@ -15,7 +15,7 @@ public interface ReplayWriterGateway {
 
     void writeEnd(int currentTurnNumber, int myHash);
 
-    void writePreviousReplay(ReplayReader reader);
+    void writePreviousReplay(ReplayReader reader, int turnNumber);
 
     void close();
 

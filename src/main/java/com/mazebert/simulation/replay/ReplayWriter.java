@@ -57,11 +57,11 @@ public strictfp class ReplayWriter implements ReplayWriterGateway, AutoCloseable
     }
 
     @Override
-    public void writePreviousReplay(ReplayReader reader) {
+    public void writePreviousReplay(ReplayReader reader, int turnNumber) {
         writeHeader(reader.readHeader());
         while (true) {
             ReplayFrame frame = reader.readFrame();
-            if (frame != null) {
+            if (frame != null && frame.turnNumber <= turnNumber) {
                 writeFrame(frame);
             } else {
                 break;

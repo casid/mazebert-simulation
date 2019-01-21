@@ -102,6 +102,10 @@ public strictfp final class Simulation {
     }
 
     public void load(ReplayReader replayReader) {
+        load(replayReader, Integer.MAX_VALUE);
+    }
+
+    public void load(ReplayReader replayReader, int turnNumber) {
         HashHistory hashHistory = new HashHistory(2);
         hashHistory.add(0);
         hashHistory.add(0);
@@ -109,6 +113,9 @@ public strictfp final class Simulation {
         while (isRunning()) {
             ReplayFrame replayFrame = replayReader.readFrame();
             if (replayFrame == null) {
+                return;
+            }
+            if (replayFrame.turnNumber > turnNumber) {
                 return;
             }
 

@@ -28,7 +28,7 @@ public strictfp class NoReplayWriterGateway implements ReplayWriterGateway {
     }
 
     @Override
-    public void writePreviousReplay(ReplayReader reader) {
+    public void writePreviousReplay(ReplayReader reader, int turnNumber) {
         throw new UnsupportedOperationException("This gateway is not designed to write anything");
     }
 
