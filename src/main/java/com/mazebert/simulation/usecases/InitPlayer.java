@@ -26,7 +26,11 @@ public strictfp class InitPlayer extends Usecase<InitPlayerCommand> {
     public void initWizard(Wizard wizard, InitPlayerCommand command) {
         if (command.ladderPlayerId > 0) {
             wizard.ladderPlayerId = command.ladderPlayerId;
+        }
+        if (command.playerName != null && !command.playerName.isEmpty()) {
             wizard.name = command.playerName;
+        }
+        if (command.experience > 0) {
             wizard.experience = command.experience;
         }
     }

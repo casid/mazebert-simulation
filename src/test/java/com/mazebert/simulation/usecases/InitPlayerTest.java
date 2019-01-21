@@ -54,6 +54,16 @@ strictfp class InitPlayerTest extends UsecaseTest<InitPlayerCommand> {
     }
 
     @Test
+    void knownPlayer_nullName() {
+        request.ladderPlayerId = 115;
+        request.playerName = null; // Something broken here
+
+        whenRequestIsExecuted();
+
+        assertThat(wizard.name).isEqualTo("Unknown Wizard");
+    }
+
+    @Test
     void littlefinger() {
         request.heroType = HeroType.LittleFinger;
 
