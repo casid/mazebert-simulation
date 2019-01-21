@@ -14,6 +14,10 @@ public strictfp class InitPlayerCommandSerializer implements BitSerializer<InitP
 
     @Override
     public void serialize(BitWriter writer, InitPlayerCommand object) {
+        writer.writeLong(object.ladderPlayerId);
+        writer.writeStringNullable(object.playerName);
+        writer.writeLong(object.experience);
+
         EnumSerializer.writeHeroType(writer, object.heroType);
 
         EnumSerializer.writeHeroTypes(writer, object.foilHeroes);
@@ -24,6 +28,10 @@ public strictfp class InitPlayerCommandSerializer implements BitSerializer<InitP
 
     @Override
     public void deserialize(BitReader reader, InitPlayerCommand object) {
+        object.ladderPlayerId = reader.readLong();
+        object.playerName = reader.readStringNullable();
+        object.experience = reader.readLong();
+
         object.heroType = EnumSerializer.readHeroType(reader);
 
         object.foilHeroes = EnumSerializer.readHeroTypes(reader);

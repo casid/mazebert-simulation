@@ -8,6 +8,10 @@ import com.mazebert.simulation.units.towers.TowerType;
 import java.util.EnumSet;
 
 public strictfp class InitPlayerCommand extends Command {
+    public long ladderPlayerId;
+    public String playerName;
+    public long experience;
+
     public HeroType heroType;
 
     public EnumSet<HeroType> foilHeroes = EnumSet.noneOf(HeroType.class);

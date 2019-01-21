@@ -28,7 +28,8 @@ public strictfp class Wizard extends Unit {
     public final PotionStash potionStash = new PotionStash();
 
     public int playerId;
-    public String name = "Unknown Wizard"; // TODO
+    public long ladderPlayerId;
+    public String name = "Unknown Wizard";
     public float health = 1.0f;
     public long experience;
     public double experienceModifier = 1;

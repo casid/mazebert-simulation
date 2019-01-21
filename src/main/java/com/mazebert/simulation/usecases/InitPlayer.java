@@ -13,12 +13,22 @@ public strictfp class InitPlayer extends Usecase<InitPlayerCommand> {
     @Override
     public void execute(InitPlayerCommand command) {
         Wizard wizard = unitGateway.getWizard(command.playerId);
+
+        initWizard(wizard, command);
         addHero(wizard, command);
 
         wizard.foilHeroes = command.foilHeroes;
         wizard.foilTowers = command.foilTowers;
         wizard.foilPotions = command.foilPotions;
         wizard.foilItems = command.foilItems;
+    }
+
+    public void initWizard(Wizard wizard, InitPlayerCommand command) {
+        if (command.ladderPlayerId > 0) {
+            wizard.ladderPlayerId = command.ladderPlayerId;
+            wizard.name = command.playerName;
+            wizard.experience = command.experience;
+        }
     }
 
     private void addHero(Wizard wizard, InitPlayerCommand command) {

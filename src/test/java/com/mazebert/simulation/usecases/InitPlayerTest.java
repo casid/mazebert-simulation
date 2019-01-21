@@ -32,6 +32,28 @@ strictfp class InitPlayerTest extends UsecaseTest<InitPlayerCommand> {
     }
 
     @Test
+    void unknownPlayer() {
+        whenRequestIsExecuted();
+
+        assertThat(wizard.ladderPlayerId).isEqualTo(0);
+        assertThat(wizard.name).isEqualTo("Unknown Wizard");
+        assertThat(wizard.experience).isEqualTo(0);
+    }
+
+    @Test
+    void knownPlayer() {
+        request.ladderPlayerId = 115;
+        request.playerName = "Andy";
+        request.experience = 300;
+
+        whenRequestIsExecuted();
+
+        assertThat(wizard.ladderPlayerId).isEqualTo(115);
+        assertThat(wizard.name).isEqualTo("Andy");
+        assertThat(wizard.experience).isEqualTo(300);
+    }
+
+    @Test
     void littlefinger() {
         request.heroType = HeroType.LittleFinger;
 
