@@ -54,6 +54,23 @@ public strictfp class FormatPlugin {
         }
     }
 
+    public String time(float seconds) {
+        if (seconds < 60.0f) {
+            return noFractionFormat.format(seconds) + "s";
+        }
+        if (seconds < 3600.0f) {
+            return noFractionFormat.format(seconds / 60.0f) + "m";
+        }
+
+        String result = noFractionFormat.format(seconds / 3600.0f) + ":";
+        int minutes = (int)((seconds % 3600.0f) / 60.0f);
+        if (minutes < 10) {
+            result += "0";
+        }
+        result += minutes;
+        return result + "h";
+    }
+
     public String damage(double damage) {
         return positiveNumber(damage);
     }

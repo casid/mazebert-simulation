@@ -91,4 +91,16 @@ class FormatPluginTest {
     void kills() {
         assertThat(format.kills(Long.MAX_VALUE)).isEqualTo("9,223,372T");
     }
+
+    @Test
+    void time() {
+        assertThat(format.time(0)).isEqualTo("0s");
+        assertThat(format.time(2)).isEqualTo("2s");
+        assertThat(format.time(60)).isEqualTo("1m");
+        assertThat(format.time(63)).isEqualTo("1m");
+        assertThat(format.time(120)).isEqualTo("2m");
+        assertThat(format.time(3600)).isEqualTo("1:00h");
+        assertThat(format.time(3720)).isEqualTo("1:02h");
+        assertThat(format.time(3600 * 2 + 60 * 23)).isEqualTo("2:23h");
+    }
 }
