@@ -41,12 +41,16 @@ public strictfp class ExperienceSystem {
 
     public void grantExperience(Wizard wizard, long experience) {
         wizard.experience += experience;
-        int level = playerLevelPlugin.getLevelForExperience(wizard.experience);
+        int level = calculateLevel(wizard);
         if (wizard.level != level) {
             int oldLevel = wizard.level;
             wizard.level = level;
             wizard.onLevelChanged.dispatch(wizard, oldLevel, level);
         }
+    }
+
+    public int calculateLevel(Wizard wizard) {
+        return playerLevelPlugin.getLevelForExperience(wizard.experience);
     }
 
     public void grantBonusRoundExperience(Wizard wizard, int bonusRoundSeconds) {

@@ -3,12 +3,14 @@ package com.mazebert.simulation.usecases;
 import com.mazebert.simulation.Sim;
 import com.mazebert.simulation.commands.InitPlayerCommand;
 import com.mazebert.simulation.gateways.UnitGateway;
+import com.mazebert.simulation.systems.ExperienceSystem;
 import com.mazebert.simulation.units.heroes.Hero;
 import com.mazebert.simulation.units.wizards.Wizard;
 
 public strictfp class InitPlayer extends Usecase<InitPlayerCommand> {
 
     private final UnitGateway unitGateway = Sim.context().unitGateway;
+    private final ExperienceSystem experienceSystem = Sim.context().experienceSystem;
 
     @Override
     public void execute(InitPlayerCommand command) {
@@ -32,6 +34,7 @@ public strictfp class InitPlayer extends Usecase<InitPlayerCommand> {
         }
         if (command.experience > 0) {
             wizard.experience = command.experience;
+            wizard.level = experienceSystem.calculateLevel(wizard);
         }
     }
 

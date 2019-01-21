@@ -3,6 +3,7 @@ package com.mazebert.simulation.usecases;
 import com.mazebert.simulation.SimulationListeners;
 import com.mazebert.simulation.commands.InitPlayerCommand;
 import com.mazebert.simulation.gateways.UnitGateway;
+import com.mazebert.simulation.systems.ExperienceSystem;
 import com.mazebert.simulation.units.heroes.HeroType;
 import com.mazebert.simulation.units.heroes.LittleFinger;
 import com.mazebert.simulation.units.wizards.Wizard;
@@ -25,6 +26,8 @@ strictfp class InitPlayerTest extends UsecaseTest<InitPlayerCommand> {
         wizard.playerId = 1;
         unitGateway.addUnit(wizard);
 
+        experienceSystem = new ExperienceSystem();
+
         usecase = new InitPlayer();
 
         request.playerId = wizard.getPlayerId();
@@ -44,13 +47,14 @@ strictfp class InitPlayerTest extends UsecaseTest<InitPlayerCommand> {
     void knownPlayer() {
         request.ladderPlayerId = 115;
         request.playerName = "Andy";
-        request.experience = 300;
+        request.experience = 3000;
 
         whenRequestIsExecuted();
 
         assertThat(wizard.ladderPlayerId).isEqualTo(115);
         assertThat(wizard.name).isEqualTo("Andy");
-        assertThat(wizard.experience).isEqualTo(300);
+        assertThat(wizard.experience).isEqualTo(3000);
+        assertThat(wizard.level).isEqualTo(9);
     }
 
     @Test
