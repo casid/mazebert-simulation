@@ -3,6 +3,7 @@ package com.mazebert.simulation;
 import com.mazebert.simulation.commands.Command;
 import com.mazebert.simulation.commands.InitGameCommand;
 import com.mazebert.simulation.commands.InitPlayerCommand;
+import com.mazebert.simulation.errors.DsyncException;
 import com.mazebert.simulation.gateways.*;
 import com.mazebert.simulation.hash.Hash;
 import com.mazebert.simulation.hash.HashHistory;

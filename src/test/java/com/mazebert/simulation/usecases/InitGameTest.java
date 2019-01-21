@@ -2,6 +2,7 @@ package com.mazebert.simulation.usecases;
 
 import com.mazebert.simulation.SimulationListeners;
 import com.mazebert.simulation.commands.InitGameCommand;
+import com.mazebert.simulation.errors.UnsupportedVersionException;
 import com.mazebert.simulation.gateways.*;
 import com.mazebert.simulation.maps.BloodMoor;
 import com.mazebert.simulation.plugins.random.RandomPluginTrainer;
@@ -19,6 +20,7 @@ import java.util.UUID;
 import static com.mazebert.simulation.Balancing.GAME_COUNTDOWN_SECONDS;
 import static com.mazebert.simulation.Balancing.STARTING_GOLD;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.catchThrowable;
 
 class InitGameTest extends UsecaseTest<InitGameCommand> {
     RandomPluginTrainer randomPluginTrainer = new RandomPluginTrainer();
@@ -195,5 +197,12 @@ class InitGameTest extends UsecaseTest<InitGameCommand> {
         whenRequestIsExecuted();
 
         assertThat(gameGateway.getGame().map).isInstanceOf(BloodMoor.class);
+    }
+
+    @Test
+    void wrongVersion() {
+        request.version = "0";
+        Throwable throwable = catchThrowable(this::whenRequestIsExecuted);
+        assertThat(throwable).isInstanceOf(UnsupportedVersionException.class);
     }
 }

@@ -1,5 +1,6 @@
 package com.mazebert.simulation;
 
+import com.mazebert.simulation.errors.DsyncException;
 import com.mazebert.simulation.gateways.NoMessageGateway;
 import com.mazebert.simulation.gateways.NoReplayWriterGateway;
 import com.mazebert.simulation.gateways.ReplayPlayerGateway;

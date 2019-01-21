@@ -2,6 +2,7 @@ package com.mazebert.simulation;
 
 import com.mazebert.simulation.commands.InitGameCommand;
 import com.mazebert.simulation.commands.NextWaveCommand;
+import com.mazebert.simulation.errors.DsyncException;
 import com.mazebert.simulation.gateways.GameGateway;
 import com.mazebert.simulation.gateways.PlayerGatewayTrainer;
 import com.mazebert.simulation.gateways.TurnGateway;

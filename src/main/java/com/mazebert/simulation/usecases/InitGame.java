@@ -5,6 +5,7 @@ import com.mazebert.simulation.SimulationListeners;
 import com.mazebert.simulation.WaveSpawner;
 import com.mazebert.simulation.commands.InitGameCommand;
 import com.mazebert.simulation.countdown.GameCountDown;
+import com.mazebert.simulation.errors.UnsupportedVersionException;
 import com.mazebert.simulation.gateways.GameGateway;
 import com.mazebert.simulation.gateways.WaveGateway;
 import com.mazebert.simulation.maps.BloodMoor;
@@ -21,6 +22,10 @@ public strictfp class InitGame extends Usecase<InitGameCommand> {
 
     @Override
     public void execute(InitGameCommand command) {
+        if (!Sim.version.equals(command.version)) {
+            throw new UnsupportedVersionException("Simulation v" + Sim.version + " cannot simulate a game with version v" + command.version);
+        }
+
         randomPlugin.setSeed(command.gameId);
         gameGateway.getGame().id = command.gameId;
 
