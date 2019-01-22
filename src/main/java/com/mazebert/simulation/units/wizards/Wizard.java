@@ -67,6 +67,7 @@ public strictfp class Wizard extends Unit {
         hash.add(potionStash);
 
         hash.add(playerId);
+        hash.add(ladderPlayerId);
         // ignore name
         hash.add(health);
         hash.add(experience);
