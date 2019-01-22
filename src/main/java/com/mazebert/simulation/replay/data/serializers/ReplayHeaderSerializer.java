@@ -13,13 +13,16 @@ public strictfp class ReplayHeaderSerializer implements BitSerializer<ReplayHead
 
     @Override
     public void serialize(BitWriter writer, ReplayHeader object) {
-        writer.writeInt8(object.playerId);
-        writer.writeInt8(object.playerCount);
+        // Version must be the first element of the header!
+        writer.writeStringNonNull(object.version);
+        writer.writeUnsignedInt3(object.playerId);
+        writer.writeUnsignedInt3(object.playerCount);
     }
 
     @Override
     public void deserialize(BitReader reader, ReplayHeader object) {
-        object.playerId = reader.readInt8();
-        object.playerCount = reader.readInt8();
+        object.version = reader.readStringNonNull();
+        object.playerId = reader.readUnsignedInt3();
+        object.playerCount = reader.readUnsignedInt3();
     }
 }
