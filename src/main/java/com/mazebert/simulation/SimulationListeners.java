@@ -34,6 +34,7 @@ public strictfp class SimulationListeners {
     public final OnCardDropped onCardDropped = new OnCardDropped();
 
     public final OnNotification onNotification = new OnNotification();
+    public final OnMessageReceived onMessageReceived = new OnMessageReceived();
 
     public boolean areNotificationsEnabled() {
         return onNotification.isExposed();

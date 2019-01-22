@@ -5,7 +5,6 @@ import org.jusecase.bitpack.BitReader;
 import org.jusecase.bitpack.BitSerializer;
 import org.jusecase.bitpack.BitWriter;
 
-@SuppressWarnings("unused") // TODO add to simulation, it is only used in lobby so far... (but do no add those commands to the replay!! maybe boolean isIncludedInReplay() in Command base class?)
 public strictfp class SendMessageCommandSerializer implements BitSerializer<SendMessageCommand> {
 
     @Override

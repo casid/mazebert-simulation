@@ -15,5 +15,6 @@ public strictfp class CommandExecutor extends ManualUsecaseExecutor {
         addUsecase(new Pause());
         addUsecase(new ActivateAbility());
         addUsecase(new TransmuteCards());
+        addUsecase(new SendMessage());
     }
 }

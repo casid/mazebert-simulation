@@ -1,5 +1,6 @@
 package com.mazebert.simulation.replay;
 
+import com.mazebert.simulation.commands.Command;
 import com.mazebert.simulation.gateways.ReplayWriterGateway;
 import com.mazebert.simulation.messages.Turn;
 import com.mazebert.simulation.replay.data.ReplayFrame;
@@ -87,7 +88,11 @@ public strictfp class ReplayWriter implements ReplayWriterGateway, AutoCloseable
     private boolean isRequiredToWriteTurn(List<Turn> playerTurns) {
         for (Turn playerTurn : playerTurns) {
             if (!playerTurn.commands.isEmpty()) {
-                return true;
+                for (Command command : playerTurn.commands) {
+                    if (!command.excludedFromReplay) {
+                        return true;
+                    }
+                }
             }
         }
         return false;
