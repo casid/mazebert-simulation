@@ -33,6 +33,7 @@ public strictfp class InitPlayer extends Usecase<InitPlayerCommand> {
             wizard.name = command.playerName;
         }
         if (command.experience > 0) {
+            wizard.initialExperience = command.experience;
             wizard.experience = command.experience;
             wizard.level = experienceSystem.calculateLevel(wizard);
         }

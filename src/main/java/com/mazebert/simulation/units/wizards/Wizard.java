@@ -31,6 +31,7 @@ public strictfp class Wizard extends Unit {
     public long ladderPlayerId;
     public String name = "Unknown Wizard";
     public float health = 1.0f;
+    public long initialExperience;
     public long experience;
     public double experienceModifier = 1;
     public int level = 1;
