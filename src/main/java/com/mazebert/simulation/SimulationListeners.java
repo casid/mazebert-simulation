@@ -5,6 +5,7 @@ import com.mazebert.simulation.units.Unit;
 
 public strictfp class SimulationListeners {
     public final OnGameInitialized onGameInitialized = new OnGameInitialized();
+    public final OnPlayerInitialized onPlayerInitialized = new OnPlayerInitialized();
     public final OnGameLoaded onGameLoaded = new OnGameLoaded();
     public final OnGameCountDown onGameCountDown = new OnGameCountDown();
     public final OnGameStarted onGameStarted = new OnGameStarted();

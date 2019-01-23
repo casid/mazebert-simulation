@@ -1,6 +1,7 @@
 package com.mazebert.simulation.usecases;
 
 import com.mazebert.simulation.Sim;
+import com.mazebert.simulation.SimulationListeners;
 import com.mazebert.simulation.commands.InitPlayerCommand;
 import com.mazebert.simulation.gateways.UnitGateway;
 import com.mazebert.simulation.systems.ExperienceSystem;
@@ -9,6 +10,7 @@ import com.mazebert.simulation.units.wizards.Wizard;
 
 public strictfp class InitPlayer extends Usecase<InitPlayerCommand> {
 
+    private final SimulationListeners simulationListeners = Sim.context().simulationListeners;
     private final UnitGateway unitGateway = Sim.context().unitGateway;
     private final ExperienceSystem experienceSystem = Sim.context().experienceSystem;
 
@@ -23,6 +25,8 @@ public strictfp class InitPlayer extends Usecase<InitPlayerCommand> {
         wizard.foilTowers = command.foilTowers;
         wizard.foilPotions = command.foilPotions;
         wizard.foilItems = command.foilItems;
+
+        simulationListeners.onPlayerInitialized.dispatch(wizard.playerId);
     }
 
     public void initWizard(Wizard wizard, InitPlayerCommand command) {
