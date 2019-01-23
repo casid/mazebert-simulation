@@ -5,7 +5,7 @@ import com.mazebert.simulation.Sim;
 import java.util.UUID;
 
 public strictfp class InitGameCommand extends Command {
-    public String version = Sim.version;
+    public int version = Sim.version;
     public UUID gameId;
     public int rounds;
 }

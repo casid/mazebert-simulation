@@ -201,7 +201,7 @@ class InitGameTest extends UsecaseTest<InitGameCommand> {
 
     @Test
     void wrongVersion() {
-        request.version = "0";
+        request.version = 0;
         Throwable throwable = catchThrowable(this::whenRequestIsExecuted);
         assertThat(throwable).isInstanceOf(UnsupportedVersionException.class);
     }
