@@ -6,8 +6,8 @@ public strictfp class TransmuteUniques extends TutorialItem {
 
     @Override
     public String getDescription() {
-        String legendaryString = "<c=#ffab00>legendary</c>";
-        String uniqueString = "<c=#a800ff>unique</c>";
+        String legendaryString = format.rarity(Rarity.Legendary);
+        String uniqueString = format.rarity(Rarity.Unique);
         return "You can transmute " + uniqueString + " and " + legendaryString + " cards to magical card dust.\n\nTo do that, swipe up two unique or legendary cards, be it potions, items or towers.\n\nTry it with these two notes!";
     }
 

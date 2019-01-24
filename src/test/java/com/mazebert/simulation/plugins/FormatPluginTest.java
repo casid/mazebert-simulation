@@ -1,6 +1,7 @@
 package com.mazebert.simulation.plugins;
 
 import com.mazebert.simulation.Balancing;
+import com.mazebert.simulation.Rarity;
 import com.mazebert.simulation.units.Currency;
 import org.junit.jupiter.api.Test;
 
@@ -102,5 +103,17 @@ class FormatPluginTest {
         assertThat(format.time(3600)).isEqualTo("1:00h");
         assertThat(format.time(3720)).isEqualTo("1:02h");
         assertThat(format.time(3600 * 2 + 60 * 23)).isEqualTo("2:23h");
+    }
+
+    @Test
+    void colored() {
+        assertThat(format.colored("text", 0x123456)).isEqualTo("<c=#123456>text</c>");
+        assertThat(format.colored("text", 0xfac301)).isEqualTo("<c=#fac301>text</c>");
+    }
+
+    @Test
+    void rarity() {
+        assertThat(format.rarity(Rarity.Common)).isEqualTo("<c=#fefefe>common</c>");
+        assertThat(format.rarity(Rarity.Common, false)).isEqualTo("<c=#fefefe>Common</c>");
     }
 }

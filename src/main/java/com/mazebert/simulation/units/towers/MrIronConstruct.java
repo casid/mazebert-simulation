@@ -1,5 +1,6 @@
 package com.mazebert.simulation.units.towers;
 
+import com.mazebert.simulation.Rarity;
 import com.mazebert.simulation.units.abilities.ActiveAbility;
 import com.mazebert.simulation.units.items.Item;
 
@@ -59,8 +60,8 @@ public strictfp class MrIronConstruct extends ActiveAbility {
 
     @Override
     public String getDescription() {
-        String legendaryString = "<c=#ffab00>legendary</c>";
-        String uniqueString = "<c=#a800ff>unique</c>";
+        String legendaryString = format.rarity(Rarity.Legendary);
+        String uniqueString = format.rarity(Rarity.Unique);
         String setString = "<c=#00ee00>set</c>";
         return "Mr. Iron leaves his battle suit for " + format.seconds(COOLDOWN) + " to improve it. All currently equipped items are removed and integrated in the suit. Cannot integrate " + legendaryString + ", " + uniqueString + " or " + setString + " items.";
     }

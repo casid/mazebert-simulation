@@ -1,6 +1,7 @@
 package com.mazebert.simulation.plugins;
 
 import com.mazebert.simulation.Balancing;
+import com.mazebert.simulation.Rarity;
 import com.mazebert.simulation.units.Currency;
 
 import java.math.RoundingMode;
@@ -177,5 +178,18 @@ public strictfp class FormatPlugin {
 
     public String kills(long amount) {
         return positiveNumber(amount);
+    }
+
+    public String colored(String string, int color) {
+        String c = Integer.toString(color, 16);
+        return "<c=#" + c + ">" + string + "</c>";
+    }
+
+    public String rarity(Rarity rarity) {
+        return rarity(rarity, true);
+    }
+
+    public String rarity(Rarity rarity, boolean lowercase) {
+        return colored(lowercase ? rarity.nameLowercase : rarity.name, rarity.color);
     }
 }

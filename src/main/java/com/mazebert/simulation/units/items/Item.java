@@ -3,12 +3,16 @@ package com.mazebert.simulation.units.items;
 import com.mazebert.java8.Consumer;
 import com.mazebert.simulation.Card;
 import com.mazebert.simulation.Rarity;
+import com.mazebert.simulation.Sim;
+import com.mazebert.simulation.plugins.FormatPlugin;
 import com.mazebert.simulation.units.abilities.Ability;
 
 public strictfp abstract class Item implements Card {
     private final Ability[] abilities;
     private final boolean set;
     private final ItemType type;
+
+    protected final FormatPlugin format = Sim.context().formatPlugin;
 
     public Item(Ability... abilities) {
         this.abilities = abilities;
