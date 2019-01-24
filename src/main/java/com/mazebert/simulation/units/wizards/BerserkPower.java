@@ -17,7 +17,7 @@ public strictfp class BerserkPower extends WizardTowerBuffPower {
 
     @Override
     public String getDescription() {
-        return format.percentWithSignAndUnit(bonus * getSkillLevel()) + "% crit chance\nfor all towers";
+        return format.percentWithSignAndUnit(bonus * getSkillLevel()) + " crit chance\nfor all towers";
     }
 
     @Override

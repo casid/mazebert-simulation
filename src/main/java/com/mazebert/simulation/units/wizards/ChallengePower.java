@@ -22,7 +22,7 @@ public strictfp class ChallengePower extends WizardTowerBuffPower {
 
     @Override
     public String getDescription() {
-        return format.percentWithSignAndUnit(bonus * getSkillLevel()) + "% challenge damage\nfor all towers";
+        return format.percentWithSignAndUnit(bonus * getSkillLevel()) + " challenge damage\nfor all towers";
     }
 
     @Override

@@ -17,7 +17,7 @@ public strictfp class ButcherPower extends WizardTowerBuffPower {
 
     @Override
     public String getDescription() {
-        return format.percentWithSignAndUnit(bonus * getSkillLevel()) + "% crit damage\nfor all towers";
+        return format.percentWithSignAndUnit(bonus * getSkillLevel()) + " crit damage\nfor all towers";
     }
 
     @Override

@@ -22,7 +22,7 @@ public strictfp class CollectorPower extends WizardTowerBuffPower {
 
     @Override
     public String getDescription() {
-        return format.percentWithSignAndUnit(bonus * getSkillLevel()) + "% item chance\nfor all towers";
+        return format.percentWithSignAndUnit(bonus * getSkillLevel()) + " item chance\nfor all towers";
     }
 
     @Override
