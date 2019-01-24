@@ -6,6 +6,8 @@ import com.mazebert.simulation.gateways.UnitGateway;
 import com.mazebert.simulation.systems.ExperienceSystem;
 import com.mazebert.simulation.units.heroes.HeroType;
 import com.mazebert.simulation.units.heroes.LittleFinger;
+import com.mazebert.simulation.units.towers.TowerType;
+import com.mazebert.simulation.units.wizards.DeckMasterPower;
 import com.mazebert.simulation.units.wizards.Wizard;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -84,5 +86,18 @@ strictfp class InitPlayerTest extends UsecaseTest<InitPlayerCommand> {
         whenRequestIsExecuted();
 
         assertThat(wizard.foilHeroes).isSameAs(request.foilHeroes);
+    }
+
+    @Test
+    void deckMasterPower() {
+        request.experience = 1000000000L; // Enough xp to use the deck master
+        DeckMasterPower deckMasterPower = new DeckMasterPower();
+        deckMasterPower.setSkillLevel(deckMasterPower.getMaxSkillLevel());
+        deckMasterPower.setSelectedTower(TowerType.Huli);
+        request.powers.add(deckMasterPower);
+
+        whenRequestIsExecuted();
+
+        assertThat(wizard.towerStash.get(TowerType.Huli).amount).isEqualTo(1);
     }
 }

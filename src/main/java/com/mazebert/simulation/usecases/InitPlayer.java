@@ -7,6 +7,9 @@ import com.mazebert.simulation.gateways.UnitGateway;
 import com.mazebert.simulation.systems.ExperienceSystem;
 import com.mazebert.simulation.units.heroes.Hero;
 import com.mazebert.simulation.units.wizards.Wizard;
+import com.mazebert.simulation.units.wizards.WizardPower;
+
+import java.util.List;
 
 public strictfp class InitPlayer extends Usecase<InitPlayerCommand> {
 
@@ -20,6 +23,7 @@ public strictfp class InitPlayer extends Usecase<InitPlayerCommand> {
 
         initWizard(wizard, command);
         addHero(wizard, command);
+        addPowers(wizard, command.powers);
 
         wizard.foilHeroes = command.foilHeroes;
         wizard.foilTowers = command.foilTowers;
@@ -47,6 +51,12 @@ public strictfp class InitPlayer extends Usecase<InitPlayerCommand> {
         Hero hero = command.heroType.create();
         hero.setWizard(wizard);
         unitGateway.addUnit(hero);
+    }
+
+    private void addPowers(Wizard wizard, List<WizardPower> powers) {
+        for (WizardPower power : powers) {
+            wizard.addAbility(power);
+        }
     }
 
 }
