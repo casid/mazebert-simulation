@@ -13,4 +13,8 @@ public abstract strictfp class WizardPower extends Ability<Wizard> {
     public int getSkillLevel() {
         return skillLevel;
     }
+
+    public int getRequiredLevel() {
+        return 1;
+    }
 }
