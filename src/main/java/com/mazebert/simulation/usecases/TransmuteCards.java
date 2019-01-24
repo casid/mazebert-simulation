@@ -167,7 +167,6 @@ public strictfp class TransmuteCards extends Usecase<TransmuteCardsCommand> {
         return null;
     }
 
-    @SuppressWarnings("unchecked")
     private CardType transmuteUncommon(Wizard wizard, Stash stash, CardType cardType, int index) {
         ++stash.transmutedUncommons;
         int requiredAmount = getRequiredAmount(wizard, stash);
