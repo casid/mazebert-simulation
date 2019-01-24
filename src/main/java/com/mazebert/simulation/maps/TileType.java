@@ -18,7 +18,7 @@ public strictfp class TileType {
 
     public TileType buildable() {
         buildable = true;
-        return this;
+        return flyable();
     }
 
     public TileType flyable() {
