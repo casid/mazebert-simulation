@@ -10,6 +10,7 @@ import com.mazebert.simulation.stash.ItemStash;
 import com.mazebert.simulation.stash.PotionStash;
 import com.mazebert.simulation.stash.TowerStash;
 import com.mazebert.simulation.units.Unit;
+import com.mazebert.simulation.units.abilities.Ability;
 import com.mazebert.simulation.units.heroes.HeroType;
 import com.mazebert.simulation.units.items.ItemType;
 import com.mazebert.simulation.units.potions.PotionType;
@@ -116,5 +117,15 @@ public strictfp class Wizard extends Unit {
             return foilHeroes.contains(type);
         }
         return false;
+    }
+
+    @Override
+    public void addAbility(Ability ability) {
+        if (ability instanceof WizardPower) {
+            if (level < ((WizardPower)ability).getRequiredLevel()) {
+                return;
+            }
+        }
+        super.addAbility(ability);
     }
 }

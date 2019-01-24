@@ -12,7 +12,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 strictfp class BerserkPowerTest extends SimTest {
     Wizard wizard;
-    private BerserkPower power;
+    BerserkPower power;
 
     @BeforeEach
     void setUp() {
