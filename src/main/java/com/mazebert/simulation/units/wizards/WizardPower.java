@@ -4,7 +4,12 @@ import com.mazebert.simulation.units.abilities.Ability;
 
 public abstract strictfp class WizardPower extends Ability<Wizard> {
 
+    private final WizardPowerType type;
     private int skillLevel;
+
+    public WizardPower() {
+        type = WizardPowerType.forClass(getClass());
+    }
 
     public void setSkillLevel(int skillLevel) {
         this.skillLevel = skillLevel;
@@ -20,5 +25,9 @@ public abstract strictfp class WizardPower extends Ability<Wizard> {
 
     public int getRequiredLevel() {
         return 1;
+    }
+
+    public WizardPowerType getType() {
+        return type;
     }
 }

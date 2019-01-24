@@ -1,6 +1,7 @@
 package com.mazebert.simulation.commands.serializers;
 
 import com.mazebert.simulation.commands.InitPlayerCommand;
+import com.mazebert.simulation.units.wizards.WizardPower;
 import org.jusecase.bitpack.BitReader;
 import org.jusecase.bitpack.BitSerializer;
 import org.jusecase.bitpack.BitWriter;
@@ -24,6 +25,8 @@ public strictfp class InitPlayerCommandSerializer implements BitSerializer<InitP
         EnumSerializer.writeTowerTypes(writer, object.foilTowers);
         EnumSerializer.writeItemTypes(writer, object.foilItems);
         EnumSerializer.writePotionTypes(writer, object.foilPotions);
+
+        writer.writeObjectsWithSameType(object.powers);
     }
 
     @Override
@@ -38,5 +41,7 @@ public strictfp class InitPlayerCommandSerializer implements BitSerializer<InitP
         object.foilTowers = EnumSerializer.readTowerTypes(reader);
         object.foilItems = EnumSerializer.readItemTypes(reader);
         object.foilPotions = EnumSerializer.readPotionTypes(reader);
+
+        object.powers = reader.readObjectsWithSameTypeAsList(WizardPower.class);
     }
 }

@@ -6,6 +6,7 @@ import com.mazebert.simulation.units.heroes.HeroType;
 import com.mazebert.simulation.units.items.ItemType;
 import com.mazebert.simulation.units.potions.PotionType;
 import com.mazebert.simulation.units.towers.TowerType;
+import com.mazebert.simulation.units.wizards.WizardPowerType;
 import org.junit.jupiter.api.Test;
 import org.jusecase.bitpack.AbstractBitProtocol;
 import org.jusecase.bitpack.BitProtocol;
@@ -99,6 +100,19 @@ public class EnumSerializerTest {
         assertThat(EnumSerializer.readTowerPotionOrItemCardCategory(reader)).isEqualTo(CardCategory.Tower);
         assertThat(EnumSerializer.readTowerPotionOrItemCardCategory(reader)).isEqualTo(CardCategory.Potion);
         assertThat(EnumSerializer.readTowerPotionOrItemCardCategory(reader)).isEqualTo(CardCategory.Item);
+    }
+
+    @Test
+    void wizardPowers() {
+        for (WizardPowerType value : WizardPowerType.values()) {
+            EnumSerializer.writeWizardPowerType(writer, value);
+        }
+
+        whenBufferIsFlushedAndRead();
+
+        for (WizardPowerType value : WizardPowerType.values()) {
+            assertThat(EnumSerializer.readWizardPowerType(reader)).isEqualTo(value);
+        }
     }
 
     @Test

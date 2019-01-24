@@ -26,6 +26,10 @@ public class DeckMasterPower extends WizardPower {
         this.selectedTower = type;
     }
 
+    public TowerType getSelectedTower() {
+        return selectedTower;
+    }
+
     public Rarity getRarity() {
         int skillLevel = getSkillLevel();
         if (skillLevel <= 1) {
