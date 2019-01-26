@@ -6,6 +6,7 @@ import com.mazebert.simulation.Rarity;
 import com.mazebert.simulation.Sim;
 import com.mazebert.simulation.plugins.FormatPlugin;
 import com.mazebert.simulation.units.abilities.Ability;
+import com.mazebert.simulation.units.towers.Tower;
 
 public strictfp abstract class Item implements Card {
     private final Ability[] abilities;
@@ -71,5 +72,9 @@ public strictfp abstract class Item implements Card {
     @Override
     public ItemType getType() {
         return type;
+    }
+
+    public boolean isForbiddenToEquip(Tower tower) {
+        return false;
     }
 }

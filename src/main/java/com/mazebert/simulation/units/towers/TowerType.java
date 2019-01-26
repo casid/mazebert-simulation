@@ -52,6 +52,7 @@ public strictfp enum TowerType implements CardType<Tower> {
     KiwiEgg(39, KiwiEgg.class),
     Kiwi(40, Kiwi.class),
     Stonecutters(41, Stonecutters.class),
+    Yggdrasil(42, Yggdrasil.class),
     ;
 
     public final int id;

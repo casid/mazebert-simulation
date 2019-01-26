@@ -50,7 +50,7 @@ public strictfp class BuildTower extends Usecase<BuildTowerCommand> {
 
         Tower oldTower = unitGateway.findTower(wizard.getPlayerId(), x, y);
         if (oldTower != null) {
-            replace(oldTower, tower);
+            replace(wizard, oldTower, tower);
         }
 
         unitGateway.addUnit(tower);
@@ -58,7 +58,7 @@ public strictfp class BuildTower extends Usecase<BuildTowerCommand> {
         return oldTower;
     }
 
-    private void replace(Tower oldTower, Tower newTower) {
+    private void replace(Wizard wizard, Tower oldTower, Tower newTower) {
         List<Ability> permanentAbilities = new ArrayList<>();
         oldTower.forEachAbility(ability -> {
             if (ability.isPermanent()) {
@@ -78,7 +78,14 @@ public strictfp class BuildTower extends Usecase<BuildTowerCommand> {
 
         Item[] items = oldTower.removeAllItems();
         for (int i = 0; i < items.length; ++i) {
-            newTower.setItem(i, items[i]);
+            Item item = items[i];
+            if (item != null) {
+                if (i >= newTower.getInventorySize() || item.isForbiddenToEquip(newTower)) {
+                    wizard.itemStash.add(item.getType());
+                } else {
+                    newTower.setItem(i, item);
+                }
+            }
         }
 
         newTower.setExperience(oldTower.getExperience());

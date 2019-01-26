@@ -37,6 +37,10 @@ public strictfp class EquipItem extends Usecase<EquipItemCommand> {
     }
 
     private void equip(EquipItemCommand command, Wizard wizard, Tower tower) {
+        if (command.itemType.instance().isForbiddenToEquip(tower)) {
+            return;
+        }
+
         Item item = wizard.itemStash.remove(command.itemType);
         if (item != null) {
             dropCurrentlyEquippedItem(command, wizard, tower);

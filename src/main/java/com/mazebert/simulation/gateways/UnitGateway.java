@@ -186,6 +186,11 @@ public strictfp final class UnitGateway {
     }
 
     public void destroyTower(Tower tower) {
+        returnAllItemsToInventory(tower);
+        removeUnit(tower);
+    }
+
+    public void returnAllItemsToInventory(Tower tower) {
         Item[] items = tower.removeAllItems();
         for (Item item : items) {
             if (item != null) {
@@ -193,7 +198,6 @@ public strictfp final class UnitGateway {
                 wizard.itemStash.add(item.getType());
             }
         }
-        removeUnit(tower);
     }
 
     private static final class CreepInRangePredicate implements Predicate<Creep> {

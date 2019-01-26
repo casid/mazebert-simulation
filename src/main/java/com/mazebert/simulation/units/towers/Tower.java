@@ -81,6 +81,7 @@ public strictfp abstract class Tower extends Unit implements CooldownUnit, Card,
         updateRange();
     }
 
+    @SuppressWarnings("Duplicates")
     @Override
     public void hash(Hash hash) {
         super.hash(hash);
@@ -411,6 +412,16 @@ public strictfp abstract class Tower extends Unit implements CooldownUnit, Card,
 
     public Item getItem(int index) {
         return items[index];
+    }
+
+    public int getItemCount(ItemType type) {
+        int count = 0;
+        for (Item item : items) {
+            if (item != null && item.getType() == type) {
+                ++count;
+            }
+        }
+        return count;
     }
 
     public void setItem(int index, Item item) {
