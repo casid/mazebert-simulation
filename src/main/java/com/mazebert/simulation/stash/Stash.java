@@ -15,8 +15,8 @@ public abstract strictfp class Stash<T extends Card> implements ReadonlyStash<T>
 
     private final List<StashEntry<T>> entries = new ArrayList<>();
     private final Map<Object, StashEntry<T>> entryByType;
-    private final EnumMap<Rarity, CardType<T>[]> cardByDropRarity;
     private final Map<Object, T> droppedUniques;
+    private EnumMap<Rarity, CardType<T>[]> cardByDropRarity;
 
     private final OnCardRemoved onCardRemoved = new OnCardRemoved();
 
@@ -26,10 +26,13 @@ public abstract strictfp class Stash<T extends Card> implements ReadonlyStash<T>
 
     private transient int lastViewedIndex;
 
-    @SuppressWarnings("unchecked")
     protected Stash(Map<Object, StashEntry<T>> entryByType, Map<Object, T> uniques) {
         this.entryByType = entryByType;
         this.droppedUniques = uniques;
+        updateCardByDropRarity();
+    }
+
+    protected void updateCardByDropRarity() {
         this.cardByDropRarity = populateCardByDropRarity();
     }
 
@@ -43,7 +46,7 @@ public abstract strictfp class Stash<T extends Card> implements ReadonlyStash<T>
 
         for (CardType<T> possibleDrop : getPossibleDrops()) {
             T card = possibleDrop.instance();
-            if (card.isDropable()) {
+            if (isDropable(card)) {
                 temp.get(card.getDropRarity()).add(possibleDrop);
             }
         }
@@ -56,6 +59,10 @@ public abstract strictfp class Stash<T extends Card> implements ReadonlyStash<T>
             result.put(rarity, drops.toArray(new CardType[0]));
         }
         return result;
+    }
+
+    protected boolean isDropable(T card) {
+        return card.isDropable();
     }
 
     public void add(CardType<T> cardType) {

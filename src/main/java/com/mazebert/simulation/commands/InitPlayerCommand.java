@@ -1,5 +1,6 @@
 package com.mazebert.simulation.commands;
 
+import com.mazebert.simulation.Element;
 import com.mazebert.simulation.units.heroes.HeroType;
 import com.mazebert.simulation.units.items.ItemType;
 import com.mazebert.simulation.units.potions.PotionType;
@@ -23,4 +24,6 @@ public strictfp class InitPlayerCommand extends Command {
     public EnumSet<ItemType> foilItems = EnumSet.noneOf(ItemType.class);
 
     public List<WizardPower> powers = new ArrayList<>();
+
+    public EnumSet<Element> elements = EnumSet.noneOf(Element.class);
 }

@@ -1,9 +1,13 @@
 package com.mazebert.simulation.usecases;
 
+import com.mazebert.simulation.Element;
 import com.mazebert.simulation.SimulationListeners;
 import com.mazebert.simulation.commands.InitPlayerCommand;
 import com.mazebert.simulation.gateways.UnitGateway;
+import com.mazebert.simulation.plugins.random.RandomPluginTrainer;
 import com.mazebert.simulation.systems.ExperienceSystem;
+import com.mazebert.simulation.systems.GameSystem;
+import com.mazebert.simulation.systems.LootSystemTrainer;
 import com.mazebert.simulation.units.heroes.HeroType;
 import com.mazebert.simulation.units.heroes.LittleFinger;
 import com.mazebert.simulation.units.towers.TowerType;
@@ -17,18 +21,23 @@ import java.util.EnumSet;
 import static org.assertj.core.api.Assertions.assertThat;
 
 strictfp class InitPlayerTest extends UsecaseTest<InitPlayerCommand> {
+    RandomPluginTrainer randomPluginTrainer = new RandomPluginTrainer();
+
     Wizard wizard;
 
     @BeforeEach
     void setUp() {
         simulationListeners = new SimulationListeners();
         unitGateway = new UnitGateway();
+        randomPlugin = randomPluginTrainer;
 
         wizard = new Wizard();
         wizard.playerId = 1;
         unitGateway.addUnit(wizard);
 
         experienceSystem = new ExperienceSystem();
+        lootSystem = new LootSystemTrainer();
+        gameSystem = new GameSystem();
 
         usecase = new InitPlayer();
 
@@ -99,5 +108,34 @@ strictfp class InitPlayerTest extends UsecaseTest<InitPlayerCommand> {
         whenRequestIsExecuted();
 
         assertThat(wizard.towerStash.get(TowerType.Huli).amount).isEqualTo(1);
+    }
+
+    @Test
+    void startingTowers() {
+        randomPluginTrainer.givenFloatAbs(0.0f);
+        request.elements = EnumSet.of(Element.Nature);
+
+        whenRequestIsExecuted();
+
+        Wizard wizard = unitGateway.getWizard(request.playerId);
+        assertThat(wizard.towerStash.size()).isGreaterThan(0);
+        assertThat(wizard.towerStash.get(0).getCardType()).isEqualTo(TowerType.Beaver);
+        assertThat(wizard.towerStash.get(0).getAmount()).isEqualTo(3);
+        assertThat(wizard.towerStash.get(1).getCardType()).isEqualTo(TowerType.Frog);
+        assertThat(wizard.towerStash.get(1).getAmount()).isEqualTo(1);
+    }
+
+    @Test
+    void elements_darknessOnly() {
+        randomPluginTrainer.givenFloatAbs(0.0f);
+        request.elements = EnumSet.of(Element.Darkness);
+
+        whenRequestIsExecuted();
+
+        Wizard wizard = unitGateway.getWizard(request.playerId);
+        assertThat(wizard.towerStash.size()).isGreaterThan(0);
+        for (int i = 0; i < wizard.towerStash.size(); ++i) {
+            assertThat(wizard.towerStash.get(i).card.getElement()).isEqualTo(Element.Darkness);
+        }
     }
 }

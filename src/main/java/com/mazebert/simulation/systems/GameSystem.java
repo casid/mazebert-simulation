@@ -28,30 +28,15 @@ public strictfp class GameSystem implements OnHealthChangedListener {
         Wizard wizard = new Wizard();
         wizard.playerId = playerId;
         wizard.addGold(Balancing.STARTING_GOLD);
-//        for (TowerType towerType : TowerType.values()) {
-//            if (towerType != TowerType.Kiwi) {
-//                wizard.towerStash.add(towerType);
-//            }
-//        }
-//        for (ItemType itemType : ItemType.values()) {
-//            if (itemType != ItemType.BloodDemonBlade) {
-//                wizard.itemStash.add(itemType);
-//            }
-//        }
-//        for (PotionType value : PotionType.values()) {
-//            wizard.potionStash.add(value);
-//        }
 
         wizard.onHealthChanged.add(this);
 
         unitGateway.addUnit(wizard);
 
-        rollStartingTowers(wizard);
-
         return wizard;
     }
 
-    private void rollStartingTowers(Wizard wizard) {
+    public void rollStartingTowers(Wizard wizard) {
         // Research starting towers (first 3 must be guaranteed to be affordable by the player)
         for (int i = 0; i < 3; ++i) {
             lootSystem.researchStartingTower(wizard);

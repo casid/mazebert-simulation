@@ -18,6 +18,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
+import java.util.EnumSet;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicReference;
@@ -58,6 +59,7 @@ public strictfp class WaveSpawnerTest extends SimTest {
         waveGateway.setTotalWaves(250);
 
         wizard = gameSystem.addWizard(1);
+        wizard.towerStash.setElements(EnumSet.of(Element.Nature));
     }
 
     @Test
@@ -633,7 +635,7 @@ public strictfp class WaveSpawnerTest extends SimTest {
         whenGameIsUpdated();
 
         assertThat(waveFinished).isTrue();
-        assertThat(wizard.towerStash.size()).isEqualTo(2); // inital 4 x 1 type of tower + new tower research
+        assertThat(wizard.towerStash.size()).isEqualTo(1);
         assertThat(wizard.experience).isEqualTo(1);
     }
 

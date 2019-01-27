@@ -5,6 +5,7 @@ import com.mazebert.simulation.SimulationListeners;
 import com.mazebert.simulation.commands.InitPlayerCommand;
 import com.mazebert.simulation.gateways.UnitGateway;
 import com.mazebert.simulation.systems.ExperienceSystem;
+import com.mazebert.simulation.systems.GameSystem;
 import com.mazebert.simulation.units.heroes.Hero;
 import com.mazebert.simulation.units.wizards.Wizard;
 import com.mazebert.simulation.units.wizards.WizardPower;
@@ -16,6 +17,7 @@ public strictfp class InitPlayer extends Usecase<InitPlayerCommand> {
     private final SimulationListeners simulationListeners = Sim.context().simulationListeners;
     private final UnitGateway unitGateway = Sim.context().unitGateway;
     private final ExperienceSystem experienceSystem = Sim.context().experienceSystem;
+    private final GameSystem gameSystem = Sim.context().gameSystem;
 
     @Override
     public void execute(InitPlayerCommand command) {
@@ -29,6 +31,24 @@ public strictfp class InitPlayer extends Usecase<InitPlayerCommand> {
         wizard.foilTowers = command.foilTowers;
         wizard.foilPotions = command.foilPotions;
         wizard.foilItems = command.foilItems;
+
+        wizard.towerStash.setElements(command.elements);
+
+        gameSystem.rollStartingTowers(wizard);
+
+//        for (TowerType towerType : TowerType.values()) {
+//            if (towerType != TowerType.Kiwi) {
+//                wizard.towerStash.add(towerType);
+//            }
+//        }
+//        for (ItemType itemType : ItemType.values()) {
+//            if (itemType != ItemType.BloodDemonBlade) {
+//                wizard.itemStash.add(itemType);
+//            }
+//        }
+//        for (PotionType value : PotionType.values()) {
+//            wizard.potionStash.add(value);
+//        }
 
         simulationListeners.onPlayerInitialized.dispatch(wizard.playerId);
     }

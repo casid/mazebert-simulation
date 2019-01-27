@@ -60,6 +60,7 @@ public strictfp class Wizard extends Unit {
         setWizard(this);
     }
 
+    @SuppressWarnings("Duplicates")
     @Override
     public void hash(Hash hash) {
         super.hash(hash);
@@ -122,7 +123,7 @@ public strictfp class Wizard extends Unit {
     @Override
     public void addAbility(Ability ability) {
         if (ability instanceof WizardPower) {
-            if (level < ((WizardPower)ability).getRequiredLevel()) {
+            if (level < ((WizardPower) ability).getRequiredLevel()) {
                 return;
             }
         }

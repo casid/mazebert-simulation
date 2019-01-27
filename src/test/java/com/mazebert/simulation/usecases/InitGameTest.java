@@ -8,7 +8,6 @@ import com.mazebert.simulation.maps.BloodMoor;
 import com.mazebert.simulation.plugins.random.RandomPluginTrainer;
 import com.mazebert.simulation.systems.GameSystem;
 import com.mazebert.simulation.systems.LootSystem;
-import com.mazebert.simulation.units.towers.TowerType;
 import com.mazebert.simulation.units.wizards.Wizard;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -177,7 +176,7 @@ class InitGameTest extends UsecaseTest<InitGameCommand> {
     }
 
     @Test
-    void startingTowers() {
+    void startingGold() {
         randomPluginTrainer.givenFloatAbs(0.0f);
 
         whenRequestIsExecuted();
@@ -185,11 +184,6 @@ class InitGameTest extends UsecaseTest<InitGameCommand> {
         Wizard wizard = unitGateway.getWizard(request.playerId);
         assertThat(wizard).isNotNull();
         assertThat(wizard.gold).isEqualTo(STARTING_GOLD);
-        assertThat(wizard.towerStash.size()).isGreaterThan(0);
-        assertThat(wizard.towerStash.get(0).getCardType()).isEqualTo(TowerType.Beaver);
-        assertThat(wizard.towerStash.get(0).getAmount()).isEqualTo(3);
-        assertThat(wizard.towerStash.get(1).getCardType()).isEqualTo(TowerType.Frog);
-        assertThat(wizard.towerStash.get(1).getAmount()).isEqualTo(1);
     }
 
     @Test

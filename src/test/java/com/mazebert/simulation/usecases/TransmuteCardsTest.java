@@ -1,9 +1,6 @@
 package com.mazebert.simulation.usecases;
 
-import com.mazebert.simulation.CardCategory;
-import com.mazebert.simulation.CardType;
-import com.mazebert.simulation.Rarity;
-import com.mazebert.simulation.SimulationListeners;
+import com.mazebert.simulation.*;
 import com.mazebert.simulation.commands.TransmuteCardsCommand;
 import com.mazebert.simulation.gateways.UnitGateway;
 import com.mazebert.simulation.listeners.OnCardsTransmutedListener;
@@ -17,6 +14,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.Collection;
+import java.util.EnumSet;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -38,6 +36,7 @@ public class TransmuteCardsTest extends UsecaseTest<TransmuteCardsCommand> imple
 
         wizard = new Wizard();
         wizard.playerId = 1;
+        wizard.towerStash.setElements(EnumSet.of(Element.Nature));
         unitGateway.addUnit(wizard);
 
         usecase = new TransmuteCards();
