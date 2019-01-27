@@ -1,5 +1,6 @@
 package com.mazebert.simulation.usecases;
 
+import com.mazebert.simulation.Difficulty;
 import com.mazebert.simulation.SimulationListeners;
 import com.mazebert.simulation.commands.InitGameCommand;
 import com.mazebert.simulation.errors.UnsupportedVersionException;
@@ -191,6 +192,13 @@ class InitGameTest extends UsecaseTest<InitGameCommand> {
         whenRequestIsExecuted();
 
         assertThat(gameGateway.getGame().map).isInstanceOf(BloodMoor.class);
+    }
+
+    @Test
+    void difficulty() {
+        request.difficulty = Difficulty.Hard;
+        whenRequestIsExecuted();
+        assertThat(difficultyGateway.getDifficulty()).isEqualTo(Difficulty.Hard);
     }
 
     @Test

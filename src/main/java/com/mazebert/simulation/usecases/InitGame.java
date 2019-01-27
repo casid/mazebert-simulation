@@ -6,6 +6,7 @@ import com.mazebert.simulation.WaveSpawner;
 import com.mazebert.simulation.commands.InitGameCommand;
 import com.mazebert.simulation.countdown.GameCountDown;
 import com.mazebert.simulation.errors.UnsupportedVersionException;
+import com.mazebert.simulation.gateways.DifficultyGateway;
 import com.mazebert.simulation.gateways.GameGateway;
 import com.mazebert.simulation.gateways.WaveGateway;
 import com.mazebert.simulation.maps.BloodMoor;
@@ -19,6 +20,7 @@ public strictfp class InitGame extends Usecase<InitGameCommand> {
     private final GameGateway gameGateway = Sim.context().gameGateway;
     private final SimulationListeners simulationListeners = Sim.context().simulationListeners;
     private final GameSystem gameSystem = Sim.context().gameSystem;
+    private final DifficultyGateway difficultyGateway = Sim.context().difficultyGateway;
 
     @Override
     public void execute(InitGameCommand command) {
@@ -28,6 +30,8 @@ public strictfp class InitGame extends Usecase<InitGameCommand> {
 
         randomPlugin.setSeed(command.gameId);
         gameGateway.getGame().id = command.gameId;
+
+        difficultyGateway.setDifficulty(command.difficulty);
 
         gameSystem.addWizards();
 
