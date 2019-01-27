@@ -1,6 +1,7 @@
 package com.mazebert.simulation.commands.serializers;
 
 import com.mazebert.simulation.CardCategory;
+import com.mazebert.simulation.Difficulty;
 import com.mazebert.simulation.Element;
 import com.mazebert.simulation.units.abilities.ActiveAbilityType;
 import com.mazebert.simulation.units.heroes.HeroType;
@@ -73,6 +74,19 @@ public class EnumSerializerTest {
 
         for (HeroType value : HeroType.values()) {
             assertThat(EnumSerializer.readHeroType(reader)).isEqualTo(value);
+        }
+    }
+
+    @Test
+    void difficulty() {
+        for (Difficulty value : Difficulty.values()) {
+            EnumSerializer.writeDifficulty(writer, value);
+        }
+
+        whenBufferIsFlushedAndRead();
+
+        for (Difficulty value : Difficulty.values()) {
+            assertThat(EnumSerializer.readDifficulty(reader)).isEqualTo(value);
         }
     }
 

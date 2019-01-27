@@ -2,6 +2,7 @@ package com.mazebert.simulation.commands.serializers;
 
 import com.mazebert.simulation.CardCategory;
 import com.mazebert.simulation.CardType;
+import com.mazebert.simulation.Difficulty;
 import com.mazebert.simulation.Element;
 import com.mazebert.simulation.units.abilities.ActiveAbilityType;
 import com.mazebert.simulation.units.heroes.HeroType;
@@ -20,6 +21,7 @@ public strictfp class EnumSerializer {
     private static final int ITEM_BITS = 7;
     private static final int HERO_BITS = 4;
     private static final int ELEMENT_BITS = 3;
+    private static final int DIFFICULTY_BITS = 3;
     private static final int ACTIVE_ABILITY_BITS = 3;
     private static final int WIZARD_POWER_BITS = 4;
 
@@ -61,6 +63,14 @@ public strictfp class EnumSerializer {
 
     public static void writeElement(BitWriter writer, Element element) {
         writer.writeUnsignedInt(ELEMENT_BITS, element.id);
+    }
+
+    public static Difficulty readDifficulty(BitReader reader) {
+        return Difficulty.forId(reader.readUnsignedInt(DIFFICULTY_BITS));
+    }
+
+    public static void writeDifficulty(BitWriter writer, Difficulty difficulty) {
+        writer.writeUnsignedInt(DIFFICULTY_BITS, difficulty.id);
     }
 
     public static ActiveAbilityType readActiveAbilityType(BitReader reader) {
