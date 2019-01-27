@@ -4,6 +4,7 @@ import com.mazebert.simulation.CardCategory;
 import com.mazebert.simulation.CardType;
 import com.mazebert.simulation.Difficulty;
 import com.mazebert.simulation.Element;
+import com.mazebert.simulation.maps.MapType;
 import com.mazebert.simulation.units.abilities.ActiveAbilityType;
 import com.mazebert.simulation.units.heroes.HeroType;
 import com.mazebert.simulation.units.items.ItemType;
@@ -22,6 +23,7 @@ public strictfp class EnumSerializer {
     private static final int HERO_BITS = 4;
     private static final int ELEMENT_BITS = 3;
     private static final int DIFFICULTY_BITS = 3;
+    private static final int MAP_BITS = 3;
     private static final int ACTIVE_ABILITY_BITS = 3;
     private static final int WIZARD_POWER_BITS = 4;
 
@@ -71,6 +73,14 @@ public strictfp class EnumSerializer {
 
     public static void writeDifficulty(BitWriter writer, Difficulty difficulty) {
         writer.writeUnsignedInt(DIFFICULTY_BITS, difficulty.id);
+    }
+
+    public static MapType readMapType(BitReader reader) {
+        return MapType.forId(reader.readUnsignedInt(MAP_BITS));
+    }
+
+    public static void writeMapType(BitWriter writer, MapType difficulty) {
+        writer.writeUnsignedInt(MAP_BITS, difficulty.id);
     }
 
     public static ActiveAbilityType readActiveAbilityType(BitReader reader) {

@@ -6,6 +6,7 @@ import com.mazebert.simulation.commands.InitGameCommand;
 import com.mazebert.simulation.errors.UnsupportedVersionException;
 import com.mazebert.simulation.gateways.*;
 import com.mazebert.simulation.maps.BloodMoor;
+import com.mazebert.simulation.maps.MapType;
 import com.mazebert.simulation.plugins.random.RandomPluginTrainer;
 import com.mazebert.simulation.systems.GameSystem;
 import com.mazebert.simulation.systems.LootSystem;
@@ -44,6 +45,8 @@ class InitGameTest extends UsecaseTest<InitGameCommand> {
 
         request.playerId = 1;
         request.rounds = 1;
+        request.difficulty = Difficulty.Easy;
+        request.map = MapType.BloodMoor;
     }
 
     @Test
@@ -190,7 +193,6 @@ class InitGameTest extends UsecaseTest<InitGameCommand> {
     @Test
     void map() {
         whenRequestIsExecuted();
-
         assertThat(gameGateway.getGame().map).isInstanceOf(BloodMoor.class);
     }
 

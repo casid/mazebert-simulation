@@ -9,7 +9,6 @@ import com.mazebert.simulation.errors.UnsupportedVersionException;
 import com.mazebert.simulation.gateways.DifficultyGateway;
 import com.mazebert.simulation.gateways.GameGateway;
 import com.mazebert.simulation.gateways.WaveGateway;
-import com.mazebert.simulation.maps.BloodMoor;
 import com.mazebert.simulation.plugins.random.UuidRandomPlugin;
 import com.mazebert.simulation.systems.GameSystem;
 
@@ -35,7 +34,7 @@ public strictfp class InitGame extends Usecase<InitGameCommand> {
 
         gameSystem.addWizards();
 
-        gameGateway.getGame().map = new BloodMoor();
+        gameGateway.getGame().map = command.map.create();
         gameGateway.getGame().health = 1.0f;
 
         if (command.rounds > 0) {
