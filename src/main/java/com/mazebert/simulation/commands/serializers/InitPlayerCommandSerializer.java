@@ -27,6 +27,8 @@ public strictfp class InitPlayerCommandSerializer implements BitSerializer<InitP
         EnumSerializer.writePotionTypes(writer, object.foilPotions);
 
         writer.writeObjectsWithSameType(object.powers);
+
+        EnumSerializer.writeElements(writer, object.elements);
     }
 
     @Override
@@ -43,5 +45,7 @@ public strictfp class InitPlayerCommandSerializer implements BitSerializer<InitP
         object.foilPotions = EnumSerializer.readPotionTypes(reader);
 
         object.powers = reader.readObjectsWithSameTypeAsList(WizardPower.class);
+
+        object.elements = EnumSerializer.readElements(reader);
     }
 }
