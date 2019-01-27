@@ -1,5 +1,6 @@
 package com.mazebert.simulation.replay;
 
+import com.mazebert.simulation.Sim;
 import com.mazebert.simulation.commands.NextWaveCommand;
 import com.mazebert.simulation.replay.data.ReplayFrame;
 import com.mazebert.simulation.replay.data.ReplayHeader;
@@ -32,6 +33,7 @@ public class ReplayIT {
     @Test
     void roundtrip() throws IOException {
         ReplayHeader header = new ReplayHeader();
+        header.version = Sim.version;
         header.playerCount = 2;
 
         ReplayFrame turn = new ReplayFrame();
