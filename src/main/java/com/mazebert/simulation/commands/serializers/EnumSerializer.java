@@ -2,6 +2,7 @@ package com.mazebert.simulation.commands.serializers;
 
 import com.mazebert.simulation.CardCategory;
 import com.mazebert.simulation.CardType;
+import com.mazebert.simulation.Element;
 import com.mazebert.simulation.units.abilities.ActiveAbilityType;
 import com.mazebert.simulation.units.heroes.HeroType;
 import com.mazebert.simulation.units.items.ItemType;
@@ -18,6 +19,7 @@ public strictfp class EnumSerializer {
     private static final int POTION_BITS = 5;
     private static final int ITEM_BITS = 7;
     private static final int HERO_BITS = 4;
+    private static final int ELEMENT_BITS = 3;
     private static final int ACTIVE_ABILITY_BITS = 3;
     private static final int WIZARD_POWER_BITS = 4;
 
@@ -51,6 +53,14 @@ public strictfp class EnumSerializer {
 
     public static void writeHeroType(BitWriter writer, HeroType type) {
         writer.writeUnsignedInt(HERO_BITS, getCardTypeId(type));
+    }
+
+    public static Element readElement(BitReader reader) {
+        return Element.forId(reader.readUnsignedInt(ELEMENT_BITS));
+    }
+
+    public static void writeElement(BitWriter writer, Element element) {
+        writer.writeUnsignedInt(ELEMENT_BITS, element.id);
     }
 
     public static ActiveAbilityType readActiveAbilityType(BitReader reader) {
@@ -183,6 +193,26 @@ public strictfp class EnumSerializer {
             writer.writeUnsignedInt(HERO_BITS, types.size());
             for (HeroType type : types) {
                 writeHeroType(writer, type);
+            }
+        }
+    }
+
+    public static EnumSet<Element> readElements(BitReader reader) {
+        EnumSet<Element> result = EnumSet.noneOf(Element.class);
+        int size = reader.readUnsignedInt(ELEMENT_BITS);
+        for (int i = 0; i < size; ++i) {
+            result.add(readElement(reader));
+        }
+        return result;
+    }
+
+    public static void writeElements(BitWriter writer, EnumSet<Element> elements) {
+        if (elements == null) {
+            writer.writeUnsignedInt(ELEMENT_BITS, 0);
+        } else {
+            writer.writeUnsignedInt(ELEMENT_BITS, elements.size());
+            for (Element element : elements) {
+                writeElement(writer, element);
             }
         }
     }

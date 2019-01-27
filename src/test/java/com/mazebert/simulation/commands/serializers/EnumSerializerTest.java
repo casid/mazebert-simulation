@@ -1,6 +1,7 @@
 package com.mazebert.simulation.commands.serializers;
 
 import com.mazebert.simulation.CardCategory;
+import com.mazebert.simulation.Element;
 import com.mazebert.simulation.units.abilities.ActiveAbilityType;
 import com.mazebert.simulation.units.heroes.HeroType;
 import com.mazebert.simulation.units.items.ItemType;
@@ -193,6 +194,26 @@ public class EnumSerializerTest {
         whenBufferIsFlushedAndRead();
 
         assertThat(EnumSerializer.readHeroTypes(reader)).containsExactlyElementsOf(none);
+    }
+
+    @Test
+    void elementSet_all() {
+        EnumSet<Element> all = EnumSet.allOf(Element.class);
+        EnumSerializer.writeElements(writer, all);
+
+        whenBufferIsFlushedAndRead();
+
+        assertThat(EnumSerializer.readElements(reader)).containsExactlyElementsOf(all);
+    }
+
+    @Test
+    void elementSet_none() {
+        EnumSet<Element> none = EnumSet.noneOf(Element.class);
+        EnumSerializer.writeElements(writer, none);
+
+        whenBufferIsFlushedAndRead();
+
+        assertThat(EnumSerializer.readElements(reader)).containsExactlyElementsOf(none);
     }
 
     private void whenBufferIsFlushedAndRead() {
