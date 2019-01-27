@@ -18,6 +18,7 @@ public strictfp class EnumSerializer {
     private static final int POTION_BITS = 5;
     private static final int ITEM_BITS = 7;
     private static final int HERO_BITS = 4;
+    private static final int ACTIVE_ABILITY_BITS = 3;
     private static final int WIZARD_POWER_BITS = 4;
 
     public static TowerType readTowerType(BitReader reader) {
@@ -53,11 +54,11 @@ public strictfp class EnumSerializer {
     }
 
     public static ActiveAbilityType readActiveAbilityType(BitReader reader) {
-        return ActiveAbilityType.forId(reader.readUnsignedInt3());
+        return ActiveAbilityType.forId(reader.readUnsignedInt(ACTIVE_ABILITY_BITS));
     }
 
     public static void writeActiveAbilityType(BitWriter writer, ActiveAbilityType type) {
-        writer.writeUnsignedInt3(type.id);
+        writer.writeUnsignedInt(ACTIVE_ABILITY_BITS, type.id);
     }
 
     public static CardCategory readTowerPotionOrItemCardCategory(BitReader reader) {
