@@ -25,11 +25,6 @@
             <artifactId>jusecase</artifactId>
             <version>1.2.0</version>
         </dependency>
-        <dependency>
-            <groupId>org.jusecase</groupId>
-            <artifactId>builders</artifactId>
-            <version>0.3.1</version>
-        </dependency>
 
         <!-- Bit Protocol -->
         <dependency>
@@ -75,6 +70,12 @@
             <groupId>org.jusecase</groupId>
             <artifactId>jusecase-test-junit5</artifactId>
             <version>1.0.0</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.jusecase</groupId>
+            <artifactId>builders</artifactId>
+            <version>0.3.1</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
