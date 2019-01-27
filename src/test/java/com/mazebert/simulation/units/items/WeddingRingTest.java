@@ -1,5 +1,6 @@
 package com.mazebert.simulation.units.items;
 
+import com.mazebert.simulation.Element;
 import com.mazebert.simulation.SimulationListenersTrainer;
 import com.mazebert.simulation.gateways.PlayerGatewayTrainer;
 import com.mazebert.simulation.systems.WeddingRingSystem;
@@ -7,6 +8,7 @@ import com.mazebert.simulation.units.TestTower;
 import com.mazebert.simulation.units.potions.PotionType;
 import com.mazebert.simulation.units.towers.Tower;
 import com.mazebert.simulation.units.towers.TowerType;
+import com.mazebert.simulation.units.towers.Yggdrasil;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -71,7 +73,6 @@ strictfp class WeddingRingTest extends ItemTest {
         whenItemIsEquipped(tower, ItemType.WeddingRing1, 0);
 
         simulationListeners.onUpdate.dispatch(WeddingRingSystem.SECONDS_FOR_MARRIAGE);
-        whenPotionIsConsumed(otherTower, PotionType.CommonSpeed);
 
         simulationListenersTrainer.thenNotificationsAre(tower, "Just married!");
         simulationListenersTrainer.thenNotificationsAre(otherTower, "Just married!");
@@ -133,5 +134,66 @@ strictfp class WeddingRingTest extends ItemTest {
 
         assertThat(tower.getAttackSpeedAdd()).isEqualTo(0.04f);
         assertThat(otherTower.getAttackSpeedAdd()).isEqualTo(0.0f);
+    }
+
+    @Test
+    void yggdrasil_1() {
+        tower.setElement(Element.Nature);
+        Yggdrasil yggdrasil = new Yggdrasil();
+        yggdrasil.setWizard(wizard);
+        yggdrasil.setX(2);
+        unitGateway.addUnit(yggdrasil);
+
+        whenItemIsEquipped(tower, ItemType.WeddingRing1, 0);
+        whenItemIsEquipped(yggdrasil, ItemType.WeddingRing2, 0);
+
+        simulationListeners.onUpdate.dispatch(WeddingRingSystem.SECONDS_FOR_MARRIAGE);
+
+        whenItemIsEquipped(tower, ItemType.BranchOfYggdrasil, 1);
+        whenPotionIsConsumed(yggdrasil, PotionType.CommonSpeed);
+
+        assertThat(tower.getAttackSpeedAdd()).isEqualTo(0.08f);
+    }
+
+    @Test
+    void yggdrasil_2() {
+        tower.setElement(Element.Nature);
+        Yggdrasil yggdrasil = new Yggdrasil();
+        yggdrasil.setWizard(wizard);
+        yggdrasil.setX(2);
+        unitGateway.addUnit(yggdrasil);
+
+        whenItemIsEquipped(tower, ItemType.WeddingRing1, 0);
+        whenItemIsEquipped(yggdrasil, ItemType.WeddingRing2, 0);
+
+        simulationListeners.onUpdate.dispatch(WeddingRingSystem.SECONDS_FOR_MARRIAGE);
+
+        whenItemIsEquipped(tower, ItemType.BranchOfYggdrasil, 1);
+        whenPotionIsConsumed(tower, PotionType.CommonSpeed);
+
+        assertThat(tower.getAttackSpeedAdd()).isEqualTo(0.04f);
+    }
+
+    @Test
+    void yggdrasil_3() {
+        tower.setElement(Element.Nature);
+        Yggdrasil yggdrasil = new Yggdrasil();
+        yggdrasil.setWizard(wizard);
+        yggdrasil.setX(2);
+        unitGateway.addUnit(yggdrasil);
+
+        whenItemIsEquipped(tower, ItemType.WeddingRing1, 0);
+        whenItemIsEquipped(otherTower, ItemType.WeddingRing2, 0);
+
+        simulationListeners.onUpdate.dispatch(WeddingRingSystem.SECONDS_FOR_MARRIAGE);
+
+        whenItemIsEquipped(yggdrasil, ItemType.BranchOfYggdrasil, 0);
+        whenItemIsEquipped(yggdrasil, ItemType.BranchOfYggdrasil, 1);
+        whenItemIsEquipped(tower, ItemType.BranchOfYggdrasil, 1);
+        whenItemIsEquipped(otherTower, ItemType.BranchOfYggdrasil, 1);
+        whenPotionIsConsumed(tower, PotionType.CommonSpeed);
+
+        assertThat(tower.getAttackSpeedAdd()).isEqualTo(0.04f);
+        assertThat(otherTower.getAttackSpeedAdd()).isEqualTo(0.04f);
     }
 }
