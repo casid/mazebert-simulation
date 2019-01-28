@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public strictfp abstract class Map {
+    private final MapType type;
     private final List<Tile> tiles = new ArrayList<>();
     private MapGrid grid;
     private Point startWaypoint;
@@ -16,6 +17,10 @@ public strictfp abstract class Map {
     private Path airPath;
     private int maxScrollY;
     private int minScrollY;
+
+    public Map() {
+        type = MapType.forClass(getClass());
+    }
 
     protected void addTile(Tile tile) {
         tiles.add(tile);
@@ -106,5 +111,13 @@ public strictfp abstract class Map {
 
     private Path computePath(Predicate<Tile> predicate) {
         return getGrid().findPath(startWaypoint.x, startWaypoint.y, endWaypoint.x, endWaypoint.y, predicate);
+    }
+
+    public MapType getType() {
+        return type;
+    }
+
+    public int getId() {
+        return type.id;
     }
 }

@@ -27,6 +27,15 @@ public strictfp enum MapType {
         return LOOKUP[id];
     }
 
+    public static MapType forClass(Class<? extends Map> towerClass) {
+        for (MapType mapType : values()) {
+            if (mapType.mapClass == towerClass) {
+                return mapType;
+            }
+        }
+        return null;
+    }
+
     public Map create() {
         try {
             return mapClass.newInstance();
