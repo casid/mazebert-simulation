@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.mazebert</groupId>
-    <artifactId>simulation</artifactId>
+    <artifactId>mazebert-simulation</artifactId>
     <version>2</version>
     <packaging>jar</packaging>
 
