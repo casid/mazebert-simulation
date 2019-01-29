@@ -1,6 +1,6 @@
 package com.mazebert.simulation.units.wizards;
 
-public enum WizardPowerType {
+public strictfp enum WizardPowerType {
     BerserkPower(1, BerserkPower.class),
     ButcherPower(2, ButcherPower.class),
     ChallengePower(3, ChallengePower.class),

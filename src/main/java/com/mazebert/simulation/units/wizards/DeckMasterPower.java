@@ -3,7 +3,7 @@ package com.mazebert.simulation.units.wizards;
 import com.mazebert.simulation.Rarity;
 import com.mazebert.simulation.units.towers.TowerType;
 
-public class DeckMasterPower extends WizardPower {
+public strictfp class DeckMasterPower extends WizardPower {
 
     private TowerType selectedTower;
 

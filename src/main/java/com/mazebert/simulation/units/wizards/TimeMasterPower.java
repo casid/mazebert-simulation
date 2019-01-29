@@ -3,7 +3,7 @@ package com.mazebert.simulation.units.wizards;
 import com.mazebert.simulation.units.items.Item;
 import com.mazebert.simulation.units.items.ItemType;
 
-public class TimeMasterPower extends WizardPower {
+public strictfp class TimeMasterPower extends WizardPower {
 
     @Override
     protected void initialize(Wizard unit) {

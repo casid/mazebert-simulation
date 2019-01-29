@@ -3,7 +3,7 @@ package com.mazebert.simulation.units.wizards;
 import com.mazebert.simulation.Rarity;
 import com.mazebert.simulation.units.towers.Tower;
 
-public class StashMasterPower extends WizardTowerBuffPower {
+public strictfp class StashMasterPower extends WizardTowerBuffPower {
 
     @Override
     protected void buffTower(Tower tower) {

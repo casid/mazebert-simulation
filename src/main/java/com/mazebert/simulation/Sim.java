@@ -7,10 +7,10 @@ public strictfp class Sim {
      */
     public static final int version = 2;
 
-    @SuppressWarnings("AnonymousHasLambdaAlternative") // For android 19 compatibility
+    // For android 19 compatibility
     private static ThreadLocal<Context> context = new ThreadLocal<Context>() {
         @Override
-        protected Context initialValue() {
+        protected strictfp Context initialValue() {
             return new Context();
         }
     };

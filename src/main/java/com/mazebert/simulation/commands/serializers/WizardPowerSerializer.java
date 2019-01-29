@@ -7,7 +7,7 @@ import org.jusecase.bitpack.BitReader;
 import org.jusecase.bitpack.BitSerializer;
 import org.jusecase.bitpack.BitWriter;
 
-public class WizardPowerSerializer implements BitSerializer<WizardPower> {
+public strictfp class WizardPowerSerializer implements BitSerializer<WizardPower> {
     @Override
     public void serialize(BitWriter writer, WizardPower object) {
         EnumSerializer.writeWizardPowerType(writer, object.getType());

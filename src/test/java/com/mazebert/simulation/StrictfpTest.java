@@ -42,6 +42,9 @@ public class StrictfpTest {
             if (Modifier.isAbstract(method.getModifiers())) {
                 continue;
             }
+            if (Modifier.isVolatile(method.getModifiers())) {
+                continue;
+            }
 
             if (!Modifier.isStrict(method.getModifiers())) {
                 System.err.println("Method " + methodName + " is not strict (Modifiers: " + Modifier.toString(method.getModifiers()) + ")");
