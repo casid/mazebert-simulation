@@ -505,8 +505,18 @@ public strictfp class WaveSpawnerTest extends SimTest {
 
         whenAllCreepsAreSpawned();
 
-        assertThat(getCreep(0).getHealth()).isEqualTo(256);
-        assertThat(getCreep(0).getMaxHealth()).isEqualTo(256);
+        assertThat(getCreep(0).getHealth()).isEqualTo(141);
+        assertThat(getCreep(0).getMaxHealth()).isEqualTo(141);
+    }
+
+    @Test
+    void health_challenge() {
+        givenWave(WaveType.Challenge);
+
+        whenAllCreepsAreSpawned();
+
+        assertThat(getCreep(0).getHealth()).isEqualTo(512);
+        assertThat(getCreep(0).getMaxHealth()).isEqualTo(512);
     }
 
     @Test
@@ -517,7 +527,7 @@ public strictfp class WaveSpawnerTest extends SimTest {
 
         whenAllCreepsAreSpawned();
 
-        assertThat(getCreep(0).getHealth()).isEqualTo(607);
+        assertThat(getCreep(0).getHealth()).isEqualTo(334);
     }
 
     @Test
@@ -528,7 +538,7 @@ public strictfp class WaveSpawnerTest extends SimTest {
 
         whenAllCreepsAreSpawned();
 
-        assertThat(getCreep(0).getHealth()).isEqualTo(620);
+        assertThat(getCreep(0).getHealth()).isEqualTo(341);
     }
 
     @Test
@@ -542,19 +552,6 @@ public strictfp class WaveSpawnerTest extends SimTest {
 
         assertThat(getCreep(0).getHealth()).isEqualTo(128);
         assertThat(getCreep(1).getHealth()).isEqualTo(128);
-    }
-
-    @Test
-    void health_modifier_atLeastOnePerCreep() {
-        wave = new Wave();
-        wave.creepCount = 2;
-        wave.healthMultiplier = 0.001f;
-        waveGateway.addWave(wave);
-
-        whenAllCreepsAreSpawned();
-
-        assertThat(getCreep(0).getHealth()).isEqualTo(1);
-        assertThat(getCreep(1).getHealth()).isEqualTo(1);
     }
 
     @Test

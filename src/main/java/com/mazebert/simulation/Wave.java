@@ -17,7 +17,6 @@ public strictfp class Wave implements Hashable {
     public transient int remainingCreepCount;
     public float minSecondsToNextCreep;
     public float maxSecondsToNextCreep;
-    public float healthMultiplier = 1;
 
 
     @SuppressWarnings("Duplicates")
@@ -33,6 +32,5 @@ public strictfp class Wave implements Hashable {
         // ignore remainingCreepCount
         hash.add(minSecondsToNextCreep);
         hash.add(maxSecondsToNextCreep);
-        hash.add(healthMultiplier);
     }
 }
