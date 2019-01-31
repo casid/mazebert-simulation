@@ -76,7 +76,6 @@ public abstract strictfp class Unit implements Hashable {
         this.y = y;
     }
 
-    @SuppressWarnings("unchecked")
     public void addAbility(Ability ability) {
         if (ability instanceof StackableAbility) {
             addAbilityStack(((StackableAbility) ability).getClass());
@@ -146,13 +145,12 @@ public abstract strictfp class Unit implements Hashable {
         return ability;
     }
 
-    @SuppressWarnings("unchecked")
     public <T extends StackableAbility> void removeAllAbilityStacks(T ability) {
         ability.removeAllStacks();
         removeAbilityInternal(ability);
     }
 
-    @SuppressWarnings("unchecked")
+    @SuppressWarnings({"unchecked", "UnusedReturnValue"})
     public <T extends StackableByOriginAbility> T removeAbilityStack(Object origin, Class<T> abilityClass) {
         T ability = (T)abilities.find(a -> a.getClass() == abilityClass && a.getOrigin() == origin);
 
@@ -224,7 +222,7 @@ public abstract strictfp class Unit implements Hashable {
     }
 
     public boolean isInRange(float x, float y, float range) {
-        return StrictMath.abs(this.x - x) <= range && StrictMath.abs(this.y - y) <= range;
+        return StrictMath.abs(StrictMath.round(this.x) - StrictMath.round(x)) <= range && StrictMath.abs(StrictMath.round(this.y) - StrictMath.round(y)) <= range;
     }
 
     @SuppressWarnings("unused") // Used by client

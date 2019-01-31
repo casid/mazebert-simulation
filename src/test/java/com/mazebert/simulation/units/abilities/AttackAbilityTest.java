@@ -85,35 +85,35 @@ public class AttackAbilityTest extends SimTest implements OnAttackListener {
 
     @Test
     void attack_creepOutOfRange_right() {
-        creep.setX(1.1f);
+        creep.setX(1.6f);
         whenTowerAttacks();
         thenNoUnitIsAttacked();
     }
 
     @Test
     void attack_creepOutOfRange_left() {
-        creep.setX(-1.1f);
+        creep.setX(-1.6f);
         whenTowerAttacks();
         thenNoUnitIsAttacked();
     }
 
     @Test
     void attack_creepOutOfRange_top() {
-        creep.setY(1.1f);
+        creep.setY(1.6f);
         whenTowerAttacks();
         thenNoUnitIsAttacked();
     }
 
     @Test
     void attack_creepOutOfRange_bottom() {
-        creep.setY(-1.1f);
+        creep.setY(-1.6f);
         whenTowerAttacks();
         thenNoUnitIsAttacked();
     }
 
     @Test
     void attack_rangeIncreased() {
-        creep.setX(1.1f);
+        creep.setX(1.6f);
         tower.addRange(1);
         whenTowerAttacks();
         thenUnitIsAttacked(creep);
