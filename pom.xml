@@ -81,8 +81,6 @@
     </dependencies>
 
     <build>
-        <finalName>mazebert2</finalName>
-
         <plugins>
             <!-- Test -->
             <plugin>
