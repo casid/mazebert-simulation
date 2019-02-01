@@ -14,6 +14,7 @@ public strictfp class TurnGateway {
     private final Object turnWaiter = new Object();
 
     private int currentTurnNumber;
+    private boolean running = true;
 
     public TurnGateway(int maxPlayerCount) {
         this.maxPlayerCount = maxPlayerCount;
@@ -32,7 +33,7 @@ public strictfp class TurnGateway {
         boolean firstAttempt = true;
 
         // Wait until all player turns have arrived
-        while (!isCurrentTurnAvailableForEachPlayer()) {
+        while (running && !isCurrentTurnAvailableForEachPlayer()) {
             if (!firstAttempt) {
                 askForMissingTurns(messageGateway);
             } else {
@@ -133,5 +134,9 @@ public strictfp class TurnGateway {
 
     public int getTurnNumberForLocalCommands() {
         return clampTurnNumber(currentTurnNumber + 2L);
+    }
+
+    public void setRunning(boolean running) {
+        this.running = running;
     }
 }

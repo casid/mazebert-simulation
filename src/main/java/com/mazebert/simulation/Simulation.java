@@ -44,6 +44,7 @@ public strictfp final class Simulation {
     private float timeDilation;
     private float playTimeInSeconds;
     private boolean pause;
+    private boolean running = true;
     private Hash hash = new Hash();
 
     public Simulation() {
@@ -85,7 +86,7 @@ public strictfp final class Simulation {
     }
 
     public boolean isRunning() {
-        return !gameGateway.getGame().isLost();
+        return running && !gameGateway.getGame().isLost();
     }
 
     public void stop() {
@@ -101,6 +102,11 @@ public strictfp final class Simulation {
             this.pause = pause;
             simulationListeners.onPause.dispatch(playerId, pause);
         }
+    }
+
+    public void setRunning(boolean running) {
+        this.running = running;
+        turnGateway.setRunning(running);
     }
 
     public void load(ReplayReader replayReader) {
@@ -142,12 +148,14 @@ public strictfp final class Simulation {
 
     public void process() {
         List<Turn> playerTurns = turnGateway.waitForAllPlayerTurns(messageGateway);
-        simulate(playerTurns);
+        if (running) {
+            simulate(playerTurns);
 
-        List<Command> commands = localCommandGateway.reset();
-        schedule(commands, turnGateway.getTurnNumberForLocalCommands());
+            List<Command> commands = localCommandGateway.reset();
+            schedule(commands, turnGateway.getTurnNumberForLocalCommands());
 
-        turnGateway.incrementTurnNumber();
+            turnGateway.incrementTurnNumber();
+        }
     }
 
     public void adjustSpeed(float factor) {

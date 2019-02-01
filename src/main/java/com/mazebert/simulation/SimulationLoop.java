@@ -13,8 +13,8 @@ public strictfp class SimulationLoop {
     private InitPlayerCommand initPlayerCommand;
     private Consumer<Simulation> beforeStartConsumer;
 
-    private volatile boolean running;
     private Thread thread;
+    private Simulation simulation;
 
     public SimulationLoop(String threadName, Context context) {
         this.threadName = threadName;
@@ -34,14 +34,13 @@ public strictfp class SimulationLoop {
         this.initPlayerCommand = initPlayerCommand;
         this.beforeStartConsumer = beforeStartConsumer;
 
-        running = true;
         thread = new Thread(this::run);
         thread.setName(threadName);
         thread.start();
     }
 
     public void stop() {
-        running = false;
+        simulation.setRunning(false);
         try {
             thread.join();
         } catch (InterruptedException e) {
@@ -52,14 +51,14 @@ public strictfp class SimulationLoop {
     private void run() {
         Sim.setContext(context);
         try {
-            Simulation simulation = new Simulation();
+            simulation = new Simulation();
             if (beforeStartConsumer != null) {
                 beforeStartConsumer.accept(simulation);
                 simulation.resume();
             } else {
                 simulation.start(initGameCommand, initPlayerCommand);
             }
-            while (running && simulation.isRunning()) {
+            while (simulation.isRunning()) {
                 simulation.process();
             }
 
