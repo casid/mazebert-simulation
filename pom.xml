@@ -6,7 +6,7 @@
 
     <groupId>com.mazebert</groupId>
     <artifactId>mazebert-simulation</artifactId>
-    <version>2</version>
+    <version>3</version>
     <packaging>jar</packaging>
 
     <properties>
