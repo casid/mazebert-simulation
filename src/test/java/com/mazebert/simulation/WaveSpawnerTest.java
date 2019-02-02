@@ -4,6 +4,8 @@ import com.mazebert.simulation.gateways.*;
 import com.mazebert.simulation.maps.BloodMoor;
 import com.mazebert.simulation.plugins.FormatPlugin;
 import com.mazebert.simulation.plugins.random.RandomPluginTrainer;
+import com.mazebert.simulation.projectiles.ProjectileGateway;
+import com.mazebert.simulation.systems.DamageSystemTrainer;
 import com.mazebert.simulation.systems.ExperienceSystem;
 import com.mazebert.simulation.systems.GameSystem;
 import com.mazebert.simulation.systems.LootSystem;
@@ -13,6 +15,7 @@ import com.mazebert.simulation.units.creeps.CreepModifier;
 import com.mazebert.simulation.units.creeps.CreepState;
 import com.mazebert.simulation.units.creeps.CreepType;
 import com.mazebert.simulation.units.creeps.effects.ReviveEffect;
+import com.mazebert.simulation.units.towers.Spider;
 import com.mazebert.simulation.units.wizards.Wizard;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -46,12 +49,14 @@ public strictfp class WaveSpawnerTest extends SimTest {
         unitGateway = new UnitGateway();
         waveGateway = new WaveGateway();
         playerGateway = new PlayerGatewayTrainer();
+        projectileGateway = new ProjectileGateway();
         randomPlugin = randomPluginTrainer;
         difficultyGateway = new DifficultyGateway();
         gameGateway = new GameGateway();
         lootSystem = new LootSystem();
         gameSystem = new GameSystem();
         experienceSystem = new ExperienceSystem();
+        damageSystem = new DamageSystemTrainer();
 
         gameGateway.getGame().map = new BloodMoor();
 
@@ -768,6 +773,25 @@ public strictfp class WaveSpawnerTest extends SimTest {
         goblin.simulate(1000);
 
         assertThat(wizard.health).isEqualTo(0.95f);
+    }
+
+    @Test
+    void creepReachesBase_projectileDoesNotCrashOnDisposedCreep() {
+        waveSpawner.spawnTreasureGoblins(wizard, 1);
+        simulationListeners.onUpdate.dispatch(1.0f);
+
+        Spider spider = new Spider();
+        spider.setWizard(wizard);
+        spider.setX(24);
+        spider.setY(19);
+        unitGateway.addUnit(spider);
+        spider.onUpdate.dispatch(spider.getCooldown());
+
+        Creep goblin = unitGateway.findUnit(Creep.class, wizard.getPlayerId());
+        goblin.simulate(1000);
+
+        projectileGateway.simulate(0.5f);
+        projectileGateway.simulate(1000);
     }
 
     private void whenPlayerCallsNextWave() {

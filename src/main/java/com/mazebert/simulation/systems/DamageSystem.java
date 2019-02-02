@@ -21,7 +21,7 @@ public strictfp class DamageSystem {
     private final FormatPlugin formatPlugin = Sim.context().formatPlugin;
 
     public double dealDamage(Object origin, Tower tower, Creep creep) {
-        if (creep.isDead()) {
+        if (!creep.isPartOfGame()) {
             return 0;
         }
 
@@ -64,26 +64,24 @@ public strictfp class DamageSystem {
     }
 
     public void dealDamage(Object origin, Tower tower, Creep creep, double damage, int multicrits, boolean modify) {
-        if (creep.isDead()) {
-            return;
-        }
+        if (creep.isPartOfGame()) {
+            if (modify) {
+                damage = modifyDamage(tower, creep, damage);
+            }
 
-        if (modify) {
-            damage = modifyDamage(tower, creep, damage);
-        }
+            updateBestHit(tower, damage);
+            updateTotalDamage(tower, damage);
 
-        updateBestHit(tower, damage);
-        updateTotalDamage(tower, damage);
+            creep.setHealth(creep.getHealth() - damage);
+            tower.onDamage.dispatch(origin, creep, damage, multicrits);
 
-        creep.setHealth(creep.getHealth() - damage);
-        tower.onDamage.dispatch(origin, creep, damage, multicrits);
+            if (multicrits > 0 && simulationListeners.areNotificationsEnabled()) {
+                simulationListeners.showNotification(tower, formatPlugin.damage(damage, multicrits), 0xff0000);
+            }
 
-        if (multicrits > 0 && simulationListeners.areNotificationsEnabled()) {
-            simulationListeners.showNotification(tower, formatPlugin.damage(damage, multicrits), 0xff0000);
-        }
-
-        if (creep.isDead()) {
-            tower.onKill.dispatch(creep);
+            if (creep.isDead()) {
+                tower.onKill.dispatch(creep);
+            }
         }
     }
 

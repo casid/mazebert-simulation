@@ -121,7 +121,11 @@ public strictfp class Creep extends Unit {
 
     @Override
     public boolean isInRange(float x, float y, float range) {
-        return health > 0 && super.isInRange(x, y, range);
+        return isPartOfGame() && super.isInRange(x, y, range);
+    }
+
+    public boolean isPartOfGame() {
+        return !isDead() && !isDisposed();
     }
 
     @Override

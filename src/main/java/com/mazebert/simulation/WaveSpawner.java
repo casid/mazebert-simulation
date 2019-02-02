@@ -319,7 +319,7 @@ public strictfp final class WaveSpawner implements OnGameStartedListener, OnWave
             wizard.addHealth(-leaked);
         }
 
-        if (!creep.isDead()) {
+        if (creep.isPartOfGame()) {
             unitGateway.removeUnit(creep);
         }
     }

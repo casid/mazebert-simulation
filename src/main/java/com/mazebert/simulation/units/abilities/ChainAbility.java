@@ -92,7 +92,7 @@ public strictfp class ChainAbility extends Ability<Tower> implements OnDamageLis
         if (creep == sourceCreep) {
             return;
         }
-        if (creep.isDead()) {
+        if (!creep.isPartOfGame()) {
             return;
         }
         if (chainedCreepCount >= maxChains) {

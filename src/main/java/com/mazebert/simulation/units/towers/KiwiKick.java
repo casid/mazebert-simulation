@@ -28,7 +28,7 @@ public strictfp class KiwiKick extends CooldownAbility<Tower> implements Consume
 
     @Override
     public void accept(Creep creep) {
-        if (!creep.isDead()) {
+        if (creep.isPartOfGame()) {
             getUnit().onAttack.dispatch(creep);
             didAttack = true;
         }
