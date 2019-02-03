@@ -1,5 +1,6 @@
 package com.mazebert.simulation.units.towers;
 
+import com.mazebert.simulation.CardCategory;
 import com.mazebert.simulation.listeners.OnGenderChangedListener;
 import com.mazebert.simulation.listeners.OnLevelChangedListener;
 import com.mazebert.simulation.units.Gender;
@@ -15,7 +16,7 @@ public strictfp class HuliMojo extends AuraAbility<Tower, Tower> implements OnLe
     private int otherGenders;
 
     public HuliMojo() {
-        super(Tower.class);
+        super(CardCategory.Tower, Tower.class);
     }
 
     @Override

@@ -1,5 +1,6 @@
 package com.mazebert.simulation.units.towers;
 
+import com.mazebert.simulation.CardCategory;
 import com.mazebert.simulation.Element;
 import com.mazebert.simulation.units.abilities.AuraAbility;
 
@@ -12,7 +13,7 @@ public strictfp class AbyssKingAura extends AuraAbility<AbyssKing, Tower> {
     private int armySize;
 
     public AbyssKingAura() {
-        super(Tower.class, 10000);
+        super(CardCategory.Tower, Tower.class, 10000);
     }
 
     @Override

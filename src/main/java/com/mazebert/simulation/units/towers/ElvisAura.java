@@ -1,11 +1,12 @@
 package com.mazebert.simulation.units.towers;
 
+import com.mazebert.simulation.CardCategory;
 import com.mazebert.simulation.units.abilities.AuraAbility;
 import com.mazebert.simulation.units.creeps.Creep;
 
 public strictfp class ElvisAura extends AuraAbility<Tower, Creep> {
     public ElvisAura() {
-        super(Creep.class, 1);
+        super(CardCategory.Tower, Creep.class, 1);
     }
 
     @Override

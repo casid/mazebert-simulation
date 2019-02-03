@@ -1,10 +1,11 @@
 package com.mazebert.simulation.units.towers;
 
+import com.mazebert.simulation.CardCategory;
 import com.mazebert.simulation.units.abilities.AuraAbility;
 
 public strictfp class MuliBro extends AuraAbility<Muli, Huli> {
     public MuliBro() {
-        super(Huli.class, 100);
+        super(CardCategory.Tower, Huli.class, 100);
     }
 
     @Override

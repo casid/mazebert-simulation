@@ -1,6 +1,7 @@
 package com.mazebert.simulation.units.abilities;
 
 import com.mazebert.java8.Consumer;
+import com.mazebert.simulation.CardCategory;
 import com.mazebert.simulation.Sim;
 import com.mazebert.simulation.SimulationListeners;
 import com.mazebert.simulation.gateways.UnitGateway;
@@ -23,17 +24,19 @@ public abstract strictfp class AuraAbility<S extends Unit, T extends Unit> exten
     private final SimulationListeners simulationListeners = Sim.context().simulationListeners;
     private final UnitGateway unitGateway = Sim.context().unitGateway;
 
+    private final CardCategory origin;
     private final Class<T> targetClass;
     private float range;
 
     private T[] active;
     private int activeSize;
 
-    public AuraAbility(Class<T> targetClass) {
-        this(targetClass, 0);
+    public AuraAbility(CardCategory origin, Class<T> targetClass) {
+        this(origin, targetClass, 0);
     }
 
-    public AuraAbility(Class<T> targetClass, float range) {
+    public AuraAbility(CardCategory origin, Class<T> targetClass, float range) {
+        this.origin = origin;
         this.targetClass = targetClass;
         this.range = range;
     }
@@ -49,11 +52,24 @@ public abstract strictfp class AuraAbility<S extends Unit, T extends Unit> exten
         return range;
     }
 
-    @SuppressWarnings("unchecked")
     @Override
     protected void initialize(S unit) {
         super.initialize(unit);
 
+        unit.onUnitAdded.add(this);
+        unit.onUnitRemoved.add(this);
+
+        if (initDirectly()) {
+            initAura(unit);
+        }
+    }
+
+    private boolean initDirectly() {
+        return origin != CardCategory.Tower;
+    }
+
+    @SuppressWarnings("unchecked")
+    private void initAura(S unit) {
         if (hasMovingTargets()) {
             unit.onUpdate.add(this);
         }
@@ -64,8 +80,6 @@ public abstract strictfp class AuraAbility<S extends Unit, T extends Unit> exten
             setRange(tower.getRange());
         }
 
-        unit.onUnitAdded.add(this);
-        unit.onUnitRemoved.add(this);
         this.active = (T[]) Array.newInstance(targetClass, 9);
 
         updateAuraTargets();
@@ -73,17 +87,23 @@ public abstract strictfp class AuraAbility<S extends Unit, T extends Unit> exten
 
     @Override
     protected void dispose(S unit) {
+        disposeAura(unit);
+
+        unit.onUnitAdded.remove(this);
+        unit.onUnitRemoved.remove(this);
+
+        super.dispose(unit);
+    }
+
+    private void disposeAura(S unit) {
         markAllCurrentTargetsAsUnvisited();
         removeAllUnvisitedTargets();
         this.active = null;
 
-        unit.onUnitAdded.remove(this);
-        unit.onUnitRemoved.remove(this);
         unit.onUpdate.remove(this);
         if (unit instanceof Tower) {
             ((Tower)unit).onRangeChanged.remove(this);
         }
-        super.dispose(unit);
     }
 
     protected boolean hasMovingTargets() {
@@ -106,7 +126,7 @@ public abstract strictfp class AuraAbility<S extends Unit, T extends Unit> exten
             unit.onUnitRemoved.remove(this);
             simulationListeners.onUnitAdded.add(this);
             simulationListeners.onUnitRemoved.add(this);
-            updateAuraTargets();
+            initAura(getUnit());
         } else if (targetClass.isAssignableFrom(unit.getClass())) {
             updateAuraTargets();
         }
@@ -115,11 +135,12 @@ public abstract strictfp class AuraAbility<S extends Unit, T extends Unit> exten
     @Override
     public void onUnitRemoved(Unit unit) {
         if (unit == getUnit()) {
+
             unit.onUnitAdded.add(this);
             unit.onUnitRemoved.add(this);
             simulationListeners.onUnitAdded.remove(this);
             simulationListeners.onUnitRemoved.remove(this);
-            updateAuraTargets();
+            disposeAura(getUnit());
         } else if (targetClass.isAssignableFrom(unit.getClass())) {
             updateAuraTargets();
         }

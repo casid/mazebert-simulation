@@ -1,11 +1,12 @@
 package com.mazebert.simulation.units.towers;
 
+import com.mazebert.simulation.CardCategory;
 import com.mazebert.simulation.units.abilities.AuraAbility;
 
 public strictfp class HerbWitchAura extends AuraAbility<Tower, Tower> {
 
     public HerbWitchAura() {
-        super(Tower.class, 2);
+        super(CardCategory.Tower, Tower.class, 2);
     }
 
     @Override

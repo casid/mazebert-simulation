@@ -1,11 +1,12 @@
 package com.mazebert.simulation.units.towers;
 
+import com.mazebert.simulation.CardCategory;
 import com.mazebert.simulation.units.abilities.AuraAbility;
 
 public strictfp class MoneyBinAura extends AuraAbility<Tower, Tower> {
 
     public MoneyBinAura() {
-        super(Tower.class, 3);
+        super(CardCategory.Tower, Tower.class, 3);
     }
 
     @Override

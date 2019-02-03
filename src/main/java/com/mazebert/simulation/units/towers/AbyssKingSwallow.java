@@ -1,5 +1,6 @@
 package com.mazebert.simulation.units.towers;
 
+import com.mazebert.simulation.CardCategory;
 import com.mazebert.simulation.listeners.OnRangeChangedListener;
 import com.mazebert.simulation.units.abilities.AuraAbility;
 import com.mazebert.simulation.units.creeps.Creep;
@@ -10,7 +11,7 @@ public strictfp class AbyssKingSwallow extends AuraAbility<AbyssKing, Creep> imp
     public static final float chancePerLevel = 0.001f;
 
     public AbyssKingSwallow() {
-        super(Creep.class);
+        super(CardCategory.Tower, Creep.class);
     }
 
     @Override

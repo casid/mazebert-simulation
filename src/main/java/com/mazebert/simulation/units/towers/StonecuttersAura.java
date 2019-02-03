@@ -1,5 +1,6 @@
 package com.mazebert.simulation.units.towers;
 
+import com.mazebert.simulation.CardCategory;
 import com.mazebert.simulation.Element;
 import com.mazebert.simulation.listeners.OnLevelChangedListener;
 import com.mazebert.simulation.units.Unit;
@@ -13,7 +14,7 @@ public strictfp class StonecuttersAura extends AuraAbility<Stonecutters, Tower> 
     private boolean bonusForAllDamageTypes;
 
     public StonecuttersAura() {
-        super(Tower.class, 10000);
+        super(CardCategory.Tower, Tower.class, 10000);
     }
 
     @Override

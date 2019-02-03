@@ -1,12 +1,13 @@
 package com.mazebert.simulation.units.towers;
 
+import com.mazebert.simulation.CardCategory;
 import com.mazebert.simulation.units.abilities.AuraAbility;
 
 public strictfp class ManitouAura extends AuraAbility<Tower, Tower> {
     private static final int BONUS = 2;
 
     public ManitouAura() {
-        super(Tower.class, 3);
+        super(CardCategory.Tower, Tower.class, 3);
     }
 
     @Override

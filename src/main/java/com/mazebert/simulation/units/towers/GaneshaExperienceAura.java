@@ -1,10 +1,11 @@
 package com.mazebert.simulation.units.towers;
 
+import com.mazebert.simulation.CardCategory;
 import com.mazebert.simulation.units.abilities.AuraAbility;
 
 public strictfp class GaneshaExperienceAura extends AuraAbility<Tower, Tower> {
     public GaneshaExperienceAura() {
-        super(Tower.class, 3);
+        super(CardCategory.Tower, Tower.class, 3);
     }
 
     @Override

@@ -5,7 +5,7 @@ import com.mazebert.simulation.units.creeps.Creep;
 
 public strictfp class BearHunterTrapAura extends AuraAbility<BearHunterTrap, Creep> {
     public BearHunterTrapAura() {
-        super(Creep.class, 0.5f);
+        super(null, Creep.class, 0.5f);
     }
 
     @Override

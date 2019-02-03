@@ -1,5 +1,6 @@
 package com.mazebert.simulation.units.towers;
 
+import com.mazebert.simulation.CardCategory;
 import com.mazebert.simulation.units.abilities.AuraAbility;
 import com.mazebert.simulation.units.creeps.Creep;
 
@@ -8,7 +9,7 @@ public strictfp class KnusperHexeAura extends AuraAbility<KnusperHexe, Creep> {
     private static final int baseReduction = 10;
 
     public KnusperHexeAura() {
-        super(Creep.class, 3);
+        super(CardCategory.Tower, Creep.class, 3);
     }
 
     @Override

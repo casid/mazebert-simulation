@@ -1,12 +1,13 @@
 package com.mazebert.simulation.units.towers;
 
 import com.mazebert.java8.Supplier;
+import com.mazebert.simulation.CardCategory;
 import com.mazebert.simulation.units.abilities.AuraAbility;
 import com.mazebert.simulation.units.creeps.Creep;
 
 public strictfp class BlackWidowAura extends AuraAbility<Tower, Creep> implements Supplier<BlackWidowAuraEffect> {
     public BlackWidowAura() {
-        super(Creep.class, 3);
+        super(CardCategory.Tower, Creep.class, 3);
     }
 
     @Override
