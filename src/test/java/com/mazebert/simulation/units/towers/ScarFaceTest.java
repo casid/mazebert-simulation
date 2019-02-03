@@ -11,10 +11,10 @@ import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-class SniperTest extends SimTest {
+class ScarFaceTest extends SimTest {
     RandomPluginTrainer randomPluginTrainer = new RandomPluginTrainer();
 
-    Sniper sniper;
+    ScarFace scarFace;
 
     @BeforeEach
     void setUp() {
@@ -24,8 +24,8 @@ class SniperTest extends SimTest {
 
         damageSystem = new DamageSystemTrainer();
 
-        sniper = new Sniper();
-        unitGateway.addUnit(sniper);
+        scarFace = new ScarFace();
+        unitGateway.addUnit(scarFace);
     }
 
     @Test
@@ -81,6 +81,6 @@ class SniperTest extends SimTest {
     }
 
     private void whenSniperAttacks() {
-        sniper.simulate(sniper.getBaseCooldown());
+        scarFace.simulate(scarFace.getBaseCooldown());
     }
 }

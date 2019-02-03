@@ -4,11 +4,11 @@ import com.mazebert.simulation.units.abilities.AttackAbility;
 
 /**
  * Cannot be handled properly via the attack ability, cause we want this guy to fire multiple times at the same direction,
- * regardless wether the creep is still alive or not.
- * Thus, this class is merly a UI ability.
+ * regardless whether the creep is still alive or not.
+ * Thus, this class is merely an UI ability.
  * The actual implementation is in the burst ability.
  */
-public strictfp class SniperAttack extends AttackAbility {
+public strictfp class ScarFaceAttack extends AttackAbility {
     public static final float CHANCE = 0.3f;
     public static final float CHANCE_PER_LEVEL = 0.003f;
     public static final int MAX_SHOTS = 256;

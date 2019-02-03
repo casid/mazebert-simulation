@@ -10,7 +10,7 @@ import com.mazebert.simulation.systems.DamageSystem;
 import com.mazebert.simulation.units.abilities.Ability;
 import com.mazebert.simulation.units.creeps.Creep;
 
-public strictfp class SniperBurst extends Ability<Tower> implements OnAttackListener, Consumer<Creep> {
+public strictfp class ScarFaceBurst extends Ability<Tower> implements OnAttackListener, Consumer<Creep> {
 
     public static final float SHOT_LENGTH = 1000;
     public static final float SPREAD_LENGTH = 500;
@@ -109,9 +109,9 @@ public strictfp class SniperBurst extends Ability<Tower> implements OnAttackList
         Tower tower = getUnit();
 
         int shots = 1;
-        float chance = SniperAttack.CHANCE + tower.getLevel() * SniperAttack.CHANCE_PER_LEVEL;
+        float chance = ScarFaceAttack.CHANCE + tower.getLevel() * ScarFaceAttack.CHANCE_PER_LEVEL;
 
-        for (int i = 0; i < SniperAttack.MAX_SHOTS; ++i) {
+        for (int i = 0; i < ScarFaceAttack.MAX_SHOTS; ++i) {
             if (tower.isAbilityTriggered(chance)) {
                 ++shots;
             } else {

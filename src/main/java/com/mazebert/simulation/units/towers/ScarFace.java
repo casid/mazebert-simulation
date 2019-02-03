@@ -5,9 +5,9 @@ import com.mazebert.simulation.Element;
 import com.mazebert.simulation.Rarity;
 import com.mazebert.simulation.units.Gender;
 
-public strictfp class Sniper extends Tower {
+public strictfp class ScarFace extends Tower {
 
-    public Sniper() {
+    public ScarFace() {
         setBaseCooldown(3.0f);
         setBaseRange(4.0f);
         setAttackType(AttackType.Ber);
@@ -16,8 +16,8 @@ public strictfp class Sniper extends Tower {
         setGender(Gender.Male);
         setElement(Element.Metropolis);
 
-        addAbility(new SniperBurst());
-        addAbility(new SniperAttack());
+        addAbility(new ScarFaceBurst());
+        addAbility(new ScarFaceAttack());
     }
 
     @Override
