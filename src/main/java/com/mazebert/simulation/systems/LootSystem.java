@@ -146,8 +146,10 @@ public strictfp class LootSystem {
         return result;
     }
 
-    private float getTowerItemChanceFactor(float linearChance) {
-        if (linearChance > 0.0f) {
+    float getTowerItemChanceFactor(float linearChance) {
+        if (linearChance > 1.0f) {
+            return 1.0f + Balancing.DROP_CHANCE_CONST * ((-2.0f * linearChance) / (1.0f + linearChance * linearChance) + 1);
+        } else if (linearChance > 0.0f) {
             return (2.0f * linearChance) / (1.0f + linearChance);
         } else {
             return 0.0f;
@@ -174,7 +176,7 @@ public strictfp class LootSystem {
     }
 
     private Stash calculateDropStash(Wizard wizard, float diceThrow) {
-        if (diceThrow < 0.66f) {
+        if (diceThrow < 0.6f) {
             return wizard.itemStash;
         } else {
             return wizard.potionStash;
