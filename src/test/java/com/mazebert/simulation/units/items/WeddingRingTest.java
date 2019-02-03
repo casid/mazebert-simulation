@@ -68,6 +68,18 @@ strictfp class WeddingRingTest extends ItemTest {
     }
 
     @Test
+    void married_tears() {
+        whenItemIsEquipped(tower, ItemType.WeddingRing1, 0);
+        whenItemIsEquipped(otherTower, ItemType.WeddingRing2, 0);
+
+        simulationListeners.onUpdate.dispatch(WeddingRingSystem.SECONDS_FOR_MARRIAGE);
+        whenPotionIsConsumed(tower, PotionType.Tears);
+
+        assertThat(tower.getMulticrit()).isEqualTo(2);
+        assertThat(otherTower.getMulticrit()).isEqualTo(2);
+    }
+
+    @Test
     void married_notification() {
         whenItemIsEquipped(otherTower, ItemType.WeddingRing2, 0);
         whenItemIsEquipped(tower, ItemType.WeddingRing1, 0);
@@ -195,5 +207,24 @@ strictfp class WeddingRingTest extends ItemTest {
 
         assertThat(tower.getAttackSpeedAdd()).isEqualTo(0.04f);
         assertThat(otherTower.getAttackSpeedAdd()).isEqualTo(0.04f);
+    }
+
+    @Test
+    void yggdrasil_tears() {
+        tower.setElement(Element.Nature);
+        Yggdrasil yggdrasil = new Yggdrasil();
+        yggdrasil.setWizard(wizard);
+        yggdrasil.setX(2);
+        unitGateway.addUnit(yggdrasil);
+
+        whenItemIsEquipped(tower, ItemType.WeddingRing1, 0);
+        whenItemIsEquipped(yggdrasil, ItemType.WeddingRing2, 0);
+
+        simulationListeners.onUpdate.dispatch(WeddingRingSystem.SECONDS_FOR_MARRIAGE);
+
+        whenItemIsEquipped(tower, ItemType.BranchOfYggdrasil, 1);
+        whenPotionIsConsumed(yggdrasil, PotionType.Tears);
+
+        assertThat(tower.getMulticrit()).isEqualTo(3);
     }
 }
