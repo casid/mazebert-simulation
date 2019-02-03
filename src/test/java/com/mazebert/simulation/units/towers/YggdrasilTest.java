@@ -83,6 +83,23 @@ public strictfp class YggdrasilTest extends SimTest {
     }
 
     @Test
+    void otherBranchCarrier_tears() {
+        Tower tower = new TestTower();
+        tower.setX(1);
+        tower.setElement(Element.Nature);
+        unitGateway.addUnit(tower);
+
+        whenYggdrasilIsBuilt();
+        unitGateway.returnAllItemsToInventory(yggdrasil);
+        whenBranchIsEquipped(tower, 0);
+
+        whenYggdrasilDrinksPotion(PotionType.Tears);
+
+        assertThat(yggdrasil.getMulticrit()).isEqualTo(2);
+        assertThat(tower.getMulticrit()).isEqualTo(2);
+    }
+
+    @Test
     void otherBranchCarrier_onlyOneBranchPerTower() {
         Tower tower = new TestTower();
         tower.setX(1);
@@ -135,9 +152,13 @@ public strictfp class YggdrasilTest extends SimTest {
     }
 
     private void whenYggdrasilDrinksPotion() {
-        wizard.potionStash.add(PotionType.CommonSpeed);
+        whenYggdrasilDrinksPotion(PotionType.CommonSpeed);
+    }
+
+    private void whenYggdrasilDrinksPotion(PotionType type) {
+        wizard.potionStash.add(type);
         DrinkPotionCommand command = new DrinkPotionCommand();
-        command.potionType = PotionType.CommonSpeed;
+        command.potionType = type;
         commandExecutor.executeVoid(command);
     }
 
