@@ -42,13 +42,13 @@ public strictfp enum WaveType {
             case Normal:
                 return 1.0;
             case Air:
-                return 0.60;
+                return 0.8;
             case Mass:
-                return 0.62;
+                return 0.6;
             case Boss:
-                return 0.55;
+                return 0.8;
             case Horseman:
-                return 1.0;
+                return 1.2;
             case Challenge:
                 return 2.0;
             case MassChallenge:

@@ -510,8 +510,8 @@ public strictfp class WaveSpawnerTest extends SimTest {
 
         whenAllCreepsAreSpawned();
 
-        assertThat(getCreep(0).getHealth()).isEqualTo(141);
-        assertThat(getCreep(0).getMaxHealth()).isEqualTo(141);
+        assertThat(getCreep(0).getHealth()).isEqualTo(205);
+        assertThat(getCreep(0).getMaxHealth()).isEqualTo(205);
     }
 
     @Test
@@ -532,7 +532,7 @@ public strictfp class WaveSpawnerTest extends SimTest {
 
         whenAllCreepsAreSpawned();
 
-        assertThat(getCreep(0).getHealth()).isEqualTo(334);
+        assertThat(getCreep(0).getHealth()).isEqualTo(486);
     }
 
     @Test
@@ -543,7 +543,7 @@ public strictfp class WaveSpawnerTest extends SimTest {
 
         whenAllCreepsAreSpawned();
 
-        assertThat(getCreep(0).getHealth()).isEqualTo(341);
+        assertThat(getCreep(0).getHealth()).isEqualTo(496);
     }
 
     @Test
