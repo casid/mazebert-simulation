@@ -27,13 +27,17 @@ public strictfp class GameSystem implements OnHealthChangedListener {
     public Wizard addWizard(int playerId) {
         Wizard wizard = new Wizard();
         wizard.playerId = playerId;
+        addWizard(wizard);
+
+        return wizard;
+    }
+
+    public void addWizard(Wizard wizard) {
         wizard.addGold(Balancing.STARTING_GOLD);
 
         wizard.onHealthChanged.add(this);
 
         unitGateway.addUnit(wizard);
-
-        return wizard;
     }
 
     public void rollStartingTowers(Wizard wizard) {

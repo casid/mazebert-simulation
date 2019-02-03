@@ -11,6 +11,7 @@ strictfp class CardDustVitalTest extends ItemTest {
         whenPotionIsConsumed(PotionType.CardDustVital);
         whenPotionIsConsumed(PotionType.CardDustVital);
 
+        assertThat(wizard.health).isEqualTo(1.4000001f);
         assertThat(gameGateway.getGame().health).isEqualTo(1.4000001f);
     }
 }

@@ -8,10 +8,12 @@ import com.mazebert.simulation.commands.DrinkPotionCommand;
 import com.mazebert.simulation.commands.EquipItemCommand;
 import com.mazebert.simulation.gateways.DifficultyGateway;
 import com.mazebert.simulation.gateways.GameGateway;
+import com.mazebert.simulation.gateways.PlayerGatewayTrainer;
 import com.mazebert.simulation.gateways.UnitGateway;
 import com.mazebert.simulation.plugins.random.RandomPluginTrainer;
 import com.mazebert.simulation.systems.DamageSystemTrainer;
 import com.mazebert.simulation.systems.ExperienceSystem;
+import com.mazebert.simulation.systems.GameSystem;
 import com.mazebert.simulation.systems.LootSystemTrainer;
 import com.mazebert.simulation.units.TestTower;
 import com.mazebert.simulation.units.potions.PotionType;
@@ -32,13 +34,15 @@ public strictfp class ItemTest extends SimTest {
         unitGateway = new UnitGateway();
         gameGateway = new GameGateway();
         difficultyGateway = new DifficultyGateway();
+        playerGateway = new PlayerGatewayTrainer();
         damageSystem = damageSystemTrainer;
         lootSystem = new LootSystemTrainer();
         experienceSystem = new ExperienceSystem();
+        gameSystem = new GameSystem();
 
         wizard = new Wizard();
         wizard.playerId = 1;
-        unitGateway.addUnit(wizard);
+        gameSystem.addWizard(wizard);
 
         tower = createTower();
         tower.setWizard(wizard);
