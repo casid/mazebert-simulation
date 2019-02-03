@@ -13,11 +13,11 @@ public strictfp class SacrificeAbility extends Ability<Tower> {
         super.initialize(unit);
 
         if (simulationListeners.areNotificationsEnabled()) {
-            simulationListeners.showNotification(getUnit(), "Tower sacrificed!", 0xff0000);
+            simulationListeners.showNotification(unit, "Tower sacrificed!", 0xff0000);
         }
 
-        Sim.context().gameGateway.getGame().health += 0.01f * getUnit().getLevel();
-        Sim.context().unitGateway.destroyTower(getUnit());
+        unit.getWizard().addHealth(0.01f * unit.getLevel());
+        Sim.context().unitGateway.destroyTower(unit);
     }
 
     @Override
