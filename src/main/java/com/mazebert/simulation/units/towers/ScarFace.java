@@ -9,9 +9,9 @@ public strictfp class ScarFace extends Tower {
 
     public ScarFace() {
         setBaseCooldown(3.0f);
-        setBaseRange(4.0f);
+        setBaseRange(2.0f);
         setAttackType(AttackType.Ber);
-        setStrength(0.5f);
+        setStrength(0.25f);
         setDamageSpread(0.0f);
         setGender(Gender.Male);
         setElement(Element.Metropolis);
