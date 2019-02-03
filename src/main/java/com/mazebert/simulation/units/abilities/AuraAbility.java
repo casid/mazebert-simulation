@@ -135,7 +135,6 @@ public abstract strictfp class AuraAbility<S extends Unit, T extends Unit> exten
     @Override
     public void onUnitRemoved(Unit unit) {
         if (unit == getUnit()) {
-
             unit.onUnitAdded.add(this);
             unit.onUnitRemoved.add(this);
             simulationListeners.onUnitAdded.remove(this);
