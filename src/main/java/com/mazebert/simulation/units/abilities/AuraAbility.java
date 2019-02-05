@@ -159,7 +159,7 @@ public abstract strictfp class AuraAbility<S extends Unit, T extends Unit> exten
 
     @Override
     public void accept(T unit) {
-        if (isQualifiedForAura(unit)) {
+        if (!isDisposed() && isQualifiedForAura(unit)) {
             unit.visited = true;
 
             if (!containsTarget(unit)) {

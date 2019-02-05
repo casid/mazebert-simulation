@@ -107,6 +107,26 @@ strictfp class BearHunterTest extends SimTest {
     }
 
     @Test
+    void trapOntoExistingUnits() {
+        randomPluginTrainer.givenFloatAbs(
+                0,
+                0
+        );
+
+        Creep creep = a(creep());
+        creep.setX(17);
+        creep.setY(14);
+        unitGateway.addUnit(creep);
+
+        Creep nextCreep = a(creep());
+        nextCreep.setX(17);
+        nextCreep.setY(14);
+        unitGateway.addUnit(nextCreep);
+
+        whenTrapIsPlaced();
+    }
+
+    @Test
     void trapsAreRemovedWithTower() {
         whenTrapIsPlaced();
         whenTrapIsPlaced();
