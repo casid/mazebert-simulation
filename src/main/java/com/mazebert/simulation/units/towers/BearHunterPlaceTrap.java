@@ -75,9 +75,11 @@ public strictfp class BearHunterPlaceTrap extends CooldownAbility<Tower> impleme
                 trap.setWizard(getUnit().getWizard());
                 trap.setX(x);
                 trap.setY(y);
+                trap.addStack();
                 unitGateway.addUnit(trap);
+            } else {
+                trap.addStack();
             }
-            trap.addStack();
 
             if (simulationListeners.areNotificationsEnabled()) {
                 simulationListeners.showNotification(getUnit(), "Trap planted!", 0x666666);

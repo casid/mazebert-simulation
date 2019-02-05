@@ -108,10 +108,7 @@ strictfp class BearHunterTest extends SimTest {
 
     @Test
     void trapOntoExistingUnits() {
-        randomPluginTrainer.givenFloatAbs(
-                0,
-                0
-        );
+        randomPluginTrainer.givenFloatAbs(0);
 
         Creep creep = a(creep());
         creep.setX(17);
@@ -124,6 +121,8 @@ strictfp class BearHunterTest extends SimTest {
         unitGateway.addUnit(nextCreep);
 
         whenTrapIsPlaced();
+
+        assertThat(creep.getHealth()).isEqualTo(90);
     }
 
     @Test
