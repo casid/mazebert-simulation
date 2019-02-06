@@ -7,17 +7,15 @@ import com.mazebert.simulation.units.Unit;
 import com.mazebert.simulation.units.towers.Tower;
 
 public abstract strictfp class WizardTowerBuffPower extends WizardPower implements OnUnitAddedListener {
-    private final SimulationListeners simulationListeners = Sim.context().simulationListeners;
-
     @Override
     protected void initialize(Wizard unit) {
         super.initialize(unit);
-        simulationListeners.onUnitAdded.add(this);
+        Sim.context().simulationListeners.onUnitAdded.add(this);
     }
 
     @Override
     protected void dispose(Wizard unit) {
-        simulationListeners.onUnitAdded.remove(this);
+        Sim.context().simulationListeners.onUnitAdded.remove(this);
         super.dispose(unit);
     }
 
