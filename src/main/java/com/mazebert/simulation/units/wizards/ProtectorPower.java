@@ -21,7 +21,7 @@ public strictfp class ProtectorPower extends WizardPower {
 
     @Override
     public String getDescription() {
-        return format.percentWithSignAndUnit(bonus * getSkillLevel()) + "% health\nfor your wizard";
+        return format.percentWithSignAndUnit(bonus * getSkillLevel()) + " health\nfor your wizard";
     }
 
     @Override
