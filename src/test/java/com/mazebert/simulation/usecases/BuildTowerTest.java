@@ -9,6 +9,7 @@ import com.mazebert.simulation.commands.EquipItemCommand;
 import com.mazebert.simulation.gateways.GameGateway;
 import com.mazebert.simulation.gateways.TurnGateway;
 import com.mazebert.simulation.gateways.UnitGateway;
+import com.mazebert.simulation.maps.MapAura;
 import com.mazebert.simulation.maps.TestMap;
 import com.mazebert.simulation.plugins.random.RandomPluginTrainer;
 import com.mazebert.simulation.systems.LootSystem;
@@ -219,6 +220,20 @@ class BuildTowerTest extends UsecaseTest<BuildTowerCommand> {
         whenRequestIsExecuted();
 
         assertThat(wizard.gold).isEqualTo(432L);
+    }
+
+    @Test
+    void aura_IncreasedRange() {
+        map.givenAllTilesHaveAura(MapAura.IncreasedRange);
+        whenRequestIsExecuted();
+        assertThat(builtTower.getRange()).isEqualTo(7.0f);
+    }
+
+    @Test
+    void aura_DecreasedRange() {
+        map.givenAllTilesHaveAura(MapAura.DecreasedRange);
+        whenRequestIsExecuted();
+        assertThat(builtTower.getRange()).isEqualTo(5.0f);
     }
 
     private void givenTowerIsAlreadyBuilt() {

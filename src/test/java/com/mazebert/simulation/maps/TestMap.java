@@ -15,14 +15,20 @@ public strictfp class TestMap extends Map {
         }
     }
 
+    @Override
+    public int getColumns() {
+        return size;
+    }
+
     public void givenNoTilesAreBuildable() {
         for (Tile tile : tiles) {
             tile.type.buildable = false;
         }
     }
 
-    @Override
-    public int getColumns() {
-        return size;
+    public void givenAllTilesHaveAura(MapAura aura) {
+        for (Tile tile : tiles) {
+            tile.aura = aura;
+        }
     }
 }

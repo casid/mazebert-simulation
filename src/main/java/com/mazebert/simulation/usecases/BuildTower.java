@@ -4,6 +4,7 @@ import com.mazebert.simulation.Sim;
 import com.mazebert.simulation.commands.BuildTowerCommand;
 import com.mazebert.simulation.gateways.GameGateway;
 import com.mazebert.simulation.gateways.UnitGateway;
+import com.mazebert.simulation.maps.MapAura;
 import com.mazebert.simulation.maps.Tile;
 import com.mazebert.simulation.systems.LootSystem;
 import com.mazebert.simulation.units.abilities.Ability;
@@ -33,7 +34,7 @@ public strictfp class BuildTower extends Usecase<BuildTowerCommand> {
             return;
         }
 
-        Tile tile = gameGateway.getMap().getGrid().getTile(command.x, command.y);
+        Tile tile = getTile(command.x, command.y);
         if (tile == null || !tile.type.buildable) {
             return;
         }
@@ -59,6 +60,11 @@ public strictfp class BuildTower extends Usecase<BuildTowerCommand> {
         Tower oldTower = unitGateway.findTower(wizard.getPlayerId(), x, y);
         if (oldTower != null) {
             replace(wizard, oldTower, tower);
+        }
+
+        Tile tile = getTile(x, y);
+        if (tile != null && tile.aura != null) {
+            applyAura(tower, tile.aura);
         }
 
         unitGateway.addUnit(tower);
@@ -106,5 +112,20 @@ public strictfp class BuildTower extends Usecase<BuildTowerCommand> {
     private void transferPermanentAbility(Tower oldTower, Tower newTower, Ability permanentAbility) {
         oldTower.removeAbility(permanentAbility);
         newTower.addAbility(permanentAbility);
+    }
+
+    private Tile getTile(int x, int y) {
+        return gameGateway.getMap().getGrid().getTile(x, y);
+    }
+
+    private void applyAura(Tower tower, MapAura aura) {
+        switch (aura) {
+            case IncreasedRange:
+                tower.addRange(1);
+                break;
+            case DecreasedRange:
+                tower.addRange(-1);
+                break;
+        }
     }
 }
