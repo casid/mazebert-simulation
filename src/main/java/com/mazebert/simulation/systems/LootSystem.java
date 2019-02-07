@@ -60,7 +60,7 @@ public strictfp class LootSystem {
     }
 
     public void grantGoldInterest(Wizard wizard) {
-        int goldInterest =  StrictMath.round(wizard.gold * (Balancing.GOLD_INTEREST + wizard.interestBonus));
+        int goldInterest = StrictMath.round(wizard.gold * (Balancing.GOLD_INTEREST + wizard.interestBonus));
         if (goldInterest <= 0) {
             return;
         }
@@ -121,26 +121,25 @@ public strictfp class LootSystem {
         float dropQualityProgress = StrictMath.min(1.0f,
                 0.8f * StrictMath.min(1.0f, (float) StrictMath.sqrt(creep.getWave().round / 120.0f)) + // Current round affects item quality as well, max quality at lvl ??.
                         0.6f * getTowerItemQualityFactor(tower.getItemQuality()));
-
-        float[] result = Sim.context().tempChancesForRarity;
-
-        result[Rarity.Unique.ordinal()] = 0.25f * dropQualityProgress * dropQualityProgress * dropQualityProgress;
-        result[Rarity.Legendary.ordinal()] = 0.5f * result[Rarity.Unique.ordinal()];
-        result[Rarity.Rare.ordinal()] = result[Rarity.Unique.ordinal()] + 0.25f * dropQualityProgress * dropQualityProgress;
-        result[Rarity.Uncommon.ordinal()] = result[Rarity.Rare.ordinal()] + 0.25f * dropQualityProgress;
-        result[Rarity.Common.ordinal()] = 1.0f;
-
-        return result;
+        return calculateDropChances(dropQualityProgress, false);
     }
 
     private float[] calculateDropChancesForTowerRarity(int round) {
-        float dropQualityProgress = StrictMath.min(1.0f, (float)StrictMath.sqrt(0.01f * round)); // Current round affects tower rarity as well.
+        float dropQualityProgress = StrictMath.min(1.0f, (float) StrictMath.sqrt(0.01f * round)); // Current round affects tower rarity as well.
+        return calculateDropChances(dropQualityProgress, true);
+    }
 
+    private float[] calculateDropChances(float dropQualityProgress, boolean towers) {
         float[] result = Sim.context().tempChancesForRarity;
+
         result[Rarity.Unique.ordinal()] = 0.25f * dropQualityProgress * dropQualityProgress * dropQualityProgress;
         result[Rarity.Legendary.ordinal()] = 0.5f * result[Rarity.Unique.ordinal()];
         result[Rarity.Rare.ordinal()] = result[Rarity.Unique.ordinal()] + 0.25f * dropQualityProgress * dropQualityProgress;
-        result[Rarity.Uncommon.ordinal()] = result[Rarity.Rare.ordinal()] + (0.15f + 0.1f * dropQualityProgress);
+        if (towers) {
+            result[Rarity.Uncommon.ordinal()] = result[Rarity.Rare.ordinal()] + (0.15f + 0.1f * dropQualityProgress);
+        } else {
+            result[Rarity.Uncommon.ordinal()] = result[Rarity.Rare.ordinal()] + 0.25f * dropQualityProgress;
+        }
         result[Rarity.Common.ordinal()] = 1.0f;
 
         return result;
