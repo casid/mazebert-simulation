@@ -56,11 +56,11 @@ public abstract strictfp class AuraAbility<S extends Unit, T extends Unit> exten
     protected void initialize(S unit) {
         super.initialize(unit);
 
-        unit.onUnitAdded.add(this);
-        unit.onUnitRemoved.add(this);
-
         if (initDirectly()) {
             initAura(unit);
+        } else {
+            unit.onUnitAdded.add(this);
+            unit.onUnitRemoved.add(this);
         }
     }
 
