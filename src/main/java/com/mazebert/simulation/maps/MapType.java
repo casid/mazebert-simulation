@@ -1,7 +1,9 @@
 package com.mazebert.simulation.maps;
 
 public strictfp enum MapType {
-    BloodMoor(1, BloodMoor.class);
+    BloodMoor(1, BloodMoor.class),
+    ShatteredPlains(2, ShatteredPlains.class),
+    ;
 
     private static MapType[] LOOKUP;
 

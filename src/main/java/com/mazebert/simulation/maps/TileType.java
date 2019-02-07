@@ -26,6 +26,11 @@ public strictfp class TileType {
         return this;
     }
 
+    public TileType notFlyable() {
+        flyable = false;
+        return this;
+    }
+
     public TileType walkable() {
         walkable = true;
         return this;

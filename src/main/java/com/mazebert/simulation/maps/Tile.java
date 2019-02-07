@@ -5,6 +5,7 @@ public strictfp class Tile {
     public final float height;
     public final int layer;
     public int waypointIndex = -1;
+    public MapAura aura;
 
     public Tile(TileType type) {
         this(type, 0, 0);
@@ -22,6 +23,11 @@ public strictfp class Tile {
 
     public Tile waypoint(int index) {
         waypointIndex = index;
+        return this;
+    }
+
+    public Tile aura(MapAura aura) {
+        this.aura = aura;
         return this;
     }
 }
