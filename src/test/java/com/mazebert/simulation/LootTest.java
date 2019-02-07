@@ -232,7 +232,7 @@ public class LootTest extends SimTest {
     void loot_unique_onlyOnce1() {
         randomPluginTrainer.givenFloatAbs(
                 0.0f, // This is a drop
-                0.00005f, // The rarity of this drop is unique
+                0.000005f, // The rarity of this drop is unique
                 0.0f, // This is an item drop
                 0.0f // It's a dungeon door!
         );
