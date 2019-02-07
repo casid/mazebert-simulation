@@ -2,6 +2,7 @@ package com.mazebert.simulation.replay;
 
 import com.mazebert.simulation.replay.data.ReplayFrame;
 import com.mazebert.simulation.replay.data.ReplayHeader;
+import org.jusecase.bitpack.stream.EndOfStreamException;
 import org.jusecase.bitpack.stream.StreamBitReader;
 
 import java.io.IOException;
@@ -9,9 +10,15 @@ import java.io.InputStream;
 
 public strictfp class StreamReplayReader implements AutoCloseable, ReplayReader {
     private final StreamBitReader reader;
+    private final boolean silenceExceptions;
 
     public StreamReplayReader(InputStream inputStream) {
+        this(inputStream, false);
+    }
+
+    public StreamReplayReader(InputStream inputStream, boolean silenceExceptions) {
         reader = new StreamBitReader(new ReplayProtocol(), inputStream);
+        this.silenceExceptions = silenceExceptions;
     }
 
     @Override
@@ -21,11 +28,18 @@ public strictfp class StreamReplayReader implements AutoCloseable, ReplayReader 
 
     @Override
     public ReplayFrame readFrame() {
-        try {
-            return reader.readObjectNullable(ReplayFrame.class);
-        } catch (Exception e) {
-            e.printStackTrace(); // TODO log
-            return null;
+        if (silenceExceptions) {
+            try {
+                return reader.readObjectNullable(ReplayFrame.class);
+            } catch (Exception e) {
+                return null;
+            }
+        } else {
+            try {
+                return reader.readObjectNullable(ReplayFrame.class);
+            } catch (EndOfStreamException e) {
+                return null;
+            }
         }
     }
 
@@ -34,7 +48,7 @@ public strictfp class StreamReplayReader implements AutoCloseable, ReplayReader 
         try {
             reader.close();
         } catch (IOException e) {
-            e.printStackTrace(); // TODO log
+            // Silently
         }
     }
 }
