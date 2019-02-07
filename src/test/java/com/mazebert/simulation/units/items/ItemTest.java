@@ -10,6 +10,7 @@ import com.mazebert.simulation.gateways.DifficultyGateway;
 import com.mazebert.simulation.gateways.GameGateway;
 import com.mazebert.simulation.gateways.PlayerGatewayTrainer;
 import com.mazebert.simulation.gateways.UnitGateway;
+import com.mazebert.simulation.maps.TestMap;
 import com.mazebert.simulation.plugins.random.RandomPluginTrainer;
 import com.mazebert.simulation.systems.DamageSystemTrainer;
 import com.mazebert.simulation.systems.ExperienceSystem;
@@ -39,6 +40,8 @@ public strictfp class ItemTest extends SimTest {
         lootSystem = new LootSystemTrainer();
         experienceSystem = new ExperienceSystem();
         gameSystem = new GameSystem();
+
+        gameGateway.getGame().map = new TestMap(2);
 
         wizard = new Wizard();
         wizard.playerId = 1;

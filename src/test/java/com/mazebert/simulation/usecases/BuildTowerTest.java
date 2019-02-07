@@ -6,8 +6,10 @@ import com.mazebert.simulation.SimulationListeners;
 import com.mazebert.simulation.commands.BuildTowerCommand;
 import com.mazebert.simulation.commands.DrinkPotionCommand;
 import com.mazebert.simulation.commands.EquipItemCommand;
+import com.mazebert.simulation.gateways.GameGateway;
 import com.mazebert.simulation.gateways.TurnGateway;
 import com.mazebert.simulation.gateways.UnitGateway;
+import com.mazebert.simulation.maps.TestMap;
 import com.mazebert.simulation.plugins.random.RandomPluginTrainer;
 import com.mazebert.simulation.systems.LootSystem;
 import com.mazebert.simulation.units.items.*;
@@ -25,18 +27,23 @@ import static org.assertj.core.api.Assertions.assertThat;
 class BuildTowerTest extends UsecaseTest<BuildTowerCommand> {
     RandomPluginTrainer randomPluginTrainer = new RandomPluginTrainer();
 
+    TestMap map;
     Wizard wizard;
     Tower builtTower;
 
     public BuildTowerTest() {
-        unitGateway = new UnitGateway();
         simulationListeners = new SimulationListeners();
+        unitGateway = new UnitGateway();
+        gameGateway = new GameGateway();
         lootSystem = new LootSystem();
         commandExecutor = new CommandExecutor();
         commandExecutor.init();
 
         turnGateway = new TurnGateway(1);
         randomPlugin = randomPluginTrainer;
+
+        map = new TestMap(2);
+        gameGateway.getGame().map = map;
     }
 
     @BeforeEach
@@ -56,6 +63,13 @@ class BuildTowerTest extends UsecaseTest<BuildTowerCommand> {
     @Test
     void notEnoughGold() {
         wizard.gold = 0;
+        whenRequestIsExecuted();
+        assertThat(builtTower).isNull();
+    }
+
+    @Test
+    void notBuildable() {
+        map.givenNoTilesAreBuildable();
         whenRequestIsExecuted();
         assertThat(builtTower).isNull();
     }

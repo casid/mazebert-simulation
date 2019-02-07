@@ -2,7 +2,9 @@ package com.mazebert.simulation.usecases;
 
 import com.mazebert.simulation.Sim;
 import com.mazebert.simulation.commands.BuildTowerCommand;
+import com.mazebert.simulation.gateways.GameGateway;
 import com.mazebert.simulation.gateways.UnitGateway;
+import com.mazebert.simulation.maps.Tile;
 import com.mazebert.simulation.systems.LootSystem;
 import com.mazebert.simulation.units.abilities.Ability;
 import com.mazebert.simulation.units.abilities.StackableAbility;
@@ -16,6 +18,7 @@ import java.util.List;
 public strictfp class BuildTower extends Usecase<BuildTowerCommand> {
 
     private final UnitGateway unitGateway = Sim.context().unitGateway;
+    private final GameGateway gameGateway = Sim.context().gameGateway;
     private final LootSystem lootSystem = Sim.context().lootSystem;
 
     @Override
@@ -27,6 +30,11 @@ public strictfp class BuildTower extends Usecase<BuildTowerCommand> {
 
         int goldCost = command.towerType.instance.getGoldCost();
         if (wizard.gold < goldCost) {
+            return;
+        }
+
+        Tile tile = gameGateway.getMap().getGrid().getTile(command.x, command.y);
+        if (tile == null || !tile.type.buildable) {
             return;
         }
 

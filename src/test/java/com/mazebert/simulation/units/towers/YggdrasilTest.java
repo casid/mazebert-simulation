@@ -7,7 +7,9 @@ import com.mazebert.simulation.SimulationListeners;
 import com.mazebert.simulation.commands.BuildTowerCommand;
 import com.mazebert.simulation.commands.DrinkPotionCommand;
 import com.mazebert.simulation.commands.EquipItemCommand;
+import com.mazebert.simulation.gateways.GameGateway;
 import com.mazebert.simulation.gateways.UnitGateway;
+import com.mazebert.simulation.maps.TestMap;
 import com.mazebert.simulation.systems.LootSystemTrainer;
 import com.mazebert.simulation.units.TestTower;
 import com.mazebert.simulation.units.items.BranchOfYggdrasil;
@@ -29,9 +31,12 @@ public strictfp class YggdrasilTest extends SimTest {
     void setUp() {
         simulationListeners = new SimulationListeners();
         unitGateway = new UnitGateway();
+        gameGateway = new GameGateway();
         lootSystem = new LootSystemTrainer();
         commandExecutor = new CommandExecutor();
         commandExecutor.init();
+
+        gameGateway.getGame().map = new TestMap(2);
 
         wizard = new Wizard();
         wizard.gold = 10000;

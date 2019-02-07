@@ -8,8 +8,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public strictfp abstract class Map {
-    private final MapType type;
-    private final List<Tile> tiles = new ArrayList<>();
+    protected final MapType type;
+    protected final List<Tile> tiles = new ArrayList<>();
+
     private MapGrid grid;
     private Point startWaypoint;
     private Point endWaypoint;

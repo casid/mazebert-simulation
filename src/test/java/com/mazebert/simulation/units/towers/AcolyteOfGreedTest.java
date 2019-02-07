@@ -45,6 +45,8 @@ strictfp class AcolyteOfGreedTest extends SimTest {
 
         previousTower = new TestTower();
         previousTower.setWizard(wizard);
+        previousTower.setX(19);
+        previousTower.setY(15);
         unitGateway.addUnit(previousTower);
     }
 
@@ -52,7 +54,7 @@ strictfp class AcolyteOfGreedTest extends SimTest {
     void replaceTower_level1() {
         previousTower.setExperience(Balancing.getTowerExperienceForLevel(1));
 
-        whenAcolyteIsBuilt(0, 0);
+        whenAcolyteIsBuilt(20, 15);
         waveSpawner.onUpdate(1.0f);
 
         Creep goblin = unitGateway.findUnit(Creep.class, wizard.getPlayerId());
@@ -81,7 +83,7 @@ strictfp class AcolyteOfGreedTest extends SimTest {
     void replaceTower_level80() {
         previousTower.setExperience(Balancing.getTowerExperienceForLevel(80));
 
-        whenAcolyteIsBuilt(0, 0);
+        whenAcolyteIsBuilt(19, 15);
 
         waveSpawner.onUpdate(1.0f);
         assertThat(unitGateway.getAmount(Creep.class)).isEqualTo(1);
@@ -93,11 +95,12 @@ strictfp class AcolyteOfGreedTest extends SimTest {
 
     @Test
     void buildTower() {
-        whenAcolyteIsBuilt(1, 2);
+        whenAcolyteIsBuilt(20, 15);
         waveSpawner.onUpdate(1.0f);
         assertThat(unitGateway.getAmount(Creep.class)).isEqualTo(1);
     }
 
+    @SuppressWarnings("SameParameterValue")
     private void whenAcolyteIsBuilt(int x, int y) {
         wizard.towerStash.add(TowerType.AcolyteOfGreed);
 
