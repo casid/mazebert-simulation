@@ -4,6 +4,7 @@ public strictfp enum MapType {
     BloodMoor(1, BloodMoor.class, "Blood Moor"),
     ShatteredPlains(2, ShatteredPlains.class, "Shattered Plains"),
     TwistedPaths(3, TwistedPaths.class, "Twisted Paths"),
+    GoldenGrounds(4, GoldenGrounds.class, "Golden Grounds"),
     ;
 
     private static MapType[] LOOKUP;
