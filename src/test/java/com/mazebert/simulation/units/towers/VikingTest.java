@@ -4,7 +4,9 @@ import com.mazebert.simulation.CommandExecutor;
 import com.mazebert.simulation.SimTest;
 import com.mazebert.simulation.SimulationListeners;
 import com.mazebert.simulation.commands.DrinkPotionCommand;
+import com.mazebert.simulation.gateways.GameGateway;
 import com.mazebert.simulation.gateways.UnitGateway;
+import com.mazebert.simulation.maps.TestMap;
 import com.mazebert.simulation.plugins.random.RandomPluginTrainer;
 import com.mazebert.simulation.projectiles.ProjectileGateway;
 import com.mazebert.simulation.systems.DamageSystemTrainer;
@@ -31,6 +33,7 @@ class VikingTest extends SimTest {
         simulationListeners = new SimulationListeners();
         randomPlugin = randomPluginTrainer;
         unitGateway = new UnitGateway();
+        gameGateway = new GameGateway();
         projectileGateway = new ProjectileGateway();
         damageSystem = damageSystemTrainer = new DamageSystemTrainer();
         lootSystem = new LootSystemTrainer();
@@ -38,6 +41,8 @@ class VikingTest extends SimTest {
 
         commandExecutor = new CommandExecutor();
         commandExecutor.init();
+
+        gameGateway.getGame().map = new TestMap(1);
 
         wizard = new Wizard();
         unitGateway.addUnit(wizard);
