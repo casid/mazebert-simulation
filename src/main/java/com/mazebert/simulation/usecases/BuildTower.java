@@ -5,6 +5,7 @@ import com.mazebert.simulation.commands.BuildTowerCommand;
 import com.mazebert.simulation.gateways.GameGateway;
 import com.mazebert.simulation.gateways.UnitGateway;
 import com.mazebert.simulation.maps.MapAura;
+import com.mazebert.simulation.maps.MapType;
 import com.mazebert.simulation.maps.Tile;
 import com.mazebert.simulation.systems.LootSystem;
 import com.mazebert.simulation.units.abilities.Ability;
@@ -36,6 +37,10 @@ public strictfp class BuildTower extends Usecase<BuildTowerCommand> {
 
         Tile tile = getTile(command.x, command.y);
         if (tile == null || !tile.type.buildable) {
+            return;
+        }
+
+        if (gameGateway.getMap().getType() == MapType.GoldenGrounds && !wizard.ownsFoilCard(command.towerType)) {
             return;
         }
 

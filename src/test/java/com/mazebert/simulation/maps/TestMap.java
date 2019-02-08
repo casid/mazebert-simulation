@@ -3,6 +3,7 @@ package com.mazebert.simulation.maps;
 public strictfp class TestMap extends Map {
 
     private final int size;
+    private MapType mapType;
 
     public TestMap(int size) {
         this.size = size;
@@ -30,5 +31,14 @@ public strictfp class TestMap extends Map {
         for (Tile tile : tiles) {
             tile.aura = aura;
         }
+    }
+
+    public void givenMapType(MapType mapType) {
+        this.mapType = mapType;
+    }
+
+    @Override
+    public MapType getType() {
+        return mapType;
     }
 }

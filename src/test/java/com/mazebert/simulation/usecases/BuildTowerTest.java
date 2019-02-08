@@ -10,6 +10,7 @@ import com.mazebert.simulation.gateways.GameGateway;
 import com.mazebert.simulation.gateways.TurnGateway;
 import com.mazebert.simulation.gateways.UnitGateway;
 import com.mazebert.simulation.maps.MapAura;
+import com.mazebert.simulation.maps.MapType;
 import com.mazebert.simulation.maps.TestMap;
 import com.mazebert.simulation.plugins.random.RandomPluginTrainer;
 import com.mazebert.simulation.systems.LootSystem;
@@ -234,6 +235,21 @@ class BuildTowerTest extends UsecaseTest<BuildTowerCommand> {
         map.givenAllTilesHaveAura(MapAura.DecreasedRange);
         whenRequestIsExecuted();
         assertThat(builtTower.getRange()).isEqualTo(5.0f);
+    }
+
+    @Test
+    void goldenGrounds_cardNotOwned() {
+        map.givenMapType(MapType.GoldenGrounds);
+        whenRequestIsExecuted();
+        assertThat(builtTower).isNull();
+    }
+
+    @Test
+    void goldenGrounds_cardOwned() {
+        map.givenMapType(MapType.GoldenGrounds);
+        wizard.foilTowers.add(request.towerType);
+        whenRequestIsExecuted();
+        assertThat(builtTower).isNotNull();
     }
 
     private void givenTowerIsAlreadyBuilt() {
