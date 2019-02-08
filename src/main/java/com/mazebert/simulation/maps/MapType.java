@@ -1,8 +1,8 @@
 package com.mazebert.simulation.maps;
 
 public strictfp enum MapType {
-    BloodMoor(1, BloodMoor.class),
-    ShatteredPlains(2, ShatteredPlains.class),
+    BloodMoor(1, BloodMoor.class, "Blood Moor"),
+    ShatteredPlains(2, ShatteredPlains.class, "Shattered Plains"),
     ;
 
     private static MapType[] LOOKUP;
@@ -19,9 +19,12 @@ public strictfp enum MapType {
     }
 
     public final int id;
+    public final String displayName;
     private final Class<? extends Map> mapClass;
-    MapType(int id, Class<? extends Map> mapClass) {
+
+    MapType(int id, Class<? extends Map> mapClass, String displayName) {
         this.id = id;
+        this.displayName = displayName;
         this.mapClass = mapClass;
     }
 
