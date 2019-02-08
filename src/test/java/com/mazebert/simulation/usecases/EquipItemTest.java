@@ -2,7 +2,10 @@ package com.mazebert.simulation.usecases;
 
 import com.mazebert.simulation.SimulationListeners;
 import com.mazebert.simulation.commands.EquipItemCommand;
+import com.mazebert.simulation.gateways.GameGateway;
 import com.mazebert.simulation.gateways.UnitGateway;
+import com.mazebert.simulation.maps.MapType;
+import com.mazebert.simulation.maps.TestMap;
 import com.mazebert.simulation.units.TestTower;
 import com.mazebert.simulation.units.items.BabySword;
 import com.mazebert.simulation.units.items.ItemType;
@@ -15,6 +18,7 @@ import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class EquipItemTest extends UsecaseTest<EquipItemCommand> {
+    TestMap map;
     Tower tower;
     Wizard wizard;
 
@@ -22,6 +26,7 @@ public class EquipItemTest extends UsecaseTest<EquipItemCommand> {
     void setUp() {
         simulationListeners = new SimulationListeners();
         unitGateway = new UnitGateway();
+        gameGateway = new GameGateway();
 
         usecase = new EquipItem();
 
@@ -41,6 +46,8 @@ public class EquipItemTest extends UsecaseTest<EquipItemCommand> {
         tower.setX(4);
         tower.setY(6);
         unitGateway.addUnit(tower);
+
+        gameGateway.getGame().map = map = new TestMap(1);
     }
 
     @Test
@@ -149,5 +156,20 @@ public class EquipItemTest extends UsecaseTest<EquipItemCommand> {
         assertThat(tower.getAddedRelativeBaseDamage()).isEqualTo(0.05f);
         assertThat(wizard.itemStash.get(0).amount).isEqualTo(1);
         assertThat(wizard.itemStash.get(0).cardType).isEqualTo(ItemType.BabySword);
+    }
+
+    @Test
+    void goldenGrounds_itemNotOwned() {
+        map.givenMapType(MapType.GoldenGrounds);
+        whenRequestIsExecuted();
+        assertThat(tower.getItem(0)).isNull();
+    }
+
+    @Test
+    void goldenGrounds_itemOwned() {
+        wizard.foilItems.add(request.itemType);
+        map.givenMapType(MapType.GoldenGrounds);
+        whenRequestIsExecuted();
+        assertThat(tower.getItem(0)).isInstanceOf(BabySword.class);
     }
 }

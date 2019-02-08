@@ -2,7 +2,9 @@ package com.mazebert.simulation.usecases;
 
 import com.mazebert.simulation.Sim;
 import com.mazebert.simulation.commands.EquipItemCommand;
+import com.mazebert.simulation.gateways.GameGateway;
 import com.mazebert.simulation.gateways.UnitGateway;
+import com.mazebert.simulation.maps.MapType;
 import com.mazebert.simulation.units.items.Item;
 import com.mazebert.simulation.units.towers.Tower;
 import com.mazebert.simulation.units.wizards.Wizard;
@@ -10,6 +12,7 @@ import com.mazebert.simulation.units.wizards.Wizard;
 public strictfp class EquipItem extends Usecase<EquipItemCommand> {
 
     private final UnitGateway unitGateway = Sim.context().unitGateway;
+    private final GameGateway gameGateway = Sim.context().gameGateway;
 
     @Override
     public void execute(EquipItemCommand command) {
@@ -38,6 +41,10 @@ public strictfp class EquipItem extends Usecase<EquipItemCommand> {
 
     private void equip(EquipItemCommand command, Wizard wizard, Tower tower) {
         if (command.itemType.instance().isForbiddenToEquip(tower)) {
+            return;
+        }
+
+        if (gameGateway.getMap().getType() == MapType.GoldenGrounds && !wizard.ownsFoilCard(command.itemType)) {
             return;
         }
 
