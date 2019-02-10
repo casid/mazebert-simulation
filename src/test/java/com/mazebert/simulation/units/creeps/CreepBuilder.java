@@ -15,6 +15,7 @@ public class CreepBuilder implements Builder<Creep> {
     public CreepBuilder() {
         creep = new Creep();
         creep.setWave(new Wave());
+        creep.setExperience(2);
     }
 
     @Override

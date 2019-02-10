@@ -1,5 +1,6 @@
 package com.mazebert.simulation.units.towers;
 
+import com.mazebert.simulation.Balancing;
 import com.mazebert.simulation.SimTest;
 import com.mazebert.simulation.SimulationListeners;
 import com.mazebert.simulation.gateways.UnitGateway;
@@ -20,6 +21,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.jusecase.Builders.a;
 
 class ElectricChairTest extends SimTest implements OnChainListener {
+    DamageSystemTrainer damageSystemTrainer = new DamageSystemTrainer();
+
     ElectricChair electricChair;
     Creep target;
     Creep[] chained;
@@ -30,7 +33,7 @@ class ElectricChairTest extends SimTest implements OnChainListener {
         unitGateway = new UnitGateway();
         randomPlugin = new RandomPluginTrainer();
 
-        damageSystem = new DamageSystemTrainer();
+        damageSystem = damageSystemTrainer;
         experienceSystem = new ExperienceSystem();
         lootSystem = new LootSystem();
 
@@ -140,6 +143,26 @@ class ElectricChairTest extends SimTest implements OnChainListener {
         assertThat(creep1.getHealth()).isEqualTo(90);
         assertThat(creep2.getHealth()).isEqualTo(90);
         assertThat(creep3.getHealth()).isEqualTo(90);
+    }
+
+    @Test
+    void levelsUpDuringChain() {
+        damageSystemTrainer.givenConstantDamage(1000);
+        Creep creep1 = a(creep());
+        unitGateway.addUnit(creep1);
+        Creep creep2 = a(creep());
+        unitGateway.addUnit(creep2);
+        Creep creep3 = a(creep());
+        unitGateway.addUnit(creep3);
+
+        // When the chair kills creep 1, it will level up and gain +1 chain
+        electricChair.setExperience(Balancing.getTowerExperienceForLevel(28) - 1);
+
+        whenTowerAttacks();
+
+        assertThat(creep1.getHealth()).isEqualTo(0);
+        assertThat(creep2.getHealth()).isEqualTo(0);
+        assertThat(creep3.getHealth()).isEqualTo(0);
     }
 
     @Test
