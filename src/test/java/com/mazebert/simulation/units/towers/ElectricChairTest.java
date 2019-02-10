@@ -11,10 +11,8 @@ import com.mazebert.simulation.systems.DamageSystemTrainer;
 import com.mazebert.simulation.systems.ExperienceSystem;
 import com.mazebert.simulation.systems.LootSystem;
 import com.mazebert.simulation.units.creeps.Creep;
-import com.mazebert.simulation.units.creeps.CreepBuilder;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.jusecase.Builders;
 
 import static com.mazebert.simulation.units.creeps.CreepBuilder.creep;
 import static org.assertj.core.api.Assertions.assertThat;
