@@ -81,8 +81,8 @@ public strictfp class AbyssKing extends Tower {
 
     @Override
     public void populateCustomTowerBonus(CustomTowerBonus bonus) {
-        bonus.value = "Army:";
-        bonus.title = "" + armySize;
+        bonus.value = "" + armySize;
+        bonus.title = "Army:";
     }
 
     public int getArmySize() {
