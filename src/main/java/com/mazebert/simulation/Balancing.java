@@ -15,7 +15,7 @@ public strictfp class Balancing {
     public static final float STARTING_CRIT_CHANCE = 0.05f;
     public static final float STARTING_CRIT_DAMAGE = 0.25f;
     public static final int MAX_TOWER_LEVEL = 99;
-    public static final float DEFAULT_DROP_CHANCE = 0.04f;
+    public static final float DEFAULT_DROP_CHANCE = 0.03f;
     public static final float DROP_CHANCE_CONST = 0.5f;
     public static final float DROP_QUALITY_CONST = 0.4f;
     public static final int STARTING_GOLD = 150;
@@ -23,6 +23,7 @@ public strictfp class Balancing {
     public static final float GOLD_RETURN_WHEN_TOWER_SOLD = 0.8f;
     public static final int MAX_GOLD_INTEREST = 1000000;
     public static final float PENALTY_FOR_LEAKING_ENTIRE_ROUND = 0.5f;
+    public static final int MAX_ELEMENTS = 2;
 
     private static final float[] towerExperienceForLevel = new float[MAX_TOWER_LEVEL];
 
