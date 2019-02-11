@@ -4,6 +4,6 @@ import com.mazebert.simulation.units.abilities.PermanentCritWithLevelBonusAbilit
 
 public class UncommonCritAbility extends PermanentCritWithLevelBonusAbility {
     public UncommonCritAbility() {
-        super(0.2f, 0.002f, 0.016f, 0.0004f);
+        super(0.016f, 0.0004f, 0.2f, 0.002f);
     }
 }

@@ -4,6 +4,6 @@ import com.mazebert.simulation.units.abilities.PermanentCritWithLevelBonusAbilit
 
 public class RareCritAbility extends PermanentCritWithLevelBonusAbility {
     public RareCritAbility() {
-        super(0.4f, 0.004f, 0.024f, 0.0008f);
+        super(0.024f, 0.0008f, 0.4f, 0.004f);
     }
 }
