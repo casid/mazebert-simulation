@@ -63,7 +63,9 @@ public strictfp final class WaveSpawner implements OnGameStartedListener, OnWave
 
                 countdownForNextCreepToSend = calculateCountdownForNextCreepToSend(creep.getWave());
             }
-        } else if (!goblinQueue.isEmpty()) {
+        }
+
+        if (!goblinQueue.isEmpty()) {
             countdownForNextGoblinToSend -= dt;
             if (countdownForNextGoblinToSend <= 0.0f) {
                 Creep creep = goblinQueue.remove();
