@@ -20,6 +20,7 @@ import com.mazebert.simulation.units.towers.Dandelion;
 import com.mazebert.simulation.units.towers.Hitman;
 import com.mazebert.simulation.units.towers.Tower;
 import com.mazebert.simulation.units.towers.TowerType;
+import com.mazebert.simulation.units.wizards.StashMasterPower;
 import com.mazebert.simulation.units.wizards.Wizard;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -221,6 +222,31 @@ class BuildTowerTest extends UsecaseTest<BuildTowerCommand> {
         whenRequestIsExecuted();
 
         assertThat(wizard.gold).isEqualTo(432L);
+    }
+
+    @Test
+    void replace_5_itemSlots() {
+        StashMasterPower stashMasterPower = new StashMasterPower();
+        stashMasterPower.setSkillLevel(stashMasterPower.getMaxSkillLevel());
+        wizard.level = stashMasterPower.getRequiredLevel();
+        wizard.addAbility(stashMasterPower);
+
+        givenTowerIsAlreadyBuilt();
+        givenItemIsEquipped(ItemType.BabySword, 0);
+        givenItemIsEquipped(ItemType.WoodenStaff, 1);
+        givenItemIsEquipped(ItemType.MeatMallet, 2);
+        givenItemIsEquipped(ItemType.MonsterTeeth, 3);
+        givenItemIsEquipped(ItemType.LeatherBoots, 4);
+
+        wizard.towerStash.add(TowerType.Dandelion);
+        request.towerType = TowerType.Dandelion;
+        whenRequestIsExecuted();
+
+        assertThat(builtTower.getItem(0).getType()).isEqualTo(ItemType.BabySword);
+        assertThat(builtTower.getItem(1).getType()).isEqualTo(ItemType.WoodenStaff);
+        assertThat(builtTower.getItem(2).getType()).isEqualTo(ItemType.MeatMallet);
+        assertThat(builtTower.getItem(3).getType()).isEqualTo(ItemType.MonsterTeeth);
+        assertThat(builtTower.getItem(4).getType()).isEqualTo(ItemType.LeatherBoots);
     }
 
     @Test

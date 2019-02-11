@@ -62,9 +62,10 @@ public strictfp class BuildTower extends Usecase<BuildTowerCommand> {
         tower.setX(x);
         tower.setY(y);
 
+        Item[] items = null;
         Tower oldTower = unitGateway.findTower(wizard.getPlayerId(), x, y);
         if (oldTower != null) {
-            replace(wizard, oldTower, tower);
+            items = replace(oldTower, tower);
         }
 
         Tile tile = getTile(x, y);
@@ -74,10 +75,14 @@ public strictfp class BuildTower extends Usecase<BuildTowerCommand> {
 
         unitGateway.addUnit(tower);
 
+        if (items != null) {
+            transferItems(wizard, tower, items);
+        }
+
         return oldTower;
     }
 
-    private void replace(Wizard wizard, Tower oldTower, Tower newTower) {
+    private Item[] replace(Tower oldTower, Tower newTower) {
         List<Ability> permanentAbilities = new ArrayList<>();
         oldTower.forEachAbility(ability -> {
             if (ability.isPermanent()) {
@@ -96,27 +101,32 @@ public strictfp class BuildTower extends Usecase<BuildTowerCommand> {
         }
 
         Item[] items = oldTower.removeAllItems();
-        for (int i = 0; i < items.length; ++i) {
-            Item item = items[i];
-            if (item != null) {
-                if (i >= newTower.getInventorySize() || item.isForbiddenToEquip(newTower)) {
-                    wizard.itemStash.add(item.getType());
-                } else {
-                    newTower.setItem(i, item);
-                }
-            }
-        }
 
         newTower.setExperience(oldTower.getExperience());
         newTower.setKills(oldTower.getKills());
         newTower.setTotalDamage(oldTower.getTotalDamage());
 
         unitGateway.removeUnit(oldTower);
+
+        return items;
     }
 
     private void transferPermanentAbility(Tower oldTower, Tower newTower, Ability permanentAbility) {
         oldTower.removeAbility(permanentAbility);
         newTower.addAbility(permanentAbility);
+    }
+
+    private void transferItems(Wizard wizard, Tower tower, Item[] items) {
+        for (int i = 0; i < items.length; ++i) {
+            Item item = items[i];
+            if (item != null) {
+                if (i >= tower.getInventorySize() || item.isForbiddenToEquip(tower) || tower.getItem(i) != null) {
+                    wizard.itemStash.add(item.getType());
+                } else {
+                    tower.setItem(i, item);
+                }
+            }
+        }
     }
 
     private Tile getTile(int x, int y) {
