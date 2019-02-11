@@ -122,6 +122,23 @@ public class TransmuteCardsTest extends UsecaseTest<TransmuteCardsCommand> imple
     }
 
     @Test
+    void item_fourCards_rare() {
+        wizard.itemStash.add(ItemType.Barrel);
+        wizard.itemStash.add(ItemType.Barrel);
+        wizard.itemStash.add(ItemType.Barrel);
+        wizard.itemStash.add(ItemType.Barrel);
+        request.cardCategory = CardCategory.Item;
+        request.cardType = ItemType.Barrel;
+        request.all = true;
+
+        whenRequestIsExecuted();
+
+        assertThat(wizard.itemStash.size()).isEqualTo(0);
+        assertThat(wizard.potionStash.size()).isEqualTo(1);
+        assertThat(wizard.potionStash.get(0).cardType).isEqualTo(PotionType.RareDamage);
+    }
+
+    @Test
     void item_fourtyCards() {
         for (int i = 0; i < 40; ++i) {
             wizard.itemStash.add(ItemType.BabySword);
@@ -168,6 +185,43 @@ public class TransmuteCardsTest extends UsecaseTest<TransmuteCardsCommand> imple
         assertThat(wizard.towerStash.size()).isEqualTo(0);
         assertThat(wizard.itemStash.size()).isEqualTo(1);
         assertThat(wizard.itemStash.get(0).cardType).isEqualTo(ItemType.KeyOfWisdom);
+    }
+
+    @Test
+    void tower_fourCards_rare_scepterOfTimeNotYetDropped() {
+        randomPluginTrainer.givenFloatAbs(0.999f);
+        wizard.towerStash.add(TowerType.Huli);
+        wizard.towerStash.add(TowerType.Huli);
+        wizard.towerStash.add(TowerType.Huli);
+        wizard.towerStash.add(TowerType.Huli);
+        request.cardCategory = CardCategory.Tower;
+        request.cardType = TowerType.Huli;
+        request.all = true;
+
+        whenRequestIsExecuted();
+
+        assertThat(wizard.towerStash.size()).isEqualTo(0);
+        assertThat(wizard.itemStash.size()).isEqualTo(1);
+        assertThat(wizard.itemStash.get(0).cardType).isEqualTo(ItemType.ScepterOfTime);
+    }
+
+    @Test
+    void tower_fourCards_rare_scepterOfTimeAlreadyDropped() {
+        wizard.itemStash.add(ItemType.ScepterOfTime);
+        randomPluginTrainer.givenFloatAbs(0.999f);
+        wizard.towerStash.add(TowerType.Huli);
+        wizard.towerStash.add(TowerType.Huli);
+        wizard.towerStash.add(TowerType.Huli);
+        wizard.towerStash.add(TowerType.Huli);
+        request.cardCategory = CardCategory.Tower;
+        request.cardType = TowerType.Huli;
+        request.all = true;
+
+        whenRequestIsExecuted();
+
+        assertThat(wizard.towerStash.size()).isEqualTo(0);
+        assertThat(wizard.itemStash.size()).isEqualTo(2);
+        assertThat(wizard.itemStash.get(1).cardType).isEqualTo(ItemType.ImpatienceWrathForce);
     }
 
     @Test

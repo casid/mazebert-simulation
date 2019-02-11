@@ -176,7 +176,7 @@ public abstract strictfp class Stash<T extends Card> implements ReadonlyStash<T>
 
         int amount = 0;
         for (CardType<T> possibleDrop : possibleDrops) {
-            if (possibleDrop.instance().getItemLevel() <= maxItemLevel) {
+            if (possibleDrop.instance().getItemLevel() <= maxItemLevel && !isUniqueAlreadyDropped(possibleDrop)) {
                 ++amount;
             } else {
                 break;
