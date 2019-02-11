@@ -35,7 +35,7 @@ public strictfp class ScepterOfTime extends Item {
 
     @Override
     public int getItemLevel() {
-        return 120;
+        return 80;
     }
 
     @Override
