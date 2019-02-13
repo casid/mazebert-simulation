@@ -96,6 +96,7 @@ class FormatPluginTest {
     @Test
     void time() {
         assertThat(format.time(0)).isEqualTo("0s");
+        assertThat(format.time(0.1f)).isEqualTo("0s");
         assertThat(format.time(2)).isEqualTo("2s");
         assertThat(format.time(60)).isEqualTo("1m");
         assertThat(format.time(63)).isEqualTo("1m");
