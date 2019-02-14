@@ -2,7 +2,6 @@ package com.mazebert.simulation.units.abilities;
 
 import com.mazebert.simulation.Sim;
 import com.mazebert.simulation.listeners.OnAttackListener;
-import com.mazebert.simulation.plugins.random.RandomPlugin;
 import com.mazebert.simulation.systems.DamageSystem;
 import com.mazebert.simulation.units.creeps.Creep;
 import com.mazebert.simulation.units.towers.Tower;

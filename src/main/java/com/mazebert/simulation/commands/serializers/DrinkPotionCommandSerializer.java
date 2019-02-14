@@ -1,7 +1,6 @@
 package com.mazebert.simulation.commands.serializers;
 
 import com.mazebert.simulation.commands.DrinkPotionCommand;
-import com.mazebert.simulation.units.potions.PotionType;
 import org.jusecase.bitpack.BitReader;
 import org.jusecase.bitpack.BitSerializer;
 import org.jusecase.bitpack.BitWriter;

@@ -1,8 +1,6 @@
 package com.mazebert.simulation.units.items;
 
 import com.mazebert.simulation.Rarity;
-import com.mazebert.simulation.units.abilities.Ability;
-import com.mazebert.simulation.units.towers.Tower;
 
 public strictfp class WoodenStaff extends Item {
     public WoodenStaff() {
