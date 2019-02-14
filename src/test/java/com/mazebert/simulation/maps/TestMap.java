@@ -2,10 +2,14 @@ package com.mazebert.simulation.maps;
 
 public strictfp class TestMap extends Map {
 
-    private final int size;
+    private int size;
     private MapType mapType;
 
     public TestMap(int size) {
+        givenSize(size);
+    }
+
+    public void givenSize(int size) {
         this.size = size;
         TileType ground = new TileType(null, 0, 0).buildable();
 
@@ -40,5 +44,11 @@ public strictfp class TestMap extends Map {
     @Override
     public MapType getType() {
         return mapType;
+    }
+
+    public void givenAllTilesAreWalkable() {
+        for (Tile tile : tiles) {
+            tile.type.walkable = true;
+        }
     }
 }
