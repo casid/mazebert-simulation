@@ -3,13 +3,19 @@ package com.mazebert.simulation.units.creeps;
 import com.mazebert.simulation.units.creeps.effects.ReviveEffect;
 
 public strictfp enum CreepModifier {
-    Fast,
-    Slow,
-    Wisdom,
-    Rich,
-    Armor,
-    Revive,
+    Fast(5),
+    Slow(5),
+    Wisdom(0),
+    Rich(0),
+    Armor(10),
+    Revive(10),
     ;
+
+    private final int minRound;
+
+    CreepModifier(int minRound) {
+        this.minRound = minRound;
+    }
 
     public void apply(Creep creep) {
         switch (this) {
@@ -55,5 +61,10 @@ public strictfp enum CreepModifier {
         }
 
         return true;
+    }
+
+    @SuppressWarnings("BooleanMethodIsAlwaysInverted")
+    public boolean isPossible(int round) {
+        return round >= minRound;
     }
 }

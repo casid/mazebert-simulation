@@ -93,6 +93,7 @@ class WaveGatewayTest extends SimTest {
 
     @Test
     void waveGeneration_modifiers() {
+        round = 101;
         randomPluginTrainer.givenFloatAbs(0.0f, 0.0f, 0.0f, 0.0f);
         whenWaveIsGenerated();
         assertThat(wave.creepModifier1).isEqualTo(null);
@@ -101,6 +102,7 @@ class WaveGatewayTest extends SimTest {
 
     @Test
     void waveGeneration_modifiers_fast() {
+        round = 101;
         randomPluginTrainer.givenFloatAbs(0.0f, 0.0f, 0.0f, 0.31f, 0.0f);
         whenWaveIsGenerated();
         assertThat(wave.creepModifier1).isEqualTo(CreepModifier.Fast);
@@ -108,7 +110,26 @@ class WaveGatewayTest extends SimTest {
     }
 
     @Test
+    void waveGeneration_modifiers_fast_notPossible() {
+        round = 1;
+        randomPluginTrainer.givenFloatAbs(0.0f, 0.0f, 0.0f, 0.31f, 0.0f);
+        whenWaveIsGenerated();
+        assertThat(wave.creepModifier1).isEqualTo(null);
+        assertThat(wave.creepModifier2).isEqualTo(null);
+    }
+
+    @Test
+    void waveGeneration_modifiers_slow_notPossible() {
+        round = 1;
+        randomPluginTrainer.givenFloatAbs(0.0f, 0.0f, 0.0f, 0.31f, 0.4f, 0.31f, 0.2f);
+        whenWaveIsGenerated();
+        assertThat(wave.creepModifier1).isEqualTo(CreepModifier.Wisdom);
+        assertThat(wave.creepModifier2).isEqualTo(null);
+    }
+
+    @Test
     void waveGeneration_modifiers_fast_wisdom() {
+        round = 101;
         randomPluginTrainer.givenFloatAbs(0.0f, 0.0f, 0.0f, 0.31f, 0.0f, 0.31f, 0.4f);
         whenWaveIsGenerated();
         assertThat(wave.creepModifier1).isEqualTo(CreepModifier.Fast);
@@ -117,6 +138,7 @@ class WaveGatewayTest extends SimTest {
 
     @Test
     void waveGeneration_modifiers_fast_slow_notPossible() {
+        round = 101;
         randomPluginTrainer.givenFloatAbs(0.0f, 0.0f, 0.0f, 0.31f, 0.0f, 0.31f, 0.2f);
         whenWaveIsGenerated();
         assertThat(wave.creepModifier1).isEqualTo(CreepModifier.Fast);
@@ -125,6 +147,7 @@ class WaveGatewayTest extends SimTest {
 
     @Test
     void waveGeneration_modifiers_same_same_notPossible() {
+        round = 101;
         randomPluginTrainer.givenFloatAbs(0.0f, 0.0f, 0.0f, 0.31f, 0.4f, 0.31f, 0.4f);
         whenWaveIsGenerated();
         assertThat(wave.creepModifier1).isEqualTo(CreepModifier.Wisdom);

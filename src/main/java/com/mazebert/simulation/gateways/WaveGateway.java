@@ -129,7 +129,12 @@ public strictfp class WaveGateway implements ReadonlyWaveGateway {
             return null;
         }
 
-        return randomPlugin.get(CreepModifier.values());
+        CreepModifier modifier = randomPlugin.get(CreepModifier.values());
+        if (!modifier.isPossible(wave.round)) {
+            return null;
+        }
+
+        return modifier;
     }
 
     private CreepModifier rollCreepModifier2(Wave wave, RandomPlugin randomPlugin) {
@@ -142,6 +147,10 @@ public strictfp class WaveGateway implements ReadonlyWaveGateway {
         }
 
         CreepModifier modifier = randomPlugin.get(CreepModifier.values());
+        if (!modifier.isPossible(wave.round)) {
+            return null;
+        }
+
         if (!modifier.isCompatible(wave.creepModifier1)) {
             return null;
         }
