@@ -109,8 +109,8 @@ public strictfp class BearHunterPlaceTrap extends CooldownAbility<Tower> impleme
 
         if (possibleGridIndices == null || possibleGridIndices.length < possibleGridIndicesCapacity) {
             possibleGridIndices = new int[possibleGridIndicesCapacity];
-            possibleGridIndicesSize = 0;
         }
+        possibleGridIndicesSize = 0;
 
         MapGrid grid = gameGateway.getMap().getGrid();
         int range = (int) getUnit().getRange();

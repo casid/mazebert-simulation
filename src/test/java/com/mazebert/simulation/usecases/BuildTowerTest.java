@@ -121,9 +121,7 @@ class BuildTowerTest extends UsecaseTest<BuildTowerCommand> {
         givenTowerIsAlreadyBuilt();
         givenItemIsEquipped(ItemType.BabySword, 1);
 
-        wizard.towerStash.add(TowerType.Dandelion);
-        request.towerType = TowerType.Dandelion;
-        whenRequestIsExecuted();
+        whenTowerIsBuilt(TowerType.Dandelion);
 
         assertThat(builtTower).isInstanceOf(Dandelion.class);
         assertThat(wizard.towerStash.size()).isEqualTo(0);
@@ -139,9 +137,7 @@ class BuildTowerTest extends UsecaseTest<BuildTowerCommand> {
         givenItemIsEquipped(ItemType.MeatMallet, 2);
         givenItemIsEquipped(ItemType.MonsterTeeth, 3);
 
-        wizard.towerStash.add(TowerType.Dandelion);
-        request.towerType = TowerType.Dandelion;
-        whenRequestIsExecuted();
+        whenTowerIsBuilt(TowerType.Dandelion);
 
         assertThat(builtTower).isInstanceOf(Dandelion.class);
         assertThat(wizard.towerStash.size()).isEqualTo(0);
@@ -160,9 +156,7 @@ class BuildTowerTest extends UsecaseTest<BuildTowerCommand> {
         builtTower.setBestHit(1000);
         builtTower.setTotalDamage(56000);
 
-        wizard.towerStash.add(TowerType.Dandelion);
-        request.towerType = TowerType.Dandelion;
-        whenRequestIsExecuted();
+        whenTowerIsBuilt(TowerType.Dandelion);
 
         assertThat(builtTower.getKills()).isEqualTo(50);
         assertThat(builtTower.getExperience()).isEqualTo(300);
@@ -177,9 +171,7 @@ class BuildTowerTest extends UsecaseTest<BuildTowerCommand> {
         givenPotionIsDrank(PotionType.CommonSpeed);
         givenPotionIsDrank(PotionType.CommonCrit);
 
-        wizard.towerStash.add(TowerType.Dandelion);
-        request.towerType = TowerType.Dandelion;
-        whenRequestIsExecuted();
+        whenTowerIsBuilt(TowerType.Dandelion);
 
         assertThat(builtTower.getCritChance()).isEqualTo(0.0582f);
         assertThat(builtTower.getCritDamage()).isEqualTo(0.351f);
@@ -191,9 +183,7 @@ class BuildTowerTest extends UsecaseTest<BuildTowerCommand> {
         givenTowerIsAlreadyBuilt();
         givenPotionIsDrank(PotionType.Tears);
 
-        wizard.towerStash.add(TowerType.Dandelion);
-        request.towerType = TowerType.Dandelion;
-        whenRequestIsExecuted();
+        whenTowerIsBuilt(TowerType.Dandelion);
 
         assertThat(builtTower.getMulticrit()).isEqualTo(2);
     }
@@ -205,9 +195,7 @@ class BuildTowerTest extends UsecaseTest<BuildTowerCommand> {
             givenPotionIsDrank(PotionType.CommonCrit);
         }
 
-        wizard.towerStash.add(TowerType.Dandelion);
-        request.towerType = TowerType.Dandelion;
-        whenRequestIsExecuted();
+        whenTowerIsBuilt(TowerType.Dandelion);
 
         assertThat(builtTower.getCritChance()).isEqualTo(0.132f);
         assertThat(builtTower.getCritDamage()).isEqualTo(1.2600001f);
@@ -217,9 +205,7 @@ class BuildTowerTest extends UsecaseTest<BuildTowerCommand> {
     void replace_goldReturned() {
         givenTowerIsAlreadyBuilt();
 
-        wizard.towerStash.add(TowerType.Dandelion);
-        request.towerType = TowerType.Dandelion;
-        whenRequestIsExecuted();
+        whenTowerIsBuilt(TowerType.Dandelion);
 
         assertThat(wizard.gold).isEqualTo(432L);
     }
@@ -238,9 +224,7 @@ class BuildTowerTest extends UsecaseTest<BuildTowerCommand> {
         givenItemIsEquipped(ItemType.MonsterTeeth, 3);
         givenItemIsEquipped(ItemType.LeatherBoots, 4);
 
-        wizard.towerStash.add(TowerType.Dandelion);
-        request.towerType = TowerType.Dandelion;
-        whenRequestIsExecuted();
+        whenTowerIsBuilt(TowerType.Dandelion);
 
         assertThat(builtTower.getItem(0).getType()).isEqualTo(ItemType.BabySword);
         assertThat(builtTower.getItem(1).getType()).isEqualTo(ItemType.WoodenStaff);
@@ -261,6 +245,21 @@ class BuildTowerTest extends UsecaseTest<BuildTowerCommand> {
         map.givenAllTilesHaveAura(MapAura.DecreasedRange);
         whenRequestIsExecuted();
         assertThat(builtTower.getRange()).isEqualTo(5.0f);
+    }
+
+    @Test
+    void aura_DecreasedRange_BearHunter() {
+        wizard.gold = 10000;
+        map.givenSize(10);
+        map.givenAllTilesAreWalkable();
+        map.givenAllTilesHaveAura(MapAura.DecreasedRange);
+
+        request.x = 5;
+        request.y = 5;
+
+        whenTowerIsBuilt(TowerType.BearHunter);
+
+        assertThat(builtTower.getRange()).isEqualTo(1);
     }
 
     @Test
@@ -303,5 +302,11 @@ class BuildTowerTest extends UsecaseTest<BuildTowerCommand> {
     protected void whenRequestIsExecuted() {
         super.whenRequestIsExecuted();
         builtTower = unitGateway.findUnit(Tower.class, request.playerId);
+    }
+
+    private void whenTowerIsBuilt(TowerType towerType) {
+        wizard.towerStash.add(towerType);
+        request.towerType = towerType;
+        whenRequestIsExecuted();
     }
 }
