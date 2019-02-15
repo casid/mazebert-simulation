@@ -41,6 +41,16 @@ public strictfp final class Hash {
         }
     }
 
+    public void add(Hashable[] values) {
+        if (values == null) {
+            add(0);
+        } else {
+            for (Hashable value : values) {
+                add(value);
+            }
+        }
+    }
+
     public void add(UUID value) {
         if (value == null) {
             add(0);

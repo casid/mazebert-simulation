@@ -14,6 +14,7 @@ import com.mazebert.simulation.units.abilities.Ability;
 import com.mazebert.simulation.units.heroes.HeroType;
 import com.mazebert.simulation.units.items.ItemType;
 import com.mazebert.simulation.units.potions.PotionType;
+import com.mazebert.simulation.units.quests.Quest;
 import com.mazebert.simulation.units.towers.TowerType;
 
 import java.util.EnumSet;
@@ -40,6 +41,7 @@ public strictfp class Wizard extends Unit {
     public float interestBonus;
     public int requiredTransmuteAmount = 4;
     public int transmutedUniques;
+    public Quest[] quests;
 
     public transient double bestHit;
     public transient TowerType bestHitTower;
@@ -80,6 +82,7 @@ public strictfp class Wizard extends Unit {
         hash.add(interestBonus);
         hash.add(requiredTransmuteAmount);
         hash.add(transmutedUniques);
+        hash.add(quests);
 
         // ignore transient attributes
     }
