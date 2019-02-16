@@ -13,4 +13,9 @@ public strictfp class OnlyDarknessAndNatureQuest extends RestrictedElementsQuest
     public String getSinceVersion() {
         return "1.0.0";
     }
+
+    @Override
+    public String getTitle() {
+        return "Dark Planet";
+    }
 }

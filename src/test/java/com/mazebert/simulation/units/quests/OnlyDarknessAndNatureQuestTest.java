@@ -1,5 +1,6 @@
 package com.mazebert.simulation.units.quests;
 
+import com.mazebert.simulation.plugins.FormatPlugin;
 import com.mazebert.simulation.units.creeps.Creep;
 import com.mazebert.simulation.units.items.ItemTest;
 import com.mazebert.simulation.units.towers.Hitman;
@@ -18,6 +19,8 @@ public class OnlyDarknessAndNatureQuestTest extends ItemTest {
 
     @BeforeEach
     void setUp() {
+        formatPlugin = new FormatPlugin();
+
         quest = new OnlyDarknessAndNatureQuest();
         wizard.addAbility(quest);
     }
@@ -69,5 +72,10 @@ public class OnlyDarknessAndNatureQuestTest extends ItemTest {
     void gameIsWon() {
         simulationListeners.onGameWon.dispatch();
         assertThat(quest.getCurrentAmount()).isEqualTo(1);
+    }
+
+    @Test
+    void description() {
+        assertThat(quest.getDescription()).isEqualTo("Win a game with <c=#71864c>Nature</c> and <c=#444444>Darkness</c> towers only.");
     }
 }

@@ -1,9 +1,9 @@
 package com.mazebert.simulation;
 
 public strictfp enum Element {
-    Nature(1),
-    Metropolis(2),
-    Darkness(3),
+    Nature(1, 0x71864c),
+    Metropolis(2, 0x868686),
+    Darkness(3, 0x444444),
     ;
 
     private static Element[] LOOKUP;
@@ -20,9 +20,11 @@ public strictfp enum Element {
     }
 
     public final int id;
+    public final int color;
 
-    Element(int id) {
+    Element(int id, int color) {
         this.id = id;
+        this.color = color;
     }
 
     public static Element forId(int id) {

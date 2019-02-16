@@ -64,4 +64,22 @@ public abstract strictfp class RestrictedElementsQuest extends Quest implements 
     public void onGameWon() {
         addAmount(1);
     }
+
+    @Override
+    public String getDescription() {
+        StringBuilder result = new StringBuilder("Win a game with ");
+        int i = 0;
+        for (Element allowedElement : allowedElements) {
+            if (i == allowedElements.size() - 1) {
+                result.append(" and ");
+            } else if (i > 0) {
+                result.append(", ");
+            }
+
+            result.append(format.colored(allowedElement.getName(), allowedElement.color));
+            ++i;
+        }
+        result.append(" towers only.");
+        return result.toString();
+    }
 }
