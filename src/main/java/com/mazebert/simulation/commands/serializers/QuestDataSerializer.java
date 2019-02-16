@@ -5,7 +5,7 @@ import org.jusecase.bitpack.BitReader;
 import org.jusecase.bitpack.BitSerializer;
 import org.jusecase.bitpack.BitWriter;
 
-public class QuestDataSerializer implements BitSerializer<QuestData> {
+public strictfp class QuestDataSerializer implements BitSerializer<QuestData> {
     @Override
     public QuestData createObject() {
         return new QuestData();
