@@ -41,12 +41,16 @@ public abstract strictfp class Quest extends Ability<Wizard> implements Hashable
 
     protected void addAmount(int amount) {
         currentAmount += amount;
-        if (currentAmount >= requiredAmount) {
+        if (isComplete()) {
             currentAmount = requiredAmount;
             getUnit().onQuestCompleted.dispatch(getUnit(), this);
 
             getUnit().removeAbility(this);
         }
+    }
+
+    public boolean isComplete() {
+        return currentAmount >= requiredAmount;
     }
 
     public void setCurrentAmount(int currentAmount) {

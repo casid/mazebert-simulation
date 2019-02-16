@@ -9,7 +9,7 @@ public strictfp enum QuestType {
     // 3) ADD NEW IDS TO THE BOTTOM!
 
     KillChallengesQuestId(1, KillChallengesQuest.class),
-//    OnlyDarknessAndNatureQuestId(2),
+    OnlyDarknessAndNatureQuestId(2, OnlyDarknessAndNatureQuest.class),
 //    OnlyNatureAndMetropolisQuestId(3),
 //    Map1VictoryQuestId(4),
 //    Map2VictoryQuestId(5),
