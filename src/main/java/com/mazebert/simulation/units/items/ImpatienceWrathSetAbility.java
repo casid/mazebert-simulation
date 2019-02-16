@@ -7,7 +7,7 @@ import com.mazebert.simulation.listeners.OnSecondsSkippedListener;
 import java.util.EnumSet;
 
 public strictfp class ImpatienceWrathSetAbility extends ItemSetAbility implements OnSecondsSkippedListener {
-    public static final float bonusPerSecond = 0.3f;
+    public static final float bonusPerSecond = 0.003f;
 
     private final SimulationListeners simulationListeners = Sim.context().simulationListeners;
 

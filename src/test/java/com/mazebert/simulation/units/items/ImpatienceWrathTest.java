@@ -24,7 +24,7 @@ public strictfp class ImpatienceWrathTest extends ItemTest {
         whenItemIsEquipped(ItemType.ImpatienceWrathForce, 1);
         whenItemIsEquipped(ItemType.ImpatienceWrathTrain, 3);
 
-        assertThat(tower.getAttackSpeedAdd()).isEqualTo(6.65f);
+        assertThat(tower.getAttackSpeedAdd()).isEqualTo(0.71f);
     }
 
     @Test
@@ -36,7 +36,7 @@ public strictfp class ImpatienceWrathTest extends ItemTest {
         whenItemIsEquipped(ItemType.ImpatienceWrathTrain, 3);
         whenItemIsEquipped(null, 3);
 
-        assertThat(tower.getAttackSpeedAdd()).isEqualTo(0.25f);
+        assertThat(tower.getAttackSpeedAdd()).isEqualTo(0.24999997f);
     }
 
     @Test
@@ -50,6 +50,6 @@ public strictfp class ImpatienceWrathTest extends ItemTest {
         skippedSeconds = 25;
         simulationListeners.onSecondsSkipped.dispatch();
 
-        assertThat(tower.getAttackSpeedAdd()).isEqualTo(8.150001f);
+        assertThat(tower.getAttackSpeedAdd()).isEqualTo(0.72499996f);
     }
 }
