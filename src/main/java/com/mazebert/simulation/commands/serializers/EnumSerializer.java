@@ -9,6 +9,7 @@ import com.mazebert.simulation.units.abilities.ActiveAbilityType;
 import com.mazebert.simulation.units.heroes.HeroType;
 import com.mazebert.simulation.units.items.ItemType;
 import com.mazebert.simulation.units.potions.PotionType;
+import com.mazebert.simulation.units.quests.QuestType;
 import com.mazebert.simulation.units.towers.TowerType;
 import com.mazebert.simulation.units.wizards.WizardPowerType;
 import org.jusecase.bitpack.BitReader;
@@ -26,6 +27,7 @@ public strictfp class EnumSerializer {
     private static final int MAP_BITS = 3;
     private static final int ACTIVE_ABILITY_BITS = 3;
     private static final int WIZARD_POWER_BITS = 4;
+    private static final int QUEST_BITS = 4;
 
     public static TowerType readTowerType(BitReader reader) {
         return TowerType.forId(reader.readUnsignedInt(TOWER_BITS));
@@ -105,6 +107,14 @@ public strictfp class EnumSerializer {
 
     public static void writeWizardPowerType(BitWriter writer, WizardPowerType type) {
         writer.writeUnsignedInt(WIZARD_POWER_BITS, type.id);
+    }
+
+    public static QuestType readQuestType(BitReader reader) {
+        return QuestType.forId(reader.readUnsignedInt(QUEST_BITS));
+    }
+
+    public static void writeQuestType(BitWriter writer, QuestType type) {
+        writer.writeUnsignedInt(QUEST_BITS, type.id);
     }
 
     public static CardType readCardType(BitReader reader, CardCategory category) {

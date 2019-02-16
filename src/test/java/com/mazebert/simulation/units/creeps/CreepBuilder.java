@@ -2,6 +2,7 @@ package com.mazebert.simulation.units.creeps;
 
 import com.mazebert.simulation.Wave;
 import com.mazebert.simulation.WaveType;
+import com.mazebert.simulation.units.wizards.Wizard;
 import org.jusecase.builders.Builder;
 
 public class CreepBuilder implements Builder<Creep> {
@@ -30,6 +31,16 @@ public class CreepBuilder implements Builder<Creep> {
 
     public CreepBuilder air() {
         creep.getWave().type = WaveType.Air;
+        return this;
+    }
+
+    public CreepBuilder challenge() {
+        creep.getWave().type = WaveType.Challenge;
+        return this;
+    }
+
+    public CreepBuilder withWizard(Wizard wizard) {
+        creep.setWizard(wizard);
         return this;
     }
 }

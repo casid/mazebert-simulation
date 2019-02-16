@@ -1,6 +1,8 @@
 package com.mazebert.simulation.commands.serializers;
 
 import com.mazebert.simulation.commands.InitPlayerCommand;
+import com.mazebert.simulation.units.quests.QuestData;
+import com.mazebert.simulation.units.quests.QuestType;
 import com.mazebert.simulation.units.towers.TowerType;
 import com.mazebert.simulation.units.wizards.DeckMasterPower;
 import com.mazebert.simulation.units.wizards.WizardPower;
@@ -25,6 +27,7 @@ public class InitPlayerCommandSerializerTest {
     void setUp() {
         protocol.register(new InitPlayerCommandSerializer());
         protocol.register(new WizardPowerSerializer());
+        protocol.register(new QuestDataSerializer());
     }
 
     @Test
@@ -40,10 +43,7 @@ public class InitPlayerCommandSerializerTest {
         whenBufferIsFlushedAndRead();
 
         InitPlayerCommand actual = reader.readObjectNonNull(InitPlayerCommand.class);
-        assertThat(actual.powers.size()).isEqualTo(expected.powers.size());
-        for (int i = 0; i < actual.powers.size(); ++i) {
-            assertThat(actual.powers.get(i)).isEqualToComparingFieldByFieldRecursively(expected.powers.get(i));
-        }
+        assertThat(actual).isEqualToComparingFieldByFieldRecursively(expected);
     }
 
     @Test
@@ -57,7 +57,22 @@ public class InitPlayerCommandSerializerTest {
         whenBufferIsFlushedAndRead();
 
         InitPlayerCommand actual = reader.readObjectNonNull(InitPlayerCommand.class);
-        assertThat(actual.powers.get(0)).isEqualToComparingFieldByFieldRecursively(deckMasterPower);
+        assertThat(actual).isEqualToComparingFieldByFieldRecursively(expected);
+    }
+
+    @Test
+    void quests() {
+        InitPlayerCommand expected = new InitPlayerCommand();
+        QuestData questData = new QuestData();
+        questData.type = QuestType.KillChallengesQuestId;
+        questData.currentAmount = 3;
+        expected.quests.add(questData);
+        writer.writeObjectNonNull(expected);
+
+        whenBufferIsFlushedAndRead();
+
+        InitPlayerCommand actual = reader.readObjectNonNull(InitPlayerCommand.class);
+        assertThat(actual).isEqualToComparingFieldByFieldRecursively(expected);
     }
 
     private void whenBufferIsFlushedAndRead() {

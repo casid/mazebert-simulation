@@ -10,6 +10,9 @@ import com.mazebert.simulation.systems.GameSystem;
 import com.mazebert.simulation.systems.LootSystemTrainer;
 import com.mazebert.simulation.units.heroes.HeroType;
 import com.mazebert.simulation.units.heroes.LittleFinger;
+import com.mazebert.simulation.units.quests.KillChallengesQuest;
+import com.mazebert.simulation.units.quests.QuestData;
+import com.mazebert.simulation.units.quests.QuestType;
 import com.mazebert.simulation.units.towers.TowerType;
 import com.mazebert.simulation.units.wizards.DeckMasterPower;
 import com.mazebert.simulation.units.wizards.Wizard;
@@ -137,5 +140,20 @@ strictfp class InitPlayerTest extends UsecaseTest<InitPlayerCommand> {
         for (int i = 0; i < wizard.towerStash.size(); ++i) {
             assertThat(wizard.towerStash.get(i).card.getElement()).isEqualTo(Element.Darkness);
         }
+    }
+
+    @Test
+    void quests() {
+        QuestData questData = new QuestData();
+        questData.type = QuestType.KillChallengesQuestId;
+        questData.currentAmount = 6;
+        request.quests.add(questData);
+
+        whenRequestIsExecuted();
+
+        Wizard wizard = unitGateway.getWizard(request.playerId);
+        KillChallengesQuest quest = wizard.getAbility(KillChallengesQuest.class);
+        assertThat(quest).isNotNull();
+        assertThat(quest.getCurrentAmount()).isEqualTo(6);
     }
 }

@@ -8,6 +8,7 @@ import com.mazebert.simulation.units.abilities.ActiveAbilityType;
 import com.mazebert.simulation.units.heroes.HeroType;
 import com.mazebert.simulation.units.items.ItemType;
 import com.mazebert.simulation.units.potions.PotionType;
+import com.mazebert.simulation.units.quests.QuestType;
 import com.mazebert.simulation.units.towers.TowerType;
 import com.mazebert.simulation.units.wizards.WizardPowerType;
 import org.junit.jupiter.api.Test;
@@ -141,6 +142,19 @@ public class EnumSerializerTest {
 
         for (WizardPowerType value : WizardPowerType.values()) {
             assertThat(EnumSerializer.readWizardPowerType(reader)).isEqualTo(value);
+        }
+    }
+
+    @Test
+    void quests() {
+        for (QuestType value : QuestType.values()) {
+            EnumSerializer.writeQuestType(writer, value);
+        }
+
+        whenBufferIsFlushedAndRead();
+
+        for (QuestType value : QuestType.values()) {
+            assertThat(EnumSerializer.readQuestType(reader)).isEqualTo(value);
         }
     }
 

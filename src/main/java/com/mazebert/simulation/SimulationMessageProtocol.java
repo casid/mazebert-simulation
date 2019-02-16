@@ -32,5 +32,6 @@ public strictfp class SimulationMessageProtocol extends BitMessageProtocol {
         protocol.register(new TransmuteCardsCommandSerializer());
         protocol.register(new SendMessageCommandSerializer());
         protocol.register(new WizardPowerSerializer());
+        protocol.register(new QuestDataSerializer());
     }
 }

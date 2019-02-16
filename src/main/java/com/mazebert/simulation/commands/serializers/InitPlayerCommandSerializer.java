@@ -1,6 +1,7 @@
 package com.mazebert.simulation.commands.serializers;
 
 import com.mazebert.simulation.commands.InitPlayerCommand;
+import com.mazebert.simulation.units.quests.QuestData;
 import com.mazebert.simulation.units.wizards.WizardPower;
 import org.jusecase.bitpack.BitReader;
 import org.jusecase.bitpack.BitSerializer;
@@ -29,6 +30,8 @@ public strictfp class InitPlayerCommandSerializer implements BitSerializer<InitP
         writer.writeObjectsWithSameType(object.powers);
 
         EnumSerializer.writeElements(writer, object.elements);
+
+        writer.writeObjectsWithSameType(object.quests);
     }
 
     @Override
@@ -47,5 +50,7 @@ public strictfp class InitPlayerCommandSerializer implements BitSerializer<InitP
         object.powers = reader.readObjectsWithSameTypeAsList(WizardPower.class);
 
         object.elements = EnumSerializer.readElements(reader);
+
+        object.quests = reader.readObjectsWithSameTypeAsList(QuestData.class);
     }
 }

@@ -4,6 +4,7 @@ import com.mazebert.simulation.Element;
 import com.mazebert.simulation.units.heroes.HeroType;
 import com.mazebert.simulation.units.items.ItemType;
 import com.mazebert.simulation.units.potions.PotionType;
+import com.mazebert.simulation.units.quests.QuestData;
 import com.mazebert.simulation.units.towers.TowerType;
 import com.mazebert.simulation.units.wizards.WizardPower;
 
@@ -26,4 +27,6 @@ public strictfp class InitPlayerCommand extends Command {
     public List<WizardPower> powers = new ArrayList<>();
 
     public EnumSet<Element> elements = EnumSet.noneOf(Element.class);
+
+    public List<QuestData> quests = new ArrayList<>();
 }

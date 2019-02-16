@@ -7,6 +7,8 @@ import com.mazebert.simulation.gateways.UnitGateway;
 import com.mazebert.simulation.systems.ExperienceSystem;
 import com.mazebert.simulation.systems.GameSystem;
 import com.mazebert.simulation.units.heroes.Hero;
+import com.mazebert.simulation.units.quests.Quest;
+import com.mazebert.simulation.units.quests.QuestData;
 import com.mazebert.simulation.units.wizards.Wizard;
 import com.mazebert.simulation.units.wizards.WizardPower;
 
@@ -26,6 +28,7 @@ public strictfp class InitPlayer extends Usecase<InitPlayerCommand> {
         initWizard(wizard, command);
         addHero(wizard, command);
         addPowers(wizard, command.powers);
+        addQuests(wizard, command.quests);
 
         wizard.foilHeroes = command.foilHeroes;
         wizard.foilTowers = command.foilTowers;
@@ -76,6 +79,14 @@ public strictfp class InitPlayer extends Usecase<InitPlayerCommand> {
     private void addPowers(Wizard wizard, List<WizardPower> powers) {
         for (WizardPower power : powers) {
             wizard.addAbility(power);
+        }
+    }
+
+    private void addQuests(Wizard wizard, List<QuestData> quests) {
+        for (QuestData data : quests) {
+            Quest quest = data.type.create();
+            quest.setCurrentAmount(data.currentAmount);
+            wizard.addAbility(quest);
         }
     }
 

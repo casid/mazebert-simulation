@@ -8,7 +8,7 @@ public strictfp enum QuestType {
     // 2) DO NOT REUSE DELETED IDS!
     // 3) ADD NEW IDS TO THE BOTTOM!
 
-    KillChallengesQuestId(1),
+    KillChallengesQuestId(1, KillChallengesQuest.class),
 //    OnlyDarknessAndNatureQuestId(2),
 //    OnlyNatureAndMetropolisQuestId(3),
 //    Map1VictoryQuestId(4),
@@ -41,8 +41,44 @@ public strictfp enum QuestType {
 
 
     public final int id;
+    public final Class<? extends Quest> questClass;
 
-    QuestType(int id) {
+    QuestType(int id, Class<? extends Quest> questClass) {
         this.id = id;
+        this.questClass = questClass;
+    }
+
+    public Quest create() {
+        try {
+            return questClass.newInstance();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private static QuestType[] LOOKUP;
+
+    static {
+        int maxId = 0;
+        for (QuestType questType : QuestType.values()) {
+            maxId = StrictMath.max(maxId, questType.id);
+        }
+        LOOKUP = new QuestType[maxId + 1];
+        for (QuestType questType : QuestType.values()) {
+            LOOKUP[questType.id] = questType;
+        }
+    }
+
+    public static QuestType forId(int id) {
+        return LOOKUP[id];
+    }
+
+    public static QuestType forClass(Class<? extends Quest> questClass) {
+        for (QuestType questType : values()) {
+            if (questType.questClass == questClass) {
+                return questType;
+            }
+        }
+        return null;
     }
 }

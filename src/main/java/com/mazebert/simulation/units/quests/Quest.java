@@ -13,8 +13,6 @@ public abstract strictfp class Quest extends Ability<Wizard> implements Hashable
 
     private int currentAmount;
 
-    private transient Wizard wizard;
-
     public Quest(QuestReward reward, int requiredAmount) {
         this.type = null; // TODO
         this.id = 0; // TODO
@@ -32,4 +30,20 @@ public abstract strictfp class Quest extends Ability<Wizard> implements Hashable
 
     public abstract String getSinceVersion();
 
+    public int getCurrentAmount() {
+        return currentAmount;
+    }
+
+    public int getRequiredAmount() {
+        return requiredAmount;
+    }
+
+    protected void addAmount(int amount) {
+        currentAmount += amount;
+        getUnit().onQuestProgress.dispatch(getUnit(), this);
+    }
+
+    public void setCurrentAmount(int currentAmount) {
+        this.currentAmount = currentAmount;
+    }
 }
