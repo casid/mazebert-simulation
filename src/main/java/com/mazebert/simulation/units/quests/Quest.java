@@ -13,9 +13,10 @@ public abstract strictfp class Quest extends Ability<Wizard> implements Hashable
 
     private int currentAmount;
 
+    @SuppressWarnings("ConstantConditions")
     public Quest(QuestReward reward, int requiredAmount) {
-        this.type = null; // TODO
-        this.id = 0; // TODO
+        this.type = QuestType.forClass(getClass());
+        this.id = type.id;
         this.reward = reward.relics;
         this.requiredAmount = requiredAmount;
     }
@@ -40,7 +41,12 @@ public abstract strictfp class Quest extends Ability<Wizard> implements Hashable
 
     protected void addAmount(int amount) {
         currentAmount += amount;
-        getUnit().onQuestProgress.dispatch(getUnit(), this);
+        if (currentAmount >= requiredAmount) {
+            currentAmount = requiredAmount;
+            getUnit().onQuestCompleted.dispatch(getUnit(), this);
+
+            getUnit().removeAbility(this);
+        }
     }
 
     public void setCurrentAmount(int currentAmount) {

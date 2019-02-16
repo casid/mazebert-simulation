@@ -76,6 +76,7 @@ public class KillChallengesQuestTest extends ItemTest {
         unitGateway.removeUnit(creep);
 
         assertThat(quest.getCurrentAmount()).isEqualTo(quest.getRequiredAmount());
+        assertThat(wizard.getAbility(KillChallengesQuest.class)).isNull();
     }
 
     CreepBuilder creep() {

@@ -21,7 +21,7 @@ public strictfp class Wizard extends Unit {
     public final OnLevelChanged onLevelChanged = new OnLevelChanged();
     public final OnGoldChanged onGoldChanged = new OnGoldChanged();
     public final OnCardsTransmuted onCardsTransmuted = new OnCardsTransmuted();
-    public final OnQuestProgress onQuestProgress = new OnQuestProgress();
+    public final OnQuestCompleted onQuestCompleted = new OnQuestCompleted();
 
     public final TowerStash towerStash = new TowerStash();
     public final ItemStash itemStash = new ItemStash();
