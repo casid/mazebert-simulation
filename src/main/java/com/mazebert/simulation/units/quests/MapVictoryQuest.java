@@ -14,7 +14,11 @@ public abstract strictfp class MapVictoryQuest extends Quest implements OnGameWo
     private final MapType mapType;
 
     public MapVictoryQuest(MapType mapType) {
-        super(QuestReward.Huge, 1);
+        this(mapType, QuestReward.Huge);
+    }
+
+    public MapVictoryQuest(MapType mapType, QuestReward reward) {
+        super(reward, 1);
         this.mapType = mapType;
     }
 
