@@ -27,7 +27,7 @@ public strictfp class EnumSerializer {
     private static final int MAP_BITS = 3;
     private static final int ACTIVE_ABILITY_BITS = 3;
     private static final int WIZARD_POWER_BITS = 4;
-    private static final int QUEST_BITS = 4;
+    private static final int QUEST_BITS = 5;
 
     public static TowerType readTowerType(BitReader reader) {
         return TowerType.forId(reader.readUnsignedInt(TOWER_BITS));
