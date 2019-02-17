@@ -96,6 +96,20 @@ public strictfp class ItemTest extends SimTest {
         commandExecutor.executeVoid(command);
     }
 
+    protected void whenAllPotionAreConsumed(PotionType potionType) {
+        whenAllPotionAreConsumed(tower, potionType);
+    }
+
+    protected void whenAllPotionAreConsumed(Tower tower, PotionType potionType) {
+        DrinkPotionCommand command = new DrinkPotionCommand();
+        command.potionType = potionType;
+        command.playerId = wizard.getPlayerId();
+        command.towerX = (int)tower.getX();
+        command.towerY = (int)tower.getY();
+        command.all = true;
+        commandExecutor.executeVoid(command);
+    }
+
     protected Tower whenTowerIsReplaced(Tower tower, TowerType towerType) {
         wizard.towerStash.add(towerType);
         BuildTowerCommand command = new BuildTowerCommand();
