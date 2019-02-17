@@ -1,6 +1,8 @@
 package com.mazebert.simulation.plugins;
 
 import com.mazebert.simulation.Balancing;
+import com.mazebert.simulation.Card;
+import com.mazebert.simulation.CardType;
 import com.mazebert.simulation.Rarity;
 import com.mazebert.simulation.units.Currency;
 
@@ -64,7 +66,7 @@ public strictfp class FormatPlugin {
         }
 
         String result = noFractionFormat.format(seconds / 3600.0f) + ":";
-        int minutes = (int)((seconds % 3600.0f) / 60.0f);
+        int minutes = (int) ((seconds % 3600.0f) / 60.0f);
         if (minutes < 10) {
             result += "0";
         }
@@ -143,7 +145,7 @@ public strictfp class FormatPlugin {
         int d;
         int f;
         for (d = 0, f = 100; d < max; ++d, f *= 10) {
-            if ((int)(value * f) != 0) {
+            if ((int) (value * f) != 0) {
                 break;
             }
         }
@@ -191,5 +193,10 @@ public strictfp class FormatPlugin {
 
     public String rarity(Rarity rarity, boolean lowercase) {
         return colored(lowercase ? rarity.nameLowercase : rarity.name, rarity.color);
+    }
+
+    public String card(CardType cardType) {
+        Card card = cardType.instance();
+        return colored(card.getName(), card.getRarity().color);
     }
 }

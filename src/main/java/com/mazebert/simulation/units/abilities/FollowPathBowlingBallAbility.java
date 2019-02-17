@@ -52,12 +52,7 @@ public strictfp class FollowPathBowlingBallAbility extends FollowPathAbility<Bow
             if (simulationListeners.areNotificationsEnabled()) {
                 simulationListeners.showNotification(getUnit(), "Strike!", NOTIFICATION_COLOR);
             }
-
-            BowlStrikesQuest strikesQuest = getUnit().getWizard().getAbility(BowlStrikesQuest.class);
-            if (strikesQuest != null) {
-                strikesQuest.addAmount(1);
-            }
-
+            getUnit().getWizard().addQuestProgress(BowlStrikesQuest.class);
         } else if (game.isSpare(game.getLastRollIndex())) {
             if (simulationListeners.areNotificationsEnabled()) {
                 simulationListeners.showNotification(getUnit(), "Spare!", NOTIFICATION_COLOR);
@@ -78,11 +73,7 @@ public strictfp class FollowPathBowlingBallAbility extends FollowPathAbility<Bow
                 if (simulationListeners.areNotificationsEnabled()) {
                     simulationListeners.showNotification(wizard, "This is a perfect game!");
                 }
-
-                BowlPerfectGameQuest perfectGameQuest = wizard.getAbility(BowlPerfectGameQuest.class);
-                if (perfectGameQuest != null) {
-                    perfectGameQuest.addAmount(1);
-                }
+                wizard.addQuestProgress(BowlPerfectGameQuest.class);
             }
         }
 

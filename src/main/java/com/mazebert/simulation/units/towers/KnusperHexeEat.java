@@ -6,6 +6,7 @@ import com.mazebert.simulation.WaveType;
 import com.mazebert.simulation.listeners.OnAttackListener;
 import com.mazebert.simulation.units.abilities.Ability;
 import com.mazebert.simulation.units.creeps.Creep;
+import com.mazebert.simulation.units.quests.KnusperHexeQuest;
 
 public strictfp class KnusperHexeEat extends Ability<KnusperHexe> implements OnAttackListener {
     private static final float chance = 0.2f;
@@ -33,7 +34,7 @@ public strictfp class KnusperHexeEat extends Ability<KnusperHexe> implements OnA
             getUnit().kill(target);
 
             ++creepsEaten;
-            getUnit().onChildEaten.dispatch(target);
+            getUnit().getWizard().addQuestProgress(KnusperHexeQuest.class);
 
             if (simulationListeners.areNotificationsEnabled()) {
                 simulationListeners.showNotification(getUnit(), "Child eaten", 0x444444);

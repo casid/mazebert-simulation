@@ -32,7 +32,7 @@ public strictfp enum QuestType {
     TransmuteStackQuestId(22, TransmuteStackQuest.class),
     DrinkAllPotionsQuestId(23, DrinkAllPotionsQuest.class),
     TransmuteCardsQuestId(24, TransmuteCardsQuest.class),
-//    KnusperhexeQuestId(25),
+    KnusperhexeQuestId(25, KnusperHexeQuest.class),
 //    BaluQuestId(26),
 //    MuliQuestId(27),
 //    Map4VictoryUnlockReginnQuestId(28),

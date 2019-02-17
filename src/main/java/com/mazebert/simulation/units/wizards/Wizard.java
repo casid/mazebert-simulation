@@ -130,4 +130,11 @@ public strictfp class Wizard extends Unit {
         }
         super.addAbility(ability);
     }
+
+    public void addQuestProgress(Class<? extends Quest> questClass) {
+        Quest quest = getAbility(questClass);
+        if (quest != null) {
+            quest.addAmount(1);
+        }
+    }
 }
