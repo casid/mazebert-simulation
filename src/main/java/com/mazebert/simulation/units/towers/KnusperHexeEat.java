@@ -34,6 +34,7 @@ public strictfp class KnusperHexeEat extends Ability<KnusperHexe> implements OnA
             getUnit().kill(target);
 
             ++creepsEaten;
+            getUnit().onChildEaten.dispatch(target);
             getUnit().getWizard().addQuestProgress(KnusperHexeQuest.class);
 
             if (simulationListeners.areNotificationsEnabled()) {

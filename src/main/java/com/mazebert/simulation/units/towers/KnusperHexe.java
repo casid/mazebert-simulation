@@ -3,12 +3,15 @@ package com.mazebert.simulation.units.towers;
 import com.mazebert.simulation.AttackType;
 import com.mazebert.simulation.Element;
 import com.mazebert.simulation.Rarity;
+import com.mazebert.simulation.listeners.OnKill;
 import com.mazebert.simulation.projectiles.ProjectileViewType;
 import com.mazebert.simulation.units.Gender;
 import com.mazebert.simulation.units.abilities.AttackAbility;
 import com.mazebert.simulation.units.abilities.ProjectileDamageAbility;
 
 public strictfp class KnusperHexe extends Tower {
+
+    public final OnKill onChildEaten = new OnKill();
 
     private final KnusperHexeEat eat;
 
