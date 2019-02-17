@@ -64,7 +64,7 @@ public class InitPlayerCommandSerializerTest {
     void quests() {
         InitPlayerCommand expected = new InitPlayerCommand();
         QuestData questData = new QuestData();
-        questData.type = QuestType.KillChallengesQuestId;
+        questData.type = QuestType.KillChallengesQuest;
         questData.currentAmount = 3;
         expected.quests.add(questData);
         writer.writeObjectNonNull(expected);

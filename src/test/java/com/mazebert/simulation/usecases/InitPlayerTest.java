@@ -145,7 +145,7 @@ strictfp class InitPlayerTest extends UsecaseTest<InitPlayerCommand> {
     @Test
     void quests() {
         QuestData questData = new QuestData();
-        questData.type = QuestType.KillChallengesQuestId;
+        questData.type = QuestType.KillChallengesQuest;
         questData.currentAmount = 6;
         request.quests.add(questData);
 
