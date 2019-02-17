@@ -41,6 +41,10 @@ public abstract strictfp class Quest extends Ability<Wizard> implements Hashable
     }
 
     protected void addAmount(int amount) {
+        if (amount <= 0) {
+            return;
+        }
+
         currentAmount += amount;
         if (isComplete()) {
             currentAmount = requiredAmount;
