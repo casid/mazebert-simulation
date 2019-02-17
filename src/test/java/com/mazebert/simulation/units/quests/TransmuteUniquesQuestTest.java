@@ -36,4 +36,11 @@ public class TransmuteUniquesQuestTest extends ItemTest {
         whenCardIsTransmuted(ItemType.TransmuteUniques);
         assertThat(quest.getCurrentAmount()).isEqualTo(1);
     }
+
+    @Test
+    void transmuteAllOtherItem_noCrash() {
+        wizard.itemStash.add(ItemType.BabySword);
+        whenAllCardsAreTransmuted(ItemType.BabySword);
+        assertThat(quest.getCurrentAmount()).isEqualTo(0);
+    }
 }
