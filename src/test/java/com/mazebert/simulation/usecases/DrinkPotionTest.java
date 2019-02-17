@@ -72,6 +72,16 @@ public strictfp class DrinkPotionTest extends UsecaseTest<DrinkPotionCommand> {
     }
 
     @Test
+    void drinkAllAtOnce() {
+        wizard.potionStash.add(request.potionType);
+        request.all = true;
+
+        whenRequestIsExecuted();
+
+        assertThat(tower.getAddedRelativeBaseDamage()).isEqualTo(0.1f);
+    }
+
+    @Test
     void towerNotFound() {
         request.towerX = 100;
         whenRequestIsExecuted();

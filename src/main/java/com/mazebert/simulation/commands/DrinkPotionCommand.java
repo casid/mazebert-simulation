@@ -6,4 +6,5 @@ public class DrinkPotionCommand extends Command {
     public PotionType potionType;
     public int towerX;
     public int towerY;
+    public boolean all;
 }

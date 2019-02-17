@@ -17,6 +17,7 @@ public strictfp class DrinkPotionCommandSerializer implements BitSerializer<Drin
         EnumSerializer.writePotionType(writer, object.potionType);
         writer.writeInt8(object.towerX);
         writer.writeInt8(object.towerY);
+        writer.writeBoolean(object.all);
     }
 
     @Override
@@ -24,5 +25,6 @@ public strictfp class DrinkPotionCommandSerializer implements BitSerializer<Drin
         object.potionType = EnumSerializer.readPotionType(reader);
         object.towerX = reader.readInt8();
         object.towerY = reader.readInt8();
+        object.all = reader.readBoolean();
     }
 }

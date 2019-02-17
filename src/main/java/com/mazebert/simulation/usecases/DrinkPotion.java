@@ -27,10 +27,23 @@ public strictfp class DrinkPotion extends Usecase<DrinkPotionCommand> {
             return;
         }
 
+        if (command.all) {
+            while (true) {
+                if (drink(wizard, tower, command) == null) {
+                    break;
+                }
+            }
+        } else {
+            drink(wizard, tower, command);
+        }
+    }
+
+    private Potion drink(Wizard wizard, Tower tower, DrinkPotionCommand command) {
         Potion potion = wizard.potionStash.remove(command.potionType);
         if (potion != null) {
             potion.forEachAbility(tower::addAbility);
             tower.onPotionConsumed.dispatch(tower, potion);
         }
+        return potion;
     }
 }
