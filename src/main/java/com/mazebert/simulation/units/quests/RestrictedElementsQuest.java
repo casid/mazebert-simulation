@@ -17,7 +17,7 @@ public abstract strictfp class RestrictedElementsQuest extends Quest implements 
     private final EnumSet<Element> allowedElements;
 
     public RestrictedElementsQuest(EnumSet<Element> allowedElements) {
-        super(QuestReward.Medium, 1);
+        super(allowedElements.size() == 1 ? QuestReward.Big : QuestReward.Medium, 1);
         this.allowedElements = allowedElements;
     }
 
@@ -63,6 +63,11 @@ public abstract strictfp class RestrictedElementsQuest extends Quest implements 
     @Override
     public void onGameWon() {
         addAmount(1);
+    }
+
+    @Override
+    public boolean isHidden() {
+        return allowedElements.size() == 1;
     }
 
     @Override

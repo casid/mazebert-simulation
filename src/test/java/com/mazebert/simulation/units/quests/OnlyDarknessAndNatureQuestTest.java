@@ -78,4 +78,10 @@ public class OnlyDarknessAndNatureQuestTest extends ItemTest {
     void description() {
         assertThat(quest.getDescription()).isEqualTo("Win a game with <c=#71864c>Nature</c> and <c=#444444>Darkness</c> towers only.");
     }
+
+    @Test
+    void hidden() {
+        OnlyDarknessAndNatureQuest quest = new OnlyDarknessAndNatureQuest();
+        assertThat(quest.isHidden()).isFalse();
+    }
 }
