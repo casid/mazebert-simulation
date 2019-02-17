@@ -35,7 +35,7 @@ public strictfp class TransmuteUniquesQuest extends Quest implements OnCardsTran
     }
 
     @Override
-    public void onCardsTransmuted(Rarity rarity, Collection<CardType> cardTypes) {
+    public void onCardsTransmuted(Rarity rarity, Collection<CardType> cardTypes, int transmutedCards) {
         if (cardTypes != null) {
             for (CardType cardType : cardTypes) {
                 checkProgress(cardType);

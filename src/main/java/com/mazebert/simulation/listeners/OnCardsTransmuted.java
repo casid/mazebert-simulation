@@ -6,8 +6,8 @@ import com.mazebert.simulation.Rarity;
 import java.util.Collection;
 
 public strictfp class OnCardsTransmuted extends ExposedSignal<OnCardsTransmutedListener> {
-    public void dispatch(Rarity rarity, Collection<CardType> cards) {
-        dispatchAll(l -> l.onCardsTransmuted(rarity, cards));
+    public void dispatch(Rarity rarity, Collection<CardType> cards, int transmutedCards) {
+        dispatchAll(l -> l.onCardsTransmuted(rarity, cards, transmutedCards));
     }
 
     public void dispatch(Rarity rarity, CardType card) {

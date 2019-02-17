@@ -8,5 +8,5 @@ import java.util.Collection;
 public interface OnCardsTransmutedListener {
     void onCardTransmuted(Rarity rarity, CardType cardType);
 
-    void onCardsTransmuted(Rarity rarity, Collection<CardType> cardType);
+    void onCardsTransmuted(Rarity rarity, Collection<CardType> cardType, int transmutedCards);
 }

@@ -74,6 +74,7 @@ public strictfp class TransmuteCards extends Usecase<TransmuteCardsCommand> {
     @SuppressWarnings("unchecked")
     public void transmuteAll(Wizard wizard, Stash stash, CardType cardType) {
         List<CardType> result = null;
+        int transmutedCards = 0;
 
         int index = stash.getIndex(cardType);
 
@@ -86,11 +87,12 @@ public strictfp class TransmuteCards extends Usecase<TransmuteCardsCommand> {
                 }
                 result.add(drop);
             }
+            ++transmutedCards;
         }
 
         Rarity rarity = cardType.instance().getRarity();
 
-        wizard.onCardsTransmuted.dispatch(rarity, result);
+        wizard.onCardsTransmuted.dispatch(rarity, result, transmutedCards);
     }
 
     @SuppressWarnings("unchecked")

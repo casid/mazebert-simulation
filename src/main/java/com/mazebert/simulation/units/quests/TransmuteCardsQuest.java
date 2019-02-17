@@ -3,24 +3,18 @@ package com.mazebert.simulation.units.quests;
 import com.mazebert.simulation.CardType;
 import com.mazebert.simulation.Rarity;
 import com.mazebert.simulation.listeners.OnCardsTransmutedListener;
-import com.mazebert.simulation.units.items.ItemType;
 import com.mazebert.simulation.units.wizards.Wizard;
 
 import java.util.Collection;
 
-public strictfp class TransmuteStackQuest extends Quest implements OnCardsTransmutedListener {
-    public TransmuteStackQuest() {
-        super(QuestReward.Small, 1);
+public strictfp class TransmuteCardsQuest extends Quest implements OnCardsTransmutedListener {
+    public TransmuteCardsQuest() {
+        super(QuestReward.Medium, 200);
     }
 
     @Override
     protected void initialize(Wizard unit) {
         super.initialize(unit);
-        unit.itemStash.add(ItemType.TransmuteStack);
-        unit.itemStash.add(ItemType.TransmuteStack);
-        unit.itemStash.add(ItemType.TransmuteStack);
-        unit.itemStash.add(ItemType.TransmuteStack);
-
         unit.onCardsTransmuted.add(this);
     }
 
@@ -32,17 +26,12 @@ public strictfp class TransmuteStackQuest extends Quest implements OnCardsTransm
 
     @Override
     public void onCardTransmuted(Rarity rarity, CardType cardType) {
-        // will not happen
-    }
-
-    @Override
-    public void onCardsTransmuted(Rarity rarity, Collection<CardType> cardType, int transmutedCards) {
         addAmount(1);
     }
 
     @Override
-    public boolean isHidden() {
-        return true;
+    public void onCardsTransmuted(Rarity rarity, Collection<CardType> cardType, int transmutedCards) {
+        addAmount(transmutedCards);
     }
 
     @Override
@@ -52,11 +41,11 @@ public strictfp class TransmuteStackQuest extends Quest implements OnCardsTransm
 
     @Override
     public String getTitle() {
-        return "About time!";
+        return "Deck Shuffler";
     }
 
     @Override
     public String getDescription() {
-        return "No longer swipe until\nyour fingers bleed.";
+        return "Transmute " + requiredAmount + " cards!";
     }
 }
