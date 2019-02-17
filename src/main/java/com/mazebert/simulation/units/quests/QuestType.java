@@ -20,7 +20,7 @@ public strictfp enum QuestType {
     OnlyMetropolisQuestId(10, OnlyMetropolisQuest.class),
     Map3VictoryQuestId(11, Map3VictoryQuest.class),
     Map4VictoryQuestId(12, Map4VictoryQuest.class),
-//    BonusSurvivalQuestId(13),
+    BonusSurvivalQuestId(13, BonusSurvivalQuest.class),
 //    CollectGoldQuestId(14),
 //    TowerLevelsQuestId(15),
 //    VisitBlackMarketQuestId(16),
