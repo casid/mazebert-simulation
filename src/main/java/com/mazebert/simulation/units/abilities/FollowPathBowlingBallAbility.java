@@ -9,6 +9,8 @@ import com.mazebert.simulation.minigames.BowlingGame;
 import com.mazebert.simulation.systems.ExperienceSystem;
 import com.mazebert.simulation.units.creeps.Creep;
 import com.mazebert.simulation.units.items.BowlingBallUnit;
+import com.mazebert.simulation.units.quests.BowlPerfectGameQuest;
+import com.mazebert.simulation.units.quests.BowlStrikesQuest;
 import com.mazebert.simulation.units.wizards.Wizard;
 
 import java.util.HashSet;
@@ -51,7 +53,10 @@ public strictfp class FollowPathBowlingBallAbility extends FollowPathAbility<Bow
                 simulationListeners.showNotification(getUnit(), "Strike!", NOTIFICATION_COLOR);
             }
 
-            // TODO STRIKE quest progress
+            BowlStrikesQuest strikesQuest = getUnit().getWizard().getAbility(BowlStrikesQuest.class);
+            if (strikesQuest != null) {
+                strikesQuest.addAmount(1);
+            }
 
         } else if (game.isSpare(game.getLastRollIndex())) {
             if (simulationListeners.areNotificationsEnabled()) {
@@ -73,7 +78,11 @@ public strictfp class FollowPathBowlingBallAbility extends FollowPathAbility<Bow
                 if (simulationListeners.areNotificationsEnabled()) {
                     simulationListeners.showNotification(wizard, "This is a perfect game!");
                 }
-                // TODO PERFECT_GAME quest progress
+
+                BowlPerfectGameQuest perfectGameQuest = wizard.getAbility(BowlPerfectGameQuest.class);
+                if (perfectGameQuest != null) {
+                    perfectGameQuest.addAmount(1);
+                }
             }
         }
 
