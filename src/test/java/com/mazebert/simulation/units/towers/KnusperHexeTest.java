@@ -9,6 +9,7 @@ import com.mazebert.simulation.projectiles.ProjectileGateway;
 import com.mazebert.simulation.systems.ExperienceSystem;
 import com.mazebert.simulation.systems.LootSystemTrainer;
 import com.mazebert.simulation.units.creeps.Creep;
+import com.mazebert.simulation.units.wizards.Wizard;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -33,7 +34,11 @@ strictfp class KnusperHexeTest extends SimTest {
         experienceSystem = new ExperienceSystem();
         lootSystem = new LootSystemTrainer();
 
+        Wizard wizard = new Wizard();
+        unitGateway.addUnit(wizard);
+
         knusperHexe = new KnusperHexe();
+        knusperHexe.setWizard(wizard);
         unitGateway.addUnit(knusperHexe);
 
         creep = a(creep());
