@@ -32,10 +32,10 @@ public strictfp enum QuestType {
     TransmuteStackQuestId(22, TransmuteStackQuest.class),
     DrinkAllPotionsQuestId(23, DrinkAllPotionsQuest.class),
     TransmuteCardsQuestId(24, TransmuteCardsQuest.class),
-    KnusperhexeQuestId(25, KnusperHexeQuest.class),
+    KnusperHexeQuestId(25, KnusperHexeQuest.class),
     BaluQuestId(26, BaluQuest.class),
     MuliQuestId(27, MuliQuest.class),
-//    Map4VictoryUnlockReginnQuestId(28),
+    Map4VictoryUnlockReginnQuestId(28, Map4VictoryUnlockReginnQuest.class),
     // TODO Coop-Quest: Win a game with a friend, you both will be rewarded
     ;
 
