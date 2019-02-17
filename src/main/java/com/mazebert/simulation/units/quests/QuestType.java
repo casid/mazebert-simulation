@@ -17,7 +17,7 @@ public strictfp enum QuestType {
     OnlyDarknessAndMetropolisQuestId(7, OnlyDarknessAndNatureQuest.class),
     OnlyDarknessQuestId(8, OnlyDarknessQuest.class),
     OnlyNatureQuestId(9, OnlyNatureQuest.class),
-//    OnlyMetropolisQuestId(10),
+    OnlyMetropolisQuestId(10, OnlyMetropolisQuest.class),
 //    Map3VictoryQuestId(11),
 //    Map4VictoryQuestId(12),
 //    BonusSurvivalQuestId(13),
