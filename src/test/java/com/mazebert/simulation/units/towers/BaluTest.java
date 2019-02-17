@@ -5,6 +5,7 @@ import com.mazebert.simulation.SimulationListeners;
 import com.mazebert.simulation.gateways.UnitGateway;
 import com.mazebert.simulation.plugins.random.RandomPluginTrainer;
 import com.mazebert.simulation.units.TestTower;
+import com.mazebert.simulation.units.wizards.Wizard;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -21,7 +22,11 @@ class BaluTest extends SimTest {
         simulationListeners = new SimulationListeners();
         unitGateway = new UnitGateway();
 
+        Wizard wizard = new Wizard();
+        unitGateway.addUnit(wizard);
+
         balu = new Balu();
+        balu.setWizard(wizard);
         unitGateway.addUnit(balu);
     }
 

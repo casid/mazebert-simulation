@@ -5,6 +5,7 @@ import com.mazebert.simulation.SimulationListeners;
 import com.mazebert.simulation.gateways.UnitGateway;
 import com.mazebert.simulation.plugins.random.RandomPlugin;
 import com.mazebert.simulation.units.abilities.CooldownAbility;
+import com.mazebert.simulation.units.quests.BaluQuest;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,6 +43,7 @@ public strictfp class BaluCuddle extends CooldownAbility<Tower> {
         getUnit().addAddedRelativeBaseDamage(damageAdd);
 
         ++cuddleAmount;
+        getUnit().getWizard().addQuestProgress(BaluQuest.class);
 
         if (simulationListeners.areNotificationsEnabled()) {
             simulationListeners.showNotification(cuddleTower, "Cuddles Balu", 0xbaa759);
