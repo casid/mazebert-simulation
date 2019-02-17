@@ -4,21 +4,22 @@ import com.mazebert.simulation.CardType;
 import com.mazebert.simulation.Rarity;
 import com.mazebert.simulation.listeners.OnCardsTransmutedListener;
 import com.mazebert.simulation.units.items.ItemType;
-import com.mazebert.simulation.units.potions.CardDust;
 import com.mazebert.simulation.units.wizards.Wizard;
 
 import java.util.Collection;
 
-public strictfp class TransmuteUniquesQuest extends Quest implements OnCardsTransmutedListener {
-    public TransmuteUniquesQuest() {
+public strictfp class TransmuteStackQuest extends Quest implements OnCardsTransmutedListener {
+    public TransmuteStackQuest() {
         super(QuestReward.Small, 1);
     }
 
     @Override
     protected void initialize(Wizard unit) {
         super.initialize(unit);
-        unit.itemStash.add(ItemType.TransmuteUniques);
-        unit.itemStash.add(ItemType.TransmuteUniques);
+        unit.itemStash.add(ItemType.TransmuteStack);
+        unit.itemStash.add(ItemType.TransmuteStack);
+        unit.itemStash.add(ItemType.TransmuteStack);
+        unit.itemStash.add(ItemType.TransmuteStack);
 
         unit.onCardsTransmuted.add(this);
     }
@@ -31,20 +32,12 @@ public strictfp class TransmuteUniquesQuest extends Quest implements OnCardsTran
 
     @Override
     public void onCardTransmuted(Rarity rarity, CardType cardType) {
-        checkProgress(cardType);
+        // will not happen
     }
 
     @Override
-    public void onCardsTransmuted(Rarity rarity, Collection<CardType> cardTypes) {
-        for (CardType cardType : cardTypes) {
-            checkProgress(cardType);
-        }
-    }
-
-    private void checkProgress(CardType cardType) {
-        if (cardType != null && cardType.instance() instanceof CardDust) {
-            addAmount(1);
-        }
+    public void onCardsTransmuted(Rarity rarity, Collection<CardType> cardType) {
+        addAmount(1);
     }
 
     @Override
@@ -59,11 +52,11 @@ public strictfp class TransmuteUniquesQuest extends Quest implements OnCardsTran
 
     @Override
     public String getTitle() {
-        return "Dust, everywhere!";
+        return "About time!";
     }
 
     @Override
     public String getDescription() {
-        return "You just created your first\nCard Dust.";
+        return "No longer swipe until\nyour fingers bleed.";
     }
 }

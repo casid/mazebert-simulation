@@ -8,6 +8,7 @@ import com.mazebert.simulation.stash.PotionStash;
 import com.mazebert.simulation.stash.ReadonlyStash;
 import com.mazebert.simulation.stash.Stash;
 import com.mazebert.simulation.stash.TowerStash;
+import com.mazebert.simulation.units.items.ItemType;
 import com.mazebert.simulation.units.potions.PotionType;
 import com.mazebert.simulation.units.wizards.Wizard;
 
@@ -63,6 +64,9 @@ public strictfp class TransmuteCards extends Usecase<TransmuteCardsCommand> {
         if (command.all) {
             transmuteAll(wizard, stash, command.cardType);
         } else {
+            if (command.cardType == ItemType.TransmuteStack) {
+                return;
+            }
             transmute(wizard, stash, command.cardType);
         }
     }
