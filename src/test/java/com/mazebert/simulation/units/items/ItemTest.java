@@ -1,11 +1,13 @@
 package com.mazebert.simulation.units.items;
 
+import com.mazebert.simulation.CardCategory;
 import com.mazebert.simulation.CommandExecutor;
 import com.mazebert.simulation.SimTest;
 import com.mazebert.simulation.SimulationListeners;
 import com.mazebert.simulation.commands.BuildTowerCommand;
 import com.mazebert.simulation.commands.DrinkPotionCommand;
 import com.mazebert.simulation.commands.EquipItemCommand;
+import com.mazebert.simulation.commands.TransmuteCardsCommand;
 import com.mazebert.simulation.gateways.DifficultyGateway;
 import com.mazebert.simulation.gateways.GameGateway;
 import com.mazebert.simulation.gateways.PlayerGatewayTrainer;
@@ -104,5 +106,23 @@ public strictfp class ItemTest extends SimTest {
         commandExecutor.executeVoid(command);
 
         return unitGateway.findTower(wizard.getPlayerId(), command.x, command.y);
+    }
+
+    protected void whenAllCardsAreTransmuted(ItemType itemType) {
+        TransmuteCardsCommand command = new TransmuteCardsCommand();
+        command.playerId = wizard.getPlayerId();
+        command.cardCategory = CardCategory.Item;
+        command.cardType = itemType;
+        command.all = true;
+        commandExecutor.executeVoid(command);
+    }
+
+    protected void whenCardIsTransmuted(ItemType itemType) {
+        TransmuteCardsCommand command = new TransmuteCardsCommand();
+        command.playerId = wizard.getPlayerId();
+        command.cardCategory = CardCategory.Item;
+        command.cardType = itemType;
+        command.all = false;
+        commandExecutor.executeVoid(command);
     }
 }

@@ -28,7 +28,7 @@ public strictfp enum QuestType {
     BuyBlackMarketOfferQuestId(18, BuyBlackMarketOfferQuest.class),
     BowlPerfectGameQuestId(19, BowlPerfectGameQuest.class),
     BowlStrikesQuestId(20, BowlStrikesQuest.class),
-//    TransmuteUniquesQuestId(21),
+    TransmuteUniquesQuestId(21, TransmuteUniquesQuest.class),
 //    TransmuteStackQuestId(22),
 //    DrinkAllPotionsQuestId(23),
 //    TransmuteCardsQuestId(24),
