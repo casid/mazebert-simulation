@@ -4,6 +4,7 @@ import com.mazebert.simulation.Sim;
 import com.mazebert.simulation.SimulationListeners;
 import com.mazebert.simulation.plugins.random.RandomPlugin;
 import com.mazebert.simulation.units.abilities.AttackAbility;
+import com.mazebert.simulation.units.quests.MuliQuest;
 
 public strictfp class MuliAttack extends AttackAbility {
     private final SimulationListeners simulationListeners = Sim.context().simulationListeners;
@@ -30,6 +31,7 @@ public strictfp class MuliAttack extends AttackAbility {
                 simulationListeners.showNotification(getUnit(), "Hangover!", 0xbaa759);
             }
             state = MuliState.Hangover;
+            getUnit().getWizard().addQuestProgress(MuliQuest.class);
 
             hangoverDuration = getUnit().getCooldown(MuliBooze.HANGOVER_DURATION);
             return true;

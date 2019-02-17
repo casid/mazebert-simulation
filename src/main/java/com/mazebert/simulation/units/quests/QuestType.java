@@ -34,7 +34,7 @@ public strictfp enum QuestType {
     TransmuteCardsQuestId(24, TransmuteCardsQuest.class),
     KnusperhexeQuestId(25, KnusperHexeQuest.class),
     BaluQuestId(26, BaluQuest.class),
-//    MuliQuestId(27),
+    MuliQuestId(27, MuliQuest.class),
 //    Map4VictoryUnlockReginnQuestId(28),
     // TODO Coop-Quest: Win a game with a friend, you both will be rewarded
     ;
