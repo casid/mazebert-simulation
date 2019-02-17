@@ -38,7 +38,7 @@ public abstract strictfp class RestrictedElementsQuest extends Quest implements 
     @Override
     public void onUnitAdded(Unit unit) {
         if (isForbiddenElement(unit)) {
-            getUnit().removeAbility(this);
+            questFailed();
         }
     }
 

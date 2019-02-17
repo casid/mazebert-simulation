@@ -1,5 +1,6 @@
 package com.mazebert.simulation.units.quests;
 
+import com.mazebert.simulation.Sim;
 import com.mazebert.simulation.hash.Hash;
 import com.mazebert.simulation.hash.Hashable;
 import com.mazebert.simulation.units.abilities.Ability;
@@ -47,6 +48,13 @@ public abstract strictfp class Quest extends Ability<Wizard> implements Hashable
 
             getUnit().removeAbility(this);
         }
+    }
+
+    protected void questFailed() {
+        if (!isHidden()) {
+            Sim.context().simulationListeners.showNotification(getUnit(), "Quest failed: " + getTitle());
+        }
+        getUnit().removeAbility(this);
     }
 
     public boolean isComplete() {
