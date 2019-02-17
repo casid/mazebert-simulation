@@ -54,6 +54,11 @@ public class Map1VictoryQuestTest extends SimTest implements OnQuestCompletedLis
         assertThat(completedQuest).isNull();
     }
 
+    @Test
+    void hidden() {
+        assertThat(new Map1VictoryQuest().isHidden()).isTrue();
+    }
+
     @Override
     public void onQuestCompleted(Wizard wizard, Quest quest) {
         completedQuest = quest;

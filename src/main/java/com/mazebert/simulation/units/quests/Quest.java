@@ -53,6 +53,10 @@ public abstract strictfp class Quest extends Ability<Wizard> implements Hashable
         return currentAmount >= requiredAmount;
     }
 
+    public boolean isHidden() {
+        return false;
+    }
+
     public void setCurrentAmount(int currentAmount) {
         this.currentAmount = currentAmount;
     }

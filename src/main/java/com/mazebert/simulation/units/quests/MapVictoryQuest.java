@@ -36,4 +36,9 @@ public abstract strictfp class MapVictoryQuest extends Quest implements OnGameWo
     public void onGameWon() {
         addAmount(1);
     }
+
+    @Override
+    public boolean isHidden() {
+        return true;
+    }
 }
