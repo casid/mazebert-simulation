@@ -16,7 +16,7 @@ public strictfp enum QuestType {
     WatchCreditsQuestId(6, WatchCreditsQuest.class),
     OnlyDarknessAndMetropolisQuestId(7, OnlyDarknessAndNatureQuest.class),
     OnlyDarknessQuestId(8, OnlyDarknessQuest.class),
-//    OnlyNatureQuestId(9),
+    OnlyNatureQuestId(9, OnlyNatureQuest.class),
 //    OnlyMetropolisQuestId(10),
 //    Map3VictoryQuestId(11),
 //    Map4VictoryQuestId(12),
