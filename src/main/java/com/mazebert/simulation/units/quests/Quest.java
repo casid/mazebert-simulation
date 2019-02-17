@@ -57,6 +57,10 @@ public abstract strictfp class Quest extends Ability<Wizard> implements Hashable
         return false;
     }
 
+    public boolean isSimulated() {
+        return true;
+    }
+
     public void setCurrentAmount(int currentAmount) {
         this.currentAmount = currentAmount;
     }
