@@ -6,7 +6,7 @@ import com.mazebert.simulation.hash.Hashable;
 import com.mazebert.simulation.units.abilities.Ability;
 import com.mazebert.simulation.units.wizards.Wizard;
 
-public abstract strictfp class Quest extends Ability<Wizard> implements Hashable {
+public abstract strictfp class Quest extends Ability<Wizard> {
     public final int id;
     public final QuestType type;
     public final int reward;
@@ -20,14 +20,6 @@ public abstract strictfp class Quest extends Ability<Wizard> implements Hashable
         this.id = type.id;
         this.reward = reward.relics;
         this.requiredAmount = requiredAmount;
-    }
-
-    @Override
-    public void hash(Hash hash) {
-        hash.add(id);
-        hash.add(reward);
-        hash.add(requiredAmount);
-        hash.add(currentAmount);
     }
 
     public abstract String getSinceVersion();

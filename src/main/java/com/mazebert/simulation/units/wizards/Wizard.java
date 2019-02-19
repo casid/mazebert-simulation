@@ -39,7 +39,6 @@ public strictfp class Wizard extends Unit {
     public float interestBonus;
     public int requiredTransmuteAmount = 4;
     public int transmutedUniques;
-    public Quest[] quests;
 
     public transient double bestHit;
     public transient TowerType bestHitTower;
@@ -80,7 +79,6 @@ public strictfp class Wizard extends Unit {
         hash.add(interestBonus);
         hash.add(requiredTransmuteAmount);
         hash.add(transmutedUniques);
-        hash.add(quests);
 
         // ignore transient attributes
     }
