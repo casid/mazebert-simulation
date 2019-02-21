@@ -3,11 +3,13 @@ package com.mazebert.simulation.units.quests;
 import com.mazebert.simulation.Sim;
 import com.mazebert.simulation.SimulationListeners;
 import com.mazebert.simulation.gateways.PlayerGateway;
+import com.mazebert.simulation.gateways.UnitGateway;
 import com.mazebert.simulation.listeners.OnGameWonListener;
 import com.mazebert.simulation.units.wizards.Wizard;
 
 public strictfp class CoopQuest extends Quest implements OnGameWonListener {
     private final PlayerGateway playerGateway = Sim.context().playerGateway;
+    private final UnitGateway unitGateway = Sim.context().unitGateway;
     private final SimulationListeners simulationListeners = Sim.context().simulationListeners;
 
     public CoopQuest() {
@@ -30,6 +32,12 @@ public strictfp class CoopQuest extends Quest implements OnGameWonListener {
 
     @Override
     public void onGameWon() {
+        unitGateway.forEach(Wizard.class, w -> {
+            if (w != getUnit()) {
+                w.onQuestCompleted.dispatch(w, this);
+            }
+        });
+
         addAmount(1);
     }
 
