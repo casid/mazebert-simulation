@@ -20,7 +20,7 @@ import java.util.List;
 
 public strictfp class DarkForgeCraft extends Ability<Tower> implements OnUnitAddedListener, OnUnitRemovedListener, OnWaveFinishedListener {
 
-    public static final float CHANCE = 0.01f;
+    public static final float CHANCE = 0.1f;
 
     private final SimulationListeners simulationListeners = Sim.context().simulationListeners;
     private final RandomPlugin randomPlugin = Sim.context().randomPlugin;
