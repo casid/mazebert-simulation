@@ -8,6 +8,7 @@ import com.mazebert.simulation.gateways.GameGateway;
 import com.mazebert.simulation.gateways.PlayerGateway;
 import com.mazebert.simulation.gateways.UnitGateway;
 import com.mazebert.simulation.listeners.OnHealthChangedListener;
+import com.mazebert.simulation.tutorial.Tutorial;
 import com.mazebert.simulation.units.Unit;
 import com.mazebert.simulation.units.towers.TowerType;
 import com.mazebert.simulation.units.wizards.Wizard;
@@ -18,6 +19,8 @@ public strictfp class GameSystem implements OnHealthChangedListener {
     private final GameGateway gameGateway = Sim.context().gameGateway;
     private final UnitGateway unitGateway = Sim.context().unitGateway;
     private final LootSystem lootSystem = Sim.context().lootSystem;
+
+    private Tutorial tutorial;
 
     public void addWizards() {
         for (int playerId = 1; playerId <= playerGateway.getPlayerCount(); ++playerId) {
@@ -42,7 +45,7 @@ public strictfp class GameSystem implements OnHealthChangedListener {
     }
 
     public void rollStartingTowers(Wizard wizard) {
-        if (gameGateway.getGame().tutorial) {
+        if (isTutorial()) {
             wizard.towerStash.add(TowerType.Beaver);
             wizard.towerStash.add(TowerType.Rabbit);
             wizard.towerStash.add(TowerType.PocketThief);
@@ -111,5 +114,19 @@ public strictfp class GameSystem implements OnHealthChangedListener {
         else if (bonusSurvivalTime < 9 * 480) return "Emperor";
         else if (bonusSurvivalTime < 10 * 540) return "Master of the Universe";
         else return "Chuck Norris";
+    }
+
+    public void initTutorial() {
+        if (playerGateway.getPlayerCount() == 1) {
+            tutorial = new Tutorial();
+        }
+    }
+
+    public Tutorial getTutorial() {
+        return tutorial;
+    }
+
+    public boolean isTutorial() {
+        return tutorial != null;
     }
 }

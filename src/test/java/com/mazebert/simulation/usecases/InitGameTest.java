@@ -214,6 +214,6 @@ class InitGameTest extends UsecaseTest<InitGameCommand> {
     void tutorial() {
         request.tutorial = true;
         whenRequestIsExecuted();
-        assertThat(gameGateway.getGame().tutorial).isTrue();
+        assertThat(gameSystem.isTutorial()).isTrue();
     }
 }

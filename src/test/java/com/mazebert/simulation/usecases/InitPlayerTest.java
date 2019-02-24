@@ -4,6 +4,7 @@ import com.mazebert.simulation.Element;
 import com.mazebert.simulation.SimulationListeners;
 import com.mazebert.simulation.commands.InitPlayerCommand;
 import com.mazebert.simulation.gateways.GameGateway;
+import com.mazebert.simulation.gateways.PlayerGatewayTrainer;
 import com.mazebert.simulation.gateways.UnitGateway;
 import com.mazebert.simulation.plugins.random.RandomPluginTrainer;
 import com.mazebert.simulation.systems.ExperienceSystem;
@@ -33,6 +34,7 @@ strictfp class InitPlayerTest extends UsecaseTest<InitPlayerCommand> {
     void setUp() {
         simulationListeners = new SimulationListeners();
         unitGateway = new UnitGateway();
+        playerGateway = new PlayerGatewayTrainer();
         gameGateway = new GameGateway();
         randomPlugin = randomPluginTrainer;
 
@@ -132,7 +134,7 @@ strictfp class InitPlayerTest extends UsecaseTest<InitPlayerCommand> {
 
     @Test
     void startingTowers_tutorial() {
-        gameGateway.getGame().tutorial = true;
+        gameSystem.initTutorial();
 
         whenRequestIsExecuted();
 
