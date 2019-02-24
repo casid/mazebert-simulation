@@ -2,31 +2,27 @@ package com.mazebert.simulation.tutorial;
 
 import com.mazebert.simulation.Sim;
 import com.mazebert.simulation.SimulationListeners;
-import com.mazebert.simulation.listeners.OnUnitAddedListener;
-import com.mazebert.simulation.units.Unit;
-import com.mazebert.simulation.units.towers.Dandelion;
+import com.mazebert.simulation.Wave;
+import com.mazebert.simulation.listeners.OnWaveFinishedListener;
 import com.mazebert.simulation.units.wizards.Wizard;
 
-public strictfp class Lesson02BuildTower extends Lesson implements OnUnitAddedListener {
+public strictfp class Lesson04KillCreeps extends Lesson implements OnWaveFinishedListener {
     private final SimulationListeners simulationListeners = Sim.context().simulationListeners;
 
     @Override
     public void initialize(Wizard wizard) {
         super.initialize(wizard);
-        simulationListeners.onUnitAdded.add(this);
+        simulationListeners.onWaveFinished.add(this);
     }
 
     @Override
     public void dispose(Wizard wizard) {
-        simulationListeners.onUnitAdded.remove(this);
+        simulationListeners.onWaveFinished.remove(this);
         super.dispose(wizard);
     }
 
     @Override
-    public void onUnitAdded(Unit unit) {
-        if (unit instanceof Dandelion) {
-            finish();
-            resumeGame();
-        }
+    public void onWaveFinished(Wave wave) {
+        finish();
     }
 }

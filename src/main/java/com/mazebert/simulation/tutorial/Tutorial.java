@@ -21,10 +21,12 @@ public strictfp class Tutorial implements OnTutorialLessonFinishedListener {
     public Tutorial() {
         lessons.add(new Lesson01PauseGame());
         lessons.add(new Lesson02BuildTower());
+        lessons.add(new Lesson03FirstWave());
+        lessons.add(new Lesson04KillCreeps());
     }
 
     private void dispose() {
-
+        lessons.clear();
     }
 
     public void start(Wizard wizard) {

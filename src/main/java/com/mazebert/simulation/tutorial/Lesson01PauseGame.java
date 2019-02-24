@@ -2,7 +2,6 @@ package com.mazebert.simulation.tutorial;
 
 import com.mazebert.simulation.Sim;
 import com.mazebert.simulation.SimulationListeners;
-import com.mazebert.simulation.commands.PauseCommand;
 import com.mazebert.simulation.listeners.OnGameCountDownListener;
 import com.mazebert.simulation.listeners.OnPauseListener;
 import com.mazebert.simulation.units.wizards.Wizard;
@@ -27,17 +26,14 @@ public strictfp class Lesson01PauseGame extends Lesson implements OnPauseListene
     @Override
     public void onPause(int playerId, boolean pause) {
         if (pause) {
-           finish();
+            finish();
         }
     }
 
     @Override
     public void onGameCountDown(int remainingSeconds) {
         if (remainingSeconds <= 5) {
-            PauseCommand command = new PauseCommand();
-            command.pause = true;
-
-            Sim.context().commandExecutor.executeVoid(command);
+            pauseGame();
         }
     }
 }

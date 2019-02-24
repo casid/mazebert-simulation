@@ -1,6 +1,7 @@
 package com.mazebert.simulation.tutorial;
 
 import com.mazebert.simulation.Sim;
+import com.mazebert.simulation.commands.PauseCommand;
 import com.mazebert.simulation.listeners.OnTutorialLessonFinished;
 import com.mazebert.simulation.plugins.FormatPlugin;
 import com.mazebert.simulation.units.wizards.Wizard;
@@ -25,5 +26,20 @@ public strictfp abstract class Lesson {
             this.finished = true;
             onFinished.dispatch(this);
         }
+    }
+
+    protected void pauseGame() {
+        pauseGame(true);
+    }
+
+    protected void resumeGame() {
+        pauseGame(false);
+    }
+
+    private void pauseGame(boolean pause) {
+        PauseCommand command = new PauseCommand();
+        command.pause = pause;
+
+        Sim.context().commandExecutor.executeVoid(command);
     }
 }
