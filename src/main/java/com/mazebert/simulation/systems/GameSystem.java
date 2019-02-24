@@ -9,6 +9,7 @@ import com.mazebert.simulation.gateways.PlayerGateway;
 import com.mazebert.simulation.gateways.UnitGateway;
 import com.mazebert.simulation.listeners.OnHealthChangedListener;
 import com.mazebert.simulation.units.Unit;
+import com.mazebert.simulation.units.towers.TowerType;
 import com.mazebert.simulation.units.wizards.Wizard;
 
 public strictfp class GameSystem implements OnHealthChangedListener {
@@ -41,13 +42,20 @@ public strictfp class GameSystem implements OnHealthChangedListener {
     }
 
     public void rollStartingTowers(Wizard wizard) {
-        // Research starting towers (first 3 must be guaranteed to be affordable by the player)
-        for (int i = 0; i < 3; ++i) {
-            lootSystem.researchStartingTower(wizard);
-        }
+        if (gameGateway.getGame().tutorial) {
+            wizard.towerStash.add(TowerType.Beaver);
+            wizard.towerStash.add(TowerType.Rabbit);
+            wizard.towerStash.add(TowerType.PocketThief);
+            wizard.towerStash.add(TowerType.Dandelion);
+        } else {
+            // Research starting towers (first 3 must be guaranteed to be affordable by the player)
+            for (int i = 0; i < 3; ++i) {
+                lootSystem.researchStartingTower(wizard);
+            }
 
-        // The last one can be anything possible for this round!
-        lootSystem.researchTower(wizard, 1);
+            // The last one can be anything possible for this round!
+            lootSystem.researchTower(wizard, 1);
+        }
     }
 
     @Override

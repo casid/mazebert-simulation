@@ -3,6 +3,7 @@ package com.mazebert.simulation.usecases;
 import com.mazebert.simulation.Element;
 import com.mazebert.simulation.SimulationListeners;
 import com.mazebert.simulation.commands.InitPlayerCommand;
+import com.mazebert.simulation.gateways.GameGateway;
 import com.mazebert.simulation.gateways.UnitGateway;
 import com.mazebert.simulation.plugins.random.RandomPluginTrainer;
 import com.mazebert.simulation.systems.ExperienceSystem;
@@ -32,6 +33,7 @@ strictfp class InitPlayerTest extends UsecaseTest<InitPlayerCommand> {
     void setUp() {
         simulationListeners = new SimulationListeners();
         unitGateway = new UnitGateway();
+        gameGateway = new GameGateway();
         randomPlugin = randomPluginTrainer;
 
         wizard = new Wizard();
@@ -126,6 +128,20 @@ strictfp class InitPlayerTest extends UsecaseTest<InitPlayerCommand> {
         assertThat(wizard.towerStash.get(0).getAmount()).isEqualTo(3);
         assertThat(wizard.towerStash.get(1).getCardType()).isEqualTo(TowerType.Frog);
         assertThat(wizard.towerStash.get(1).getAmount()).isEqualTo(1);
+    }
+
+    @Test
+    void startingTowers_tutorial() {
+        gameGateway.getGame().tutorial = true;
+
+        whenRequestIsExecuted();
+
+        Wizard wizard = unitGateway.getWizard(request.playerId);
+        assertThat(wizard.towerStash.size()).isEqualTo(4);
+        assertThat(wizard.towerStash.get(0).getCardType()).isEqualTo(TowerType.Beaver);
+        assertThat(wizard.towerStash.get(1).getCardType()).isEqualTo(TowerType.Rabbit);
+        assertThat(wizard.towerStash.get(2).getCardType()).isEqualTo(TowerType.PocketThief);
+        assertThat(wizard.towerStash.get(3).getCardType()).isEqualTo(TowerType.Dandelion);
     }
 
     @Test
