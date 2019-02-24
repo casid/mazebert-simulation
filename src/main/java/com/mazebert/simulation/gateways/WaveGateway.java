@@ -1,9 +1,6 @@
 package com.mazebert.simulation.gateways;
 
-import com.mazebert.simulation.ArmorType;
-import com.mazebert.simulation.Wave;
-import com.mazebert.simulation.WaveOrigin;
-import com.mazebert.simulation.WaveType;
+import com.mazebert.simulation.*;
 import com.mazebert.simulation.plugins.random.RandomPlugin;
 import com.mazebert.simulation.units.creeps.CreepModifier;
 import com.mazebert.simulation.units.creeps.CreepType;
@@ -84,6 +81,9 @@ public strictfp class WaveGateway implements ReadonlyWaveGateway {
     }
 
     public WaveType calculateWaveType(RandomPlugin randomPlugin, int round) {
+        if (round == 1 && Sim.context().gameSystem.isTutorial()) {
+            return WaveType.Mass;
+        }
         if (round > 0 && round % 50 == 0) {
             return WaveType.Horseman;
         }

@@ -5,6 +5,7 @@ import com.mazebert.simulation.SimTest;
 import com.mazebert.simulation.Wave;
 import com.mazebert.simulation.WaveType;
 import com.mazebert.simulation.plugins.random.RandomPluginTrainer;
+import com.mazebert.simulation.systems.GameSystem;
 import com.mazebert.simulation.units.creeps.CreepModifier;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -22,6 +23,7 @@ class WaveGatewayTest extends SimTest {
     void setUp() {
         randomPlugin = randomPluginTrainer;
         waveGateway = new WaveGateway();
+        gameSystem = new GameSystem();
     }
 
     @Test
