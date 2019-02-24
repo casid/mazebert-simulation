@@ -53,6 +53,10 @@ public strictfp class InitPlayer extends Usecase<InitPlayerCommand> {
 //            wizard.potionStash.add(value);
 //        }
 
+        if (gameSystem.getTutorial() != null) {
+            gameSystem.getTutorial().start(wizard);
+        }
+
         simulationListeners.onPlayerInitialized.dispatch(wizard.playerId);
     }
 
