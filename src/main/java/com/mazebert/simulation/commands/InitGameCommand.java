@@ -12,4 +12,5 @@ public strictfp class InitGameCommand extends Command {
     public int rounds;
     public Difficulty difficulty = Difficulty.Easy;
     public MapType map;
+    public boolean tutorial;
 }

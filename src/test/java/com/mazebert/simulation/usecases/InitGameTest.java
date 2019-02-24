@@ -209,4 +209,11 @@ class InitGameTest extends UsecaseTest<InitGameCommand> {
         Throwable throwable = catchThrowable(this::whenRequestIsExecuted);
         assertThat(throwable).isInstanceOf(UnsupportedVersionException.class);
     }
+
+    @Test
+    void tutorial() {
+        request.tutorial = true;
+        whenRequestIsExecuted();
+        assertThat(gameGateway.getGame().tutorial).isTrue();
+    }
 }

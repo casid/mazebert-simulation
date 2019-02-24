@@ -19,6 +19,7 @@ public strictfp class InitGameCommandSerializer implements BitSerializer<InitGam
         writer.writeUnsignedInt12(object.rounds);
         EnumSerializer.writeDifficulty(writer, object.difficulty);
         EnumSerializer.writeMapType(writer, object.map);
+        writer.writeBoolean(object.tutorial);
     }
 
     @Override
@@ -28,5 +29,6 @@ public strictfp class InitGameCommandSerializer implements BitSerializer<InitGam
         object.rounds = reader.readUnsignedInt12();
         object.difficulty = EnumSerializer.readDifficulty(reader);
         object.map = EnumSerializer.readMapType(reader);
+        object.tutorial = reader.readBoolean();
     }
 }
