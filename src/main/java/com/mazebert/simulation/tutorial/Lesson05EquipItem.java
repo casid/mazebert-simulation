@@ -37,7 +37,6 @@ public strictfp class Lesson05EquipItem extends Lesson implements OnItemEquipped
     public void onItemEquipped(Tower tower, int index, Item oldItem, Item newItem) {
         if (newItem instanceof BabySword) {
             finish();
-            resumeGame();
         }
     }
 }
