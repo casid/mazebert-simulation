@@ -129,4 +129,11 @@ public strictfp class GameSystem implements OnHealthChangedListener {
     public boolean isTutorial() {
         return tutorial != null;
     }
+
+    public void endTutorial() {
+        if (tutorial != null) {
+            tutorial.dispose();
+            tutorial = null;
+        }
+    }
 }

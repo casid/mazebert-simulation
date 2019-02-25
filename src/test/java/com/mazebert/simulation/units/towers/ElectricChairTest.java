@@ -9,6 +9,7 @@ import com.mazebert.simulation.plugins.random.RandomPluginTrainer;
 import com.mazebert.simulation.projectiles.ChainViewType;
 import com.mazebert.simulation.systems.DamageSystemTrainer;
 import com.mazebert.simulation.systems.ExperienceSystem;
+import com.mazebert.simulation.systems.GameSystem;
 import com.mazebert.simulation.systems.LootSystem;
 import com.mazebert.simulation.units.creeps.Creep;
 import org.junit.jupiter.api.BeforeEach;
@@ -34,6 +35,7 @@ class ElectricChairTest extends SimTest implements OnChainListener {
         damageSystem = damageSystemTrainer;
         experienceSystem = new ExperienceSystem();
         lootSystem = new LootSystem();
+        gameSystem = new GameSystem();
 
         electricChair = new ElectricChair();
         electricChair.onChain.add(this);

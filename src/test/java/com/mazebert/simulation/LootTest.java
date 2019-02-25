@@ -1,9 +1,11 @@
 package com.mazebert.simulation;
 
+import com.mazebert.simulation.gateways.PlayerGatewayTrainer;
 import com.mazebert.simulation.gateways.UnitGateway;
 import com.mazebert.simulation.plugins.random.RandomPluginTrainer;
 import com.mazebert.simulation.systems.DamageSystemTrainer;
 import com.mazebert.simulation.systems.ExperienceSystem;
+import com.mazebert.simulation.systems.GameSystem;
 import com.mazebert.simulation.systems.LootSystem;
 import com.mazebert.simulation.units.TestTower;
 import com.mazebert.simulation.units.abilities.AttackAbility;
@@ -36,10 +38,12 @@ public class LootTest extends SimTest {
     void setUp() {
         simulationListeners = new SimulationListeners();
         unitGateway = new UnitGateway();
+        playerGateway = new PlayerGatewayTrainer();
         randomPlugin = randomPluginTrainer;
         damageSystem = damageSystemTrainer = new DamageSystemTrainer();
         lootSystem = new LootSystem();
         experienceSystem = new ExperienceSystem();
+        gameSystem = new GameSystem();
 
         wizard1 = new Wizard();
         wizard1.playerId = 1;
@@ -306,6 +310,22 @@ public class LootTest extends SimTest {
 
         assertThat(wizard1.itemStash.get(0).amount).isEqualTo(1);
         assertThat(wizard1.itemStash.get(0).cardType).isEqualTo(ItemType.MonsterTeeth);
+    }
+
+    @Test
+    void loot_notInTutorial() {
+        gameSystem.initTutorial();
+        randomPluginTrainer.givenFloatAbs(
+                0.0f, // This is a drop
+                0.99f, // The rarity of this drop is common
+                0.0f, // This is an item drop
+                BABY_SWORD_ROLL // It's a baby sword!
+        );
+        creep.setMaxDrops(1);
+
+        whenTowerAttacks();
+
+        assertThat(wizard1.itemStash.size()).isEqualTo(0);
     }
 
     @Test

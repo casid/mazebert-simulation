@@ -1,5 +1,6 @@
 package com.mazebert.simulation.tutorial;
 
+import com.mazebert.simulation.Sim;
 import com.mazebert.simulation.listeners.OnTutorialLessonFinished;
 import com.mazebert.simulation.listeners.OnTutorialLessonFinishedListener;
 import com.mazebert.simulation.listeners.OnTutorialLessonStarted;
@@ -26,7 +27,7 @@ public strictfp class Tutorial implements OnTutorialLessonFinishedListener {
         lessons.add(new Lesson05EquipItem());
     }
 
-    private void dispose() {
+    public void dispose() {
         lessons.clear();
     }
 
@@ -67,7 +68,7 @@ public strictfp class Tutorial implements OnTutorialLessonFinishedListener {
     public void onTutorialLessonFinished(Lesson lesson) {
         startNextLesson();
         if (isFinished()) {
-            dispose();
+            Sim.context().gameSystem.endTutorial();
         }
     }
 }

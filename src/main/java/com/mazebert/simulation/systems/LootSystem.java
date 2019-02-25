@@ -22,6 +22,10 @@ public strictfp class LootSystem {
     }
 
     private void lootCards(Wizard wizard, Tower tower, Creep creep) {
+        if (Sim.context().gameSystem.isTutorial()) {
+            return;
+        }
+
         int minDrops = creep.getMinDrops();
         int maxDrops = creep.getMaxDrops();
         int maxItemLevel = creep.getMaxItemLevel();
