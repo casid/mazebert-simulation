@@ -26,6 +26,9 @@ public strictfp class Tutorial implements OnTutorialLessonFinishedListener {
         lessons.add(new Lesson04KillCreeps());
         lessons.add(new Lesson05EquipItem());
         lessons.add(new Lesson06BuildTower());
+        lessons.add(new Lesson07SecondWave());
+        lessons.add(new Lesson08KillCreeps());
+        lessons.add(new Lesson09DrinkPotion());
     }
 
     public void dispose() {
