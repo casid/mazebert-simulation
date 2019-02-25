@@ -87,8 +87,14 @@ public strictfp class InitPlayer extends Usecase<InitPlayerCommand> {
     }
 
     private void addQuests(Wizard wizard, List<QuestData> quests) {
+        boolean tutorial = gameSystem.getTutorial() != null;
+
         for (QuestData data : quests) {
             Quest quest = data.type.create();
+            if (tutorial && !quest.isAllowedInTutorial()) {
+                continue;
+            }
+
             quest.setCurrentAmount(data.currentAmount);
             wizard.addAbility(quest);
         }

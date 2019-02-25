@@ -65,6 +65,10 @@ public abstract strictfp class Quest extends Ability<Wizard> {
         return true;
     }
 
+    public boolean isAllowedInTutorial() {
+        return true;
+    }
+
     public void setCurrentAmount(int currentAmount) {
         this.currentAmount = currentAmount;
     }

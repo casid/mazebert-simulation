@@ -55,6 +55,11 @@ public strictfp class TransmuteUniquesQuest extends Quest implements OnCardsTran
     }
 
     @Override
+    public boolean isAllowedInTutorial() {
+        return false;
+    }
+
+    @Override
     public String getSinceVersion() {
         return "1.3.0";
     }

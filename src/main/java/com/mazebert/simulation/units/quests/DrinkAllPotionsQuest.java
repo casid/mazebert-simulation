@@ -35,6 +35,11 @@ public strictfp class DrinkAllPotionsQuest extends Quest implements OnAllPotions
     }
 
     @Override
+    public boolean isAllowedInTutorial() {
+        return false;
+    }
+
+    @Override
     public String getSinceVersion() {
         return "1.3.0";
     }
