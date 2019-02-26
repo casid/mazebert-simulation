@@ -35,6 +35,7 @@ public strictfp class Tutorial implements OnTutorialLessonFinishedListener {
         lessons.add(new Lesson13FourthWave());
         lessons.add(new Lesson14KillCreeps());
         lessons.add(new Lesson15TransmuteItems());
+        lessons.add(new Lesson16Finished());
     }
 
     public void dispose() {
@@ -53,7 +54,6 @@ public strictfp class Tutorial implements OnTutorialLessonFinishedListener {
 
         onLessonStarted.dispatch(currentLesson);
     }
-
 
     private void startNextLesson() {
         currentLesson.dispose(wizard);
