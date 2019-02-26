@@ -81,8 +81,17 @@ public strictfp class WaveGateway implements ReadonlyWaveGateway {
     }
 
     public WaveType calculateWaveType(RandomPlugin randomPlugin, int round) {
-        if (round == 1 && Sim.context().gameSystem.isTutorial()) {
-            return WaveType.Mass;
+        if (round < 5 && Sim.context().gameSystem.isTutorial()) {
+            switch (round) {
+                case 1:
+                    return WaveType.Mass;
+                case 2:
+                    return WaveType.Normal;
+                case 3:
+                    return WaveType.Air;
+                case 4:
+                    return WaveType.Boss;
+            }
         }
         if (round > 0 && round % 50 == 0) {
             return WaveType.Horseman;

@@ -48,7 +48,7 @@ public strictfp class GameSystem implements OnHealthChangedListener {
         if (isTutorial()) {
             wizard.towerStash.add(TowerType.Beaver);
             wizard.towerStash.add(TowerType.Rabbit);
-            wizard.towerStash.add(TowerType.PocketThief);
+            wizard.towerStash.add(TowerType.Hitman);
             wizard.towerStash.add(TowerType.Dandelion);
         } else {
             // Research starting towers (first 3 must be guaranteed to be affordable by the player)

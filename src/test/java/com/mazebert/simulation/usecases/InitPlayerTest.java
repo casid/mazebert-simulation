@@ -142,7 +142,7 @@ strictfp class InitPlayerTest extends UsecaseTest<InitPlayerCommand> {
         assertThat(wizard.towerStash.size()).isEqualTo(4);
         assertThat(wizard.towerStash.get(0).getCardType()).isEqualTo(TowerType.Beaver);
         assertThat(wizard.towerStash.get(1).getCardType()).isEqualTo(TowerType.Rabbit);
-        assertThat(wizard.towerStash.get(2).getCardType()).isEqualTo(TowerType.PocketThief);
+        assertThat(wizard.towerStash.get(2).getCardType()).isEqualTo(TowerType.Hitman);
         assertThat(wizard.towerStash.get(3).getCardType()).isEqualTo(TowerType.Dandelion);
     }
 
