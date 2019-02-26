@@ -19,8 +19,6 @@ public strictfp class Lesson15TransmuteItems extends Lesson implements OnCardsTr
         wizard.itemStash.add(ItemType.Pumpkin);
 
         wizard.onCardsTransmuted.add(this);
-
-        pauseGame();
     }
 
     @Override

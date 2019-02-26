@@ -26,7 +26,6 @@ public strictfp class Lesson02BuildTower extends Lesson implements OnUnitAddedLi
     public void onUnitAdded(Unit unit) {
         if (unit instanceof Dandelion) {
             finish();
-            resumeGame();
         }
     }
 }

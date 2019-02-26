@@ -14,8 +14,6 @@ public strictfp class Lesson12ReplaceTower extends Lesson implements OnUnitAdded
     public void initialize(Wizard wizard) {
         super.initialize(wizard);
         simulationListeners.onUnitAdded.add(this);
-
-        pauseGame();
     }
 
     @Override
@@ -28,7 +26,6 @@ public strictfp class Lesson12ReplaceTower extends Lesson implements OnUnitAdded
     public void onUnitAdded(Unit unit) {
         if (unit instanceof Hitman) {
             finish();
-            resumeGame();
         }
     }
 }

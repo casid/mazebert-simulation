@@ -26,7 +26,6 @@ public strictfp class Lesson06BuildTower extends Lesson implements OnUnitAddedLi
     public void onUnitAdded(Unit unit) {
         if (unit instanceof Beaver) {
             finish();
-            resumeGame();
         }
     }
 }

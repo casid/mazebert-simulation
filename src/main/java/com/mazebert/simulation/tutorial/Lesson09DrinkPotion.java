@@ -23,8 +23,6 @@ public strictfp class Lesson09DrinkPotion extends Lesson implements OnPotionCons
 
         dandelion = unitGateway.findUnit(Dandelion.class, wizard.playerId);
         dandelion.onPotionConsumed.add(this);
-
-        pauseGame();
     }
 
     @Override
@@ -37,7 +35,6 @@ public strictfp class Lesson09DrinkPotion extends Lesson implements OnPotionCons
     public void onPotionConsumed(Tower tower, Potion potion) {
         if (potion instanceof CommonSpeed) {
             finish();
-            resumeGame();
         }
     }
 }

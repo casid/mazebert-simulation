@@ -23,8 +23,6 @@ public strictfp class Lesson05EquipItem extends Lesson implements OnItemEquipped
 
         dandelion = unitGateway.findUnit(Dandelion.class, wizard.playerId);
         dandelion.onItemEquipped.add(this);
-
-        pauseGame();
     }
 
     @Override
