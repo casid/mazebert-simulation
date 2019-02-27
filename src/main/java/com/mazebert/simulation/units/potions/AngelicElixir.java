@@ -28,6 +28,11 @@ public strictfp class AngelicElixir extends Potion {
     }
 
     @Override
+    public Rarity getDropRarity() {
+        return Rarity.Rare;
+    }
+
+    @Override
     public int getItemLevel() {
         return 1;
     }

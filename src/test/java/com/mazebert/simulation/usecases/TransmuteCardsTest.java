@@ -135,7 +135,7 @@ public class TransmuteCardsTest extends UsecaseTest<TransmuteCardsCommand> imple
 
         assertThat(wizard.itemStash.size()).isEqualTo(0);
         assertThat(wizard.potionStash.size()).isEqualTo(1);
-        assertThat(wizard.potionStash.get(0).cardType).isEqualTo(PotionType.RareDamage);
+        assertThat(wizard.potionStash.get(0).cardType).isEqualTo(PotionType.AngelicElixir);
     }
 
     @Test
@@ -167,7 +167,7 @@ public class TransmuteCardsTest extends UsecaseTest<TransmuteCardsCommand> imple
 
         assertThat(wizard.potionStash.size()).isEqualTo(1);
         assertThat(wizard.potionStash.transmutedUncommons).isEqualTo(0);
-        assertThat(wizard.potionStash.get(0).cardType).isEqualTo(PotionType.RareDamage);
+        assertThat(wizard.potionStash.get(0).cardType).isEqualTo(PotionType.AngelicElixir);
     }
 
     @Test
