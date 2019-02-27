@@ -7,8 +7,16 @@ public strictfp class AngelicElixirAbility extends Ability<Tower> {
     @Override
     protected void initialize(Tower unit) {
         super.initialize(unit);
+    }
 
-        // TODO how do we show the graphical effect in the client?
+    @Override
+    public boolean isPermanent() {
+        return true;
+    }
+
+    @Override
+    public boolean isVisibleToUser() {
+        return true;
     }
 
     @Override
