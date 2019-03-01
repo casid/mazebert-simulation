@@ -18,16 +18,16 @@ import org.jusecase.bitpack.BitWriter;
 import java.util.EnumSet;
 
 public strictfp class EnumSerializer {
-    private static final int TOWER_BITS = 6;
-    private static final int POTION_BITS = 5;
-    private static final int ITEM_BITS = 7;
-    private static final int HERO_BITS = 4;
-    private static final int ELEMENT_BITS = 3;
-    private static final int DIFFICULTY_BITS = 3;
-    private static final int MAP_BITS = 3;
-    private static final int ACTIVE_ABILITY_BITS = 3;
-    private static final int WIZARD_POWER_BITS = 4;
-    private static final int QUEST_BITS = 5;
+    public static final int TOWER_BITS = 6;
+    public static final int POTION_BITS = 5;
+    public static final int ITEM_BITS = 7;
+    public static final int HERO_BITS = 4;
+    public static final int ELEMENT_BITS = 3;
+    public static final int DIFFICULTY_BITS = 3;
+    public static final int MAP_BITS = 3;
+    public static final int ACTIVE_ABILITY_BITS = 3;
+    public static final int WIZARD_POWER_BITS = 4;
+    public static final int QUEST_BITS = 5;
 
     public static TowerType readTowerType(BitReader reader) {
         return TowerType.forId(reader.readUnsignedInt(TOWER_BITS));

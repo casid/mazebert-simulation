@@ -9,6 +9,10 @@ import org.jusecase.bitpack.BitWriter;
 
 public strictfp class InitPlayerCommandSerializer implements BitSerializer<InitPlayerCommand> {
 
+    private static final int PLAYER_NAME_BITS = 5;
+    private static final int WIZARD_POWER_BITS = EnumSerializer.WIZARD_POWER_BITS + 1;
+    private static final int QUEST_BITS = EnumSerializer.QUEST_BITS + 1;
+
     @Override
     public InitPlayerCommand createObject() {
         return new InitPlayerCommand();
@@ -17,7 +21,7 @@ public strictfp class InitPlayerCommandSerializer implements BitSerializer<InitP
     @Override
     public void serialize(BitWriter writer, InitPlayerCommand object) {
         writer.writeLong(object.ladderPlayerId);
-        writer.writeStringNullable(object.playerName);
+        writer.writeStringNullable(PLAYER_NAME_BITS, object.playerName);
         writer.writeLong(object.experience);
 
         EnumSerializer.writeHeroType(writer, object.heroType);
@@ -27,17 +31,17 @@ public strictfp class InitPlayerCommandSerializer implements BitSerializer<InitP
         EnumSerializer.writeItemTypes(writer, object.foilItems);
         EnumSerializer.writePotionTypes(writer, object.foilPotions);
 
-        writer.writeObjectsWithSameType(object.powers);
+        writer.writeObjectsWithSameType(WIZARD_POWER_BITS, object.powers);
 
         EnumSerializer.writeElements(writer, object.elements);
 
-        writer.writeObjectsWithSameType(object.quests);
+        writer.writeObjectsWithSameType(QUEST_BITS, object.quests);
     }
 
     @Override
     public void deserialize(BitReader reader, InitPlayerCommand object) {
         object.ladderPlayerId = reader.readLong();
-        object.playerName = reader.readStringNullable();
+        object.playerName = reader.readStringNullable(PLAYER_NAME_BITS);
         object.experience = reader.readLong();
 
         object.heroType = EnumSerializer.readHeroType(reader);
@@ -47,10 +51,10 @@ public strictfp class InitPlayerCommandSerializer implements BitSerializer<InitP
         object.foilItems = EnumSerializer.readItemTypes(reader);
         object.foilPotions = EnumSerializer.readPotionTypes(reader);
 
-        object.powers = reader.readObjectsWithSameTypeAsList(WizardPower.class);
+        object.powers = reader.readObjectsWithSameTypeAsList(WIZARD_POWER_BITS, WizardPower.class);
 
         object.elements = EnumSerializer.readElements(reader);
 
-        object.quests = reader.readObjectsWithSameTypeAsList(QuestData.class);
+        object.quests = reader.readObjectsWithSameTypeAsList(QUEST_BITS, QuestData.class);
     }
 }

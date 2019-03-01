@@ -16,7 +16,7 @@ public strictfp class TurnSerializer implements BitSerializer<Turn> {
         writer.writeInt8(object.playerId);
         writer.writeInt32(object.turnNumber);
         writer.writeInt32(object.hash);
-        writer.writeObjectsWithDifferentTypes(object.commands);
+        writer.writeObjectsWithDifferentTypes(4, object.commands);
     }
 
     @Override
@@ -24,6 +24,6 @@ public strictfp class TurnSerializer implements BitSerializer<Turn> {
         object.playerId = reader.readInt8();
         object.turnNumber = reader.readInt32();
         object.hash = reader.readInt32();
-        object.commands = reader.readObjectsWithDifferentTypesAsList();
+        object.commands = reader.readObjectsWithDifferentTypesAsList(4);
     }
 }

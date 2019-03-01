@@ -13,11 +13,11 @@ public strictfp class ReplayPlayerTurnSerializer implements BitSerializer<Replay
 
     @Override
     public void serialize(BitWriter writer, ReplayTurn object) {
-        writer.writeObjectsWithDifferentTypes(object.commands);
+        writer.writeObjectsWithDifferentTypes(4, object.commands);
     }
 
     @Override
     public void deserialize(BitReader reader, ReplayTurn object) {
-        object.commands = reader.readObjectsWithDifferentTypesAsList();
+        object.commands = reader.readObjectsWithDifferentTypesAsList(4);
     }
 }

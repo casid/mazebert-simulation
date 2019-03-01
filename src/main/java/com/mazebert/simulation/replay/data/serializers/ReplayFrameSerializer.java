@@ -16,13 +16,13 @@ public strictfp class ReplayFrameSerializer implements BitSerializer<ReplayFrame
     public void serialize(BitWriter writer, ReplayFrame object) {
         writer.writeInt32(object.turnNumber);
         writer.writeInt32(object.hash);
-        writer.writeObjectsWithSameType(object.playerTurns);
+        writer.writeObjectsWithSameType(3, object.playerTurns);
     }
 
     @Override
     public void deserialize(BitReader reader, ReplayFrame object) {
         object.turnNumber = reader.readInt32();
         object.hash = reader.readInt32();
-        object.playerTurns = reader.readObjectsWithSameTypeAsArray(ReplayTurn.class);
+        object.playerTurns = reader.readObjectsWithSameTypeAsArray(3, ReplayTurn.class);
     }
 }

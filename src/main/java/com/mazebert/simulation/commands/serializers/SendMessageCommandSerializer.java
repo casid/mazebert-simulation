@@ -14,11 +14,11 @@ public strictfp class SendMessageCommandSerializer implements BitSerializer<Send
 
     @Override
     public void serialize(BitWriter writer, SendMessageCommand object) {
-        writer.writeStringNonNull(object.message);
+        writer.writeStringNonNull(10, object.message);
     }
 
     @Override
     public void deserialize(BitReader reader, SendMessageCommand object) {
-        object.message = reader.readStringNonNull();
+        object.message = reader.readStringNonNull(10);
     }
 }
