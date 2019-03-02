@@ -61,6 +61,10 @@ public strictfp class TransmuteCards extends Usecase<TransmuteCardsCommand> {
             return;
         }
 
+        if (command.cardType == PotionType.DrinkAll) {
+            return;
+        }
+
         if (command.all) {
             transmuteAll(wizard, stash, command.cardType);
         } else {

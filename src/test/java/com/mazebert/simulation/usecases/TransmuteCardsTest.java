@@ -292,6 +292,25 @@ public class TransmuteCardsTest extends UsecaseTest<TransmuteCardsCommand> imple
     }
 
     @Test
+    void drinkAll_noCards() {
+        wizard.onCardsTransmuted.add(this);
+
+        wizard.potionStash.add(PotionType.DrinkAll);
+        wizard.potionStash.add(PotionType.DrinkAll);
+        wizard.potionStash.add(PotionType.DrinkAll);
+        wizard.potionStash.add(PotionType.DrinkAll);
+        wizard.potionStash.add(PotionType.DrinkAll);
+        request.cardCategory = CardCategory.Potion;
+        request.cardType = PotionType.DrinkAll;
+        request.all = true;
+
+        whenRequestIsExecuted();
+
+        assertThat(wizard.potionStash.get(PotionType.DrinkAll).amount).isEqualTo(5);
+        assertThat(results).isNull();
+    }
+
+    @Test
     void listener_oneCard() {
         wizard.onCardsTransmuted.add(this);
 
