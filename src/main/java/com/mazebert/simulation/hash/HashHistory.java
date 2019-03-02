@@ -21,4 +21,8 @@ public strictfp class HashHistory {
     public int getOldest() {
         return hashes[0];
     }
+
+    public int getNewest() {
+        return hashes[1];
+    }
 }

@@ -138,14 +138,21 @@ public strictfp final class Simulation {
                 turnGateway.incrementTurnNumber();
             }
 
-            List<Turn> playerTurns = replayFrame.getTurns();
-            simulateTurn(playerTurns);
-            int expected = hashHistory.getOldest();
-            if (replayFrame.hash != expected) {
-                throw new DsyncException("Oh shit, we have a dsync during loading. Expected: " + expected + ", actual: " + replayFrame.hash + "(My turn: " + replayFrame.turnNumber + ", theirs: " + replayFrame.turnNumber);
+            if (replayFrame.playerTurns != null) { // regular frame
+                List<Turn> playerTurns = replayFrame.getTurns();
+                simulateTurn(playerTurns);
+                int expected = hashHistory.getOldest();
+                if (replayFrame.hash != expected) {
+                    throw new DsyncException("Oh shit, we have a dsync during loading. Expected: " + expected + ", actual: " + replayFrame.hash + "(My turn: " + replayFrame.turnNumber + ", theirs: " + replayFrame.turnNumber);
+                }
+                hashHistory.add(hash.get());
+                turnGateway.incrementTurnNumber();
+            } else { // last frame
+                int expected = hashHistory.getNewest();
+                if (replayFrame.hash != expected) {
+                    throw new DsyncException("Oh shit, we have a dsync during loading. Expected: " + expected + ", actual: " + replayFrame.hash + "(My turn: " + replayFrame.turnNumber + ", theirs: " + replayFrame.turnNumber);
+                }
             }
-            hashHistory.add(hash.get());
-            turnGateway.incrementTurnNumber();
         }
     }
 
