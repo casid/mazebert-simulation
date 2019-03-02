@@ -15,6 +15,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.UUID;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -116,6 +117,19 @@ strictfp class Simulation_LoadTest extends SimTest {
         turn.hash = 42;
         turn.playerTurns = new ReplayTurn[1];
         turn.playerTurns[0] = new ReplayTurn();
+        replayReaderTrainer.givenTurn(turn);
+
+        Throwable throwable = catchThrowable(this::whenSimulationIsLoaded);
+
+        assertThat(throwable).isInstanceOf(DsyncException.class);
+    }
+
+    @Test
+    void oneTurn_noPlayerTurns_dSync() {
+        ReplayFrame turn = new ReplayFrame();
+        turn.turnNumber = 50;
+        turn.hash = 42;
+        turn.playerTurns = new ReplayTurn[0];
         replayReaderTrainer.givenTurn(turn);
 
         Throwable throwable = catchThrowable(this::whenSimulationIsLoaded);
