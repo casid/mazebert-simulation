@@ -37,6 +37,10 @@ public abstract strictfp class Quest extends Ability<Wizard> {
             return;
         }
 
+        if (isDisposed()) {
+            return;
+        }
+
         currentAmount += amount;
         if (isComplete()) {
             currentAmount = requiredAmount;
