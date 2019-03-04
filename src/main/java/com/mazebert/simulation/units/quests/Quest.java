@@ -1,8 +1,6 @@
 package com.mazebert.simulation.units.quests;
 
 import com.mazebert.simulation.Sim;
-import com.mazebert.simulation.hash.Hash;
-import com.mazebert.simulation.hash.Hashable;
 import com.mazebert.simulation.units.abilities.Ability;
 import com.mazebert.simulation.units.wizards.Wizard;
 
@@ -26,6 +24,10 @@ public abstract strictfp class Quest extends Ability<Wizard> {
 
     public int getCurrentAmount() {
         return currentAmount;
+    }
+
+    public void setCurrentAmount(int currentAmount) {
+        this.currentAmount = currentAmount;
     }
 
     public int getRequiredAmount() {
@@ -71,9 +73,5 @@ public abstract strictfp class Quest extends Ability<Wizard> {
 
     public boolean isAllowedInTutorial() {
         return true;
-    }
-
-    public void setCurrentAmount(int currentAmount) {
-        this.currentAmount = currentAmount;
     }
 }
