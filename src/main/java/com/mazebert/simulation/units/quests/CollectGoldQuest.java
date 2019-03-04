@@ -38,6 +38,6 @@ public strictfp class CollectGoldQuest extends Quest implements OnGoldChangedLis
 
     @Override
     public String getDescription() {
-        return "Collect  " + format.gold(requiredAmount, getCurrency()) + "!";
+        return "Collect " + format.gold(requiredAmount, getCurrency()) + "!";
     }
 }
