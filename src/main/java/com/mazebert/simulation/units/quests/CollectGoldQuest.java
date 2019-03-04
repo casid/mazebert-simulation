@@ -17,6 +17,7 @@ public strictfp class CollectGoldQuest extends Quest implements OnGoldChangedLis
 
     @Override
     protected void dispose(Wizard unit) {
+        unit.onGoldChanged.remove(this);
         super.dispose(unit);
     }
 
