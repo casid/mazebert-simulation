@@ -37,7 +37,9 @@ public strictfp class TransmuteStackQuest extends Quest implements OnCardsTransm
 
     @Override
     public void onCardsTransmuted(Rarity rarity, Collection<CardType> cardType, int transmutedCards) {
-        addAmount(1);
+        if (transmutedCards == 4) {
+            addAmount(1);
+        }
     }
 
     @Override

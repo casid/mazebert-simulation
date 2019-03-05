@@ -32,4 +32,14 @@ public class TransmuteStackQuestTest extends ItemTest {
         whenCardIsTransmuted(ItemType.TransmuteStack);
         assertThat(wizard.itemStash.get(ItemType.TransmuteStack).amount).isEqualTo(4);
     }
+
+    @Test
+    void transmuteAll_otherCards() {
+        wizard.itemStash.add(ItemType.TransmuteUniques);
+        wizard.itemStash.add(ItemType.TransmuteUniques);
+
+        whenAllCardsAreTransmuted(ItemType.TransmuteUniques);
+
+        assertThat(quest.getCurrentAmount()).isEqualTo(0);
+    }
 }
