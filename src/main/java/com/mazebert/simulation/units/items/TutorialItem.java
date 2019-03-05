@@ -1,6 +1,7 @@
 package com.mazebert.simulation.units.items;
 
 import com.mazebert.simulation.Rarity;
+import com.mazebert.simulation.units.towers.Tower;
 
 public strictfp abstract class TutorialItem extends Item {
 
@@ -41,6 +42,11 @@ public strictfp abstract class TutorialItem extends Item {
 
     @Override
     public boolean isInternal() {
+        return true;
+    }
+
+    @Override
+    public boolean isForbiddenToEquip(Tower tower) {
         return true;
     }
 }

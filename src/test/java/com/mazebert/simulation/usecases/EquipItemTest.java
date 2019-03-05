@@ -172,4 +172,14 @@ public class EquipItemTest extends UsecaseTest<EquipItemCommand> {
         whenRequestIsExecuted();
         assertThat(tower.getItem(0)).isInstanceOf(BabySword.class);
     }
+
+    @Test
+    void equip_TransmuteUniques() {
+        request.itemType = ItemType.TransmuteUniques;
+        wizard.itemStash.add(request.itemType);
+
+        whenRequestIsExecuted();
+
+        assertThat(tower.getItem(0)).isNull();
+    }
 }
