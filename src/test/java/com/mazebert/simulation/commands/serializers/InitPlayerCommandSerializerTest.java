@@ -75,6 +75,21 @@ public class InitPlayerCommandSerializerTest {
         assertThat(actual).isEqualToComparingFieldByFieldRecursively(expected);
     }
 
+    @Test
+    void quests_collectGold() {
+        InitPlayerCommand expected = new InitPlayerCommand();
+        QuestData questData = new QuestData();
+        questData.type = QuestType.CollectGoldQuest;
+        questData.currentAmount = 987000;
+        expected.quests.add(questData);
+        writer.writeObjectNonNull(expected);
+
+        whenBufferIsFlushedAndRead();
+
+        InitPlayerCommand actual = reader.readObjectNonNull(InitPlayerCommand.class);
+        assertThat(actual).isEqualToComparingFieldByFieldRecursively(expected);
+    }
+
     private void whenBufferIsFlushedAndRead() {
         writer.flush();
         writer.getBuffer().rewind();

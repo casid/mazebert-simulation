@@ -14,12 +14,12 @@ public strictfp class QuestDataSerializer implements BitSerializer<QuestData> {
     @Override
     public void serialize(BitWriter writer, QuestData object) {
         EnumSerializer.writeQuestType(writer, object.type);
-        writer.writeUnsignedInt16(object.currentAmount);
+        writer.writeInt32(object.currentAmount);
     }
 
     @Override
     public void deserialize(BitReader reader, QuestData object) {
         object.type = EnumSerializer.readQuestType(reader);
-        object.currentAmount = reader.readUnsignedInt16();
+        object.currentAmount = reader.readInt32();
     }
 }
