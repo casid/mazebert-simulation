@@ -37,6 +37,7 @@ public strictfp enum QuestType {
     MuliQuest(27, MuliQuest.class),
     Map4VictoryUnlockReginnQuest(28, Map4VictoryUnlockReginnQuest.class),
     CoopQuest(29, CoopQuest.class),
+    HardVictoryQuest(30, HardVictoryQuest.class),
     ;
 
 
