@@ -30,7 +30,7 @@ public strictfp class VikingMead extends Ability<Tower> implements OnKillListene
     public void onKill(Creep target) {
         if (getUnit().isAbilityTriggered(CHANCE * StrictMath.min(1, target.getDropChance()))) {
             Wizard wizard = getUnit().getWizard();
-            lootSystem.dropCard(wizard, target, wizard.potionStash, PotionType.Mead);
+            lootSystem.dropCard(wizard, target, wizard.potionStash, PotionType.Mead, Integer.MAX_VALUE);
         }
     }
 

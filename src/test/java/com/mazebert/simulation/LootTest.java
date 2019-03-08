@@ -23,7 +23,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class LootTest extends SimTest {
 
     private static final float BABY_SWORD_ROLL = 0.2f;
-    private static final float BABY_SWORD_ROLL_ILVL_1 = 0.58f;
     private static final float WOODEN_STAFF_ROLL = 0.0f;
 
     RandomPluginTrainer randomPluginTrainer = new RandomPluginTrainer();
@@ -185,7 +184,7 @@ public class LootTest extends SimTest {
                 0.0f, // This is a drop
                 0.0f, // The rarity of this drop is legendary
                 0.0f, // This is an item drop
-                BABY_SWORD_ROLL_ILVL_1
+                0.0f
         );
         creep.setMaxDrops(1);
         creep.setMaxItemLevel(1);
@@ -193,7 +192,7 @@ public class LootTest extends SimTest {
         whenTowerAttacks();
 
         assertThat(wizard1.itemStash.get(0).amount).isEqualTo(1);
-        assertThat(wizard1.itemStash.get(0).cardType).isEqualTo(ItemType.BabySword);
+        assertThat(wizard1.itemStash.get(0).cardType).isEqualTo(ItemType.WoodenStaff);
     }
 
     @Test
@@ -296,7 +295,7 @@ public class LootTest extends SimTest {
     }
 
     @Test
-    void loot_itemLevel_onlyOneFit2() {
+    void loot_itemLevel_onlyOneFit_itemLevelNotMet_fallbackToWorseRarity() {
         randomPluginTrainer.givenFloatAbs(
                 0.0f, // This is a drop
                 0.01f, // The rarity of this drop is uncommon
@@ -304,12 +303,12 @@ public class LootTest extends SimTest {
                 0.9f // It's a meat mallet!
         );
         creep.setMaxDrops(1);
-        creep.setMaxItemLevel(ItemType.MonsterTeeth.instance().getItemLevel());
+        creep.setMaxItemLevel(14);
 
         whenTowerAttacks();
 
         assertThat(wizard1.itemStash.get(0).amount).isEqualTo(1);
-        assertThat(wizard1.itemStash.get(0).cardType).isEqualTo(ItemType.MonsterTeeth);
+        assertThat(wizard1.itemStash.get(0).cardType).isEqualTo(ItemType.NorlsFuryAmulet);
     }
 
     @Test

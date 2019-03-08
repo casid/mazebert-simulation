@@ -168,26 +168,13 @@ public abstract strictfp class Stash<T extends Card> implements ReadonlyStash<T>
         this.lastViewedIndex = lastViewedIndex;
     }
 
-    public CardType<T> getRandomDrop(Rarity rarity, int maxItemLevel, RandomPlugin randomPlugin) {
+    public CardType<T> getRandomDrop(Rarity rarity, RandomPlugin randomPlugin) {
         CardType<T>[] possibleDrops = cardByDropRarity.get(rarity);
         if (possibleDrops.length <= 0) {
             return null;
         }
 
-        int amount = 0;
-        for (CardType<T> possibleDrop : possibleDrops) {
-            if (possibleDrop.instance().getItemLevel() <= maxItemLevel && !isUniqueAlreadyDropped(possibleDrop)) {
-                ++amount;
-            } else {
-                break;
-            }
-        }
-
-        if (amount == 0) {
-            return null;
-        }
-
-        int dropIndex = randomPlugin.getInt(0, amount - 1);
+        int dropIndex = randomPlugin.getInt(0, possibleDrops.length - 1);
         return possibleDrops[dropIndex];
     }
 

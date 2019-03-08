@@ -154,7 +154,7 @@ public strictfp class TransmuteCards extends Usecase<TransmuteCardsCommand> {
             stash.transmutedRares -= requiredAmount;
 
             Stash nextStash = getNextStash(wizard, stash);
-            CardType drop = nextStash.getRandomDrop(Rarity.Rare, Integer.MAX_VALUE, randomPlugin);
+            CardType drop = getRandomDrop(wizard, nextStash, Rarity.Rare);
             if (drop != null) {
                 nextStash.add(drop);
                 return drop;
@@ -169,7 +169,7 @@ public strictfp class TransmuteCards extends Usecase<TransmuteCardsCommand> {
         if (stash.transmutedCommons >= requiredAmount) {
             stash.transmutedCommons -= requiredAmount;
 
-            CardType drop = stash.getRandomDrop(Rarity.Uncommon, Integer.MAX_VALUE, randomPlugin);
+            CardType drop = getRandomDrop(wizard, stash, Rarity.Uncommon);
             if (drop != null) {
                 return insertDrop(stash, cardType, index, drop);
             }
@@ -183,12 +183,30 @@ public strictfp class TransmuteCards extends Usecase<TransmuteCardsCommand> {
         if (stash.transmutedUncommons >= requiredAmount) {
             stash.transmutedUncommons -= requiredAmount;
 
-            CardType drop = stash.getRandomDrop(Rarity.Rare, Integer.MAX_VALUE, randomPlugin);
+            CardType drop = getRandomDrop(wizard, stash, Rarity.Rare);
             if (drop != null) {
                 return insertDrop(stash, cardType, index, drop);
             }
         }
         return null;
+    }
+
+    @SuppressWarnings("unchecked")
+    private CardType getRandomDrop(Wizard wizard, Stash stash, Rarity rarity) {
+        CardType drop = stash.getRandomDrop(rarity, randomPlugin);
+        if (drop == null) {
+            return null;
+        }
+
+        if (drop.instance().getRarity() == Rarity.Legendary && !wizard.ownsFoilCard(drop)) {
+            return getRandomDrop(wizard, stash, rarity);
+        }
+
+        if (stash.isUniqueAlreadyDropped(drop)) {
+            return getRandomDrop(wizard, stash, rarity);
+        }
+
+        return drop;
     }
 
     private Stash getNextStash(Wizard wizard, Stash stash) {

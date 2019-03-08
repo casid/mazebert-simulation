@@ -123,6 +123,7 @@ public class TransmuteCardsTest extends UsecaseTest<TransmuteCardsCommand> imple
 
     @Test
     void item_fourCards_rare() {
+        randomPluginTrainer.givenFloatAbs(0.5f);
         wizard.itemStash.add(ItemType.Barrel);
         wizard.itemStash.add(ItemType.Barrel);
         wizard.itemStash.add(ItemType.Barrel);
@@ -135,7 +136,7 @@ public class TransmuteCardsTest extends UsecaseTest<TransmuteCardsCommand> imple
 
         assertThat(wizard.itemStash.size()).isEqualTo(0);
         assertThat(wizard.potionStash.size()).isEqualTo(1);
-        assertThat(wizard.potionStash.get(0).cardType).isEqualTo(PotionType.AngelicElixir);
+        assertThat(wizard.potionStash.get(0).cardType).isEqualTo(PotionType.RareSpeed);
     }
 
     @Test
@@ -157,6 +158,24 @@ public class TransmuteCardsTest extends UsecaseTest<TransmuteCardsCommand> imple
 
     @Test
     void potion_twoCards_uncommon() {
+        randomPluginTrainer.givenFloatAbs(0.5f);
+        wizard.potionStash.add(PotionType.UncommonCrit);
+        wizard.potionStash.add(PotionType.UncommonCrit);
+        request.cardCategory = CardCategory.Potion;
+        request.cardType = PotionType.UncommonCrit;
+        request.all = true;
+
+        whenRequestIsExecuted();
+
+        assertThat(wizard.potionStash.size()).isEqualTo(1);
+        assertThat(wizard.potionStash.transmutedUncommons).isEqualTo(0);
+        assertThat(wizard.potionStash.get(0).cardType).isEqualTo(PotionType.RareSpeed);
+    }
+
+    @Test
+    void potion_twoCards_uncommon_angelicElixirOwned() {
+        randomPluginTrainer.givenFloatAbs(0.0f);
+        wizard.foilPotions.add(PotionType.AngelicElixir);
         wizard.potionStash.add(PotionType.UncommonCrit);
         wizard.potionStash.add(PotionType.UncommonCrit);
         request.cardCategory = CardCategory.Potion;
@@ -168,6 +187,23 @@ public class TransmuteCardsTest extends UsecaseTest<TransmuteCardsCommand> imple
         assertThat(wizard.potionStash.size()).isEqualTo(1);
         assertThat(wizard.potionStash.transmutedUncommons).isEqualTo(0);
         assertThat(wizard.potionStash.get(0).cardType).isEqualTo(PotionType.AngelicElixir);
+    }
+
+    @Test
+    void potion_twoCards_uncommon_angelicElixirNotOwned() {
+        randomPluginTrainer.givenFloatAbs(0.0f, 0.5f);
+        wizard.foilPotions.remove(PotionType.AngelicElixir);
+        wizard.potionStash.add(PotionType.UncommonCrit);
+        wizard.potionStash.add(PotionType.UncommonCrit);
+        request.cardCategory = CardCategory.Potion;
+        request.cardType = PotionType.UncommonCrit;
+        request.all = true;
+
+        whenRequestIsExecuted();
+
+        assertThat(wizard.potionStash.size()).isEqualTo(1);
+        assertThat(wizard.potionStash.transmutedUncommons).isEqualTo(0);
+        assertThat(wizard.potionStash.get(0).cardType).isEqualTo(PotionType.RareSpeed);
     }
 
     @Test
@@ -208,7 +244,7 @@ public class TransmuteCardsTest extends UsecaseTest<TransmuteCardsCommand> imple
     @Test
     void tower_fourCards_rare_scepterOfTimeAlreadyDropped() {
         wizard.itemStash.add(ItemType.ScepterOfTime);
-        randomPluginTrainer.givenFloatAbs(0.999f);
+        randomPluginTrainer.givenFloatAbs(0.999f, 0.5f);
         wizard.towerStash.add(TowerType.Huli);
         wizard.towerStash.add(TowerType.Huli);
         wizard.towerStash.add(TowerType.Huli);
@@ -221,7 +257,7 @@ public class TransmuteCardsTest extends UsecaseTest<TransmuteCardsCommand> imple
 
         assertThat(wizard.towerStash.size()).isEqualTo(0);
         assertThat(wizard.itemStash.size()).isEqualTo(2);
-        assertThat(wizard.itemStash.get(1).cardType).isEqualTo(ItemType.ImpatienceWrathForce);
+        assertThat(wizard.itemStash.get(1).cardType).isEqualTo(ItemType.FrozenHeart);
     }
 
     @Test
