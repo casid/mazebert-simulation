@@ -1,6 +1,7 @@
 package com.mazebert.simulation;
 
 import com.mazebert.simulation.countdown.BonusRoundCountDown;
+import com.mazebert.simulation.countdown.EarlyCallCountDown;
 import com.mazebert.simulation.countdown.WaveCountDown;
 import com.mazebert.simulation.gateways.*;
 import com.mazebert.simulation.listeners.*;
@@ -138,6 +139,12 @@ public strictfp final class WaveSpawner implements OnGameStartedListener, OnWave
     }
 
     private void startNextWave() {
+        if (Sim.context().earlyCallCountDown == null) {
+            Sim.context().earlyCallCountDown = new EarlyCallCountDown();
+            Sim.context().earlyCallCountDown.start();
+            simulationListeners.onEarlyCallImpossible.dispatch();
+        }
+
         Wave wave = waveGateway.nextWave();
         if (wave == null) {
             return;

@@ -1,11 +1,13 @@
 package com.mazebert.simulation.usecases;
 
 import com.mazebert.simulation.SimulationListeners;
+import com.mazebert.simulation.WaveSpawner;
 import com.mazebert.simulation.commands.NextWaveCommand;
 import com.mazebert.simulation.countdown.BonusRoundCountDown;
 import com.mazebert.simulation.countdown.WaveCountDown;
-import com.mazebert.simulation.gateways.GameGateway;
-import com.mazebert.simulation.gateways.WaveGateway;
+import com.mazebert.simulation.gateways.*;
+import com.mazebert.simulation.plugins.random.RandomPluginTrainer;
+import com.mazebert.simulation.systems.GameSystem;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -18,8 +20,14 @@ class NextWaveTest extends UsecaseTest<NextWaveCommand> {
     @BeforeEach
     void setUp() {
         simulationListeners = new SimulationListeners();
+        unitGateway = new UnitGateway();
+        randomPlugin = new RandomPluginTrainer();
+        difficultyGateway = new DifficultyGateway();
         waveGateway = new WaveGateway();
         gameGateway = new GameGateway();
+        playerGateway = new PlayerGatewayTrainer();
+        gameSystem = new GameSystem();
+        waveSpawner = new WaveSpawner();
 
         usecase = new NextWave();
 
