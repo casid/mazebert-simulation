@@ -140,7 +140,7 @@ public strictfp class LootSystem {
     private float[] calculateDropChances(float dropQualityProgress, boolean towers) {
         float[] result = Sim.context().tempChancesForRarity;
 
-        result[Rarity.Unique.ordinal()] = 0.08f * dropQualityProgress * dropQualityProgress * dropQualityProgress;
+        result[Rarity.Unique.ordinal()] = 0.12f * dropQualityProgress * dropQualityProgress * dropQualityProgress;
         result[Rarity.Legendary.ordinal()] = 0.4f * result[Rarity.Unique.ordinal()];
         result[Rarity.Rare.ordinal()] = result[Rarity.Unique.ordinal()] + 0.25f * dropQualityProgress * dropQualityProgress;
         if (towers) {
