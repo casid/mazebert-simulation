@@ -1,5 +1,6 @@
 package com.mazebert.simulation.units.towers;
 
+import com.mazebert.simulation.CardCategory;
 import com.mazebert.simulation.CardType;
 import com.mazebert.simulation.hash.Hash;
 
@@ -117,5 +118,10 @@ public strictfp enum TowerType implements CardType<Tower> {
     @Override
     public void hash(Hash hash) {
         hash.add(id);
+    }
+
+    @Override
+    public CardCategory category() {
+        return CardCategory.Tower;
     }
 }

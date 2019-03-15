@@ -1,5 +1,6 @@
 package com.mazebert.simulation.units.potions;
 
+import com.mazebert.simulation.CardCategory;
 import com.mazebert.simulation.CardType;
 import com.mazebert.simulation.hash.Hash;
 
@@ -101,6 +102,11 @@ public strictfp enum PotionType implements CardType<Potion> {
     @Override
     public void hash(Hash hash) {
         hash.add(id);
+    }
+
+    @Override
+    public CardCategory category() {
+        return CardCategory.Potion;
     }
 
 }

@@ -1,5 +1,6 @@
 package com.mazebert.simulation.units.items;
 
+import com.mazebert.simulation.CardCategory;
 import com.mazebert.simulation.CardType;
 import com.mazebert.simulation.hash.Hash;
 
@@ -142,6 +143,11 @@ public strictfp enum ItemType implements CardType<Item> {
     @Override
     public void hash(Hash hash) {
         hash.add(id);
+    }
+
+    @Override
+    public CardCategory category() {
+        return CardCategory.Item;
     }
 
 }
