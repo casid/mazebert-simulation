@@ -41,4 +41,14 @@ public strictfp class ChangeSex extends Potion {
     public String getSinceVersion() {
         return "1.5";
     }
+
+    @Override
+    public boolean isForgeable() {
+        return false;
+    }
+
+    @Override
+    public boolean isBlackMarketOffer() {
+        return true;
+    }
 }
