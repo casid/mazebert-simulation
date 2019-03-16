@@ -40,9 +40,4 @@ public strictfp class LightbladeAcademySword extends Item {
     public int getItemLevel() {
         return 84;
     }
-
-    @Override
-    public boolean isBlackMarketOffer() {
-        return true;
-    }
 }

@@ -37,9 +37,4 @@ public strictfp class LightbladeAcademyDrone extends Item {
     public int getItemLevel() {
         return 54;
     }
-
-    @Override
-    public boolean isBlackMarketOffer() {
-        return true;
-    }
 }
