@@ -7,6 +7,9 @@ public strictfp class StashMasterPower extends WizardTowerBuffPower {
 
     @Override
     protected void buffTower(Tower tower) {
+        if (getSkillLevel() <= 0) {
+            return;
+        }
         if (tower.getRarity().ordinal() > getRarity().ordinal()) {
             return;
         }

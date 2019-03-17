@@ -56,6 +56,16 @@ strictfp class StashMasterPowerTest extends SimTest {
         assertThat(tower.getInventorySize()).isEqualTo(5);
     }
 
+    @Test
+    void level0() {
+        tower = new Rabbit();
+        power.setSkillLevel(0);
+
+        whenTowerIsAdded();
+
+        assertThat(tower.getInventorySize()).isEqualTo(4);
+    }
+
     private void whenTowerIsAdded() {
         tower.setWizard(wizard);
         unitGateway.addUnit(tower);
