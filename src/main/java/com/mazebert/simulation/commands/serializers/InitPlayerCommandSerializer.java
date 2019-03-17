@@ -9,7 +9,7 @@ import org.jusecase.bitpack.BitWriter;
 
 public strictfp class InitPlayerCommandSerializer implements BitSerializer<InitPlayerCommand> {
 
-    private static final int PLAYER_NAME_BITS = 5;
+    private static final int PLAYER_NAME_BITS = 6;
     private static final int WIZARD_POWER_BITS = EnumSerializer.WIZARD_POWER_BITS + 1;
     private static final int QUEST_BITS = EnumSerializer.QUEST_BITS + 1;
 
