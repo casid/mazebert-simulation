@@ -93,6 +93,11 @@ public strictfp class TheRipperKillingSpree extends CooldownAbility<Tower> imple
     }
 
     @Override
+    public String getLevelBonus() {
+        return format.percentWithSignAndUnit(BONUS_PER_LEVEL) + " attack speed per level.";
+    }
+
+    @Override
     public String getIconFile() {
         return "0053_charge_512";
     }

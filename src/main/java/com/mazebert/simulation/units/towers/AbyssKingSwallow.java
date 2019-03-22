@@ -50,6 +50,11 @@ public strictfp class AbyssKingSwallow extends AuraAbility<AbyssKing, Creep> imp
     }
 
     @Override
+    public String getLevelBonus() {
+        return format.percentWithSignAndUnit(chancePerLevel) + " chance per level";
+    }
+
+    @Override
     public String getIconFile() {
         return "0029_undead_512";
     }

@@ -64,8 +64,8 @@ public strictfp class AbyssKingAura extends AuraAbility<AbyssKing, Tower> {
     @Override
     public String getLevelBonus() {
         return
-                format.percentWithSignAndUnit(damagePerUndead) + " damage" +
-                format.percentWithSignAndUnit(critDamagePerUndead) + " crit damage" +
+                format.percentWithSignAndUnit(damagePerUndead) + " damage\n" +
+                format.percentWithSignAndUnit(critDamagePerUndead) + " crit damage\n" +
                 format.percentWithSignAndUnit(critChancePerUndead) + " crit chance";
     }
 

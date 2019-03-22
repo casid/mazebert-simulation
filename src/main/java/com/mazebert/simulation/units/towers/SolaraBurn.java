@@ -37,6 +37,11 @@ public strictfp class SolaraBurn extends PoisonAbility {
     }
 
     @Override
+    public String getLevelBonus() {
+        return format.percentWithSignAndUnit(burnDamagePerLevel) + " fire damage per level.";
+    }
+
+    @Override
     public String getIconFile() {
         return "0083_fire_attack_512";
     }
