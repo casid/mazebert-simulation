@@ -19,11 +19,11 @@ public strictfp class Sim {
         return context.get();
     }
 
-    static void setContext(Context testContext) {
+    public static void setContext(Context testContext) {
         context.set(testContext);
     }
 
-    static void resetContext() {
+    public static void resetContext() {
         context.remove();
     }
 }
