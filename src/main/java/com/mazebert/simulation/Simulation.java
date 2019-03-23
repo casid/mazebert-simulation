@@ -117,6 +117,7 @@ public strictfp final class Simulation {
         HashHistory hashHistory = new HashHistory(2);
         hashHistory.add(0);
         hashHistory.add(0);
+        int lastValidTurnNumber = -1;
 
         while (isRunning()) {
             ReplayFrame replayFrame = replayReader.readFrame();
@@ -146,14 +147,15 @@ public strictfp final class Simulation {
                 simulateTurn(playerTurns);
                 int expected = hashHistory.getOldest();
                 if (replayFrame.hash != expected) {
-                    throw new DsyncException("Oh shit, we have a dsync during loading. Expected: " + expected + ", actual: " + replayFrame.hash + "(My turn: " + replayFrame.turnNumber + ", theirs: " + replayFrame.turnNumber);
+                    throw new DsyncException("Oh shit, we have a dsync during loading. Expected: " + expected + ", actual: " + replayFrame.hash + "(My turn: " + replayFrame.turnNumber + ", theirs: " + replayFrame.turnNumber, lastValidTurnNumber);
                 }
                 hashHistory.add(hash.get());
                 turnGateway.incrementTurnNumber();
+                lastValidTurnNumber = replayFrame.turnNumber;
             } else { // last frame
                 int expected = hashHistory.getNewest();
                 if (replayFrame.hash != expected) {
-                    throw new DsyncException("Oh shit, we have a dsync during loading. Expected: " + expected + ", actual: " + replayFrame.hash + "(My turn: " + replayFrame.turnNumber + ", theirs: " + replayFrame.turnNumber);
+                    throw new DsyncException("Oh shit, we have a dsync during loading. Expected: " + expected + ", actual: " + replayFrame.hash + "(My turn: " + replayFrame.turnNumber + ", theirs: " + replayFrame.turnNumber, lastValidTurnNumber);
                 }
             }
         }
@@ -233,7 +235,7 @@ public strictfp final class Simulation {
 
         for (Turn playerTurn : playerTurns) {
             if (playerTurn.hash != myHash) {
-                throw new DsyncException("Oh shit, we have a dsync with player " + playerTurn.playerId + ". Mine: " + myHash + ", theirs: " + playerTurn.hash + "(My turn: " + myTurn + ", theirs: " + playerTurn.turnNumber);
+                throw new DsyncException("Oh shit, we have a dsync with player " + playerTurn.playerId + ". Mine: " + myHash + ", theirs: " + playerTurn.hash + "(My turn: " + myTurn + ", theirs: " + playerTurn.turnNumber, turnGateway.getCurrentTurnNumber());
             }
         }
 

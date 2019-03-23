@@ -121,6 +121,31 @@ strictfp class Simulation_LoadTest extends SimTest {
         Throwable throwable = catchThrowable(this::whenSimulationIsLoaded);
 
         assertThat(throwable).isInstanceOf(DsyncException.class);
+        DsyncException dsyncException = (DsyncException)throwable;
+        assertThat(dsyncException.getLastValidTurnNumber()).isEqualTo(-1);
+    }
+
+    @Test
+    void twoTurns_dSyncOnTurnTwo() {
+        ReplayFrame turn1 = new ReplayFrame();
+        turn1.turnNumber = 13;
+        turn1.hash = 1602224128;
+        turn1.playerTurns = new ReplayTurn[1];
+        turn1.playerTurns[0] = new ReplayTurn();
+        replayReaderTrainer.givenTurn(turn1);
+
+        ReplayFrame turn2 = new ReplayFrame();
+        turn2.turnNumber = 50;
+        turn2.hash = 42;
+        turn2.playerTurns = new ReplayTurn[1];
+        turn2.playerTurns[0] = new ReplayTurn();
+        replayReaderTrainer.givenTurn(turn2);
+
+        Throwable throwable = catchThrowable(this::whenSimulationIsLoaded);
+
+        assertThat(throwable).isInstanceOf(DsyncException.class);
+        DsyncException dsyncException = (DsyncException)throwable;
+        assertThat(dsyncException.getLastValidTurnNumber()).isEqualTo(13);
     }
 
     @Test
