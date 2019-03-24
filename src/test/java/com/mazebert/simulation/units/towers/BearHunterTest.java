@@ -8,6 +8,7 @@ import com.mazebert.simulation.maps.BloodMoor;
 import com.mazebert.simulation.plugins.random.RandomPluginTrainer;
 import com.mazebert.simulation.systems.DamageSystemTrainer;
 import com.mazebert.simulation.units.creeps.Creep;
+import com.mazebert.simulation.units.items.MesserschmidtsReaverAbility;
 import com.mazebert.simulation.units.traps.BearHunterTrap;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -126,6 +127,48 @@ strictfp class BearHunterTest extends SimTest {
     }
 
     @Test
+    void trapsSplash() {
+        randomPluginTrainer.givenFloatAbs(0);
+
+        Creep creep = a(creep());
+        creep.setX(17);
+        creep.setY(14);
+        unitGateway.addUnit(creep);
+
+        Creep nextCreep = a(creep());
+        nextCreep.setX(17);
+        nextCreep.setY(14);
+        unitGateway.addUnit(nextCreep);
+
+        whenTrapIsPlaced();
+
+        assertThat(creep.getHealth()).isEqualTo(90);
+        assertThat(nextCreep.getHealth()).isEqualTo(95.99999994039536);
+    }
+
+    @Test
+    void trapsSplash_messerschmidt() {
+        randomPluginTrainer.givenFloatAbs(0);
+
+        Creep creep = a(creep());
+        creep.setX(17);
+        creep.setY(14);
+        unitGateway.addUnit(creep);
+
+        Creep nextCreep = a(creep());
+        nextCreep.setX(17);
+        nextCreep.setY(14);
+        unitGateway.addUnit(nextCreep);
+
+        bearHunter.addAbility(new MesserschmidtsReaverAbility());
+
+        whenTrapIsPlaced();
+
+        assertThat(creep.getHealth()).isEqualTo(90);
+        assertThat(nextCreep.getHealth()).isEqualTo(93.49999994039536);
+    }
+
+    @Test
     void trapsAreRemovedWithTower() {
         whenTrapIsPlaced();
         whenTrapIsPlaced();
@@ -150,6 +193,6 @@ strictfp class BearHunterTest extends SimTest {
     }
 
     private void whenTrapIsPlaced() {
-        bearHunter.simulate(5.0f);
+        bearHunter.simulate(bearHunter.getCooldown() + 1);
     }
 }

@@ -54,7 +54,7 @@ public strictfp class SplashAbility extends Ability<Tower> implements OnDamageLi
 
     @Override
     public void onDamage(Object origin, Creep target, double damage, int multicrits) {
-        if (origin == this || origin instanceof PoisonEffect) {
+        if (origin instanceof SplashAbility || origin instanceof PoisonEffect) {
             return;
         }
 
