@@ -2,6 +2,8 @@ package com.mazebert.simulation;
 
 import com.mazebert.simulation.replay.StreamReplayReader;
 import org.assertj.core.api.SoftAssertions;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.io.BufferedInputStream;
@@ -22,27 +24,41 @@ public class BackwardCompatiblityTester {
             "ebdbea64-ab7f-4302-ab68-60ace587bd01-34707.mbg"
     ));
 
+    private static final Path gamesDirectory = Paths.get("src/test/resources/games");
+
     private SoftAssertions s;
 
-    @Test
-    void checkAll() throws IOException {
+    @BeforeEach
+    void setUp() {
         s = new SoftAssertions();
+    }
 
-        Path gamesDirectory = Paths.get("src/test/resources/games");
-        Files.walk(gamesDirectory, 1).forEach(this::checkGame);
-
+    @AfterEach
+    void tearDown() {
         s.assertAll();
     }
 
+    @Test
+    void checkAll() throws IOException {
+        Files.walk(gamesDirectory, 1).forEach(file -> {
+            if (Files.isDirectory(file)) {
+                return;
+            }
+
+            if (acknowledgedDsyncs.contains(file.getFileName().toString())) {
+                return;
+            }
+
+            checkGame(file);
+        });
+    }
+
+    @Test
+    void checkOne() {
+        checkGame(gamesDirectory.resolve("ebdbea64-ab7f-4302-ab68-60ace587bd01-34707.mbg"));
+    }
+
     private void checkGame(Path file) {
-        if (Files.isDirectory(file)) {
-            return;
-        }
-
-        if (acknowledgedDsyncs.contains(file.getFileName().toString())) {
-            return;
-        }
-
         try (StreamReplayReader replayReader = new StreamReplayReader(new BufferedInputStream(Files.newInputStream(file, StandardOpenOption.READ)))) {
             new SimulationValidator().validate(replayReader, null, null);
         } catch (IOException e) {
