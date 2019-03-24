@@ -54,6 +54,7 @@ public strictfp class ImpatienceWrathSetAbility extends ItemSetAbility implement
 
     @Override
     public String getDescription() {
+        // TODO fix in 11: If you press next wave while 1 wave is currently ongoing, you get no +%attack speed
         return format.percentWithSignAndUnit(bonusPerSecond) + " attack speed for each second skipped by the next wave button.\n(3 set items)";
     }
 }
