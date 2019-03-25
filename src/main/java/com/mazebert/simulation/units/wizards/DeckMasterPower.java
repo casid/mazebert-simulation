@@ -60,7 +60,7 @@ public strictfp class DeckMasterPower extends WizardPower {
 
     @Override
     public String getDescription() {
-        if (getSelectedTower() != null) {
+        if (getSelectedTower() != null && getSelectedTower().instance().getRarity() == getRarity()) {
             return "+ 1 card of your choice\n" + format.card(getSelectedTower());
         } else {
             return "+ 1 card of your choice\n1 " + format.rarity(getRarity()) + " tower card";
