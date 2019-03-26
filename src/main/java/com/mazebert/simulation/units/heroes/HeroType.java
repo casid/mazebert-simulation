@@ -2,6 +2,7 @@ package com.mazebert.simulation.units.heroes;
 
 import com.mazebert.simulation.CardCategory;
 import com.mazebert.simulation.CardType;
+import com.mazebert.simulation.Sim;
 import com.mazebert.simulation.hash.Hash;
 
 public strictfp enum HeroType implements CardType<Hero> {
@@ -27,7 +28,6 @@ public strictfp enum HeroType implements CardType<Hero> {
 
     public final int id;
     public final Class<? extends Hero> heroClass;
-    public Hero instance;
 
     HeroType(int id, Class<? extends Hero> heroClass) {
         this.id = id;
@@ -41,8 +41,10 @@ public strictfp enum HeroType implements CardType<Hero> {
 
     @Override
     public Hero instance() {
+        Hero instance = Sim.context().heroInstances.get(this);
         if (instance == null) {
             instance = create();
+            Sim.context().heroInstances.put(this, instance);
         }
         return instance;
     }

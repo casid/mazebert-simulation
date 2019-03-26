@@ -30,7 +30,7 @@ public strictfp class BuildTower extends Usecase<BuildTowerCommand> {
             return;
         }
 
-        int goldCost = command.towerType.instance.getGoldCost();
+        int goldCost = command.towerType.instance().getGoldCost();
         if (wizard.gold < goldCost) {
             return;
         }

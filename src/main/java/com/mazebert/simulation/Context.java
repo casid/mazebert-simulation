@@ -12,6 +12,16 @@ import com.mazebert.simulation.plugins.random.UuidRandomPlugin;
 import com.mazebert.simulation.projectiles.ProjectileGateway;
 import com.mazebert.simulation.systems.*;
 import com.mazebert.simulation.units.Currency;
+import com.mazebert.simulation.units.heroes.Hero;
+import com.mazebert.simulation.units.heroes.HeroType;
+import com.mazebert.simulation.units.items.Item;
+import com.mazebert.simulation.units.items.ItemType;
+import com.mazebert.simulation.units.potions.Potion;
+import com.mazebert.simulation.units.potions.PotionType;
+import com.mazebert.simulation.units.towers.Tower;
+import com.mazebert.simulation.units.towers.TowerType;
+
+import java.util.EnumMap;
 
 public strictfp class Context {
     public static Currency currency = Currency.Gold;
@@ -57,6 +67,10 @@ public strictfp class Context {
     public WaveSpawner waveSpawner;
     public final float[] tempChancesForRarity = new float[Rarity.values().length];
     public int skippedSeconds;
+    public EnumMap<TowerType, Tower> towerInstances = new EnumMap<>(TowerType.class);
+    public EnumMap<ItemType, Item> itemInstances = new EnumMap<>(ItemType.class);
+    public EnumMap<PotionType, Potion> potionInstances = new EnumMap<>(PotionType.class);
+    public EnumMap<HeroType, Hero> heroInstances = new EnumMap<>(HeroType.class);
 
     public void init(Simulation simulation) {
         damageSystem = new DamageSystem();

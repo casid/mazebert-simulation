@@ -2,6 +2,7 @@ package com.mazebert.simulation.units.potions;
 
 import com.mazebert.simulation.CardCategory;
 import com.mazebert.simulation.CardType;
+import com.mazebert.simulation.Sim;
 import com.mazebert.simulation.hash.Hash;
 
 public strictfp enum PotionType implements CardType<Potion> {
@@ -54,7 +55,6 @@ public strictfp enum PotionType implements CardType<Potion> {
 
     public final int id;
     public final Class<? extends Potion> potionClass;
-    private Potion instance;
 
     PotionType(int id, Class<? extends Potion> potionClass) {
         this.id = id;
@@ -84,8 +84,10 @@ public strictfp enum PotionType implements CardType<Potion> {
 
     @Override
     public Potion instance() {
+        Potion instance = Sim.context().potionInstances.get(this);
         if (instance == null) {
             instance = create();
+            Sim.context().potionInstances.put(this, instance);
         }
         return instance;
     }

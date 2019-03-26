@@ -2,6 +2,7 @@ package com.mazebert.simulation.units.items;
 
 import com.mazebert.simulation.CardCategory;
 import com.mazebert.simulation.CardType;
+import com.mazebert.simulation.Sim;
 import com.mazebert.simulation.hash.Hash;
 
 public strictfp enum ItemType implements CardType<Item> {
@@ -95,7 +96,6 @@ public strictfp enum ItemType implements CardType<Item> {
 
     public final int id;
     public final Class<? extends Item> itemClass;
-    private Item instance;
 
     ItemType(int id, Class<? extends Item> itemClass) {
         this.id = id;
@@ -125,8 +125,10 @@ public strictfp enum ItemType implements CardType<Item> {
 
     @Override
     public Item instance() {
+        Item instance = Sim.context().itemInstances.get(this);
         if (instance == null) {
             instance = create();
+            Sim.context().itemInstances.put(this, instance);
         }
         return instance;
     }
