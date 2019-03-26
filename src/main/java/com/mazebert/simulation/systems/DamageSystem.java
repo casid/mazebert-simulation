@@ -10,7 +10,6 @@ import com.mazebert.simulation.units.wizards.Wizard;
 import java.util.Arrays;
 
 public strictfp class DamageSystem {
-    private static final DamageInfo DAMAGE_INFO = new DamageInfo();
     private static final double ARMOR_INCREASE_DAMAGE_CONST = 0.992;
     private static final double ARMOR_DECREASE_DAMAGE_CONST = 0.005;
     private static final double damageWeak = 0.7;
@@ -19,6 +18,7 @@ public strictfp class DamageSystem {
     private final RandomPlugin randomPlugin = Sim.context().randomPlugin;
     private final SimulationListeners simulationListeners = Sim.context().simulationListeners;
     private final FormatPlugin formatPlugin = Sim.context().formatPlugin;
+    private final DamageInfo damageInfo = Sim.context().damageInfo;
 
     public double dealDamage(Object origin, Tower tower, Creep creep) {
         if (!creep.isPartOfGame()) {
@@ -31,9 +31,9 @@ public strictfp class DamageSystem {
         }
 
         rollDamage(tower);
-        dealDamage(origin, tower, creep, DAMAGE_INFO.damage, DAMAGE_INFO.multicrits, true);
+        dealDamage(origin, tower, creep, damageInfo.damage, damageInfo.multicrits, true);
 
-        return DAMAGE_INFO.damage;
+        return damageInfo.damage;
     }
 
     // Caution: you get a shared object, so only read the info you need. do not pass it around!
@@ -57,10 +57,10 @@ public strictfp class DamageSystem {
             }
         }
 
-        DAMAGE_INFO.damage = damage;
-        DAMAGE_INFO.multicrits = rolledMulticrits;
+        damageInfo.damage = damage;
+        damageInfo.multicrits = rolledMulticrits;
 
-        return DAMAGE_INFO;
+        return damageInfo;
     }
 
     public void dealDamage(Object origin, Tower tower, Creep creep, double damage, int multicrits, boolean modify) {
@@ -227,9 +227,10 @@ public strictfp class DamageSystem {
         }
 
         public DamageInfo get(int index) {
-            DAMAGE_INFO.damage = damage[index];
-            DAMAGE_INFO.multicrits = multicrits[index];
-            return DAMAGE_INFO;
+            DamageInfo damageInfo = Sim.context().damageInfo;
+            damageInfo.damage = damage[index];
+            damageInfo.multicrits = multicrits[index];
+            return damageInfo;
         }
     }
 }

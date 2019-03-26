@@ -1,9 +1,7 @@
 package com.mazebert.simulation;
 
 import com.mazebert.simulation.replay.StreamReplayReader;
-import org.assertj.core.api.SoftAssertions;
 import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.io.BufferedInputStream;
@@ -12,8 +10,14 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
+import java.util.List;
+import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentMap;
+import java.util.stream.Collectors;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.jusecase.Builders.a;
 import static org.jusecase.Builders.set;
 
@@ -26,21 +30,27 @@ public class BackwardCompatiblityTester {
 
     private static final Path gamesDirectory = Paths.get("src/test/resources/games");
 
-    private SoftAssertions s;
-
-    @BeforeEach
-    void setUp() {
-        s = new SoftAssertions();
-    }
+    private ConcurrentMap<Path, Exception> errors = new ConcurrentHashMap<>();
 
     @AfterEach
     void tearDown() {
-        s.assertAll();
+        for (Map.Entry<Path, Exception> entry : errors.entrySet()) {
+            Exception exception = entry.getValue();
+            if (exception instanceof IOException) {
+                System.err.println("Failed to load game " + entry.getKey() + " " + exception.getMessage());
+            } else {
+                System.err.println("Failed to verify game " + entry.getKey() + " " + exception.getMessage());
+            }
+        }
+        assertThat(errors.size()).isEqualTo(0);
     }
 
     @Test
     void checkAll() throws IOException {
-        Files.walk(gamesDirectory, 1).forEach(file -> {
+        List<Path> files = Files.walk(gamesDirectory, 1).collect(Collectors.toList());
+        System.out.println("Validating " + files.size() + " games");
+
+        files.parallelStream().forEach(file -> {
             if (Files.isDirectory(file)) {
                 return;
             }
@@ -61,10 +71,8 @@ public class BackwardCompatiblityTester {
     private void checkGame(Path file) {
         try (StreamReplayReader replayReader = new StreamReplayReader(new BufferedInputStream(Files.newInputStream(file, StandardOpenOption.READ)))) {
             new SimulationValidator().validate(replayReader, null, null);
-        } catch (IOException e) {
-            s.assertThat(true).describedAs("Failed to load game " + file + " " + e.getMessage()).isFalse();
         } catch (Exception e) {
-            s.assertThat(true).describedAs("Failed to verify game " + file + " " + e.getMessage()).isFalse();
+            errors.put(file, e);
         }
     }
 }

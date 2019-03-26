@@ -5,12 +5,14 @@ import com.mazebert.simulation.countdown.EarlyCallCountDown;
 import com.mazebert.simulation.countdown.GameCountDown;
 import com.mazebert.simulation.countdown.WaveCountDown;
 import com.mazebert.simulation.gateways.*;
+import com.mazebert.simulation.maps.FollowPathResult;
 import com.mazebert.simulation.plugins.ClientPlugin;
 import com.mazebert.simulation.plugins.FormatPlugin;
 import com.mazebert.simulation.plugins.SleepPlugin;
 import com.mazebert.simulation.plugins.random.UuidRandomPlugin;
 import com.mazebert.simulation.projectiles.ProjectileGateway;
 import com.mazebert.simulation.systems.*;
+import com.mazebert.simulation.systems.DamageSystem.DamageInfo;
 import com.mazebert.simulation.units.Currency;
 import com.mazebert.simulation.units.heroes.Hero;
 import com.mazebert.simulation.units.heroes.HeroType;
@@ -71,6 +73,8 @@ public strictfp class Context {
     public EnumMap<ItemType, Item> itemInstances = new EnumMap<>(ItemType.class);
     public EnumMap<PotionType, Potion> potionInstances = new EnumMap<>(PotionType.class);
     public EnumMap<HeroType, Hero> heroInstances = new EnumMap<>(HeroType.class);
+    public DamageInfo damageInfo = new DamageInfo();
+    public FollowPathResult followPathResult = new FollowPathResult();
 
     public void init(Simulation simulation) {
         damageSystem = new DamageSystem();
