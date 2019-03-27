@@ -11,8 +11,9 @@ import com.mazebert.simulation.replay.data.ReplayHeader;
 
 @SuppressWarnings("unused") // Used by ladder to validate simulation games
 public strictfp class SimulationValidator {
-    public Simulation validate(ReplayReader replayReader, Consumer<Context> before, Consumer<Context> after) throws DsyncException {
+    public Simulation validate(int version, ReplayReader replayReader, Consumer<Context> before, Consumer<Context> after) throws DsyncException {
         Context context = ContextProvider.createContext(false);
+        context.version = version;
 
         context.replayWriterGateway = new NoReplayWriterGateway();
         context.messageGateway = new NoMessageGateway();

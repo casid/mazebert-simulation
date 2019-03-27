@@ -26,7 +26,11 @@ import com.mazebert.simulation.units.towers.TowerType;
 import java.util.EnumMap;
 
 public strictfp class Context {
+    // For visuals only, so static is ok here
     public static Currency currency = Currency.Gold;
+
+    // Current simulation version
+    public int version = Sim.version;
 
     // Connection to app
     public SimulationListeners simulationListeners;

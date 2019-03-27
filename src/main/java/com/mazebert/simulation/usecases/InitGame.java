@@ -23,8 +23,8 @@ public strictfp class InitGame extends Usecase<InitGameCommand> {
 
     @Override
     public void execute(InitGameCommand command) {
-        if (Sim.version != command.version) {
-            throw new UnsupportedVersionException("Simulation v" + Sim.version + " cannot simulate a game with version v" + command.version);
+        if (Sim.context().version != command.version) {
+            throw new UnsupportedVersionException("Simulation v" + Sim.context().version + " cannot simulate a game with version v" + command.version);
         }
 
         randomPlugin.setSeed(command.gameId);

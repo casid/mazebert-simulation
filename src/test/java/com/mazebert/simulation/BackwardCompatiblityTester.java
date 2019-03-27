@@ -70,7 +70,7 @@ public class BackwardCompatiblityTester {
 
     private void checkGame(Path file) {
         try (StreamReplayReader replayReader = new StreamReplayReader(new BufferedInputStream(Files.newInputStream(file, StandardOpenOption.READ)))) {
-            new SimulationValidator().validate(replayReader, null, null);
+            new SimulationValidator().validate(10, replayReader, null, null);
         } catch (Exception e) {
             errors.put(file, e);
         }

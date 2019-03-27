@@ -815,7 +815,7 @@ public strictfp class WaveSpawnerTest extends SimTest {
         wave = new Wave();
         wave.creepCount = waveType.creepCount;
         wave.type = waveType;
-        wave.round = 1;
+        wave.round = waveGateway.getWaves().size() + 1;
         waveGateway.addWave(wave);
     }
 

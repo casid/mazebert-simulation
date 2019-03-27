@@ -296,7 +296,7 @@ public strictfp final class WaveSpawner implements OnGameStartedListener, OnWave
 
         simulationListeners.onWaveFinished.dispatch(wave);
 
-        if (Sim.context().waveCountDown == null && (!unitGateway.hasUnits(Creep.class) || !waveGateway.hasNextWave()) && creepQueue.isEmpty()) {
+        if (isCurrentWaveComplete(wave)) {
             if (waveGateway.hasNextWave()) {
                 Sim.context().waveCountDown = new WaveCountDown();
                 Sim.context().waveCountDown.start();
@@ -306,6 +306,14 @@ public strictfp final class WaveSpawner implements OnGameStartedListener, OnWave
                 Sim.context().bonusRoundCountDown = new BonusRoundCountDown();
                 Sim.context().bonusRoundCountDown.start();
             }
+        }
+    }
+
+    private boolean isCurrentWaveComplete(Wave wave) {
+        if (Sim.context().version > 10) {
+            return Sim.context().waveCountDown == null && (wave.round == waveGateway.getCurrentRound() || !waveGateway.hasNextWave()) && creepQueue.isEmpty();
+        } else {
+            return Sim.context().waveCountDown == null && (!unitGateway.hasUnits(Creep.class) || !waveGateway.hasNextWave()) && creepQueue.isEmpty();
         }
     }
 
