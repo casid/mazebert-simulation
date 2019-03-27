@@ -32,7 +32,7 @@ public strictfp class ContextProvider {
         context.gameGateway = new GameGateway();
         context.unitGateway = new UnitGateway();
         context.waveGateway = new WaveGateway();
-        context.localCommandGateway = new LocalCommandGateway();
+        context.localCommandGateway = new GameLocalCommandGateway();
         context.projectileGateway = new ProjectileGateway();
 
         context.commandExecutor = new CommandExecutor();

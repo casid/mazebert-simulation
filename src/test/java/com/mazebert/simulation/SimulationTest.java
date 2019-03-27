@@ -25,7 +25,7 @@ public abstract class SimulationTest extends SimTest {
     @BeforeEach
     void setUp() {
         commandExecutor = commandExecutorTrainer;
-        localCommandGateway = new LocalCommandGateway();
+        localCommandGateway = new GameLocalCommandGateway();
         sleepPlugin = sleepPluginTrainer;
         messageGateway = messageGatewayTrainer;
         playerGateway = playerGatewayTrainer;
