@@ -8,24 +8,23 @@ public strictfp interface TurnGateway {
 
     int getCurrentTurnNumber();
 
-    void setCurrentTurnNumber(int currentTurnNumber);
-
     List<Turn> waitForAllPlayerTurns(MessageGateway messageGateway);
 
     void incrementTurnNumber();
 
-    int clampTurnNumber(long turnNumber);
-
     void onLocalTurnReceived(Turn turn);
 
-    @SuppressWarnings("unused")
+    @SuppressWarnings("unused") // Called by client
     void onRemoteTurnReceived(Turn turn);
-
-    boolean isMissing(Turn turn, int turnNumber);
-
-    Turn getTurn(int turnNumber, int playerId);
 
     int getTurnNumberForLocalCommands();
 
     void setRunning(boolean running);
+
+    static int clampTurnNumber(long turnNumber) {
+        while (turnNumber >= Integer.MAX_VALUE) {
+            turnNumber -= Integer.MAX_VALUE;
+        }
+        return (int) turnNumber;
+    }
 }

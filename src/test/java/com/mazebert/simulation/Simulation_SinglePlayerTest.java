@@ -2,6 +2,7 @@ package com.mazebert.simulation;
 
 import com.mazebert.simulation.commands.BuildTowerCommand;
 import com.mazebert.simulation.commands.Command;
+import com.mazebert.simulation.gateways.GameTurnGateway;
 import com.mazebert.simulation.messages.Turn;
 import org.junit.jupiter.api.Test;
 
@@ -47,7 +48,7 @@ public class Simulation_SinglePlayerTest extends SimulationTest {
 
     @Test
     void turnIsIncremented_maxInt() {
-        turnGateway.setCurrentTurnNumber(Integer.MAX_VALUE - 1);
+        ((GameTurnGateway)turnGateway).setCurrentTurnNumber(Integer.MAX_VALUE - 1);
         turnGateway.onLocalTurnReceived(a(turn().withTurnNumber(Integer.MAX_VALUE - 1)));
         simulation.process();
         assertThat(turnGateway.getCurrentTurnNumber()).isEqualTo(0);
@@ -61,7 +62,7 @@ public class Simulation_SinglePlayerTest extends SimulationTest {
 
         simulation.process();
 
-        Turn turn = turnGateway.getTurn(2, 1);
+        Turn turn = ((GameTurnGateway)turnGateway).getTurn(2, 1);
         assertThat(turn.playerId).isEqualTo(1);
         assertThat(turn.turnNumber).isEqualTo(2);
         assertThat(turn.commands).containsExactly(command);

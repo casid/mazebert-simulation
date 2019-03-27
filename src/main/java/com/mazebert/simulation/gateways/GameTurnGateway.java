@@ -26,7 +26,7 @@ public strictfp class GameTurnGateway implements TurnGateway {
     }
 
     public void setCurrentTurnNumber(int currentTurnNumber) {
-        this.currentTurnNumber = clampTurnNumber(currentTurnNumber);
+        this.currentTurnNumber = TurnGateway.clampTurnNumber(currentTurnNumber);
     }
 
     public List<Turn> waitForAllPlayerTurns(MessageGateway messageGateway) {
@@ -53,14 +53,7 @@ public strictfp class GameTurnGateway implements TurnGateway {
     }
 
     public void incrementTurnNumber() {
-        currentTurnNumber = clampTurnNumber(currentTurnNumber + 1L);
-    }
-
-    public int clampTurnNumber(long turnNumber) {
-        while (turnNumber >= Integer.MAX_VALUE) {
-            turnNumber -= Integer.MAX_VALUE;
-        }
-        return (int) turnNumber;
+        currentTurnNumber = TurnGateway.clampTurnNumber(currentTurnNumber + 1L);
     }
 
     private void askForMissingTurns(MessageGateway messageGateway) {
@@ -121,7 +114,7 @@ public strictfp class GameTurnGateway implements TurnGateway {
         return this.turns[getCurrentTurnIndex()];
     }
 
-    public boolean isMissing(Turn turn, int turnNumber) {
+    private boolean isMissing(Turn turn, int turnNumber) {
         return turn == null || turn.turnNumber < turnNumber;
     }
 
@@ -133,7 +126,7 @@ public strictfp class GameTurnGateway implements TurnGateway {
     }
 
     public int getTurnNumberForLocalCommands() {
-        return clampTurnNumber(currentTurnNumber + 2L);
+        return TurnGateway.clampTurnNumber(currentTurnNumber + 2L);
     }
 
     public void setRunning(boolean running) {
