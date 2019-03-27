@@ -11,6 +11,8 @@ import com.mazebert.simulation.units.abilities.ProjectileDamageAbility;
 
 public strictfp class Solara extends Tower {
 
+    private final SolaraBurn burn;
+
     public Solara() {
         setBaseCooldown(4.0f);
         setBaseRange(2.0f);
@@ -24,7 +26,8 @@ public strictfp class Solara extends Tower {
         addAbility(new AttackSoundAbility("sounds/fireball.mp3"));
         addAbility(new ProjectileDamageAbility(ProjectileViewType.Fireball, 10.0f));
         addAbility(new SolaraFireball());
-        addAbility(new SolaraBurn());
+        burn = new SolaraBurn();
+        addAbility(burn);
     }
 
     @Override
@@ -75,7 +78,6 @@ public strictfp class Solara extends Tower {
     @Override
     public void populateCustomTowerBonus(CustomTowerBonus bonus) {
         bonus.title = "Burn damage";
-        bonus.value = "?";
-
+        bonus.value = format.percent(burn.getBurnDamageFactor()) + "%";
     }
 }
