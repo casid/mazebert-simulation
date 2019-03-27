@@ -3,10 +3,7 @@ package com.mazebert.simulation;
 import com.mazebert.simulation.commands.InitGameCommand;
 import com.mazebert.simulation.commands.NextWaveCommand;
 import com.mazebert.simulation.errors.DsyncException;
-import com.mazebert.simulation.gateways.GameGateway;
-import com.mazebert.simulation.gateways.PlayerGatewayTrainer;
-import com.mazebert.simulation.gateways.TurnGateway;
-import com.mazebert.simulation.gateways.UnitGateway;
+import com.mazebert.simulation.gateways.*;
 import com.mazebert.simulation.projectiles.ProjectileGateway;
 import com.mazebert.simulation.replay.ReplayReaderTrainer;
 import com.mazebert.simulation.replay.data.ReplayFrame;
@@ -30,7 +27,7 @@ strictfp class Simulation_LoadTest extends SimTest {
     @BeforeEach
     void setUp() {
         commandExecutor = commandExecutorTrainer;
-        turnGateway = new TurnGateway(1);
+        turnGateway = new GameTurnGateway(1);
         unitGateway = new UnitGateway();
         simulationListeners = new SimulationListeners();
         projectileGateway = new ProjectileGateway();

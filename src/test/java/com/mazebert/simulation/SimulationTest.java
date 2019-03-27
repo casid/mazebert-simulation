@@ -34,7 +34,7 @@ public abstract class SimulationTest extends SimTest {
         gameGateway = new GameGateway();
         simulationMonitor = new SimulationMonitor();
         unitGateway = new UnitGateway();
-        turnGateway = new TurnGateway(playerCount);
+        turnGateway = new GameTurnGateway(playerCount);
         projectileGateway = new ProjectileGateway();
 
         simulation = new Simulation();

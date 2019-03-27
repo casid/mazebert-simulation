@@ -7,7 +7,7 @@ import com.mazebert.simulation.commands.BuildTowerCommand;
 import com.mazebert.simulation.commands.DrinkPotionCommand;
 import com.mazebert.simulation.commands.EquipItemCommand;
 import com.mazebert.simulation.gateways.GameGateway;
-import com.mazebert.simulation.gateways.TurnGateway;
+import com.mazebert.simulation.gateways.GameTurnGateway;
 import com.mazebert.simulation.gateways.UnitGateway;
 import com.mazebert.simulation.maps.MapAura;
 import com.mazebert.simulation.maps.MapType;
@@ -42,7 +42,7 @@ class BuildTowerTest extends UsecaseTest<BuildTowerCommand> {
         commandExecutor = new CommandExecutor();
         commandExecutor.init();
 
-        turnGateway = new TurnGateway(1);
+        turnGateway = new GameTurnGateway(1);
         randomPlugin = randomPluginTrainer;
 
         map = new TestMap(2);
