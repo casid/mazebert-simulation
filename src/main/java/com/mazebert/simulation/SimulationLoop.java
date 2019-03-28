@@ -4,6 +4,7 @@ import com.mazebert.java8.Consumer;
 import com.mazebert.simulation.commands.InitGameCommand;
 import com.mazebert.simulation.commands.InitPlayerCommand;
 
+@SuppressWarnings("unused")
 public strictfp class SimulationLoop {
 
     private final String threadName;
