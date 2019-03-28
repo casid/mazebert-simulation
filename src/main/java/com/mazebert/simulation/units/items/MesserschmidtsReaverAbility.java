@@ -44,4 +44,9 @@ public strictfp class MesserschmidtsReaverAbility extends SplashAbility {
     public String getDescription() {
         return "Range reduced by " + format.percent(rangeMalus) + "%\nAttackspeed reduced by " + format.percent(attackSpeedMalus) + "%\n" + format.percent(getDamageFactor()) + "% splash damage in " + getRange() + " range around the target";
     }
+
+    @Override
+    public String getIconFile() {
+        return null; // should not be displayed when equipped
+    }
 }
