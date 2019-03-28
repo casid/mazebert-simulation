@@ -3,6 +3,7 @@ package com.mazebert.simulation.units.towers;
 import com.mazebert.simulation.AttackType;
 import com.mazebert.simulation.Element;
 import com.mazebert.simulation.Rarity;
+import com.mazebert.simulation.Sim;
 import com.mazebert.simulation.projectiles.ProjectileViewType;
 import com.mazebert.simulation.units.Gender;
 import com.mazebert.simulation.units.abilities.AttackAbility;
@@ -22,7 +23,12 @@ public strictfp class Pub extends Tower {
         addAbility(new AttackAbility());
         addAbility(new ProjectileDamageAbility(ProjectileViewType.Beer, 6));
         addAbility(new PubAura());
-        addAbility(new PubParty());
+        if (Sim.context().version <= 10) {
+            addAbility(new PubParty10());
+        } else {
+            addAbility(new PubParty());
+        }
+
     }
 
     @Override

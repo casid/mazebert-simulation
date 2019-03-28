@@ -1,10 +1,10 @@
 package com.mazebert.simulation.units.towers;
 
 import com.mazebert.simulation.Rarity;
-import com.mazebert.simulation.units.abilities.ActiveAbility;
+import com.mazebert.simulation.units.abilities.CooldownActiveAbility;
 import com.mazebert.simulation.units.items.Item;
 
-public strictfp class MrIronConstruct extends ActiveAbility {
+public strictfp class MrIronConstruct extends CooldownActiveAbility {
 
     public static final float COOLDOWN = 90;
 

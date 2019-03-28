@@ -2,9 +2,9 @@ package com.mazebert.simulation.units.towers;
 
 import com.mazebert.simulation.Sim;
 import com.mazebert.simulation.SimulationListeners;
-import com.mazebert.simulation.units.abilities.ActiveAbility;
+import com.mazebert.simulation.units.abilities.CooldownActiveAbility;
 
-public strictfp class KiwiHaka extends ActiveAbility {
+public strictfp class KiwiHaka extends CooldownActiveAbility {
 
     public static final float COOLDOWN = 300.0f;
     public static final float DURATION = 16.0f;

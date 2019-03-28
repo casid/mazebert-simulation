@@ -2,6 +2,7 @@ package com.mazebert.simulation;
 
 import com.mazebert.simulation.replay.StreamReplayReader;
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import java.io.BufferedInputStream;
@@ -63,6 +64,7 @@ public class BackwardCompatiblityTester {
         });
     }
 
+    @Disabled
     @Test
     void checkOne() {
         checkGame(gamesDirectory.resolve("ebdbea64-ab7f-4302-ab68-60ace587bd01-34707.mbg"));

@@ -14,7 +14,9 @@ public strictfp class PubSystem implements OnUpdateListener {
 
     private final SimulationListeners simulationListeners = Sim.context().simulationListeners;
     private final UnitGateway unitGateway = Sim.context().unitGateway;
+    private final int version = Sim.context().version;
 
+    private float currentCooldownLeft;
     private float currentPartyTimeLeft;
 
     public void activate() {
@@ -23,16 +25,36 @@ public strictfp class PubSystem implements OnUpdateListener {
         unitGateway.forEachTower(tower -> tower.addAbility(new PubPartyEffect(currentBonus)));
 
         currentPartyTimeLeft = PARTY_TIME;
+        currentCooldownLeft = COOLDOWN_TIME;
         simulationListeners.onUpdate.add(this);
     }
 
     @Override
     public void onUpdate(float dt) {
-        currentPartyTimeLeft -= dt;
-        if (currentPartyTimeLeft <= 0) {
-            unitGateway.forEachTower(tower -> tower.removeAbility(PubPartyEffect.class));
-            currentPartyTimeLeft = 0;
-            simulationListeners.onUpdate.remove(this);
+        if (version <= 10) {
+            currentPartyTimeLeft -= dt;
+            if (currentPartyTimeLeft <= 0) {
+                unitGateway.forEachTower(tower -> tower.removeAbility(PubPartyEffect.class));
+                currentPartyTimeLeft = 0;
+                simulationListeners.onUpdate.remove(this);
+            }
+        } else {
+            currentCooldownLeft -= dt;
+            if (currentPartyTimeLeft > 0) {
+                currentPartyTimeLeft -= dt;
+                if (currentPartyTimeLeft <= 0) {
+                    unitGateway.forEachTower(tower -> tower.removeAbility(PubPartyEffect.class));
+                    currentPartyTimeLeft = 0;
+                }
+            }
+
+            if (currentCooldownLeft <= 0) {
+                simulationListeners.onUpdate.remove(this);
+            }
         }
+    }
+
+    public float getReadyProgress() {
+        return (COOLDOWN_TIME - currentCooldownLeft) / COOLDOWN_TIME;
     }
 }

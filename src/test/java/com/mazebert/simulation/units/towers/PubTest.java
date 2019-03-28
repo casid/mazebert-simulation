@@ -52,6 +52,16 @@ strictfp class PubTest extends SimTest {
     }
 
     @Test
+    void abilityIsBlockedForAllPubs() {
+        Pub pub2 = new Pub();
+        unitGateway.addUnit(pub2);
+
+        whenAbilityIsActivated();
+
+        assertThat(pub2.getAbility(PubParty.class).isReady()).isFalse();
+    }
+
+    @Test
     void effectIsRemoved() {
         whenAbilityIsActivated();
         simulationListeners.onUpdate.dispatch(PARTY_TIME);

@@ -16,7 +16,7 @@ public strictfp class ActivateAbility extends Usecase<ActivateAbilityCommand> {
             return;
         }
 
-        ActiveAbility ability = tower.getAbility(command.abilityType.abilityClass);
+        ActiveAbility ability = tower.getAbility(command.abilityType.getAbilityClass());
         if (ability == null) {
             return;
         }

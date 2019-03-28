@@ -1,19 +1,21 @@
 package com.mazebert.simulation.units.abilities;
 
+import com.mazebert.simulation.Sim;
 import com.mazebert.simulation.units.items.BowlingBallRollAbility;
 import com.mazebert.simulation.units.towers.KiwiHaka;
 import com.mazebert.simulation.units.towers.MrIronConstruct;
 import com.mazebert.simulation.units.towers.PubParty;
+import com.mazebert.simulation.units.towers.PubParty10;
 
 public strictfp enum ActiveAbilityType {
-    PubParty(1, PubParty.class),
+    PubParty(1, PubParty10.class, PubParty.class),
     MrIronConstruct(2, MrIronConstruct.class),
     KiwiHaka(3, KiwiHaka.class),
     BowlingBallRollAbility(4, BowlingBallRollAbility.class),
     ;
 
     public final int id;
-    public final Class<? extends ActiveAbility> abilityClass;
+    public final Class<? extends ActiveAbility>[] abilityClasses;
 
     private static ActiveAbilityType[] LOOKUP;
 
@@ -28,9 +30,10 @@ public strictfp enum ActiveAbilityType {
         }
     }
 
-    ActiveAbilityType(int id, Class<? extends ActiveAbility> abilityClass) {
+    @SafeVarargs
+    ActiveAbilityType(int id, Class<? extends ActiveAbility> ... abilityClasses) {
         this.id = id;
-        this.abilityClass = abilityClass;
+        this.abilityClasses = abilityClasses;
     }
 
     public static ActiveAbilityType forId(int id) {
@@ -41,10 +44,23 @@ public strictfp enum ActiveAbilityType {
     public static ActiveAbilityType forAbility(ActiveAbility ability) {
         Class<? extends ActiveAbility> abilityClass = ability.getClass();
         for (ActiveAbilityType abilityType : values()) {
-            if (abilityType.abilityClass == abilityClass) {
-                return abilityType;
+            for (Class<? extends ActiveAbility> typeClass : abilityType.abilityClasses) {
+                if (typeClass == abilityClass) {
+                    return abilityType;
+                }
             }
         }
         return null;
+    }
+
+    public Class<? extends ActiveAbility> getAbilityClass() {
+        if (this == PubParty) {
+            if (Sim.context().version <= 10) {
+                return abilityClasses[0];
+            } else {
+                return abilityClasses[1];
+            }
+        }
+        return abilityClasses[0];
     }
 }

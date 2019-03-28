@@ -2,19 +2,20 @@ package com.mazebert.simulation.units.towers;
 
 import com.mazebert.simulation.Sim;
 import com.mazebert.simulation.systems.PubSystem;
-import com.mazebert.simulation.units.abilities.ActiveAbility;
+import com.mazebert.simulation.units.abilities.CooldownActiveAbility;
 
-public strictfp class PubParty extends ActiveAbility {
+public strictfp class PubParty10 extends CooldownActiveAbility {
     private final PubSystem pubSystem = Sim.context().pubSystem;
 
     @Override
-    public float getReadyProgress() {
-        return pubSystem.getReadyProgress();
+    public float getCooldown() {
+        return PubSystem.COOLDOWN_TIME;
     }
 
     @Override
     public void activate() {
         pubSystem.activate();
+        startCooldown();
     }
 
     @Override

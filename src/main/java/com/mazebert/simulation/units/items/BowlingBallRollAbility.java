@@ -10,12 +10,12 @@ import com.mazebert.simulation.maps.FollowPathResult;
 import com.mazebert.simulation.maps.Map;
 import com.mazebert.simulation.maps.MapGrid;
 import com.mazebert.simulation.minigames.BowlingGame;
-import com.mazebert.simulation.units.abilities.ActiveAbility;
+import com.mazebert.simulation.units.abilities.CooldownActiveAbility;
 
 import static com.mazebert.simulation.units.items.BowlingBall.BALL_COOLDOWN;
 import static com.mazebert.simulation.units.items.BowlingBall.DEATH_CHANCE;
 
-public strictfp class BowlingBallRollAbility extends ActiveAbility {
+public strictfp class BowlingBallRollAbility extends CooldownActiveAbility {
 
     private final SimulationListeners simulationListeners = Sim.context().simulationListeners;
     private final UnitGateway unitGateway = Sim.context().unitGateway;
