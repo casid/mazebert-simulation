@@ -37,16 +37,17 @@ public strictfp class SkullOfDarknessAbility extends Ability<Tower> implements O
     }
 
     private void heal() {
-        getUnit().getWizard().addHealth(healthPerKill);
+        Tower tower = getUnit();
+        tower.getWizard().addHealth(healthPerKill);
 
         if (simulationListeners.areNotificationsEnabled()) {
-            simulationListeners.showNotification(getUnit(), "Skull healed you!", 0x333333);
+            simulationListeners.showNotification(tower, "Skull healed you!", 0x333333);
         }
 
         if (--remainingHealings <= 0) {
-            getUnit().removeItem(ItemType.SkullOfDarkness);
+            tower.removeItem(ItemType.SkullOfDarkness);
             if (simulationListeners.areNotificationsEnabled()) {
-                simulationListeners.showNotification(getUnit(), "Skull destroyed!", 0x333333);
+                simulationListeners.showNotification(tower, "Skull destroyed!", 0x333333);
             }
         }
     }
