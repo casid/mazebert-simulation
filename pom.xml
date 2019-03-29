@@ -44,7 +44,7 @@
         <dependency>
             <groupId>com.mazebert</groupId>
             <artifactId>mazebert-validator-api</artifactId>
-            <version>2</version>
+            <version>3</version>
         </dependency>
 
         <!-- Tests -->
