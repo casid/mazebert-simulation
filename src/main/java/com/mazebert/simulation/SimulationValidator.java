@@ -10,8 +10,7 @@ import com.mazebert.simulation.replay.data.ReplayHeader;
 public strictfp class SimulationValidator {
     @SuppressWarnings("UnusedReturnValue")
     public Simulation validate(int version, ReplayReader replayReader, Consumer<Context> before, Consumer<Context> after) throws DsyncException {
-        Context context = ContextProvider.createContext(false);
-        context.version = version;
+        Context context = ContextProvider.createContext(version, false);
 
         context.replayWriterGateway = new NoReplayWriterGateway();
         context.messageGateway = new NoMessageGateway();

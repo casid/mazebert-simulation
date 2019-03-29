@@ -9,12 +9,14 @@ import com.mazebert.simulation.projectiles.ProjectileGateway;
 
 public strictfp class ContextProvider {
     @SuppressWarnings("unused") // Used by client
-    public static Context createContext() {
-        return createContext(true);
+    public static Context createContext(int version) {
+        return createContext(version, true);
     }
 
-    public static Context createContext(boolean realGame) {
+    public static Context createContext(int version, boolean realGame) {
         Context context = new Context();
+        context.version = version;
+
         if (realGame) {
             context.sleepPlugin = new SleepPlugin();
             context.simulationMonitor = new SimulationMonitor(true);
