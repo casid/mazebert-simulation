@@ -45,6 +45,7 @@ public strictfp final class Simulation {
     private float playTimeInSeconds;
     private boolean pause;
     private boolean running = true;
+    private boolean replayPause;
     private Hash hash = new Hash();
 
     public Simulation() {
@@ -102,6 +103,18 @@ public strictfp final class Simulation {
             this.pause = pause;
             simulationListeners.onPause.dispatch(playerId, pause);
         }
+    }
+
+    @SuppressWarnings("unused")
+    public void setReplayPause(boolean pause) {
+        if (this.replayPause != pause) {
+            this.replayPause = pause;
+        }
+    }
+
+    @SuppressWarnings("unused")
+    public boolean isReplayPause() {
+        return replayPause;
     }
 
     public void setRunning(boolean running) {
@@ -162,14 +175,18 @@ public strictfp final class Simulation {
     }
 
     public void process() {
-        List<Turn> playerTurns = turnGateway.waitForAllPlayerTurns(messageGateway);
-        if (running) {
-            simulate(playerTurns);
+        if (replayPause) {
+            sleepPlugin.sleepUntil(sleepPlugin.nanoTime(), turnTimeInNanos);
+        } else {
+            List<Turn> playerTurns = turnGateway.waitForAllPlayerTurns(messageGateway);
+            if (running) {
+                simulate(playerTurns);
 
-            List<Command> commands = localCommandGateway.reset();
-            schedule(commands, turnGateway.getTurnNumberForLocalCommands());
+                List<Command> commands = localCommandGateway.reset();
+                schedule(commands, turnGateway.getTurnNumberForLocalCommands());
 
-            turnGateway.incrementTurnNumber();
+                turnGateway.incrementTurnNumber();
+            }
         }
     }
 
@@ -185,7 +202,7 @@ public strictfp final class Simulation {
 
     @SuppressWarnings("unused") // Used by client
     public float getTimeModifier() {
-        if (pause) {
+        if (pause || replayPause) {
             return 0;
         }
         return timeModifier;
