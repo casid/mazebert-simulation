@@ -1,6 +1,7 @@
 package com.mazebert.simulation.units.wizards;
 
 import com.mazebert.simulation.CardType;
+import com.mazebert.simulation.Element;
 import com.mazebert.simulation.hash.Hash;
 import com.mazebert.simulation.listeners.*;
 import com.mazebert.simulation.stash.ItemStash;
@@ -146,5 +147,31 @@ public strictfp class Wizard extends Unit {
             ++elementResearchPoints;
             onElementResearchPointsChanged.dispatch(this);
         }
+    }
+
+    public EnumSet<PotionType> getResearchableElements() {
+        EnumSet<PotionType> result = EnumSet.noneOf(PotionType.class);
+        for (Element element : Element.values()) {
+            if (!towerStash.isElementResearched(element)) {
+                PotionType cardForElement = getCardForElement(element);
+                if (cardForElement != null) {
+                    result.add(cardForElement);
+                }
+            }
+        }
+        return result;
+    }
+
+    private PotionType getCardForElement(Element element) {
+        switch (element) {
+            case Nature:
+                return PotionType.ResearchNature;
+            case Metropolis:
+                return PotionType.ResearchMetropolis;
+            case Darkness:
+                return PotionType.ResearchDarkness;
+        }
+
+        return null;
     }
 }
