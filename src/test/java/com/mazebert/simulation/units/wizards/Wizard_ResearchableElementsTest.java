@@ -32,4 +32,10 @@ class Wizard_ResearchableElementsTest extends SimTest {
         wizard.towerStash.setElements(EnumSet.of(Element.Nature, Element.Darkness));
         assertThat(wizard.getResearchableElements()).containsExactlyInAnyOrder(PotionType.ResearchMetropolis);
     }
+
+    @Test
+    void alreadyDropped() {
+        wizard.potionStash.add(PotionType.ResearchDarkness);
+        assertThat(wizard.getResearchableElements()).containsExactlyInAnyOrder(PotionType.ResearchMetropolis, PotionType.ResearchNature);
+    }
 }

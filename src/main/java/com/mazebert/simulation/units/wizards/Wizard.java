@@ -154,7 +154,7 @@ public strictfp class Wizard extends Unit {
         for (Element element : Element.values()) {
             if (!towerStash.isElementResearched(element)) {
                 PotionType cardForElement = getCardForElement(element);
-                if (cardForElement != null) {
+                if (cardForElement != null && !potionStash.isUniqueAlreadyDropped(cardForElement)) {
                     result.add(cardForElement);
                 }
             }
