@@ -26,7 +26,10 @@ public class BackwardCompatiblityTester {
 
     private static final Set<String> acknowledgedDsyncs = a(set(
             "6d22fa0a-723d-408f-a687-c2dc687ac8b2-32597.mbg",
-            "ebdbea64-ab7f-4302-ab68-60ace587bd01-34707.mbg"
+            "ebdbea64-ab7f-4302-ab68-60ace587bd01-34707.mbg",
+            "79a1e02f-3c7a-4d58-8f21-1f2ca049a1d5-6737.mbg",
+            "8407598d-5540-4935-9485-41d28b594595-34164.mbg",
+            "0dd320b2-cbed-4533-b265-8eddea8dc005-35049.mbg"
     ));
 
     private static final Path gamesDirectory = Paths.get("src/test/resources/games");
@@ -41,6 +44,7 @@ public class BackwardCompatiblityTester {
                 System.err.println("Failed to load game " + entry.getKey() + " " + exception.getMessage());
             } else {
                 System.err.println("Failed to verify game " + entry.getKey() + " " + exception.getMessage());
+                exception.printStackTrace(System.err);
             }
         }
         assertThat(errors.size()).isEqualTo(0);
@@ -67,7 +71,7 @@ public class BackwardCompatiblityTester {
     @Disabled
     @Test
     void checkOne() {
-        checkGame(gamesDirectory.resolve("ebdbea64-ab7f-4302-ab68-60ace587bd01-34707.mbg"));
+        checkGame(gamesDirectory.resolve("0dd320b2-cbed-4533-b265-8eddea8dc005-35049.mbg"));
     }
 
     private void checkGame(Path file) {
