@@ -199,4 +199,13 @@ public strictfp class FormatPlugin {
         Card card = cardType.instance();
         return colored(card.getName(), card.getRarity().color);
     }
+
+    public String card(CardType cardType, int maxLength) {
+        Card card = cardType.instance();
+        String name = card.getName();
+        if (name.length() > maxLength) {
+            name = name.substring(0, maxLength) + "..";
+        }
+        return colored(name, card.getRarity().color);
+    }
 }
