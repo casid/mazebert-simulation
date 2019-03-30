@@ -17,7 +17,7 @@ public strictfp class ResearchDarkness extends Research {
 
     @Override
     public String getDescription() {
-        return "There is a looming darkness in this exilir.";
+        return "There is a looming darkness in this elixir.";
     }
 
     @Override
