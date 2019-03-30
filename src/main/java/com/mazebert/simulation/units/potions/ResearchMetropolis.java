@@ -7,7 +7,7 @@ public strictfp class ResearchMetropolis extends Research {
 
     @Override
     public String getIcon() {
-        return "research_metropolis.jpg";
+        return "research_metropolis";
     }
 
     @Override

@@ -7,7 +7,7 @@ public strictfp class ResearchDarkness extends Research {
 
     @Override
     public String getIcon() {
-        return "research_darkness.jpg";
+        return "research_darkness";
     }
 
     @Override
