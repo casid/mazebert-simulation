@@ -30,6 +30,10 @@ public strictfp class TakeElementCard extends Usecase<TakeElementCardCommand> {
             return;
         }
 
+        if (wizard.potionStash.isUniqueAlreadyDropped(command.card)) {
+            return;
+        }
+
         wizard.potionStash.add(command.card);
         --wizard.elementResearchPoints;
     }

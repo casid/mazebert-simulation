@@ -50,6 +50,16 @@ class TakeElementCardTest extends UsecaseTest<TakeElementCardCommand> {
     }
 
     @Test
+    void cardAlreadyDropped() {
+        wizard.potionStash.add(request.card);
+        wizard.potionStash.remove(request.card);
+
+        whenRequestIsExecuted();
+
+        thenNoCardIsAdded();
+    }
+
+    @Test
     void success() {
         whenRequestIsExecuted();
 
