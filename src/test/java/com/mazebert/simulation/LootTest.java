@@ -295,7 +295,7 @@ public class LootTest extends SimTest {
     }
 
     @Test
-    void loot_itemLevel_onlyOneFit_itemLevelNotMet_fallbackToWorseRarity() {
+    void loot_itemLevel_onlyOneFit_itemLevelNotMet_fallbackToOtherItemOfSameRarity() {
         randomPluginTrainer.givenFloatAbs(
                 0.0f, // This is a drop
                 0.01f, // The rarity of this drop is uncommon
@@ -308,7 +308,7 @@ public class LootTest extends SimTest {
         whenTowerAttacks();
 
         assertThat(wizard1.itemStash.get(0).amount).isEqualTo(1);
-        assertThat(wizard1.itemStash.get(0).cardType).isEqualTo(ItemType.NorlsFuryAmulet);
+        assertThat(wizard1.itemStash.get(0).cardType).isEqualTo(ItemType.NorlsFurySword);
     }
 
     @Test

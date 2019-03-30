@@ -13,6 +13,7 @@ public strictfp class LootSystem {
     private final RandomPlugin randomPlugin = Sim.context().randomPlugin;
     private final SimulationListeners simulationListeners = Sim.context().simulationListeners;
     private final FormatPlugin formatPlugin = Sim.context().formatPlugin;
+    private final int version = Sim.context().version;
 
     public void loot(Tower tower, Creep creep) {
         Wizard wizard = creep.getWizard();
@@ -114,7 +115,12 @@ public strictfp class LootSystem {
 
     private void rollCardDrop(Wizard wizard, Creep creep, int maxItemLevel, Rarity rarity, Stash stash) {
         while (rarity.ordinal() >= Rarity.Common.ordinal()) {
-            CardType drop = stash.getRandomDrop(rarity, randomPlugin);
+            CardType drop;
+            if (version > 10) {
+                drop = stash.getRandomDrop(rarity, randomPlugin, maxItemLevel);
+            } else {
+                drop = stash.getRandomDrop(rarity, randomPlugin);
+            }
             if (drop != null && dropCard(wizard, creep, stash, drop, maxItemLevel)) {
                 return;
             }
