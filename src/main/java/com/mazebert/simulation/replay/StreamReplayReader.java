@@ -12,12 +12,12 @@ public strictfp class StreamReplayReader implements AutoCloseable, ReplayReader 
     private final StreamBitReader reader;
     private final boolean silenceExceptions;
 
-    public StreamReplayReader(InputStream inputStream) {
-        this(inputStream, false);
+    public StreamReplayReader(InputStream inputStream, int version) {
+        this(inputStream, version, false);
     }
 
-    public StreamReplayReader(InputStream inputStream, boolean silenceExceptions) {
-        reader = new StreamBitReader(new ReplayProtocol(), inputStream);
+    public StreamReplayReader(InputStream inputStream, int version, boolean silenceExceptions) {
+        reader = new StreamBitReader(new ReplayProtocol(version), inputStream);
         this.silenceExceptions = silenceExceptions;
     }
 

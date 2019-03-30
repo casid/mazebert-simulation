@@ -11,15 +11,15 @@ public strictfp class SimulationMessageProtocol extends BitMessageProtocol {
     public static final int MAX_PACKET_BYTES = 1400;
     public static final int MAX_PACKETS_PER_MESSAGE = 10;
 
-    public SimulationMessageProtocol() {
+    public SimulationMessageProtocol(int version) {
         super(MAX_PACKET_BYTES, MAX_PACKETS_PER_MESSAGE);
         register(new TurnSerializer());
         register(new ResendTurnSerializer());
 
-        registerCommands(this);
+        registerCommands(this, version);
     }
 
-    public static void registerCommands(BitProtocol protocol) {
+    public static void registerCommands(BitProtocol protocol, int version) {
         protocol.register(new InitGameCommandSerializer());
         protocol.register(new InitPlayerCommandSerializer());
         protocol.register(new BuildTowerCommandSerializer());
@@ -33,5 +33,8 @@ public strictfp class SimulationMessageProtocol extends BitMessageProtocol {
         protocol.register(new SendMessageCommandSerializer());
         protocol.register(new WizardPowerSerializer());
         protocol.register(new QuestDataSerializer());
+        if (version > 10) {
+            protocol.register(new TakeElementCardCommandSerializer());
+        }
     }
 }

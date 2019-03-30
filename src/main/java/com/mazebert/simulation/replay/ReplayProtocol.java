@@ -7,11 +7,11 @@ import com.mazebert.simulation.replay.data.serializers.ReplayPlayerTurnSerialize
 import org.jusecase.bitpack.AbstractBitProtocol;
 
 public strictfp class ReplayProtocol extends AbstractBitProtocol {
-    public ReplayProtocol() {
+    public ReplayProtocol(int version) {
         register(new ReplayHeaderSerializer());
         register(new ReplayFrameSerializer());
         register(new ReplayPlayerTurnSerializer());
 
-        SimulationMessageProtocol.registerCommands(this);
+        SimulationMessageProtocol.registerCommands(this, version);
     }
 }

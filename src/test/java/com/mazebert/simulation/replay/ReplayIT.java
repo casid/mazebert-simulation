@@ -44,12 +44,12 @@ public class ReplayIT {
         turn.playerTurns[0].commands = new ArrayList<>();
         turn.playerTurns[0].commands.add(new NextWaveCommand());
 
-        try (ReplayWriter replayWriter = new ReplayWriter(Files.newOutputStream(replay.toPath(), CREATE, WRITE, TRUNCATE_EXISTING))) {
+        try (ReplayWriter replayWriter = new ReplayWriter(Files.newOutputStream(replay.toPath(), CREATE, WRITE, TRUNCATE_EXISTING), header.version)) {
             replayWriter.writeHeader(header);
             replayWriter.writeFrame(turn);
         }
 
-        try (StreamReplayReader replayReader = new StreamReplayReader(Files.newInputStream(replay.toPath(), StandardOpenOption.READ))) {
+        try (StreamReplayReader replayReader = new StreamReplayReader(Files.newInputStream(replay.toPath(), StandardOpenOption.READ), header.version)) {
             ReplayHeader readHeader = replayReader.readHeader();
             assertThat(readHeader).isEqualToComparingFieldByFieldRecursively(header);
 
