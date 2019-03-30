@@ -1,8 +1,10 @@
 package com.mazebert.simulation.units.potions;
 
 import com.mazebert.simulation.Element;
+import com.mazebert.simulation.Sim;
 import com.mazebert.simulation.units.abilities.Ability;
 import com.mazebert.simulation.units.towers.Tower;
+import com.mazebert.simulation.units.wizards.Wizard;
 
 public strictfp class ResearchAbility extends Ability<Tower> {
     private final Element element;
@@ -14,7 +16,12 @@ public strictfp class ResearchAbility extends Ability<Tower> {
     @Override
     protected void initialize(Tower unit) {
         super.initialize(unit);
-        unit.getWizard().towerStash.researchElement(element);
+        Wizard wizard = unit.getWizard();
+        if (wizard.towerStash.researchElement(element)) {
+            if (Sim.context().simulationListeners.areNotificationsEnabled()) {
+                Sim.context().simulationListeners.showNotification(wizard, "Element Research: " + format.element(element));
+            }
+        }
     }
 
     @Override

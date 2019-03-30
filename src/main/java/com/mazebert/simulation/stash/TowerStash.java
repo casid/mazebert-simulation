@@ -2,6 +2,7 @@ package com.mazebert.simulation.stash;
 
 import com.mazebert.simulation.CardCategory;
 import com.mazebert.simulation.Element;
+import com.mazebert.simulation.Sim;
 import com.mazebert.simulation.units.towers.Tower;
 import com.mazebert.simulation.units.towers.TowerType;
 
@@ -40,12 +41,16 @@ public strictfp class TowerStash extends Stash<Tower> {
         return elements.contains(element);
     }
 
-    public void researchElement(Element element) {
-        if (!isElementResearched(element)) {
+    public boolean researchElement(Element element) {
+        if (isElementResearched(element)) {
+            return false;
+        } else {
             EnumSet<Element> clone = elements.clone();
             clone.add(element);
 
             setElements(clone);
+
+            return true;
         }
     }
 }
