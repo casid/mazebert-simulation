@@ -38,6 +38,9 @@ public strictfp enum PotionType implements CardType<Potion> {
     CardDustVital(23, CardDustVital.class),
     DrinkAll(24, DrinkAll.class),
     ChangeSex(25, ChangeSex.class),
+    ResearchNature(26, ResearchNature.class),
+    ResearchMetropolis(27, ResearchMetropolis.class),
+    ResearchDarkness(28, ResearchDarkness.class),
     ;
 
     private static PotionType[] LOOKUP;

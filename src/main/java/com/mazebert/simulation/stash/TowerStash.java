@@ -35,4 +35,17 @@ public strictfp class TowerStash extends Stash<Tower> {
     protected boolean isDropable(Tower card) {
         return super.isDropable(card) && elements != null && elements.contains(card.getElement());
     }
+
+    public boolean isElementResearched(Element element) {
+        return elements.contains(element);
+    }
+
+    public void researchElement(Element element) {
+        if (!isElementResearched(element)) {
+            EnumSet<Element> clone = elements.clone();
+            clone.add(element);
+
+            setElements(clone);
+        }
+    }
 }

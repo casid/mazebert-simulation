@@ -1,9 +1,6 @@
 package com.mazebert.simulation.plugins;
 
-import com.mazebert.simulation.Balancing;
-import com.mazebert.simulation.Card;
-import com.mazebert.simulation.CardType;
-import com.mazebert.simulation.Rarity;
+import com.mazebert.simulation.*;
 import com.mazebert.simulation.units.Currency;
 
 import java.math.RoundingMode;
@@ -207,5 +204,9 @@ public strictfp class FormatPlugin {
             name = name.substring(0, maxLength) + "..";
         }
         return colored(name, card.getRarity().color);
+    }
+
+    public String element(Element element) {
+        return colored(element.getName(), element.color);
     }
 }

@@ -81,7 +81,7 @@ public abstract strictfp class RestrictedElementsQuest extends Quest implements 
                 result.append(", ");
             }
 
-            result.append(format.colored(allowedElement.getName(), allowedElement.color));
+            result.append(format.element(allowedElement));
             ++i;
         }
         result.append(" towers only.");
