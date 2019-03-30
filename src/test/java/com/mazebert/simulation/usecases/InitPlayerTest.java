@@ -161,6 +161,26 @@ strictfp class InitPlayerTest extends UsecaseTest<InitPlayerCommand> {
     }
 
     @Test
+    void elements_research_oneElement() {
+        request.elements = EnumSet.of(Element.Darkness);
+
+        whenRequestIsExecuted();
+
+        Wizard wizard = unitGateway.getWizard(request.playerId);
+        assertThat(wizard.maxElementResearchPoints).isEqualTo(2);
+    }
+
+    @Test
+    void elements_research_twoElements() {
+        request.elements = EnumSet.of(Element.Darkness, Element.Metropolis);
+
+        whenRequestIsExecuted();
+
+        Wizard wizard = unitGateway.getWizard(request.playerId);
+        assertThat(wizard.maxElementResearchPoints).isEqualTo(1);
+    }
+
+    @Test
     void quests() {
         QuestData questData = new QuestData();
         questData.type = QuestType.KillChallengesQuest;

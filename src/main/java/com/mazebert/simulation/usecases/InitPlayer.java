@@ -1,5 +1,6 @@
 package com.mazebert.simulation.usecases;
 
+import com.mazebert.simulation.Element;
 import com.mazebert.simulation.Sim;
 import com.mazebert.simulation.SimulationListeners;
 import com.mazebert.simulation.commands.InitPlayerCommand;
@@ -36,6 +37,9 @@ public strictfp class InitPlayer extends Usecase<InitPlayerCommand> {
         wizard.foilItems = command.foilItems;
 
         wizard.towerStash.setElements(command.elements);
+        if (Sim.context().version > 10) {
+            wizard.maxElementResearchPoints = Element.values().length - command.elements.size();
+        }
 
         gameSystem.rollStartingTowers(wizard);
 

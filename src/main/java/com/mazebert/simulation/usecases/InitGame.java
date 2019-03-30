@@ -33,6 +33,7 @@ public strictfp class InitGame extends Usecase<InitGameCommand> {
         difficultyGateway.setDifficulty(command.difficulty);
 
         gameSystem.addWizards();
+        gameSystem.initElementResearch();
 
         gameGateway.getGame().map = command.map.create();
         gameGateway.getGame().health = 1.0f;

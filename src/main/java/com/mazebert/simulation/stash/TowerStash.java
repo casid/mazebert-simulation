@@ -2,7 +2,6 @@ package com.mazebert.simulation.stash;
 
 import com.mazebert.simulation.CardCategory;
 import com.mazebert.simulation.Element;
-import com.mazebert.simulation.Sim;
 import com.mazebert.simulation.units.towers.Tower;
 import com.mazebert.simulation.units.towers.TowerType;
 

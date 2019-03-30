@@ -65,6 +65,8 @@ public strictfp class WaveSpawnerTest extends SimTest {
 
         wizard = gameSystem.addWizard(1);
         wizard.towerStash.setElements(EnumSet.of(Element.Nature));
+
+        gameSystem.initElementResearch();
     }
 
     @Test
@@ -611,6 +613,48 @@ public strictfp class WaveSpawnerTest extends SimTest {
         whenGameIsUpdated();
 
         assertThat(waveFinished).isTrue();
+    }
+
+    @Test
+    void roundCompleted_allHorsemenKilled_twoResearchPointsLeft() {
+        givenWave(WaveType.Horseman);
+        wizard.elementResearchPoints = 0;
+        wizard.maxElementResearchPoints = 2;
+
+        whenGameIsStarted();
+        whenCreepIsKilled(getCreep(0));
+        whenGameIsUpdated();
+
+        assertThat(wizard.elementResearchPoints).isEqualTo(1);
+        assertThat(wizard.maxElementResearchPoints).isEqualTo(1);
+    }
+
+    @Test
+    void roundCompleted_allHorsemenKilled_oneResearchPointLeft() {
+        givenWave(WaveType.Horseman);
+        wizard.elementResearchPoints = 1;
+        wizard.maxElementResearchPoints = 1;
+
+        whenGameIsStarted();
+        whenCreepIsKilled(getCreep(0));
+        whenGameIsUpdated();
+
+        assertThat(wizard.elementResearchPoints).isEqualTo(2);
+        assertThat(wizard.maxElementResearchPoints).isEqualTo(0);
+    }
+
+    @Test
+    void roundCompleted_allHorsemenKilled_noResearchPointLeft() {
+        givenWave(WaveType.Horseman);
+        wizard.maxElementResearchPoints = 0;
+        wizard.elementResearchPoints = 1;
+
+        whenGameIsStarted();
+        whenCreepIsKilled(getCreep(0));
+        whenGameIsUpdated();
+
+        assertThat(wizard.elementResearchPoints).isEqualTo(1);
+        assertThat(wizard.maxElementResearchPoints).isEqualTo(0);
     }
 
     @Test

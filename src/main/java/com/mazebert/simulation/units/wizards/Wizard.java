@@ -22,6 +22,7 @@ public strictfp class Wizard extends Unit {
     public final OnGoldChanged onGoldChanged = new OnGoldChanged();
     public final OnCardsTransmuted onCardsTransmuted = new OnCardsTransmuted();
     public final OnQuestCompleted onQuestCompleted = new OnQuestCompleted();
+    public final OnElementResearchPointsChanged onElementResearchPointsChanged = new OnElementResearchPointsChanged();
 
     public final TowerStash towerStash = new TowerStash();
     public final ItemStash itemStash = new ItemStash();
@@ -54,6 +55,9 @@ public strictfp class Wizard extends Unit {
     public transient EnumSet<TowerType> foilTowers = EnumSet.noneOf(TowerType.class);
     public transient EnumSet<PotionType> foilPotions = EnumSet.noneOf(PotionType.class);
     public transient EnumSet<ItemType> foilItems = EnumSet.noneOf(ItemType.class);
+
+    public transient int elementResearchPoints;
+    public transient int maxElementResearchPoints;
 
     public Wizard() {
         setWizard(this);
@@ -133,6 +137,14 @@ public strictfp class Wizard extends Unit {
         Quest quest = getAbility(questClass);
         if (quest != null) {
             quest.addAmount(1);
+        }
+    }
+
+    public void addElementResearchPoint() {
+        if (maxElementResearchPoints > 0) {
+            --maxElementResearchPoints;
+            ++elementResearchPoints;
+            onElementResearchPointsChanged.dispatch(this);
         }
     }
 }
