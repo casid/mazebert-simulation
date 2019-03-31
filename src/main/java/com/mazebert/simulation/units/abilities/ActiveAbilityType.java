@@ -53,9 +53,9 @@ public strictfp enum ActiveAbilityType {
         return null;
     }
 
-    public Class<? extends ActiveAbility> getAbilityClass() {
+    public Class<? extends ActiveAbility> getAbilityClass(int version) {
         if (this == PubParty) {
-            if (Sim.context().version <= 10) {
+            if (version <= 10) {
                 return abilityClasses[0];
             } else {
                 return abilityClasses[1];
