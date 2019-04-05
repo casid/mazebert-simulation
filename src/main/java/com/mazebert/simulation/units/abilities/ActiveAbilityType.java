@@ -1,6 +1,5 @@
 package com.mazebert.simulation.units.abilities;
 
-import com.mazebert.simulation.Sim;
 import com.mazebert.simulation.units.items.BowlingBallRollAbility;
 import com.mazebert.simulation.units.towers.KiwiHaka;
 import com.mazebert.simulation.units.towers.MrIronConstruct;
@@ -31,7 +30,7 @@ public strictfp enum ActiveAbilityType {
     }
 
     @SafeVarargs
-    ActiveAbilityType(int id, Class<? extends ActiveAbility> ... abilityClasses) {
+    ActiveAbilityType(int id, Class<? extends ActiveAbility>... abilityClasses) {
         this.id = id;
         this.abilityClasses = abilityClasses;
     }
