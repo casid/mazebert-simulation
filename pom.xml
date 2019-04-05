@@ -78,6 +78,12 @@
             <version>0.3.1</version>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>me.tongfei</groupId>
+            <artifactId>progressbar</artifactId>
+            <version>0.7.3</version>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
 
     <build>

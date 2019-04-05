@@ -16,6 +16,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -51,31 +52,46 @@ public class BackwardCompatiblityTester {
     }
 
     @Test
-    void checkAll() throws IOException {
-        List<Path> files = Files.walk(gamesDirectory, 1).collect(Collectors.toList());
-        System.out.println("Validating " + files.size() + " games");
+    void check_10() throws IOException {
+        checkGames(10);
+    }
 
-        files.parallelStream().forEach(file -> {
-            if (Files.isDirectory(file)) {
-                return;
-            }
-
-            if (acknowledgedDsyncs.contains(file.getFileName().toString())) {
-                return;
-            }
-
-            checkGame(file);
-        });
+    @Test
+    void check_11() throws IOException {
+        checkGames(11);
     }
 
     @Disabled
     @Test
     void checkOne() {
-        checkGame(gamesDirectory.resolve("0dd320b2-cbed-4533-b265-8eddea8dc005-35049.mbg"));
+        int version = 10;
+        checkGame(gamesDirectory.resolve(version + "/0dd320b2-cbed-4533-b265-8eddea8dc005-35049.mbg"), version);
     }
 
-    private void checkGame(Path file) {
-        int version = 10;
+    private void checkGames(int version) throws IOException {
+        List<Path> files = Files.walk(gamesDirectory.resolve("" + version), 1).collect(Collectors.toList());
+        int total = files.size();
+        System.out.println("Validating " + total + " games (version " + version + ")");
+        AtomicInteger counter = new AtomicInteger();
+
+        files.parallelStream().forEach(file -> {
+            try {
+                if (Files.isDirectory(file)) {
+                    return;
+                }
+
+                if (acknowledgedDsyncs.contains(file.getFileName().toString())) {
+                    return;
+                }
+
+                checkGame(file, version);
+            } finally {
+                System.out.println(counter.incrementAndGet() + "/" + total + "");
+            }
+        });
+    }
+
+    private void checkGame(Path file, int version) {
         try (StreamReplayReader replayReader = new StreamReplayReader(new BufferedInputStream(Files.newInputStream(file, StandardOpenOption.READ)), version)) {
             new SimulationValidator().validate(version, replayReader, null, null);
         } catch (Exception e) {
