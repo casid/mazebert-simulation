@@ -36,6 +36,6 @@ public strictfp class Nathaviel extends Hero {
 
     @Override
     public String getSinceVersion() {
-        return "1.7";
+        return "1.6";
     }
 }
