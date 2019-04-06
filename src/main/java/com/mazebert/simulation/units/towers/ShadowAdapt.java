@@ -25,10 +25,10 @@ public strictfp class ShadowAdapt extends Ability<Tower> implements OnDamageList
     private float damageAdaptedForBer = 0.0f;
 
     public ShadowAdapt() {
-        if (Sim.context().version <= 11) {
-            max = 100.0f;
-        } else {
+        if (Sim.context().version > Sim.v11) {
             max = 7.0f;
+        } else {
+            max = 100.0f;
         }
     }
 

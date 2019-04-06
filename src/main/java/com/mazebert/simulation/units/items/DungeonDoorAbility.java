@@ -23,10 +23,10 @@ public strictfp class DungeonDoorAbility extends CooldownAbility<Tower> {
             return cooldown;
         }
 
-        if (version <= 11) {
-            return cooldown / attackSpeedModifier;
-        } else {
+        if (version > Sim.v11) {
             return StrictMath.max(minCooldown, cooldown / attackSpeedModifier);
+        } else {
+            return cooldown / attackSpeedModifier;
         }
     }
 

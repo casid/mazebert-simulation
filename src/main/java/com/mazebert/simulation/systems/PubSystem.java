@@ -31,14 +31,7 @@ public strictfp class PubSystem implements OnUpdateListener {
 
     @Override
     public void onUpdate(float dt) {
-        if (version <= 10) {
-            currentPartyTimeLeft -= dt;
-            if (currentPartyTimeLeft <= 0) {
-                unitGateway.forEachTower(tower -> tower.removeAbility(PubPartyEffect.class));
-                currentPartyTimeLeft = 0;
-                simulationListeners.onUpdate.remove(this);
-            }
-        } else {
+        if (version > Sim.v10) {
             currentCooldownLeft -= dt;
             if (currentPartyTimeLeft > 0) {
                 currentPartyTimeLeft -= dt;
@@ -49,6 +42,13 @@ public strictfp class PubSystem implements OnUpdateListener {
             }
 
             if (currentCooldownLeft <= 0) {
+                simulationListeners.onUpdate.remove(this);
+            }
+        } else {
+            currentPartyTimeLeft -= dt;
+            if (currentPartyTimeLeft <= 0) {
+                unitGateway.forEachTower(tower -> tower.removeAbility(PubPartyEffect.class));
+                currentPartyTimeLeft = 0;
                 simulationListeners.onUpdate.remove(this);
             }
         }

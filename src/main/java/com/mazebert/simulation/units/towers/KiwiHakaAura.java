@@ -10,7 +10,7 @@ public strictfp class KiwiHakaAura extends AuraAbility<Kiwi, Creep> {
     private final KiwiHaka haka;
 
     public KiwiHakaAura(KiwiHaka haka) {
-        super(Sim.context().version > 10 ? null : CardCategory.Tower, Creep.class);
+        super(Sim.context().version > Sim.v10 ? null : CardCategory.Tower, Creep.class);
         this.haka = haka;
     }
 

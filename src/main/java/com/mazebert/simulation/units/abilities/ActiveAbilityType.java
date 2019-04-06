@@ -1,5 +1,6 @@
 package com.mazebert.simulation.units.abilities;
 
+import com.mazebert.simulation.Sim;
 import com.mazebert.simulation.units.items.BowlingBallRollAbility;
 import com.mazebert.simulation.units.towers.KiwiHaka;
 import com.mazebert.simulation.units.towers.MrIronConstruct;
@@ -54,10 +55,10 @@ public strictfp enum ActiveAbilityType {
 
     public Class<? extends ActiveAbility> getAbilityClass(int version) {
         if (this == PubParty) {
-            if (version <= 10) {
-                return abilityClasses[0];
-            } else {
+            if (version > Sim.v10) {
                 return abilityClasses[1];
+            } else {
+                return abilityClasses[0];
             }
         }
         return abilityClasses[0];

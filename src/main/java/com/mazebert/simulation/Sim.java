@@ -7,6 +7,10 @@ public strictfp class Sim {
      */
     public static final int version = 12;
 
+    // Supported legacy versions below
+    public static final int v10 = 10;
+    public static final int v11 = 11;
+
     // For android 19 compatibility
     private static ThreadLocal<Context> context = new ThreadLocal<Context>() {
         @Override

@@ -53,18 +53,18 @@ public class BackwardCompatiblityTester {
 
     @Test
     void check_10() throws IOException {
-        checkGames(10);
+        checkGames(Sim.v10);
     }
 
     @Test
     void check_11() throws IOException {
-        checkGames(11);
+        checkGames(Sim.v11);
     }
 
     @Disabled
     @Test
     void checkOne() {
-        int version = 10;
+        int version = Sim.v10;
         checkGame(gamesDirectory.resolve(version + "/0dd320b2-cbed-4533-b265-8eddea8dc005-35049.mbg"), version);
     }
 

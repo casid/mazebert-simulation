@@ -27,6 +27,8 @@ public strictfp final class WaveSpawner implements OnGameStartedListener, OnWave
     private final ExperienceSystem experienceSystem = Sim.context().experienceSystem;
     private final PlayerGateway playerGateway = Sim.context().playerGateway;
 
+    private final int version = Sim.context().version;
+
     private Queue<Creep> creepQueue = new ArrayDeque<>();
     private Queue<Creep> goblinQueue = new ArrayDeque<>();
     private float countdownForNextCreepToSend;
@@ -310,7 +312,7 @@ public strictfp final class WaveSpawner implements OnGameStartedListener, OnWave
     }
 
     private boolean isCurrentWaveComplete(Wave wave) {
-        if (Sim.context().version > 10) {
+        if (version > Sim.v10) {
             return Sim.context().waveCountDown == null && (wave.round == waveGateway.getCurrentRound() || !waveGateway.hasNextWave()) && creepQueue.isEmpty();
         } else {
             return Sim.context().waveCountDown == null && (!unitGateway.hasUnits(Creep.class) || !waveGateway.hasNextWave()) && creepQueue.isEmpty();
