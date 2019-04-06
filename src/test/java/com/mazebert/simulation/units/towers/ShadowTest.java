@@ -15,6 +15,8 @@ import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.Assertions.assertThat;
 
 strictfp class ShadowTest extends SimTest {
+    static final float max = 8.020025f;
+
     DamageSystemTrainer damageSystemTrainer = new DamageSystemTrainer();
     RandomPluginTrainer randomPluginTrainer = new RandomPluginTrainer();
 
@@ -86,45 +88,37 @@ strictfp class ShadowTest extends SimTest {
     @Test
     void adaptBer_Max() {
         wave.armorType = ArmorType.Ber;
-        for (int i = 0; i < 4000; ++i) {
-            whenShadowAttacks();
-        }
-        assertThat(shadow.getDamageAgainstBer()).isEqualTo(101.01752f);
+        whenShadowCapsAdaption();
+        assertThat(shadow.getDamageAgainstBer()).isEqualTo(max);
     }
 
     @Test
     void adaptFal_Max() {
         wave.armorType = ArmorType.Fal;
-        for (int i = 0; i < 4000; ++i) {
-            whenShadowAttacks();
-        }
-        assertThat(shadow.getDamageAgainstFal()).isEqualTo(101.01752f);
+        whenShadowCapsAdaption();
+        assertThat(shadow.getDamageAgainstFal()).isEqualTo(max);
     }
 
     @Test
     void adaptVex_Max() {
         wave.armorType = ArmorType.Vex;
-        for (int i = 0; i < 4000; ++i) {
-            whenShadowAttacks();
-        }
-        assertThat(shadow.getDamageAgainstVex()).isEqualTo(101.01752f);
+        whenShadowCapsAdaption();
+        assertThat(shadow.getDamageAgainstVex()).isEqualTo(max);
     }
 
     @Test
     void adaptCanGoUpAgainAfterMaxIsReached() {
         wave.armorType = ArmorType.Vex;
-        for (int i = 0; i < 4000; ++i) {
-            whenShadowAttacks();
-        }
+        whenShadowCapsAdaption();
         wave.armorType = ArmorType.Ber;
         whenShadowAttacks();
         whenShadowAttacks();
         whenShadowAttacks();
 
-        assertThat(shadow.getDamageAgainstVex()).isEqualTo(100.98751f);
+        assertThat(shadow.getDamageAgainstVex()).isEqualTo(7.9900246f);
         wave.armorType = ArmorType.Vex;
         whenShadowAttacks();
-        assertThat(shadow.getDamageAgainstVex()).isEqualTo(101.01751f);
+        assertThat(shadow.getDamageAgainstVex()).isEqualTo(8.020024f);
     }
 
     @Test
@@ -161,6 +155,12 @@ strictfp class ShadowTest extends SimTest {
         shadow.simulate(shadow.getBaseCooldown());
         projectileGateway.simulate(0.1f);
         projectileGateway.simulate(0.1f);
+    }
+
+    private void whenShadowCapsAdaption() {
+        for (int i = 0; i < 1000; ++i) {
+            whenShadowAttacks();
+        }
     }
 
     private void thenNothingIsAdapted() {

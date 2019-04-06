@@ -14,14 +14,23 @@ public strictfp class ShadowAdapt extends Ability<Tower> implements OnDamageList
     private static final float chanceLevelBonus = 0.0005f;
     private static final float damageIncrease = 0.03f;
     private static final float damageDecrease = -0.01f;
-    private static final float max = 100.0f;
 
     private final SimulationListeners simulationListeners = Sim.context().simulationListeners;
     private final RandomPlugin randomPlugin = Sim.context().randomPlugin;
 
+    private final float max;
+
     private float damageAdaptedForVex = 0.0f;
     private float damageAdaptedForFal = 0.0f;
     private float damageAdaptedForBer = 0.0f;
+
+    public ShadowAdapt() {
+        if (Sim.context().version <= 11) {
+            max = 100.0f;
+        } else {
+            max = 7.0f;
+        }
+    }
 
     @Override
     protected void initialize(Tower unit) {
