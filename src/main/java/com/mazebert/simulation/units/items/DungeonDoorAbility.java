@@ -9,10 +9,12 @@ import com.mazebert.simulation.units.towers.Tower;
 
 public strictfp class DungeonDoorAbility extends CooldownAbility<Tower> {
     public static final int cooldown = 60 * 3;
+    public static final int minCooldown = 30;
     public static final float chance = 0.33f;
     public static final float chanceBonus = 0.004f;
 
     private final GameGateway gameGateway = Sim.context().gameGateway;
+    private final int version = Sim.context().version;
 
     @Override
     protected float getCooldown() {
@@ -21,7 +23,11 @@ public strictfp class DungeonDoorAbility extends CooldownAbility<Tower> {
             return cooldown;
         }
 
-        return cooldown / attackSpeedModifier;
+        if (version <= 11) {
+            return cooldown / attackSpeedModifier;
+        } else {
+            return StrictMath.max(minCooldown, cooldown / attackSpeedModifier);
+        }
     }
 
     @Override
