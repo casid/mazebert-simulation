@@ -1,5 +1,6 @@
 package com.mazebert.simulation.units.items;
 
+import com.mazebert.simulation.Sim;
 import com.mazebert.simulation.WaveSpawner;
 import com.mazebert.simulation.gateways.DifficultyGateway;
 import com.mazebert.simulation.gateways.WaveGateway;
@@ -41,5 +42,13 @@ public class DungeonDoorTest extends ItemTest {
         whenItemIsEquipped(ItemType.DungeonDoor);
 
         assertThat(unitGateway.hasUnits(Creep.class)).isFalse();
+    }
+
+    @Test
+    void cooldownCaps() {
+        whenItemIsEquipped(ItemType.DungeonDoor);
+        tower.addAttackSpeed(10000000000.0f);
+
+        assertThat(tower.getItem(0).getAbility(DungeonDoorAbility.class).getCooldown()).isEqualTo(30);
     }
 }
