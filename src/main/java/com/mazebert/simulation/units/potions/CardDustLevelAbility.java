@@ -1,11 +1,12 @@
 package com.mazebert.simulation.units.potions;
 
+import com.mazebert.simulation.Sim;
 import com.mazebert.simulation.units.abilities.PermanentLevelUpAbility;
 
 public strictfp class CardDustLevelAbility extends PermanentLevelUpAbility {
 
     public CardDustLevelAbility() {
-        super(5);
+        super(Sim.context().version > Sim.v11 ? 5 : 1);
     }
 
     @Override
