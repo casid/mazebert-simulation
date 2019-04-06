@@ -2,7 +2,7 @@ package com.mazebert.simulation.units.heroes;
 
 import com.mazebert.simulation.Rarity;
 
-public class Nathaviel extends Hero {
+public strictfp class Nathaviel extends Hero {
 
     public Nathaviel() {
         addAbility(new NathavielBooksAbility());
