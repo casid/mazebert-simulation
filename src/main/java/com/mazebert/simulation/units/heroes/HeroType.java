@@ -24,6 +24,7 @@ public strictfp enum HeroType implements CardType<Hero> {
     Kvothe(9, Kvothe.class),
     LoanShark(10, LoanShark.class),
     JackInTheBox(11, JackInTheBox.class),
+    Nathaviel(12, Nathaviel.class),
     ;
 
     public final int id;
