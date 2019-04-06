@@ -10,6 +10,10 @@ public strictfp abstract class PermanentLevelUpAbility extends StackableAbility<
         this.levels = levels;
     }
 
+    public int getLevels() {
+        return levels;
+    }
+
     @Override
     public boolean isPermanent() {
         return false; // the effect is permanent (because xp is transferred when replacing towers), but we must not re-apply the effect!

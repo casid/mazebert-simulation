@@ -5,7 +5,7 @@ import com.mazebert.simulation.units.abilities.PermanentLevelUpAbility;
 public strictfp class CardDustLevelAbility extends PermanentLevelUpAbility {
 
     public CardDustLevelAbility() {
-        super(1);
+        super(5);
     }
 
     @Override
@@ -20,7 +20,7 @@ public strictfp class CardDustLevelAbility extends PermanentLevelUpAbility {
 
     @Override
     public String getDescription() {
-        return "+ 1 level up";
+        return "+" + getLevels() + " level up";
     }
 
     @Override
