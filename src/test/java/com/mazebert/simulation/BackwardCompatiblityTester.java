@@ -95,6 +95,7 @@ public class BackwardCompatiblityTester {
         try (StreamReplayReader replayReader = new StreamReplayReader(new BufferedInputStream(Files.newInputStream(file, StandardOpenOption.READ)), version)) {
             new SimulationValidator().validate(version, replayReader, null, null);
         } catch (Exception e) {
+            System.err.println("Arghs! " + e.getMessage());
             errors.put(file, e);
         }
     }
