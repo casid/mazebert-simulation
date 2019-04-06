@@ -108,9 +108,14 @@ public strictfp class LootSystem {
             return false;
         }
 
+        addToStash(wizard, creep, stash, drop);
+        return true;
+    }
+
+    @SuppressWarnings("unchecked")
+    public void addToStash(Wizard wizard, Creep creep, Stash stash, CardType drop) {
         stash.add(drop);
         simulationListeners.onCardDropped.dispatch(wizard, creep, drop.instance());
-        return true;
     }
 
     private void rollCardDrop(Wizard wizard, Creep creep, int maxItemLevel, Rarity rarity, Stash stash) {

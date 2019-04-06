@@ -15,6 +15,7 @@ import com.mazebert.simulation.units.creeps.CreepModifier;
 import com.mazebert.simulation.units.creeps.CreepState;
 import com.mazebert.simulation.units.creeps.CreepType;
 import com.mazebert.simulation.units.creeps.effects.ReviveEffect;
+import com.mazebert.simulation.units.items.ItemType;
 import com.mazebert.simulation.units.towers.Spider;
 import com.mazebert.simulation.units.wizards.Wizard;
 import org.junit.jupiter.api.BeforeEach;
@@ -670,6 +671,31 @@ public strictfp class WaveSpawnerTest extends SimTest {
         whenGameIsUpdated();
 
         assertThat(waveFinished).isTrue();
+    }
+
+    @Test
+    void lastRoundCompleted() {
+        givenWave(WaveType.Horseman);
+        wave.round = waveGateway.getTotalWaves();
+
+        whenGameIsStarted();
+        whenCreepIsKilled(getCreep(0));
+        whenGameIsUpdated();
+
+        assertThat(wizard.itemStash.get(ItemType.ScepterOfTime).amount).isEqualTo(1);
+    }
+
+    @Test
+    void lastRoundCompleted_canHaveTwoScepters() {
+        givenWave(WaveType.Horseman);
+        wave.round = waveGateway.getTotalWaves();
+        wizard.itemStash.add(ItemType.ScepterOfTime);
+
+        whenGameIsStarted();
+        whenCreepIsKilled(getCreep(0));
+        whenGameIsUpdated();
+
+        assertThat(wizard.itemStash.get(ItemType.ScepterOfTime).amount).isEqualTo(2);
     }
 
     @Test

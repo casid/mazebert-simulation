@@ -11,6 +11,7 @@ import com.mazebert.simulation.systems.LootSystem;
 import com.mazebert.simulation.units.Unit;
 import com.mazebert.simulation.units.creeps.Creep;
 import com.mazebert.simulation.units.creeps.CreepType;
+import com.mazebert.simulation.units.items.ItemType;
 import com.mazebert.simulation.units.wizards.Wizard;
 
 import java.util.ArrayDeque;
@@ -327,6 +328,10 @@ public strictfp final class WaveSpawner implements OnGameStartedListener, OnWave
         experienceSystem.grantExperience(wizard, wave, lastCreep);
         lootSystem.grantGoldInterest(wizard);
         lootSystem.researchTower(wizard, wave.round);
+
+        if (version > Sim.v11 && playerGateway.getPlayerCount() == 1 && wave.round == waveGateway.getTotalWaves()) {
+            lootSystem.addToStash(wizard, lastCreep, wizard.itemStash, ItemType.ScepterOfTime);
+        }
     }
 
     @Override
