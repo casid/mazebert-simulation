@@ -329,7 +329,7 @@ public strictfp final class WaveSpawner implements OnGameStartedListener, OnWave
         lootSystem.grantGoldInterest(wizard);
         lootSystem.researchTower(wizard, wave.round);
 
-        if (version > Sim.v11 && playerGateway.getPlayerCount() == 1 && wave.round == waveGateway.getTotalWaves()) {
+        if (version > Sim.v11 && wave.round == waveGateway.getTotalWaves() && playerGateway.getPlayerCount() == 1) {
             lootSystem.addToStash(wizard, lastCreep, wizard.itemStash, ItemType.ScepterOfTime);
         }
     }
