@@ -57,6 +57,12 @@ class NextWaveTest extends UsecaseTest<NextWaveCommand> {
     }
 
     @Test
+    void skippedSeconds_evenIfSuperEarly() {
+        whenRequestIsExecuted();
+        assertThat(skippedSeconds).isEqualTo(5);
+    }
+
+    @Test
     void bonusRound() {
         gameGateway.getGame().bonusRound = true;
         bonusRoundCountDown = new BonusRoundCountDown();
