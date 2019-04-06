@@ -11,6 +11,6 @@ strictfp class CardDustLevelTest extends ItemTest {
         whenPotionIsConsumed(PotionType.CardDustLevel);
         whenPotionIsConsumed(PotionType.CardDustLevel);
 
-        assertThat(tower.getLevel()).isEqualTo(2);
+        assertThat(tower.getLevel()).isEqualTo(10);
     }
 }
