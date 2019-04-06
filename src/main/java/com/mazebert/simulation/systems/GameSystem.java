@@ -18,6 +18,8 @@ public strictfp class GameSystem implements OnHealthChangedListener, OnWaveFinis
     private final UnitGateway unitGateway = Sim.context().unitGateway;
     private final LootSystem lootSystem = Sim.context().lootSystem;
 
+    private final int version = Sim.context().version;
+
     private Tutorial tutorial;
 
     public void addWizards() {
@@ -136,7 +138,7 @@ public strictfp class GameSystem implements OnHealthChangedListener, OnWaveFinis
     }
 
     public void initElementResearch() {
-        if (Sim.context().version > 10) {
+        if (version > Sim.v10) {
             simulationListeners.onWaveFinished.add(this);
         }
     }
