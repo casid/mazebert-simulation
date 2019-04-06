@@ -1,6 +1,5 @@
 package com.mazebert.simulation.units.items;
 
-import com.mazebert.simulation.Sim;
 import com.mazebert.simulation.WaveSpawner;
 import com.mazebert.simulation.gateways.DifficultyGateway;
 import com.mazebert.simulation.gateways.WaveGateway;
