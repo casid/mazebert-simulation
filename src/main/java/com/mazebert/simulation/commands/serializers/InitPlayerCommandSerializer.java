@@ -10,7 +10,6 @@ import org.jusecase.bitpack.BitWriter;
 public strictfp class InitPlayerCommandSerializer implements BitSerializer<InitPlayerCommand> {
 
     private static final int PLAYER_NAME_BITS = 6;
-    private static final int WIZARD_POWER_BITS = EnumSerializer.WIZARD_POWER_BITS + 1;
     private static final int QUEST_BITS = EnumSerializer.QUEST_BITS + 1;
 
     @Override
@@ -31,7 +30,7 @@ public strictfp class InitPlayerCommandSerializer implements BitSerializer<InitP
         EnumSerializer.writeItemTypes(writer, object.foilItems);
         EnumSerializer.writePotionTypes(writer, object.foilPotions);
 
-        writer.writeObjectsWithSameType(WIZARD_POWER_BITS, object.powers);
+        writer.writeObjectsWithSameType(EnumSerializer.getWizardPowerBits() + 1, object.powers);
 
         EnumSerializer.writeElements(writer, object.elements);
 
@@ -51,7 +50,7 @@ public strictfp class InitPlayerCommandSerializer implements BitSerializer<InitP
         object.foilItems = EnumSerializer.readItemTypes(reader);
         object.foilPotions = EnumSerializer.readPotionTypes(reader);
 
-        object.powers = reader.readObjectsWithSameTypeAsList(WIZARD_POWER_BITS, WizardPower.class);
+        object.powers = reader.readObjectsWithSameTypeAsList(EnumSerializer.getWizardPowerBits() + 1, WizardPower.class);
 
         object.elements = EnumSerializer.readElements(reader);
 

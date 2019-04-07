@@ -1,9 +1,6 @@
 package com.mazebert.simulation.commands.serializers;
 
-import com.mazebert.simulation.CardCategory;
-import com.mazebert.simulation.CardType;
-import com.mazebert.simulation.Difficulty;
-import com.mazebert.simulation.Element;
+import com.mazebert.simulation.*;
 import com.mazebert.simulation.maps.MapType;
 import com.mazebert.simulation.units.abilities.ActiveAbilityType;
 import com.mazebert.simulation.units.heroes.HeroType;
@@ -26,7 +23,6 @@ public strictfp class EnumSerializer {
     public static final int DIFFICULTY_BITS = 3;
     public static final int MAP_BITS = 3;
     public static final int ACTIVE_ABILITY_BITS = 3;
-    public static final int WIZARD_POWER_BITS = 4;
     public static final int QUEST_BITS = 5;
 
     public static TowerType readTowerType(BitReader reader) {
@@ -102,11 +98,11 @@ public strictfp class EnumSerializer {
     }
 
     public static WizardPowerType readWizardPowerType(BitReader reader) {
-        return WizardPowerType.forId(reader.readUnsignedInt(WIZARD_POWER_BITS));
+        return WizardPowerType.forId(reader.readUnsignedInt(getWizardPowerBits()));
     }
 
     public static void writeWizardPowerType(BitWriter writer, WizardPowerType type) {
-        writer.writeUnsignedInt(WIZARD_POWER_BITS, type.id);
+        writer.writeUnsignedInt(getWizardPowerBits(), type.id);
     }
 
     public static QuestType readQuestType(BitReader reader) {
@@ -252,6 +248,14 @@ public strictfp class EnumSerializer {
             return 0;
         } else {
             return type.id();
+        }
+    }
+
+    public static int getWizardPowerBits() {
+        if (Sim.context().version > Sim.v11) {
+            return 5;
+        } else {
+            return 4;
         }
     }
 }
