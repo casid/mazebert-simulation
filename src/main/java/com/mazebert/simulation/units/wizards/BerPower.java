@@ -17,7 +17,7 @@ public strictfp class BerPower extends WizardTowerBuffPower {
 
     @Override
     public String getTitle() {
-        return "Ber Master";
+        return "Penetrator of Ber";
     }
 
     @Override

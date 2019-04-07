@@ -17,7 +17,7 @@ public strictfp class FalPower extends WizardTowerBuffPower {
 
     @Override
     public String getTitle() {
-        return "Fal Master";
+        return "Penetrator of Fal";
     }
 
     @Override

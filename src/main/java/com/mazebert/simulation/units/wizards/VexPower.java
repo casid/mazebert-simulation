@@ -17,7 +17,7 @@ public strictfp class VexPower extends WizardTowerBuffPower {
 
     @Override
     public String getTitle() {
-        return "Vex Master";
+        return "Penetrator of Vex";
     }
 
     @Override
