@@ -1,7 +1,7 @@
 package com.mazebert.simulation.units.wizards;
 
 public strictfp class WizardExperiencePower extends WizardPower {
-    private static final float bonus = 0.02f;
+    private static final float bonus = 0.01f;
 
     @Override
     protected void initialize(Wizard unit) {
@@ -21,7 +21,7 @@ public strictfp class WizardExperiencePower extends WizardPower {
 
     @Override
     public String getDescription() {
-        return format.percentWithSignAndUnit(bonus * getSkillLevel()) + " wizard experience";
+        return format.percentWithSignAndUnit(bonus * getSkillLevel()) + " experience bonus\nfor your wizard";
     }
 
     @Override
