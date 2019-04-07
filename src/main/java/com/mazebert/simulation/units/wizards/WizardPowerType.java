@@ -17,6 +17,7 @@ public strictfp enum WizardPowerType {
     BerPower(14, BerPower.class),
     FalPower(15, FalPower.class),
     VexPower(16, VexPower.class),
+    WizardExperiencePower(17, WizardExperiencePower.class),
     ;
 
     private static WizardPowerType[] LOOKUP;
