@@ -100,6 +100,12 @@ class BaluTest extends SimTest {
         assertThat(bonus.value).isEqualTo("3x");
     }
 
+    @Test
+    void minCooldown() {
+        balu.addAttackSpeed(100000);
+        assertThat(balu.getAbility(BaluCuddle.class).getCooldown()).isEqualTo(1.0f);
+    }
+
     private void whenBaluNeedsCuddling() {
         balu.simulate(20.0f);
     }

@@ -22,12 +22,17 @@ public strictfp class BaluCuddle extends CooldownAbility<Tower> {
     private final RandomPlugin randomPlugin = Sim.context().randomPlugin;
     private final SimulationListeners simulationListeners = Sim.context().simulationListeners;
 
+    private final int version = Sim.context().version;
     private final List<Tower> cuddleTowers = new ArrayList<>();
     private int cuddleAmount;
 
     @Override
     protected float getCooldown() {
-        return getUnit().getCooldown(BASE_COOLDOWN);
+        if(version > Sim.v11) {
+            return Math.max(1.0f, getUnit().getCooldown(BASE_COOLDOWN));
+        } else {
+            return getUnit().getCooldown(BASE_COOLDOWN);
+        }
     }
 
     @Override
