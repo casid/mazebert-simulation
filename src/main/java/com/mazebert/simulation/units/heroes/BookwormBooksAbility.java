@@ -5,7 +5,7 @@ import com.mazebert.simulation.units.Unit;
 import com.mazebert.simulation.units.abilities.Ability;
 import com.mazebert.simulation.units.items.ItemType;
 
-public strictfp class NathavielBooksAbility extends Ability<Hero> implements OnUnitAddedListener {
+public strictfp class BookwormBooksAbility extends Ability<Hero> implements OnUnitAddedListener {
 
     @Override
     protected void initialize(Hero unit) {
@@ -39,6 +39,6 @@ public strictfp class NathavielBooksAbility extends Ability<Hero> implements OnU
 
     @Override
     public String getDescription() {
-        return "A copy of every book item card is added to your starting hand.";
+        return "A copy of every book item card is added\nto your starting hand.";
     }
 }

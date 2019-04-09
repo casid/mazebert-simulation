@@ -2,7 +2,7 @@ package com.mazebert.simulation.units.heroes;
 
 import com.mazebert.simulation.units.towers.Tower;
 
-public strictfp class NathavielExperienceAbility extends HeroTowerBuffAbility {
+public strictfp class BookwormExperienceAbility extends HeroTowerBuffAbility {
 
     private static final float experience = 0.5f;
     private static final float damage = -0.3f;

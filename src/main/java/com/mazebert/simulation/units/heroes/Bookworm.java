@@ -2,11 +2,11 @@ package com.mazebert.simulation.units.heroes;
 
 import com.mazebert.simulation.Rarity;
 
-public strictfp class Nathaviel extends Hero {
+public strictfp class Bookworm extends Hero {
 
-    public Nathaviel() {
-        addAbility(new NathavielBooksAbility());
-        addAbility(new NathavielExperienceAbility());
+    public Bookworm() {
+        addAbility(new BookwormBooksAbility());
+        addAbility(new BookwormExperienceAbility());
     }
 
     @Override
@@ -16,26 +16,31 @@ public strictfp class Nathaviel extends Hero {
 
     @Override
     public String getName() {
-        return "Nathaviel, the Bookworm";
+        return "Bookworm";
     }
 
     @Override
     public String getDescription() {
-        return "I know you don't know anything.";
+        return "I know I don't know anything.\nDid you known that?\n" + getWizardLevelRequirementText();
     }
 
     @Override
     public Rarity getRarity() {
-        return Rarity.Unique;
+        return Rarity.Uncommon;
     }
 
     @Override
     public int getItemLevel() {
-        return 48;
+        return 24;
     }
 
     @Override
     public String getSinceVersion() {
         return "1.6";
+    }
+
+    @Override
+    public boolean isLight() {
+        return true;
     }
 }

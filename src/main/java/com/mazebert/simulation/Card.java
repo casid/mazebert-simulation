@@ -22,6 +22,10 @@ public interface Card {
 
     boolean isDark();
 
+    default boolean isLight() {
+        return false;
+    }
+
     default boolean isForgeable() {
         return true;
     }
