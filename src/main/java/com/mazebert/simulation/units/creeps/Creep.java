@@ -78,7 +78,6 @@ public strictfp class Creep extends Unit {
         }
     }
 
-    @SuppressWarnings("unused") // Used by client
     public FollowPathResult predictWalk(float x, float y, float dt, FollowPathResult result) {
         return followPathAbility.predict(x, y, dt, result);
     }

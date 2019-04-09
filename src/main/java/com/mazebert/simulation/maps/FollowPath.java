@@ -56,6 +56,7 @@ public strictfp class FollowPath {
 
         int targetIndex = result.pathIndex;
         if (targetIndex < 0) {
+            result.pathIndex = 0;
             return null;
         }
 
