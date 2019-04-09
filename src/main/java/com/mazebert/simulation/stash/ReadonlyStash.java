@@ -10,8 +10,11 @@ public interface ReadonlyStash<T extends Card> {
     ReadonlyStashEntry<T> get(int index);
     ReadonlyStashEntry<T> get(CardType<T> cardType);
     int getIndex(CardType<T> cardType);
+
+    @SuppressWarnings("unused") // for client
     CardCategory getCardCategory();
 
+    @SuppressWarnings("unused") // for client
     OnCardRemoved onCardRemoved();
 
     int getTransmutedCommons();
