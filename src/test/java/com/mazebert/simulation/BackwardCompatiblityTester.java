@@ -61,6 +61,11 @@ public class BackwardCompatiblityTester {
         checkGames(Sim.v11);
     }
 
+    @Test
+    void check_12() throws IOException {
+        checkGames(Sim.v12);
+    }
+
     @Disabled
     @Test
     void checkOne() {
