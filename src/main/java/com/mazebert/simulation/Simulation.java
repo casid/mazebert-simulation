@@ -49,7 +49,13 @@ public strictfp final class Simulation {
     private Hash hash = new Hash();
 
     public Simulation() {
-        Sim.context().init(this);
+        this(true);
+    }
+
+    public Simulation(boolean init) {
+        if (init) {
+            Sim.context().init(this);
+        }
     }
 
     public void start(InitGameCommand initGameCommand, InitPlayerCommand initPlayerCommand) {

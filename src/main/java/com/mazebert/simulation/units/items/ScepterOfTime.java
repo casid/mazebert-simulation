@@ -44,6 +44,11 @@ public strictfp class ScepterOfTime extends Item {
     }
 
     @Override
+    public boolean isUniqueInstance() {
+        return false;
+    }
+
+    @Override
     public Rarity getDropRarity() {
         return Rarity.Rare;
     }

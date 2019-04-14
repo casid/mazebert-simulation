@@ -201,17 +201,17 @@ public abstract strictfp class Stash<T extends Card> implements ReadonlyStash<T>
         return possibleDrops[dropIndex];
     }
 
-    private boolean isUniqueDrop(CardType<T> cardType) {
-        T card = cardType.instance();
-        return card.isUniqueDrop();
-    }
-
     private StashEntry<T> createEntry(CardType<T> cardType) {
-        if (isUniqueDrop(cardType)) {
+        T card = cardType.instance();
+        if (card.isUniqueDrop()) {
             if (!droppedUniques.containsKey(cardType)) {
                 setUnique(cardType, cardType.create());
             }
-            return new StashEntry<>(cardType, droppedUniques.get(cardType));
+            if (card.isUniqueInstance()) {
+                return new StashEntry<>(cardType, droppedUniques.get(cardType));
+            } else {
+                return new StashEntry<>(cardType);
+            }
         } else {
             return new StashEntry<>(cardType);
         }

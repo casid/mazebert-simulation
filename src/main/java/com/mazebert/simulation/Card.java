@@ -61,4 +61,8 @@ public interface Card {
     default boolean isUniqueDrop() {
         return getRarity() == Rarity.Unique || getRarity() == Rarity.Legendary;
     }
+
+    default boolean isUniqueInstance() {
+        return isUniqueDrop();
+    }
 }
