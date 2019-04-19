@@ -74,11 +74,27 @@ public strictfp class ContributorsGateway {
         result.addAll(getTesters());
         result.addAll(getForumModerators());
 
+        return sort(result);
+    }
+
+    private List<String> sort(Set<String> result) {
         List<String> sorted = new ArrayList<>(result);
         //noinspection Java8ListSort (Android compat)
         Collections.sort(sorted, String.CASE_INSENSITIVE_ORDER);
 
         return sorted;
+    }
+
+    public List<String> getCardAuthorsSorted() {
+        return sort(getCardAuthors());
+    }
+
+    public List<String> getTestersSorted() {
+        return sort(getTesters());
+    }
+
+    public List<String> getForumModeratorsSorted() {
+        return sort(getForumModerators());
     }
 }
 
