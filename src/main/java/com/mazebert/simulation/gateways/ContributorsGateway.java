@@ -7,7 +7,8 @@ import com.mazebert.simulation.units.towers.TowerType;
 
 import java.util.*;
 
-public class ContributorsGateway {
+@SuppressWarnings("unused") // Used by client/server
+public strictfp class ContributorsGateway {
     public Set<String> getCardAuthors() {
         Set<String> result = new HashSet<>();
 
@@ -66,7 +67,6 @@ public class ContributorsGateway {
         return result;
     }
 
-    @SuppressWarnings("unused") // Used by client
     public List<String> getAllContributors() {
         Set<String> result = new HashSet<>();
 
