@@ -8,6 +8,7 @@ import com.mazebert.simulation.replay.data.ReplayHeader;
 
 @SuppressWarnings("unused") // Used by ladder to validate simulation games
 public strictfp class SimulationValidator {
+    @SuppressWarnings("UnusedReturnValue")
     public Simulation validate(int version, ReplayReader replayReader, Consumer<Context> before, Consumer<Context> after) throws DsyncException {
         return validate(version, replayReader, before, after, Integer.MAX_VALUE);
     }
