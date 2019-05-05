@@ -487,13 +487,13 @@ public strictfp abstract class Tower extends Unit implements CooldownUnit, Card,
     @SuppressWarnings("unused") // Used by UI
     public double calculateAverageDamageForDisplay() {
         // Calculate average base damage between min and max.
-        double averageBaseDamage = minBaseDamage + (maxBaseDamage - minBaseDamage + 1) * 0.5;
+        double averageBaseDamage = calculateAverageBaseDamageForDisplay();
         averageBaseDamage += addedAbsoluteBaseDamage;
         averageBaseDamage = averageBaseDamage * (1.0 + addedRelativeBaseDamage);
         double damage = averageBaseDamage;
 
         // Calculate average crit amount and damage.
-        double critChance = this.critDamage;
+        double critChance = this.critChance;
         int multicrit = getMulticrit();
         for (int i = 0; i < multicrit; ++i) {
             if (critChance > 0.0) {
