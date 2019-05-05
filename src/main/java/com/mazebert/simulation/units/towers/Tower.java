@@ -498,7 +498,7 @@ public strictfp abstract class Tower extends Unit implements CooldownUnit, Card,
         for (int i = 0; i < multicrit; ++i) {
             if (critChance > 0.0) {
                 // Add average critical strike damage to the final damage.
-                damage += averageBaseDamage * critDamage * Math.min(1.0, critChance);
+                damage += averageBaseDamage * critDamage * StrictMath.min(1.0, critChance);
 
                 // Reduce crit chance for next multicrit by 20%.
                 critChance *= 0.8;

@@ -167,7 +167,7 @@ public class MapGridTest {
         for (int y = 0; y < grid.getHeight(); ++y) {
             for (int x = 0; x < grid.getWidth(); ++x) {
                 int index = parsePathIndex(rows[y].charAt(x));
-                length = Math.max(length, index + 1);
+                length = StrictMath.max(length, index + 1);
             }
         }
 

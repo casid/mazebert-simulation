@@ -29,7 +29,7 @@ public strictfp class BaluCuddle extends CooldownAbility<Tower> {
     @Override
     protected float getCooldown() {
         if(version > Sim.v11) {
-            return Math.max(1.0f, getUnit().getCooldown(BASE_COOLDOWN));
+            return StrictMath.max(1.0f, getUnit().getCooldown(BASE_COOLDOWN));
         } else {
             return getUnit().getCooldown(BASE_COOLDOWN);
         }

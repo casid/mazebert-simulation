@@ -23,6 +23,6 @@ public strictfp class PlayerLevelPlugin {
         if (level == 1) {
             return 0;
         }
-        return Math.round(500.0 * StrictMath.pow(1.1, level - 2) + 250.0 * (level - 2));
+        return StrictMath.round(500.0 * StrictMath.pow(1.1, level - 2) + 250.0 * (level - 2));
     }
 }

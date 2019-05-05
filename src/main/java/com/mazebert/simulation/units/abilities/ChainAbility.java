@@ -47,7 +47,7 @@ public strictfp class ChainAbility extends Ability<Tower> implements OnDamageLis
             chainedCreeps = new Creep[maxChains];
 
             if (oldChainedCreeps != null) {
-                int length = Math.min(oldChainedCreeps.length, chainedCreeps.length);
+                int length = StrictMath.min(oldChainedCreeps.length, chainedCreeps.length);
                 System.arraycopy(oldChainedCreeps, 0, chainedCreeps, 0, length);
             }
         }
