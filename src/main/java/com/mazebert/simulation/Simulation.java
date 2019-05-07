@@ -150,7 +150,9 @@ public strictfp final class Simulation {
             }
             if (replayFrame.turnNumber > turnNumber) {
                 if (debugDsync) {
-                    if (!(hash instanceof DebugHash)) {
+                    if (hash instanceof DebugHash) {
+                        return; // We captured all turns until the dsync, time to abort
+                    } else {
                         hash = new DebugHash();
                     }
                 } else {
