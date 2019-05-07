@@ -6,7 +6,6 @@ import com.mazebert.simulation.plugins.LogPlugin;
 import java.util.UUID;
 
 public strictfp class DebugHash extends Hash {
-    private static final String TAG = "DebugHash";
     private final LogPlugin logPlugin = Sim.context().logPlugin;
 
     public void add(boolean value) {
@@ -26,12 +25,12 @@ public strictfp class DebugHash extends Hash {
 
     public void add(float value) {
         super.add(value);
-        log("float=" + value);
+        log("float=" + value + ", bin=" + Float.floatToIntBits(value));
     }
 
     public void add(double value) {
         super.add(value);
-        log("double=" + value);
+        log("double=" + value + ", bin=" + Double.doubleToLongBits(value));
     }
 
     @Override
@@ -54,6 +53,6 @@ public strictfp class DebugHash extends Hash {
     }
 
     private void log(String message) {
-        logPlugin.log(TAG, get() + ": " + message);
+        logPlugin.log(get() + ": " + message);
     }
 }
