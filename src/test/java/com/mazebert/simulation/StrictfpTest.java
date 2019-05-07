@@ -1,6 +1,5 @@
 package com.mazebert.simulation;
 
-import com.mazebert.simulation.usecases.Usecase;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
@@ -30,7 +29,7 @@ public class StrictfpTest {
     }
 
     private boolean isStrict(Class clazz) {
-        if (clazz == Usecase.class || clazz.isInterface()) {
+        if (clazz.isInterface()) {
             return true;
         }
 
