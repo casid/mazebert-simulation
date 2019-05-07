@@ -8,6 +8,7 @@ import com.mazebert.simulation.gateways.*;
 import com.mazebert.simulation.maps.FollowPathResult;
 import com.mazebert.simulation.plugins.ClientPlugin;
 import com.mazebert.simulation.plugins.FormatPlugin;
+import com.mazebert.simulation.plugins.LogPlugin;
 import com.mazebert.simulation.plugins.SleepPlugin;
 import com.mazebert.simulation.plugins.random.UuidRandomPlugin;
 import com.mazebert.simulation.projectiles.ProjectileGateway;
@@ -41,6 +42,7 @@ public strictfp class Context {
     public SleepPlugin sleepPlugin;
     public FormatPlugin formatPlugin;
     public ClientPlugin clientPlugin;
+    public LogPlugin logPlugin;
 
     // Gateways
     public GameGateway gameGateway;

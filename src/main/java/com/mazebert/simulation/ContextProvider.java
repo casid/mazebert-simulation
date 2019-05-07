@@ -4,6 +4,7 @@ import com.mazebert.simulation.gateways.*;
 import com.mazebert.simulation.plugins.FormatPlugin;
 import com.mazebert.simulation.plugins.NoSleepPlugin;
 import com.mazebert.simulation.plugins.SleepPlugin;
+import com.mazebert.simulation.plugins.SystemLogPlugin;
 import com.mazebert.simulation.plugins.random.UuidRandomPlugin;
 import com.mazebert.simulation.projectiles.ProjectileGateway;
 
@@ -27,6 +28,7 @@ public strictfp class ContextProvider {
 
         context.randomPlugin = new UuidRandomPlugin();
         context.formatPlugin = new FormatPlugin();
+        context.logPlugin = new SystemLogPlugin();
 
         context.simulationListeners = new SimulationListeners();
 

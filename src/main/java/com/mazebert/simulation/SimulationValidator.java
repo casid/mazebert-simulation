@@ -15,6 +15,11 @@ public strictfp class SimulationValidator {
 
     @SuppressWarnings("UnusedReturnValue")
     public Simulation validate(int version, ReplayReader replayReader, Consumer<Context> before, Consumer<Context> after, int turnNumber) throws DsyncException {
+        return validate(version, replayReader, before, after, turnNumber, false);
+    }
+
+    @SuppressWarnings("UnusedReturnValue")
+    public Simulation validate(int version, ReplayReader replayReader, Consumer<Context> before, Consumer<Context> after, int turnNumber, boolean debugDsync) throws DsyncException {
         Context context = ContextProvider.createContext(version, false);
 
         context.replayWriterGateway = new NoReplayWriterGateway();
@@ -31,7 +36,7 @@ public strictfp class SimulationValidator {
                 before.accept(context);
             }
 
-            simulation.load(replayReader, turnNumber);
+            simulation.load(replayReader, turnNumber, debugDsync);
 
             if (after != null) {
                 after.accept(context);

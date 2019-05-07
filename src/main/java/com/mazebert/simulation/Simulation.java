@@ -5,6 +5,7 @@ import com.mazebert.simulation.commands.InitGameCommand;
 import com.mazebert.simulation.commands.InitPlayerCommand;
 import com.mazebert.simulation.errors.DsyncException;
 import com.mazebert.simulation.gateways.*;
+import com.mazebert.simulation.hash.DebugHash;
 import com.mazebert.simulation.hash.Hash;
 import com.mazebert.simulation.hash.HashHistory;
 import com.mazebert.simulation.messages.Turn;
@@ -133,6 +134,10 @@ public strictfp final class Simulation {
     }
 
     public void load(ReplayReader replayReader, int turnNumber) {
+        load(replayReader, turnNumber, false);
+    }
+
+    public void load(ReplayReader replayReader, int turnNumber, boolean debugDsync) {
         HashHistory hashHistory = new HashHistory(2);
         hashHistory.add(0);
         hashHistory.add(0);
@@ -144,7 +149,13 @@ public strictfp final class Simulation {
                 return;
             }
             if (replayFrame.turnNumber > turnNumber) {
-                return;
+                if (debugDsync) {
+                    if (!(hash instanceof DebugHash)) {
+                        hash = new DebugHash();
+                    }
+                } else {
+                    return;
+                }
             }
 
             int turnNumbersToSimulate = replayFrame.turnNumber - turnGateway.getCurrentTurnNumber();
