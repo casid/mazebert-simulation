@@ -6,6 +6,9 @@ import org.jusecase.bitpack.BitSerializer;
 import org.jusecase.bitpack.BitReader;
 
 public strictfp class TurnSerializer implements BitSerializer<Turn> {
+
+    public static final int MAX_COMMANDS = 15; // 4  bit unsigned integer
+
     @Override
     public Turn createObject() {
         return new Turn();

@@ -4,6 +4,7 @@ import com.mazebert.simulation.commands.BuildTowerCommand;
 import com.mazebert.simulation.commands.Command;
 import com.mazebert.simulation.gateways.GameTurnGateway;
 import com.mazebert.simulation.messages.Turn;
+import com.mazebert.simulation.messages.serializers.TurnSerializer;
 import org.junit.jupiter.api.Test;
 
 import static com.mazebert.simulation.messages.TurnBuilder.turn;
@@ -66,5 +67,20 @@ public class Simulation_SinglePlayerTest extends SimulationTest {
         assertThat(turn.playerId).isEqualTo(1);
         assertThat(turn.turnNumber).isEqualTo(2);
         assertThat(turn.commands).containsExactly(command);
+    }
+
+    @Test
+    void playerCommandsAreScheduled_notMoreThanMax() {
+        turnGateway.onLocalTurnReceived(a(turn()));
+        for (int i = 0; i < TurnSerializer.MAX_COMMANDS + 1; ++i) {
+            localCommandGateway.addCommand(new BuildTowerCommand());
+        }
+
+        simulation.process();
+
+        Turn turn = ((GameTurnGateway)turnGateway).getTurn(2, 1);
+        assertThat(turn.playerId).isEqualTo(1);
+        assertThat(turn.turnNumber).isEqualTo(2);
+        assertThat(turn.commands).hasSize(TurnSerializer.MAX_COMMANDS);
     }
 }

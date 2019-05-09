@@ -1,6 +1,7 @@
 package com.mazebert.simulation.gateways;
 
 import com.mazebert.simulation.commands.Command;
+import com.mazebert.simulation.messages.serializers.TurnSerializer;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,7 +13,9 @@ public strictfp class GameLocalCommandGateway implements LocalCommandGateway {
     @Override
     public void addCommand(Command command) {
         synchronized (localPlayerCommands) {
-            localPlayerCommands.add(command);
+            if (localPlayerCommands.size() < TurnSerializer.MAX_COMMANDS) {
+                localPlayerCommands.add(command);
+            }
         }
     }
 
