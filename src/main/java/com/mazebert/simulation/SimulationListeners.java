@@ -20,6 +20,7 @@ public strictfp class SimulationListeners {
     public final OnWaveCountDown onWaveCountDown = new OnWaveCountDown();
     public final OnWaveStarted onWaveStarted = new OnWaveStarted();
     public final OnWaveFinished onWaveFinished = new OnWaveFinished();
+    public final OnRoundStarted onRoundStarted = new OnRoundStarted();
 
     public final OnEarlyCallImpossible onEarlyCallImpossible = new OnEarlyCallImpossible();
     public final OnEarlyCallPossible onEarlyCallPossible = new OnEarlyCallPossible();

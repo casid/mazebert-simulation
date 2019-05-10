@@ -39,11 +39,13 @@ public strictfp class WaveSpawnerTest extends SimTest {
     Wizard wizard;
 
     boolean waveFinished;
+    int roundStarted;
 
     @BeforeEach
     void setUp() {
         simulationListeners = new SimulationListeners();
         simulationListeners.onWaveFinished.add(wave -> waveFinished = true);
+        simulationListeners.onRoundStarted.add(round -> roundStarted = round);
 
         formatPlugin = new FormatPlugin();
 
@@ -849,6 +851,36 @@ public strictfp class WaveSpawnerTest extends SimTest {
         assertThat(finished.get()).isTrue();
         assertThat(creep.isDead()).isTrue();
         assertThat(getCreep(0)).isSameAs(creep); // Must not be removed for death animation!
+    }
+
+    @Test
+    void roundStarted() {
+        givenBossWave();
+        whenGameIsStarted();
+        assertThat(roundStarted).isEqualTo(1);
+    }
+
+    @Test
+    void roundStarted_bonusRound() {
+        whenBonusRoundIsReached();
+        bonusRoundCountDown.onUpdate(bonusRoundCountDown.getRemainingSeconds());
+        simulationListeners.onUpdate.dispatch(1.0f);
+
+        assertThat(roundStarted).isEqualTo(10);
+    }
+
+    @Test
+    void roundStarted_bonusRound_continues() {
+        whenBonusRoundIsReached();
+        bonusRoundCountDown.onUpdate(bonusRoundCountDown.getRemainingSeconds());
+        simulationListeners.onUpdate.dispatch(1.0f);
+        simulationListeners.onUpdate.dispatch(1.0f);
+        simulationListeners.onUpdate.dispatch(1.0f);
+        simulationListeners.onUpdate.dispatch(1.0f);
+        simulationListeners.onUpdate.dispatch(1.0f);
+        simulationListeners.onUpdate.dispatch(1.0f);
+
+        assertThat(roundStarted).isEqualTo(11);
     }
 
     @Test

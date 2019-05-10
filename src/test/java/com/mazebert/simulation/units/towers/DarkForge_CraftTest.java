@@ -36,14 +36,14 @@ strictfp class DarkForge_CraftTest extends SimTest {
     @Test
     void darkItemsCanBeForged() {
         randomPluginTrainer.givenFloatAbs(0.0f);
-        whenWaveIsFinished();
+        whenRoundIsStarted();
         thenItemIsCrafted(ItemType.DarkBabySword);
     }
 
     @Test
     void darkItemsCanBeForged_badLuck() {
         randomPluginTrainer.givenFloatAbs(DarkForgeCraft.CHANCE + 0.001f);
-        whenWaveIsFinished();
+        whenRoundIsStarted();
         thenNoItemIsCrafted();
     }
 
@@ -52,7 +52,7 @@ strictfp class DarkForge_CraftTest extends SimTest {
         darkForge.setLevel(66);
         randomPluginTrainer.givenFloatAbs(0.0f, 0.99f);
 
-        whenWaveIsFinished();
+        whenRoundIsStarted();
 
         thenItemIsCrafted(ItemType.DarkBlade);
     }
@@ -63,7 +63,7 @@ strictfp class DarkForge_CraftTest extends SimTest {
         darkForge.setLevel(66);
         randomPluginTrainer.givenFloatAbs(0.0f, 0.99f);
 
-        whenWaveIsFinished();
+        whenRoundIsStarted();
 
         thenItemIsCrafted(ItemType.SkullOfDarkness);
     }
@@ -74,13 +74,13 @@ strictfp class DarkForge_CraftTest extends SimTest {
         darkForge.setLevel(66);
         randomPluginTrainer.givenFloatAbs(0.0f, 0.99f);
 
-        whenWaveIsFinished();
+        whenRoundIsStarted();
 
         assertThat(wizard.itemStash.get(ItemType.DarkBlade).getAmount()).isEqualTo(1);
     }
 
-    private void whenWaveIsFinished() {
-        simulationListeners.onWaveFinished.dispatch(new Wave());
+    private void whenRoundIsStarted() {
+        simulationListeners.onRoundStarted.dispatch(1);
     }
 
     private void thenItemIsCrafted(ItemType item) {

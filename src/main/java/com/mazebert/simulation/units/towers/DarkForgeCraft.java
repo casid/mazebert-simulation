@@ -4,6 +4,7 @@ import com.mazebert.simulation.Rarity;
 import com.mazebert.simulation.Sim;
 import com.mazebert.simulation.SimulationListeners;
 import com.mazebert.simulation.Wave;
+import com.mazebert.simulation.listeners.OnRoundStartedListener;
 import com.mazebert.simulation.listeners.OnUnitAddedListener;
 import com.mazebert.simulation.listeners.OnUnitRemovedListener;
 import com.mazebert.simulation.listeners.OnWaveFinishedListener;
@@ -18,7 +19,7 @@ import java.util.ArrayList;
 import java.util.EnumSet;
 import java.util.List;
 
-public strictfp class DarkForgeCraft extends Ability<Tower> implements OnUnitAddedListener, OnUnitRemovedListener, OnWaveFinishedListener {
+public strictfp class DarkForgeCraft extends Ability<Tower> implements OnUnitAddedListener, OnUnitRemovedListener, OnWaveFinishedListener, OnRoundStartedListener {
 
     public static final float CHANCE = 0.1f;
 
@@ -41,16 +42,33 @@ public strictfp class DarkForgeCraft extends Ability<Tower> implements OnUnitAdd
 
     @Override
     public void onUnitAdded(Unit unit) {
-        simulationListeners.onWaveFinished.add(this);
+        if (Sim.context().version < Sim.v13) {
+            simulationListeners.onWaveFinished.add(this);
+        } else {
+            simulationListeners.onRoundStarted.add(this);
+        }
     }
 
     @Override
     public void onUnitRemoved(Unit unit) {
-        simulationListeners.onWaveFinished.remove(this);
+        if (Sim.context().version < Sim.v13) {
+            simulationListeners.onWaveFinished.remove(this);
+        } else {
+            simulationListeners.onRoundStarted.remove(this);
+        }
     }
 
     @Override
     public void onWaveFinished(Wave wave) {
+        craft();
+    }
+
+    @Override
+    public void onRoundStarted(int round) {
+        craft();
+    }
+
+    private void craft() {
         if (getUnit().isAbilityTriggered(CHANCE)) {
             List<ItemType> possibleItems = calculatePossibleItems();
 
