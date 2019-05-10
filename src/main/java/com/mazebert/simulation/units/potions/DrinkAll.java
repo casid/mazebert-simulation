@@ -17,4 +17,9 @@ public strictfp class DrinkAll extends TutorialPotion {
     public String getSinceVersion() {
         return "1.3";
     }
+
+    @Override
+    public boolean isTradingAllowed() {
+        return false;
+    }
 }

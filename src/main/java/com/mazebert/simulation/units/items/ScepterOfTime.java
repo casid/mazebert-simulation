@@ -1,6 +1,7 @@
 package com.mazebert.simulation.units.items;
 
 import com.mazebert.simulation.Rarity;
+import com.mazebert.simulation.Sim;
 
 public strictfp class ScepterOfTime extends Item {
 
@@ -40,6 +41,10 @@ public strictfp class ScepterOfTime extends Item {
 
     @Override
     public boolean isTradingAllowed() {
+        //noinspection RedundantIfStatement
+        if (Sim.context().version < Sim.v13) {
+            return true;
+        }
         return false;
     }
 

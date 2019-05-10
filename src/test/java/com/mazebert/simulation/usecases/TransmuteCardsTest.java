@@ -47,7 +47,7 @@ public class TransmuteCardsTest extends UsecaseTest<TransmuteCardsCommand> imple
     void wizardNotFound() {
         request.playerId = 42;
         whenRequestIsExecuted();
-        thenNoCardsAreTraded();
+        assertThat(wizard.towerStash.transmutedCommons).isEqualTo(0);
     }
 
     @Test
@@ -57,7 +57,7 @@ public class TransmuteCardsTest extends UsecaseTest<TransmuteCardsCommand> imple
 
         whenRequestIsExecuted();
 
-        thenNoCardsAreTraded();
+        assertThat(wizard.towerStash.transmutedCommons).isEqualTo(0);
     }
 
     @Test
@@ -136,7 +136,7 @@ public class TransmuteCardsTest extends UsecaseTest<TransmuteCardsCommand> imple
 
         assertThat(wizard.itemStash.size()).isEqualTo(0);
         assertThat(wizard.potionStash.size()).isEqualTo(1);
-        assertThat(wizard.potionStash.get(0).cardType).isEqualTo(PotionType.RareSpeed);
+        assertThat(wizard.potionStash.get(0).cardType).isEqualTo(PotionType.RareCrit);
     }
 
     @Test
@@ -169,9 +169,12 @@ public class TransmuteCardsTest extends UsecaseTest<TransmuteCardsCommand> imple
 
         assertThat(wizard.potionStash.size()).isEqualTo(1);
         assertThat(wizard.potionStash.transmutedUncommons).isEqualTo(0);
-        assertThat(wizard.potionStash.get(0).cardType).isEqualTo(PotionType.RareSpeed);
+        assertThat(wizard.potionStash.get(0).cardType).isEqualTo(PotionType.RareCrit);
     }
 
+    /**
+     * It must no longer be possible to gain the angelic elixir by transmuting commons
+     */
     @Test
     void potion_twoCards_uncommon_angelicElixirOwned() {
         randomPluginTrainer.givenFloatAbs(0.0f);
@@ -186,24 +189,34 @@ public class TransmuteCardsTest extends UsecaseTest<TransmuteCardsCommand> imple
 
         assertThat(wizard.potionStash.size()).isEqualTo(1);
         assertThat(wizard.potionStash.transmutedUncommons).isEqualTo(0);
-        assertThat(wizard.potionStash.get(0).cardType).isEqualTo(PotionType.AngelicElixir);
+        assertThat(wizard.potionStash.get(0).cardType).isEqualTo(PotionType.RareDamage);
     }
 
     @Test
-    void potion_twoCards_uncommon_angelicElixirNotOwned() {
-        randomPluginTrainer.givenFloatAbs(0.0f, 0.5f);
-        wizard.foilPotions.remove(PotionType.AngelicElixir);
-        wizard.potionStash.add(PotionType.UncommonCrit);
-        wizard.potionStash.add(PotionType.UncommonCrit);
+    void potion_angelicElixir() {
+        randomPluginTrainer.givenFloatAbs(0.0f);
+        wizard.foilPotions.add(PotionType.AngelicElixir);
+        wizard.potionStash.add(PotionType.AngelicElixir);
         request.cardCategory = CardCategory.Potion;
-        request.cardType = PotionType.UncommonCrit;
-        request.all = true;
+        request.cardType = PotionType.AngelicElixir;
 
         whenRequestIsExecuted();
 
         assertThat(wizard.potionStash.size()).isEqualTo(1);
-        assertThat(wizard.potionStash.transmutedUncommons).isEqualTo(0);
-        assertThat(wizard.potionStash.get(0).cardType).isEqualTo(PotionType.RareSpeed);
+        assertThat(wizard.transmutedUniques).isEqualTo(0);
+    }
+
+    @Test
+    void item_angelicElixir() {
+        randomPluginTrainer.givenFloatAbs(0.0f);
+        wizard.itemStash.add(ItemType.ScepterOfTime);
+        request.cardCategory = CardCategory.Item;
+        request.cardType = ItemType.ScepterOfTime;
+
+        whenRequestIsExecuted();
+
+        assertThat(wizard.itemStash.size()).isEqualTo(1);
+        assertThat(wizard.transmutedUniques).isEqualTo(0);
     }
 
     @Test
@@ -428,10 +441,6 @@ public class TransmuteCardsTest extends UsecaseTest<TransmuteCardsCommand> imple
         assertThat(wizard.itemStash.size()).isEqualTo(3);
         assertThat(wizard.itemStash.transmutedCommons).isEqualTo(0);
         assertThat(wizard.itemStash.get(2).cardType).isEqualTo(ItemType.Handbag);
-    }
-
-    private void thenNoCardsAreTraded() {
-        assertThat(wizard.towerStash.transmutedCommons).isEqualTo(0);
     }
 
     @Override

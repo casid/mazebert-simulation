@@ -1,6 +1,7 @@
 package com.mazebert.simulation.units.potions;
 
 import com.mazebert.simulation.Rarity;
+import com.mazebert.simulation.Sim;
 
 public strictfp class AngelicElixir extends Potion {
     public AngelicElixir() {
@@ -29,7 +30,10 @@ public strictfp class AngelicElixir extends Potion {
 
     @Override
     public Rarity getDropRarity() {
-        return Rarity.Rare;
+        if (Sim.context().version < Sim.v13) {
+            return Rarity.Rare;
+        }
+        return getRarity();
     }
 
     @Override
@@ -52,8 +56,12 @@ public strictfp class AngelicElixir extends Potion {
         return true;
     }
 
+    @SuppressWarnings("RedundantIfStatement")
     @Override
     public boolean isTradingAllowed() {
+        if (Sim.context().version < Sim.v13) {
+            return true;
+        }
         return false;
     }
 }

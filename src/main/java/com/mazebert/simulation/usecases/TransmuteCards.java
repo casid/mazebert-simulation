@@ -61,7 +61,7 @@ public strictfp class TransmuteCards extends Usecase<TransmuteCardsCommand> {
             return;
         }
 
-        if (command.cardType == PotionType.DrinkAll) {
+        if (!command.cardType.instance().isTradingAllowed()) {
             return;
         }
 
