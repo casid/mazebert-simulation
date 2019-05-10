@@ -2,7 +2,6 @@ package com.mazebert.simulation.units.towers;
 
 import com.mazebert.simulation.SimTest;
 import com.mazebert.simulation.SimulationListeners;
-import com.mazebert.simulation.Wave;
 import com.mazebert.simulation.gateways.GameGateway;
 import com.mazebert.simulation.gateways.UnitGateway;
 import com.mazebert.simulation.maps.MapAura;
@@ -48,14 +47,14 @@ strictfp class KiwiEggTest extends SimTest {
 
     @Test
     void hatches_round1() {
-        whenWaveIsFinished();
+        whenRoundIsStarted();
         thenBreedingProgressIs("1/5");
     }
 
     @Test
     void hatches_round2() {
-        whenWaveIsFinished();
-        whenWaveIsFinished();
+        whenRoundIsStarted();
+        whenRoundIsStarted();
 
         thenBreedingProgressIs("2/5");
     }
@@ -90,15 +89,15 @@ strictfp class KiwiEggTest extends SimTest {
     }
 
     private void whenKiwiHatches() {
-        whenWaveIsFinished();
-        whenWaveIsFinished();
-        whenWaveIsFinished();
-        whenWaveIsFinished();
-        whenWaveIsFinished();
+        whenRoundIsStarted();
+        whenRoundIsStarted();
+        whenRoundIsStarted();
+        whenRoundIsStarted();
+        whenRoundIsStarted();
     }
 
-    private void whenWaveIsFinished() {
-        simulationListeners.onWaveFinished.dispatch(new Wave());
+    private void whenRoundIsStarted() {
+        simulationListeners.onRoundStarted.dispatch(1);
         kiwi = unitGateway.findUnit(Kiwi.class, 0);
     }
 

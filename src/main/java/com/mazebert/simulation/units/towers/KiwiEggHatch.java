@@ -3,6 +3,7 @@ package com.mazebert.simulation.units.towers;
 import com.mazebert.simulation.Sim;
 import com.mazebert.simulation.SimulationListeners;
 import com.mazebert.simulation.Wave;
+import com.mazebert.simulation.listeners.OnRoundStartedListener;
 import com.mazebert.simulation.listeners.OnUnitAddedListener;
 import com.mazebert.simulation.listeners.OnWaveFinishedListener;
 import com.mazebert.simulation.plugins.random.RandomPlugin;
@@ -12,7 +13,7 @@ import com.mazebert.simulation.units.abilities.Ability;
 import com.mazebert.simulation.units.wizards.Wizard;
 import com.mazebert.simulation.usecases.BuildTower;
 
-public strictfp class KiwiEggHatch extends Ability<KiwiEgg> implements OnUnitAddedListener, OnWaveFinishedListener {
+public strictfp class KiwiEggHatch extends Ability<KiwiEgg> implements OnUnitAddedListener, OnWaveFinishedListener, OnRoundStartedListener {
     public static final int ROUNDS = 5;
 
     private final SimulationListeners simulationListeners = Sim.context().simulationListeners;
@@ -35,11 +36,24 @@ public strictfp class KiwiEggHatch extends Ability<KiwiEgg> implements OnUnitAdd
 
     @Override
     public void onUnitAdded(Unit unit) {
-        simulationListeners.onWaveFinished.add(this);
+        if (Sim.context().version < Sim.v13) {
+            simulationListeners.onWaveFinished.add(this);
+        } else {
+            simulationListeners.onRoundStarted.add(this);
+        }
     }
 
     @Override
     public void onWaveFinished(Wave wave) {
+        developEgg();
+    }
+
+    @Override
+    public void onRoundStarted(int round) {
+        developEgg();
+    }
+
+    private void developEgg() {
         if (++rounds >= ROUNDS) {
             hatch();
         }
@@ -79,7 +93,7 @@ public strictfp class KiwiEggHatch extends Ability<KiwiEgg> implements OnUnitAdd
 
     @Override
     public String getDescription() {
-        return "The mighty Kiwi hatches from this egg after " + ROUNDS + " rounds.";
+        return "A mighty Kiwi hatches from this egg after " + ROUNDS + " rounds.";
     }
 
     @Override
