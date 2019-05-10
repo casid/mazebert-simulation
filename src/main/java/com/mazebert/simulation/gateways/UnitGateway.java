@@ -185,6 +185,16 @@ public strictfp final class UnitGateway {
         return units.find(u -> unitClass.isAssignableFrom(u.getClass())) != null;
     }
 
+    @SuppressWarnings("unchecked")
+    public  <T extends Unit> boolean hasUnits(Class<T> unitClass, Predicate<T> predicate) {
+        return units.find(u -> {
+            if (unitClass.isAssignableFrom(u.getClass())) {
+                return predicate.test((T)u);
+            }
+            return false;
+        }) != null;
+    }
+
     public void destroyTower(Tower tower) {
         returnAllItemsToInventory(tower);
         removeUnit(tower);

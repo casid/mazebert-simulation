@@ -303,13 +303,22 @@ public strictfp final class WaveSpawner implements OnGameStartedListener, OnWave
             if (waveGateway.hasNextWave()) {
                 Sim.context().waveCountDown = new WaveCountDown();
                 Sim.context().waveCountDown.start();
-            } else {
+            } else if (isGameWon()) {
                 gameGateway.getGame().bonusRound = true;
                 simulationListeners.onGameWon.dispatch();
                 Sim.context().bonusRoundCountDown = new BonusRoundCountDown();
                 Sim.context().bonusRoundCountDown.start();
             }
         }
+    }
+
+    private boolean isGameWon() {
+        if (version < Sim.v13) {
+            return true;
+        }
+
+        boolean livingGameCreeps = unitGateway.hasUnits(Creep.class, c -> c.getWave().origin == WaveOrigin.Game && !c.isDead());
+        return !livingGameCreeps;
     }
 
     private boolean isCurrentWaveComplete(Wave wave) {

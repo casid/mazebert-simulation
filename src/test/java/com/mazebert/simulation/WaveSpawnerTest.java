@@ -754,6 +754,23 @@ public strictfp class WaveSpawnerTest extends SimTest {
     }
 
     @Test
+    void gameWon_bonusRound_onlyWhenAllCreepsAreDead() {
+        waveGateway.setTotalWaves(10);
+        waveGateway.setCurrentRound(8);
+        givenBossWave();
+        givenBossWave();
+
+        whenAllCreepsAreSpawned();
+        simulationListeners.onUpdate.dispatch(1.0f);
+        whenAllCreepsAreSpawned();
+        simulationListeners.onUpdate.dispatch(1.0f);
+
+        whenCreepIsKilled(getCreep(1));
+
+        assertThat(gameGateway.getGame().bonusRound).isFalse();
+    }
+
+    @Test
     void gameWon_bonusRound_evenIfTreasureGoblinStillAlive() {
         waveGateway.setTotalWaves(10);
         waveGateway.setCurrentRound(9);
