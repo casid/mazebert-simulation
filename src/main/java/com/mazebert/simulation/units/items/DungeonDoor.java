@@ -1,11 +1,20 @@
 package com.mazebert.simulation.units.items;
 
 import com.mazebert.simulation.Rarity;
+import com.mazebert.simulation.Sim;
+import com.mazebert.simulation.units.abilities.Ability;
 
 public strictfp class DungeonDoor extends Item {
 
+    public static Ability createAbility() {
+        if (Sim.context().version < Sim.v13) {
+            return new DungeonDoorCooldownAbility();
+        }
+        return new DungeonDoorAbility();
+    }
+
     public DungeonDoor() {
-        super(new DungeonDoorAbility());
+        super(createAbility());
     }
 
     @Override

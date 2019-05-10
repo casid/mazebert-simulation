@@ -1,5 +1,6 @@
 package com.mazebert.simulation.units.items;
 
+import com.mazebert.simulation.Sim;
 import com.mazebert.simulation.WaveSpawner;
 import com.mazebert.simulation.gateways.DifficultyGateway;
 import com.mazebert.simulation.gateways.WaveGateway;
@@ -10,10 +11,12 @@ import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class DungeonDoorTest extends ItemTest {
+public class DungeonDoor_v12Test extends ItemTest {
 
     @BeforeEach
     void setUp() {
+        version = Sim.v12;
+
         difficultyGateway = new DifficultyGateway();
         waveGateway = new WaveGateway();
         waveSpawner = new WaveSpawner();
@@ -26,7 +29,7 @@ public class DungeonDoorTest extends ItemTest {
     @Test
     void goblinSpawnsInRange() {
         whenItemIsEquipped(ItemType.DungeonDoor);
-        simulationListeners.onRoundStarted.dispatch(1);
+        tower.simulate(DungeonDoorCooldownAbility.cooldown);
 
         Creep goblin = unitGateway.findUnit(Creep.class, wizard.getPlayerId());
         assertThat(goblin.getX()).isEqualTo(17);
@@ -36,10 +39,18 @@ public class DungeonDoorTest extends ItemTest {
     @Test
     void goblinCannotSpawn() {
         tower.setX(10000);
-        simulationListeners.onRoundStarted.dispatch(1);
+        tower.simulate(DungeonDoorCooldownAbility.cooldown);
 
         whenItemIsEquipped(ItemType.DungeonDoor);
 
         assertThat(unitGateway.hasUnits(Creep.class)).isFalse();
+    }
+
+    @Test
+    void cooldownCaps() {
+        whenItemIsEquipped(ItemType.DungeonDoor);
+        tower.addAttackSpeed(10000000000.0f);
+
+        assertThat(tower.getItem(0).getAbility(DungeonDoorCooldownAbility.class).getCooldown()).isEqualTo(30);
     }
 }
