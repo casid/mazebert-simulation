@@ -3,11 +3,14 @@ package com.mazebert.simulation.units.towers;
 import com.mazebert.simulation.AttackType;
 import com.mazebert.simulation.Element;
 import com.mazebert.simulation.Rarity;
+import com.mazebert.simulation.Sim;
 import com.mazebert.simulation.units.Gender;
 import com.mazebert.simulation.units.abilities.AttackAbility;
 import com.mazebert.simulation.units.abilities.InstantDamageAbility;
 
 public strictfp class BlackWidow extends Tower {
+    private final int version = Sim.context().version;
+
     public BlackWidow() {
         setBaseCooldown(1.2f);
         setBaseRange(2.0f);
@@ -40,6 +43,9 @@ public strictfp class BlackWidow extends Tower {
 
     @Override
     public Rarity getRarity() {
+        if (version >= Sim.v13) {
+            return Rarity.Rare;
+        }
         return Rarity.Unique;
     }
 

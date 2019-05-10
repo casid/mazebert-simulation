@@ -3,9 +3,12 @@ package com.mazebert.simulation.units.towers;
 import com.mazebert.simulation.AttackType;
 import com.mazebert.simulation.Element;
 import com.mazebert.simulation.Rarity;
+import com.mazebert.simulation.Sim;
 import com.mazebert.simulation.units.Gender;
 
 public strictfp class MrIron extends Tower {
+
+    private final int version = Sim.context().version;
 
     public MrIron() {
         setBaseCooldown(2.5f);
@@ -38,11 +41,17 @@ public strictfp class MrIron extends Tower {
 
     @Override
     public Rarity getRarity() {
+        if (version >= Sim.v13) {
+            return Rarity.Unique;
+        }
         return Rarity.Rare;
     }
 
     @Override
     public int getItemLevel() {
+        if (version >= Sim.v13) {
+            return 67;
+        }
         return 60;
     }
 
