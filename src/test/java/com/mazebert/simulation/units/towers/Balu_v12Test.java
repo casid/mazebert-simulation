@@ -1,5 +1,6 @@
 package com.mazebert.simulation.units.towers;
 
+import com.mazebert.simulation.Sim;
 import com.mazebert.simulation.SimTest;
 import com.mazebert.simulation.SimulationListeners;
 import com.mazebert.simulation.gateways.UnitGateway;
@@ -11,13 +12,15 @@ import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-class BaluTest extends SimTest {
+class Balu_v12Test extends SimTest {
     RandomPluginTrainer randomPluginTrainer = new RandomPluginTrainer();
 
     Balu balu;
 
     @BeforeEach
     void setUp() {
+        version = Sim.v12;
+        
         randomPlugin = randomPluginTrainer;
         simulationListeners = new SimulationListeners();
         unitGateway = new UnitGateway();
@@ -45,7 +48,7 @@ class BaluTest extends SimTest {
         whenBaluNeedsCuddling();
 
         assertThat(tower.getAttackSpeedAdd()).isEqualTo(-1.0f);
-        assertThat(balu.getAddedRelativeBaseDamage()).isEqualTo(0.04f);
+        assertThat(balu.getAddedRelativeBaseDamage()).isEqualTo(0.03f);
     }
 
     @Test
@@ -100,8 +103,13 @@ class BaluTest extends SimTest {
         assertThat(bonus.value).isEqualTo("3x");
     }
 
+    @Test
+    void minCooldown() {
+        balu.addAttackSpeed(100000);
+        assertThat(balu.getAbility(BaluCuddle.class).getCooldown()).isEqualTo(1.0f);
+    }
+
     private void whenBaluNeedsCuddling() {
-        simulationListeners.onRoundStarted.dispatch(1);
         balu.simulate(20.0f);
     }
 }
