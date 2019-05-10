@@ -377,6 +377,42 @@ public class LootTest extends SimTest {
     }
 
     @Test
+    void loot_weddingRing1() {
+        randomPluginTrainer.givenFloatAbs(
+                0.0f, // This is a drop
+                0.000005f, // The rarity of this drop is unique
+                0.0f, // This is an item drop
+                0.35f // It's a wedding ring!
+        );
+        creep.setMaxDrops(1);
+        creep.setMaxItemLevel(120);
+
+        whenTowerAttacks();
+
+        assertThat(wizard1.itemStash.size()).isEqualTo(2);
+        assertThat(wizard1.itemStash.get(0).cardType).isEqualTo(ItemType.WeddingRing1);
+        assertThat(wizard1.itemStash.get(1).cardType).isEqualTo(ItemType.WeddingRing2);
+    }
+
+    @Test
+    void loot_weddingRing2() {
+        randomPluginTrainer.givenFloatAbs(
+                0.0f, // This is a drop
+                0.000005f, // The rarity of this drop is unique
+                0.0f, // This is an item drop
+                0.45f // It's a wedding ring!
+        );
+        creep.setMaxDrops(1);
+        creep.setMaxItemLevel(120);
+
+        whenTowerAttacks();
+
+        assertThat(wizard1.itemStash.size()).isEqualTo(2);
+        assertThat(wizard1.itemStash.get(0).cardType).isEqualTo(ItemType.WeddingRing2);
+        assertThat(wizard1.itemStash.get(1).cardType).isEqualTo(ItemType.WeddingRing1);
+    }
+
+    @Test
     void loot_gold() {
         wizard1.gold = 200;
         creep.setGold(10);

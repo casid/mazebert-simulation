@@ -6,6 +6,7 @@ import com.mazebert.simulation.plugins.random.RandomPlugin;
 import com.mazebert.simulation.stash.Stash;
 import com.mazebert.simulation.units.Unit;
 import com.mazebert.simulation.units.creeps.Creep;
+import com.mazebert.simulation.units.items.ItemType;
 import com.mazebert.simulation.units.potions.PotionType;
 import com.mazebert.simulation.units.towers.Tower;
 import com.mazebert.simulation.units.wizards.Wizard;
@@ -114,6 +115,12 @@ public strictfp class LootSystem {
         if (version >= Sim.v13) {
             if (drop == PotionType.AngelicElixir) {
                 rollCardDrop(wizard, creep, maxItemLevel, Rarity.Unique, stash);
+            }
+            if (drop == ItemType.WeddingRing1) {
+                addToStash(wizard, creep, stash, ItemType.WeddingRing2);
+            }
+            if (drop == ItemType.WeddingRing2) {
+                addToStash(wizard, creep, stash, ItemType.WeddingRing1);
             }
         }
 
