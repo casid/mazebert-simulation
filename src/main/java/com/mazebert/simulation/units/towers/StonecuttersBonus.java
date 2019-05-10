@@ -18,7 +18,7 @@ public strictfp class StonecuttersBonus extends Ability<Tower> {
 
     @Override
     public String getDescription() {
-        return "Every member gains " + format.percent(StonecuttersAuraEffect.DAMAGE_BONUS) + "% damage against <c=#9da9bc>Fal</c> per total member level.";
+        return "Every member gains " + format.percent(StonecuttersAuraEffect.getDamageBonus()) + "% damage against <c=#9da9bc>Fal</c> per total member level.";
     }
 
     @Override

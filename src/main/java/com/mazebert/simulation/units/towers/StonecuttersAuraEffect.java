@@ -1,13 +1,19 @@
 package com.mazebert.simulation.units.towers;
 
+import com.mazebert.simulation.Sim;
 import com.mazebert.simulation.units.abilities.StackableByOriginAbility;
 
 public strictfp class StonecuttersAuraEffect extends StackableByOriginAbility<Tower> {
-    public static final float DAMAGE_BONUS = 0.03f;
-
     private float damageBonusFal = 0.0f;
     private float damageBonusBer = 0.0f;
     private float damageBonusVex = 0.0f;
+
+    public static float getDamageBonus() {
+        if (Sim.context().version < Sim.v13) {
+            return 0.03f;
+        }
+        return 0.01f;
+    }
 
     @Override
     protected void dispose(Tower unit) {
@@ -22,7 +28,7 @@ public strictfp class StonecuttersAuraEffect extends StackableByOriginAbility<To
 
     private void addBonus(int memberLevel, boolean bonusForAllDamageTypes) {
         if (getUnit().getLevel() >= StonecuttersAura.MEMBER_LEVEL_REQUIREMENT) {
-            damageBonusFal = DAMAGE_BONUS * memberLevel;
+            damageBonusFal = getDamageBonus() * memberLevel;
             getUnit().addDamageAgainstFal(damageBonusFal);
 
             if (bonusForAllDamageTypes) {

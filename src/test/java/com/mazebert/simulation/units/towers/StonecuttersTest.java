@@ -37,7 +37,7 @@ strictfp class StonecuttersTest extends SimTest {
     @Test
     void onlyStonecutters_level98() {
         stonecutters.setLevel(98);
-        assertThat(stonecutters.getDamageAgainstFal()).isEqualTo(3.9399998f);
+        assertThat(stonecutters.getDamageAgainstFal()).isEqualTo(1.98f);
         assertThat(stonecutters.getDamageAgainstBer()).isEqualTo(1.0f);
         assertThat(stonecutters.getDamageAgainstVex()).isEqualTo(1.0f);
     }
@@ -45,9 +45,9 @@ strictfp class StonecuttersTest extends SimTest {
     @Test
     void onlyStonecutters_level99() {
         stonecutters.setLevel(99);
-        assertThat(stonecutters.getDamageAgainstFal()).isEqualTo(3.97f);
-        assertThat(stonecutters.getDamageAgainstBer()).isEqualTo(3.97f);
-        assertThat(stonecutters.getDamageAgainstVex()).isEqualTo(3.97f);
+        assertThat(stonecutters.getDamageAgainstFal()).isEqualTo(1.99f);
+        assertThat(stonecutters.getDamageAgainstBer()).isEqualTo(1.99f);
+        assertThat(stonecutters.getDamageAgainstVex()).isEqualTo(1.99f);
     }
 
     @Test
@@ -67,7 +67,7 @@ strictfp class StonecuttersTest extends SimTest {
         unitGateway.addUnit(t2);
 
         assertThat(stonecutters.getMemberCount()).isEqualTo(2);
-        float damageBonus = 1.0f + 0.03f * (20 + 30);
+        float damageBonus = 1.0f + 0.01f * (20 + 30);
         assertThat(stonecutters.getDamageAgainstFal()).isEqualTo(1.0f); // not a member
         assertThat(t1.getDamageAgainstFal()).isEqualTo(damageBonus);
         assertThat(t1.getDamageAgainstBer()).isEqualTo(1.0f);
@@ -95,12 +95,12 @@ strictfp class StonecuttersTest extends SimTest {
         unitGateway.addUnit(t2);
 
         assertThat(stonecutters.getMemberCount()).isEqualTo(3);
-        assertThat(t1.getDamageAgainstFal()).isEqualTo(5.4699993f);
-        assertThat(t1.getDamageAgainstBer()).isEqualTo(5.4699993f);
-        assertThat(t1.getDamageAgainstVex()).isEqualTo(5.4699993f);
-        assertThat(t2.getDamageAgainstFal()).isEqualTo(5.47f);
-        assertThat(t2.getDamageAgainstBer()).isEqualTo(5.47f);
-        assertThat(t2.getDamageAgainstVex()).isEqualTo(5.47f);
+        assertThat(t1.getDamageAgainstFal()).isEqualTo(2.4900002f);
+        assertThat(t1.getDamageAgainstBer()).isEqualTo(2.4900002f);
+        assertThat(t1.getDamageAgainstVex()).isEqualTo(2.4900002f);
+        assertThat(t2.getDamageAgainstFal()).isEqualTo(2.49f);
+        assertThat(t2.getDamageAgainstBer()).isEqualTo(2.49f);
+        assertThat(t2.getDamageAgainstVex()).isEqualTo(2.49f);
     }
 
     @Test
@@ -120,7 +120,7 @@ strictfp class StonecuttersTest extends SimTest {
         unitGateway.addUnit(t2);
 
         unitGateway.removeUnit(stonecutters);
-        assertThat(t1.getDamageAgainstFal()).isEqualTo(0.99999994f);
+        assertThat(t1.getDamageAgainstFal()).isEqualTo(1.0f);
         assertThat(t2.getDamageAgainstFal()).isEqualTo(1.0f);
     }
 
