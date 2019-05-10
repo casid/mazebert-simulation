@@ -356,6 +356,27 @@ public class LootTest extends SimTest {
     }
 
     @Test
+    void loot_angelicElixir() {
+        wizard1.foilPotions.add(PotionType.AngelicElixir);
+        randomPluginTrainer.givenFloatAbs(
+                0.0f, // This is a drop
+                0.0f, // The rarity of this drop is unique
+                0.9f, // This is a potion drop
+                0.0f // It's an angelic elixir!
+        );
+        creep.setMaxDrops(1);
+
+        whenTowerAttacks();
+
+        // Since angelic elixir is cosmetic, roll another legendary
+        assertThat(wizard1.potionStash.size()).isEqualTo(2);
+        assertThat(wizard1.potionStash.get(0).amount).isEqualTo(1);
+        assertThat(wizard1.potionStash.get(0).cardType).isEqualTo(PotionType.AngelicElixir);
+        assertThat(wizard1.potionStash.get(1).amount).isEqualTo(1);
+        assertThat(wizard1.potionStash.get(1).cardType).isEqualTo(PotionType.Sacrifice);
+    }
+
+    @Test
     void loot_gold() {
         wizard1.gold = 200;
         creep.setGold(10);

@@ -6,6 +6,7 @@ import com.mazebert.simulation.plugins.random.RandomPlugin;
 import com.mazebert.simulation.stash.Stash;
 import com.mazebert.simulation.units.Unit;
 import com.mazebert.simulation.units.creeps.Creep;
+import com.mazebert.simulation.units.potions.PotionType;
 import com.mazebert.simulation.units.towers.Tower;
 import com.mazebert.simulation.units.wizards.Wizard;
 
@@ -109,6 +110,13 @@ public strictfp class LootSystem {
         }
 
         addToStash(wizard, creep, stash, drop);
+
+        if (version >= Sim.v13) {
+            if (drop == PotionType.AngelicElixir) {
+                rollCardDrop(wizard, creep, maxItemLevel, Rarity.Unique, stash);
+            }
+        }
+
         return true;
     }
 
