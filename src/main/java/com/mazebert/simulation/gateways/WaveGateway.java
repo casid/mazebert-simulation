@@ -67,10 +67,10 @@ public strictfp class WaveGateway implements ReadonlyWaveGateway {
         return wave;
     }
 
-    public Wave generateGoblinWave() {
+    public Wave generateGoblinWave(int round) {
         Wave wave = new Wave();
         wave.origin = WaveOrigin.Treasure;
-        wave.round = getCurrentRound();
+        wave.round = round;
         wave.type = WaveType.Normal;
         wave.creepCount = wave.type.creepCount;
         wave.minSecondsToNextCreep = wave.type.getMinSecondsToNextCreep();

@@ -98,12 +98,21 @@ public strictfp final class WaveSpawner implements OnGameStartedListener, OnWave
     }
 
     public void spawnTreasureGoblins(Wizard wizard, int amount) {
-        Wave wave = waveGateway.generateGoblinWave();
+        Wave wave = generateGoblinWave();
 
         for (int i = 0; i < amount; ++i) {
             Creep goblin = createGoblin(wizard, wave);
             goblinQueue.add(goblin);
         }
+    }
+
+    private Wave generateGoblinWave() {
+        int round = waveGateway.getCurrentRound();
+        if (version >= Sim.v13) {
+            round += currentBonusRound;
+        }
+
+        return waveGateway.generateGoblinWave(round);
     }
 
     @SuppressWarnings("Duplicates")
@@ -126,7 +135,7 @@ public strictfp final class WaveSpawner implements OnGameStartedListener, OnWave
     }
 
     public void spawnTreasureGoblin(Wizard wizard, int pathIndex, float x, float y) {
-        Wave wave = waveGateway.generateGoblinWave();
+        Wave wave = generateGoblinWave();
         Creep goblin = createGoblin(wizard, wave);
         spawnCreep(goblin, pathIndex);
         goblin.setX(x);
