@@ -1,5 +1,6 @@
 package com.mazebert.simulation.units.items;
 
+import com.mazebert.simulation.projectiles.ProjectileGateway;
 import com.mazebert.simulation.units.abilities.AttackAbility;
 import com.mazebert.simulation.units.abilities.InstantDamageAbility;
 import com.mazebert.simulation.units.creeps.Creep;
@@ -14,6 +15,8 @@ import static org.jusecase.Builders.a;
 strictfp class FrozenTest extends ItemTest {
     @BeforeEach
     void setUp() {
+        projectileGateway = new ProjectileGateway();
+
         tower.addAbility(new AttackAbility());
         tower.addAbility(new InstantDamageAbility());
     }
@@ -46,6 +49,20 @@ strictfp class FrozenTest extends ItemTest {
     }
 
     @Test
+    void twoItems_oneReplaced() {
+        Creep creep = a(creep());
+        unitGateway.addUnit(creep);
+
+        whenItemIsEquipped(ItemType.FrozenWater, 0);
+        whenItemIsEquipped(ItemType.FrozenHeart, 1);
+        whenItemIsEquipped(ItemType.FrozenHeart, 1);
+
+        whenTowerAttacks();
+
+        assertThat(creep.getSpeedModifier()).isEqualTo(0.9f);
+    }
+
+    @Test
     void fourItems() {
         whenItemIsEquipped(ItemType.FrozenWater, 0);
         whenItemIsEquipped(ItemType.FrozenHeart, 1);
@@ -67,6 +84,26 @@ strictfp class FrozenTest extends ItemTest {
         assertThat(tower.getItem(3)).isNull();
         assertThat(wizard.itemStash.size()).isEqualTo(0);
         assertThat(tower.getAbility(FrozenSetSummonAbility.class)).isNull();
+    }
+
+    @Test
+    void knusper_eat() {
+        wizard.gold = 1000000;
+        tower = whenTowerIsReplaced(this.tower, TowerType.KnusperHexe);
+        whenItemIsEquipped(ItemType.FrozenWater, 0);
+        whenItemIsEquipped(ItemType.FrozenHeart, 1);
+        whenItemIsEquipped(ItemType.FrozenBook, 2);
+        whenItemIsEquipped(ItemType.FrozenCandle, 3);
+
+        tower.simulate(60.0f);
+
+        Creep creep = a(creep().mass());
+        unitGateway.addUnit(creep);
+        damageSystemTrainer.givenConstantDamage(0);
+
+        whenTowerAttacks();
+
+        assertThat(wizard.towerStash.get(TowerType.Gib).getAmount()).isEqualTo(1);
     }
 
     private void whenTowerAttacks() {

@@ -43,4 +43,9 @@ public class CreepBuilder implements Builder<Creep> {
         creep.setWizard(wizard);
         return this;
     }
+
+    public CreepBuilder mass() {
+        creep.getWave().type = WaveType.Mass;
+        return this;
+    }
 }

@@ -1,5 +1,6 @@
 package com.mazebert.simulation.units.items;
 
+import com.mazebert.simulation.Sim;
 import com.mazebert.simulation.listeners.OnItemEquippedListener;
 import com.mazebert.simulation.units.abilities.StackableAbility;
 import com.mazebert.simulation.units.towers.Tower;
@@ -39,17 +40,33 @@ public abstract strictfp class ItemSetAbility extends StackableAbility<Tower> im
     public void onItemEquipped(Tower tower, int index, Item oldItem, Item newItem) {
         int oldAmount = currentItems.size();
 
-        if (newItem != null) {
-            ItemType newItemType = newItem.getType();
-            if (allItems.contains(newItemType)) {
-                currentItems.add(newItemType);
+        if (Sim.context().version >= Sim.v13) {
+            if (oldItem != null) {
+                ItemType oldItemType = oldItem.getType();
+                if (allItems.contains(oldItemType)) {
+                    currentItems.remove(oldItemType);
+                }
             }
-        }
 
-        if (oldItem != null) {
-            ItemType oldItemType = oldItem.getType();
-            if (allItems.contains(oldItemType)) {
-                currentItems.remove(oldItemType);
+            if (newItem != null) {
+                ItemType newItemType = newItem.getType();
+                if (allItems.contains(newItemType)) {
+                    currentItems.add(newItemType);
+                }
+            }
+        } else {
+            if (newItem != null) {
+                ItemType newItemType = newItem.getType();
+                if (allItems.contains(newItemType)) {
+                    currentItems.add(newItemType);
+                }
+            }
+
+            if (oldItem != null) {
+                ItemType oldItemType = oldItem.getType();
+                if (allItems.contains(oldItemType)) {
+                    currentItems.remove(oldItemType);
+                }
             }
         }
 
