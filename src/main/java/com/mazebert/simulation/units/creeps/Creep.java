@@ -35,6 +35,7 @@ public strictfp class Creep extends Unit {
     private float experience;
     private float experienceModifier = 1.0f;
 
+    private transient double initialHealth;
     private transient float deathTime;
     private transient final FollowPathCreepAbility followPathAbility = new FollowPathCreepAbility();
 
@@ -186,6 +187,11 @@ public strictfp class Creep extends Unit {
 
     public void setMaxHealth(double maxHealth) {
         this.maxHealth = maxHealth;
+        this.initialHealth = maxHealth;
+    }
+
+    public double getInitialHealth() {
+        return initialHealth;
     }
 
     public int getGold() {

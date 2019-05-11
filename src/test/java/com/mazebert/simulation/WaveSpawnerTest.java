@@ -320,6 +320,23 @@ public strictfp class WaveSpawnerTest extends SimTest {
     }
 
     @Test
+    void creepReachesTarget_revive_damaged() {
+        givenNormalWave();
+        wave.creepModifier1 = CreepModifier.Revive;
+        whenGameIsStarted();
+        Creep creep = getCreep(0);
+        creep.setMaxHealth(100);
+        creep.setHealth(100);
+        creep.resurrect(10);
+        creep.setPath(new Path(0.0f, 0.0f, 0.0f, 1.0f));
+
+        creep.simulate(1.0f);
+
+        assertThat(unitGateway.getAmount(Creep.class)).isEqualTo(0);
+        assertThat(wizard.health).isEqualTo(0.995f);
+    }
+
+    @Test
     void allCreepsReachTarget() {
         givenBossWave();
         whenGameIsStarted();
