@@ -105,6 +105,82 @@ public class TransmuteCardsTest extends UsecaseTest<TransmuteCardsCommand> imple
     }
 
     @Test
+    void tower_autoTransmute() {
+        wizard.towerStash.add(TowerType.Dandelion);
+        wizard.towerStash.add(TowerType.Dandelion);
+        wizard.towerStash.add(TowerType.Dandelion);
+        wizard.towerStash.add(TowerType.Dandelion);
+        request.cardCategory = CardCategory.Tower;
+        request.cardType = TowerType.Dandelion;
+        request.all = true;
+        wizard.towerStash.addAutoTransmute(TowerType.Frog);
+
+        whenRequestIsExecuted();
+
+        assertThat(wizard.towerStash.size()).isEqualTo(0);
+        assertThat(wizard.towerStash.transmutedCommons).isEqualTo(0);
+        assertThat(wizard.towerStash.transmutedUncommons).isEqualTo(1);
+    }
+
+    @Test
+    void tower_autoTransmuteRecursive_Common() {
+        for (int i = 0; i < 16; ++i) {
+            wizard.towerStash.add(TowerType.Dandelion);
+        }
+        request.cardCategory = CardCategory.Tower;
+        request.cardType = TowerType.Dandelion;
+        request.all = true;
+        wizard.towerStash.addAutoTransmute(TowerType.Frog);
+
+        whenRequestIsExecuted();
+
+        assertThat(wizard.towerStash.size()).isEqualTo(1);
+        assertThat(wizard.towerStash.transmutedCommons).isEqualTo(0);
+        assertThat(wizard.towerStash.transmutedUncommons).isEqualTo(0);
+        assertThat(wizard.towerStash.get(0).cardType).isEqualTo(TowerType.BearHunter);
+        assertThat(wizard.towerStash.get(0).amount).isEqualTo(1);
+    }
+
+    @Test
+    void tower_autoTransmuteRecursive_Uncommon() {
+        for (int i = 0; i < 16; ++i) {
+            wizard.towerStash.add(TowerType.Frog);
+        }
+        request.cardCategory = CardCategory.Tower;
+        request.cardType = TowerType.Frog;
+        request.all = true;
+        wizard.towerStash.addAutoTransmute(TowerType.BearHunter);
+
+        whenRequestIsExecuted();
+
+        assertThat(wizard.towerStash.size()).isEqualTo(0);
+        assertThat(wizard.towerStash.transmutedCommons).isEqualTo(0);
+        assertThat(wizard.towerStash.transmutedUncommons).isEqualTo(0);
+        assertThat(wizard.towerStash.transmutedRares).isEqualTo(0);
+        assertThat(wizard.itemStash.size()).isEqualTo(1);
+        assertThat(wizard.itemStash.get(0).cardType).isEqualTo(ItemType.KeyOfWisdom);
+        assertThat(wizard.itemStash.get(0).amount).isEqualTo(1);
+    }
+
+    @Test
+    void tower_autoTransmuteRecursive_Rare() {
+        for (int i = 0; i < 16; ++i) {
+            wizard.towerStash.add(TowerType.BearHunter);
+        }
+        request.cardCategory = CardCategory.Tower;
+        request.cardType = TowerType.BearHunter;
+        request.all = true;
+        wizard.itemStash.addAutoTransmute(ItemType.KeyOfWisdom);
+
+        whenRequestIsExecuted();
+
+        assertThat(wizard.towerStash.size()).isEqualTo(0);
+        assertThat(wizard.itemStash.size()).isEqualTo(0);
+        assertThat(wizard.potionStash.get(0).cardType).isEqualTo(PotionType.RareDamage);
+        assertThat(wizard.potionStash.get(0).amount).isEqualTo(1);
+    }
+
+    @Test
     void item_fourCards() {
         wizard.itemStash.add(ItemType.BabySword);
         wizard.itemStash.add(ItemType.BabySword);

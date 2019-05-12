@@ -137,7 +137,7 @@ public strictfp class TransmuteCards extends Usecase<TransmuteCardsCommand> {
 
             PotionType drop = randomPlugin.get(cardDusts);
             if (stash == wizard.potionStash) {
-                insertDrop(stash, cardType, index, drop);
+                insertDrop(wizard, stash, cardType, index, drop);
             } else {
                 wizard.potionStash.add(drop);
             }
@@ -146,7 +146,6 @@ public strictfp class TransmuteCards extends Usecase<TransmuteCardsCommand> {
         return null;
     }
 
-    @SuppressWarnings("unchecked")
     private CardType transmuteRare(Wizard wizard, Stash stash) {
         ++stash.transmutedRares;
         int requiredAmount = getRequiredAmount(wizard, stash);
@@ -156,8 +155,7 @@ public strictfp class TransmuteCards extends Usecase<TransmuteCardsCommand> {
             Stash nextStash = getNextStash(wizard, stash);
             CardType drop = getRandomDrop(wizard, nextStash, Rarity.Rare);
             if (drop != null) {
-                nextStash.add(drop);
-                return drop;
+                return insertDrop(wizard, nextStash, null, -1, drop);
             }
         }
         return null;
@@ -171,7 +169,7 @@ public strictfp class TransmuteCards extends Usecase<TransmuteCardsCommand> {
 
             CardType drop = getRandomDrop(wizard, stash, Rarity.Uncommon);
             if (drop != null) {
-                return insertDrop(stash, cardType, index, drop);
+                return insertDrop(wizard, stash, cardType, index, drop);
             }
         }
         return null;
@@ -185,7 +183,7 @@ public strictfp class TransmuteCards extends Usecase<TransmuteCardsCommand> {
 
             CardType drop = getRandomDrop(wizard, stash, Rarity.Rare);
             if (drop != null) {
-                return insertDrop(stash, cardType, index, drop);
+                return insertDrop(wizard, stash, cardType, index, drop);
             }
         }
         return null;
@@ -217,7 +215,11 @@ public strictfp class TransmuteCards extends Usecase<TransmuteCardsCommand> {
     }
 
     @SuppressWarnings("unchecked")
-    private CardType insertDrop(Stash stash, CardType cardType, int index, CardType drop) {
+    private CardType insertDrop(Wizard wizard, Stash stash, CardType cardType, int index, CardType drop) {
+        if (stash.isAutoTransmute(drop)) {
+            return transmute(wizard, stash, drop.instance(), drop, index);
+        }
+
         if (index == -1) {
             stash.add(drop);
         } else if (stash.get(cardType) == null) {
