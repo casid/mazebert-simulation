@@ -11,9 +11,11 @@ import com.mazebert.simulation.units.towers.Tower;
 public strictfp class BearHunterTrap extends Trap {
     private final DamageSystem damageSystem = Sim.context().damageSystem;
     private final UnitGateway unitGateway = Sim.context().unitGateway;
+    private final int version = Sim.context().version;
 
     private final Tower origin;
     private final DamageHistory damageHistory = new DamageHistory();
+    private final DamageInfo damageInfo = new DamageInfo();
 
     public BearHunterTrap(Tower origin) {
         this.origin = origin;
@@ -27,13 +29,23 @@ public strictfp class BearHunterTrap extends Trap {
     @Override
     public void addStack() {
         super.addStack();
-        damageHistory.add(damageSystem.rollDamage(origin));
+        DamageInfo damageInfo = damageSystem.rollDamage(origin);
+        if (version >= Sim.v13) {
+            this.damageInfo.damage += damageInfo.damage;
+            this.damageInfo.multicrits = StrictMath.max(this.damageInfo.multicrits, damageInfo.multicrits);
+        } else {
+            damageHistory.add(damageInfo);
+        }
     }
 
     public void trigger(Creep creep) {
-        for (int i = 0; i < damageHistory.size(); ++i) {
-            DamageInfo damageInfo = damageHistory.get(i);
+        if (version >= Sim.v13) {
             damageSystem.dealDamage(this, origin, creep, damageInfo.damage, damageInfo.multicrits, true);
+        } else {
+            for (int i = 0; i < damageHistory.size(); ++i) {
+                DamageInfo damageInfo = damageHistory.get(i);
+                damageSystem.dealDamage(this, origin, creep, damageInfo.damage, damageInfo.multicrits, true);
+            }
         }
 
         unitGateway.removeUnit(this);
