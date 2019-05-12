@@ -1,6 +1,7 @@
 package com.mazebert.simulation.systems;
 
 import com.mazebert.simulation.*;
+import com.mazebert.simulation.commands.TransmuteCardsCommand;
 import com.mazebert.simulation.plugins.FormatPlugin;
 import com.mazebert.simulation.plugins.random.RandomPlugin;
 import com.mazebert.simulation.stash.Stash;
@@ -130,7 +131,17 @@ public strictfp class LootSystem {
     @SuppressWarnings("unchecked")
     public void addToStash(Wizard wizard, Creep creep, Stash stash, CardType drop) {
         stash.add(drop);
-        simulationListeners.onCardDropped.dispatch(wizard, creep, drop.instance());
+
+        if (stash.isAutoTransmute(drop)) {
+            TransmuteCardsCommand command = new TransmuteCardsCommand();
+            command.cardCategory = drop.category();
+            command.cardType = drop;
+            command.all = false;
+            command.playerId = wizard.playerId;
+            Sim.context().commandExecutor.executeVoid(command);
+        } else {
+            simulationListeners.onCardDropped.dispatch(wizard, creep, drop.instance());
+        }
     }
 
     private void rollCardDrop(Wizard wizard, Creep creep, int maxItemLevel, Rarity rarity, Stash stash) {

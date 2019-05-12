@@ -17,6 +17,7 @@ import com.mazebert.simulation.units.creeps.CreepType;
 import com.mazebert.simulation.units.creeps.effects.ReviveEffect;
 import com.mazebert.simulation.units.items.ItemType;
 import com.mazebert.simulation.units.towers.Spider;
+import com.mazebert.simulation.units.towers.TowerType;
 import com.mazebert.simulation.units.wizards.Wizard;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -65,6 +66,9 @@ public strictfp class WaveSpawnerTest extends SimTest {
 
         waveSpawner = new WaveSpawner();
         waveGateway.setTotalWaves(250);
+
+        commandExecutor = new CommandExecutor();
+        commandExecutor.init();
 
         wizard = gameSystem.addWizard(1);
         wizard.towerStash.setElements(EnumSet.of(Element.Nature));
@@ -728,6 +732,20 @@ public strictfp class WaveSpawnerTest extends SimTest {
         assertThat(waveFinished).isTrue();
         assertThat(wizard.towerStash.size()).isEqualTo(1);
         assertThat(wizard.experience).isEqualTo(1);
+    }
+
+    @Test
+    void roundCompleted_towerDrop_autoTransmute() {
+        givenBossWave();
+        wizard.towerStash.addAutoTransmute(TowerType.Frog);
+
+        whenGameIsStarted();
+        whenCreepIsKilled(getCreep(0));
+        whenGameIsUpdated();
+
+        assertThat(waveFinished).isTrue();
+        assertThat(wizard.towerStash.size()).isEqualTo(0);
+        assertThat(wizard.towerStash.transmutedUncommons).isEqualTo(1);
     }
 
     @Test

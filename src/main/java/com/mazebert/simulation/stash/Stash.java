@@ -16,6 +16,7 @@ public abstract strictfp class Stash<T extends Card> implements ReadonlyStash<T>
     private final List<StashEntry<T>> entries = new ArrayList<>();
     private final Map<Object, StashEntry<T>> entryByType;
     private final Map<Object, T> droppedUniques;
+    private final Set autoTransmutes;
     private EnumMap<Rarity, CardType<T>[]> cardByDropRarity;
 
     private final OnCardRemoved onCardRemoved = new OnCardRemoved();
@@ -26,9 +27,10 @@ public abstract strictfp class Stash<T extends Card> implements ReadonlyStash<T>
 
     private transient int lastViewedIndex;
 
-    protected Stash(Map<Object, StashEntry<T>> entryByType, Map<Object, T> uniques) {
+    protected Stash(Map<Object, StashEntry<T>> entryByType, Map<Object, T> uniques, Set autoTransmutes) {
         this.entryByType = entryByType;
         this.droppedUniques = uniques;
+        this.autoTransmutes = autoTransmutes;
         updateCardByDropRarity();
     }
 
@@ -245,6 +247,15 @@ public abstract strictfp class Stash<T extends Card> implements ReadonlyStash<T>
     @Override
     public OnCardRemoved onCardRemoved() {
         return onCardRemoved;
+    }
+
+    @SuppressWarnings("unchecked")
+    public void addAutoTransmute(CardType<T> type) {
+        autoTransmutes.add(type);
+    }
+
+    public boolean isAutoTransmute(CardType<T> type) {
+        return autoTransmutes.contains(type);
     }
 
     private static class ItemLevelComparator implements Comparator<CardType<? extends Card>> {

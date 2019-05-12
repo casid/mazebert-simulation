@@ -234,7 +234,9 @@ public strictfp class TransmuteCards extends Usecase<TransmuteCardsCommand> {
 
     @SuppressWarnings("unchecked")
     private CardType insertDrop(Stash stash, CardType cardType, int index, CardType drop) {
-        if (stash.get(cardType) == null) {
+        if (index == -1) {
+            stash.add(drop);
+        } else if (stash.get(cardType) == null) {
             stash.add(drop, index);
         } else {
             stash.add(drop, index + 1);

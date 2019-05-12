@@ -13,7 +13,7 @@ public strictfp class TowerStash extends Stash<Tower> {
 
     @SuppressWarnings("unchecked")
     public TowerStash() {
-        super(new EnumMap(TowerType.class), new EnumMap(TowerType.class));
+        super(new EnumMap(TowerType.class), new EnumMap(TowerType.class), EnumSet.noneOf(TowerType.class));
     }
 
     @Override

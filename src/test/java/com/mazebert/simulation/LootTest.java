@@ -43,6 +43,8 @@ public class LootTest extends SimTest {
         lootSystem = new LootSystem();
         experienceSystem = new ExperienceSystem();
         gameSystem = new GameSystem();
+        commandExecutor = new CommandExecutor();
+        commandExecutor.init();
 
         wizard1 = new Wizard();
         wizard1.playerId = 1;
@@ -137,6 +139,23 @@ public class LootTest extends SimTest {
 
         assertThat(wizard1.itemStash.get(0).amount).isEqualTo(1);
         assertThat(wizard1.itemStash.get(0).cardType).isEqualTo(ItemType.WoodenStaff);
+    }
+
+    @Test
+    void loot_woodenStaff_autoTransmute() {
+        randomPluginTrainer.givenFloatAbs(
+                0.0f, // This is a drop
+                0.99f, // The rarity of this drop is common
+                0.0f, // This is an item drop
+                WOODEN_STAFF_ROLL // It's a wooden staff!
+        );
+        creep.setMaxDrops(1);
+        wizard1.itemStash.addAutoTransmute(ItemType.WoodenStaff);
+
+        whenTowerAttacks();
+
+        assertThat(wizard1.itemStash.size()).isEqualTo(0);
+        assertThat(wizard1.itemStash.transmutedCommons).isEqualTo(1);
     }
 
     @Test
