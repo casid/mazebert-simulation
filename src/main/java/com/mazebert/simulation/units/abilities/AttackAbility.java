@@ -8,6 +8,7 @@ import com.mazebert.simulation.units.towers.Tower;
 public strictfp class AttackAbility extends CooldownAbility<Tower> {
 
     private final UnitGateway unitGateway = Sim.context().unitGateway;
+    private final int version = Sim.context().version;
 
     private Creep[] currentTargets;
     private boolean canAttackSameTarget;
@@ -55,7 +56,16 @@ public strictfp class AttackAbility extends CooldownAbility<Tower> {
     }
 
     protected boolean hasTargetToAttack() {
-        return findTarget(0) != null;
+        if (version >= Sim.v13) {
+            for (int i = 0; i < currentTargets.length; ++i) {
+                if (findTarget(i) != null) {
+                    return true;
+                }
+            }
+            return false;
+        } else {
+            return findTarget(0) != null;
+        }
     }
 
     private Creep findTarget(int i) {

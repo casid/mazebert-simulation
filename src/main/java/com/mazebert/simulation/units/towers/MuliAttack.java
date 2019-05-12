@@ -2,13 +2,11 @@ package com.mazebert.simulation.units.towers;
 
 import com.mazebert.simulation.Sim;
 import com.mazebert.simulation.SimulationListeners;
-import com.mazebert.simulation.plugins.random.RandomPlugin;
 import com.mazebert.simulation.units.abilities.AttackAbility;
 import com.mazebert.simulation.units.quests.MuliQuest;
 
 public strictfp class MuliAttack extends AttackAbility {
     private final SimulationListeners simulationListeners = Sim.context().simulationListeners;
-    private final RandomPlugin randomPlugin = Sim.context().randomPlugin;
 
     private int bananas;
     private MuliState state = MuliState.Normal;
