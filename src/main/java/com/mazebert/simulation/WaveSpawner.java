@@ -367,12 +367,20 @@ public strictfp final class WaveSpawner implements OnGameStartedListener, OnWave
         Wave wave = creep.getWave();
         if (wave.type != WaveType.Challenge && wave.type != WaveType.MassChallenge) {
             Wizard wizard = creep.getWizard();
-            float leaked = Balancing.PENALTY_FOR_LEAKING_ENTIRE_ROUND * (float)(creep.getHealth() / creep.getInitialHealth()) / wave.creepCount;
+            float leaked = calculateLeaked(creep, wave);
             wizard.addHealth(-leaked);
         }
 
         if (creep.isPartOfGame()) {
             unitGateway.removeUnit(creep);
+        }
+    }
+
+    private float calculateLeaked(Creep creep, Wave wave) {
+        if (version >= Sim.v13) {
+            return Balancing.PENALTY_FOR_LEAKING_ENTIRE_ROUND * (float) (creep.getHealth() / creep.getInitialHealth()) / wave.creepCount;
+        } else {
+            return Balancing.PENALTY_FOR_LEAKING_ENTIRE_ROUND * (float) (creep.getHealth() / creep.getMaxHealth()) / wave.creepCount;
         }
     }
 
