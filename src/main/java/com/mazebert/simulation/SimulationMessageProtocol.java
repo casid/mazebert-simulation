@@ -33,8 +33,11 @@ public strictfp class SimulationMessageProtocol extends BitMessageProtocol {
         protocol.register(new SendMessageCommandSerializer());
         protocol.register(new WizardPowerSerializer());
         protocol.register(new QuestDataSerializer());
-        if (version > Sim.v10) {
+        if (version >= Sim.v11) {
             protocol.register(new TakeElementCardCommandSerializer());
+        }
+        if (version >= Sim.v13) {
+            protocol.register(new AutoTransmuteCardsCommandSerializer());
         }
     }
 }

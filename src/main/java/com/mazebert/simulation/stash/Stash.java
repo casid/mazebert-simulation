@@ -254,6 +254,11 @@ public abstract strictfp class Stash<T extends Card> implements ReadonlyStash<T>
         autoTransmutes.add(type);
     }
 
+    @SuppressWarnings("unchecked")
+    public void removeAutoTransmute(CardType<T> type) {
+        autoTransmutes.remove(type);
+    }
+
     public boolean isAutoTransmute(CardType<T> type) {
         return autoTransmutes.contains(type);
     }

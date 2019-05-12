@@ -1,11 +1,13 @@
 package com.mazebert.simulation.units.wizards;
 
+import com.mazebert.simulation.CardCategory;
 import com.mazebert.simulation.CardType;
 import com.mazebert.simulation.Element;
 import com.mazebert.simulation.hash.Hash;
 import com.mazebert.simulation.listeners.*;
 import com.mazebert.simulation.stash.ItemStash;
 import com.mazebert.simulation.stash.PotionStash;
+import com.mazebert.simulation.stash.Stash;
 import com.mazebert.simulation.stash.TowerStash;
 import com.mazebert.simulation.units.Unit;
 import com.mazebert.simulation.units.abilities.Ability;
@@ -160,6 +162,22 @@ public strictfp class Wizard extends Unit {
             }
         }
         return result;
+    }
+
+    public Stash getStash(CardCategory cardCategory) {
+        if (cardCategory == CardCategory.Tower) {
+            return towerStash;
+        }
+
+        if (cardCategory == CardCategory.Item) {
+            return itemStash;
+        }
+
+        if (cardCategory == CardCategory.Potion) {
+            return potionStash;
+        }
+
+        return null;
     }
 
     private PotionType getCardForElement(Element element) {

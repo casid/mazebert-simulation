@@ -56,7 +56,7 @@ public strictfp class TransmuteCards extends Usecase<TransmuteCardsCommand> {
             return;
         }
 
-        Stash stash = getStash(wizard, command.cardCategory);
+        Stash stash = wizard.getStash(command.cardCategory);
         if (stash == null) {
             return;
         }
@@ -214,22 +214,6 @@ public strictfp class TransmuteCards extends Usecase<TransmuteCardsCommand> {
             return wizard.itemStash;
         }
         return wizard.potionStash;
-    }
-
-    private Stash getStash(Wizard wizard, CardCategory cardCategory) {
-        if (cardCategory == CardCategory.Tower) {
-            return wizard.towerStash;
-        }
-
-        if (cardCategory == CardCategory.Item) {
-            return wizard.itemStash;
-        }
-
-        if (cardCategory == CardCategory.Potion) {
-            return wizard.potionStash;
-        }
-
-        return null;
     }
 
     @SuppressWarnings("unchecked")
