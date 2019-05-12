@@ -695,7 +695,7 @@ public strictfp class WaveSpawnerTest extends SimTest {
     @Test
     void lastRoundCompleted() {
         givenWave(WaveType.Horseman);
-        wave.round = waveGateway.getTotalWaves();
+        wave.round = 200;
 
         whenGameIsStarted();
         whenCreepIsKilled(getCreep(0));
@@ -707,7 +707,7 @@ public strictfp class WaveSpawnerTest extends SimTest {
     @Test
     void lastRoundCompleted_canHaveTwoScepters() {
         givenWave(WaveType.Horseman);
-        wave.round = waveGateway.getTotalWaves();
+        wave.round = 200;
         wizard.itemStash.add(ItemType.ScepterOfTime);
 
         whenGameIsStarted();
