@@ -5,6 +5,7 @@ import com.mazebert.simulation.CardType;
 import com.mazebert.simulation.Rarity;
 import com.mazebert.simulation.hash.Hash;
 import com.mazebert.simulation.hash.Hashable;
+import com.mazebert.simulation.listeners.OnCardAdded;
 import com.mazebert.simulation.listeners.OnCardRemoved;
 import com.mazebert.simulation.plugins.random.RandomPlugin;
 
@@ -19,6 +20,7 @@ public abstract strictfp class Stash<T extends Card> implements ReadonlyStash<T>
     private final Set autoTransmutes;
     private EnumMap<Rarity, CardType<T>[]> cardByDropRarity;
 
+    private final OnCardAdded onCardAdded = new OnCardAdded();
     private final OnCardRemoved onCardRemoved = new OnCardRemoved();
 
     public int transmutedCommons;
@@ -76,6 +78,8 @@ public abstract strictfp class Stash<T extends Card> implements ReadonlyStash<T>
         } else {
             ++entry.amount;
         }
+
+        dispatchCardAdded(cardType);
     }
 
     public void add(CardType<T> cardType, int index) {
@@ -94,6 +98,15 @@ public abstract strictfp class Stash<T extends Card> implements ReadonlyStash<T>
             StashEntry<T> oldEntry = get(index);
             entries.set(oldIndex, oldEntry);
             entries.set(index, entry);
+        }
+
+        dispatchCardAdded(cardType);
+    }
+
+    private void dispatchCardAdded(CardType<T> cardType) {
+        // Auto transmute cards are instantly removed afterwards anyways!
+        if (!isAutoTransmute(cardType)) {
+            onCardAdded.dispatch(cardType);
         }
     }
 
@@ -245,6 +258,11 @@ public abstract strictfp class Stash<T extends Card> implements ReadonlyStash<T>
     }
 
     @Override
+    public OnCardAdded onCardAdded() {
+        return onCardAdded;
+    }
+
+    @Override
     public OnCardRemoved onCardRemoved() {
         return onCardRemoved;
     }
@@ -254,7 +272,6 @@ public abstract strictfp class Stash<T extends Card> implements ReadonlyStash<T>
         autoTransmutes.add(type);
     }
 
-    @SuppressWarnings("unchecked")
     public void removeAutoTransmute(CardType<T> type) {
         autoTransmutes.remove(type);
     }

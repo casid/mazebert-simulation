@@ -3,6 +3,7 @@ package com.mazebert.simulation.stash;
 import com.mazebert.simulation.Card;
 import com.mazebert.simulation.CardCategory;
 import com.mazebert.simulation.CardType;
+import com.mazebert.simulation.listeners.OnCardAdded;
 import com.mazebert.simulation.listeners.OnCardRemoved;
 
 public interface ReadonlyStash<T extends Card> {
@@ -15,6 +16,7 @@ public interface ReadonlyStash<T extends Card> {
     CardCategory getCardCategory();
 
     @SuppressWarnings("unused") // for client
+    OnCardAdded onCardAdded();
     OnCardRemoved onCardRemoved();
 
     int getTransmutedCommons();
