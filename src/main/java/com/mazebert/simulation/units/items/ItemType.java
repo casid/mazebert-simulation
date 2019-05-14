@@ -81,10 +81,11 @@ public strictfp enum ItemType implements CardType<Item> {
     BranchOfYggdrasil(66, BranchOfYggdrasil.class)
     ;
 
+    private static int maxId;
     private static ItemType[] LOOKUP;
 
     static {
-        int maxId = 0;
+        maxId = 0;
         for (ItemType itemType : ItemType.values()) {
             maxId = StrictMath.max(maxId, itemType.id);
         }
@@ -100,6 +101,11 @@ public strictfp enum ItemType implements CardType<Item> {
     ItemType(int id, Class<? extends Item> itemClass) {
         this.id = id;
         this.itemClass = itemClass;
+    }
+
+    @SuppressWarnings("unused") // By client
+    public static int getMaxId() {
+        return maxId;
     }
 
     public static ItemType forId(int id) {

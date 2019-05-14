@@ -91,10 +91,11 @@ public strictfp enum TowerType implements CardType<Tower> {
         }
     }
 
+    private static int maxId;
     private static TowerType[] LOOKUP;
 
     static {
-        int maxId = 0;
+        maxId = 0;
         for (TowerType towerType : TowerType.values()) {
             maxId = StrictMath.max(maxId, towerType.id);
         }
@@ -102,6 +103,11 @@ public strictfp enum TowerType implements CardType<Tower> {
         for (TowerType towerType : TowerType.values()) {
             LOOKUP[towerType.id] = towerType;
         }
+    }
+
+    @SuppressWarnings("unused") // By client
+    public static int getMaxId() {
+        return maxId;
     }
 
     public static TowerType forId(int id) {

@@ -43,10 +43,11 @@ public strictfp enum PotionType implements CardType<Potion> {
     ResearchDarkness(28, ResearchDarkness.class),
     ;
 
+    private static int maxId;
     private static PotionType[] LOOKUP;
 
     static {
-        int maxId = 0;
+        maxId = 0;
         for (PotionType potionType : PotionType.values()) {
             maxId = StrictMath.max(maxId, potionType.id);
         }
@@ -62,6 +63,11 @@ public strictfp enum PotionType implements CardType<Potion> {
     PotionType(int id, Class<? extends Potion> potionClass) {
         this.id = id;
         this.potionClass = potionClass;
+    }
+
+    @SuppressWarnings("unused") // By client
+    public static int getMaxId() {
+        return maxId;
     }
 
     public static PotionType forId(int id) {
