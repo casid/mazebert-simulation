@@ -33,7 +33,7 @@ public class BackwardCompatiblityTester {
             "0dd320b2-cbed-4533-b265-8eddea8dc005-35049.mbg"
     ));
 
-    private static final Path gamesDirectory = Paths.get("src/test/resources/games");
+    private static final Path gamesDirectory = Paths.get("games");
 
     private ConcurrentMap<Path, Exception> errors = new ConcurrentHashMap<>();
 
