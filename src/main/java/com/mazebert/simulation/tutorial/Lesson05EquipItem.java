@@ -19,7 +19,7 @@ public strictfp class Lesson05EquipItem extends Lesson implements OnItemEquipped
     @Override
     public void initialize(Wizard wizard) {
         super.initialize(wizard);
-        wizard.itemStash.add(ItemType.BabySword);
+        wizard.itemStash.add(ItemType.BabySword, true);
 
         dandelion = unitGateway.findUnit(Dandelion.class, wizard.playerId);
         dandelion.onItemEquipped.add(this);

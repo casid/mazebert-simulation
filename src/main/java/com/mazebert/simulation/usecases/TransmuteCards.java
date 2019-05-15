@@ -223,9 +223,9 @@ public strictfp class TransmuteCards extends Usecase<TransmuteCardsCommand> {
         if (index == -1) {
             stash.add(drop);
         } else if (stash.get(cardType) == null) {
-            stash.add(drop, index);
+            stash.add(drop, index, false);
         } else {
-            stash.add(drop, index + 1);
+            stash.add(drop, index + 1, false);
         }
         return drop;
     }

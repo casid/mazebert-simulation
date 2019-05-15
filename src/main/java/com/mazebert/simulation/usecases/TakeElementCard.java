@@ -34,7 +34,7 @@ public strictfp class TakeElementCard extends Usecase<TakeElementCardCommand> {
             return;
         }
 
-        wizard.potionStash.add(command.card);
+        wizard.potionStash.add(command.card, true);
         --wizard.elementResearchPoints;
     }
 }

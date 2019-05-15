@@ -13,10 +13,10 @@ public strictfp class Lesson15TransmuteItems extends Lesson implements OnCardsTr
     @Override
     public void initialize(Wizard wizard) {
         super.initialize(wizard);
-        wizard.itemStash.add(ItemType.Pumpkin);
-        wizard.itemStash.add(ItemType.Pumpkin);
-        wizard.itemStash.add(ItemType.Pumpkin);
-        wizard.itemStash.add(ItemType.Pumpkin);
+        wizard.itemStash.add(ItemType.Pumpkin, true);
+        wizard.itemStash.add(ItemType.Pumpkin, true);
+        wizard.itemStash.add(ItemType.Pumpkin, true);
+        wizard.itemStash.add(ItemType.Pumpkin, true);
 
         wizard.onCardsTransmuted.add(this);
     }

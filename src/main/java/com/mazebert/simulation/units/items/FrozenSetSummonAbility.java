@@ -51,7 +51,7 @@ public strictfp class FrozenSetSummonAbility extends Ability<Tower> implements O
                 simulationListeners.showNotification(unit, SUMMON_NOTIFICATION, 0x0088cc);
             }
 
-            unit.getWizard().towerStash.add(TowerType.Gib);
+            unit.getWizard().towerStash.add(TowerType.Gib, true);
 
             unit.removeItem(ItemType.FrozenBook);
             unit.removeItem(ItemType.FrozenCandle);

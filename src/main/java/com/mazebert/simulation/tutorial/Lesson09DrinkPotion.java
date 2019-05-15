@@ -19,7 +19,7 @@ public strictfp class Lesson09DrinkPotion extends Lesson implements OnPotionCons
     @Override
     public void initialize(Wizard wizard) {
         super.initialize(wizard);
-        wizard.potionStash.add(PotionType.CommonSpeed);
+        wizard.potionStash.add(PotionType.CommonSpeed, true);
 
         dandelion = unitGateway.findUnit(Dandelion.class, wizard.playerId);
         dandelion.onPotionConsumed.add(this);
