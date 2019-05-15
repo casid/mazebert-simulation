@@ -108,6 +108,17 @@ public class StunAbilityTest extends SimTest {
     }
 
     @Test
+    void stun_increasedByLevel() {
+        randomPluginTrainer.givenFloatAbs(0.5f + stunAbility.getChance());
+        stunAbility.setChancePerLevel(0.1f);
+        tower.setLevel(6);
+
+        whenTowerAttacks();
+
+        assertThat(creep.getState()).isEqualTo(CreepState.Hit);
+    }
+
+    @Test
     void stun_cannotGoBeyondMaxTriggerChance() {
         randomPluginTrainer.givenFloatAbs(Balancing.MAX_TRIGGER_CHANCE + 0.01f);
         tower.setLuck(100.0f);

@@ -8,6 +8,7 @@ import com.mazebert.simulation.units.towers.Tower;
 
 public strictfp class StunAbility extends Ability<Tower> implements OnDamageListener {
     private float chance;
+    private float chancePerLevel;
     private float duration;
 
     @Override
@@ -31,6 +32,10 @@ public strictfp class StunAbility extends Ability<Tower> implements OnDamageList
             return;
         }
 
+        float chance = this.chance;
+        if (chancePerLevel > 0) {
+            chance += chancePerLevel * getUnit().getLevel();
+        }
         if (getUnit().isAbilityTriggered(chance)) {
             StunEffect stunEffect = target.addAbilityStack(StunEffect.class);
             stunEffect.setDuration(duration);
@@ -70,6 +75,10 @@ public strictfp class StunAbility extends Ability<Tower> implements OnDamageList
         return true;
     }
 
+    public void setChancePerLevel(float chancePerLevel) {
+        this.chancePerLevel = chancePerLevel;
+    }
+
     @Override
     public String getTitle() {
         return "Stun";
@@ -78,5 +87,13 @@ public strictfp class StunAbility extends Ability<Tower> implements OnDamageList
     @Override
     public String getDescription() {
         return "Each attack has a " + format.percent(chance) + "% chance to stun the creep for " + duration + "s.";
+    }
+
+    @Override
+    public String getLevelBonus() {
+        if (chancePerLevel > 0) {
+            return format.percent(chancePerLevel) + "% chance per level.";
+        }
+        return super.getLevelBonus();
     }
 }
