@@ -66,25 +66,25 @@ public strictfp class TransmuteCards extends Usecase<TransmuteCardsCommand> {
         }
 
         if (command.all) {
-            transmuteAll(wizard, stash, command.cardType, command.notify);
+            transmuteAll(wizard, stash, command.cardType, command.automatic);
         } else {
             if (command.cardType == ItemType.TransmuteStack) {
                 return;
             }
-            transmute(wizard, stash, command.cardType, command.notify);
+            transmute(wizard, stash, command.cardType, command.automatic);
         }
     }
 
     @SuppressWarnings("unchecked")
-    public void transmuteAll(Wizard wizard, Stash stash, CardType cardType, boolean notify) {
+    public void transmuteAll(Wizard wizard, Stash stash, CardType cardType, boolean automatic) {
         List<CardType> result = null;
         int transmutedCards = 0;
 
         int index = stash.getIndex(cardType);
 
         Card card;
-        while ((card = stash.remove(cardType, false)) != null) {
-            CardType drop = transmute(wizard, stash, card, cardType, index, notify);
+        while ((card = stash.remove(cardType, false, automatic)) != null) {
+            CardType drop = transmute(wizard, stash, card, cardType, index, automatic);
             if (drop != null) {
                 if (result == null) {
                     result = new ArrayList<>();
@@ -100,44 +100,44 @@ public strictfp class TransmuteCards extends Usecase<TransmuteCardsCommand> {
     }
 
     @SuppressWarnings("unchecked")
-    public void transmute(Wizard wizard, Stash stash, CardType cardType, boolean notify) {
+    public void transmute(Wizard wizard, Stash stash, CardType cardType, boolean automatic) {
         int index = stash.getIndex(cardType);
 
-        Card card = stash.remove(cardType, false);
+        Card card = stash.remove(cardType, false, automatic);
         if (card == null) {
             return;
         }
 
         Rarity rarity = cardType.instance().getRarity();
 
-        CardType drop = transmute(wizard, stash, card, cardType, index, notify);
+        CardType drop = transmute(wizard, stash, card, cardType, index, automatic);
         wizard.onCardsTransmuted.dispatch(rarity, drop);
     }
 
-    private CardType transmute(Wizard wizard, Stash stash, Card card, CardType cardType, int index, boolean notify) {
+    private CardType transmute(Wizard wizard, Stash stash, Card card, CardType cardType, int index, boolean automatic) {
         switch (card.getRarity()) {
             case Common:
-                return transmuteCommon(wizard, stash, cardType, index, notify);
+                return transmuteCommon(wizard, stash, cardType, index, automatic);
             case Uncommon:
-                return transmuteUncommon(wizard, stash, cardType, index, notify);
+                return transmuteUncommon(wizard, stash, cardType, index, automatic);
             case Rare:
-                return transmuteRare(wizard, stash, notify);
+                return transmuteRare(wizard, stash, automatic);
             case Unique:
             case Legendary:
-                return transmuteUnique(wizard, stash, cardType, index, notify);
+                return transmuteUnique(wizard, stash, cardType, index, automatic);
         }
 
         return null;
     }
 
-    private CardType transmuteUnique(Wizard wizard, Stash stash, CardType cardType, int index, boolean notify) {
+    private CardType transmuteUnique(Wizard wizard, Stash stash, CardType cardType, int index, boolean automatic) {
         ++wizard.transmutedUniques;
         if (wizard.transmutedUniques >= requiredUniqueAmount) {
             wizard.transmutedUniques -= requiredUniqueAmount;
 
             PotionType drop = randomPlugin.get(cardDusts);
             if (stash == wizard.potionStash) {
-                insertDrop(wizard, stash, cardType, index, drop, notify);
+                insertDrop(wizard, stash, cardType, index, drop, automatic);
             } else {
                 wizard.potionStash.add(drop);
             }
@@ -146,7 +146,7 @@ public strictfp class TransmuteCards extends Usecase<TransmuteCardsCommand> {
         return null;
     }
 
-    private CardType transmuteRare(Wizard wizard, Stash stash, boolean notify) {
+    private CardType transmuteRare(Wizard wizard, Stash stash, boolean automatic) {
         ++stash.transmutedRares;
         int requiredAmount = getRequiredAmount(wizard, stash);
         if (stash.transmutedRares >= requiredAmount) {
@@ -155,13 +155,13 @@ public strictfp class TransmuteCards extends Usecase<TransmuteCardsCommand> {
             Stash nextStash = getNextStash(wizard, stash);
             CardType drop = getRandomDrop(wizard, nextStash, Rarity.Rare);
             if (drop != null) {
-                return insertDrop(wizard, nextStash, null, -1, drop, notify);
+                return insertDrop(wizard, nextStash, null, -1, drop, automatic);
             }
         }
         return null;
     }
 
-    private CardType transmuteCommon(Wizard wizard, Stash stash, CardType cardType, int index, boolean notify) {
+    private CardType transmuteCommon(Wizard wizard, Stash stash, CardType cardType, int index, boolean automatic) {
         ++stash.transmutedCommons;
         int requiredAmount = getRequiredAmount(wizard, stash);
         if (stash.transmutedCommons >= requiredAmount) {
@@ -169,13 +169,13 @@ public strictfp class TransmuteCards extends Usecase<TransmuteCardsCommand> {
 
             CardType drop = getRandomDrop(wizard, stash, Rarity.Uncommon);
             if (drop != null) {
-                return insertDrop(wizard, stash, cardType, index, drop, notify);
+                return insertDrop(wizard, stash, cardType, index, drop, automatic);
             }
         }
         return null;
     }
 
-    private CardType transmuteUncommon(Wizard wizard, Stash stash, CardType cardType, int index, boolean notify) {
+    private CardType transmuteUncommon(Wizard wizard, Stash stash, CardType cardType, int index, boolean automatic) {
         ++stash.transmutedUncommons;
         int requiredAmount = getRequiredAmount(wizard, stash);
         if (stash.transmutedUncommons >= requiredAmount) {
@@ -183,7 +183,7 @@ public strictfp class TransmuteCards extends Usecase<TransmuteCardsCommand> {
 
             CardType drop = getRandomDrop(wizard, stash, Rarity.Rare);
             if (drop != null) {
-                return insertDrop(wizard, stash, cardType, index, drop, notify);
+                return insertDrop(wizard, stash, cardType, index, drop, automatic);
             }
         }
         return null;
@@ -215,17 +215,17 @@ public strictfp class TransmuteCards extends Usecase<TransmuteCardsCommand> {
     }
 
     @SuppressWarnings("unchecked")
-    private CardType insertDrop(Wizard wizard, Stash stash, CardType cardType, int index, CardType drop, boolean notify) {
+    private CardType insertDrop(Wizard wizard, Stash stash, CardType cardType, int index, CardType drop, boolean automatic) {
         if (stash.isAutoTransmute(drop)) {
-            return transmute(wizard, stash, drop.instance(), drop, index, notify);
+            return transmute(wizard, stash, drop.instance(), drop, index, automatic);
         }
 
         if (index == -1) {
-            stash.add(drop, notify);
+            stash.add(drop, automatic);
         } else if (stash.get(cardType) == null) {
-            stash.add(drop, index, notify);
+            stash.add(drop, index, automatic);
         } else {
-            stash.add(drop, index + 1, notify);
+            stash.add(drop, index + 1, automatic);
         }
         return drop;
     }

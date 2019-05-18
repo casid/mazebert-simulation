@@ -119,10 +119,10 @@ public abstract strictfp class Stash<T extends Card> implements ReadonlyStash<T>
     }
 
     public T remove(CardType<T> cardType) {
-        return remove(cardType, true);
+        return remove(cardType, true, false);
     }
 
-    public T remove(CardType<T> cardType, boolean newInstance) {
+    public T remove(CardType<T> cardType, boolean newInstance, boolean automatic) {
         StashEntry<T> entry = get(cardType);
         if (entry != null) {
             --entry.amount;
@@ -130,7 +130,7 @@ public abstract strictfp class Stash<T extends Card> implements ReadonlyStash<T>
                 entries.remove(entry);
                 entryByType.remove(cardType);
             }
-            onCardRemoved.dispatch(cardType, entry.amount);
+            onCardRemoved.dispatch(cardType, entry.amount, automatic);
             if (newInstance) {
                 return createCard(entry);
             } else {

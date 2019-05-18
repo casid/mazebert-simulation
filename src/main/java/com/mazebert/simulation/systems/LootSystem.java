@@ -139,7 +139,7 @@ public strictfp class LootSystem {
             command.cardType = drop;
             command.all = false;
             command.playerId = wizard.playerId;
-            command.notify = true;
+            command.automatic = true;
 
             Sim.context().commandExecutor.executeVoid(command);
         }
