@@ -30,7 +30,11 @@ public strictfp class KiwiEggHatch extends Ability<KiwiEgg> implements OnUnitAdd
     @Override
     protected void dispose(KiwiEgg unit) {
         unit.onUnitAdded.remove(this);
-        simulationListeners.onWaveFinished.remove(this);
+        if (Sim.context().version < Sim.v13) {
+            simulationListeners.onWaveFinished.remove(this);
+        } else {
+            simulationListeners.onRoundStarted.remove(this);
+        }
         super.dispose(unit);
     }
 
