@@ -1,10 +1,11 @@
 package com.mazebert.simulation.units.towers;
 
+import com.mazebert.simulation.CommandExecutor;
 import com.mazebert.simulation.SimTest;
 import com.mazebert.simulation.SimulationListeners;
-import com.mazebert.simulation.Wave;
 import com.mazebert.simulation.gateways.UnitGateway;
 import com.mazebert.simulation.plugins.random.RandomPluginTrainer;
+import com.mazebert.simulation.systems.LootSystemTrainer;
 import com.mazebert.simulation.units.items.ItemType;
 import com.mazebert.simulation.units.wizards.Wizard;
 import org.junit.jupiter.api.BeforeEach;
@@ -23,6 +24,9 @@ strictfp class DarkForge_CraftTest extends SimTest {
         simulationListeners = new SimulationListeners();
         unitGateway = new UnitGateway();
         randomPlugin = randomPluginTrainer;
+        lootSystem = new LootSystemTrainer();
+        commandExecutor = new CommandExecutor();
+        commandExecutor.init();
 
         wizard = new Wizard();
         unitGateway.addUnit(wizard);
@@ -45,6 +49,16 @@ strictfp class DarkForge_CraftTest extends SimTest {
         randomPluginTrainer.givenFloatAbs(DarkForgeCraft.CHANCE + 0.001f);
         whenRoundIsStarted();
         thenNoItemIsCrafted();
+    }
+
+    @Test
+    void darkItemsCanBeAutoTransmuted() {
+        randomPluginTrainer.givenFloatAbs(0.0f);
+        wizard.itemStash.addAutoTransmute(ItemType.DarkBabySword);
+
+        whenRoundIsStarted();
+
+        assertThat(wizard.itemStash.transmutedCommons).isEqualTo(1);
     }
 
     @Test

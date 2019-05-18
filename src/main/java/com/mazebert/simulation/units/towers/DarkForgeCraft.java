@@ -10,6 +10,7 @@ import com.mazebert.simulation.listeners.OnUnitRemovedListener;
 import com.mazebert.simulation.listeners.OnWaveFinishedListener;
 import com.mazebert.simulation.plugins.random.RandomPlugin;
 import com.mazebert.simulation.stash.ItemStash;
+import com.mazebert.simulation.systems.LootSystem;
 import com.mazebert.simulation.units.Unit;
 import com.mazebert.simulation.units.abilities.Ability;
 import com.mazebert.simulation.units.items.ItemType;
@@ -25,6 +26,8 @@ public strictfp class DarkForgeCraft extends Ability<Tower> implements OnUnitAdd
 
     private final SimulationListeners simulationListeners = Sim.context().simulationListeners;
     private final RandomPlugin randomPlugin = Sim.context().randomPlugin;
+    private final LootSystem lootSystem = Sim.context().lootSystem;
+    private final int version = Sim.context().version;
 
     @Override
     protected void initialize(Tower unit) {
@@ -74,7 +77,13 @@ public strictfp class DarkForgeCraft extends Ability<Tower> implements OnUnitAdd
 
             if (!possibleItems.isEmpty()) {
                 ItemType itemDrop = randomPlugin.get(possibleItems);
-                getUnit().getWizard().itemStash.add(itemDrop, true);
+                Wizard wizard = getUnit().getWizard();
+
+                if (version >= Sim.v14) {
+                    lootSystem.addToStash(wizard, null, wizard.itemStash, itemDrop);
+                } else {
+                    wizard.itemStash.add(itemDrop, true);
+                }
 
                 if (simulationListeners.areNotificationsEnabled()) {
                     simulationListeners.showNotification(getUnit(), "Dark item forged", 0xa800ff);

@@ -131,7 +131,9 @@ public strictfp class LootSystem {
     @SuppressWarnings("unchecked")
     public void addToStash(Wizard wizard, Creep creep, Stash stash, CardType drop) {
         stash.add(drop, true);
-        simulationListeners.onCardDropped.dispatch(wizard, creep, drop.instance());
+        if (creep != null) {
+            simulationListeners.onCardDropped.dispatch(wizard, creep, drop.instance());
+        }
 
         if (stash.isAutoTransmute(drop)) {
             TransmuteCardsCommand command = new TransmuteCardsCommand();
