@@ -7,4 +7,6 @@ public class TransmuteCardsCommand extends Command {
     public CardCategory cardCategory;
     public CardType cardType;
     public boolean all;
+
+    public transient boolean notify;
 }

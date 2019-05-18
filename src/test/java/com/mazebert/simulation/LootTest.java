@@ -18,6 +18,8 @@ import com.mazebert.simulation.units.wizards.Wizard;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.concurrent.atomic.AtomicBoolean;
+
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class LootTest extends SimTest {
@@ -156,6 +158,27 @@ public class LootTest extends SimTest {
 
         assertThat(wizard1.itemStash.size()).isEqualTo(0);
         assertThat(wizard1.itemStash.transmutedCommons).isEqualTo(1);
+    }
+
+    @Test
+    void loot_woodenStaff_autoTransmute_notifies() {
+        randomPluginTrainer.givenFloatAbs(
+                0.0f, // This is a drop
+                0.99f, // The rarity of this drop is common
+                0.0f, // This is an item drop
+                WOODEN_STAFF_ROLL // It's a wooden staff!
+        );
+        creep.setMaxDrops(1);
+        wizard1.itemStash.addAutoTransmute(ItemType.WoodenStaff);
+        wizard1.itemStash.transmutedCommons = 3;
+        AtomicBoolean notfied = new AtomicBoolean(false);
+        wizard1.itemStash.onCardAdded().add(cardType -> notfied.set(true));
+
+        whenTowerAttacks();
+
+        assertThat(wizard1.itemStash.size()).isEqualTo(1);
+        assertThat(wizard1.itemStash.transmutedCommons).isEqualTo(0);
+        assertThat(notfied.get()).isTrue();
     }
 
     @Test
