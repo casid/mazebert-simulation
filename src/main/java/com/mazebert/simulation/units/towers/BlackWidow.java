@@ -43,8 +43,8 @@ public strictfp class BlackWidow extends Tower {
 
     @Override
     public Rarity getRarity() {
-        if (version >= Sim.v13) {
-            return Rarity.Rare;
+        if (version == Sim.v13) {
+            return Rarity.Rare; // Ooops, bad idea for one version
         }
         return Rarity.Unique;
     }
