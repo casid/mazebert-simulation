@@ -520,7 +520,7 @@ public class TransmuteCardsTest extends UsecaseTest<TransmuteCardsCommand> imple
     }
 
     @Override
-    public void onCardTransmuted(Rarity rarity, CardType cardType) {
+    public void onCardTransmuted(Rarity rarity, CardType cardType, boolean automatic) {
         result = cardType;
     }
 

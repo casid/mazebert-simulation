@@ -93,7 +93,7 @@ public class TransmuteCards_v12Test extends UsecaseTest<TransmuteCardsCommand> i
     }
 
     @Override
-    public void onCardTransmuted(Rarity rarity, CardType cardType) {
+    public void onCardTransmuted(Rarity rarity, CardType cardType, boolean automatic) {
         result = cardType;
     }
 

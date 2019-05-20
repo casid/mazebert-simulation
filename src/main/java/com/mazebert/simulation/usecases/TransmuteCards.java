@@ -66,7 +66,7 @@ public strictfp class TransmuteCards extends Usecase<TransmuteCardsCommand> {
         }
 
         if (command.all) {
-            transmuteAll(wizard, stash, command.cardType, command.automatic);
+            transmuteAll(wizard, stash, command.cardType, false);
         } else {
             if (command.cardType == ItemType.TransmuteStack) {
                 return;
@@ -111,7 +111,7 @@ public strictfp class TransmuteCards extends Usecase<TransmuteCardsCommand> {
         Rarity rarity = cardType.instance().getRarity();
 
         CardType drop = transmute(wizard, stash, card, cardType, index, automatic);
-        wizard.onCardsTransmuted.dispatch(rarity, drop);
+        wizard.onCardsTransmuted.dispatch(rarity, drop, automatic);
     }
 
     private CardType transmute(Wizard wizard, Stash stash, Card card, CardType cardType, int index, boolean automatic) {

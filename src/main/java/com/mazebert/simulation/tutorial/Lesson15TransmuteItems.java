@@ -28,7 +28,7 @@ public strictfp class Lesson15TransmuteItems extends Lesson implements OnCardsTr
     }
 
     @Override
-    public void onCardTransmuted(Rarity rarity, CardType cardType) {
+    public void onCardTransmuted(Rarity rarity, CardType cardType, boolean automatic) {
         if (cardType != null) {
             finish();
         }

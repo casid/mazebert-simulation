@@ -10,7 +10,7 @@ public strictfp class OnCardsTransmuted extends ExposedSignal<OnCardsTransmutedL
         dispatchAll(l -> l.onCardsTransmuted(rarity, cards, transmutedCards));
     }
 
-    public void dispatch(Rarity rarity, CardType card) {
-        dispatchAll(l -> l.onCardTransmuted(rarity, card));
+    public void dispatch(Rarity rarity, CardType card, boolean automatic) {
+        dispatchAll(l -> l.onCardTransmuted(rarity, card, automatic));
     }
 }
