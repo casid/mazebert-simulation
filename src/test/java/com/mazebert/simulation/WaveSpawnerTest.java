@@ -536,8 +536,8 @@ public strictfp class WaveSpawnerTest extends SimTest {
 
         whenAllCreepsAreSpawned();
 
-        assertThat(getCreep(0).getHealth()).isEqualTo(205);
-        assertThat(getCreep(0).getMaxHealth()).isEqualTo(205);
+        assertThat(getCreep(0).getHealth()).isEqualTo(204.8);
+        assertThat(getCreep(0).getMaxHealth()).isEqualTo(204.8);
     }
 
     @Test
@@ -558,7 +558,7 @@ public strictfp class WaveSpawnerTest extends SimTest {
 
         whenAllCreepsAreSpawned();
 
-        assertThat(getCreep(0).getHealth()).isEqualTo(486);
+        assertThat(getCreep(0).getHealth()).isEqualTo(485.95000000000005);
     }
 
     @Test
@@ -569,7 +569,18 @@ public strictfp class WaveSpawnerTest extends SimTest {
 
         whenAllCreepsAreSpawned();
 
-        assertThat(getCreep(0).getHealth()).isEqualTo(496);
+        assertThat(getCreep(0).getHealth()).isEqualTo(496.25);
+    }
+
+    @Test
+    void health_boss_canIncreaseBeyondLongMaxValue() {
+        difficultyGateway.setDifficulty(Difficulty.Hard);
+        givenBossWave();
+        wave.round = 200000;
+
+        whenAllCreepsAreSpawned();
+
+        assertThat(getCreep(0).getHealth()).isEqualTo(1.0071072581412636E20);
     }
 
     @Test

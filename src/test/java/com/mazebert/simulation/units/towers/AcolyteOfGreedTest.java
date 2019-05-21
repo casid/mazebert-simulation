@@ -75,7 +75,7 @@ strictfp class AcolyteOfGreedTest extends SimTest {
         assertThat(goblin.getMaxDrops()).isEqualTo(4);
         assertThat(goblin.getGold()).isEqualTo(93);
         assertThat(goblin.getArmor()).isEqualTo(100);
-        assertThat(goblin.getHealth()).isEqualTo(8123.0);
+        assertThat(goblin.getHealth()).isEqualTo(8122.6903);
         assertThat(goblin.getMaxHealth()).isEqualTo(goblin.getHealth());
     }
 

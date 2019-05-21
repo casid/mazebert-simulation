@@ -117,7 +117,7 @@ public strictfp final class WaveSpawner implements OnGameStartedListener, OnWave
 
     @SuppressWarnings("Duplicates")
     private Creep createGoblin(Wizard wizard, Wave wave) {
-        double health = Balancing.getTotalCreepHitpoints(wave.round, difficultyGateway.getDifficulty());
+        double health = Balancing.getTotalCreepHitpoints(version, wave.round, difficultyGateway.getDifficulty());
 
         Creep goblin = new Creep();
         goblin.setWizard(wizard);
@@ -171,8 +171,8 @@ public strictfp final class WaveSpawner implements OnGameStartedListener, OnWave
     private void spawnWave(Wave wave) {
         int round = wave.round;
 
-        double healthOfAllCreeps = Balancing.getTotalCreepHitpoints(round, difficultyGateway.getDifficulty());
-        double healthOfOneCreep = StrictMath.max(1, StrictMath.round(wave.type.getHealthMultiplier() * healthOfAllCreeps / wave.creepCount));
+        double healthOfAllCreeps = Balancing.getTotalCreepHitpoints(version, round, difficultyGateway.getDifficulty());
+        double healthOfOneCreep = getHealthOfOneCreep(wave, healthOfAllCreeps);
 
         int goldOfAllCreeps = Balancing.getGoldForRound(round);
         int goldOfOneCreep = goldOfAllCreeps / wave.creepCount;
@@ -204,6 +204,15 @@ public strictfp final class WaveSpawner implements OnGameStartedListener, OnWave
         wave.remainingCreepCount = spawnCount;
 
         simulationListeners.onRoundStarted.dispatch(round);
+    }
+
+    private double getHealthOfOneCreep(Wave wave, double healthOfAllCreeps) {
+        double health = wave.type.getHealthMultiplier() * healthOfAllCreeps / wave.creepCount;
+        if (version >= Sim.v15) {
+            return health < 1.0 ? 1.0 : health;
+        } else {
+            return StrictMath.max(1, StrictMath.round(health));
+        }
     }
 
     private void applyWaveAttributes(Creep creep, Wave wave) {
