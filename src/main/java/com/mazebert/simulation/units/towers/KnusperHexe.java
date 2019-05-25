@@ -67,7 +67,7 @@ public strictfp class KnusperHexe extends Tower {
 
     @Override
     public String getAuthor() {
-        return "Karolin Herbricht";
+        return "Karo";
     }
 
     @Override
