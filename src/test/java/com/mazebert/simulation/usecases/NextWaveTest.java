@@ -1,7 +1,9 @@
 package com.mazebert.simulation.usecases;
 
 import com.mazebert.simulation.SimulationListeners;
+import com.mazebert.simulation.Wave;
 import com.mazebert.simulation.WaveSpawner;
+import com.mazebert.simulation.WaveType;
 import com.mazebert.simulation.commands.NextWaveCommand;
 import com.mazebert.simulation.countdown.BonusRoundCountDown;
 import com.mazebert.simulation.countdown.WaveCountDown;
@@ -58,8 +60,23 @@ class NextWaveTest extends UsecaseTest<NextWaveCommand> {
 
     @Test
     void skippedSeconds_evenIfSuperEarly() {
+        Wave wave = new Wave();
+        wave.creepCount = 1;
+        wave.type = WaveType.Boss;
+        waveGateway.addWave(wave);
+
         whenRequestIsExecuted();
+
         assertThat(skippedSeconds).isEqualTo(5);
+    }
+
+    @Test
+    void skippedSeconds_evenIfSuperEarly_onlyIfThereIsAWaveToSkip() {
+        // No next wave
+
+        whenRequestIsExecuted();
+
+        assertThat(skippedSeconds).isEqualTo(0);
     }
 
     @Test

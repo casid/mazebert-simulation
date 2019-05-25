@@ -162,6 +162,11 @@ public strictfp final class WaveSpawner implements OnGameStartedListener, OnWave
             return;
         }
 
+        if (version >= Sim.v16) {
+            Sim.context().skippedSeconds += Balancing.WAVE_COUNTDOWN_SECONDS;
+            Sim.context().simulationListeners.onSecondsSkipped.dispatch();
+        }
+
         spawnWave(wave);
 
         waveGateway.generateMissingWaves(randomPlugin);

@@ -32,7 +32,7 @@ public strictfp class NextWave extends Usecase<NextWaveCommand> {
         } else if (context.waveCountDown != null) {
             skipCountDown(context, context.waveCountDown);
         } else {
-            if (version > Sim.v11) {
+            if (version > Sim.v11 && version < Sim.v16) {
                 context.skippedSeconds += Balancing.WAVE_COUNTDOWN_SECONDS;
                 context.simulationListeners.onSecondsSkipped.dispatch();
             }
