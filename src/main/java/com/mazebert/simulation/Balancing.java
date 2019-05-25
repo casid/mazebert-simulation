@@ -49,9 +49,21 @@ public strictfp class Balancing {
         return 64 * x + 256;
     }
 
-    public static int getGoldForRound(int round) {
-        int gold = (int) StrictMath.round(StrictMath.pow(1.0125, round) * 50.0);
-        return gold > 1000 ? 1000 : gold;
+    public static int getGoldForRound(int round, int version) {
+        double rawGold = StrictMath.pow(1.0125, round) * 50.0;
+        int gold = (int) StrictMath.round(rawGold);
+
+        if (version >= Sim.v16) {
+            if (rawGold > 1000.0) {
+                return 1000;
+            }
+        } else {
+            if (gold > 1000) {
+                return 1000;
+            }
+        }
+
+        return gold;
     }
 
     public static double getTotalCreepHitpoints(int version, int round, Difficulty difficulty) {

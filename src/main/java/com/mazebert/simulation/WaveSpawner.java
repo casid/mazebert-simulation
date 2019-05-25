@@ -128,7 +128,7 @@ public strictfp final class WaveSpawner implements OnGameStartedListener, OnWave
         goblin.setMinDrops(1);
         goblin.setMaxDrops(4);
         goblin.setMaxItemLevel(wave.round);
-        goblin.setGold(Balancing.getGoldForRound(wave.round));
+        goblin.setGold(Balancing.getGoldForRound(wave.round, version));
         goblin.setArmor(wave.round + 50);
         goblin.setType(wave.creepType);
         return goblin;
@@ -174,7 +174,7 @@ public strictfp final class WaveSpawner implements OnGameStartedListener, OnWave
         double healthOfAllCreeps = Balancing.getTotalCreepHitpoints(version, round, difficultyGateway.getDifficulty());
         double healthOfOneCreep = getHealthOfOneCreep(wave, healthOfAllCreeps);
 
-        int goldOfAllCreeps = Balancing.getGoldForRound(round);
+        int goldOfAllCreeps = Balancing.getGoldForRound(round, version);
         int goldOfOneCreep = goldOfAllCreeps / wave.creepCount;
         int goldRemaining = goldOfAllCreeps % wave.creepCount;
         int creepIndexWithRemainingGold = (int) (randomPlugin.getFloatAbs() * wave.creepCount);

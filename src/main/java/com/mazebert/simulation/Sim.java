@@ -11,8 +11,9 @@ public strictfp class Sim {
     public static final int v11 = 11;
     public static final int v12 = 12;
     public static final int v13 = 13;
-    public static final int v14 = 14; // next bugfix release
-    public static final int v15 = 15; // christmas content release
+    public static final int v14 = 14;
+    public static final int v15 = 15;
+    public static final int v16 = 16;
 
     // For android 19 compatibility
     private static ThreadLocal<Context> context = new ThreadLocal<Context>() {
