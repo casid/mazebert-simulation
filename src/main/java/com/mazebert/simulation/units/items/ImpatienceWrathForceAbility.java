@@ -15,6 +15,7 @@ public strictfp class ImpatienceWrathForceAbility extends Ability<Tower> impleme
     private static final float maxDamageBonus = damageBonus * maxStacks;
 
     private final SimulationListeners simulationListeners = Sim.context().simulationListeners;
+    private final int version = Sim.context().version;
 
     private float totalDamageBonus;
     private float totalCountdown;
@@ -30,6 +31,11 @@ public strictfp class ImpatienceWrathForceAbility extends Ability<Tower> impleme
     protected void dispose(Tower unit) {
         unit.onAttack.remove(this);
         unit.onUpdate.remove(this);
+
+        if (version >= Sim.v16) {
+            removeBonus();
+            totalCountdown = 0;
+        }
         super.dispose(unit);
     }
 

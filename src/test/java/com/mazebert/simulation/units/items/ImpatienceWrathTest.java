@@ -1,5 +1,6 @@
 package com.mazebert.simulation.units.items;
 
+import com.mazebert.simulation.units.towers.TowerType;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -51,5 +52,26 @@ public strictfp class ImpatienceWrathTest extends ItemTest {
         simulationListeners.onSecondsSkipped.dispatch();
 
         assertThat(tower.getAttackSpeedAdd()).isEqualTo(0.72499996f);
+    }
+
+    @Test
+    void replaceTowerWorksCorrectly() {
+        wizard.gold = 10000000;
+        whenItemIsEquipped(ItemType.ImpatienceWrathForce, 0);
+        whenItemIsEquipped(ItemType.ImpatienceWrathTrain, 1);
+        whenItemIsEquipped(ItemType.ImpatienceWrathWatch, 2);
+
+        tower.onAttack.dispatch(null);
+        tower.onAttack.dispatch(null);
+        tower.onAttack.dispatch(null);
+        tower.onAttack.dispatch(null);
+        tower.onAttack.dispatch(null);
+        tower.onAttack.dispatch(null);
+
+        tower = whenTowerIsReplaced(tower, TowerType.Manitou);
+        tower.simulate(10.0f);
+        tower.simulate(0.1f);
+
+        assertThat(tower.getAddedRelativeBaseDamage()).isEqualTo(-0.1f);
     }
 }
