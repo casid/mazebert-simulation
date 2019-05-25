@@ -9,6 +9,8 @@ import java.text.NumberFormat;
 import java.util.Locale;
 
 public strictfp class FormatPlugin {
+    private static final float EPSILON = 0.00000001f;
+
     private final NumberFormat noFractionFormat;
     private final NumberFormat oneFractionFormat;
     private final NumberFormat twoFractionFormat;
@@ -134,8 +136,15 @@ public strictfp class FormatPlugin {
     }
 
     public String percent(float value, int digits) {
+        if (isZero(value)) {
+            value = 0.0f;
+        }
         percentFormat.setMaximumFractionDigits(digits);
         return percentFormat.format(value * 100.0f);
+    }
+
+    public boolean isZero(float value) {
+        return value <= EPSILON && value >= -EPSILON;
     }
 
     private int calculateRequiredDigits(float value, @SuppressWarnings("SameParameterValue") int max) {

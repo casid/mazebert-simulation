@@ -76,6 +76,7 @@ class FormatPluginTest {
         assertThat(format.percent(0.0000001f)).isEqualTo("0.00001");
         assertThat(format.percent(0.00000001f)).isEqualTo("0");
         assertThat(format.percent(0.3999999f)).isEqualTo("40");
+        assertThat(format.percent(-0.00000001f)).isEqualTo("0");
     }
 
     @Test
