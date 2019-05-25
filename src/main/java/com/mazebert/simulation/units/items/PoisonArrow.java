@@ -2,7 +2,7 @@ package com.mazebert.simulation.units.items;
 
 import com.mazebert.simulation.Rarity;
 
-public strictfp class PoisonArrow extends BlackMarketItem {
+public strictfp class PoisonArrow extends Item {
 
     public PoisonArrow() {
         super(new PoisonArrowAbility());
@@ -41,5 +41,10 @@ public strictfp class PoisonArrow extends BlackMarketItem {
     @Override
     public String getAuthor() {
         return "TheMarine";
+    }
+
+    @Override
+    public boolean isBlackMarketOffer() {
+        return true;
     }
 }

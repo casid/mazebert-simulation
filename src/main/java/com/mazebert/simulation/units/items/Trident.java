@@ -2,7 +2,7 @@ package com.mazebert.simulation.units.items;
 
 import com.mazebert.simulation.Rarity;
 
-public strictfp class Trident extends BlackMarketItem {
+public strictfp class Trident extends Item {
 
     public Trident() {
         super(new TridentAbility());
@@ -36,5 +36,10 @@ public strictfp class Trident extends BlackMarketItem {
     @Override
     public int getItemLevel() {
         return 87;
+    }
+
+    @Override
+    public boolean isBlackMarketOffer() {
+        return true;
     }
 }

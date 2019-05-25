@@ -2,7 +2,7 @@ package com.mazebert.simulation.units.items;
 
 import com.mazebert.simulation.Rarity;
 
-public strictfp class Mjoelnir extends BlackMarketItem {
+public strictfp class Mjoelnir extends Item {
 
     public Mjoelnir() {
         super(new MjoelnirAbility());
@@ -41,5 +41,10 @@ public strictfp class Mjoelnir extends BlackMarketItem {
     @Override
     public String getAuthor() {
         return "Quofum";
+    }
+
+    @Override
+    public boolean isBlackMarketOffer() {
+        return true;
     }
 }

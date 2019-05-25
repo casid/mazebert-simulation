@@ -3,7 +3,7 @@ package com.mazebert.simulation.units.items;
 import com.mazebert.simulation.Rarity;
 import com.mazebert.simulation.minigames.BowlingGame;
 
-public strictfp class BowlingBall extends BlackMarketItem {
+public strictfp class BowlingBall extends Item {
     public static final float DEATH_CHANCE = 0.3f;
     public static final float BALL_COOLDOWN = 40.0f;
     public static final int NOTIFICATION_COLOR = 0xbaa759;
@@ -53,5 +53,10 @@ public strictfp class BowlingBall extends BlackMarketItem {
 
     public BowlingGame getGame() {
         return game;
+    }
+
+    @Override
+    public boolean isBlackMarketOffer() {
+        return true;
     }
 }

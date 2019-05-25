@@ -27,7 +27,7 @@ public interface Card {
     }
 
     default boolean isForgeable() {
-        return true;
+        return !isBlackMarketOffer();
     }
 
     default boolean isSupporterReward() {
