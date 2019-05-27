@@ -26,6 +26,6 @@ public strictfp class AngelicElixirAbility extends Ability<Tower> {
 
     @Override
     public String getDescription() {
-        return "Turns a tower into an\nangel of light or darkness.\n(Depending on confession)";
+        return "Covers a tower in\nlight or darkness.\n(Depending on confession)";
     }
 }
