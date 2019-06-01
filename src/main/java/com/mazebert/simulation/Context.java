@@ -32,6 +32,7 @@ public strictfp class Context {
 
     // Current simulation version
     public int version = Sim.version;
+    public boolean season;
 
     // Connection to app
     public SimulationListeners simulationListeners;

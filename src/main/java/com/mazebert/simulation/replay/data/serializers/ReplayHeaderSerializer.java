@@ -1,5 +1,6 @@
 package com.mazebert.simulation.replay.data.serializers;
 
+import com.mazebert.simulation.Sim;
 import com.mazebert.simulation.replay.data.ReplayHeader;
 import org.jusecase.bitpack.BitReader;
 import org.jusecase.bitpack.BitSerializer;
@@ -13,11 +14,13 @@ public strictfp class ReplayHeaderSerializer implements BitSerializer<ReplayHead
 
     @Override
     public void serialize(BitWriter writer, ReplayHeader object) {
-        // First 32 bits - format identifier
         writer.writeInt32(ReplayHeader.FORMAT_IDENTIFIER);
 
-        // Next 32 bits - version & player info
         writer.writeUnsignedInt(26, object.version);
+        if (object.version >= Sim.v17) {
+            writer.writeBoolean(object.season);
+        }
+
         writer.writeUnsignedInt3(object.playerId);
         writer.writeUnsignedInt3(object.playerCount);
     }
@@ -30,6 +33,10 @@ public strictfp class ReplayHeaderSerializer implements BitSerializer<ReplayHead
         }
 
         object.version = reader.readUnsignedInt(26);
+        if (object.version >= Sim.v17) {
+            object.season = reader.readBoolean();
+        }
+
         object.playerId = reader.readUnsignedInt3();
         object.playerCount = reader.readUnsignedInt3();
     }

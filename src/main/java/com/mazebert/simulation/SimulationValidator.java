@@ -20,12 +20,13 @@ public strictfp class SimulationValidator {
 
     @SuppressWarnings("UnusedReturnValue")
     public Simulation validate(int version, ReplayReader replayReader, Consumer<Context> before, Consumer<Context> after, int turnNumber, boolean debugDsync) throws DsyncException {
-        Context context = ContextProvider.createContext(version, false);
+        ReplayHeader replayHeader = replayReader.readHeader();
+
+        Context context = ContextProvider.createContext(version, replayHeader.season, false);
 
         context.replayWriterGateway = new NoReplayWriterGateway();
         context.messageGateway = new NoMessageGateway();
 
-        ReplayHeader replayHeader = replayReader.readHeader();
         context.turnGateway = new GameTurnGateway(replayHeader.playerCount);
         context.playerGateway = new ReplayPlayerGateway(replayHeader);
 
