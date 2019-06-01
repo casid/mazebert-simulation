@@ -72,6 +72,10 @@ public strictfp enum HeroType implements CardType<Hero> {
         }
     }
 
+    public static HeroType[] getValues() {
+        return values();
+    }
+
     public static HeroType forId(int id) {
         return LOOKUP[id];
     }

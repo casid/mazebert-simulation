@@ -65,6 +65,10 @@ public strictfp enum PotionType implements CardType<Potion> {
         this.potionClass = potionClass;
     }
 
+    public static PotionType[] getValues() {
+        return values();
+    }
+
     @SuppressWarnings("unused") // By client
     public static int getMaxId() {
         return maxId;

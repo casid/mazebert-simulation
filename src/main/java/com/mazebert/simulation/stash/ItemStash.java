@@ -32,7 +32,7 @@ public strictfp class ItemStash extends Stash<Item> {
 
     @Override
     protected ItemType[] getPossibleDrops() {
-        return ItemType.values();
+        return ItemType.getValues();
     }
 
     @Override

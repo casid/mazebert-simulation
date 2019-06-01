@@ -18,7 +18,7 @@ public strictfp class PotionStash extends Stash<Potion> {
 
     @Override
     protected PotionType[] getPossibleDrops() {
-        return PotionType.values();
+        return PotionType.getValues();
     }
 
     @Override

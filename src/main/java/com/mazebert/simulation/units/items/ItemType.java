@@ -103,6 +103,10 @@ public strictfp enum ItemType implements CardType<Item> {
         this.itemClass = itemClass;
     }
 
+    public static ItemType[] getValues() {
+        return values();
+    }
+
     @SuppressWarnings("unused") // By client
     public static int getMaxId() {
         return maxId;
