@@ -9,10 +9,6 @@ import com.mazebert.simulation.plugins.random.UuidRandomPlugin;
 import com.mazebert.simulation.projectiles.ProjectileGateway;
 
 public strictfp class ContextProvider {
-    @SuppressWarnings("unused") // Used by client
-    public static Context createContext(int version, boolean season) {
-        return createContext(version, season, true);
-    }
 
     public static Context createContext(int version, boolean season, boolean realGame) {
         Context context = new Context();
