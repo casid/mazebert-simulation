@@ -43,20 +43,6 @@ public strictfp class InitPlayer extends Usecase<InitPlayerCommand> {
 
         gameSystem.rollStartingTowers(wizard);
 
-//        for (TowerType towerType : TowerType.values()) {
-//            if (towerType != TowerType.Kiwi) {
-//                wizard.towerStash.add(towerType);
-//            }
-//        }
-//        for (ItemType itemType : ItemType.values()) {
-//            if (itemType != ItemType.BloodDemonBlade) {
-//                wizard.itemStash.add(itemType);
-//            }
-//        }
-//        for (PotionType value : PotionType.values()) {
-//            wizard.potionStash.add(value);
-//        }
-
         if (gameSystem.getTutorial() != null) {
             gameSystem.getTutorial().start(wizard);
         }

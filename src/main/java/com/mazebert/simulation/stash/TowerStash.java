@@ -18,7 +18,7 @@ public strictfp class TowerStash extends Stash<Tower> {
 
     @Override
     protected TowerType[] getPossibleDrops() {
-        return TowerType.values();
+        return TowerType.getValues();
     }
 
     @Override

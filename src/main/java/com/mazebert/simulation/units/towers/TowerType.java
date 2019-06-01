@@ -94,6 +94,9 @@ public strictfp enum TowerType implements CardType<Tower> {
     private static int maxId;
     private static TowerType[] LOOKUP;
 
+    private static final TowerType[] STANDARD = {Beaver, Dandelion, Rabbit, Frog, HerbWitch, Wolf, Huli, BearHunter, Viking, Ganesha, Balu, Manitou, Hitman, Scientist, PocketThief, ElectricChair, Elvis, Pub, MoneyBin, MrIron, ScarFace, Muli, Satellite, BlackWidow, Mummy, ScareCrow, Shadow, Gib, KnusperHexe, DarkForge, AcolyteOfGreed, NoviceWizard, Spider, BloodDemon, Solara, AbyssKing, TheRipper, KiwiEgg, Kiwi, Stonecutters, Yggdrasil};
+    private static final TowerType[] DAWN_OF_LIGHT = {Beaver, Dandelion, Rabbit, Frog, HerbWitch, Wolf, Huli, BearHunter, Viking, Ganesha, Balu, Manitou, Hitman, Scientist, PocketThief, ElectricChair, Elvis, Pub, MoneyBin, MrIron, ScarFace, Muli, Satellite, BlackWidow, Mummy, ScareCrow, Shadow, Gib, KnusperHexe, DarkForge, AcolyteOfGreed, NoviceWizard, Spider, BloodDemon, Solara, AbyssKing, TheRipper, KiwiEgg, Kiwi, Stonecutters, Yggdrasil};
+
     static {
         maxId = 0;
         for (TowerType towerType : TowerType.values()) {
@@ -103,6 +106,13 @@ public strictfp enum TowerType implements CardType<Tower> {
         for (TowerType towerType : TowerType.values()) {
             LOOKUP[towerType.id] = towerType;
         }
+    }
+
+    public static TowerType[] getValues() {
+        if (Sim.context().version >= Sim.v17DoL && Sim.context().season) {
+            return DAWN_OF_LIGHT;
+        }
+        return STANDARD;
     }
 
     @SuppressWarnings("unused") // By client
