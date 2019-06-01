@@ -38,7 +38,7 @@ public strictfp class InitPlayer extends Usecase<InitPlayerCommand> {
 
         wizard.towerStash.setElements(command.elements);
         if (Sim.context().version > 10) {
-            wizard.maxElementResearchPoints = Element.values().length - command.elements.size();
+            wizard.maxElementResearchPoints = 3 - command.elements.size();
         }
 
         gameSystem.rollStartingTowers(wizard);

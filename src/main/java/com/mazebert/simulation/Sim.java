@@ -14,7 +14,7 @@ public strictfp class Sim {
     public static final int v14 = 14;
     public static final int v15 = 15;
     public static final int v16 = 16;
-    public static final int v17 = 17; // Dawn of Light release
+    public static final int v17DoL = 17; // Dawn of Light release
 
     // For android 19 compatibility
     private static ThreadLocal<Context> context = new ThreadLocal<Context>() {

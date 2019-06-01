@@ -153,7 +153,7 @@ public strictfp class Wizard extends Unit {
 
     public EnumSet<PotionType> getResearchableElements() {
         EnumSet<PotionType> result = EnumSet.noneOf(PotionType.class);
-        for (Element element : Element.values()) {
+        for (Element element : Element.getValues()) {
             if (!towerStash.isElementResearched(element)) {
                 PotionType cardForElement = getCardForElement(element);
                 if (cardForElement != null && !potionStash.isUniqueAlreadyDropped(cardForElement)) {

@@ -17,7 +17,7 @@ public strictfp class ReplayHeaderSerializer implements BitSerializer<ReplayHead
         writer.writeInt32(ReplayHeader.FORMAT_IDENTIFIER);
 
         writer.writeUnsignedInt(26, object.version);
-        if (object.version >= Sim.v17) {
+        if (object.version >= Sim.v17DoL) {
             writer.writeBoolean(object.season);
         }
 
@@ -33,7 +33,7 @@ public strictfp class ReplayHeaderSerializer implements BitSerializer<ReplayHead
         }
 
         object.version = reader.readUnsignedInt(26);
-        if (object.version >= Sim.v17) {
+        if (object.version >= Sim.v17DoL) {
             object.season = reader.readBoolean();
         }
 
