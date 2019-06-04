@@ -66,6 +66,21 @@ public class BackwardCompatiblityTester {
         checkGames(Sim.v12);
     }
 
+    @Test
+    void check_13() throws IOException {
+        checkGames(Sim.v13);
+    }
+
+    @Test
+    void check_14() throws IOException {
+        checkGames(Sim.v14);
+    }
+
+    @Test
+    void check_16() throws IOException {
+        checkGames(Sim.v16);
+    }
+
     @Disabled
     @Test
     void checkOne() {
@@ -85,7 +100,12 @@ public class BackwardCompatiblityTester {
                     return;
                 }
 
-                if (acknowledgedDsyncs.contains(file.getFileName().toString())) {
+                String fileName = file.getFileName().toString();
+                if (fileName.startsWith(".")) {
+                    return;
+                }
+
+                if (acknowledgedDsyncs.contains(fileName)) {
                     return;
                 }
 
