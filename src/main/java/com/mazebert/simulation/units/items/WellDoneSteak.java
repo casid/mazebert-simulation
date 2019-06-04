@@ -15,7 +15,7 @@ public strictfp class WellDoneSteak extends Item {
 
     @Override
     public String getDescription() {
-        return "This steak is totally cooked through and hard like a rock. Food for the brave.";
+        return "This steak is totally cooked through and tough as leather. Food for the brave.";
     }
 
     @Override

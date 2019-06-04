@@ -10,7 +10,7 @@ public strictfp class NorlsFuryAmulet extends Item {
 
     @Override
     public String getName() {
-        return "Norls Guardian";
+        return "Norl's Guardian";
     }
 
     @Override

@@ -56,7 +56,7 @@ public strictfp class WolfskinAbility extends StackableAbility<Tower> {
 
     @Override
     public String getDescription() {
-        return "This towers level counts as though the tower was a wolf, adding to total pack level.";
+        return "This tower's level counts as though the tower was a wolf, adding to total pack level.";
     }
 
     @Override

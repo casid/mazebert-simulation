@@ -15,7 +15,7 @@ public strictfp class WitheredToadstool extends Item {
 
     @Override
     public String getDescription() {
-        return "This toadstool smells funny.";
+        return "This toadstool tastes funny.";
     }
 
     @Override

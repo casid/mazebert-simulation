@@ -11,7 +11,7 @@ public strictfp class DarkRingOfGreed extends Item {
 
     @Override
     public String getName() {
-        return "Dark ring of greed";
+        return "Dark Ring of Greed";
     }
 
     @Override

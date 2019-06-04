@@ -15,7 +15,7 @@ public strictfp class Pumpkin extends Item {
 
     @Override
     public String getDescription() {
-        return "You should know better than give a pumpkin to your tower.";
+        return "You should know better than to give a pumpkin to your tower.";
     }
 
     @Override

@@ -10,7 +10,7 @@ public strictfp class NorlsFurySword extends Item {
 
     @Override
     public String getName() {
-        return "Norls Steel";
+        return "Norl's Steel";
     }
 
     @Override

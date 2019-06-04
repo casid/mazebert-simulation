@@ -22,7 +22,7 @@ public strictfp class NorlsFurySetAbility extends ItemSetAbility {
 
     @Override
     public String getTitle() {
-        return "Norls Fury";
+        return "Norl's Fury";
     }
 
     @Override

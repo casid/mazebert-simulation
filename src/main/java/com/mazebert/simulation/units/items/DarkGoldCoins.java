@@ -11,7 +11,7 @@ public strictfp class DarkGoldCoins extends Item {
 
     @Override
     public String getName() {
-        return "Dark gold coins";
+        return "Dark Gold Coins";
     }
 
     @Override
