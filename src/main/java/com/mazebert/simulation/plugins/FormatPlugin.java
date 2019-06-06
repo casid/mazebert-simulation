@@ -115,7 +115,7 @@ public strictfp class FormatPlugin {
         }
     }
 
-    private String positiveNumber(double value) {
+    public String positiveNumber(double value) {
         if (value < 1000.0) {
             return Long.toString((long) value);
         } else if (value < 1000000.0) {
