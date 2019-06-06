@@ -19,13 +19,7 @@ public strictfp class ReplayHeaderSerializer implements BitSerializer<ReplayHead
 
     @Override
     public void serialize(BitWriter writer, ReplayHeader object) {
-        // First 32 bits - format identifier
-        writer.writeInt32(ReplayHeader.FORMAT_IDENTIFIER);
-
-        // Next 32 bits - version & player info
-        writer.writeUnsignedInt(26, object.version);
-        writer.writeUnsignedInt3(object.playerId);
-        writer.writeUnsignedInt3(object.playerCount);
+        serializeFirst8Bytes(writer, object);
 
         // Additional information
         if (object.version >= Sim.v17DoL) {
@@ -41,6 +35,16 @@ public strictfp class ReplayHeaderSerializer implements BitSerializer<ReplayHead
         if (object.version >= Sim.v17DoL) {
             object.season = reader.readBoolean();
         }
+    }
+
+    public void serializeFirst8Bytes(BitWriter writer, ReplayHeader object) {
+        // First 32 bits - format identifier
+        writer.writeInt32(ReplayHeader.FORMAT_IDENTIFIER);
+
+        // Next 32 bits - version & player info
+        writer.writeUnsignedInt(26, object.version);
+        writer.writeUnsignedInt3(object.playerId);
+        writer.writeUnsignedInt3(object.playerCount);
     }
 
     public void deserializeFirst8Bytes(BitReader reader, ReplayHeader object) {
