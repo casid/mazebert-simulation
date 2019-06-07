@@ -70,7 +70,7 @@ public strictfp class PainkillerAbility extends Ability<Tower> implements OnUpda
 
     @Override
     public String getDescription() {
-        return "When your tower drinks this potion, it has " + burndown + " more seconds to live. Then, your tower will explode in a big blast. Every creep in explosion range will die.";
+        return "When your tower drinks this potion, it has " + (int)burndown + " more seconds to live. Then, your tower will explode in a big blast. Every creep in explosion range will die.";
     }
 
     @Override
