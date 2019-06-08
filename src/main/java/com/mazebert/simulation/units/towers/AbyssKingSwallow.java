@@ -41,7 +41,7 @@ public strictfp class AbyssKingSwallow extends AuraAbility<AbyssKing, Creep> imp
 
     @Override
     public String getTitle() {
-        return "Arny of Darkness";
+        return "Army of Darkness";
     }
 
     @Override
