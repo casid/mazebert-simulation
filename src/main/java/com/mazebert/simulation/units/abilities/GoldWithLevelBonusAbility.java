@@ -24,6 +24,6 @@ public strictfp class GoldWithLevelBonusAbility extends AttributeWithLevelBonusA
             return null;
         }
 
-        return format.percentWithSignAndUnit(bonusPerLevel) + "% " + getCurrency().pluralLowercase + " per level.";
+        return format.percentWithSignAndUnit(bonusPerLevel) + " " + getCurrency().pluralLowercase + " per level.";
     }
 }
