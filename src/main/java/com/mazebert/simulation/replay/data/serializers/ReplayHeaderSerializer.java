@@ -22,7 +22,7 @@ public strictfp class ReplayHeaderSerializer implements BitSerializer<ReplayHead
         serializeFirst8Bytes(writer, object);
 
         // Additional information
-        if (object.version >= Sim.v17DoL) {
+        if (object.version >= Sim.vDoL) {
             writer.writeBoolean(object.season);
         }
     }
@@ -32,7 +32,7 @@ public strictfp class ReplayHeaderSerializer implements BitSerializer<ReplayHead
         deserializeFirst8Bytes(reader, object);
 
         // Additional information
-        if (object.version >= Sim.v17DoL) {
+        if (object.version >= Sim.vDoL) {
             object.season = reader.readBoolean();
         }
     }
