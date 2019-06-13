@@ -23,6 +23,7 @@ import java.util.Arrays;
 public abstract strictfp class AuraAbility<S extends Unit, T extends Unit> extends Ability<S> implements OnUpdateListener, Consumer<T>, OnUnitAddedListener, OnUnitRemovedListener, OnRangeChangedListener {
     private final SimulationListeners simulationListeners = Sim.context().simulationListeners;
     private final UnitGateway unitGateway = Sim.context().unitGateway;
+    private final int version = Sim.context().version;
 
     private final CardCategory origin;
     private final Class<T> targetClass;
@@ -58,6 +59,10 @@ public abstract strictfp class AuraAbility<S extends Unit, T extends Unit> exten
 
         if (initDirectly()) {
             initAura(unit);
+            if (version >= Sim.v17) {
+                simulationListeners.onUnitAdded.add(this);
+                simulationListeners.onUnitRemoved.add(this);
+            }
         } else {
             unit.onUnitAdded.add(this);
             unit.onUnitRemoved.add(this);
@@ -91,6 +96,11 @@ public abstract strictfp class AuraAbility<S extends Unit, T extends Unit> exten
 
         unit.onUnitAdded.remove(this);
         unit.onUnitRemoved.remove(this);
+
+        if (version >= Sim.v17) {
+            simulationListeners.onUnitAdded.remove(this);
+            simulationListeners.onUnitRemoved.remove(this);
+        }
 
         super.dispose(unit);
     }

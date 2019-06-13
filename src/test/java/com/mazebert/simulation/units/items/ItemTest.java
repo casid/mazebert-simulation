@@ -122,6 +122,19 @@ public strictfp class ItemTest extends SimTest {
         return unitGateway.findTower(wizard.getPlayerId(), command.x, command.y);
     }
 
+    @SuppressWarnings("SameParameterValue")
+    protected Tower whenTowerNeighbourIsBuilt(Tower tower, TowerType towerType, int offsetX, int offsetY) {
+        wizard.towerStash.add(towerType);
+        BuildTowerCommand command = new BuildTowerCommand();
+        command.playerId = wizard.getPlayerId();
+        command.towerType = towerType;
+        command.x = (int)tower.getX() + offsetX;
+        command.y = (int)tower.getY() + offsetY;
+        commandExecutor.executeVoid(command);
+
+        return unitGateway.findTower(wizard.getPlayerId(), command.x, command.y);
+    }
+
     protected void whenAllCardsAreTransmuted(ItemType itemType) {
         TransmuteCardsCommand command = new TransmuteCardsCommand();
         command.playerId = wizard.getPlayerId();
