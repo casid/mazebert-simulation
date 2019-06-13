@@ -1,6 +1,5 @@
 package com.mazebert.simulation.units.items;
 
-import com.mazebert.simulation.Sim;
 import com.mazebert.simulation.units.towers.Tower;
 import com.mazebert.simulation.units.towers.TowerType;
 import org.junit.jupiter.api.Test;
@@ -16,8 +15,6 @@ strictfp class BarrelTest extends ItemTest {
 
     @Test
     void auraIsAppliedAfterNeighbourIsReplaced() {
-        version = Sim.v17;
-
         Tower neighbour = whenTowerNeighbourIsBuilt(tower, TowerType.Dandelion, 1, 0);
         whenItemIsEquipped(ItemType.Barrel);
 
@@ -30,8 +27,6 @@ strictfp class BarrelTest extends ItemTest {
 
     @Test
     void auraIsAppliedCarryIsReplaced() {
-        version = Sim.v17;
-
         Tower neighbour = whenTowerNeighbourIsBuilt(tower, TowerType.Dandelion, 1, 0);
         whenItemIsEquipped(ItemType.Barrel);
 
