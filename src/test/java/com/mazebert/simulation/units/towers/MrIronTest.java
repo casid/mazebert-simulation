@@ -75,6 +75,17 @@ class MrIronTest extends SimTest {
     }
 
     @Test
+    void construct_mushroom() {
+        givenItemIsEquipped(ItemType.MagicMushroom, 0);
+        givenItemIsEquipped(ItemType.MagicMushroom, 1);
+        givenItemIsEquipped(ItemType.MagicMushroom, 2);
+
+        whenAbilityIsActivated();
+
+        assertThat(mrIron.getAddedRelativeBaseDamage()).isEqualTo(-0.6f);
+    }
+
+    @Test
     void construct_noUniques() {
         givenItemIsEquipped(ItemType.ScepterOfTime, 0);
 

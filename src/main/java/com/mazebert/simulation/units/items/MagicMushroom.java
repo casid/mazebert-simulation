@@ -1,11 +1,21 @@
 package com.mazebert.simulation.units.items;
 
 import com.mazebert.simulation.Rarity;
+import com.mazebert.simulation.Sim;
+import com.mazebert.simulation.units.abilities.Ability;
 
 public strictfp class MagicMushroom extends Item {
 
+    private static Ability[] getAbilities() {
+        if (Sim.context().version >= Sim.v17) {
+            return new Ability[]{new MagicMushroomAbility(), new MagicMushroomDamageAbility()};
+        } else {
+            return new Ability[]{new MagicMushroomAbility()};
+        }
+    }
+
     public MagicMushroom() {
-        super(new MagicMushroomAbility());
+        super(getAbilities());
     }
 
     @Override

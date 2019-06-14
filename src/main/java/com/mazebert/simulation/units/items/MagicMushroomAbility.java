@@ -1,10 +1,11 @@
 package com.mazebert.simulation.units.items;
 
+import com.mazebert.simulation.Sim;
 import com.mazebert.simulation.units.abilities.SpeedWithLevelBonusAbility;
 import com.mazebert.simulation.units.towers.Tower;
 
 public strictfp class MagicMushroomAbility extends SpeedWithLevelBonusAbility {
-    private static final float damageReduction = 0.2f;
+    public static final float damageReduction = 0.2f;
 
     public MagicMushroomAbility() {
         super(0.2f, 0.01f);
@@ -13,12 +14,16 @@ public strictfp class MagicMushroomAbility extends SpeedWithLevelBonusAbility {
     @Override
     protected void initialize(Tower unit) {
         super.initialize(unit);
-        unit.addAddedRelativeBaseDamage(-damageReduction);
+        if (Sim.context().version < Sim.v17) {
+            unit.addAddedRelativeBaseDamage(-damageReduction);
+        }
     }
 
     @Override
     protected void dispose(Tower unit) {
-        unit.addAddedRelativeBaseDamage(+damageReduction);
+        if (Sim.context().version < Sim.v17) {
+            unit.addAddedRelativeBaseDamage(+damageReduction);
+        }
         super.dispose(unit);
     }
 
