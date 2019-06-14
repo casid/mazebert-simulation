@@ -1,5 +1,8 @@
 package com.mazebert.simulation.units.towers;
 
+import com.mazebert.simulation.SimTest;
+import com.mazebert.simulation.SimulationListeners;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.HashMap;
@@ -8,7 +11,12 @@ import java.util.Map;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.fail;
 
-public class TowerTypeTest {
+public class TowerTypeTest extends SimTest {
+
+    @BeforeEach
+    void setUp() {
+        simulationListeners = new SimulationListeners();
+    }
 
     @Test
     void uniqueIds() {
