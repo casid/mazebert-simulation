@@ -4,6 +4,8 @@ import com.mazebert.simulation.replay.StreamReplayReader;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.parallel.Execution;
+import org.junit.jupiter.api.parallel.ExecutionMode;
 
 import java.io.BufferedInputStream;
 import java.io.IOException;
@@ -23,6 +25,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.jusecase.Builders.a;
 import static org.jusecase.Builders.set;
 
+@Execution(ExecutionMode.SAME_THREAD)
 public class BackwardCompatiblityTester {
 
     private static final Set<String> acknowledgedDsyncs = a(set(
