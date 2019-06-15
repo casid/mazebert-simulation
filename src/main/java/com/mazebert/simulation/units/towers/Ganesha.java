@@ -27,12 +27,12 @@ public strictfp class Ganesha extends Tower {
 
     @Override
     public String getName() {
-        return "Ganesha\n(does not attack)";
+        return "Ganesha";
     }
 
     @Override
     public String getDescription() {
-        return "The deity of intellect and wisdom.";
+        return "The deity of intellect and wisdom.\n(does not attack)";
     }
 
     @Override
