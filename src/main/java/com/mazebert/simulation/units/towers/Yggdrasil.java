@@ -32,7 +32,7 @@ public strictfp class Yggdrasil extends Tower {
 
     @Override
     public String getDescription() {
-        return "The Great Tree of Life.";
+        return "The Great Tree of Life.\n(does not attack)";
     }
 
     @Override

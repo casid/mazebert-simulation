@@ -27,7 +27,7 @@ public strictfp class Ganesha extends Tower {
 
     @Override
     public String getName() {
-        return "Ganesha";
+        return "Ganesha\n(does not attack)";
     }
 
     @Override

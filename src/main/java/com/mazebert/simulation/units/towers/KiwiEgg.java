@@ -34,7 +34,7 @@ public strictfp class KiwiEgg extends Tower {
 
     @Override
     public String getDescription() {
-        return "A rare gift of Nature.";
+        return "A rare gift of Nature.\n(does not attack)";
     }
 
     @Override

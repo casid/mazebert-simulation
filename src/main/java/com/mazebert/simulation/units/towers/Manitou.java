@@ -31,7 +31,7 @@ public strictfp class Manitou extends Tower {
 
     @Override
     public String getDescription() {
-        return "The Great Spirit of the West.";
+        return "The Great Spirit of the West.\n(does not attack)";
     }
 
     @Override
