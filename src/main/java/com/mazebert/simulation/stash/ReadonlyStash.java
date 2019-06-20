@@ -6,6 +6,8 @@ import com.mazebert.simulation.CardType;
 import com.mazebert.simulation.listeners.OnCardAdded;
 import com.mazebert.simulation.listeners.OnCardRemoved;
 
+import java.util.List;
+
 public interface ReadonlyStash<T extends Card> {
     int size();
     ReadonlyStashEntry<T> get(int index);
@@ -17,11 +19,15 @@ public interface ReadonlyStash<T extends Card> {
 
     @SuppressWarnings("unused") // for client
     OnCardAdded onCardAdded();
+    @SuppressWarnings("unused") // for client
     OnCardRemoved onCardRemoved();
 
     int getTransmutedCommons();
     int getTransmutedUncommons();
     int getTransmutedRares();
+
+    @SuppressWarnings("unused") // for client
+    List<T> getAutoTransmutes();
 
     @SuppressWarnings("unused") // transient value for client
     int getLastViewedIndex();
