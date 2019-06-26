@@ -62,6 +62,20 @@ strictfp class DarkForge_CraftTest extends SimTest {
     }
 
     @Test
+    void darkItemsCanBeAutoTransmuted_withoutArrayOutOfBounds() {
+        randomPluginTrainer.givenFloatAbs(0.0f);
+        wizard.itemStash.add(ItemType.Handbag);
+        wizard.itemStash.addAutoTransmute(ItemType.DarkBabySword);
+        wizard.itemStash.addAutoTransmute(ItemType.Handbag);
+        wizard.itemStash.transmutedCommons = 3;
+        wizard.itemStash.transmutedUncommons = 3;
+
+        whenRoundIsStarted();
+
+        assertThat(wizard.itemStash.get(0).cardType).isEqualTo(ItemType.KeyOfWisdom);
+    }
+
+    @Test
     void darkBlade() {
         darkForge.setLevel(66);
         randomPluginTrainer.givenFloatAbs(0.0f, 0.99f);
