@@ -10,7 +10,7 @@ public strictfp class AdventurerLight extends ItemChanceWithLevelBonusAbility {
 
     @Override
     public String getTitle() {
-        return "Her Light";
+        return "Treasure Light";
     }
 
     @Override
@@ -20,6 +20,6 @@ public strictfp class AdventurerLight extends ItemChanceWithLevelBonusAbility {
 
     @Override
     public String getIconFile() {
-        return "9004_GreedPotion";
+        return "08_map_512";
     }
 }
