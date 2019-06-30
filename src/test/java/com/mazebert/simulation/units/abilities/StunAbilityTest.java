@@ -143,6 +143,13 @@ public class StunAbilityTest extends SimTest {
         assertThat(splashCreep.getState()).isEqualTo(CreepState.Running);
     }
 
+    @Test
+    void steadyCreepCannotBeStunned() {
+        creep.setSteady(true);
+        whenTowerAttacks();
+        assertThat(creep.getState()).isEqualTo(CreepState.Running);
+    }
+
     private void whenTowerAttacks() {
         tower.simulate(1.0f);
     }

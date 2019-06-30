@@ -470,6 +470,21 @@ public strictfp class WaveSpawnerTest extends SimTest {
     }
 
     @Test
+    void modifier_steady() {
+        wave = new Wave();
+        wave.round = 1;
+        wave.creepCount = 1;
+        wave.creepType = CreepType.Orc;
+        wave.creepModifier1 = CreepModifier.Steady;
+        waveGateway.addWave(wave);
+
+        whenAllCreepsAreSpawned();
+
+        assertThat(getCreep(0).getHealth()).isEqualTo(179.2);
+        assertThat(getCreep(0).isSteady()).isTrue();
+    }
+
+    @Test
     void modifier_rich_wisdom() {
         wave = new Wave();
         wave.round = 1;

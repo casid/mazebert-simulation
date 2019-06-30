@@ -1,5 +1,6 @@
 package com.mazebert.simulation.units.creeps;
 
+import com.mazebert.simulation.Sim;
 import com.mazebert.simulation.units.creeps.effects.ReviveEffect;
 
 public strictfp enum CreepModifier {
@@ -9,9 +10,20 @@ public strictfp enum CreepModifier {
     Rich(0),
     Armor(10),
     Revive(10),
+    Steady(30)
     ;
 
+    private static final CreepModifier[] STANDARD = {Fast, Slow, Wisdom, Rich, Armor, Revive};
+    private static final CreepModifier[] DAWN_OF_LIGHT = {Fast, Slow, Wisdom, Rich, Armor, Revive, Steady};
+
     private final int minRound;
+
+    public static CreepModifier[] getValues() {
+        if (Sim.context().version >= Sim.vDoL) {
+            return DAWN_OF_LIGHT;
+        }
+        return STANDARD;
+    }
 
     CreepModifier(int minRound) {
         this.minRound = minRound;
@@ -42,6 +54,11 @@ public strictfp enum CreepModifier {
                 creep.setMaxHealth(creep.getMaxHealth() / 2);
                 creep.setHealth(creep.getMaxHealth());
                 creep.addAbility(new ReviveEffect());
+                break;
+            case Steady:
+                creep.setMaxHealth(creep.getMaxHealth() * 0.7);
+                creep.setHealth(creep.getMaxHealth());
+                creep.setSteady(true);
                 break;
         }
     }

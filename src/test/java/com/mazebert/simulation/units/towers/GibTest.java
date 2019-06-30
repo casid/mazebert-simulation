@@ -43,6 +43,13 @@ strictfp class GibTest extends SimTest {
     }
 
     @Test
+    void slow_steady() {
+        creep.setSteady(true);
+        whenGibAttacks();
+        assertThat(creep.getSpeedModifier()).isEqualTo(1.0f);
+    }
+
+    @Test
     void maxStacks() {
         whenGibAttacks();
         assertThat(creep.getSpeedModifier()).isEqualTo(0.9f);

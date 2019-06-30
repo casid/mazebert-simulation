@@ -11,6 +11,10 @@ public strictfp class ElvisAura extends AuraAbility<Tower, Creep> {
 
     @Override
     protected void onAuraEntered(Creep unit) {
+        if (unit.isSteady()) {
+            return;
+        }
+
         ElvisAuraEffect effect = unit.addAbilityStack(getUnit(), ElvisAuraEffect.class);
         effect.setDuration(2.0f + getUnit().getLevel() * 0.01f);
     }

@@ -42,6 +42,13 @@ strictfp class ElvisTest extends SimTest {
     }
 
     @Test
+    void creepEntersRange_steady() {
+        creep.setSteady(true);
+        whenCreepMovesAlongPath(1.0f);
+        assertThat(creep.getSpeedModifier()).isEqualTo(1.0f);
+    }
+
+    @Test
     void creepRecovers() {
         whenCreepMovesAlongPath(0.5f);
         assertThat(creep.getX()).isEqualTo(-1.5f); // exactly enters range

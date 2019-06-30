@@ -31,6 +31,9 @@ public strictfp class StunAbility extends Ability<Tower> implements OnDamageList
         if (!isOriginalDamage(origin)) {
             return;
         }
+        if (target.isSteady()) {
+            return;
+        }
 
         float chance = this.chance;
         if (chancePerLevel > 0) {

@@ -106,6 +106,21 @@ strictfp class NoviceWizardTest extends SimTest {
     }
 
     @Test
+    void warp_backward_notForSteadyCreep() {
+        creep.setSteady(true);
+        randomPluginTrainer.givenFloatAbs(
+                0.0f, // spell triggered
+                0.3f, // time warp
+                0.9f // warp backward
+        );
+
+        whenNoviceWizardAttacks();
+
+        assertThat(creep.getX()).isEqualTo(0); // Creep stays in place!
+        assertThat(creep.getY()).isEqualTo(3);
+    }
+
+    @Test
     void banish_good() {
         randomPluginTrainer.givenFloatAbs(
                 0.0f, // spell triggered

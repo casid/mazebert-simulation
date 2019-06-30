@@ -38,6 +38,7 @@ public strictfp class Creep extends Unit {
     private transient double initialHealth;
     private transient float deathTime;
     private transient final FollowPathCreepAbility followPathAbility = new FollowPathCreepAbility();
+    private transient boolean steady;
 
     public Creep() {
         addAbility(followPathAbility);
@@ -271,7 +272,9 @@ public strictfp class Creep extends Unit {
     }
 
     public void warpInTime(float warpSeconds) {
-        followPathAbility.followPath(warpSeconds);
+        if (!steady) {
+            followPathAbility.followPath(warpSeconds);
+        }
     }
 
     public float getDamageModifier() {
@@ -284,5 +287,13 @@ public strictfp class Creep extends Unit {
 
     public void addDamageModifier(float amount) {
         damageModifier += amount;
+    }
+
+    public void setSteady(boolean steady) {
+        this.steady = steady;
+    }
+
+    public boolean isSteady() {
+        return steady;
     }
 }

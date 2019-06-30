@@ -24,15 +24,20 @@ public strictfp class SlowEffect extends StackableByOriginAbility<Creep> impleme
     }
 
     public boolean addStack(float slowMultiplier, float duration, int maxStacks) {
-        remainingSeconds = duration;
-        if (stackCount < maxStacks) {
-            totalMultiplier *= slowMultiplier;
-            getUnit().setSpeedModifier(getUnit().getSpeedModifier() * slowMultiplier);
-            ++stackCount;
-
-            return true;
+        if (getUnit().isSteady()) {
+            return false;
         }
-        return false;
+
+        remainingSeconds = duration;
+        if (stackCount >= maxStacks) {
+            return false;
+        }
+
+        totalMultiplier *= slowMultiplier;
+        getUnit().setSpeedModifier(getUnit().getSpeedModifier() * slowMultiplier);
+        ++stackCount;
+
+        return true;
     }
 
     @Override
