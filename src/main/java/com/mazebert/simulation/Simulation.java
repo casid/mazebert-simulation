@@ -65,6 +65,7 @@ public strictfp final class Simulation {
             header.version = Sim.version;
             header.playerId = playerGateway.getSimulationPlayerId();
             header.playerCount = playerGateway.getPlayerCount();
+            header.season = Sim.context().season;
             replayWriterGateway.writeHeader(header);
         }
 
