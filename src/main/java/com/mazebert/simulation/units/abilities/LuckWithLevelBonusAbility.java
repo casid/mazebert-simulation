@@ -24,6 +24,6 @@ public strictfp class LuckWithLevelBonusAbility extends AttributeWithLevelBonusA
             return null;
         }
 
-        return "+ " + format.percent(bonusPerLevel) + "% luck per level.";
+        return format.percentWithSignAndUnit(bonusPerLevel) + " luck per level.";
     }
 }

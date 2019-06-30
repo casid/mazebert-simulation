@@ -24,6 +24,6 @@ public strictfp class ItemQualityWithLevelBonusAbility extends AttributeWithLeve
             return null;
         }
 
-        return "+ " + format.percent(bonusPerLevel) + "% item quality per level.";
+        return format.percentWithSignAndUnit(bonusPerLevel) + " item quality per level.";
     }
 }

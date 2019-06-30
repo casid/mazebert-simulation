@@ -24,6 +24,6 @@ public strictfp class ArmorPenetrationWithLevelBonusAbility extends AttributeWit
             return null;
         }
 
-        return "+ " + format.percent(bonusPerLevel) + "% armor penetration per level.";
+        return format.percentWithSignAndUnit(bonusPerLevel) + " armor penetration per level.";
     }
 }

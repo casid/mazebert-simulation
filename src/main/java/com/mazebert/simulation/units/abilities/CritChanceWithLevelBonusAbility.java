@@ -24,6 +24,6 @@ public strictfp class CritChanceWithLevelBonusAbility extends AttributeWithLevel
             return null;
         }
 
-        return "+ " + format.percent(bonusPerLevel) + "% crit chance per level.";
+        return format.percentWithSignAndUnit(bonusPerLevel) + " crit chance per level.";
     }
 }

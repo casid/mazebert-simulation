@@ -24,6 +24,6 @@ public strictfp class ItemChanceWithLevelBonusAbility extends AttributeWithLevel
             return null;
         }
 
-        return "+ " + format.percent(bonusPerLevel) + "% item chance per level.";
+        return format.percentWithSignAndUnit(bonusPerLevel) + " item chance per level.";
     }
 }

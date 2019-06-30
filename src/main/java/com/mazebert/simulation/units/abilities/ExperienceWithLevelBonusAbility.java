@@ -23,6 +23,6 @@ public abstract strictfp class ExperienceWithLevelBonusAbility extends Attribute
         if (bonusPerLevel <= 0.0f) {
             return null;
         }
-        return "+ " + format.percent(bonusPerLevel) + "% experience bonus per level.";
+        return format.percentWithSignAndUnit(bonusPerLevel) + " experience bonus per level.";
     }
 }

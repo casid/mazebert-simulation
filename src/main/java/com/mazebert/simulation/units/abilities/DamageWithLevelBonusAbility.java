@@ -23,6 +23,6 @@ public abstract strictfp class DamageWithLevelBonusAbility extends AttributeWith
         if (bonusPerLevel <= 0.0f) {
             return null;
         }
-        return "+ " + format.percent(bonusPerLevel) + "% damage per level.";
+        return format.percentWithSignAndUnit(bonusPerLevel) + " damage per level.";
     }
 }

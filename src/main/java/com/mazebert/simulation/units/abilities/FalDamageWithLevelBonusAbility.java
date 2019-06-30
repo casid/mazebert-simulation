@@ -23,6 +23,6 @@ public abstract strictfp class FalDamageWithLevelBonusAbility extends AttributeW
         if (bonusPerLevel <= 0.0f) {
             return null;
         }
-        return "+ " + format.percent(bonusPerLevel) + "% Fal damage per level.";
+        return format.percentWithSignAndUnit(bonusPerLevel) + " Fal damage per level.";
     }
 }

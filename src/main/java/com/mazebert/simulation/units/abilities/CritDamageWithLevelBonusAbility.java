@@ -24,6 +24,6 @@ public strictfp class CritDamageWithLevelBonusAbility extends AttributeWithLevel
             return null;
         }
 
-        return "+ " + format.percent(bonusPerLevel) + "% crit damage per level.";
+        return format.percentWithSignAndUnit(bonusPerLevel) + " crit damage per level.";
     }
 }

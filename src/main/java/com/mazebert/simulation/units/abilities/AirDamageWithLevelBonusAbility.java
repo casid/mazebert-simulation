@@ -23,6 +23,6 @@ public abstract strictfp class AirDamageWithLevelBonusAbility extends AttributeW
         if (bonusPerLevel <= 0.0f) {
             return null;
         }
-        return "+ " + format.percent(bonusPerLevel) + "% air damage per level.";
+        return format.percentWithSignAndUnit(bonusPerLevel) + " air damage per level.";
     }
 }

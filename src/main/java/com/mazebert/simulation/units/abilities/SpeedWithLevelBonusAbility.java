@@ -23,6 +23,6 @@ public abstract strictfp class SpeedWithLevelBonusAbility extends AttributeWithL
         if (bonusPerLevel <= 0.0f) {
             return null;
         }
-        return "+ " + format.percent(bonusPerLevel) + "% attack speed per level.";
+        return format.percentWithSignAndUnit(bonusPerLevel) + " attack speed per level.";
     }
 }
