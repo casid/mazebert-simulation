@@ -290,6 +290,11 @@ public strictfp abstract class Tower extends Unit implements CooldownUnit, Card,
         return element == Element.Darkness;
     }
 
+    @Override
+    public boolean isLight() {
+        return element == Element.Light;
+    }
+
     public AttackType getAttackType() {
         return attackType;
     }
