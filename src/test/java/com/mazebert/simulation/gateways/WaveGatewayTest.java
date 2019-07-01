@@ -1,9 +1,6 @@
 package com.mazebert.simulation.gateways;
 
-import com.mazebert.simulation.ArmorType;
-import com.mazebert.simulation.SimTest;
-import com.mazebert.simulation.Wave;
-import com.mazebert.simulation.WaveType;
+import com.mazebert.simulation.*;
 import com.mazebert.simulation.plugins.random.RandomPluginTrainer;
 import com.mazebert.simulation.systems.GameSystem;
 import com.mazebert.simulation.units.creeps.CreepModifier;
@@ -13,7 +10,15 @@ import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.Assertions.assertThat;
 
 class WaveGatewayTest extends SimTest {
+    static final float FAST_ROLL = 0.0f;
+    static final float SLOW_ROLL = 0.2f;
+    static final float WISDOM_ROLL = 0.3f;
+    static final float UNION_ROLL = 0.999f;
+
+    static final float BOSS_ROLL = 0.6f;
+
     RandomPluginTrainer randomPluginTrainer = new RandomPluginTrainer();
+    PlayerGatewayTrainer playerGatewayTrainer = new PlayerGatewayTrainer();
 
     int round;
 
@@ -22,6 +27,7 @@ class WaveGatewayTest extends SimTest {
     @BeforeEach
     void setUp() {
         randomPlugin = randomPluginTrainer;
+        playerGateway = playerGatewayTrainer;
         waveGateway = new WaveGateway();
         gameSystem = new GameSystem();
     }
@@ -105,7 +111,7 @@ class WaveGatewayTest extends SimTest {
     @Test
     void waveGeneration_modifiers_fast() {
         round = 101;
-        randomPluginTrainer.givenFloatAbs(0.0f, 0.0f, 0.0f, 0.31f, 0.0f);
+        randomPluginTrainer.givenFloatAbs(0.0f, 0.0f, 0.0f, 0.31f, FAST_ROLL);
         whenWaveIsGenerated();
         assertThat(wave.creepModifier1).isEqualTo(CreepModifier.Fast);
         assertThat(wave.creepModifier2).isEqualTo(null);
@@ -114,7 +120,7 @@ class WaveGatewayTest extends SimTest {
     @Test
     void waveGeneration_modifiers_fast_notPossible() {
         round = 1;
-        randomPluginTrainer.givenFloatAbs(0.0f, 0.0f, 0.0f, 0.31f, 0.0f);
+        randomPluginTrainer.givenFloatAbs(0.0f, 0.0f, 0.0f, 0.31f, FAST_ROLL);
         whenWaveIsGenerated();
         assertThat(wave.creepModifier1).isEqualTo(null);
         assertThat(wave.creepModifier2).isEqualTo(null);
@@ -123,7 +129,7 @@ class WaveGatewayTest extends SimTest {
     @Test
     void waveGeneration_modifiers_slow_notPossible() {
         round = 1;
-        randomPluginTrainer.givenFloatAbs(0.0f, 0.0f, 0.0f, 0.31f, 0.4f, 0.31f, 0.2f);
+        randomPluginTrainer.givenFloatAbs(0.0f, 0.0f, 0.0f, 0.31f, WISDOM_ROLL, 0.31f, SLOW_ROLL);
         whenWaveIsGenerated();
         assertThat(wave.creepModifier1).isEqualTo(CreepModifier.Wisdom);
         assertThat(wave.creepModifier2).isEqualTo(null);
@@ -132,7 +138,7 @@ class WaveGatewayTest extends SimTest {
     @Test
     void waveGeneration_modifiers_fast_wisdom() {
         round = 101;
-        randomPluginTrainer.givenFloatAbs(0.0f, 0.0f, 0.0f, 0.31f, 0.0f, 0.31f, 0.4f);
+        randomPluginTrainer.givenFloatAbs(0.0f, 0.0f, 0.0f, 0.31f, FAST_ROLL, 0.31f, WISDOM_ROLL);
         whenWaveIsGenerated();
         assertThat(wave.creepModifier1).isEqualTo(CreepModifier.Fast);
         assertThat(wave.creepModifier2).isEqualTo(CreepModifier.Wisdom);
@@ -141,7 +147,7 @@ class WaveGatewayTest extends SimTest {
     @Test
     void waveGeneration_modifiers_fast_slow_notPossible() {
         round = 101;
-        randomPluginTrainer.givenFloatAbs(0.0f, 0.0f, 0.0f, 0.31f, 0.0f, 0.31f, 0.2f);
+        randomPluginTrainer.givenFloatAbs(0.0f, 0.0f, 0.0f, 0.31f, FAST_ROLL, 0.31f, SLOW_ROLL);
         whenWaveIsGenerated();
         assertThat(wave.creepModifier1).isEqualTo(CreepModifier.Fast);
         assertThat(wave.creepModifier2).isEqualTo(null);
@@ -150,9 +156,34 @@ class WaveGatewayTest extends SimTest {
     @Test
     void waveGeneration_modifiers_same_same_notPossible() {
         round = 101;
-        randomPluginTrainer.givenFloatAbs(0.0f, 0.0f, 0.0f, 0.31f, 0.4f, 0.31f, 0.4f);
+        randomPluginTrainer.givenFloatAbs(0.0f, 0.0f, 0.0f, 0.31f, WISDOM_ROLL, 0.31f, WISDOM_ROLL);
         whenWaveIsGenerated();
         assertThat(wave.creepModifier1).isEqualTo(CreepModifier.Wisdom);
+        assertThat(wave.creepModifier2).isEqualTo(null);
+    }
+
+    @Test
+    void waveGeneration_modifiers_unionBoss_notPossible() {
+        round = 101;
+        randomPluginTrainer.givenFloatAbs(BOSS_ROLL, 0.0f, 0.0f, 0.31f, UNION_ROLL, 0.0f);
+
+        whenWaveIsGenerated();
+
+        assertThat(wave.type).isEqualTo(WaveType.Boss);
+        assertThat(wave.creepModifier1).isEqualTo(null);
+        assertThat(wave.creepModifier2).isEqualTo(null);
+    }
+
+    @Test
+    void waveGeneration_modifiers_unionBoss_possibleForMultiPlayer() {
+        round = 101;
+        randomPluginTrainer.givenFloatAbs(BOSS_ROLL, 0.0f, 0.0f, 0.31f, UNION_ROLL, 0.0f);
+        playerGatewayTrainer.givenPlayerCount(2);
+
+        whenWaveIsGenerated();
+
+        assertThat(wave.type).isEqualTo(WaveType.Boss);
+        assertThat(wave.creepModifier1).isEqualTo(CreepModifier.Union);
         assertThat(wave.creepModifier2).isEqualTo(null);
     }
 

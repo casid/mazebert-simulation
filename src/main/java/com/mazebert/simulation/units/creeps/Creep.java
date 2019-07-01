@@ -89,6 +89,10 @@ public strictfp class Creep extends Unit {
     }
 
     public void setHealth(double health) {
+        setHealth(health, false);
+    }
+
+    public void setHealth(double health, boolean notify) {
         if (this.health > 0.0) {
             double oldHealth = this.health;
 
@@ -101,7 +105,9 @@ public strictfp class Creep extends Unit {
                 this.health = health;
             }
 
-            onHealthChanged.dispatch(this, oldHealth, this.health);
+            if (notify) {
+                onHealthChanged.dispatch(this, oldHealth, this.health);
+            }
         }
     }
 

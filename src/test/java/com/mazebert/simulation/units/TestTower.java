@@ -8,6 +8,7 @@ import com.mazebert.simulation.units.towers.Tower;
 public class TestTower extends Tower {
 
     public TestTower() {
+        setBaseCooldown(1.0f);
         setAttackType(AttackType.All);
     }
 

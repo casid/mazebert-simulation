@@ -15,6 +15,7 @@ import com.mazebert.simulation.units.creeps.CreepModifier;
 import com.mazebert.simulation.units.creeps.CreepState;
 import com.mazebert.simulation.units.creeps.CreepType;
 import com.mazebert.simulation.units.creeps.effects.ReviveEffect;
+import com.mazebert.simulation.units.creeps.effects.UnionEffect;
 import com.mazebert.simulation.units.items.ItemType;
 import com.mazebert.simulation.units.towers.Spider;
 import com.mazebert.simulation.units.towers.TowerType;
@@ -482,6 +483,21 @@ public strictfp class WaveSpawnerTest extends SimTest {
 
         assertThat(getCreep(0).getHealth()).isEqualTo(179.2);
         assertThat(getCreep(0).isSteady()).isTrue();
+    }
+
+    @Test
+    void modifier_union() {
+        wave = new Wave();
+        wave.round = 1;
+        wave.creepCount = 10;
+        wave.creepType = CreepType.Orc;
+        wave.creepModifier1 = CreepModifier.Union;
+        waveGateway.addWave(wave);
+
+        whenAllCreepsAreSpawned();
+
+        assertThat(getCreep(0).getHealth()).isEqualTo(256); // all creeps have the same health (the rounds health pool)
+        assertThat(getCreep(0).getAbility(UnionEffect.class)).isNotNull();
     }
 
     @Test

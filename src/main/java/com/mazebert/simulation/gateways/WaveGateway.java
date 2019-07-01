@@ -139,7 +139,7 @@ public strictfp class WaveGateway implements ReadonlyWaveGateway {
         }
 
         CreepModifier modifier = randomPlugin.get(CreepModifier.getValues());
-        if (!modifier.isPossible(wave.round)) {
+        if (!modifier.isPossible(wave)) {
             return null;
         }
 
@@ -156,7 +156,7 @@ public strictfp class WaveGateway implements ReadonlyWaveGateway {
         }
 
         CreepModifier modifier = randomPlugin.get(CreepModifier.getValues());
-        if (!modifier.isPossible(wave.round)) {
+        if (!modifier.isPossible(wave)) {
             return null;
         }
 

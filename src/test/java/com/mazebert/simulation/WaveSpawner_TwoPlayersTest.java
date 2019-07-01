@@ -8,6 +8,9 @@ import com.mazebert.simulation.systems.ExperienceSystem;
 import com.mazebert.simulation.systems.GameSystem;
 import com.mazebert.simulation.systems.LootSystem;
 import com.mazebert.simulation.units.creeps.Creep;
+import com.mazebert.simulation.units.creeps.CreepModifier;
+import com.mazebert.simulation.units.creeps.CreepType;
+import com.mazebert.simulation.units.creeps.effects.UnionEffect;
 import com.mazebert.simulation.units.wizards.Wizard;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -77,6 +80,22 @@ public class WaveSpawner_TwoPlayersTest extends SimTest {
         assertThat(wizard2.health).isEqualTo(0.5f);
     }
 
+    @Test
+    void modifier_union() {
+        Wave wave = new Wave();
+        wave.round = 1;
+        wave.creepCount = 1;
+        wave.type = WaveType.Boss;
+        wave.creepType = CreepType.Orc;
+        wave.creepModifier1 = CreepModifier.Union;
+        waveGateway.addWave(wave);
+
+        whenAllCreepsAreSpawned();
+
+        assertThat(getCreep(0).getHealth()).isEqualTo(409.6); // all creeps have the same health (the rounds health pool * player count)
+        assertThat(getCreep(0).getAbility(UnionEffect.class)).isNotNull();
+    }
+
     private Creep getCreep(int index) {
         return (Creep) unitGateway.getUnit(2 + index); // first two units are our wizards
     }
@@ -96,6 +115,13 @@ public class WaveSpawner_TwoPlayersTest extends SimTest {
 
     private void whenGameIsUpdated(float dt) {
         simulationListeners.onUpdate.dispatch(dt);
+    }
+
+    private void whenAllCreepsAreSpawned() {
+        simulationListeners.onGameStarted.dispatch();
+        for (int i = 0; i < 10; ++i) {
+            simulationListeners.onUpdate.dispatch(1.0f);
+        }
     }
 
     private void whenGameIsUpdated() {

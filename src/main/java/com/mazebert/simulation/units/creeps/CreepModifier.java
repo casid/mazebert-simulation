@@ -1,7 +1,9 @@
 package com.mazebert.simulation.units.creeps;
 
 import com.mazebert.simulation.Sim;
+import com.mazebert.simulation.Wave;
 import com.mazebert.simulation.units.creeps.effects.ReviveEffect;
+import com.mazebert.simulation.units.creeps.effects.UnionEffect;
 
 public strictfp enum CreepModifier {
     Fast(5),
@@ -10,11 +12,12 @@ public strictfp enum CreepModifier {
     Rich(0),
     Armor(10),
     Revive(10),
-    Steady(30)
+    Steady(30),
+    Union(20)
     ;
 
     private static final CreepModifier[] STANDARD = {Fast, Slow, Wisdom, Rich, Armor, Revive};
-    private static final CreepModifier[] DAWN_OF_LIGHT = {Fast, Slow, Wisdom, Rich, Armor, Revive, Steady};
+    private static final CreepModifier[] DAWN_OF_LIGHT = {Fast, Slow, Wisdom, Rich, Armor, Revive, Steady, Union};
 
     private final int minRound;
 
@@ -60,6 +63,11 @@ public strictfp enum CreepModifier {
                 creep.setHealth(creep.getMaxHealth());
                 creep.setSteady(true);
                 break;
+            case Union:
+                creep.setMaxHealth(creep.getMaxHealth() * creep.getWave().creepCount * Sim.context().playerGateway.getPlayerCount());
+                creep.setHealth(creep.getMaxHealth());
+                creep.addAbility(new UnionEffect());
+                break;
         }
     }
 
@@ -81,7 +89,14 @@ public strictfp enum CreepModifier {
     }
 
     @SuppressWarnings("BooleanMethodIsAlwaysInverted")
-    public boolean isPossible(int round) {
-        return round >= minRound;
+    public boolean isPossible(Wave wave) {
+        if (wave.round < minRound) {
+            return false;
+        }
+
+        if (this == Union && wave.creepCount <= 1) {
+            return Sim.context().playerGateway.getPlayerCount() > 1;
+        }
+        return true;
     }
 }
