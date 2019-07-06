@@ -29,7 +29,7 @@ public strictfp class WitheredToadstoolAbility extends FalDamageWithLevelBonusAb
 
     @Override
     public String getDescription() {
-        return format.percentWithSignAndUnit(goldMalus) + " " + getCurrency().pluralLowercase + " bounty\n+ " +
+        return format.percentWithSignAndUnit(goldMalus) + " " + getCurrency().pluralLowercase + " bounty\n" +
                 format.percentWithSignAndUnit(bonus) + " damage vs Fal <c=#fff8c6>(" + format.percent(bonusPerLevel) + "%/level)</c>";
     }
 
