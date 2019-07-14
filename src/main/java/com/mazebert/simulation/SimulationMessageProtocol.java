@@ -1,6 +1,7 @@
 package com.mazebert.simulation;
 
 import com.mazebert.simulation.commands.serializers.*;
+import com.mazebert.simulation.messages.serializers.LoadingProgressSerializer;
 import com.mazebert.simulation.messages.serializers.ResendTurnSerializer;
 import com.mazebert.simulation.messages.serializers.TurnSerializer;
 import org.jusecase.bitnet.message.BitMessageProtocol;
@@ -38,6 +39,10 @@ public strictfp class SimulationMessageProtocol extends BitMessageProtocol {
         }
         if (version >= Sim.v13) {
             protocol.register(new AutoTransmuteCardsCommandSerializer());
+        }
+        if (version >= Sim.v17) {
+            // Actually not a command, but we need to register it here so that the ids stay in order.
+            protocol.register(new LoadingProgressSerializer());
         }
     }
 }
