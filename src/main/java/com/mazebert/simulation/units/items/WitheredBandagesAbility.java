@@ -29,7 +29,7 @@ public strictfp class WitheredBandagesAbility extends SpeedWithLevelBonusAbility
 
     @Override
     public String getDescription() {
-        return format.percentWithSignAndUnit(luckBonus) + " luck\n+ " +
+        return format.percentWithSignAndUnit(luckBonus) + " luck\n" +
                 format.percentWithSignAndUnit(bonus) + " attack speed <c=#fff8c6>(" + format.percent(bonusPerLevel) + "%/level)</c>";
     }
 
