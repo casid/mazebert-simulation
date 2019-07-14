@@ -37,7 +37,6 @@ public strictfp class SimulationListeners {
 
     public final OnNotification onNotification = new OnNotification();
     public final OnMessageReceived onMessageReceived = new OnMessageReceived();
-    public final OnLoadingProgress onLoadingProgress = new OnLoadingProgress();
 
     public boolean areNotificationsEnabled() {
         return onNotification.isExposed();

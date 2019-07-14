@@ -39,8 +39,5 @@ public strictfp class SimulationMessageProtocol extends BitMessageProtocol {
         if (version >= Sim.v13) {
             protocol.register(new AutoTransmuteCardsCommandSerializer());
         }
-        if (version >= Sim.v17) {
-            protocol.register(new LoadingProgressCommandSerializer());
-        }
     }
 }
