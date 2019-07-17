@@ -1,6 +1,5 @@
 package com.mazebert.simulation.usecases;
 
-import com.mazebert.simulation.Element;
 import com.mazebert.simulation.Sim;
 import com.mazebert.simulation.SimulationListeners;
 import com.mazebert.simulation.commands.InitPlayerCommand;
