@@ -118,4 +118,12 @@ class FormatPluginTest {
         assertThat(format.rarity(Rarity.Common)).isEqualTo("<c=#fefefe>common</c>");
         assertThat(format.rarity(Rarity.Common, false)).isEqualTo("<c=#fefefe>Common</c>");
     }
+
+    @Test
+    void distance() {
+        assertThat(format.distance(0)).isEqualTo("0 tiles");
+        assertThat(format.distance(0.5f)).isEqualTo("0.5 tiles");
+        assertThat(format.distance(1)).isEqualTo("1 tile");
+        assertThat(format.distance(2)).isEqualTo("2 tiles");
+    }
 }

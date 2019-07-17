@@ -11,6 +11,7 @@ public abstract strictfp class FollowPathAbility<U extends Unit> extends Ability
     private final FollowPathResult followPathResult = Sim.context().followPathResult;
 
     private boolean freshCoordinates;
+    private boolean forceFreshCoordinates;
     private Path path;
     private int pathIndex;
 
@@ -29,7 +30,7 @@ public abstract strictfp class FollowPathAbility<U extends Unit> extends Ability
     @Override
     public void onUpdate(float dt) {
         if (isPossibleToWalk()) {
-            followPath(dt);
+            followPath(dt, false);
         }
     }
 
@@ -52,8 +53,12 @@ public abstract strictfp class FollowPathAbility<U extends Unit> extends Ability
         }
     }
 
-    public final void followPath(float dt) {
+    public final void followPath(float dt, boolean forceFreshCoordinates) {
         float distanceToWalk = getSpeed() * dt;
+        followPathDistance(distanceToWalk, forceFreshCoordinates);
+    }
+
+    public final void followPathDistance(float distanceToWalk, boolean forceFreshCoordinates) {
         followPathResult.pathIndex = pathIndex;
         FollowPathResult result = followPath(getUnit().getX(), getUnit().getY(), distanceToWalk, followPathResult);
         if (result != null) {
@@ -62,6 +67,9 @@ public abstract strictfp class FollowPathAbility<U extends Unit> extends Ability
             getUnit().setY(result.py);
 
             freshCoordinates = true;
+            if (forceFreshCoordinates) {
+                this.forceFreshCoordinates = true;
+            }
 
             if (pathIndex >= path.size() - 1) {
                 onTargetReached();
@@ -81,7 +89,9 @@ public abstract strictfp class FollowPathAbility<U extends Unit> extends Ability
         if (freshCoordinates) {
             freshCoordinates = false;
 
-            if (StrictMath.abs(x - getUnit().getX()) > 1 || StrictMath.abs(y - getUnit().getY()) > 1) {
+            if (forceFreshCoordinates || StrictMath.abs(x - getUnit().getX()) > 1 || StrictMath.abs(y - getUnit().getY()) > 1) {
+                forceFreshCoordinates = false;
+
                 x = getUnit().getX();
                 y = getUnit().getY();
                 result.pathIndex = pathIndex;

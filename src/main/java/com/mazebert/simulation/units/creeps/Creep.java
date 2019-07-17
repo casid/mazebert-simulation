@@ -277,9 +277,15 @@ public strictfp class Creep extends Unit {
         armor += amount;
     }
 
+    public void knockback(float distance) {
+        if (!steady) {
+            followPathAbility.followPath(-distance, true);
+        }
+    }
+
     public void warpInTime(float warpSeconds) {
         if (!steady) {
-            followPathAbility.followPath(warpSeconds);
+            followPathAbility.followPath(warpSeconds, true);
         }
     }
 

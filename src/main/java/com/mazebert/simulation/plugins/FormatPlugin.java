@@ -218,4 +218,14 @@ public strictfp class FormatPlugin {
     public String element(Element element) {
         return colored(element.getName(), element.color);
     }
+
+    public String distance(float distance) {
+        if (distance > 0 && distance < 1) {
+            return oneFractionFormat.format(distance) + " tiles";
+        }
+        if (distance == 1) {
+            return "1 tile";
+        }
+        return noFractionFormat.format(distance) + " tiles";
+    }
 }
