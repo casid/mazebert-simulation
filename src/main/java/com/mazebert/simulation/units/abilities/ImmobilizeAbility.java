@@ -58,7 +58,7 @@ public strictfp abstract class ImmobilizeAbility extends Ability<Tower> implemen
     @Override
     public String getLevelBonus() {
         if (chancePerLevel > 0) {
-            return format.percent(chancePerLevel) + "% chance per level.";
+            return format.percentWithSignAndUnit(chancePerLevel) + " chance per level.";
         }
         return super.getLevelBonus();
     }

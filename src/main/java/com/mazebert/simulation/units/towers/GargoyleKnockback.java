@@ -16,7 +16,7 @@ public strictfp class GargoyleKnockback extends KnockbackAbility {
 
     @Override
     public String getDescription() {
-        return "Hurtles from his perch to slam into the creep wave. Damaged creeps are knocked back " + format.distance(getDistance()) + ".";
+        return "Hurtles from his perch to slam into the creep wave. " + super.getDescription();
     }
 
     @Override
