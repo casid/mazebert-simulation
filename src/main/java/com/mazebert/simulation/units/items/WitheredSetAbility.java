@@ -24,7 +24,7 @@ public strictfp class WitheredSetAbility extends ItemSetAbility implements OnDam
     @Override
     public void onDamage(Object origin, Creep target, double damage, int multicrits) {
         if (isOriginalDamage(origin)) {
-            if (getUnit().isAbilityTriggered(0.02f)) {
+            if (getUnit().isImmobilizeAbilityTriggered(0.02f, target)) {
                 target.warpInTime(-1.0f);
             }
 

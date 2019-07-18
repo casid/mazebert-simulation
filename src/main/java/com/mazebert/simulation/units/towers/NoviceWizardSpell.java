@@ -37,7 +37,7 @@ public strictfp class NoviceWizardSpell extends Ability<NoviceWizard> implements
     @Override
     public void onDamage(Object origin, Creep target, double damage, int multicrits) {
         if (isSpellCastPossible(origin)) {
-            if (randomPlugin.getFloatAbs() < 0.5f) {
+            if (getUnit().isImmobilizeAbilityTriggeredIgnoringLuck(0.5f, target)) {
                 castWarpSpell(target);
             } else {
                 castBanishSpell(target);

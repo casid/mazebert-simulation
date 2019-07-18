@@ -56,7 +56,22 @@ strictfp class GargoyleTest extends SimTest {
         assertThat(creep.getY()).isEqualTo(0);
     }
 
-    // TODO knockback aka immobilize resistance (can re-use this for stun, warp too!)
+    @Test
+    void knockback_resistance() {
+        whenGargoyleAttacks();
+        whenGargoyleAttacks();
+        assertThat(creep.getY()).isEqualTo(-1);
+    }
+
+    @Test
+    void knockback_resistance_resets() {
+        whenGargoyleAttacks();
+        assertThat(creep.getImmobilizeResistance()).isEqualTo(0.1f);
+        creep.simulate(0.1f);
+        assertThat(creep.getImmobilizeResistance()).isEqualTo(0.09f);
+        creep.simulate(1.0f);
+        assertThat(creep.getImmobilizeResistance()).isEqualTo(0.0f);
+    }
 
     private void whenGargoyleAttacks() {
         gargoyle.simulate(gargoyle.getBaseCooldown());

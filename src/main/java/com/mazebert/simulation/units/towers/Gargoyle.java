@@ -11,9 +11,9 @@ public strictfp class Gargoyle extends Tower {
 
     public Gargoyle() {
         setBaseCooldown(5.0f);
-        setBaseRange(3.0f);
+        setBaseRange(2.0f);
         setAttackType(AttackType.Vex);
-        setStrength(0.8f);
+        setStrength(0.9f);
         setDamageSpread(0.8f);
         setGender(Gender.Male);
         setElement(Element.Light);

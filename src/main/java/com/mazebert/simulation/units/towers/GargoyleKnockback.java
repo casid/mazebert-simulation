@@ -4,8 +4,8 @@ import com.mazebert.simulation.units.abilities.KnockbackAbility;
 
 public strictfp class GargoyleKnockback extends KnockbackAbility {
     public GargoyleKnockback() {
-        setChance(0.05f);
-        setChancePerLevel(0.0005f);
+        setChance(0.07f);
+        setChancePerLevel(0.0007f);
         setDistance(1.0f);
     }
 

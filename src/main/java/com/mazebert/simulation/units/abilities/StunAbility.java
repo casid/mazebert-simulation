@@ -9,6 +9,8 @@ public strictfp class StunAbility extends ImmobilizeAbility {
 
     @Override
     protected void immobilize(Creep target) {
+        target.addImmobilizeResistance(0.1f);
+
         StunEffect stunEffect = target.addAbilityStack(StunEffect.class);
         stunEffect.setDuration(duration);
 

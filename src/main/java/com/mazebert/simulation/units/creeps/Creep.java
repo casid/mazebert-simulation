@@ -34,6 +34,7 @@ public strictfp class Creep extends Unit {
     private float damageModifier = 1.0f;
     private float experience;
     private float experienceModifier = 1.0f;
+    private float immobilizeResistance = 0;
 
     private transient double initialHealth;
     private transient float deathTime;
@@ -76,6 +77,13 @@ public strictfp class Creep extends Unit {
             if (deathTime >= DEATH_TIME) {
                 setState(CreepState.Dead);
                 onDead.dispatch(this);
+            }
+        }
+
+        if (immobilizeResistance > 0) {
+            immobilizeResistance -= 0.1f * dt;
+            if (immobilizeResistance < 0) {
+                immobilizeResistance = 0;
             }
         }
     }
@@ -279,12 +287,18 @@ public strictfp class Creep extends Unit {
 
     public void knockback(float distance) {
         if (!steady) {
+            if (distance > 0) {
+                addImmobilizeResistance(0.1f);
+            }
             followPathAbility.followPath(-distance, true);
         }
     }
 
     public void warpInTime(float warpSeconds) {
         if (!steady) {
+            if (warpSeconds < 0) {
+                addImmobilizeResistance(0.1f);
+            }
             followPathAbility.followPath(warpSeconds, true);
         }
     }
@@ -307,5 +321,13 @@ public strictfp class Creep extends Unit {
 
     public boolean isSteady() {
         return steady;
+    }
+
+    public float getImmobilizeResistance() {
+        return immobilizeResistance;
+    }
+
+    public void addImmobilizeResistance(float immobilizeResistance) {
+        this.immobilizeResistance += immobilizeResistance;
     }
 }

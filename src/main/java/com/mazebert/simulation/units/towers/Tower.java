@@ -34,6 +34,7 @@ public strictfp abstract class Tower extends Unit implements CooldownUnit, Card,
     public final OnAbilityReady onAbilityReady = new OnAbilityReady();
 
     protected final FormatPlugin format = Sim.context().formatPlugin;
+    protected final int version = Sim.context().version;
 
     private int level;
     private float experience;
@@ -361,6 +362,20 @@ public strictfp abstract class Tower extends Unit implements CooldownUnit, Card,
         chance *= luck;
         if (chance > Balancing.MAX_TRIGGER_CHANCE) {
             chance = Balancing.MAX_TRIGGER_CHANCE;
+        }
+        return Sim.context().randomPlugin.getFloatAbs() < chance;
+    }
+
+    public boolean isImmobilizeAbilityTriggered(float chance, Creep target) {
+        if (version >= Sim.vDoL) {
+            chance -= target.getImmobilizeResistance();
+        }
+        return isAbilityTriggered(chance);
+    }
+
+    public boolean isImmobilizeAbilityTriggeredIgnoringLuck(float chance, Creep target) {
+        if (version >= Sim.vDoL) {
+            chance -= target.getImmobilizeResistance();
         }
         return Sim.context().randomPlugin.getFloatAbs() < chance;
     }

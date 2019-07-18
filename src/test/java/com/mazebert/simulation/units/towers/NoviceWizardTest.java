@@ -56,6 +56,7 @@ strictfp class NoviceWizardTest extends SimTest {
 
         assertThat(creep.getX()).isEqualTo(3);
         assertThat(creep.getY()).isEqualTo(3);
+        assertThat(creep.getImmobilizeResistance()).isEqualTo(0); // would be unfair to do that here
     }
 
     @Test
@@ -71,6 +72,7 @@ strictfp class NoviceWizardTest extends SimTest {
 
         assertThat(creep.getX()).isEqualTo(0);
         assertThat(creep.getY()).isEqualTo(3);
+        assertThat(creep.getImmobilizeResistance()).isEqualTo(0.1f);
     }
 
     @Test

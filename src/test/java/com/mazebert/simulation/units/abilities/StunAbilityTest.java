@@ -150,6 +150,12 @@ public class StunAbilityTest extends SimTest {
         assertThat(creep.getState()).isEqualTo(CreepState.Running);
     }
 
+    @Test
+    void immobilizeResistanceIncresed() {
+        whenTowerAttacks();
+        assertThat(creep.getImmobilizeResistance()).isEqualTo(0.1f);
+    }
+
     private void whenTowerAttacks() {
         tower.simulate(1.0f);
     }

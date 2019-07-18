@@ -36,7 +36,7 @@ public strictfp abstract class ImmobilizeAbility extends Ability<Tower> implemen
         if (chancePerLevel > 0) {
             chance += chancePerLevel * getUnit().getLevel();
         }
-        if (getUnit().isAbilityTriggered(chance)) {
+        if (getUnit().isImmobilizeAbilityTriggered(chance, target)) {
             immobilize(target);
         }
     }
