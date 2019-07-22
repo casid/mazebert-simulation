@@ -80,6 +80,9 @@ public abstract strictfp class Ability<U extends Unit> {
     }
 
     protected boolean isOriginalDamage(Object origin) {
-        return origin instanceof InstantDamageAbility || origin instanceof ProjectileDamageAbility;
+        if (origin instanceof DamageAbility) {
+            return ((DamageAbility)origin).isOriginalDamage();
+        }
+        return false;
     }
 }

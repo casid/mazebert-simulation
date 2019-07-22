@@ -4,6 +4,7 @@ import com.mazebert.simulation.Path;
 import com.mazebert.simulation.units.abilities.AttackAbility;
 import com.mazebert.simulation.units.abilities.InstantDamageAbility;
 import com.mazebert.simulation.units.creeps.Creep;
+import com.mazebert.simulation.units.towers.TowerType;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -101,6 +102,18 @@ public strictfp class WitheredTest extends ItemTest {
         whenTowerAttacks();
 
         assertThat(creep.getDamageModifier()).isEqualTo(1.0f);
+    }
+
+    @Test
+    void kiwi() {
+        wizard.gold = 10000;
+        tower = whenTowerIsReplaced(tower, TowerType.Kiwi);
+        whenItemIsEquipped(ItemType.WitheredCactus, 3);
+        whenItemIsEquipped(ItemType.WitheredToadstool, 1);
+        whenItemIsEquipped(ItemType.WitheredBandages, 2);
+        whenTowerAttacks();
+
+        assertThat(creep.getX()).isEqualTo(0);
     }
 
     private void whenTowerAttacks() {

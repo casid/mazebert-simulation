@@ -4,7 +4,6 @@ import com.mazebert.simulation.AttackType;
 import com.mazebert.simulation.Element;
 import com.mazebert.simulation.Rarity;
 import com.mazebert.simulation.units.Gender;
-import com.mazebert.simulation.units.abilities.InstantDamageAbility;
 
 public strictfp class Kiwi extends Tower {
 
@@ -17,7 +16,7 @@ public strictfp class Kiwi extends Tower {
         setGender(Gender.Unknown);
         setElement(Element.Nature);
 
-        addAbility(new InstantDamageAbility());
+        addAbility(new KiwiDamage());
         addAbility(new KiwiHaka());
         addAbility(new KiwiKick());
     }

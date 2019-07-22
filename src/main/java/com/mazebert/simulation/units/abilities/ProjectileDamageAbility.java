@@ -10,7 +10,7 @@ import com.mazebert.simulation.systems.DamageSystem;
 import com.mazebert.simulation.units.creeps.Creep;
 import com.mazebert.simulation.units.towers.Tower;
 
-public strictfp class ProjectileDamageAbility extends Ability<Tower> implements OnAttackListener, OnProjectileImpact {
+public strictfp class ProjectileDamageAbility extends Ability<Tower> implements DamageAbility, OnAttackListener, OnProjectileImpact {
     private final DamageSystem damageSystem = Sim.context().damageSystem;
     private final ProjectileGateway projectileGateway = Sim.context().projectileGateway;
     private final ProjectileViewType viewType;
@@ -52,5 +52,10 @@ public strictfp class ProjectileDamageAbility extends Ability<Tower> implements 
 
     public void setSpeed(float speed) {
         this.speed = speed;
+    }
+
+    @Override
+    public boolean isOriginalDamage() {
+        return true;
     }
 }
