@@ -48,7 +48,7 @@ public strictfp class Guard extends Tower {
 
     @Override
     public String getSinceVersion() {
-        return "1.9";
+        return "2.0";
     }
 
     @Override
