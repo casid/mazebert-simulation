@@ -1,11 +1,12 @@
 package com.mazebert.simulation.units.items;
 
 import com.mazebert.simulation.Rarity;
+import com.mazebert.simulation.units.abilities.VikingAbility;
 
 public strictfp class VikingHelmet extends Item {
 
     public VikingHelmet() {
-        super(new VikingHelmetLuckAbility(), new VikingHelmetDamageAbility(), new VikingHelmetAbility());
+        super(new VikingHelmetLuckAbility(), new VikingHelmetDamageAbility(), new VikingAbility());
     }
 
     @Override

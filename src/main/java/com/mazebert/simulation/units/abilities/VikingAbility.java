@@ -1,10 +1,9 @@
-package com.mazebert.simulation.units.items;
+package com.mazebert.simulation.units.abilities;
 
-import com.mazebert.simulation.units.abilities.Ability;
 import com.mazebert.simulation.units.potions.MeadAbility;
 import com.mazebert.simulation.units.towers.Tower;
 
-public strictfp class VikingHelmetAbility extends Ability<Tower> {
+public strictfp class VikingAbility extends Ability<Tower> {
     @Override
     protected void initialize(Tower unit) {
         super.initialize(unit);

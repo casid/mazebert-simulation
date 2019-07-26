@@ -78,7 +78,8 @@ public strictfp enum ItemType implements CardType<Item> {
     Mjoelnir(63, Mjoelnir.class),
     PoisonArrow(64, PoisonArrow.class),
     Trident(65, Trident.class),
-    BranchOfYggdrasil(66, BranchOfYggdrasil.class)
+    BranchOfYggdrasil(66, BranchOfYggdrasil.class),
+    DrinkingHorn(67, DrinkingHorn.class),
     ;
 
     private static int maxId;
@@ -98,13 +99,19 @@ public strictfp enum ItemType implements CardType<Item> {
     public final int id;
     public final Class<? extends Item> itemClass;
 
+    private static final ItemType[] STANDARD      = {WoodenStaff, LeatherBoots, WellDoneSteak, BabySword, SchoolBook, WetTowel, Pumpkin, MediumSteak, Handbag, GoldCoins, RingOfGreed, LongBow, MonsterTeeth, MagicMushroom, LuckyPants, PaintingOfSolea, MeatMallet, RareSteak, SevenLeaguesBoots, FistfulOfSteel, Cauldron, KeyOfWisdom, VikingHelmet, Barrel, Excalibur, HelmOfHades, MesserschmidtsReaver, DungeonDoor, ScepterOfTime, WeddingRing1, WeddingRing2, NorlsFurySword, NorlsFuryAmulet, FrozenWater, FrozenHeart, FrozenCandle, FrozenBook, WitheredCactus, WitheredToadstool, WitheredBandages, ImpatienceWrathWatch, ImpatienceWrathTrain, ImpatienceWrathForce, DarkBabySword, DarkGoldCoins, DarkRingOfGreed, DarkMeatMallet, DarkCauldron, DarkFistfulOfSteel, DarkBlade, Wolfskin, BloodDemonBlade, Seelenreisser, UnluckyPants, SkullOfDarkness, SpectralDaggers, SpectralCape, BowlingBall, LightbladeAcademySword, LightbladeAcademyDrone, TransmuteUniques, TransmuteStack, Mjoelnir, PoisonArrow, Trident, BranchOfYggdrasil};
+    private static final ItemType[] DAWN_OF_LIGHT = {WoodenStaff, LeatherBoots, WellDoneSteak, BabySword, SchoolBook, WetTowel, Pumpkin, MediumSteak, Handbag, GoldCoins, RingOfGreed, LongBow, MonsterTeeth, MagicMushroom, LuckyPants, PaintingOfSolea, MeatMallet, RareSteak, SevenLeaguesBoots, FistfulOfSteel, Cauldron, KeyOfWisdom, VikingHelmet, Barrel, Excalibur, HelmOfHades, MesserschmidtsReaver, DungeonDoor, ScepterOfTime, WeddingRing1, WeddingRing2, NorlsFurySword, NorlsFuryAmulet, FrozenWater, FrozenHeart, FrozenCandle, FrozenBook, WitheredCactus, WitheredToadstool, WitheredBandages, ImpatienceWrathWatch, ImpatienceWrathTrain, ImpatienceWrathForce, DarkBabySword, DarkGoldCoins, DarkRingOfGreed, DarkMeatMallet, DarkCauldron, DarkFistfulOfSteel, DarkBlade, Wolfskin, BloodDemonBlade, Seelenreisser, UnluckyPants, SkullOfDarkness, SpectralDaggers, SpectralCape, BowlingBall, LightbladeAcademySword, LightbladeAcademyDrone, TransmuteUniques, TransmuteStack, Mjoelnir, PoisonArrow, Trident, BranchOfYggdrasil, DrinkingHorn};
+
     ItemType(int id, Class<? extends Item> itemClass) {
         this.id = id;
         this.itemClass = itemClass;
     }
 
     public static ItemType[] getValues() {
-        return values();
+        if (Sim.context().version >= Sim.vDoL && Sim.context().season) {
+            return DAWN_OF_LIGHT;
+        }
+        return STANDARD;
     }
 
     @SuppressWarnings("unused") // By client

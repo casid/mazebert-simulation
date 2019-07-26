@@ -8,6 +8,7 @@ import com.mazebert.simulation.plugins.random.RandomPlugin;
 import com.mazebert.simulation.units.CooldownUnit;
 import com.mazebert.simulation.units.Gender;
 import com.mazebert.simulation.units.Unit;
+import com.mazebert.simulation.units.abilities.VikingAbility;
 import com.mazebert.simulation.units.creeps.Creep;
 import com.mazebert.simulation.units.items.Item;
 import com.mazebert.simulation.units.items.ItemType;
@@ -30,6 +31,7 @@ public strictfp abstract class Tower extends Unit implements CooldownUnit, Card,
     public final OnItemEquipped onItemEquipped = new OnItemEquipped();
     public final OnInventorySizeChanged onInventorySizeChanged = new OnInventorySizeChanged();
     public final OnPotionConsumed onPotionConsumed = new OnPotionConsumed();
+    public final OnPotionEffectivenessChanged onPotionEffectivenessChanged = new OnPotionEffectivenessChanged();
     public final OnAbilityActivated onAbilityActivated = new OnAbilityActivated();
     public final OnAbilityReady onAbilityReady = new OnAbilityReady();
 
@@ -63,6 +65,7 @@ public strictfp abstract class Tower extends Unit implements CooldownUnit, Card,
     private float luck = 1.0f; // factor 1 is regular luck of every tower
     private float itemChance = 1.0f; // 1.0 is 100% item chance (normal, not good not bad)
     private float itemQuality = 1.0f; // 1.0 is 100% item quality (normal, not good not bad)
+    private float potionEffectiveness = 1.0f; // 1.0 is 100% potion effect (normal, not good not bad)
     private Element element;
     private Gender gender;
     private AttackType attackType;
@@ -119,6 +122,9 @@ public strictfp abstract class Tower extends Unit implements CooldownUnit, Card,
         hash.add(totalDamage);
         hash.add(kills);
         hash.add(inventorySize);
+        if (version >= Sim.vDoL) {
+            hash.add(potionEffectiveness);
+        }
     }
 
     public float getBaseCooldown() {
@@ -713,5 +719,18 @@ public strictfp abstract class Tower extends Unit implements CooldownUnit, Card,
             type = TowerType.forClass(getClass());
         }
         return type;
+    }
+
+    public void addPotionEffectiveness(float potionEffect) {
+        this.potionEffectiveness += potionEffect;
+        onPotionEffectivenessChanged.dispatch(this);
+    }
+
+    public float getPotionEffectiveness() {
+        return potionEffectiveness;
+    }
+
+    public boolean isViking() {
+        return this instanceof Viking || getAbility(VikingAbility.class) != null;
     }
 }

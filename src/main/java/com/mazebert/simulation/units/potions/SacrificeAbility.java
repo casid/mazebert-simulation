@@ -16,7 +16,7 @@ public strictfp class SacrificeAbility extends Ability<Tower> {
             simulationListeners.showNotification(unit, "Tower sacrificed!", 0xff0000);
         }
 
-        unit.getWizard().addHealth(0.01f * unit.getLevel());
+        unit.getWizard().addHealth(0.01f * unit.getLevel() * unit.getPotionEffectiveness());
         Sim.context().unitGateway.destroyTower(unit);
     }
 

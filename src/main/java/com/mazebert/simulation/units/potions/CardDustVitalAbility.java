@@ -9,7 +9,15 @@ public strictfp class CardDustVitalAbility extends StackableAbility<Tower> {
     @Override
     public void addStack() {
         super.addStack();
-        getUnit().getWizard().addHealth(health);
+
+        getUnit().getWizard().addHealth(getHealth());
+    }
+
+    private float getHealth() {
+        if (getUnit().getPotionEffectiveness() == 1) {
+            return health;
+        }
+        return health * getUnit().getPotionEffectiveness();
     }
 
     @Override
