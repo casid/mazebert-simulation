@@ -49,6 +49,15 @@ strictfp class DrinkingHornTest extends ItemTest {
     }
 
     @Test
+    void noVikingAnymore() {
+        whenItemIsEquipped(ItemType.DrinkingHorn);
+        tower.removeAbility(VikingAbility.class);
+        
+        assertThat(tower.getPotionEffectiveness()).isEqualTo(1.0f);
+        assertThat(tower.getItem(0)).isNull();
+    }
+
+    @Test
     void cardDustVital() {
         whenItemIsEquipped(ItemType.DrinkingHorn);
         whenPotionIsConsumed(PotionType.CardDustVital);
@@ -70,26 +79,6 @@ strictfp class DrinkingHornTest extends ItemTest {
         whenPotionIsConsumed(PotionType.Mead);
 
         assertThat(tower.getCritDamage()).isEqualTo(0.47000003f);
-    }
-
-    @Test
-    void mead_noVikingAnymore() {
-        whenItemIsEquipped(ItemType.DrinkingHorn);
-        whenPotionIsConsumed(PotionType.Mead);
-        whenItemIsEquipped(null);
-        tower.removeAbility(VikingAbility.class);
-
-        assertThat(tower.getCritDamage()).isEqualTo(0.24999999f);
-    }
-
-    @Test
-    void meadAndVikingHelmet_removed() {
-        whenItemIsEquipped(ItemType.DrinkingHorn);
-        whenItemIsEquipped(ItemType.VikingHelmet, 1);
-        whenPotionIsConsumed(PotionType.Mead);
-        whenItemIsEquipped(null);
-
-        assertThat(tower.getCritDamage()).isEqualTo(0.45f);
     }
 
     @Test
