@@ -4,6 +4,8 @@ import com.mazebert.simulation.units.potions.MeadAbility;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 public strictfp class VikingHelmetTest extends ItemTest {
 
     @Test
@@ -12,7 +14,7 @@ public strictfp class VikingHelmetTest extends ItemTest {
 
         whenItemIsEquipped(ItemType.VikingHelmet);
 
-        Assertions.assertThat(tower.getAddedRelativeBaseDamage()).isEqualTo(0.5f + MeadAbility.damageBonus);
+        assertThat(tower.getAddedRelativeBaseDamage()).isEqualTo(0.5f + MeadAbility.damageBonus);
     }
 
     @Test
@@ -22,6 +24,6 @@ public strictfp class VikingHelmetTest extends ItemTest {
         whenItemIsEquipped(ItemType.VikingHelmet);
         whenItemIsEquipped(null);
 
-        Assertions.assertThat(tower.getAddedRelativeBaseDamage()).isEqualTo(-1.4901161E-8f);
+        assertThat(tower.getAddedRelativeBaseDamage()).isEqualTo(-1.4901161E-8f);
     }
 }
