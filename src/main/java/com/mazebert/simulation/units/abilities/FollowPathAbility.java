@@ -86,6 +86,10 @@ public abstract strictfp class FollowPathAbility<U extends Unit> extends Ability
             return null;
         }
 
+        if (!isPossibleToWalk()) {
+            return null;
+        }
+
         if (freshCoordinates) {
             freshCoordinates = false;
 

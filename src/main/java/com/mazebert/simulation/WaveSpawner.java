@@ -286,10 +286,14 @@ public strictfp final class WaveSpawner implements OnGameStartedListener, OnWave
 
     private void spawnCreep(Creep creep, int pathIndex) {
         if (creep.getWave().type == WaveType.Air) {
-            creep.setPath(gameGateway.getMap().getAirPath(), pathIndex);
+            spawnCreep(creep, gameGateway.getMap().getAirPath(), pathIndex);
         } else {
-            creep.setPath(gameGateway.getMap().getGroundPath(), pathIndex);
+            spawnCreep(creep, gameGateway.getMap().getGroundPath(), pathIndex);
         }
+    }
+
+    public void spawnCreep(Creep creep, Path path, int pathIndex) {
+        creep.setPath(path, pathIndex);
         creep.onDead.add(this);
         creep.onTargetReached.add(this);
 
