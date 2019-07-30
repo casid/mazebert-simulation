@@ -1,24 +1,28 @@
 package com.mazebert.simulation.units.items;
 
+import com.mazebert.simulation.Sim;
 import com.mazebert.simulation.projectiles.ChainViewType;
 import com.mazebert.simulation.units.abilities.ChainAbility;
 import com.mazebert.simulation.units.creeps.Creep;
 
-public strictfp class MjoelnirAbility extends ChainAbility {
-    public static final float DAMAGE = 0.1f;
-    public static final int CREEPS = 3;
+public strictfp class MjoelnirChainAbility extends ChainAbility {
+    private static final int CREEPS = 3;
 
     private int attacks;
+    private float damage = 0.1f;
 
-    public MjoelnirAbility() {
+    public MjoelnirChainAbility() {
         super(ChainViewType.Lightning, CREEPS - 1);
+        if (Sim.context().version >= Sim.vDoL) {
+            damage = 0.24f;
+        }
     }
 
     @Override
     protected void chain(Creep target, double damage) {
         if (++attacks >= 3) {
             attacks = 0;
-            super.chain(target, damage * DAMAGE);
+            super.chain(target, damage * this.damage);
         }
     }
 
@@ -36,6 +40,6 @@ public strictfp class MjoelnirAbility extends ChainAbility {
     public String getDescription() {
         return "Every 3rd attack " +
                 "chain lightning hits up to " + CREEPS + " creeps dealing " +
-                format.percent(DAMAGE) + "% of the carrier's damage.";
+                format.percent(damage) + "% of the carrier's damage.";
     }
 }

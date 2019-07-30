@@ -46,7 +46,7 @@ class UnionEffectTest extends SimTest {
     }
 
     @Test
-    void oneTower() {
+    void oneCreep() {
         Creep creep1 = a(creep());
         creep1.addAbility(new UnionEffect());
         unitGateway.addUnit(creep1);
@@ -57,7 +57,7 @@ class UnionEffectTest extends SimTest {
     }
 
     @Test
-    void twoTowers() {
+    void twoCreeps() {
         Creep creep1 = a(creep());
         creep1.addAbility(new UnionEffect());
         unitGateway.addUnit(creep1);

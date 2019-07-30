@@ -1,11 +1,21 @@
 package com.mazebert.simulation.units.items;
 
 import com.mazebert.simulation.Rarity;
+import com.mazebert.simulation.Sim;
+import com.mazebert.simulation.units.abilities.Ability;
 
 public strictfp class Mjoelnir extends Item {
 
+    private static Ability[] getAbilities() {
+        if (Sim.context().version >= Sim.vDoL) {
+            return new Ability[]{new MjoelnirChainAbility(), new MjoelnirCullingStrikeAbility()};
+        } else {
+            return new Ability[]{new MjoelnirChainAbility()};
+        }
+    }
+
     public Mjoelnir() {
-        super(new MjoelnirAbility());
+        super(getAbilities());
     }
 
     @Override
