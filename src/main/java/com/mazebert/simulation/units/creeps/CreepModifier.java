@@ -13,11 +13,12 @@ public strictfp enum CreepModifier {
     Armor(10),
     Revive(10),
     Steady(30),
-    Union(20)
+    Union(20),
+    Loot(10),
     ;
 
     private static final CreepModifier[] STANDARD = {Fast, Slow, Wisdom, Rich, Armor, Revive};
-    private static final CreepModifier[] DAWN_OF_LIGHT = {Fast, Slow, Wisdom, Rich, Armor, Revive, Steady, Union};
+    private static final CreepModifier[] DAWN_OF_LIGHT = {Fast, Slow, Wisdom, Rich, Armor, Revive, Steady, Union, Loot};
 
     private final int minRound;
 
@@ -67,6 +68,9 @@ public strictfp enum CreepModifier {
                 creep.setMaxHealth(creep.getMaxHealth() * creep.getWave().creepCount * Sim.context().playerGateway.getPlayerCount());
                 creep.setHealth(creep.getMaxHealth());
                 creep.addAbility(new UnionEffect());
+                break;
+            case Loot:
+                creep.setDropChance(creep.getDropChance() * 1.2f);
                 break;
         }
     }

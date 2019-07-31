@@ -13,7 +13,7 @@ class WaveGatewayTest extends SimTest {
     static final float FAST_ROLL = 0.0f;
     static final float SLOW_ROLL = 0.2f;
     static final float WISDOM_ROLL = 0.3f;
-    static final float UNION_ROLL = 0.999f;
+    static final float UNION_ROLL = 0.8f;
 
     static final float BOSS_ROLL = 0.6f;
 
