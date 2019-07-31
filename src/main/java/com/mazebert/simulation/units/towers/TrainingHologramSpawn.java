@@ -67,7 +67,7 @@ public strictfp class TrainingHologramSpawn extends Ability<Tower> implements On
 
     @Override
     public String getDescription() {
-        return "After finishing a wave, a creep hologram with 1 health is summoned. The Training Dummy and the tower who destroys the hologram both gain " + format.experienceWithSignAndUnit(XP);
+        return "After finishing a wave, a creep hologram with 1 health is summoned. The creep grants " + format.experienceWithSignAndUnit(XP) + " to the hologram and the tower destroying it.";
     }
 
     @Override
