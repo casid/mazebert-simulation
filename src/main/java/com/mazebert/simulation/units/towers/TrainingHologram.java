@@ -5,9 +5,9 @@ import com.mazebert.simulation.Element;
 import com.mazebert.simulation.Rarity;
 import com.mazebert.simulation.units.Gender;
 
-public strictfp class TrainingDummy extends Tower {
+public strictfp class TrainingHologram extends Tower {
 
-    public TrainingDummy() {
+    public TrainingHologram() {
         setBaseCooldown(1.0f);
         setBaseRange(1.0f);
         setAttackType(AttackType.All);
@@ -16,17 +16,17 @@ public strictfp class TrainingDummy extends Tower {
         setGender(Gender.Unknown);
         setElement(Element.Light);
 
-        addAbility(new TrainingDummySpawn());
+        addAbility(new TrainingHologramSpawn());
     }
 
     @Override
     public String getName() {
-        return "Training Dummy";
+        return "Training Hologram";
     }
 
     @Override
     public String getDescription() {
-        return "A magical training\n(does not attack)";
+        return "A magical training device.\n(does not attack)";
     }
 
     @Override

@@ -10,7 +10,7 @@ import com.mazebert.simulation.units.abilities.Ability;
 import com.mazebert.simulation.units.abilities.FollowPathCreepStaticAbility;
 import com.mazebert.simulation.units.creeps.Creep;
 
-public strictfp class TrainingDummySpawn extends Ability<Tower> implements OnWaveFinishedListener, OnUnitAddedListener {
+public strictfp class TrainingHologramSpawn extends Ability<Tower> implements OnWaveFinishedListener, OnUnitAddedListener {
     private static final float XP = 1f;
     private static final float XP_PER_LEVEL = 0.02f;
 
@@ -77,6 +77,6 @@ public strictfp class TrainingDummySpawn extends Ability<Tower> implements OnWav
 
     @Override
     public String getIconFile() {
-        return "0038_shield_512";
+        return "01_magic_rune_circle_512";
     }
 }

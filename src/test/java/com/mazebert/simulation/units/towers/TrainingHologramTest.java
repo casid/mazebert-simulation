@@ -14,9 +14,9 @@ import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-strictfp class TrainingDummyTest extends SimTest {
+strictfp class TrainingHologramTest extends SimTest {
     Wizard wizard;
-    TrainingDummy trainingDummy;
+    TrainingHologram trainingHologram;
 
     @BeforeEach
     void setUp() {
@@ -31,11 +31,11 @@ strictfp class TrainingDummyTest extends SimTest {
         wizard = new Wizard();
         unitGateway.addUnit(wizard);
 
-        trainingDummy = new TrainingDummy();
-        trainingDummy.setWizard(wizard);
-        trainingDummy.setX(1);
-        trainingDummy.setY(2);
-        unitGateway.addUnit(trainingDummy);
+        trainingHologram = new TrainingHologram();
+        trainingHologram.setWizard(wizard);
+        trainingHologram.setX(1);
+        trainingHologram.setY(2);
+        unitGateway.addUnit(trainingHologram);
     }
 
     @Test
@@ -73,8 +73,8 @@ strictfp class TrainingDummyTest extends SimTest {
 
     @Test
     void initializedOnBuildOnly() {
-        unitGateway.removeUnit(trainingDummy);
-        new TrainingDummy();
+        unitGateway.removeUnit(trainingHologram);
+        new TrainingHologram();
 
         whenWaveIsFinished();
 
