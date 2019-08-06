@@ -12,7 +12,7 @@ public strictfp class Adventurer extends Tower {
 
     public Adventurer() {
         setBaseCooldown(2.0f);
-        setBaseRange(3.0f);
+        setBaseRange(4.0f);
         setAttackType(AttackType.All);
         setStrength(0.9f);
         setDamageSpread(0.3f);
