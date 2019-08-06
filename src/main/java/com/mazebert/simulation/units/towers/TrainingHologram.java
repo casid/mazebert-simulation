@@ -46,7 +46,7 @@ public strictfp class TrainingHologram extends Tower {
 
     @Override
     public String getModelId() {
-        return "adventurer"; // TODO!!
+        return "training_hologram";
     }
 
     @Override

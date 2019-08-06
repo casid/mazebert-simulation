@@ -9,6 +9,7 @@ import com.mazebert.simulation.units.Unit;
 import com.mazebert.simulation.units.abilities.Ability;
 import com.mazebert.simulation.units.abilities.FollowPathCreepStaticAbility;
 import com.mazebert.simulation.units.creeps.Creep;
+import com.mazebert.simulation.units.creeps.effects.HologramEffect;
 
 public strictfp class TrainingHologramSpawn extends Ability<Tower> implements OnWaveFinishedListener, OnUnitAddedListener {
     private static final float XP = 1f;
@@ -34,6 +35,7 @@ public strictfp class TrainingHologramSpawn extends Ability<Tower> implements On
     @Override
     public void onWaveFinished(Wave wave) {
         Creep dummy = new Creep(new FollowPathCreepStaticAbility());
+        dummy.addAbility(new HologramEffect());
         dummy.setX(getUnit().getX());
         dummy.setY(getUnit().getY());
 
