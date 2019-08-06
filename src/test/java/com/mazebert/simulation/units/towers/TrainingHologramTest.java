@@ -69,6 +69,7 @@ strictfp class TrainingHologramTest extends SimTest {
         assertThat(dummy.getHealth()).isEqualTo(0);
         dummy.simulate(5.0f);
         assertThat(unitGateway.hasUnit(dummy)).isFalse();
+        assertThat(trainingHologram.getExperience()).isEqualTo(1);
     }
 
     @Test

@@ -3,6 +3,7 @@ package com.mazebert.simulation.units.towers;
 import com.mazebert.simulation.Sim;
 import com.mazebert.simulation.Wave;
 import com.mazebert.simulation.WaveOrigin;
+import com.mazebert.simulation.listeners.OnDeathListener;
 import com.mazebert.simulation.listeners.OnUnitAddedListener;
 import com.mazebert.simulation.listeners.OnWaveFinishedListener;
 import com.mazebert.simulation.units.Unit;
@@ -11,7 +12,7 @@ import com.mazebert.simulation.units.abilities.FollowPathCreepStaticAbility;
 import com.mazebert.simulation.units.creeps.Creep;
 import com.mazebert.simulation.units.creeps.effects.HologramEffect;
 
-public strictfp class TrainingHologramSpawn extends Ability<Tower> implements OnWaveFinishedListener, OnUnitAddedListener {
+public strictfp class TrainingHologramSpawn extends Ability<Tower> implements OnWaveFinishedListener, OnUnitAddedListener, OnDeathListener {
     private static final float XP = 1f;
     private static final float XP_PER_LEVEL = 0.02f;
 
@@ -53,8 +54,15 @@ public strictfp class TrainingHologramSpawn extends Ability<Tower> implements On
         dummy.setArmor(1);
         dummy.setExperience(XP + getUnit().getLevel() * XP_PER_LEVEL);
         dummy.setType(dummyWave.creepType);
+        dummy.onDeath.add(this);
 
         Sim.context().waveSpawner.spawnCreep(dummy, null, 0);
+    }
+
+    @Override
+    public void onDeath(Creep creep) {
+        getUnit().addExperience(creep.getExperience());
+        creep.onDeath.remove(this);
     }
 
     @Override
@@ -79,6 +87,6 @@ public strictfp class TrainingHologramSpawn extends Ability<Tower> implements On
 
     @Override
     public String getIconFile() {
-        return "01_magic_rune_circle_512";
+        return "hologram_512";
     }
 }
