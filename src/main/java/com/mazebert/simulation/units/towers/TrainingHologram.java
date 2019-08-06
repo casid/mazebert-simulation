@@ -51,7 +51,7 @@ public strictfp class TrainingHologram extends Tower {
 
     @Override
     protected float getGoldCostFactor() {
-        return 0.08f; // TODO!!
+        return 0.7f;
     }
 
     @Override
