@@ -115,8 +115,4 @@ public strictfp class WitheredTest extends ItemTest {
 
         assertThat(creep.getX()).isEqualTo(0);
     }
-
-    private void whenTowerAttacks() {
-        tower.simulate(tower.getCooldown());
-    }
 }

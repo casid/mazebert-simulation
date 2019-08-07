@@ -10,24 +10,36 @@ import static com.mazebert.simulation.units.creeps.CreepBuilder.creep;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.jusecase.Builders.a;
 
-strictfp class PoisonArrowTest extends ItemTest {
-
+strictfp class UselessMachineTest extends ItemTest {
     @BeforeEach
     void setUp() {
+        tower.setLevel(1);
         tower.addAbility(new AttackAbility());
         tower.addAbility(new InstantDamageAbility());
     }
 
     @Test
-    void poison() {
+    void dealNoDamage() {
         Creep creep = a(creep());
         unitGateway.addUnit(creep);
+        damageSystemTrainer.givenRealDamageSystemIsUsed();
+        whenItemIsEquipped(ItemType.UselessMachine);
 
-        whenItemIsEquipped(ItemType.PoisonArrow);
         whenTowerAttacks();
 
-        assertThat(creep.getHealth()).isEqualTo(90);
-        creep.simulate(1.0f);
-        assertThat(creep.getHealth()).isEqualTo(89.49999999254942);
+        assertThat(creep.getHealth()).isEqualTo(100.0);
+    }
+
+    @Test
+    void dealDamageAgainWhenDropped() {
+        Creep creep = a(creep());
+        unitGateway.addUnit(creep);
+        damageSystemTrainer.givenRealDamageSystemIsUsed();
+        whenItemIsEquipped(ItemType.UselessMachine);
+        whenItemIsEquipped(null);
+
+        whenTowerAttacks();
+
+        assertThat(creep.getHealth()).isEqualTo(72.5);
     }
 }

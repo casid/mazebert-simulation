@@ -59,8 +59,4 @@ strictfp class SkullOfDarknessTest extends ItemTest {
         assertThat(wizard.health).isEqualTo(1.999999f);
         assertThat(tower.getItem(0)).isNull();
     }
-
-    private void whenTowerAttacks() {
-        tower.simulate(tower.getCooldown());
-    }
 }

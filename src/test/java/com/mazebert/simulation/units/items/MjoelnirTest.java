@@ -67,8 +67,4 @@ strictfp class MjoelnirTest extends ItemTest {
         assertThat(creep1.isDead()).isTrue();
         assertThat(creep2.isDead()).isTrue();
     }
-
-    private void whenTowerAttacks() {
-        tower.simulate(tower.getCooldown());
-    }
 }

@@ -66,6 +66,7 @@ public strictfp abstract class Tower extends Unit implements CooldownUnit, Card,
     private float itemChance = 1.0f; // 1.0 is 100% item chance (normal, not good not bad)
     private float itemQuality = 1.0f; // 1.0 is 100% item quality (normal, not good not bad)
     private float potionEffectiveness = 1.0f; // 1.0 is 100% potion effect (normal, not good not bad)
+    private int dealNoDamage;
     private Element element;
     private Gender gender;
     private AttackType attackType;
@@ -122,9 +123,6 @@ public strictfp abstract class Tower extends Unit implements CooldownUnit, Card,
         hash.add(totalDamage);
         hash.add(kills);
         hash.add(inventorySize);
-        if (version >= Sim.vDoL) {
-            hash.add(potionEffectiveness);
-        }
     }
 
     public float getBaseCooldown() {
@@ -736,5 +734,13 @@ public strictfp abstract class Tower extends Unit implements CooldownUnit, Card,
 
     public boolean isViking() {
         return this instanceof Viking || getAbility(VikingAbility.class) != null;
+    }
+
+    public void addDealNoDamage(int amount) {
+        dealNoDamage += amount;
+    }
+
+    public boolean isDealNoDamage() {
+        return dealNoDamage > 0;
     }
 }

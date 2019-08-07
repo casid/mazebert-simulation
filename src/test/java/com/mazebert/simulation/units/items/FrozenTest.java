@@ -105,9 +105,4 @@ strictfp class FrozenTest extends ItemTest {
 
         assertThat(wizard.towerStash.get(TowerType.Gib).getAmount()).isEqualTo(1);
     }
-
-    private void whenTowerAttacks() {
-        tower.simulate(tower.getCooldown());
-    }
-
 }

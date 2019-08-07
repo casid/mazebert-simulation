@@ -25,20 +25,20 @@ import com.mazebert.simulation.units.towers.TowerType;
 import com.mazebert.simulation.units.wizards.Wizard;
 
 public strictfp class ItemTest extends SimTest {
-    protected RandomPluginTrainer randomPluginTrainer = new RandomPluginTrainer();
-    protected DamageSystemTrainer damageSystemTrainer = new DamageSystemTrainer();
+    protected RandomPluginTrainer randomPluginTrainer;
+    protected DamageSystemTrainer damageSystemTrainer;
 
     protected Wizard wizard;
     protected Tower tower;
 
     public ItemTest() {
         simulationListeners = new SimulationListeners();
-        randomPlugin = randomPluginTrainer;
+        randomPlugin = randomPluginTrainer = new RandomPluginTrainer();
         unitGateway = new UnitGateway();
         gameGateway = new GameGateway();
         difficultyGateway = new DifficultyGateway();
         playerGateway = new PlayerGatewayTrainer();
-        damageSystem = damageSystemTrainer;
+        damageSystem = damageSystemTrainer = new DamageSystemTrainer();
         lootSystem = new LootSystemTrainer();
         experienceSystem = new ExperienceSystem();
         gameSystem = new GameSystem();
@@ -151,5 +151,9 @@ public strictfp class ItemTest extends SimTest {
         command.cardType = itemType;
         command.all = false;
         commandExecutor.executeVoid(command);
+    }
+
+    protected void whenTowerAttacks() {
+        tower.simulate(tower.getCooldown());
     }
 }

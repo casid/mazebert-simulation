@@ -57,7 +57,11 @@ public strictfp class DamageSystem {
             }
         }
 
-        damageInfo.damage = damage;
+        if (tower.isDealNoDamage()) {
+            damageInfo.damage = 0;
+        } else {
+            damageInfo.damage = damage;
+        }
         damageInfo.multicrits = rolledMulticrits;
 
         return damageInfo;
