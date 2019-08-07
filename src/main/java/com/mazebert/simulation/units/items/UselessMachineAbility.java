@@ -4,8 +4,8 @@ import com.mazebert.simulation.units.abilities.Ability;
 import com.mazebert.simulation.units.towers.Tower;
 
 public strictfp class UselessMachineAbility extends Ability<Tower> {
-    private static final float experienceMalus = 0.8f;
-    private static final float attackSpeedBonus = 1.0f;
+    private static final float experienceMalus = -0.8f;
+    private static final float attackSpeedBonus = 2.5f;
 
     @Override
     protected void initialize(Tower unit) {
