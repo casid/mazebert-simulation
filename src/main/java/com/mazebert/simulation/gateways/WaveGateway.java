@@ -111,6 +111,12 @@ public strictfp class WaveGateway implements ReadonlyWaveGateway {
                 return randomPlugin.get(RANDOM_AIR_CREEP_TYPES);
             case Horseman:
                 return CreepType.Horseman;
+            case Challenge:
+            case MassChallenge:
+                if (Sim.context().version >= Sim.vDoL) {
+                    return CreepType.Challenge;
+                }
+                break;
         }
         return randomPlugin.get(RANDOM_GROUND_CREEP_TYPES);
     }

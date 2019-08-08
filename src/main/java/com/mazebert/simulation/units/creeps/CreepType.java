@@ -9,6 +9,7 @@ public strictfp enum CreepType {
     AirDragon("airdragon"),
     Gnome("gnome"),
     Horseman("horsemen"),
+    Challenge("challenge"),
     ;
 
     public final String modelId;
