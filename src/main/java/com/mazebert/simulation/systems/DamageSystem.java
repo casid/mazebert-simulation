@@ -31,6 +31,11 @@ public strictfp class DamageSystem {
             return 0;
         }
 
+        if (creep.getChanceToMiss() > 0 && tower.isNegativeAbilityTriggered(creep.getChanceToMiss())) {
+            tower.onMiss.dispatch(this, creep);
+            return 0;
+        }
+
         rollDamage(tower);
         dealDamage(origin, tower, creep, damageInfo.damage, damageInfo.multicrits, true);
 

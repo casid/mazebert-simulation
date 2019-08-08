@@ -419,6 +419,28 @@ public strictfp class InstantDamageAbilityTest extends SimTest {
     }
 
     @Test
+    void missChance_creep_miss() {
+        tower.setBaseDamage(10.0f);
+        creep.addChanceToMiss(0.5f);
+        randomPluginTrainer.givenFloatAbs(0.1f);
+
+        whenTowerAttacks();
+
+        assertThat(creep.getHealth()).isEqualTo(100);
+    }
+
+    @Test
+    void missChance_creep_hit() {
+        tower.setBaseDamage(10.0f);
+        creep.addChanceToMiss(0.5f);
+        randomPluginTrainer.givenFloatAbs(0.6f);
+
+        whenTowerAttacks();
+
+        assertThat(creep.getHealth()).isEqualTo(90);
+    }
+
+    @Test
     void stats() {
         tower.setBaseDamage(10.0f);
 
