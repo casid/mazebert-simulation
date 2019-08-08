@@ -14,6 +14,7 @@ import com.mazebert.simulation.units.creeps.Creep;
 import com.mazebert.simulation.units.creeps.CreepModifier;
 import com.mazebert.simulation.units.creeps.CreepState;
 import com.mazebert.simulation.units.creeps.CreepType;
+import com.mazebert.simulation.units.creeps.effects.GhostEffect;
 import com.mazebert.simulation.units.creeps.effects.ReviveEffect;
 import com.mazebert.simulation.units.creeps.effects.UnionEffect;
 import com.mazebert.simulation.units.items.ItemType;
@@ -498,6 +499,22 @@ public strictfp class WaveSpawnerTest extends SimTest {
 
         assertThat(getCreep(0).getHealth()).isEqualTo(256); // all creeps have the same health (the rounds health pool)
         assertThat(getCreep(0).getAbility(UnionEffect.class)).isNotNull();
+    }
+
+    @Test
+    void modifier_ghost() {
+        wave = new Wave();
+        wave.round = 1;
+        wave.creepCount = 10;
+        wave.creepType = CreepType.Orc;
+        wave.creepModifier1 = CreepModifier.Ghost;
+        waveGateway.addWave(wave);
+
+        whenAllCreepsAreSpawned();
+
+        assertThat(getCreep(0).getHealth()).isEqualTo(GhostEffect.CHANCE_TO_MISS * 25.6);
+        assertThat(getCreep(0).getChanceToMiss()).isEqualTo(GhostEffect.CHANCE_TO_MISS);
+        assertThat(getCreep(0).getAbility(GhostEffect.class)).isNotNull();
     }
 
     @Test

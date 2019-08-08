@@ -2,6 +2,7 @@ package com.mazebert.simulation.units.creeps;
 
 import com.mazebert.simulation.Sim;
 import com.mazebert.simulation.Wave;
+import com.mazebert.simulation.units.creeps.effects.GhostEffect;
 import com.mazebert.simulation.units.creeps.effects.ReviveEffect;
 import com.mazebert.simulation.units.creeps.effects.UnionEffect;
 
@@ -15,10 +16,11 @@ public strictfp enum CreepModifier {
     Steady(30),
     Union(20),
     Loot(10),
+    Ghost(50),
     ;
 
-    private static final CreepModifier[] STANDARD = {Fast, Slow, Wisdom, Rich, Armor, Revive};
-    private static final CreepModifier[] DAWN_OF_LIGHT = {Fast, Slow, Wisdom, Rich, Armor, Revive, Steady, Union, Loot};
+    private static final CreepModifier[] STANDARD =      {Fast, Slow, Wisdom, Rich, Armor, Revive};
+    private static final CreepModifier[] DAWN_OF_LIGHT = {Fast, Slow, Wisdom, Rich, Armor, Revive, Steady, Union, Loot, Ghost};
 
     private final int minRound;
 
@@ -71,6 +73,11 @@ public strictfp enum CreepModifier {
                 break;
             case Loot:
                 creep.setDropChance(creep.getDropChance() * 1.2f);
+                break;
+            case Ghost:
+                creep.setMaxHealth(creep.getMaxHealth() * GhostEffect.CHANCE_TO_MISS);
+                creep.setHealth(creep.getMaxHealth());
+                creep.addAbility(new GhostEffect());
                 break;
         }
     }

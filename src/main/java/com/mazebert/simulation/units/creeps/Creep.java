@@ -36,6 +36,7 @@ public strictfp class Creep extends Unit {
     private float experience;
     private float experienceModifier = 1.0f;
     private float immobilizeResistance = 0;
+    private float chanceToMiss = 0;
 
     private transient double initialHealth;
     private transient float deathTime;
@@ -335,5 +336,13 @@ public strictfp class Creep extends Unit {
 
     public void addImmobilizeResistance(float immobilizeResistance) {
         this.immobilizeResistance += immobilizeResistance;
+    }
+
+    public void addChanceToMiss(float chanceToMiss) {
+        this.chanceToMiss += chanceToMiss;
+    }
+
+    public float getChanceToMiss() {
+        return chanceToMiss;
     }
 }
