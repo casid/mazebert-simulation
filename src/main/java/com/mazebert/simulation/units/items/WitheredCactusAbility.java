@@ -13,7 +13,7 @@ public strictfp class WitheredCactusAbility extends ArmorPenetrationWithLevelBon
 
     public static float getBonusPerLevel() {
         if (Sim.context().version >= Sim.vDoL) {
-            return 0.003f;
+            return 0.0003f;
         }
         return 0.003f;
     }
