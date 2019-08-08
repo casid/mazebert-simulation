@@ -19,6 +19,7 @@ public strictfp class DamageSystem {
     private final SimulationListeners simulationListeners = Sim.context().simulationListeners;
     private final FormatPlugin formatPlugin = Sim.context().formatPlugin;
     private final DamageInfo damageInfo = Sim.context().damageInfo;
+    private final int version = Sim.context().version;
 
     public double dealDamage(Object origin, Tower tower, Creep creep) {
         if (!creep.isPartOfGame()) {
@@ -101,8 +102,12 @@ public strictfp class DamageSystem {
 
     private double getArmorDamageFactor(Tower tower, Creep creep) {
         double factor = getArmorDamageFactor(creep.getArmor());
-        if (factor < 1.0 && tower.getArmorPenetration() > 0) {
-            factor += (1.0 - factor) * tower.getArmorPenetration();
+        float armorPenetration = tower.getArmorPenetration();
+        if (factor < 1.0 && armorPenetration > 0) {
+            if (armorPenetration > 1.0f && version >= Sim.vDoL) {
+                armorPenetration = 1.0f;
+            }
+            factor += (1.0 - factor) * armorPenetration;
         }
         return factor;
     }
