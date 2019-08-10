@@ -50,7 +50,7 @@ strictfp class TrainingHologramTest extends SimTest {
         assertThat(dummy.getGold()).isEqualTo(0);
         assertThat(dummy.getWizard()).isEqualTo(wizard);
         assertThat(dummy.getArmor()).isEqualTo(1);
-        assertThat(dummy.getExperience()).isEqualTo(1);
+        assertThat(dummy.getExperience()).isEqualTo(TrainingHologramSpawn.XP);
         assertThat(dummy.getType()).isEqualTo(CreepType.Spider);
         assertThat(dummy.getWave()).isNotSameAs(wave); // We need to create a new dummy wave, otherwise the wave spawner will go crazy!
         assertThat(dummy.getWave().origin).isEqualTo(WaveOrigin.TrainingDummy);
@@ -69,7 +69,7 @@ strictfp class TrainingHologramTest extends SimTest {
         assertThat(dummy.getHealth()).isEqualTo(0);
         dummy.simulate(5.0f);
         assertThat(unitGateway.hasUnit(dummy)).isFalse();
-        assertThat(trainingHologram.getExperience()).isEqualTo(1);
+        assertThat(trainingHologram.getExperience()).isEqualTo(TrainingHologramSpawn.XP);
     }
 
     @Test
