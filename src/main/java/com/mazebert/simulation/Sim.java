@@ -36,4 +36,8 @@ public strictfp class Sim {
     public static void resetContext() {
         context.remove();
     }
+
+    public static boolean isDoLSeasonContent() {
+        return context().version >= vDoL && context().season;
+    }
 }

@@ -23,7 +23,7 @@ public strictfp enum Element {
     }
 
     public static Element[] getValues() {
-        if (Sim.context().version >= Sim.vDoL && Sim.context().season) {
+        if (Sim.isDoLSeasonContent()) {
             return DAWN_OF_LIGHT;
         }
         return STANDARD;

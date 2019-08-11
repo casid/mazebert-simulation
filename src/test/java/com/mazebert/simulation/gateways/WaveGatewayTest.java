@@ -30,6 +30,7 @@ class WaveGatewayTest extends SimTest {
         playerGateway = playerGatewayTrainer;
         waveGateway = new WaveGateway();
         gameSystem = new GameSystem();
+        season = true;
     }
 
     @Test

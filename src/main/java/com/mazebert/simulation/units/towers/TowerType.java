@@ -113,7 +113,7 @@ public strictfp enum TowerType implements CardType<Tower> {
     }
 
     public static TowerType[] getValues() {
-        if (Sim.context().version >= Sim.vDoL && Sim.context().season) {
+        if (Sim.isDoLSeasonContent()) {
             return DAWN_OF_LIGHT;
         }
         return STANDARD;
