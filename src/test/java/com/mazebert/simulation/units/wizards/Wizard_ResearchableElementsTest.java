@@ -20,22 +20,24 @@ class Wizard_ResearchableElementsTest extends SimTest {
 
         wizard = new Wizard();
         wizard.towerStash.setElements(EnumSet.noneOf(Element.class));
+
+        season = true;
     }
 
     @Test
     void all() {
-        assertThat(wizard.getResearchableElements()).containsExactlyInAnyOrder(PotionType.ResearchDarkness, PotionType.ResearchNature, PotionType.ResearchMetropolis);
+        assertThat(wizard.getResearchableElements()).containsExactlyInAnyOrder(PotionType.ResearchDarkness, PotionType.ResearchNature, PotionType.ResearchMetropolis, PotionType.ResearchLight);
     }
 
     @Test
     void onlyOne() {
-        wizard.towerStash.setElements(EnumSet.of(Element.Nature, Element.Darkness));
+        wizard.towerStash.setElements(EnumSet.of(Element.Nature, Element.Darkness, Element.Light));
         assertThat(wizard.getResearchableElements()).containsExactlyInAnyOrder(PotionType.ResearchMetropolis);
     }
 
     @Test
     void alreadyDropped() {
         wizard.potionStash.add(PotionType.ResearchDarkness);
-        assertThat(wizard.getResearchableElements()).containsExactlyInAnyOrder(PotionType.ResearchMetropolis, PotionType.ResearchNature);
+        assertThat(wizard.getResearchableElements()).containsExactlyInAnyOrder(PotionType.ResearchMetropolis, PotionType.ResearchNature, PotionType.ResearchLight);
     }
 }

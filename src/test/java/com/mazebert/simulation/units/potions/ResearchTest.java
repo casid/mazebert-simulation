@@ -31,6 +31,7 @@ class ResearchTest extends ItemTest {
         assertThat(wizard.towerStash.isElementResearched(Element.Darkness)).isFalse();
         assertThat(wizard.towerStash.isElementResearched(Element.Metropolis)).isFalse();
         assertThat(wizard.towerStash.isElementResearched(Element.Nature)).isTrue();
+        assertThat(wizard.towerStash.isElementResearched(Element.Light)).isFalse();
     }
 
     @Test
@@ -40,6 +41,17 @@ class ResearchTest extends ItemTest {
         assertThat(wizard.towerStash.isElementResearched(Element.Darkness)).isFalse();
         assertThat(wizard.towerStash.isElementResearched(Element.Metropolis)).isTrue();
         assertThat(wizard.towerStash.isElementResearched(Element.Nature)).isFalse();
+        assertThat(wizard.towerStash.isElementResearched(Element.Light)).isFalse();
+    }
+
+    @Test
+    void light() {
+        whenPotionIsConsumed(PotionType.ResearchLight);
+
+        assertThat(wizard.towerStash.isElementResearched(Element.Darkness)).isFalse();
+        assertThat(wizard.towerStash.isElementResearched(Element.Metropolis)).isFalse();
+        assertThat(wizard.towerStash.isElementResearched(Element.Nature)).isFalse();
+        assertThat(wizard.towerStash.isElementResearched(Element.Light)).isTrue();
     }
 
     @Test
@@ -47,9 +59,11 @@ class ResearchTest extends ItemTest {
         whenPotionIsConsumed(PotionType.ResearchDarkness);
         whenPotionIsConsumed(PotionType.ResearchNature);
         whenPotionIsConsumed(PotionType.ResearchMetropolis);
+        whenPotionIsConsumed(PotionType.ResearchLight);
 
         assertThat(wizard.towerStash.isElementResearched(Element.Darkness)).isTrue();
         assertThat(wizard.towerStash.isElementResearched(Element.Metropolis)).isTrue();
         assertThat(wizard.towerStash.isElementResearched(Element.Nature)).isTrue();
+        assertThat(wizard.towerStash.isElementResearched(Element.Light)).isTrue();
     }
 }

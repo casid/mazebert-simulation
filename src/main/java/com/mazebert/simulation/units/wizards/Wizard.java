@@ -188,6 +188,8 @@ public strictfp class Wizard extends Unit {
                 return PotionType.ResearchMetropolis;
             case Darkness:
                 return PotionType.ResearchDarkness;
+            case Light:
+                return PotionType.ResearchLight;
         }
 
         return null;
