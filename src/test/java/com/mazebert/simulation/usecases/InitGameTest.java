@@ -63,6 +63,13 @@ class InitGameTest extends UsecaseTest<InitGameCommand> {
     }
 
     @Test
+    void timestampIsSet() {
+        request.timestamp = 123413513513L;
+        whenRequestIsExecuted();
+        assertThat(gameGateway.getGame().timestamp).isEqualTo(request.timestamp);
+    }
+
+    @Test
     void gameCountDownIsStarted() {
         simulationListeners.onGameStarted.add(() -> gameStarted = true);
 

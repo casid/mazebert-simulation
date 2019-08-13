@@ -1,5 +1,6 @@
 package com.mazebert.simulation.commands.serializers;
 
+import com.mazebert.simulation.Sim;
 import com.mazebert.simulation.commands.InitGameCommand;
 import org.jusecase.bitpack.BitReader;
 import org.jusecase.bitpack.BitSerializer;
@@ -16,6 +17,9 @@ public strictfp class InitGameCommandSerializer implements BitSerializer<InitGam
     public void serialize(BitWriter writer, InitGameCommand object) {
         writer.writeUnsignedInt(26, object.version);
         writer.writeUuidNonNull(object.gameId);
+        if (object.version >= Sim.vDoL) {
+            writer.writeLong(object.timestamp);
+        }
         writer.writeUnsignedInt12(object.rounds);
         EnumSerializer.writeDifficulty(writer, object.difficulty);
         EnumSerializer.writeMapType(writer, object.map);
@@ -26,6 +30,9 @@ public strictfp class InitGameCommandSerializer implements BitSerializer<InitGam
     public void deserialize(BitReader reader, InitGameCommand object) {
         object.version = reader.readUnsignedInt(26);
         object.gameId = reader.readUuidNonNull();
+        if (object.version >= Sim.vDoL) {
+            object.timestamp = reader.readLong();
+        }
         object.rounds = reader.readUnsignedInt12();
         object.difficulty = EnumSerializer.readDifficulty(reader);
         object.map = EnumSerializer.readMapType(reader);

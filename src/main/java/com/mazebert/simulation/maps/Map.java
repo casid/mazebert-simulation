@@ -1,6 +1,7 @@
 package com.mazebert.simulation.maps;
 
 import com.mazebert.java8.Predicate;
+import com.mazebert.simulation.Game;
 import com.mazebert.simulation.Path;
 import com.mazebert.simulation.math.Point;
 
@@ -54,7 +55,10 @@ public strictfp abstract class Map {
     }
 
     @SuppressWarnings("unused")
-    public String getAtlas() {
+    public String getAtlas(Game game) {
+        if (game.isWinter()) {
+            return "maps/tiles-winter.xml";
+        }
         return "maps/tiles.xml";
     }
 

@@ -9,6 +9,7 @@ import java.util.UUID;
 public strictfp class InitGameCommand extends Command {
     public int version = Sim.version;
     public UUID gameId;
+    public long timestamp;
     public int rounds;
     public Difficulty difficulty = Difficulty.Easy;
     public MapType map;

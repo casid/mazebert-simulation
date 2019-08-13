@@ -29,6 +29,7 @@ public strictfp class InitGame extends Usecase<InitGameCommand> {
 
         randomPlugin.setSeed(command.gameId);
         gameGateway.getGame().id = command.gameId;
+        gameGateway.getGame().timestamp = command.timestamp;
 
         difficultyGateway.setDifficulty(command.difficulty);
 

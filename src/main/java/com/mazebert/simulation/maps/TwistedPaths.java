@@ -1,5 +1,7 @@
 package com.mazebert.simulation.maps;
 
+import com.mazebert.simulation.Game;
+
 public strictfp class TwistedPaths extends Map {
 
     public TwistedPaths() {
@@ -292,7 +294,7 @@ public strictfp class TwistedPaths extends Map {
     }
 
     @Override
-    public String getAtlas() {
+    public String getAtlas(Game game) {
         return "maps/syotos/tiles.xml";
     }
 }

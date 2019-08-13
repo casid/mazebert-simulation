@@ -1,5 +1,7 @@
 package com.mazebert.simulation.maps;
 
+import com.mazebert.simulation.Game;
+
 public strictfp class GoldenGrounds extends Map {
 
     public GoldenGrounds() {
@@ -305,7 +307,7 @@ public strictfp class GoldenGrounds extends Map {
     }
 
     @Override
-    public String getAtlas() {
+    public String getAtlas(Game game) {
         return "maps/golden/tiles.xml";
     }
 }
