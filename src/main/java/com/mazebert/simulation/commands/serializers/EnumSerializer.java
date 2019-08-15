@@ -23,7 +23,6 @@ public strictfp class EnumSerializer {
     public static final int DIFFICULTY_BITS = 3;
     public static final int MAP_BITS = 3;
     public static final int ACTIVE_ABILITY_BITS = 3;
-    public static final int QUEST_BITS = 5;
 
     public static TowerType readTowerType(BitReader reader) {
         return TowerType.forId(reader.readUnsignedInt(TOWER_BITS));
@@ -106,11 +105,11 @@ public strictfp class EnumSerializer {
     }
 
     public static QuestType readQuestType(BitReader reader) {
-        return QuestType.forId(reader.readUnsignedInt(QUEST_BITS));
+        return QuestType.forId(reader.readUnsignedInt(getQuestBits()));
     }
 
     public static void writeQuestType(BitWriter writer, QuestType type) {
-        writer.writeUnsignedInt(QUEST_BITS, type.id);
+        writer.writeUnsignedInt(getQuestBits(), type.id);
     }
 
     public static CardType readCardType(BitReader reader, CardCategory category) {
@@ -256,6 +255,14 @@ public strictfp class EnumSerializer {
             return 5;
         } else {
             return 4;
+        }
+    }
+
+    public static int getQuestBits() {
+        if (Sim.context().version >= Sim.vDoL) {
+            return 6;
+        } else {
+            return 5;
         }
     }
 }

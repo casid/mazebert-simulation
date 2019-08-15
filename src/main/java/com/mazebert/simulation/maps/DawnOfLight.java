@@ -122,7 +122,7 @@ public strictfp class DawnOfLight extends Map {
         addTile(new Tile(t2, -0.4f, -100));
         addTile(new Tile(t6, 0.0f, 0));
         addTile(new Tile(t3, 0.0f, 0));
-        addTile(new Tile(t14, 0.1f, 0));
+        addTile(new Tile(t14, 0.1f, 0).waypoint(1));
         addTile(new Tile(t7, -0.4f, 0));
         addTile(new Tile(t7, -0.4f, 0));
         addTile(new Tile(t13, 0.0f, 0));
@@ -230,7 +230,7 @@ public strictfp class DawnOfLight extends Map {
         addTile(new Tile(t13, 0.0f, 0));
         addTile(new Tile(t3, 0.0f, 0));
         addTile(new Tile(t3, 0.0f, 0));
-        addTile(new Tile(t5, 0.0f, 0));
+        addTile(new Tile(t5, 0.0f, 0).waypoint(0));
         addTile(new Tile(t7, -0.4f, 0));
         addTile(new Tile(t2, -0.4f, -100));
         addTile(new Tile(t8, -0.4f, -100));

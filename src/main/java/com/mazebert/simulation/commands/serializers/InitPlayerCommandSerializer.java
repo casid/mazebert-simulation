@@ -10,7 +10,6 @@ import org.jusecase.bitpack.BitWriter;
 public strictfp class InitPlayerCommandSerializer implements BitSerializer<InitPlayerCommand> {
 
     private static final int PLAYER_NAME_BITS = 6;
-    private static final int QUEST_BITS = EnumSerializer.QUEST_BITS + 1;
 
     @Override
     public InitPlayerCommand createObject() {
@@ -34,7 +33,7 @@ public strictfp class InitPlayerCommandSerializer implements BitSerializer<InitP
 
         EnumSerializer.writeElements(writer, object.elements);
 
-        writer.writeObjectsWithSameType(QUEST_BITS, object.quests);
+        writer.writeObjectsWithSameType(getQuestBits(), object.quests);
     }
 
     @Override
@@ -54,6 +53,10 @@ public strictfp class InitPlayerCommandSerializer implements BitSerializer<InitP
 
         object.elements = EnumSerializer.readElements(reader);
 
-        object.quests = reader.readObjectsWithSameTypeAsList(QUEST_BITS, QuestData.class);
+        object.quests = reader.readObjectsWithSameTypeAsList(getQuestBits(), QuestData.class);
+    }
+
+    private int getQuestBits() {
+        return EnumSerializer.getQuestBits() + 1;
     }
 }
