@@ -1,6 +1,13 @@
 package com.mazebert.simulation.maps;
 
+import com.mazebert.simulation.Path;
+
 public strictfp class DawnOfLight extends Map {
+
+    private Path airPath;
+    private Path leftGroundPath;
+    private Path rightGroundPath;
+    private boolean nextGroundPathLeft;
 
     public DawnOfLight() {
         setMaxScrollY(-340);
@@ -325,5 +332,38 @@ public strictfp class DawnOfLight extends Map {
     @Override
     public int getColumns() {
         return 11;
+    }
+
+    @Override
+    public Path getGroundPath() {
+        nextGroundPathLeft = !nextGroundPathLeft;
+
+        if (nextGroundPathLeft) {
+            return getLeftGroundPath();
+        } else {
+            return getRightGroundPath();
+        }
+    }
+
+    @Override
+    public Path getAirPath() {
+        if (airPath == null) {
+            airPath = new Path(24, 19, 24, 17, 20, 17, 20, 13, 16, 13, 16, 9, 13, 8);
+        }
+        return airPath;
+    }
+
+    private Path getLeftGroundPath() {
+        if (leftGroundPath == null) {
+            leftGroundPath = new Path(22, 17, 19, 17, 19, 16, 18, 16, 18, 9, 17, 9, 17, 8, 16, 8, 16, 7, 15, 7, 15, 6, 13, 6, 13, 7);
+        }
+        return leftGroundPath;
+    }
+
+    private Path getRightGroundPath() {
+        if (rightGroundPath == null) {
+            rightGroundPath = new Path(22, 17, 22, 14, 21, 14, 21, 13, 14, 13, 14, 12, 13, 12, 13, 11, 12, 11, 12, 10, 11, 10, 11, 8, 12, 8);
+        }
+        return rightGroundPath;
     }
 }
