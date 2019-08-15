@@ -1,13 +1,19 @@
 package com.mazebert.simulation.maps;
 
+import com.mazebert.simulation.Sim;
+
 public strictfp enum MapType {
     BloodMoor(1, BloodMoor.class, "Blood Moor"),
     ShatteredPlains(2, ShatteredPlains.class, "Shattered Plains"),
     TwistedPaths(3, TwistedPaths.class, "Twisted Paths"),
     GoldenGrounds(4, GoldenGrounds.class, "Golden Grounds"),
+    DawnOfLight(5, DawnOfLight.class, "Dawn of Light"),
     ;
 
     private static MapType[] LOOKUP;
+
+    private static final MapType[] STANDARD      = {BloodMoor, ShatteredPlains, TwistedPaths, GoldenGrounds};
+    private static final MapType[] DAWN_OF_LIGHT = {BloodMoor, ShatteredPlains, TwistedPaths, DawnOfLight, GoldenGrounds};
 
     static {
         int maxId = 0;
@@ -28,6 +34,13 @@ public strictfp enum MapType {
         this.id = id;
         this.displayName = displayName;
         this.mapClass = mapClass;
+    }
+
+    public static MapType[] getValues() {
+        if (Sim.isDoLSeasonContent()) {
+            return DAWN_OF_LIGHT;
+        }
+        return STANDARD;
     }
 
     public static MapType forId(int id) {
