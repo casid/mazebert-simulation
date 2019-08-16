@@ -25,6 +25,7 @@ public strictfp enum HeroType implements CardType<Hero> {
     LoanShark(10, LoanShark.class),
     JackInTheBox(11, JackInTheBox.class),
     Bookworm(12, Bookworm.class),
+    ProphetLucien(13, ProphetLucien.class),
     ;
 
     public final int id;
@@ -60,6 +61,8 @@ public strictfp enum HeroType implements CardType<Hero> {
     }
 
     private static HeroType[] LOOKUP;
+    private static final HeroType[] STANDARD =      {LittleFinger, ShadowMane, Lycaon, Roderic, CookieMonster, InnKeeper, HoradricMage, JesterKing, Kvothe, LoanShark, JackInTheBox, Bookworm};
+    private static final HeroType[] DAWN_OF_LIGHT = {LittleFinger, ShadowMane, Lycaon, Roderic, CookieMonster, InnKeeper, HoradricMage, JesterKing, Kvothe, LoanShark, JackInTheBox, Bookworm, ProphetLucien};
 
     static {
         int maxId = 0;
@@ -73,7 +76,10 @@ public strictfp enum HeroType implements CardType<Hero> {
     }
 
     public static HeroType[] getValues() {
-        return values();
+        if (Sim.isDoLSeasonContent()) {
+            return DAWN_OF_LIGHT;
+        }
+        return STANDARD;
     }
 
     public static HeroType forId(int id) {

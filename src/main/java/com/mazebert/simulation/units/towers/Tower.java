@@ -63,6 +63,7 @@ public strictfp abstract class Tower extends Unit implements CooldownUnit, Card,
     private float armorPenetration;
     private float chanceToMiss;
     private float luck = 1.0f; // factor 1 is regular luck of every tower
+    private int multiluck = 1;
     private float itemChance = 1.0f; // 1.0 is 100% item chance (normal, not good not bad)
     private float itemQuality = 1.0f; // 1.0 is 100% item quality (normal, not good not bad)
     private float potionEffectiveness = 1.0f; // 1.0 is 100% potion effect (normal, not good not bad)
@@ -366,6 +367,15 @@ public strictfp abstract class Tower extends Unit implements CooldownUnit, Card,
         chance *= luck;
         if (chance > Balancing.MAX_TRIGGER_CHANCE) {
             chance = Balancing.MAX_TRIGGER_CHANCE;
+        }
+        if (multiluck > 1) {
+            for (int i = 0; i < multiluck; ++i) {
+                if (Sim.context().randomPlugin.getFloatAbs() < chance) {
+                    return true;
+                }
+                chance *= 0.8f;
+            }
+            return false;
         }
         return Sim.context().randomPlugin.getFloatAbs() < chance;
     }
@@ -742,5 +752,9 @@ public strictfp abstract class Tower extends Unit implements CooldownUnit, Card,
 
     public boolean isDealNoDamage() {
         return dealNoDamage > 0;
+    }
+
+    public void addMultiluck(int amount) {
+        multiluck += amount;
     }
 }
