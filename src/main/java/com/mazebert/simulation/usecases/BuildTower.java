@@ -141,6 +141,9 @@ public strictfp class BuildTower extends Usecase<BuildTowerCommand> {
             case DecreasedRange:
                 tower.addRange(-1);
                 break;
+            case DamageAgainstAir:
+                tower.addDamageAgainstAir(0.2f);
+                break;
         }
     }
 }

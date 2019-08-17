@@ -146,7 +146,7 @@ public strictfp class DawnOfLight extends Map {
         addTile(new Tile(t12, 0.0f, 0));
         addTile(new Tile(t7, -0.4f, 0));
         addTile(new Tile(t11, 1.5f, 0));
-        addTile(new Tile(t10, 1.0f, 0));
+        addTile(new Tile(t10, 1.0f, 0).aura(MapAura.DamageAgainstAir));
         addTile(new Tile(t11, 0.3f, 0));
         addTile(new Tile(t7, -0.4f, 0));
         addTile(new Tile(t4, 0.0f, 0));
@@ -206,7 +206,7 @@ public strictfp class DawnOfLight extends Map {
         addTile(new Tile(t9, -0.4f, -100));
         addTile(new Tile(t4, 0.0f, 0));
         addTile(new Tile(t7, -0.4f, 0));
-        addTile(new Tile(t11, 0.8f, 0));
+        addTile(new Tile(t11, 0.8f, 0).aura(MapAura.DamageAgainstAir));
         addTile(new Tile(t10, 0.2f, 0));
         addTile(new Tile(t4, 0.0f, 0));
         addTile(new Tile(t7, -0.4f, 0));
