@@ -20,6 +20,13 @@ public strictfp class NextWave extends Usecase<NextWaveCommand> {
             return;
         }
 
+        if (gameGateway.getGame().timeLord) {
+            if (context.timeLordCountDown != null) {
+                skipCountDown(context, context.timeLordCountDown);
+            }
+            return;
+        }
+
         if (gameGateway.getGame().bonusRound) {
             if (context.bonusRoundCountDown != null) {
                 skipCountDown(context, context.bonusRoundCountDown);

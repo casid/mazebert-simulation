@@ -1,9 +1,6 @@
 package com.mazebert.simulation.usecases;
 
-import com.mazebert.simulation.SimulationListeners;
-import com.mazebert.simulation.Wave;
-import com.mazebert.simulation.WaveSpawner;
-import com.mazebert.simulation.WaveType;
+import com.mazebert.simulation.*;
 import com.mazebert.simulation.commands.NextWaveCommand;
 import com.mazebert.simulation.countdown.BonusRoundCountDown;
 import com.mazebert.simulation.countdown.TimeLordCountDown;
@@ -100,8 +97,7 @@ class NextWaveTest extends UsecaseTest<NextWaveCommand> {
 
         whenRequestIsExecuted();
 
-        assertThat(timeLordStarted).isEqualTo(0);
-        assertThat(skippedSeconds).isEqualTo(0);
-        // time lord countdown cannot be fast-forwarded
+        assertThat(timeLordStarted).isEqualTo(1);
+        assertThat(skippedSeconds).isEqualTo((int)Balancing.TIME_LORD_COUNTDOWN_SECONDS);
     }
 }
