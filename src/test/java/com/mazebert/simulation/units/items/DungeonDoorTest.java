@@ -1,5 +1,6 @@
 package com.mazebert.simulation.units.items;
 
+import com.mazebert.simulation.Wave;
 import com.mazebert.simulation.WaveSpawner;
 import com.mazebert.simulation.gateways.DifficultyGateway;
 import com.mazebert.simulation.gateways.WaveGateway;
@@ -26,7 +27,7 @@ public class DungeonDoorTest extends ItemTest {
     @Test
     void goblinSpawnsInRange() {
         whenItemIsEquipped(ItemType.DungeonDoor);
-        simulationListeners.onRoundStarted.dispatch(1);
+        simulationListeners.onRoundStarted.dispatch(new Wave());
 
         Creep goblin = unitGateway.findUnit(Creep.class, wizard.getPlayerId());
         assertThat(goblin.getX()).isEqualTo(17);
@@ -36,7 +37,7 @@ public class DungeonDoorTest extends ItemTest {
     @Test
     void goblinCannotSpawn() {
         tower.setX(10000);
-        simulationListeners.onRoundStarted.dispatch(1);
+        simulationListeners.onRoundStarted.dispatch(new Wave());
 
         whenItemIsEquipped(ItemType.DungeonDoor);
 

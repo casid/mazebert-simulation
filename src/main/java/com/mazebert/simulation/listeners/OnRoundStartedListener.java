@@ -1,5 +1,7 @@
 package com.mazebert.simulation.listeners;
 
+import com.mazebert.simulation.Wave;
+
 public interface OnRoundStartedListener {
-    void onRoundStarted(int round);
+    void onRoundStarted(Wave wave);
 }

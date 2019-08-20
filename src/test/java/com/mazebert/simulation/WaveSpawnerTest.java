@@ -48,7 +48,7 @@ public strictfp class WaveSpawnerTest extends SimTest {
     void setUp() {
         simulationListeners = new SimulationListeners();
         simulationListeners.onWaveFinished.add(wave -> waveFinished = true);
-        simulationListeners.onRoundStarted.add(round -> roundStarted = round);
+        simulationListeners.onRoundStarted.add(wave -> roundStarted = wave.round);
 
         formatPlugin = new FormatPlugin();
 

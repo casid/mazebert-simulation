@@ -208,7 +208,7 @@ public strictfp final class WaveSpawner implements OnGameStartedListener, OnWave
 
         wave.remainingCreepCount = spawnCount;
 
-        simulationListeners.onRoundStarted.dispatch(round);
+        simulationListeners.onRoundStarted.dispatch(wave);
     }
 
     private double getHealthOfOneCreep(Wave wave, double healthOfAllCreeps) {

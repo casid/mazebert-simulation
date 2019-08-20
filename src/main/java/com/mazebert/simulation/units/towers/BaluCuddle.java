@@ -3,6 +3,7 @@ package com.mazebert.simulation.units.towers;
 import com.mazebert.simulation.Balancing;
 import com.mazebert.simulation.Sim;
 import com.mazebert.simulation.SimulationListeners;
+import com.mazebert.simulation.Wave;
 import com.mazebert.simulation.gateways.UnitGateway;
 import com.mazebert.simulation.listeners.OnRoundStartedListener;
 import com.mazebert.simulation.listeners.OnUnitAddedListener;
@@ -82,7 +83,7 @@ public strictfp class BaluCuddle extends CooldownAbility<Tower> implements OnUni
     }
 
     @Override
-    public void onRoundStarted(int round) {
+    public void onRoundStarted(Wave wave) {
         cuddle(DAMAGE, DAMAGE_PER_LEVEL);
     }
 

@@ -67,7 +67,7 @@ public strictfp class DarkForgeCraft extends Ability<Tower> implements OnUnitAdd
     }
 
     @Override
-    public void onRoundStarted(int round) {
+    public void onRoundStarted(Wave wave) {
         craft();
     }
 

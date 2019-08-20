@@ -2,6 +2,7 @@ package com.mazebert.simulation.units.towers;
 
 import com.mazebert.simulation.SimTest;
 import com.mazebert.simulation.SimulationListeners;
+import com.mazebert.simulation.Wave;
 import com.mazebert.simulation.gateways.UnitGateway;
 import com.mazebert.simulation.plugins.random.RandomPluginTrainer;
 import com.mazebert.simulation.units.TestTower;
@@ -101,7 +102,7 @@ class BaluTest extends SimTest {
     }
 
     private void whenBaluNeedsCuddling() {
-        simulationListeners.onRoundStarted.dispatch(1);
+        simulationListeners.onRoundStarted.dispatch(new Wave());
         balu.simulate(20.0f);
     }
 }

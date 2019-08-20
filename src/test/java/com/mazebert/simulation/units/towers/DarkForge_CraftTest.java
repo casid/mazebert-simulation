@@ -3,6 +3,7 @@ package com.mazebert.simulation.units.towers;
 import com.mazebert.simulation.CommandExecutor;
 import com.mazebert.simulation.SimTest;
 import com.mazebert.simulation.SimulationListeners;
+import com.mazebert.simulation.Wave;
 import com.mazebert.simulation.gateways.UnitGateway;
 import com.mazebert.simulation.plugins.random.RandomPluginTrainer;
 import com.mazebert.simulation.systems.LootSystemTrainer;
@@ -108,7 +109,7 @@ strictfp class DarkForge_CraftTest extends SimTest {
     }
 
     private void whenRoundIsStarted() {
-        simulationListeners.onRoundStarted.dispatch(1);
+        simulationListeners.onRoundStarted.dispatch(new Wave());
     }
 
     private void thenItemIsCrafted(ItemType item) {

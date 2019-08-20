@@ -40,7 +40,7 @@ strictfp class TrainingHologramTest extends SimTest {
 
     @Test
     void spawned() {
-        Wave wave = whenWaveIsFinished();
+        Wave wave = whenWaveIsSpawned();
 
         Creep dummy = (Creep) unitGateway.getUnit(2);
         assertThat(dummy.getX()).isEqualTo(1);
@@ -61,7 +61,7 @@ strictfp class TrainingHologramTest extends SimTest {
         Gargoyle gargoyle = new Gargoyle();
         unitGateway.addUnit(gargoyle);
 
-        whenWaveIsFinished();
+        whenWaveIsSpawned();
 
         gargoyle.simulate(gargoyle.getCooldown());
 
@@ -77,15 +77,15 @@ strictfp class TrainingHologramTest extends SimTest {
         unitGateway.removeUnit(trainingHologram);
         new TrainingHologram();
 
-        whenWaveIsFinished();
+        whenWaveIsSpawned();
 
         assertThat(unitGateway.getAmount(Creep.class)).isEqualTo(0);
     }
 
-    private Wave whenWaveIsFinished() {
+    private Wave whenWaveIsSpawned() {
         Wave wave = new Wave();
         wave.creepType = CreepType.Spider;
-        simulationListeners.onWaveFinished.dispatch(wave);
+        simulationListeners.onRoundStarted.dispatch(wave);
         return wave;
     }
 }

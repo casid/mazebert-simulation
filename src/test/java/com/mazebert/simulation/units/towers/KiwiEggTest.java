@@ -2,6 +2,7 @@ package com.mazebert.simulation.units.towers;
 
 import com.mazebert.simulation.SimTest;
 import com.mazebert.simulation.SimulationListeners;
+import com.mazebert.simulation.Wave;
 import com.mazebert.simulation.gateways.GameGateway;
 import com.mazebert.simulation.gateways.UnitGateway;
 import com.mazebert.simulation.maps.MapAura;
@@ -97,7 +98,7 @@ strictfp class KiwiEggTest extends SimTest {
     }
 
     private void whenRoundIsStarted() {
-        simulationListeners.onRoundStarted.dispatch(1);
+        simulationListeners.onRoundStarted.dispatch(new Wave());
         kiwi = unitGateway.findUnit(Kiwi.class, 0);
     }
 

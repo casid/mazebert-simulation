@@ -53,7 +53,7 @@ public strictfp class KiwiEggHatch extends Ability<KiwiEgg> implements OnUnitAdd
     }
 
     @Override
-    public void onRoundStarted(int round) {
+    public void onRoundStarted(Wave wave) {
         developEgg();
     }
 

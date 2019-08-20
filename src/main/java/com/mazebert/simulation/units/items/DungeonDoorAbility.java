@@ -1,6 +1,7 @@
 package com.mazebert.simulation.units.items;
 
 import com.mazebert.simulation.Sim;
+import com.mazebert.simulation.Wave;
 import com.mazebert.simulation.gateways.GameGateway;
 import com.mazebert.simulation.listeners.OnRoundStartedListener;
 import com.mazebert.simulation.maps.FollowPath;
@@ -26,7 +27,7 @@ public strictfp class DungeonDoorAbility extends Ability<Tower> implements OnRou
     }
 
     @Override
-    public void onRoundStarted(int round) {
+    public void onRoundStarted(Wave wave) {
         if (getUnit().isAbilityTriggered(chance)) {
             FollowPathResult result = FollowPath.findClosestPointOnPath(getUnit().getX(), getUnit().getY(), gameGateway.getMap().getGroundPath());
             Sim.context().waveSpawner.spawnTreasureGoblin(getUnit().getWizard(), result.pathIndex, result.px, result.py);
