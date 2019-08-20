@@ -78,6 +78,10 @@ public strictfp class GameSystem implements OnHealthChangedListener, OnWaveFinis
         if (game.health <= 0.0f) {
             game.health = 0.0f;
             if (game.bonusRound) {
+                if (Sim.context().timeLordCountDown != null) {
+                    Sim.context().timeLordCountDown.cancel();
+                    Sim.context().timeLordCountDown = null;
+                }
                 finishBonusRound();
             } else {
                 simulationListeners.onGameLost.dispatch();

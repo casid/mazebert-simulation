@@ -951,17 +951,20 @@ public strictfp class WaveSpawnerTest extends SimTest {
     }
 
     @Test
-    void bonusRound_timeLordEncounterCountDown() {
+    void bonusRound_timeLordEncounter_countDown() {
         whenTimeLordEncounterIsReached();
 
         assertThat(timeLordCountDown).isNotNull();
         assertThat(gameGateway.getGame().timeLord).isTrue();
     }
 
-    private void whenTimeLordEncounterIsReached() {
-        whenBonusRoundIsReached();
-        bonusRoundCountDown.onUpdate(bonusRoundCountDown.getRemainingSeconds());
-        waveSpawner.onUpdate(Balancing.TIME_LORD_ENCOUNTER_SECONDS);
+    @Test
+    void bonusRound_timeLordEncounter_countDown_interrupted() {
+        whenTimeLordEncounterIsReached();
+        wizard.addHealth(-1);
+
+        assertThat(timeLordCountDown).isNull();
+        assertThat(gameGateway.getGame().timeLord).isTrue();
     }
 
     @Test
@@ -1119,5 +1122,11 @@ public strictfp class WaveSpawnerTest extends SimTest {
 
         whenAllCreepsAreSpawned();
         whenCreepIsKilled(getCreep(0));
+    }
+
+    private void whenTimeLordEncounterIsReached() {
+        whenBonusRoundIsReached();
+        bonusRoundCountDown.onUpdate(bonusRoundCountDown.getRemainingSeconds());
+        waveSpawner.onUpdate(Balancing.TIME_LORD_ENCOUNTER_SECONDS);
     }
 }
