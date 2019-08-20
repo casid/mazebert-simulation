@@ -82,7 +82,7 @@ public strictfp final class WaveSpawner implements OnGameStartedListener, OnWave
         }
 
         Game game = gameGateway.getGame();
-        if (bonusRoundStarted) {
+        if (bonusRoundStarted && !game.timeLord) {
             bonusRoundSeconds += dt;
             int seconds = (int) bonusRoundSeconds;
             if (seconds > game.bonusRoundSeconds) {
@@ -93,7 +93,7 @@ public strictfp final class WaveSpawner implements OnGameStartedListener, OnWave
                     unitGateway.forEach(Wizard.class, wizard -> experienceSystem.grantBonusRoundExperience(wizard, seconds));
                 }
 
-                if (seconds >= Balancing.TIME_LORD_ENCOUNTER_SECONDS && !game.timeLord && Sim.isDoLSeasonContent()) {
+                if (seconds >= Balancing.TIME_LORD_ENCOUNTER_SECONDS && Sim.isDoLSeasonContent()) {
                     game.timeLord = true;
 
                     Sim.context().timeLordCountDown = new TimeLordCountDown();
