@@ -68,6 +68,11 @@ public strictfp final class UnitGateway {
         units.forEachIndexed((index, unit) -> {
             if (unitClass.isAssignableFrom(unit.getClass()) && predicate.test((U) unit)) {
                 units.remove(index);
+                if (unit instanceof Creep) {
+                    creeps.remove((Creep) unit);
+                } else if (unit instanceof Tower) {
+                    towers.remove((Tower) unit);
+                }
             }
         });
     }

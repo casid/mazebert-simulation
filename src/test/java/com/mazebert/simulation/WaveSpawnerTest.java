@@ -16,6 +16,7 @@ import com.mazebert.simulation.units.creeps.CreepState;
 import com.mazebert.simulation.units.creeps.CreepType;
 import com.mazebert.simulation.units.creeps.effects.GhostEffect;
 import com.mazebert.simulation.units.creeps.effects.ReviveEffect;
+import com.mazebert.simulation.units.creeps.effects.TimeLordEffect;
 import com.mazebert.simulation.units.creeps.effects.UnionEffect;
 import com.mazebert.simulation.units.items.ItemType;
 import com.mazebert.simulation.units.towers.Spider;
@@ -46,6 +47,8 @@ public strictfp class WaveSpawnerTest extends SimTest {
 
     @BeforeEach
     void setUp() {
+        season = true;
+
         simulationListeners = new SimulationListeners();
         simulationListeners.onWaveFinished.add(wave -> waveFinished = true);
         simulationListeners.onRoundStarted.add(wave -> roundStarted = wave.round);
@@ -945,6 +948,53 @@ public strictfp class WaveSpawnerTest extends SimTest {
         assertThat(finished.get()).isTrue();
         assertThat(creep.isDead()).isTrue();
         assertThat(getCreep(0)).isSameAs(creep); // Must not be removed for death animation!
+    }
+
+    @Test
+    void bonusRound_timeLordEncounterCountDown() {
+        whenTimeLordEncounterIsReached();
+
+        assertThat(timeLordCountDown).isNotNull();
+        assertThat(gameGateway.getGame().timeLord).isTrue();
+    }
+
+    private void whenTimeLordEncounterIsReached() {
+        whenBonusRoundIsReached();
+        bonusRoundCountDown.onUpdate(bonusRoundCountDown.getRemainingSeconds());
+        waveSpawner.onUpdate(Balancing.TIME_LORD_ENCOUNTER_SECONDS);
+    }
+
+    @Test
+    void bonusRound_timeLordEncounter_start() {
+        whenTimeLordEncounterIsReached();
+        for (int i = 0; i < 200; ++i) {
+            simulationListeners.onUpdate.dispatch(1.0f);
+        }
+
+        // Countdown expires
+        assertThat(timeLordCountDown).isNull();
+        AtomicReference<Creep> timeLordRef = new AtomicReference<>();
+        unitGateway.forEachCreep(c -> {
+            if (c.getType() == CreepType.TimeLord) {
+                timeLordRef.set(c);
+            }
+        });
+
+        // Time lord is spawned with regular creeps
+        Creep timeLord = timeLordRef.get();
+        assertThat(timeLord.isImmortal()).isTrue();
+        assertThat(timeLord.getWave().creepType).isEqualTo(CreepType.TimeLord);
+        assertThat(timeLord.getWave().type).isEqualTo(WaveType.TimeLord);
+        assertThat(timeLord.getWave().armorType).isEqualTo(ArmorType.Zod);
+        assertThat(timeLord.getAbility(TimeLordEffect.class)).isNotNull();
+
+        // Time lord eventually reaches the player's base!
+        AtomicBoolean finished = new AtomicBoolean();
+        simulationListeners.onBonusRoundFinished.add(() -> finished.set(true));
+        timeLord.setPath(new Path(0.0f, 0.0f, 0.0f, 1.0f));
+        timeLord.simulate(1.0f);
+
+        assertThat(finished.get()).isTrue();
     }
 
     @Test

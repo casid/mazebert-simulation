@@ -16,6 +16,8 @@ public strictfp class SimulationListeners {
     public final OnBonusRoundStarted onBonusRoundStarted = new OnBonusRoundStarted();
     public final OnBonusRoundSurvived onBonusRoundSurvived = new OnBonusRoundSurvived();
     public final OnBonusRoundFinished onBonusRoundFinished = new OnBonusRoundFinished();
+    public final OnTimeLordCountDown onTimeLordCountDown = new OnTimeLordCountDown();
+    public final OnTimeLordStarted onTimeLordStarted = new OnTimeLordStarted();
 
     public final OnWaveCountDown onWaveCountDown = new OnWaveCountDown();
     public final OnWaveStarted onWaveStarted = new OnWaveStarted();

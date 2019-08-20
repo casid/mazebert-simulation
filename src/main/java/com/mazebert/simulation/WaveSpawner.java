@@ -2,6 +2,7 @@ package com.mazebert.simulation;
 
 import com.mazebert.simulation.countdown.BonusRoundCountDown;
 import com.mazebert.simulation.countdown.EarlyCallCountDown;
+import com.mazebert.simulation.countdown.TimeLordCountDown;
 import com.mazebert.simulation.countdown.WaveCountDown;
 import com.mazebert.simulation.gateways.*;
 import com.mazebert.simulation.listeners.*;
@@ -11,13 +12,13 @@ import com.mazebert.simulation.systems.LootSystem;
 import com.mazebert.simulation.units.Unit;
 import com.mazebert.simulation.units.creeps.Creep;
 import com.mazebert.simulation.units.creeps.CreepType;
+import com.mazebert.simulation.units.creeps.effects.TimeLordEffect;
 import com.mazebert.simulation.units.items.ItemType;
 import com.mazebert.simulation.units.wizards.Wizard;
 
-import java.util.ArrayDeque;
-import java.util.Queue;
+import java.util.*;
 
-public strictfp final class WaveSpawner implements OnGameStartedListener, OnWaveStartedListener, OnUpdateListener, OnDeadListener, OnUnitRemovedListener, OnTargetReachedListener, OnBonusRoundStartedListener {
+public strictfp final class WaveSpawner implements OnGameStartedListener, OnWaveStartedListener, OnUpdateListener, OnDeadListener, OnUnitRemovedListener, OnTargetReachedListener, OnBonusRoundStartedListener, OnTimeLordStartedListener {
     private final SimulationListeners simulationListeners = Sim.context().simulationListeners;
     private final WaveGateway waveGateway = Sim.context().waveGateway;
     private final UnitGateway unitGateway = Sim.context().unitGateway;
@@ -42,6 +43,7 @@ public strictfp final class WaveSpawner implements OnGameStartedListener, OnWave
         simulationListeners.onGameStarted.add(this);
         simulationListeners.onWaveStarted.add(this);
         simulationListeners.onBonusRoundStarted.add(this);
+        simulationListeners.onTimeLordStarted.add(this);
         simulationListeners.onUpdate.add(this);
         simulationListeners.onUnitRemoved.add(this);
     }
@@ -79,15 +81,23 @@ public strictfp final class WaveSpawner implements OnGameStartedListener, OnWave
             }
         }
 
+        Game game = gameGateway.getGame();
         if (bonusRoundStarted) {
             bonusRoundSeconds += dt;
             int seconds = (int) bonusRoundSeconds;
-            if (seconds > gameGateway.getGame().bonusRoundSeconds) {
-                gameGateway.getGame().bonusRoundSeconds = seconds;
+            if (seconds > game.bonusRoundSeconds) {
+                game.bonusRoundSeconds = seconds;
                 simulationListeners.onBonusRoundSurvived.dispatch(seconds);
 
                 if (experienceSystem.isTimeToGrantBonusRoundExperience(seconds)) {
                     unitGateway.forEach(Wizard.class, wizard -> experienceSystem.grantBonusRoundExperience(wizard, seconds));
+                }
+
+                if (seconds >= Balancing.TIME_LORD_ENCOUNTER_SECONDS && !game.timeLord && Sim.isDoLSeasonContent()) {
+                    game.timeLord = true;
+
+                    Sim.context().timeLordCountDown = new TimeLordCountDown();
+                    Sim.context().timeLordCountDown.start();
                 }
 
                 if (seconds % Balancing.BONUS_SPAWN_COUNTDOWN_SECONDS == 0) {
@@ -383,7 +393,9 @@ public strictfp final class WaveSpawner implements OnGameStartedListener, OnWave
     @Override
     public void onTargetReached(Creep creep) {
         Wave wave = creep.getWave();
-        if (wave.type != WaveType.Challenge && wave.type != WaveType.MassChallenge) {
+        if (wave.type == WaveType.TimeLord) {
+            Sim.context().gameSystem.finishBonusRound();
+        } else if (wave.type != WaveType.Challenge && wave.type != WaveType.MassChallenge) {
             Wizard wizard = creep.getWizard();
             float leaked = calculateLeaked(creep, wave);
             wizard.addHealth(-leaked);
@@ -439,4 +451,26 @@ public strictfp final class WaveSpawner implements OnGameStartedListener, OnWave
     private boolean isWaveSuitableForBonusRound(WaveType type) {
         return type != WaveType.Horseman && type != WaveType.Challenge && type != WaveType.MassChallenge;
     }
+
+    @Override
+    public void onTimeLordStarted() {
+        spawnTimeLordWave();
+    }
+
+    private void spawnTimeLordWave() {
+        if (gameGateway.getGame().health > 0.0f) {
+            Wave wave = waveGateway.generateTimeLordWave(waveGateway.getTotalWaves() + currentBonusRound);
+
+            Creep creep = new Creep();
+            creep.setWizard(null); // Time Lord is shared between all wizards!
+            creep.setWave(wave);
+            creep.setArmor(wave.round + 250);
+            creep.setType(wave.creepType);
+
+            creep.addAbility(new TimeLordEffect());
+
+            creepQueue.add(creep);
+        }
+    }
+
 }

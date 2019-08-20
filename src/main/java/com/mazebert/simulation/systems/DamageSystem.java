@@ -84,6 +84,7 @@ public strictfp class DamageSystem {
 
             creep.setHealth(creep.getHealth() - damage, true);
             tower.onDamage.dispatch(origin, creep, damage, multicrits);
+            creep.onDamage.dispatch(origin, creep, damage, multicrits);
 
             if (multicrits > 0 && simulationListeners.areNotificationsEnabled()) {
                 simulationListeners.showNotification(tower, formatPlugin.damage(damage, multicrits), 0xff0000);

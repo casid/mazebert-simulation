@@ -7,7 +7,9 @@ public strictfp enum WaveType {
     Air(5),
     Challenge(1),
     MassChallenge(20),
-    Horseman(1);
+    Horseman(1),
+    TimeLord(1),
+    ;
 
     public final int creepCount;
 

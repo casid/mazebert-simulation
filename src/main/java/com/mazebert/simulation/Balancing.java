@@ -6,6 +6,8 @@ public strictfp class Balancing {
     public static final float GAME_COUNTDOWN_SECONDS = 30.0f;
     public static final float WAVE_COUNTDOWN_SECONDS = 5.0f;
     public static final float BONUS_COUNTDOWN_SECONDS = 60.0f;
+    public static final float TIME_LORD_COUNTDOWN_SECONDS = 30.0f;
+    public static final int TIME_LORD_ENCOUNTER_SECONDS = 5000;
     public static final int BONUS_SPAWN_COUNTDOWN_SECONDS = 5;
     public static final float EARLY_CALL_COUNTDOWN_SECONDS = 5.0f;
     public static final float DAMAGE_BALANCING_FACTOR = 12.0f;
@@ -23,7 +25,6 @@ public strictfp class Balancing {
     public static final float GOLD_RETURN_WHEN_TOWER_SOLD = 0.8f;
     public static final int MAX_GOLD_INTEREST = 1000000;
     public static final float PENALTY_FOR_LEAKING_ENTIRE_ROUND = 0.5f;
-    public static final int MAX_ELEMENTS = 2;
 
     private static final float[] towerExperienceForLevel = new float[MAX_TOWER_LEVEL];
 

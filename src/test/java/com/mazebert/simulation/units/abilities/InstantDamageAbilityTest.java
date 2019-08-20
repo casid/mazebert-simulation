@@ -9,6 +9,7 @@ import com.mazebert.simulation.systems.LootSystemTrainer;
 import com.mazebert.simulation.units.TestTower;
 import com.mazebert.simulation.units.creeps.Creep;
 import com.mazebert.simulation.units.creeps.CreepState;
+import com.mazebert.simulation.units.creeps.CreepType;
 import com.mazebert.simulation.units.towers.Tower;
 import com.mazebert.simulation.units.wizards.Wizard;
 import org.assertj.core.data.Percentage;
@@ -324,6 +325,32 @@ public strictfp class InstantDamageAbilityTest extends SimTest {
         assertThat(creep.isDead()).isTrue();
         assertThat(creep.getHealth()).isEqualTo(0.0f);
         assertThat(creep.getState()).isEqualTo(CreepState.Death);
+    }
+
+    @Test
+    void constantDamage_timeLord() {
+        creep.setType(CreepType.TimeLord);
+        tower.setBaseDamage(1000.0f);
+
+        whenTowerAttacks();
+
+        assertThat(creep.isDead()).isFalse();
+        assertThat(creep.getHealth()).isEqualTo(100.0f);
+        assertThat(creep.getState()).isEqualTo(CreepState.Running);
+        assertThat(tower.getKills()).isEqualTo(0);
+    }
+
+    @Test
+    void instantKill_timeLord() {
+        creep.setType(CreepType.TimeLord);
+        tower.setBaseDamage(1000.0f);
+
+        tower.kill(creep);
+
+        assertThat(creep.isDead()).isFalse();
+        assertThat(creep.getHealth()).isEqualTo(100.0f);
+        assertThat(creep.getState()).isEqualTo(CreepState.Running);
+        assertThat(tower.getKills()).isEqualTo(0);
     }
 
     @Test

@@ -6,6 +6,7 @@ import com.mazebert.simulation.WaveSpawner;
 import com.mazebert.simulation.WaveType;
 import com.mazebert.simulation.commands.NextWaveCommand;
 import com.mazebert.simulation.countdown.BonusRoundCountDown;
+import com.mazebert.simulation.countdown.TimeLordCountDown;
 import com.mazebert.simulation.countdown.WaveCountDown;
 import com.mazebert.simulation.gateways.*;
 import com.mazebert.simulation.plugins.random.RandomPluginTrainer;
@@ -18,6 +19,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 class NextWaveTest extends UsecaseTest<NextWaveCommand> {
     private int waveStarted;
     private int bonusRoundStarted;
+    private int timeLordStarted;
 
     @BeforeEach
     void setUp() {
@@ -35,6 +37,7 @@ class NextWaveTest extends UsecaseTest<NextWaveCommand> {
 
         simulationListeners.onWaveStarted.add(() -> ++waveStarted);
         simulationListeners.onBonusRoundStarted.add(() -> ++bonusRoundStarted);
+        simulationListeners.onTimeLordStarted.add(() -> ++timeLordStarted);
     }
 
     @Test
@@ -88,5 +91,17 @@ class NextWaveTest extends UsecaseTest<NextWaveCommand> {
 
         assertThat(bonusRoundStarted).isEqualTo(1);
         assertThat(skippedSeconds).isEqualTo(60);
+    }
+
+    @Test
+    void timeLord() {
+        gameGateway.getGame().timeLord = true;
+        timeLordCountDown = new TimeLordCountDown();
+
+        whenRequestIsExecuted();
+
+        assertThat(timeLordStarted).isEqualTo(0);
+        assertThat(skippedSeconds).isEqualTo(0);
+        // time lord countdown cannot be fast-forwarded
     }
 }

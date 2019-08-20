@@ -17,6 +17,7 @@ public strictfp class Creep extends Unit {
     public final OnResurrect onResurrect = new OnResurrect();
     public final OnTargetReached onTargetReached = new OnTargetReached();
     public final OnHealthChanged onHealthChanged = new OnHealthChanged();
+    public final OnDamage onDamage = new OnDamage();
 
     private double health = 100.0;
     private double maxHealth = health;
@@ -108,7 +109,7 @@ public strictfp class Creep extends Unit {
     }
 
     public void setHealth(double health, boolean notify) {
-        if (this.health > 0.0) {
+        if (this.health > 0.0 && !isImmortal()) {
             double oldHealth = this.health;
 
             if (health <= 0.0) {
@@ -344,5 +345,9 @@ public strictfp class Creep extends Unit {
 
     public float getChanceToMiss() {
         return chanceToMiss;
+    }
+
+    public boolean isImmortal() {
+        return type == CreepType.TimeLord;
     }
 }

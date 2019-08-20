@@ -80,6 +80,19 @@ public strictfp class WaveGateway implements ReadonlyWaveGateway {
         return wave;
     }
 
+    public Wave generateTimeLordWave(int round) {
+        Wave wave = new Wave();
+        wave.origin = WaveOrigin.BonusRound;
+        wave.round = round;
+        wave.type = WaveType.TimeLord;
+        wave.creepCount = wave.type.creepCount;
+        wave.minSecondsToNextCreep = wave.type.getMinSecondsToNextCreep();
+        wave.maxSecondsToNextCreep = wave.type.getMaxSecondsToNextCreep();
+        wave.creepType = CreepType.TimeLord;
+        wave.armorType = ArmorType.Zod;
+        return wave;
+    }
+
     public WaveType calculateWaveType(RandomPlugin randomPlugin, int round) {
         if (round < 5 && Sim.context().gameSystem.isTutorial()) {
             switch (round) {
