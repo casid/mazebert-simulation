@@ -10,7 +10,7 @@ public strictfp enum CreepType {
     Gnome("gnome"),
     Horseman("horsemen"),
     Challenge("challenge"),
-    TimeLord("challenge"), // TODO model id
+    TimeLord("timelord"),
     ;
 
     public final String modelId;
