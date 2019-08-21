@@ -60,6 +60,6 @@ public strictfp enum WaveType {
     }
 
     public boolean isBoss() {
-        return this == Boss || this == Challenge || this == Horseman;
+        return this == Boss || this == Challenge || this == Horseman || this == TimeLord;
     }
 }
