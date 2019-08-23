@@ -9,6 +9,9 @@ public strictfp class TimeLordEffect extends Ability<Creep> implements OnDamageL
     protected void initialize(Creep unit) {
         super.initialize(unit);
         unit.onDamage.add(this);
+
+        unit.setSteady(true);
+        unit.setSpeedModifier(0.25f);
     }
 
     @Override

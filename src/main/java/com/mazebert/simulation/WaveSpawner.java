@@ -459,18 +459,23 @@ public strictfp final class WaveSpawner implements OnGameStartedListener, OnWave
 
     private void spawnTimeLordWave() {
         if (gameGateway.getGame().health > 0.0f) {
-            Wave wave = waveGateway.generateTimeLordWave(waveGateway.getTotalWaves() + currentBonusRound);
-
-            Creep creep = new Creep();
-            creep.setWizard(null); // Time Lord is shared between all wizards!
-            creep.setWave(wave);
-            creep.setArmor(wave.round + 250);
-            creep.setType(wave.creepType);
-
-            creep.addAbility(new TimeLordEffect());
+            Creep creep = createTimeLord();
 
             creepQueue.add(creep);
         }
+    }
+
+    public Creep createTimeLord() {
+        Wave wave = waveGateway.generateTimeLordWave(waveGateway.getTotalWaves() + currentBonusRound);
+
+        Creep creep = new Creep();
+        creep.setWizard(null); // Time Lord is shared between all wizards!
+        creep.setWave(wave);
+        creep.setArmor(wave.round + 250);
+        creep.setType(wave.creepType);
+
+        creep.addAbility(new TimeLordEffect());
+        return creep;
     }
 
 }
