@@ -5,14 +5,21 @@ import com.mazebert.simulation.SimulationListeners;
 import com.mazebert.simulation.units.creeps.effects.DurationEffect;
 
 public strictfp class WitheredSetEffect extends DurationEffect {
+    public static final int MAX_STACKS = 25;
+
     private static final float damageModifier = 0.03f;
 
     private final SimulationListeners simulationListeners = Sim.context().simulationListeners;
+    private final int version = Sim.context().version;
 
     private float current;
 
     @Override
     public void addStack() {
+        if (version >= Sim.vDoL && getStackCount() >= MAX_STACKS) {
+            return;
+        }
+
         super.addStack();
 
         if (simulationListeners.areNotificationsEnabled()) {

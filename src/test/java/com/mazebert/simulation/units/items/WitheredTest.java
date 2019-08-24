@@ -49,6 +49,16 @@ public strictfp class WitheredTest extends ItemTest {
     }
 
     @Test
+    void twoItems_warpBackInTime_steady() {
+        creep.setSteady(true);
+        whenItemIsEquipped(ItemType.WitheredCactus, 0);
+        whenItemIsEquipped(ItemType.WitheredToadstool, 1);
+        whenTowerAttacks();
+
+        assertThat(creep.getX()).isEqualTo(0);
+    }
+
+    @Test
     void twoItems_itemDropped() {
         whenItemIsEquipped(ItemType.WitheredCactus, 0);
         whenItemIsEquipped(ItemType.WitheredToadstool, 1);
@@ -78,6 +88,21 @@ public strictfp class WitheredTest extends ItemTest {
         whenTowerAttacks();
 
         assertThat(creep.getDamageModifier()).isEqualTo(1.0899999f);
+    }
+
+    @Test
+    void threeItems_maxStacks() {
+        damageSystemTrainer.givenConstantDamage(0);
+        whenItemIsEquipped(ItemType.WitheredCactus, 3);
+        whenItemIsEquipped(ItemType.WitheredToadstool, 1);
+        whenItemIsEquipped(ItemType.WitheredBandages, 2);
+
+        for (int i = 0; i <= WitheredSetEffect.MAX_STACKS; ++i) {
+            whenTowerAttacks();
+        }
+        whenTowerAttacks();
+
+        assertThat(creep.getDamageModifier()).isEqualTo(1.7499993f);
     }
 
     @Test
