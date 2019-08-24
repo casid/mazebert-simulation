@@ -25,6 +25,7 @@ public strictfp class Balancing {
     public static final float GOLD_RETURN_WHEN_TOWER_SOLD = 0.8f;
     public static final int MAX_GOLD_INTEREST = 1000000;
     public static final float PENALTY_FOR_LEAKING_ENTIRE_ROUND = 0.5f;
+    public static final int MAX_ELEMENTS = 2;
 
     private static final float[] towerExperienceForLevel = new float[MAX_TOWER_LEVEL];
 

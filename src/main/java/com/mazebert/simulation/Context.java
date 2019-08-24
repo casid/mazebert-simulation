@@ -80,6 +80,7 @@ public strictfp class Context {
     public EnumMap<HeroType, Hero> heroInstances = new EnumMap<>(HeroType.class);
     public DamageInfo damageInfo = new DamageInfo();
     public FollowPathResult followPathResult = new FollowPathResult();
+    public boolean newBalancing;
 
     public void init(Simulation simulation) {
         damageSystem = new DamageSystem();

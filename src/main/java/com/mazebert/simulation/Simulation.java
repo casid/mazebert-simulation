@@ -283,7 +283,7 @@ public strictfp final class Simulation {
         simulateTurn(playerTurns, true);
     }
 
-    private void simulateTurn(List<Turn> playerTurns, boolean hash) {
+    public void simulateTurn(List<Turn> playerTurns, boolean hash) {
         simulatePlayerTurns(playerTurns);
         if (!pause) {
             simulateUnits();

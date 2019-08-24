@@ -50,7 +50,7 @@ public strictfp class TimeLordEffectTest extends SimTest {
     @Test
     void slow() {
         // time lord should be pretty slow
-        assertThat(creep.getSpeedModifier()).isEqualTo(0.25f);
+        assertThat(creep.getSpeed()).isEqualTo(0.25f);
     }
 
     @Test

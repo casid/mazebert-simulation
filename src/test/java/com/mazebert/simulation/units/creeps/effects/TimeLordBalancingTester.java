@@ -2,20 +2,19 @@ package com.mazebert.simulation.units.creeps.effects;
 
 
 import com.mazebert.java8.Consumer;
-import com.mazebert.simulation.ArmorType;
 import com.mazebert.simulation.Context;
 import com.mazebert.simulation.Sim;
 import com.mazebert.simulation.SimulationValidator;
+import com.mazebert.simulation.listeners.OnBonusRoundFinishedListener;
 import com.mazebert.simulation.listeners.OnBonusRoundSurvivedListener;
 import com.mazebert.simulation.replay.StreamReplayReader;
-import com.mazebert.simulation.units.creeps.Creep;
 import org.junit.jupiter.api.Test;
 
 import java.io.BufferedInputStream;
 import java.nio.file.*;
 import java.util.Arrays;
-import java.util.concurrent.atomic.AtomicInteger;
-import java.util.concurrent.atomic.AtomicReference;
+import java.util.Collections;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 public strictfp class TimeLordBalancingTester {
     private static final String[] games = {
@@ -505,29 +504,15 @@ public strictfp class TimeLordBalancingTester {
             233497
     };
 
-    private static final double[] damage = new double[games.length];
-
     private static final Path gamesDirectory = Paths.get("games");
 
     @Test
     void simulateGames() {
-        AtomicInteger counter = new AtomicInteger();
+        System.out.println("game, old seconds survived, new seconds survived");
+
         Arrays.stream(games).parallel().forEach(game -> {
             checkGame(game, Sim.v17);
-            System.out.println(counter.incrementAndGet() + "/" + games.length + "");
         });
-
-        System.out.println();
-        System.out.println("game, seconds survived, timelord damage prediction, factor, new seconds");
-        for (int i = 0; i < games.length; i++) {
-            double factor = 0;
-            int newSeconds = 0;
-            if (damage[i] > 0) {
-                factor = (secondsSurvived[i] - 5000) / damage[i];
-                newSeconds = (int) (0.02 * StrictMath.sqrt(damage[i]));
-            }
-            System.out.println(games[i] + ", " + secondsSurvived[i] + ", " + damage[i] + ", " + factor + ", " + newSeconds);
-        }
     }
 
     @SuppressWarnings({"SameParameterValue", "Convert2Lambda"})
@@ -541,29 +526,29 @@ public strictfp class TimeLordBalancingTester {
                     context.simulationListeners.onBonusRoundSurvived.add(new OnBonusRoundSurvivedListener() {
                         @Override
                         public void onBonusRoundSurvived(int seconds) {
-                            if (seconds >= 5000) {
-                                Creep timeLord = context.waveSpawner.createTimeLord();
+                            if (seconds >= 5000 && !context.gameGateway.getGame().timeLord) {
+                                context.newBalancing = true;
 
-                                AtomicReference<Double> totalDamage = new AtomicReference<>(0.0);
+                                AtomicBoolean bonusRoundFinished = new AtomicBoolean();
 
-                                context.unitGateway.forEachTower(tower -> {
-
-                                    double damage = 0;
-
-                                    int expectedMaxEncounterTimeSeconds = 60;
-                                    int iterations = expectedMaxEncounterTimeSeconds / ArmorType.values().length;
-
-                                    for (ArmorType armorType : ArmorType.values()) {
-                                        timeLord.getWave().armorType = armorType;
-                                        for (int i = 0; i < iterations / tower.getCooldown(); ++i) {
-                                            damage += context.damageSystem.dealDamage(tower, tower, timeLord);
-                                        }
+                                context.simulationListeners.onBonusRoundFinished.add(new OnBonusRoundFinishedListener() {
+                                    @Override
+                                    public void onBonusRoundFinished() {
+                                        bonusRoundFinished.set(true);
                                     }
-
-                                    totalDamage.set(totalDamage.get() + damage);
                                 });
 
-                                damage[getGameIndex(game)] = totalDamage.get();
+                                context.simulation.setPause(1, false);
+                                context.waveSpawner.startTimeLordCountDown();
+
+                                while (!bonusRoundFinished.get()) {
+                                    context.simulation.simulateTurn(Collections.emptyList(), false);
+                                }
+
+                                int gameIndex = getGameIndex(game);
+                                synchronized (TimeLordBalancingTester.this) {
+                                    System.out.println(games[gameIndex] + ", " + secondsSurvived[gameIndex] + ", " + context.gameGateway.getGame().bonusRoundSeconds);
+                                }
 
                                 throw new RuntimeException("done");
                             }
@@ -574,7 +559,7 @@ public strictfp class TimeLordBalancingTester {
         } catch (RuntimeException e) {
             // Yes, we are done
         } catch (NoSuchFileException e) {
-            System.out.println("File not found " + e.getMessage());
+            //System.out.println("File not found " + e.getMessage());
         } catch (Exception e) {
             e.printStackTrace();
         }

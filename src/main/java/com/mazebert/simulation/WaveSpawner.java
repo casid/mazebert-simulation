@@ -99,10 +99,7 @@ public strictfp final class WaveSpawner implements OnGameStartedListener, OnWave
                     }
 
                     if (game.bonusRoundSeconds >= Balancing.TIME_LORD_ENCOUNTER_SECONDS && Sim.isDoLSeasonContent()) {
-                        game.timeLord = true;
-
-                        Sim.context().timeLordCountDown = new TimeLordCountDown();
-                        Sim.context().timeLordCountDown.start();
+                        startTimeLordCountDown();
                     }
 
                     if (seconds % Balancing.BONUS_SPAWN_COUNTDOWN_SECONDS == 0) {
@@ -111,6 +108,13 @@ public strictfp final class WaveSpawner implements OnGameStartedListener, OnWave
                 }
             }
         }
+    }
+
+    public void startTimeLordCountDown() {
+        gameGateway.getGame().timeLord = true;
+
+        Sim.context().timeLordCountDown = new TimeLordCountDown();
+        Sim.context().timeLordCountDown.start();
     }
 
     public void spawnTreasureGoblins(Wizard wizard, int amount) {

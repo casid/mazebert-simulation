@@ -33,7 +33,7 @@ public strictfp class TimeLordEffect extends Ability<Creep> implements OnDamageL
         unit.onUpdate.add(this);
 
         unit.setSteady(true);
-        unit.setSpeedModifier(0.25f);
+        unit.setBaseSpeed(0.25f);
 
         lastGrantedSeconds = gameGateway.getGame().bonusRoundSeconds;
     }
@@ -68,17 +68,18 @@ public strictfp class TimeLordEffect extends Ability<Creep> implements OnDamageL
         int grantedSeconds = 0;
         while (deltaSeconds >= ExperienceSystem.BONUS_ROUND_REWARD_INTERVAL) {
             deltaSeconds -= ExperienceSystem.BONUS_ROUND_REWARD_INTERVAL;
-            lastGrantedSeconds += ExperienceSystem.BONUS_ROUND_REWARD_INTERVAL;
             grantedSeconds += ExperienceSystem.BONUS_ROUND_REWARD_INTERVAL;
 
-            unitGateway.forEach(Wizard.class, wizard -> experienceSystem.grantBonusRoundExperience(wizard, lastGrantedSeconds, false));
+            int bonusRoundSeconds = game.bonusRoundSeconds + grantedSeconds;
+            unitGateway.forEach(Wizard.class, wizard -> experienceSystem.grantBonusRoundExperience(wizard, bonusRoundSeconds, false));
         }
 
         if (grantedSeconds > 0) {
-            lastTimeLordSeconds = timeLordSeconds;
-
             game.bonusRoundSeconds += grantedSeconds;
             simulationListeners.onBonusRoundSurvived.dispatch(game.bonusRoundSeconds);
+
+            lastTimeLordSeconds = timeLordSeconds;
+            lastGrantedSeconds = game.bonusRoundSeconds;
 
             if (simulationListeners.areNotificationsEnabled()) {
                 simulationListeners.showNotification(getUnit(), "+" + format.seconds(grantedSeconds), 0xffff00);
