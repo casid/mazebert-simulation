@@ -125,4 +125,12 @@ public abstract strictfp class FollowPathAbility<U extends Unit> extends Ability
             return null;
         }
     }
+
+    public float getTargetX() {
+        return path.getX(path.size() - 1);
+    }
+
+    public float getTargetY() {
+        return path.getY(path.size() - 1);
+    }
 }

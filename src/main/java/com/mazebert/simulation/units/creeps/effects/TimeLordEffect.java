@@ -32,6 +32,7 @@ public strictfp class TimeLordEffect extends Ability<Creep> implements OnDamageL
         unit.onDamage.add(this);
         unit.onUpdate.add(this);
 
+        unit.setImmortal(true);
         unit.setSteady(true);
         unit.setBaseSpeed(0.25f);
 

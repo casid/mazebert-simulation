@@ -1,13 +1,14 @@
 package com.mazebert.simulation.units.creeps.effects;
 
 import com.mazebert.simulation.*;
-import com.mazebert.simulation.gateways.DifficultyGateway;
-import com.mazebert.simulation.gateways.GameGateway;
-import com.mazebert.simulation.gateways.UnitGateway;
-import com.mazebert.simulation.gateways.WaveGateway;
+import com.mazebert.simulation.gateways.*;
+import com.mazebert.simulation.maps.BloodMoor;
 import com.mazebert.simulation.plugins.FormatPlugin;
+import com.mazebert.simulation.plugins.random.RandomPluginTrainer;
 import com.mazebert.simulation.systems.ExperienceSystem;
+import com.mazebert.simulation.systems.GameSystem;
 import com.mazebert.simulation.units.creeps.Creep;
+import com.mazebert.simulation.units.creeps.CreepState;
 import com.mazebert.simulation.units.wizards.Wizard;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -28,16 +29,21 @@ public strictfp class TimeLordEffectTest extends SimTest {
     @BeforeEach
     void setUp() {
         formatPlugin = new FormatPlugin();
+        randomPlugin = new RandomPluginTrainer();
         simulationListeners = new SimulationListenersTrainer();
+        playerGateway = new PlayerGatewayTrainer();
         unitGateway = new UnitGateway();
         gameGateway = new GameGateway();
         difficultyGateway = new DifficultyGateway();
         experienceSystem = new ExperienceSystem();
         waveGateway = new WaveGateway();
         waveSpawner = new WaveSpawner();
+        gameSystem = new GameSystem();
 
         unitGateway.addUnit(wizard1 = new Wizard());
         unitGateway.addUnit(wizard2 = new Wizard());
+
+        gameGateway.getGame().map = new BloodMoor();
 
         game = gameGateway.getGame();
         game.bonusRoundSeconds = 5000;
@@ -45,6 +51,14 @@ public strictfp class TimeLordEffectTest extends SimTest {
         creep = waveSpawner.createTimeLord();
         timeLordEffect = creep.getAbility(TimeLordEffect.class);
         timeLordArmorEffect = creep.getAbility(TimeLordArmorEffect.class);
+
+        creep.setPath(new Path(0, 0, 0, 10));
+        unitGateway.addUnit(creep);
+    }
+
+    @Test
+    void immortal() {
+        assertThat(creep.isImmortal()).isTrue();
     }
 
     @Test
@@ -121,6 +135,10 @@ public strictfp class TimeLordEffectTest extends SimTest {
 
     @Test
     void spawnsCreeps() {
-        // TODO spawns random bonus round creeps next to him, if not past a certain map threshold
+        creep.onUpdate.dispatch(TimeLordSpawnEffect.TOGGLE_INTERVAL - TimeLordSpawnEffect.INITIAL_INTERVAL_PASSED - 0.1f);
+        creep.onUpdate.dispatch(0.1f);
+
+        assertThat(creep.getState()).isEqualTo(CreepState.Hit);
+        assertThat(unitGateway.getAmount(Creep.class)).isEqualTo(3); // Time lord + two underlings
     }
 }

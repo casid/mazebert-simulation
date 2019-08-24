@@ -6,6 +6,7 @@ import com.mazebert.simulation.countdown.TimeLordCountDown;
 import com.mazebert.simulation.countdown.WaveCountDown;
 import com.mazebert.simulation.gateways.*;
 import com.mazebert.simulation.listeners.*;
+import com.mazebert.simulation.maps.MapGrid;
 import com.mazebert.simulation.plugins.random.RandomPlugin;
 import com.mazebert.simulation.systems.ExperienceSystem;
 import com.mazebert.simulation.systems.LootSystem;
@@ -14,6 +15,7 @@ import com.mazebert.simulation.units.creeps.Creep;
 import com.mazebert.simulation.units.creeps.CreepType;
 import com.mazebert.simulation.units.creeps.effects.TimeLordArmorEffect;
 import com.mazebert.simulation.units.creeps.effects.TimeLordEffect;
+import com.mazebert.simulation.units.creeps.effects.TimeLordSpawnEffect;
 import com.mazebert.simulation.units.items.ItemType;
 import com.mazebert.simulation.units.wizards.Wizard;
 
@@ -462,6 +464,62 @@ public strictfp final class WaveSpawner implements OnGameStartedListener, OnWave
         return type != WaveType.Horseman && type != WaveType.Challenge && type != WaveType.MassChallenge;
     }
 
+    public void spawnTimeLordUnderlingsWave(Creep timeLord) {
+        if (gameGateway.getGame().health > 0.0f) {
+            Wave wave = generateTimeLordUnderlingsWave();
+            ++currentBonusRound;
+
+            Path path = gameGateway.getMap().getGrid().findPath((int) timeLord.getX(), (int) timeLord.getY(), (int) timeLord.getTargetX(), (int) timeLord.getTargetY(), MapGrid.getPredicate(wave.type));
+
+            int round = wave.round;
+
+            double healthOfAllCreeps = 0.2 * Balancing.getTotalCreepHitpoints(version, round, difficultyGateway.getDifficulty());
+            double healthOfOneCreep = getHealthOfOneCreep(wave, healthOfAllCreeps);
+
+            int playerCount = playerGateway.getPlayerCount();
+            int spawnCount = wave.creepCount * playerCount;
+            for (int i = 0; i < spawnCount; ++i) {
+                int playerId = (i % playerCount) + 1;
+                Wizard wizard = unitGateway.getWizard(playerId);
+
+                Creep underling = new Creep();
+                underling.setWizard(wizard);
+                underling.setWave(wave);
+                underling.setHealth(healthOfOneCreep);
+                underling.setMaxHealth(healthOfOneCreep);
+                underling.setArmor(round);
+                applyWaveAttributes(underling, wave);
+
+                spawnCreep(underling, path, 0);
+                underling.setX(path.getX(0));
+                underling.setY(path.getY(0));
+            }
+        }
+    }
+
+    private Wave generateTimeLordUnderlingsWave() {
+        Wave wave = waveGateway.generateWave(randomPlugin, waveGateway.getTotalWaves() + currentBonusRound);
+        if (!isWaveSuitableForTimeLordUnderling(wave.type)) {
+            ++currentBonusRound;
+            return generateTimeLordUnderlingsWave();
+        }
+
+        if (wave.type == WaveType.Air) {
+            wave.creepType = CreepType.Bat;
+        } else {
+            wave.creepType = CreepType.Troll;
+        }
+
+        wave.origin = WaveOrigin.BonusRound;
+        wave.creepCount /= 5;
+
+        return wave;
+    }
+
+    private boolean isWaveSuitableForTimeLordUnderling(WaveType type) {
+        return type == WaveType.Air || type == WaveType.Mass || type == WaveType.Normal;
+    }
+
     @Override
     public void onTimeLordStarted() {
         spawnTimeLordWave();
@@ -486,6 +544,7 @@ public strictfp final class WaveSpawner implements OnGameStartedListener, OnWave
 
         creep.addAbility(new TimeLordEffect());
         creep.addAbility(new TimeLordArmorEffect());
+        creep.addAbility(new TimeLordSpawnEffect());
         return creep;
     }
 

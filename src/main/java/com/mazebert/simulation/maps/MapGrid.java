@@ -2,6 +2,7 @@ package com.mazebert.simulation.maps;
 
 import com.mazebert.java8.Predicate;
 import com.mazebert.simulation.Path;
+import com.mazebert.simulation.WaveType;
 import com.mazebert.simulation.math.Point;
 
 import java.util.ArrayList;
@@ -12,6 +13,13 @@ import java.util.Stack;
 public strictfp class MapGrid {
     public static final Predicate<Tile> WALKABLE = t -> t.type.walkable;
     public static final Predicate<Tile> FLYABLE = t -> t.type.flyable;
+
+    public static Predicate<Tile> getPredicate(WaveType waveType) {
+        if (waveType == WaveType.Air) {
+            return FLYABLE;
+        }
+        return WALKABLE;
+    }
 
     private final int width;
     private final int height;

@@ -329,7 +329,7 @@ public strictfp class InstantDamageAbilityTest extends SimTest {
 
     @Test
     void constantDamage_timeLord() {
-        creep.setType(CreepType.TimeLord);
+        creep.setImmortal(true);
         tower.setBaseDamage(1000.0f);
 
         whenTowerAttacks();
@@ -342,7 +342,7 @@ public strictfp class InstantDamageAbilityTest extends SimTest {
 
     @Test
     void instantKill_timeLord() {
-        creep.setType(CreepType.TimeLord);
+        creep.setImmortal(true);
         tower.setBaseDamage(1000.0f);
 
         tower.kill(creep);

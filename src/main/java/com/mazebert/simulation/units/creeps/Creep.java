@@ -43,6 +43,7 @@ public strictfp class Creep extends Unit {
     private transient float deathTime;
     private transient final FollowPathAbility followPathAbility;
     private transient boolean steady;
+    private transient boolean immortal;
 
     public Creep() {
         this(new FollowPathCreepAbility());
@@ -348,6 +349,18 @@ public strictfp class Creep extends Unit {
     }
 
     public boolean isImmortal() {
-        return type == CreepType.TimeLord;
+        return immortal;
+    }
+
+    public void setImmortal(boolean immortal) {
+        this.immortal = immortal;
+    }
+
+    public float getTargetX() {
+        return followPathAbility.getTargetX();
+    }
+
+    public float getTargetY() {
+        return followPathAbility.getTargetY();
     }
 }

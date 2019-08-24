@@ -92,7 +92,10 @@ public strictfp class GameSystem implements OnHealthChangedListener, OnWaveFinis
 
     public void finishBonusRound() {
         // Kill all remaining creeps, so that the end feels satisfiying
-        unitGateway.forEachCreep(creep -> creep.setHealth(0));
+        unitGateway.forEachCreep(creep -> {
+            creep.setImmortal(false);
+            creep.setHealth(0);
+        });
 
         if (simulationListeners.areNotificationsEnabled()) {
             unitGateway.forEach(Wizard.class, this::showBonusRoundCompleteNotification);

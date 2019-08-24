@@ -988,6 +988,7 @@ public strictfp class WaveSpawnerTest extends SimTest {
         assertThat(timeLord.getWave().armorType).isEqualTo(ArmorType.Zod);
         assertThat(timeLord.getAbility(TimeLordEffect.class)).isNotNull();
         assertThat(timeLord.getAbility(TimeLordArmorEffect.class)).isNotNull();
+        assertThat(timeLord.getAbility(TimeLordSpawnEffect.class)).isNotNull();
 
         // Time lord eventually reaches the player's base!
         AtomicBoolean finished = new AtomicBoolean();
