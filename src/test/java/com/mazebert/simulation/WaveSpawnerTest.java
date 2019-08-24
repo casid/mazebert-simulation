@@ -14,10 +14,7 @@ import com.mazebert.simulation.units.creeps.Creep;
 import com.mazebert.simulation.units.creeps.CreepModifier;
 import com.mazebert.simulation.units.creeps.CreepState;
 import com.mazebert.simulation.units.creeps.CreepType;
-import com.mazebert.simulation.units.creeps.effects.GhostEffect;
-import com.mazebert.simulation.units.creeps.effects.ReviveEffect;
-import com.mazebert.simulation.units.creeps.effects.TimeLordEffect;
-import com.mazebert.simulation.units.creeps.effects.UnionEffect;
+import com.mazebert.simulation.units.creeps.effects.*;
 import com.mazebert.simulation.units.items.ItemType;
 import com.mazebert.simulation.units.towers.Spider;
 import com.mazebert.simulation.units.towers.TowerType;
@@ -990,6 +987,7 @@ public strictfp class WaveSpawnerTest extends SimTest {
         assertThat(timeLord.getWave().type).isEqualTo(WaveType.TimeLord);
         assertThat(timeLord.getWave().armorType).isEqualTo(ArmorType.Zod);
         assertThat(timeLord.getAbility(TimeLordEffect.class)).isNotNull();
+        assertThat(timeLord.getAbility(TimeLordArmorEffect.class)).isNotNull();
 
         // Time lord eventually reaches the player's base!
         AtomicBoolean finished = new AtomicBoolean();

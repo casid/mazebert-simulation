@@ -54,31 +54,34 @@ public strictfp class TimeLordEffect extends Ability<Creep> implements OnDamageL
         timePassed += dt;
         if (timePassed >= GRANT_INTERVAL) {
             timePassed -= GRANT_INTERVAL;
+            grantBonusRoundSecondsAndExperience();
+        }
+    }
 
-            Game game = gameGateway.getGame();
+    private void grantBonusRoundSecondsAndExperience() {
+        Game game = gameGateway.getGame();
 
-            int timeLordSeconds = (int) StrictMath.round(0.02 * StrictMath.sqrt(totalDamage));
-            int totalSeconds = timeLordSeconds - lastTimeLordSeconds + game.bonusRoundSeconds;
+        int timeLordSeconds = (int) StrictMath.round(0.02 * StrictMath.sqrt(totalDamage));
+        int totalSeconds = timeLordSeconds - lastTimeLordSeconds + game.bonusRoundSeconds;
 
-            int deltaSeconds = totalSeconds - lastGrantedSeconds;
-            int grantedSeconds = 0;
-            while (deltaSeconds >= ExperienceSystem.BONUS_ROUND_REWARD_INTERVAL) {
-                deltaSeconds -= ExperienceSystem.BONUS_ROUND_REWARD_INTERVAL;
-                lastGrantedSeconds += ExperienceSystem.BONUS_ROUND_REWARD_INTERVAL;
-                grantedSeconds += ExperienceSystem.BONUS_ROUND_REWARD_INTERVAL;
+        int deltaSeconds = totalSeconds - lastGrantedSeconds;
+        int grantedSeconds = 0;
+        while (deltaSeconds >= ExperienceSystem.BONUS_ROUND_REWARD_INTERVAL) {
+            deltaSeconds -= ExperienceSystem.BONUS_ROUND_REWARD_INTERVAL;
+            lastGrantedSeconds += ExperienceSystem.BONUS_ROUND_REWARD_INTERVAL;
+            grantedSeconds += ExperienceSystem.BONUS_ROUND_REWARD_INTERVAL;
 
-                unitGateway.forEach(Wizard.class, wizard -> experienceSystem.grantBonusRoundExperience(wizard, lastGrantedSeconds, false));
-            }
+            unitGateway.forEach(Wizard.class, wizard -> experienceSystem.grantBonusRoundExperience(wizard, lastGrantedSeconds, false));
+        }
 
-            if (grantedSeconds > 0) {
-                lastTimeLordSeconds = timeLordSeconds;
+        if (grantedSeconds > 0) {
+            lastTimeLordSeconds = timeLordSeconds;
 
-                game.bonusRoundSeconds += grantedSeconds;
-                simulationListeners.onBonusRoundSurvived.dispatch(game.bonusRoundSeconds);
+            game.bonusRoundSeconds += grantedSeconds;
+            simulationListeners.onBonusRoundSurvived.dispatch(game.bonusRoundSeconds);
 
-                if (simulationListeners.areNotificationsEnabled()) {
-                    simulationListeners.showNotification(getUnit(), "+" + format.seconds(grantedSeconds), 0xffff00);
-                }
+            if (simulationListeners.areNotificationsEnabled()) {
+                simulationListeners.showNotification(getUnit(), "+" + format.seconds(grantedSeconds), 0xffff00);
             }
         }
     }

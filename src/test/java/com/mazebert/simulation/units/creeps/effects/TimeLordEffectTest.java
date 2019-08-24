@@ -1,11 +1,10 @@
 package com.mazebert.simulation.units.creeps.effects;
 
-import com.mazebert.simulation.Game;
-import com.mazebert.simulation.SimTest;
-import com.mazebert.simulation.SimulationListenersTrainer;
+import com.mazebert.simulation.*;
 import com.mazebert.simulation.gateways.DifficultyGateway;
 import com.mazebert.simulation.gateways.GameGateway;
 import com.mazebert.simulation.gateways.UnitGateway;
+import com.mazebert.simulation.gateways.WaveGateway;
 import com.mazebert.simulation.plugins.FormatPlugin;
 import com.mazebert.simulation.systems.ExperienceSystem;
 import com.mazebert.simulation.units.creeps.Creep;
@@ -13,9 +12,7 @@ import com.mazebert.simulation.units.wizards.Wizard;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static com.mazebert.simulation.units.creeps.CreepBuilder.creep;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.jusecase.Builders.a;
 
 public strictfp class TimeLordEffectTest extends SimTest {
 
@@ -26,6 +23,7 @@ public strictfp class TimeLordEffectTest extends SimTest {
 
     Creep creep;
     TimeLordEffect timeLordEffect;
+    TimeLordArmorEffect timeLordArmorEffect;
 
     @BeforeEach
     void setUp() {
@@ -35,6 +33,8 @@ public strictfp class TimeLordEffectTest extends SimTest {
         gameGateway = new GameGateway();
         difficultyGateway = new DifficultyGateway();
         experienceSystem = new ExperienceSystem();
+        waveGateway = new WaveGateway();
+        waveSpawner = new WaveSpawner();
 
         unitGateway.addUnit(wizard1 = new Wizard());
         unitGateway.addUnit(wizard2 = new Wizard());
@@ -42,8 +42,9 @@ public strictfp class TimeLordEffectTest extends SimTest {
         game = gameGateway.getGame();
         game.bonusRoundSeconds = 5000;
 
-        creep = a(creep());
-        creep.addAbility(timeLordEffect = new TimeLordEffect());
+        creep = waveSpawner.createTimeLord();
+        timeLordEffect = creep.getAbility(TimeLordEffect.class);
+        timeLordArmorEffect = creep.getAbility(TimeLordArmorEffect.class);
     }
 
     @Test
@@ -60,7 +61,22 @@ public strictfp class TimeLordEffectTest extends SimTest {
 
     @Test
     void togglesArmorType() {
-        // TODO time lord should toggle its armor type
+        assertThat(creep.getWave().armorType).isEqualTo(ArmorType.Zod);
+        creep.onUpdate.dispatch(TimeLordArmorEffect.TOGGLE_INTERVAL);
+        assertThat(creep.getWave().armorType).isEqualTo(ArmorType.Ber);
+        creep.onUpdate.dispatch(TimeLordArmorEffect.TOGGLE_INTERVAL);
+        assertThat(creep.getWave().armorType).isEqualTo(ArmorType.Fal);
+        creep.onUpdate.dispatch(TimeLordArmorEffect.TOGGLE_INTERVAL);
+        assertThat(creep.getWave().armorType).isEqualTo(ArmorType.Vex);
+        creep.onUpdate.dispatch(TimeLordArmorEffect.TOGGLE_INTERVAL);
+        assertThat(creep.getWave().armorType).isEqualTo(ArmorType.Zod);
+    }
+
+    @Test
+    void togglesArmorType_notYet() {
+        assertThat(creep.getWave().armorType).isEqualTo(ArmorType.Zod);
+        creep.onUpdate.dispatch(TimeLordArmorEffect.TOGGLE_INTERVAL - 0.01f);
+        assertThat(creep.getWave().armorType).isEqualTo(ArmorType.Zod);
     }
 
     @Test

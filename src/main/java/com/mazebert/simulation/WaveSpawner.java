@@ -12,6 +12,7 @@ import com.mazebert.simulation.systems.LootSystem;
 import com.mazebert.simulation.units.Unit;
 import com.mazebert.simulation.units.creeps.Creep;
 import com.mazebert.simulation.units.creeps.CreepType;
+import com.mazebert.simulation.units.creeps.effects.TimeLordArmorEffect;
 import com.mazebert.simulation.units.creeps.effects.TimeLordEffect;
 import com.mazebert.simulation.units.items.ItemType;
 import com.mazebert.simulation.units.wizards.Wizard;
@@ -480,6 +481,7 @@ public strictfp final class WaveSpawner implements OnGameStartedListener, OnWave
         creep.setType(wave.creepType);
 
         creep.addAbility(new TimeLordEffect());
+        creep.addAbility(new TimeLordArmorEffect());
         return creep;
     }
 
