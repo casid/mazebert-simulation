@@ -12,7 +12,7 @@ import com.mazebert.simulation.units.towers.Tower;
 import com.mazebert.simulation.units.wizards.Wizard;
 
 public strictfp class ExperienceSystem {
-    private static final int BONUS_ROUND_REWARD_INTERVAL = 30;
+    public static final int BONUS_ROUND_REWARD_INTERVAL = 30;
 
     private static final PlayerLevelPlugin playerLevelPlugin = new PlayerLevelPlugin();
 
@@ -53,12 +53,12 @@ public strictfp class ExperienceSystem {
         return playerLevelPlugin.getLevelForExperience(wizard.experience);
     }
 
-    public void grantBonusRoundExperience(Wizard wizard, int bonusRoundSeconds) {
+    public void grantBonusRoundExperience(Wizard wizard, int bonusRoundSeconds, boolean notify) {
         double rounds = (double) bonusRoundSeconds / BONUS_ROUND_REWARD_INTERVAL;
         long experience = StrictMath.round(getExperienceModifier(wizard) * 100 * (1 + 2 * rounds / (20 + rounds)));
         grantExperience(wizard, experience);
 
-        if (simulationListeners.areNotificationsEnabled()) {
+        if (notify && simulationListeners.areNotificationsEnabled()) {
             FormatPlugin format = Sim.context().formatPlugin;
             simulationListeners.showNotification(wizard, format.experienceWithSignAndUnit(experience) + " survival bonus.");
         }

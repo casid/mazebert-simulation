@@ -524,7 +524,7 @@ public strictfp class TimeLordBalancingTester {
             int newSeconds = 0;
             if (damage[i] > 0) {
                 factor = (secondsSurvived[i] - 5000) / damage[i];
-                newSeconds = (int) (0.02 * Math.sqrt(damage[i]));
+                newSeconds = (int) (0.02 * StrictMath.sqrt(damage[i]));
             }
             System.out.println(games[i] + ", " + secondsSurvived[i] + ", " + damage[i] + ", " + factor + ", " + newSeconds);
         }
