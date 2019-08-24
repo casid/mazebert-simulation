@@ -995,7 +995,7 @@ public strictfp class WaveSpawnerTest extends SimTest {
         AtomicBoolean finished = new AtomicBoolean();
         simulationListeners.onBonusRoundFinished.add(() -> finished.set(true));
         timeLord.setPath(new Path(0.0f, 0.0f, 0.0f, 1.0f));
-        timeLord.simulate(1.0f);
+        timeLord.simulate(1.0f / timeLord.getSpeed());
 
         assertThat(finished.get()).isTrue();
     }
