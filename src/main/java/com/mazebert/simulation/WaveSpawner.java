@@ -37,6 +37,7 @@ public strictfp final class WaveSpawner implements OnGameStartedListener, OnWave
     private float countdownForNextGoblinToSend;
     private boolean bonusRoundStarted;
     private double bonusRoundSeconds;
+    private int lastBonusRoundSeconds;
     private int currentBonusRound;
 
     public WaveSpawner() {
@@ -82,26 +83,30 @@ public strictfp final class WaveSpawner implements OnGameStartedListener, OnWave
         }
 
         Game game = gameGateway.getGame();
-        if (bonusRoundStarted && !game.timeLord) {
+        if (bonusRoundStarted) {
             bonusRoundSeconds += dt;
             int seconds = (int) bonusRoundSeconds;
-            if (seconds > game.bonusRoundSeconds) {
-                game.bonusRoundSeconds = seconds;
-                simulationListeners.onBonusRoundSurvived.dispatch(seconds);
+            if (seconds > lastBonusRoundSeconds) {
+                int delta = seconds - lastBonusRoundSeconds;
+                lastBonusRoundSeconds = seconds;
+                game.bonusRoundSeconds += delta;
+                simulationListeners.onBonusRoundSurvived.dispatch(game.bonusRoundSeconds);
 
-                if (experienceSystem.isTimeToGrantBonusRoundExperience(seconds)) {
-                    unitGateway.forEach(Wizard.class, wizard -> experienceSystem.grantBonusRoundExperience(wizard, seconds));
-                }
+                if(!game.timeLord) {
+                    if (experienceSystem.isTimeToGrantBonusRoundExperience(game.bonusRoundSeconds)) {
+                        unitGateway.forEach(Wizard.class, wizard -> experienceSystem.grantBonusRoundExperience(wizard, game.bonusRoundSeconds));
+                    }
 
-                if (seconds >= Balancing.TIME_LORD_ENCOUNTER_SECONDS && Sim.isDoLSeasonContent()) {
-                    game.timeLord = true;
+                    if (game.bonusRoundSeconds >= Balancing.TIME_LORD_ENCOUNTER_SECONDS && Sim.isDoLSeasonContent()) {
+                        game.timeLord = true;
 
-                    Sim.context().timeLordCountDown = new TimeLordCountDown();
-                    Sim.context().timeLordCountDown.start();
-                }
+                        Sim.context().timeLordCountDown = new TimeLordCountDown();
+                        Sim.context().timeLordCountDown.start();
+                    }
 
-                if (seconds % Balancing.BONUS_SPAWN_COUNTDOWN_SECONDS == 0) {
-                    spawnBonusRoundWave();
+                    if (seconds % Balancing.BONUS_SPAWN_COUNTDOWN_SECONDS == 0) {
+                        spawnBonusRoundWave();
+                    }
                 }
             }
         }
