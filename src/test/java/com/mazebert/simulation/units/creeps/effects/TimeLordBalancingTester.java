@@ -547,7 +547,7 @@ public strictfp class TimeLordBalancingTester {
 
                                 int gameIndex = getGameIndex(game);
                                 synchronized (TimeLordBalancingTester.this) {
-                                    System.out.println(games[gameIndex] + ", " + secondsSurvived[gameIndex] + ", " + context.gameGateway.getGame().bonusRoundSeconds + " (players: " + context.playerGateway.getPlayerCount() + ", turn: " + timeLordStartTurnNumber + ")");
+                                    System.out.println(games[gameIndex] + ", " + secondsSurvived[gameIndex] + ", " + context.gameGateway.getGame().bonusRoundSeconds + ", (players: " + context.playerGateway.getPlayerCount() + ", turn: " + timeLordStartTurnNumber + ")");
                                 }
 
                                 throw new RuntimeException("done");
