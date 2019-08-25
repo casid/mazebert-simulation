@@ -5,6 +5,8 @@ import com.mazebert.simulation.gateways.UnitGateway;
 import com.mazebert.simulation.units.creeps.Creep;
 import com.mazebert.simulation.units.towers.Tower;
 
+import java.util.Arrays;
+
 public strictfp class AttackAbility extends CooldownAbility<Tower> {
 
     private final UnitGateway unitGateway = Sim.context().unitGateway;
@@ -29,16 +31,12 @@ public strictfp class AttackAbility extends CooldownAbility<Tower> {
     @Override
     protected void initialize(Tower unit) {
         super.initialize(unit);
-        for (int i = 0; i < currentTargets.length; ++i) {
-            currentTargets[i] = null;
-        }
+        Arrays.fill(currentTargets, null);
     }
 
     @Override
     public void dispose(Tower unit) {
-        for (int i = 0; i < currentTargets.length; ++i) {
-            currentTargets[i] = null;
-        }
+        Arrays.fill(currentTargets, null);
         super.dispose(unit);
     }
 
