@@ -113,6 +113,8 @@ public strictfp final class WaveSpawner implements OnGameStartedListener, OnWave
     }
 
     public void startTimeLordCountDown() {
+        creepQueue.clear();
+
         gameGateway.getGame().timeLord = true;
 
         Sim.context().timeLordCountDown = new TimeLordCountDown();
@@ -473,7 +475,7 @@ public strictfp final class WaveSpawner implements OnGameStartedListener, OnWave
 
             int round = wave.round;
 
-            double healthOfAllCreeps = 0.2 * Balancing.getTotalCreepHitpoints(version, round, difficultyGateway.getDifficulty());
+            double healthOfAllCreeps = 0.4 * Balancing.getTotalCreepHitpoints(version, round, difficultyGateway.getDifficulty());
             double healthOfOneCreep = getHealthOfOneCreep(wave, healthOfAllCreeps);
 
             int playerCount = playerGateway.getPlayerCount();
@@ -528,8 +530,7 @@ public strictfp final class WaveSpawner implements OnGameStartedListener, OnWave
     private void spawnTimeLordWave() {
         if (gameGateway.getGame().health > 0.0f) {
             Creep creep = createTimeLord();
-
-            creepQueue.add(creep);
+            spawnCreep(creep);
         }
     }
 

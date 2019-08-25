@@ -6,6 +6,7 @@ import com.mazebert.simulation.countdown.BonusRoundCountDown;
 import com.mazebert.simulation.countdown.TimeLordCountDown;
 import com.mazebert.simulation.countdown.WaveCountDown;
 import com.mazebert.simulation.gateways.*;
+import com.mazebert.simulation.maps.BloodMoor;
 import com.mazebert.simulation.plugins.random.RandomPluginTrainer;
 import com.mazebert.simulation.systems.GameSystem;
 import org.junit.jupiter.api.BeforeEach;
@@ -29,6 +30,8 @@ class NextWaveTest extends UsecaseTest<NextWaveCommand> {
         playerGateway = new PlayerGatewayTrainer();
         gameSystem = new GameSystem();
         waveSpawner = new WaveSpawner();
+
+        gameGateway.getGame().map = new BloodMoor();
 
         usecase = new NextWave();
 
