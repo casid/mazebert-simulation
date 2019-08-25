@@ -510,9 +510,7 @@ public strictfp class TimeLordBalancingTester {
     void simulateGames() {
         System.out.println("game, old seconds survived, new seconds survived");
 
-        Arrays.stream(games).parallel().forEach(game -> {
-            checkGame(game, Sim.v17);
-        });
+        Arrays.stream(games).parallel().forEach(game -> checkGame(game, Sim.v17));
     }
 
     @SuppressWarnings({"SameParameterValue", "Convert2Lambda"})
@@ -527,6 +525,8 @@ public strictfp class TimeLordBalancingTester {
                         @Override
                         public void onBonusRoundSurvived(int seconds) {
                             if (seconds >= 5000 && !context.gameGateway.getGame().timeLord) {
+                                int timeLordStartTurnNumber = context.turnGateway.getCurrentTurnNumber();
+
                                 context.newBalancing = true;
 
                                 AtomicBoolean bonusRoundFinished = new AtomicBoolean();
@@ -547,7 +547,7 @@ public strictfp class TimeLordBalancingTester {
 
                                 int gameIndex = getGameIndex(game);
                                 synchronized (TimeLordBalancingTester.this) {
-                                    System.out.println(games[gameIndex] + ", " + secondsSurvived[gameIndex] + ", " + context.gameGateway.getGame().bonusRoundSeconds);
+                                    System.out.println(games[gameIndex] + ", " + secondsSurvived[gameIndex] + ", " + context.gameGateway.getGame().bonusRoundSeconds + " (turn: " + timeLordStartTurnNumber + ")");
                                 }
 
                                 throw new RuntimeException("done");
