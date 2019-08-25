@@ -320,6 +320,18 @@ public strictfp class BloodMoor extends Map {
         addTile(new Tile(t2, -0.4f, -100));
         addTile(new Tile(t8, -0.4f, -100));
         addTile(new Tile(t2, -0.4f, -100));
+
+        addTile(new Tile(t2, -0.4f, -100));
+        addTile(new Tile(t8, -0.4f, -100));
+        addTile(new Tile(t2, -0.4f, -100));
+        addTile(new Tile(t9, -0.4f, -100));
+        addTile(new Tile(t8, -0.4f, -100));
+        addTile(new Tile(t2, -0.4f, -100));
+        addTile(new Tile(t9, -0.4f, -100));
+        addTile(new Tile(t8, -0.4f, -100));
+        addTile(new Tile(t2, -0.4f, -100));
+        addTile(new Tile(t8, -0.4f, -100));
+        addTile(new Tile(t2, -0.4f, -100));
     }
 
     @Override
