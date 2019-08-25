@@ -1,6 +1,7 @@
 package com.mazebert.simulation.units.creeps;
 
 import com.mazebert.simulation.Path;
+import com.mazebert.simulation.Sim;
 import com.mazebert.simulation.Wave;
 import com.mazebert.simulation.hash.Hash;
 import com.mazebert.simulation.listeners.*;
@@ -11,6 +12,7 @@ import com.mazebert.simulation.units.abilities.FollowPathCreepAbility;
 
 public strictfp class Creep extends Unit {
     public static final float DEATH_TIME = 2.0f;
+    public static final int MAX_CREEP_ID = 4095;
 
     public final OnDeath onDeath = new OnDeath();
     public final OnDead onDead = new OnDead();
@@ -18,6 +20,8 @@ public strictfp class Creep extends Unit {
     public final OnTargetReached onTargetReached = new OnTargetReached();
     public final OnHealthChanged onHealthChanged = new OnHealthChanged();
     public final OnDamage onDamage = new OnDamage();
+
+    public final int id;
 
     private double health = 100.0;
     private double maxHealth = health;
@@ -52,6 +56,8 @@ public strictfp class Creep extends Unit {
     public Creep(FollowPathAbility followPathAbility) {
         this.followPathAbility = followPathAbility;
         addAbility(followPathAbility);
+
+        id = getNextId();
     }
 
     @SuppressWarnings("Duplicates")
@@ -362,5 +368,14 @@ public strictfp class Creep extends Unit {
 
     public float getTargetY() {
         return followPathAbility.getTargetY();
+    }
+
+    private int getNextId() {
+        int id = ++Sim.context().creepIdAutoIncrement;
+        if (id > MAX_CREEP_ID) {
+            id = 1;
+            Sim.context().creepIdAutoIncrement = 0;
+        }
+        return id;
     }
 }
