@@ -7,6 +7,7 @@ import com.mazebert.simulation.listeners.OnAttackListener;
 import com.mazebert.simulation.units.TestTower;
 import com.mazebert.simulation.units.creeps.Creep;
 import com.mazebert.simulation.units.towers.Tower;
+import com.mazebert.simulation.units.wizards.Wizard;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -17,6 +18,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class AttackAbilityTest extends SimTest implements OnAttackListener {
 
+    Wizard wizard;
     Tower tower;
     Creep creep;
 
@@ -27,11 +29,16 @@ public class AttackAbilityTest extends SimTest implements OnAttackListener {
         simulationListeners = new SimulationListeners();
         unitGateway = new UnitGateway();
 
+        wizard = new Wizard();
+        unitGateway.addUnit(wizard);
+
         tower = new TestTower();
         tower.setBaseCooldown(1.0f);
         tower.setBaseRange(1.0f);
         tower.addAbility(new AttackAbility());
+        tower.setWizard(wizard);
         tower.onAttack.add(this);
+        unitGateway.addUnit(tower);
 
         creep = new Creep();
         unitGateway.addUnit(creep);
@@ -177,6 +184,47 @@ public class AttackAbilityTest extends SimTest implements OnAttackListener {
 
         creep.setX(1);
         tower.simulate(0.1f);
+        thenUnitIsAttacked(creep);
+    }
+
+    @Test
+    void attack_ordered() {
+        Creep otherCreep = new Creep();
+        unitGateway.addUnit(otherCreep);
+        wizard.onAttackOrdered.dispatch(wizard, otherCreep);
+
+        whenTowerAttacks();
+
+        thenUnitIsAttacked(otherCreep);
+    }
+
+    @Test
+    void attack_ordered_outOfRange() {
+        Creep otherCreep = new Creep();
+        otherCreep.setX(1000);
+        unitGateway.addUnit(otherCreep);
+        wizard.onAttackOrdered.dispatch(wizard, otherCreep);
+
+        whenTowerAttacks();
+
+        thenUnitIsAttacked(creep);
+
+        // Comes back in range...
+
+        otherCreep.setX(0);
+        whenTowerAttacks();
+        thenUnitIsAttacked(otherCreep);
+    }
+
+    @Test
+    void attack_ordered_deadAlready() {
+        Creep otherCreep = new Creep();
+        unitGateway.addUnit(otherCreep);
+        otherCreep.setHealth(0);
+        wizard.onAttackOrdered.dispatch(wizard, otherCreep);
+
+        whenTowerAttacks();
+
         thenUnitIsAttacked(creep);
     }
 

@@ -7,11 +7,11 @@ public strictfp class OnAttackOrdered extends ExposedSignal<OnAttackOrderedListe
 
     public void dispatch(Wizard wizard, Creep creep) {
         for (OnAttackOrderedListener listener : this) {
-            listener.onAttackRequested(wizard, creep);
+            listener.onAttackOrdered(wizard, creep);
         }
 
         if (isExposed()) {
-            dispatchExposed(l -> l.onAttackRequested(wizard, creep));
+            dispatchExposed(l -> l.onAttackOrdered(wizard, creep));
         }
     }
 }
