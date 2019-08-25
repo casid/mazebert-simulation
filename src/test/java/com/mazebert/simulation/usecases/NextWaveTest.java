@@ -100,4 +100,27 @@ class NextWaveTest extends UsecaseTest<NextWaveCommand> {
         assertThat(timeLordStarted).isEqualTo(1);
         assertThat(skippedSeconds).isEqualTo((int)Balancing.TIME_LORD_COUNTDOWN_SECONDS);
     }
+
+    @Test
+    void timeLord_bonusRound() {
+        gameGateway.getGame().bonusRoundSeconds = 5000;
+        gameGateway.getGame().timeLord = true;
+        timeLordCountDown = new TimeLordCountDown();
+
+        whenRequestIsExecuted();
+
+        assertThat(gameGateway.getGame().bonusRoundSeconds).isEqualTo(5000 + (int)Balancing.TIME_LORD_COUNTDOWN_SECONDS);
+    }
+
+    @Test
+    void timeLord_bonusRound_passed() {
+        gameGateway.getGame().bonusRoundSeconds = 5000;
+        gameGateway.getGame().timeLord = true;
+        timeLordCountDown = new TimeLordCountDown();
+        timeLordCountDown.onUpdate(10);
+
+        whenRequestIsExecuted();
+
+        assertThat(gameGateway.getGame().bonusRoundSeconds).isEqualTo(5000 + (int)Balancing.TIME_LORD_COUNTDOWN_SECONDS - 10);
+    }
 }

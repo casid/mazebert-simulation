@@ -22,6 +22,7 @@ public strictfp class NextWave extends Usecase<NextWaveCommand> {
 
         if (gameGateway.getGame().timeLord) {
             if (context.timeLordCountDown != null) {
+                gameGateway.getGame().bonusRoundSeconds += context.timeLordCountDown.getRemainingSeconds();
                 skipCountDown(context, context.timeLordCountDown);
             }
             return;
