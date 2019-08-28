@@ -16,6 +16,6 @@ public strictfp class OnlyMetropolisQuest extends RestrictedElementsQuest {
 
     @Override
     public String getTitle() {
-        return "Nature's Wrath";
+        return "Urbanize!";
     }
 }
