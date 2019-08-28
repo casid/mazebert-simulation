@@ -54,12 +54,16 @@ public strictfp class AttackAbility extends CooldownAbility<Tower> implements On
 
     @Override
     public void onUnitAdded(Unit unit) {
-        unit.getWizard().onAttackOrdered.add(this);
+        if (unit.getWizard() != null) {
+            unit.getWizard().onAttackOrdered.add(this);
+        }
     }
 
     @Override
     public void onUnitRemoved(Unit unit) {
-        unit.getWizard().onAttackOrdered.remove(this);
+        if (unit.getWizard() != null) {
+            unit.getWizard().onAttackOrdered.remove(this);
+        }
     }
 
     @Override
