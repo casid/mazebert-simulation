@@ -19,4 +19,9 @@ public strictfp class BowlPerfectGameQuest extends Quest {
     public String getDescription() {
         return "Good lord! You just bowled a perfect game!";
     }
+
+    @Override
+    public boolean isHidden() {
+        return true;
+    }
 }
