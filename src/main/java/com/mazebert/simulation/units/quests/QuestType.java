@@ -40,6 +40,7 @@ public strictfp enum QuestType {
     HardVictoryQuest(30, HardVictoryQuest.class),
     Map5VictoryQuest(31, Map5VictoryQuest.class),
     Map5VictoryUnlockHeroQuest(32, Map5VictoryUnlockHeroQuest.class),
+    OnlyLightQuest(33, OnlyLightQuest.class),
     ;
 
 
