@@ -1,5 +1,7 @@
 package com.mazebert.simulation.units.quests;
 
+import com.mazebert.simulation.Sim;
+
 public strictfp enum QuestType {
     //////////////////////////////////////////////////////////////////////////////////////////////////////////
     // THESE IDS ARE USED TO PERSIST QUESTS.
@@ -44,6 +46,8 @@ public strictfp enum QuestType {
     OnlyDarknessAndLightQuest(34, OnlyDarknessAndLightQuest.class),
     ;
 
+    private static final QuestType[] STANDARD      = {KillChallengesQuest, OnlyDarknessAndNatureQuest, OnlyNatureAndMetropolisQuest, Map1VictoryQuest, Map2VictoryQuest, WatchCreditsQuest, OnlyDarknessAndMetropolisQuest, OnlyDarknessQuest, OnlyNatureQuest, OnlyMetropolisQuest, Map3VictoryQuest, Map4VictoryQuest, BonusSurvivalQuest, CollectGoldQuest, TowerLevelsQuest, VisitBlackMarketQuest, VisitDevelopersInnQuest, BuyBlackMarketOfferQuest, BowlPerfectGameQuest, BowlStrikesQuest, TransmuteUniquesQuest, TransmuteStackQuest, DrinkAllPotionsQuest, TransmuteCardsQuest, KnusperHexeQuest, BaluQuest, MuliQuest, Map4VictoryUnlockReginnQuest, CoopQuest, HardVictoryQuest};
+    private static final QuestType[] DAWN_OF_LIGHT = {KillChallengesQuest, OnlyDarknessAndNatureQuest, OnlyNatureAndMetropolisQuest, Map1VictoryQuest, Map2VictoryQuest, WatchCreditsQuest, OnlyDarknessAndMetropolisQuest, OnlyDarknessQuest, OnlyNatureQuest, OnlyMetropolisQuest, Map3VictoryQuest, Map4VictoryQuest, BonusSurvivalQuest, CollectGoldQuest, TowerLevelsQuest, VisitBlackMarketQuest, VisitDevelopersInnQuest, BuyBlackMarketOfferQuest, BowlPerfectGameQuest, BowlStrikesQuest, TransmuteUniquesQuest, TransmuteStackQuest, DrinkAllPotionsQuest, TransmuteCardsQuest, KnusperHexeQuest, BaluQuest, MuliQuest, Map4VictoryUnlockReginnQuest, CoopQuest, HardVictoryQuest, Map5VictoryQuest, Map5VictoryUnlockHeroQuest, OnlyLightQuest, OnlyDarknessAndLightQuest};
 
     public final int id;
     public final Class<? extends Quest> questClass;
@@ -72,6 +76,13 @@ public strictfp enum QuestType {
         for (QuestType questType : QuestType.values()) {
             LOOKUP[questType.id] = questType;
         }
+    }
+
+    public static QuestType[] getValues() {
+        if (Sim.isDoLSeasonContent()) {
+            return DAWN_OF_LIGHT;
+        }
+        return STANDARD;
     }
 
     public static QuestType forId(int id) {
