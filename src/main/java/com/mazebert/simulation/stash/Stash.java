@@ -19,6 +19,7 @@ public abstract strictfp class Stash<T extends Card> implements ReadonlyStash<T>
     private final Map<Object, T> droppedUniques;
     private final Set autoTransmutes;
     private EnumMap<Rarity, CardType<T>[]> cardByDropRarity;
+    private EnumMap<Rarity, CardType<T>[]> cardByDropRarityExcludingSupporterCards;
 
     private final OnCardAdded onCardAdded = new OnCardAdded();
     private final OnCardRemoved onCardRemoved = new OnCardRemoved();
@@ -38,6 +39,7 @@ public abstract strictfp class Stash<T extends Card> implements ReadonlyStash<T>
 
     protected void updateCardByDropRarity() {
         this.cardByDropRarity = populateCardByDropRarity();
+        this.cardByDropRarityExcludingSupporterCards = populateCardByDropRarityExcludingSupporterCards();
     }
 
     @SuppressWarnings("unchecked")
@@ -62,6 +64,52 @@ public abstract strictfp class Stash<T extends Card> implements ReadonlyStash<T>
             Collections.sort(drops, ITEM_LEVEL_COMPARATOR);
             result.put(rarity, drops.toArray(new CardType[0]));
         }
+        return result;
+    }
+
+    private EnumMap<Rarity, CardType<T>[]> populateCardByDropRarityExcludingSupporterCards() {
+        Set<CardType<T>> supporterCards = new HashSet<>();
+
+        for (CardType<T> possibleDrop : getPossibleDrops()) {
+            T card = possibleDrop.instance();
+            if (card.isSupporterReward()) {
+                supporterCards.add(possibleDrop);
+            }
+        }
+
+        if (supporterCards.isEmpty()) {
+            return cardByDropRarity;
+        }
+
+        EnumMap<Rarity, CardType<T>[]> result = new EnumMap<>(Rarity.class);
+        for (Rarity rarity : Rarity.values()) {
+            CardType<T>[] cardTypes = cardByDropRarity.get(rarity);
+            result.put(rarity, remove(cardTypes, supporterCards));
+        }
+        return result;
+    }
+
+    @SuppressWarnings("unchecked")
+    private CardType<T>[] remove(CardType<T>[] array, Set<CardType<T>> values) {
+        int changes = 0;
+        for (CardType<T> cardType : array) {
+            if (values.contains(cardType)) {
+                ++changes;
+            }
+        }
+
+        if (changes == 0) {
+            return array;
+        }
+
+        CardType<T>[] result = new CardType[array.length - changes];
+        int i = 0;
+        for (CardType<T> cardType : array) {
+            if (!values.contains(cardType)) {
+                result[i++] = cardType;
+            }
+        }
+
         return result;
     }
 
@@ -204,8 +252,8 @@ public abstract strictfp class Stash<T extends Card> implements ReadonlyStash<T>
         return possibleDrops[dropIndex];
     }
 
-    public CardType<T> getRandomDrop(Rarity rarity, RandomPlugin randomPlugin, int maxItemLevel) {
-        CardType<T>[] possibleDrops = cardByDropRarity.get(rarity);
+    public CardType<T> getRandomDrop(Rarity rarity, RandomPlugin randomPlugin, int maxItemLevel, boolean excludeSupporterCards) {
+        CardType<T>[] possibleDrops = excludeSupporterCards ? cardByDropRarityExcludingSupporterCards.get(rarity) : cardByDropRarity.get(rarity);
         if (possibleDrops.length <= 0) {
             return null;
         }
@@ -255,7 +303,7 @@ public abstract strictfp class Stash<T extends Card> implements ReadonlyStash<T>
     public List<T> getAutoTransmutes() {
         List<T> result = new ArrayList<>();
         for (Object autoTransmute : autoTransmutes) {
-            result.add(((CardType<T>)autoTransmute).instance());
+            result.add(((CardType<T>) autoTransmute).instance());
 
         }
         return result;

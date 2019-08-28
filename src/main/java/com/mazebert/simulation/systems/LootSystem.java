@@ -114,8 +114,12 @@ public strictfp class LootSystem {
         addToStash(wizard, creep, stash, drop);
 
         if (version >= Sim.v13) {
-            if (drop == PotionType.AngelicElixir) {
-                rollCardDrop(wizard, creep, maxItemLevel, Rarity.Unique, stash);
+            if (drop.instance().isSupporterReward()) {
+                if (version >= Sim.vDoL) {
+                    rollCardDrop(wizard, creep, maxItemLevel, Rarity.Legendary, stash, true);
+                } else {
+                    rollCardDrop(wizard, creep, maxItemLevel, Rarity.Unique, stash);
+                }
             }
             if (drop == ItemType.WeddingRing1) {
                 addToStash(wizard, creep, stash, ItemType.WeddingRing2);
@@ -146,10 +150,14 @@ public strictfp class LootSystem {
     }
 
     private void rollCardDrop(Wizard wizard, Creep creep, int maxItemLevel, Rarity rarity, Stash stash) {
+        rollCardDrop(wizard, creep, maxItemLevel, rarity, stash, false);
+    }
+
+    private void rollCardDrop(Wizard wizard, Creep creep, int maxItemLevel, Rarity rarity, Stash stash, boolean excludeSupporterCards) {
         while (rarity.ordinal() >= Rarity.Common.ordinal()) {
             CardType drop;
             if (version > Sim.v10) {
-                drop = stash.getRandomDrop(rarity, randomPlugin, maxItemLevel);
+                drop = stash.getRandomDrop(rarity, randomPlugin, maxItemLevel, excludeSupporterCards);
             } else {
                 drop = stash.getRandomDrop(rarity, randomPlugin);
             }
