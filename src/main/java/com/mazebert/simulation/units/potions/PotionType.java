@@ -43,13 +43,14 @@ public strictfp enum PotionType implements CardType<Potion> {
     ResearchDarkness(28, ResearchDarkness.class),
     ResearchLight(29, ResearchLight.class),
     WhiteRussian(30, WhiteRussian.class),
+    UnicornTears(31, UnicornTears.class),
     ;
 
     private static int maxId;
     private static PotionType[] LOOKUP;
 
     private static final PotionType[] STANDARD =      {CommonDamage, CommonSpeed, CommonCrit, Mead, UncommonDamage, UncommonSpeed, UncommonCrit, UncommonDrops, RareDamage, RareSpeed, RareCrit, RareDrops, Tears, Nillos, Painkiller, Sacrifice, EssenceOfWisdom, EssenceOfLuck, AngelicElixir, CardDustCrit, CardDustLuck, CardDustLevel, CardDustVital, DrinkAll, ChangeSex, ResearchNature, ResearchMetropolis, ResearchDarkness};
-    private static final PotionType[] DAWN_OF_LIGHT = {CommonDamage, CommonSpeed, CommonCrit, Mead, UncommonDamage, UncommonSpeed, UncommonCrit, UncommonDrops, RareDamage, RareSpeed, RareCrit, RareDrops, Tears, Nillos, Painkiller, Sacrifice, EssenceOfWisdom, EssenceOfLuck, AngelicElixir, CardDustCrit, CardDustLuck, CardDustLevel, CardDustVital, DrinkAll, ChangeSex, ResearchNature, ResearchMetropolis, ResearchDarkness, ResearchLight, WhiteRussian};
+    private static final PotionType[] DAWN_OF_LIGHT = {CommonDamage, CommonSpeed, CommonCrit, Mead, UncommonDamage, UncommonSpeed, UncommonCrit, UncommonDrops, RareDamage, RareSpeed, RareCrit, RareDrops, Tears, Nillos, Painkiller, Sacrifice, EssenceOfWisdom, EssenceOfLuck, AngelicElixir, CardDustCrit, CardDustLuck, CardDustLevel, CardDustVital, DrinkAll, ChangeSex, ResearchNature, ResearchMetropolis, ResearchDarkness, ResearchLight, WhiteRussian, UnicornTears};
 
     static {
         maxId = 0;

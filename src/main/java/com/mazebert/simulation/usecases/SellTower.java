@@ -26,6 +26,10 @@ public strictfp class SellTower extends Usecase<SellTowerCommand> {
             return;
         }
 
+        execute(wizard, tower);
+    }
+
+    public void execute(Wizard wizard, Tower tower) {
         Item[] items = tower.removeAllItems();
         for (Item item : items) {
             if (item != null) {

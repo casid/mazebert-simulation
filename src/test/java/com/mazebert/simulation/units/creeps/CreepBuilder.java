@@ -39,6 +39,11 @@ public class CreepBuilder implements Builder<Creep> {
         return this;
     }
 
+    public CreepBuilder horseman() {
+        creep.getWave().type = WaveType.Horseman;
+        return this;
+    }
+
     public CreepBuilder withWizard(Wizard wizard) {
         creep.setWizard(wizard);
         return this;
