@@ -1,6 +1,7 @@
 package com.mazebert.simulation.units.items;
 
 import java.util.EnumSet;
+import java.util.Set;
 
 public strictfp class SpectralSetAbility extends ItemSetAbility {
     public SpectralSetAbility() {
@@ -8,7 +9,7 @@ public strictfp class SpectralSetAbility extends ItemSetAbility {
     }
 
     @Override
-    protected void updateSetBonus(EnumSet<ItemType> items, int oldAmount, int newAmount) {
+    protected void updateSetBonus(Set<ItemType> items, int oldAmount, int newAmount) {
         if (newAmount == 2) {
             getUnit().getAbility(SpectralDaggersAbility.class).setMaxStacks(SpectralDaggersAbility.maxStacksBase + SpectralDaggersAbility.maxStacksSetBonus);
         }

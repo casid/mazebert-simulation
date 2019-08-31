@@ -5,6 +5,7 @@ import com.mazebert.simulation.SimulationListeners;
 import com.mazebert.simulation.listeners.OnSecondsSkippedListener;
 
 import java.util.EnumSet;
+import java.util.Set;
 
 public strictfp class ImpatienceWrathSetAbility extends ItemSetAbility implements OnSecondsSkippedListener {
     public static final float bonusPerSecond = 0.003f;
@@ -18,7 +19,7 @@ public strictfp class ImpatienceWrathSetAbility extends ItemSetAbility implement
     }
 
     @Override
-    protected void updateSetBonus(EnumSet<ItemType> items, int oldAmount, int newAmount) {
+    protected void updateSetBonus(Set<ItemType> items, int oldAmount, int newAmount) {
         if (newAmount == 3) {
             addBonus();
             simulationListeners.onSecondsSkipped.add(this);

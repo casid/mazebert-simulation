@@ -55,4 +55,20 @@ public class NorlsFuryTest extends ItemTest {
         whenItemIsEquipped(null, 1);
         assertThat(tower.getCritChance()).isEqualTo(0.050000004f);
     }
+
+    @Test
+    void oneItemOff() {
+        whenItemIsEquipped(ItemType.NorlsFuryAmulet, 0);
+        whenItemIsEquipped(ItemType.NorlsFurySword, 1);
+        whenItemIsEquipped(ItemType.NorlsFuryAmulet, 2);
+
+        whenItemIsEquipped(null, 2);
+        assertThat(tower.getCritChance()).isEqualTo(0.15f);
+
+        whenItemIsEquipped(null, 0);
+        assertThat(tower.getCritChance()).isEqualTo(0.050000004f);
+
+        whenItemIsEquipped(ItemType.NorlsFuryAmulet, 0);
+        assertThat(tower.getCritChance()).isEqualTo(0.15f);
+    }
 }

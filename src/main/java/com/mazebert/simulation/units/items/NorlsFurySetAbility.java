@@ -1,6 +1,7 @@
 package com.mazebert.simulation.units.items;
 
 import java.util.EnumSet;
+import java.util.Set;
 
 public strictfp class NorlsFurySetAbility extends ItemSetAbility {
     private static final float bonus = 0.1f;
@@ -10,7 +11,7 @@ public strictfp class NorlsFurySetAbility extends ItemSetAbility {
     }
 
     @Override
-    protected void updateSetBonus(EnumSet<ItemType> items, int oldAmount, int newAmount) {
+    protected void updateSetBonus(Set<ItemType> items, int oldAmount, int newAmount) {
         if (newAmount == 2) {
             getUnit().addCritChance(bonus);
         }

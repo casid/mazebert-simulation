@@ -4,6 +4,7 @@ import com.mazebert.simulation.listeners.OnDamageListener;
 import com.mazebert.simulation.units.creeps.Creep;
 
 import java.util.EnumSet;
+import java.util.Set;
 
 public strictfp class WitheredSetAbility extends ItemSetAbility implements OnDamageListener {
     public WitheredSetAbility() {
@@ -11,7 +12,7 @@ public strictfp class WitheredSetAbility extends ItemSetAbility implements OnDam
     }
 
     @Override
-    protected void updateSetBonus(EnumSet<ItemType> items, int oldAmount, int newAmount) {
+    protected void updateSetBonus(Set<ItemType> items, int oldAmount, int newAmount) {
         if (newAmount >= 2 && oldAmount < 2) {
             getUnit().onDamage.add(this);
         }
