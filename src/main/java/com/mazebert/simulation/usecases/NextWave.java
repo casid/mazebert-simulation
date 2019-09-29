@@ -46,6 +46,10 @@ public strictfp class NextWave extends Usecase<NextWaveCommand> {
             }
             simulationListeners.onWaveStarted.dispatch();
         }
+
+        if (Sim.context().version >= Sim.vDoL) {
+            Sim.context().simulation.setPause(command.playerId, false);
+        }
     }
 
     private void skipCountDown(Context context, CountDown countDown) {

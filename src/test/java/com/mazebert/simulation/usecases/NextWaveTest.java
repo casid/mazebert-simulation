@@ -30,6 +30,7 @@ class NextWaveTest extends UsecaseTest<NextWaveCommand> {
         playerGateway = new PlayerGatewayTrainer();
         gameSystem = new GameSystem();
         waveSpawner = new WaveSpawner();
+        simulation = new Simulation(false);
 
         gameGateway.getGame().map = new BloodMoor();
 
@@ -80,6 +81,13 @@ class NextWaveTest extends UsecaseTest<NextWaveCommand> {
         whenRequestIsExecuted();
 
         assertThat(skippedSeconds).isEqualTo(0);
+    }
+
+    @Test
+    void unpauses() {
+        simulation.setPause(1, true);
+        whenRequestIsExecuted();
+        assertThat(simulation.isPause()).isFalse();
     }
 
     @Test
