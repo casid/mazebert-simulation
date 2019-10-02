@@ -33,4 +33,10 @@ strictfp class Creep_PredictWalkTest {
         followPathResult.pathIndex = -1;
         followPathResult = creep.predictWalk(0.1f, 0, 0.01f, followPathResult);
     }
+
+    @Test
+    void defensivePrediction() {
+        followPathResult.pathIndex = -2;
+        followPathResult = creep.predictWalk(0.1f, 0, 0.01f, followPathResult);
+    }
 }
