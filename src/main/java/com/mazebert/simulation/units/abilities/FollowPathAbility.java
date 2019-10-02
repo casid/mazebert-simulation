@@ -90,7 +90,7 @@ public abstract strictfp class FollowPathAbility<U extends Unit> extends Ability
 
         float distanceToWalk = getSpeed() * dt;
 
-        if (result.pathIndex == -1) {
+        if (result.pathIndex < 0) {
             result.pathIndex = pathIndex;
         }
 
