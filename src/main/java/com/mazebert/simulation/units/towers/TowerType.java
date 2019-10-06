@@ -59,7 +59,7 @@ public strictfp enum TowerType implements CardType<Tower> {
     Gargoyle(44, Gargoyle.class),
     Guard(45, Guard.class),
     TrainingHologram(46, TrainingHologram.class),
-    // uncommon 2
+    Tinker(47, Tinker.class),
     // uncommon 3
     // rare 1
     // rare 2
@@ -108,7 +108,7 @@ public strictfp enum TowerType implements CardType<Tower> {
     private static TowerType[] LOOKUP;
 
     private static final TowerType[] STANDARD      = {Beaver, Dandelion, Rabbit, Frog, HerbWitch, Wolf, Huli, BearHunter, Viking, Ganesha, Balu, Manitou, Hitman, Scientist, PocketThief, ElectricChair, Elvis, Pub, MoneyBin, MrIron, ScarFace, Muli, Satellite, BlackWidow, Mummy, ScareCrow, Shadow, Gib, KnusperHexe, DarkForge, AcolyteOfGreed, NoviceWizard, Spider, BloodDemon, Solara, AbyssKing, TheRipper, KiwiEgg, Kiwi, Stonecutters, Yggdrasil};
-    private static final TowerType[] DAWN_OF_LIGHT = {Beaver, Dandelion, Rabbit, Frog, HerbWitch, Wolf, Huli, BearHunter, Viking, Ganesha, Balu, Manitou, Hitman, Scientist, PocketThief, ElectricChair, Elvis, Pub, MoneyBin, MrIron, ScarFace, Muli, Satellite, BlackWidow, Mummy, ScareCrow, Shadow, Gib, KnusperHexe, DarkForge, AcolyteOfGreed, NoviceWizard, Spider, BloodDemon, Solara, AbyssKing, TheRipper, KiwiEgg, Kiwi, Stonecutters, Yggdrasil, Adventurer, Gargoyle, Guard, TrainingHologram, Unicorn};
+    private static final TowerType[] DAWN_OF_LIGHT = {Beaver, Dandelion, Rabbit, Frog, HerbWitch, Wolf, Huli, BearHunter, Viking, Ganesha, Balu, Manitou, Hitman, Scientist, PocketThief, ElectricChair, Elvis, Pub, MoneyBin, MrIron, ScarFace, Muli, Satellite, BlackWidow, Mummy, ScareCrow, Shadow, Gib, KnusperHexe, DarkForge, AcolyteOfGreed, NoviceWizard, Spider, BloodDemon, Solara, AbyssKing, TheRipper, KiwiEgg, Kiwi, Stonecutters, Yggdrasil, Adventurer, Gargoyle, Guard, TrainingHologram, Tinker, Unicorn};
 
     static {
         maxId = 0;
