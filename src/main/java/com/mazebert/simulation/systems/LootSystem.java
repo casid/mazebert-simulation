@@ -167,7 +167,7 @@ public strictfp class LootSystem {
             if (rarity == Rarity.Common) {
                 return;
             }
-            rarity = Rarity.values()[rarity.ordinal() - 1];
+            rarity = Rarity.VALUES[rarity.ordinal() - 1];
         }
     }
 
@@ -219,9 +219,9 @@ public strictfp class LootSystem {
 
     private Rarity calculateDropRarity(float[] rarityChances, float diceThrow) {
         // Find rarity that fits the dice throw.
-        for (int i = Rarity.values().length - 1; i >= 0; --i) {
+        for (int i = Rarity.VALUES.length - 1; i >= 0; --i) {
             if (diceThrow <= rarityChances[i]) {
-                return Rarity.values()[i];
+                return Rarity.VALUES[i];
             }
         }
 

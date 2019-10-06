@@ -8,6 +8,8 @@ public strictfp enum Rarity {
     Legendary(0xffab00),
     ;
 
+    public static final Rarity[] VALUES = Rarity.values();
+
     Rarity(int color) {
         this.color = color;
         this.name = name();

@@ -72,7 +72,7 @@ public strictfp class Context {
     public TimeLordCountDown timeLordCountDown;
     public EarlyCallCountDown earlyCallCountDown;
     public WaveSpawner waveSpawner;
-    public final float[] tempChancesForRarity = new float[Rarity.values().length];
+    public final float[] tempChancesForRarity = new float[Rarity.VALUES.length];
     public int skippedSeconds;
     public EnumMap<TowerType, Tower> towerInstances = new EnumMap<>(TowerType.class);
     public EnumMap<ItemType, Item> itemInstances = new EnumMap<>(ItemType.class);
