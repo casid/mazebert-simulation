@@ -5,8 +5,8 @@ import com.mazebert.simulation.units.Unit;
 import com.mazebert.simulation.units.towers.Tower;
 
 public abstract strictfp class AttributeWithLevelBonusEffect extends Ability<Tower> implements OnLevelChangedListener {
-    public final float bonus;
-    public final float bonusPerLevel;
+    private final float bonus;
+    private final float bonusPerLevel;
     private float currentBonus;
 
     public AttributeWithLevelBonusEffect(Tower origin, float bonus, float bonusPerLevel) {
