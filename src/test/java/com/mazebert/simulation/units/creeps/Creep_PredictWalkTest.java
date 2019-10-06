@@ -39,4 +39,11 @@ strictfp class Creep_PredictWalkTest {
         followPathResult.pathIndex = -2;
         followPathResult = creep.predictWalk(0.1f, 0, 0.01f, followPathResult);
     }
+
+    @Test
+    void backwardEdgeCase() {
+        path = new Path(0, 0, 0, 10);
+        creep.predictWalk(0, 3, -3, followPathResult);
+        assertThat(followPathResult.pathIndex).isEqualTo(0);
+    }
 }
