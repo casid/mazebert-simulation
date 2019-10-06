@@ -14,16 +14,16 @@ public strictfp class FollowPath {
 
     @SuppressWarnings("Duplicates")
     private static FollowPathResult forward(float x, float y, float distanceToWalk, Path path, FollowPathResult result) {
-        if (distanceToWalk <= 0.0f) {
-            return null;
-        }
-
         if (path == null) {
             return null;
         }
 
         int targetIndex = result.pathIndex + 1;
         if (targetIndex >= path.size()) {
+            return null;
+        }
+
+        if (distanceToWalk <= 0.0f) {
             return null;
         }
 
@@ -50,13 +50,13 @@ public strictfp class FollowPath {
 
     @SuppressWarnings("Duplicates")
     private static FollowPathResult backward(float x, float y, float distanceToWalk, Path path, FollowPathResult result) {
-        if (distanceToWalk >= 0.0f) {
-            return null;
-        }
-
         int targetIndex = result.pathIndex;
         if (targetIndex < 0) {
             result.pathIndex = 0;
+            return null;
+        }
+
+        if (distanceToWalk >= 0.0f) {
             return null;
         }
 
