@@ -72,4 +72,12 @@ strictfp class TinkerTest extends SimTest {
         assertThat(tinker.getLuck()).isEqualTo(1.0999999f);
         assertThat(otherTower.getLuck()).isEqualTo(1.0999999f);
     }
+
+    @Test
+    void luckAura_potionConsumed_supporterReward() {
+        tinker.onPotionConsumed.dispatch(tinker, new WhiteRussian());
+
+        assertThat(tinker.getLuck()).isEqualTo(1.05f);
+        assertThat(otherTower.getLuck()).isEqualTo(1.05f);
+    }
 }

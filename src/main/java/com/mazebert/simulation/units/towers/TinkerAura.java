@@ -51,7 +51,7 @@ public strictfp class TinkerAura extends AuraAbility<Tinker, Tower> implements O
 
     @Override
     public String getDescription() {
-        return "The luck of allies within range is increased by " + format.percentWithSignAndUnit(TinkerAuraEffect.BONUS) + ". Luck increases whenever the Tinker drinks a potion.";
+        return "The luck of allies within range is increased by " + format.percentWithSignAndUnit(TinkerAuraEffect.BONUS) + ". Luck increases whenever the Tinker drinks a potion (cosmetic potions do not count).";
     }
 
     @Override
@@ -74,7 +74,9 @@ public strictfp class TinkerAura extends AuraAbility<Tinker, Tower> implements O
 
     @Override
     public void onPotionConsumed(Tower tower, Potion potion) {
-        ++potionsByRarity[potion.getRarity().ordinal()];
+        if (!potion.isSupporterReward()) {
+            ++potionsByRarity[potion.getRarity().ordinal()];
+        }
     }
 
     public int getPotionsByRarity(int rarityIndex) {
