@@ -56,7 +56,7 @@ public strictfp class TinkerAura extends AuraAbility<Tinker, Tower> implements O
 
     @Override
     public String getIconFile() {
-        return "carapace_512"; // TODO
+        return "18_goatskin_drinking_bottle_512";
     }
 
     @Override
@@ -79,7 +79,11 @@ public strictfp class TinkerAura extends AuraAbility<Tinker, Tower> implements O
         }
     }
 
-    public int getPotionsByRarity(int rarityIndex) {
-        return potionsByRarity[rarityIndex];
+    public float calculateCurrentBonus() {
+        float currentBonus = TinkerAuraEffect.BONUS;
+        for (int i = 0; i < Rarity.VALUES.length; ++i) {
+            currentBonus += potionsByRarity[i] * TinkerAuraEffect.BONUS_PER_POTION[i];
+        }
+        return currentBonus;
     }
 }

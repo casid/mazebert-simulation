@@ -20,7 +20,7 @@ public strictfp class Tinker extends Tower {
         setElement(Element.Light);
 
         addAbility(new AttackAbility());
-        addAbility(new ProjectileDamageAbility(ProjectileViewType.FrogSpit, 11.8f)); // TODO
+        addAbility(new ProjectileDamageAbility(ProjectileViewType.Wood, 11.8f));
         addAbility(new TinkerAura());
     }
 
@@ -56,11 +56,17 @@ public strictfp class Tinker extends Tower {
 
     @Override
     public String getModelId() {
-        return "herb_witch"; // TODO
+        return "tinker";
     }
 
     @Override
     public String getAuthor() {
         return "Cayenne";
+    }
+
+    @Override
+    public void populateCustomTowerBonus(CustomTowerBonus bonus) {
+        bonus.title = "Luck:";
+        bonus.value = format.percentWithSignAndUnit(getAbility(TinkerAura.class).calculateCurrentBonus());
     }
 }

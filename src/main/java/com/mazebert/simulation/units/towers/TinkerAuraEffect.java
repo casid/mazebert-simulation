@@ -53,12 +53,7 @@ public strictfp class TinkerAuraEffect extends Ability<Tower> implements OnPotio
     }
 
     private float calculateCurrentBonus() {
-        float currentBonus = BONUS;
-        TinkerAura aura = getOriginAura();
-        for (int i = 0; i < Rarity.VALUES.length; ++i) {
-            currentBonus += aura.getPotionsByRarity(i) * BONUS_PER_POTION[i];
-        }
-        return currentBonus;
+        return getOriginAura().calculateCurrentBonus();
     }
 
     private void addToAttribute(float currentBonus) {
