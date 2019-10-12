@@ -60,7 +60,7 @@ public strictfp enum TowerType implements CardType<Tower> {
     Guard(45, Guard.class),
     TrainingHologram(46, TrainingHologram.class),
     Tinker(47, Tinker.class),
-    // uncommon 3
+    Templar(48, Templar.class),
     // rare 1
     // rare 2
     // rare 3

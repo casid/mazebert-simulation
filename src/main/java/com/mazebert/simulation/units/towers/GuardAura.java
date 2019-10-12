@@ -3,26 +3,31 @@ package com.mazebert.simulation.units.towers;
 import com.mazebert.simulation.CardCategory;
 import com.mazebert.simulation.units.abilities.AuraAbility;
 
-public strictfp class GuardAura extends AuraAbility<Guard, Guard> {
+public strictfp class GuardAura extends AuraAbility<Tower, Tower> {
 
     private static final float baseDamageBonus = 2;
 
-    public GuardAura() {
-        super(CardCategory.Tower, Guard.class, Guard.RANGE);
+    public GuardAura(float range) {
+        super(CardCategory.Tower, Tower.class, range);
     }
 
     @Override
-    protected void onAuraEntered(Guard unit) {
+    protected void onAuraEntered(Tower unit) {
         if (unit != getUnit()) {
             getUnit().addAddedAbsoluteBaseDamage(baseDamageBonus);
         }
     }
 
     @Override
-    protected void onAuraLeft(Guard unit) {
+    protected void onAuraLeft(Tower unit) {
         if (unit != getUnit()) {
             getUnit().addAddedAbsoluteBaseDamage(-baseDamageBonus);
         }
+    }
+
+    @Override
+    protected boolean isQualifiedForAura(Tower unit) {
+        return unit instanceof Guard || unit instanceof Templar;
     }
 
     @Override
