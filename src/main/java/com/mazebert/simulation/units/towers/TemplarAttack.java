@@ -36,7 +36,7 @@ public strictfp class TemplarAttack extends AttackAbility {
 
     @Override
     public String getTitle() {
-        return "God's gift";
+        return "True believer";
     }
 
     @Override
