@@ -21,7 +21,7 @@ public strictfp class Adventurer extends Tower {
 
         addAbility(new AttackAbility());
         addAbility(new AdventurerLight());
-        addAbility(new ProjectileDamageAbility(ProjectileViewType.Fireball, 5));
+        addAbility(new ProjectileDamageAbility(ProjectileViewType.Fireball, 15));
     }
 
     @Override
