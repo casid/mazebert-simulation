@@ -64,6 +64,25 @@ strictfp class TemplarTest extends SimTest {
     }
 
     @Test
+    void noCritWhenIdle() {
+        whenTemplarAttacks(); // one
+        whenTemplarAttacks(); // two
+        unitGateway.removeUnit(creep);
+        whenTemplarAttacks(); // three
+        templar.simulate(0.1f);
+        templar.simulate(0.1f);
+        templar.simulate(0.1f);
+        templar.simulate(0.1f);
+
+        assertThat(templar.getCritChance()).isEqualTo(1.06f);
+
+        unitGateway.addUnit(a(creep()));
+        whenTemplarAttacks();
+
+        assertThat(templar.getCritChance()).isEqualTo(0.049999952f);
+    }
+
+    @Test
     void guardAura() {
         Guard guard = new Guard();
         guard.setX(1);

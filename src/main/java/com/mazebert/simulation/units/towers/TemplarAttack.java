@@ -7,19 +7,20 @@ public strictfp class TemplarAttack extends AttackAbility {
     public static final float CRIT_CHANCE_PER_LEVEL = 0.01f;
 
     private int attacks;
+    private float critChanceBonus;
 
     @Override
     protected boolean onCooldownReached() {
-        float critChanceBonus = 0;
         if (attacks == 2) {
             critChanceBonus = CRIT_CHANCE + getUnit().getLevel() * CRIT_CHANCE_PER_LEVEL;
             getUnit().addCritChance(critChanceBonus);
+            attacks = 0;
         }
 
         if (super.onCooldownReached()) {
             if (critChanceBonus > 0) {
                 getUnit().addCritChance(-critChanceBonus);
-                attacks = 0;
+                critChanceBonus = 0;
             } else {
                 ++attacks;
             }
