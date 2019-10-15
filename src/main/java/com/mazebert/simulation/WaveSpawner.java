@@ -141,7 +141,7 @@ public strictfp final class WaveSpawner implements OnGameStartedListener, OnWave
 
     @SuppressWarnings("Duplicates")
     private Creep createGoblin(Wizard wizard, Wave wave) {
-        double health = Balancing.getTotalCreepHitpoints(version, wave.round, difficultyGateway.getDifficulty());
+        double health = Balancing.getTotalCreepHitpoints(version, wave.round, difficultyGateway.getDifficulty(), playerGateway.getPlayerCount());
 
         Creep goblin = new Creep();
         goblin.setWizard(wizard);
@@ -199,8 +199,9 @@ public strictfp final class WaveSpawner implements OnGameStartedListener, OnWave
     @SuppressWarnings("Duplicates")
     private void spawnWave(Wave wave) {
         int round = wave.round;
+        int playerCount = playerGateway.getPlayerCount();
 
-        double healthOfAllCreeps = Balancing.getTotalCreepHitpoints(version, round, difficultyGateway.getDifficulty());
+        double healthOfAllCreeps = Balancing.getTotalCreepHitpoints(version, round, difficultyGateway.getDifficulty(), playerCount);
         double healthOfOneCreep = getHealthOfOneCreep(wave, healthOfAllCreeps);
 
         int goldOfAllCreeps = Balancing.getGoldForRound(round, version);
@@ -211,7 +212,6 @@ public strictfp final class WaveSpawner implements OnGameStartedListener, OnWave
         float experienceOfAllCreeps = Balancing.getExperienceForRound(round, wave.type);
         float experienceOfOneCreep = experienceOfAllCreeps / wave.creepCount;
 
-        int playerCount = playerGateway.getPlayerCount();
         int spawnCount = wave.creepCount * playerCount;
         for (int i = 0; i < spawnCount; ++i) {
             int playerId = (i % playerCount) + 1;
@@ -474,11 +474,11 @@ public strictfp final class WaveSpawner implements OnGameStartedListener, OnWave
             Path path = gameGateway.getMap().getGrid().findPath((int) timeLord.getX(), (int) timeLord.getY(), (int) timeLord.getTargetX(), (int) timeLord.getTargetY(), MapGrid.getPredicate(wave.type));
 
             int round = wave.round;
+            int playerCount = playerGateway.getPlayerCount();
 
-            double healthOfAllCreeps = 0.4 * Balancing.getTotalCreepHitpoints(version, round, difficultyGateway.getDifficulty());
+            double healthOfAllCreeps = 0.4 * Balancing.getTotalCreepHitpoints(version, round, difficultyGateway.getDifficulty(), playerCount);
             double healthOfOneCreep = getHealthOfOneCreep(wave, healthOfAllCreeps);
 
-            int playerCount = playerGateway.getPlayerCount();
             int spawnCount = wave.creepCount * playerCount;
             for (int i = 0; i < spawnCount; ++i) {
                 int playerId = (i % playerCount) + 1;
