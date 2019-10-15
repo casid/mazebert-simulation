@@ -5,7 +5,7 @@ import com.mazebert.simulation.maps.MapType;
 public strictfp class Map5VictoryUnlockHeroQuest extends MapVictoryQuest {
 
     public Map5VictoryUnlockHeroQuest() {
-        super(MapType.GoldenGrounds, QuestReward.Small);
+        super(MapType.DawnOfLight, QuestReward.Small);
     }
 
     @Override
@@ -15,7 +15,7 @@ public strictfp class Map5VictoryUnlockHeroQuest extends MapVictoryQuest {
 
     @Override
     public String getTitle() {
-        return "Prophet Lucius";
+        return "Prophet Lucien";
     }
 
     @Override
