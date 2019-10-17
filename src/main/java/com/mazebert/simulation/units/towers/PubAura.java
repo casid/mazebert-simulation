@@ -34,7 +34,7 @@ public strictfp class PubAura extends AuraAbility<Tower, Tower> {
 
     @Override
     public String getDescription() {
-        return "The damage of allies within 2 fields is increased by 10%.";
+        return "The damage of allies in 2 range is increased by 10%.";
     }
 
     @Override

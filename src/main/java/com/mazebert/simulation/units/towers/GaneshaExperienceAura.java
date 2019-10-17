@@ -33,7 +33,7 @@ public strictfp class GaneshaExperienceAura extends AuraAbility<Tower, Tower> {
 
     @Override
     public String getDescription() {
-        return "Allies within 3 fields gain 20% more experience.";
+        return "Allies in 3 range gain 20% more experience.";
     }
 
     @Override

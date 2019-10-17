@@ -33,7 +33,7 @@ public strictfp class GaneshaLevelAura extends AuraAbility<Tower, Tower> {
 
     @Override
     public String getDescription() {
-        return "Whenever a tower within 3 fields levels up, Ganesha will do so as well.";
+        return "Whenever a tower in 3 range levels up, Ganesha will do so as well.";
     }
 
     @Override
