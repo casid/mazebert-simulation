@@ -10,7 +10,7 @@ public strictfp class ProphetLucien extends Hero {
 
     @Override
     public String getIcon() {
-        return "dragonhead_512"; // TODO
+        return "0040_holyman_512";
     }
 
     @Override
