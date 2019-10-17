@@ -1,51 +1,23 @@
 package com.mazebert.simulation.units.towers;
 
-import com.mazebert.simulation.listeners.OnUnitAddedListener;
-import com.mazebert.simulation.units.Unit;
-import com.mazebert.simulation.units.abilities.Ability;
+import com.mazebert.simulation.units.abilities.GainItemOnBuildAbility;
 import com.mazebert.simulation.units.items.BloodDemonBlade;
 import com.mazebert.simulation.units.items.Item;
-import com.mazebert.simulation.units.items.ItemType;
 
-public strictfp class BloodDemonSummonBlade extends Ability<Tower> implements OnUnitAddedListener {
+public strictfp class BloodDemonSummonBlade extends GainItemOnBuildAbility {
 
     private static final float healthReduction = 0.01f;
     private static final int bladeDamagePerLifeLost = 1;
 
     @Override
-    protected void initialize(Tower unit) {
-        super.initialize(unit);
-        unit.onUnitAdded.add(this);
-    }
-
-    @Override
-    protected void dispose(Tower unit) {
-        unit.onUnitAdded.remove(this);
-        super.dispose(unit);
-    }
-
-    @Override
-    public void onUnitAdded(Unit unit) {
-        dropPreviousItem();
-        createBlade();
-    }
-
-    private void createBlade() {
+    protected Item createItem() {
         float healthToLose = getUnit().getWizard().health - healthReduction;
         getUnit().getWizard().addHealth(-healthToLose);
 
         BloodDemonBlade blade = new BloodDemonBlade();
         blade.setDamage(100.0f * bladeDamagePerLifeLost * healthToLose);
-        getUnit().getWizard().itemStash.setUnique(ItemType.BloodDemonBlade, blade);
 
-        getUnit().setItem(0, blade);
-    }
-
-    private void dropPreviousItem() {
-        Item previousItem = getUnit().getItem(0);
-        if (previousItem != null) {
-            getUnit().getWizard().itemStash.add(previousItem.getType());
-        }
+        return blade;
     }
 
     @Override
