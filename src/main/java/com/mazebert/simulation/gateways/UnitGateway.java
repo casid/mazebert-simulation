@@ -206,10 +206,14 @@ public strictfp final class UnitGateway {
     }
 
     public void returnAllItemsToInventory(Tower tower) {
+        Wizard wizard = getWizard(tower.getPlayerId());
+        returnAllItemsToInventory(wizard, tower);
+    }
+
+    public void returnAllItemsToInventory(Wizard wizard, Tower tower) {
         Item[] items = tower.removeAllItems();
         for (Item item : items) {
             if (item != null) {
-                Wizard wizard = getWizard(tower.getPlayerId());
                 wizard.itemStash.add(item.getType());
             }
         }

@@ -5,7 +5,6 @@ import com.mazebert.simulation.Sim;
 import com.mazebert.simulation.commands.SellTowerCommand;
 import com.mazebert.simulation.gateways.UnitGateway;
 import com.mazebert.simulation.systems.LootSystem;
-import com.mazebert.simulation.units.items.Item;
 import com.mazebert.simulation.units.towers.Tower;
 import com.mazebert.simulation.units.wizards.Wizard;
 
@@ -30,12 +29,7 @@ public strictfp class SellTower extends Usecase<SellTowerCommand> {
     }
 
     public void execute(Wizard wizard, Tower tower) {
-        Item[] items = tower.removeAllItems();
-        for (Item item : items) {
-            if (item != null) {
-                wizard.itemStash.add(item.getType());
-            }
-        }
+        unitGateway.returnAllItemsToInventory(wizard, tower);
 
         lootSystem.addGold(wizard, tower, getGoldForSelling(tower));
 
