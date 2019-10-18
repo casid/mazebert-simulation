@@ -459,6 +459,10 @@ public strictfp abstract class Tower extends Unit implements CooldownUnit, Card,
     }
 
     public void setItem(int index, Item item) {
+        setItem(index, item, false);
+    }
+
+    public void setItem(int index, Item item, boolean userAction) {
         Item previousItem = items[index];
         if (previousItem != null) {
             previousItem.forEachAbility(this::removeAbility);
@@ -470,7 +474,7 @@ public strictfp abstract class Tower extends Unit implements CooldownUnit, Card,
             item.forEachAbility(this::addAbility);
         }
 
-        onItemEquipped.dispatch(this, index, previousItem, item);
+        onItemEquipped.dispatch(this, index, previousItem, item, userAction);
     }
 
     public void addAddedRelativeBaseDamage(float amount) {

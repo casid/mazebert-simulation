@@ -68,7 +68,7 @@ public strictfp enum TowerType implements CardType<Tower> {
     // unique 2
     // unique 3
     Lucifer(55, Lucifer.class),
-    //LuciferFallen(55, LuciferFallen.class),
+    LuciferFallen(56, LuciferFallen.class),
     ;
 
     public final int id;

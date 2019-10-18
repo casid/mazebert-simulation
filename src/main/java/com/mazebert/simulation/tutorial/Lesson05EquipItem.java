@@ -32,7 +32,7 @@ public strictfp class Lesson05EquipItem extends Lesson implements OnItemEquipped
     }
 
     @Override
-    public void onItemEquipped(Tower tower, int index, Item oldItem, Item newItem) {
+    public void onItemEquipped(Tower tower, int index, Item oldItem, Item newItem, boolean userAction) {
         if (newItem instanceof BabySword) {
             finish();
         }

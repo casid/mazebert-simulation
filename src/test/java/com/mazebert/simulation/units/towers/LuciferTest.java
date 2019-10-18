@@ -1,34 +1,70 @@
 package com.mazebert.simulation.units.towers;
 
-import com.mazebert.simulation.SimTest;
-import com.mazebert.simulation.SimulationListeners;
-import com.mazebert.simulation.gateways.UnitGateway;
+import com.mazebert.simulation.units.items.BabySword;
+import com.mazebert.simulation.units.items.ItemTest;
+import com.mazebert.simulation.units.items.ItemType;
 import com.mazebert.simulation.units.items.Lightbringer;
-import com.mazebert.simulation.units.wizards.Wizard;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-class LuciferTest extends SimTest {
+class LuciferTest extends ItemTest {
 
     Lucifer lucifer;
 
-    @BeforeEach
-    void setUp() {
-        simulationListeners = new SimulationListeners();
-        unitGateway = new UnitGateway();
-
-        Wizard wizard = new Wizard();
-        unitGateway.addUnit(wizard);
-
-        lucifer = new Lucifer();
-        lucifer.setWizard(wizard);
-        unitGateway.addUnit(lucifer);
+    @Override
+    protected Tower createTower() {
+        return lucifer = new Lucifer();
     }
 
     @Test
     void startsWithSword() {
         assertThat(lucifer.getItem(0)).isInstanceOf(Lightbringer.class);
+    }
+
+    @Test
+    void swordRemoved_luciferIsReplacedWithDarkLucifer() {
+        whenItemIsEquipped(null);
+
+        assertThat(unitGateway.hasUnit(lucifer)).isFalse();
+        assertThat(getLuciferFallen()).isNotNull();
+    }
+
+    @Test
+    void swordRemoved_remainingItemsAreKept() {
+        whenItemIsEquipped(ItemType.BabySword, 1);
+
+        whenItemIsEquipped(null);
+
+        assertThat(getLuciferFallen().getItem(1)).isInstanceOf(BabySword.class);
+    }
+
+    @Test
+    void swordRemoved_lightbringerIsReplacedByDarkSwords() {
+        whenItemIsEquipped(null);
+
+        assertThat(wizard.itemStash.get(ItemType.Lightbringer)).isNull();
+    }
+
+    @Test
+    void luciferIsSold() {
+        whenTowerIsSold();
+
+        assertThat(unitGateway.hasUnit(lucifer)).isFalse();
+        assertThat(getLuciferFallen()).isNull();
+        assertThat(wizard.itemStash.get(ItemType.Lightbringer)).isNull();
+    }
+
+    @Test
+    void luciferIsReplaced() {
+        whenTowerIsReplaced(lucifer, TowerType.Dandelion);
+
+        assertThat(unitGateway.hasUnit(lucifer)).isFalse();
+        assertThat(getLuciferFallen()).isNull();
+        assertThat(wizard.itemStash.get(ItemType.Lightbringer)).isNull();
+    }
+
+    private LuciferFallen getLuciferFallen() {
+        return unitGateway.findUnit(LuciferFallen.class, 1);
     }
 }

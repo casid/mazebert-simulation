@@ -4,10 +4,7 @@ import com.mazebert.simulation.CardCategory;
 import com.mazebert.simulation.CommandExecutor;
 import com.mazebert.simulation.SimTest;
 import com.mazebert.simulation.SimulationListeners;
-import com.mazebert.simulation.commands.BuildTowerCommand;
-import com.mazebert.simulation.commands.DrinkPotionCommand;
-import com.mazebert.simulation.commands.EquipItemCommand;
-import com.mazebert.simulation.commands.TransmuteCardsCommand;
+import com.mazebert.simulation.commands.*;
 import com.mazebert.simulation.gateways.DifficultyGateway;
 import com.mazebert.simulation.gateways.GameGateway;
 import com.mazebert.simulation.gateways.PlayerGatewayTrainer;
@@ -120,6 +117,14 @@ public strictfp class ItemTest extends SimTest {
         commandExecutor.executeVoid(command);
 
         return unitGateway.findTower(wizard.getPlayerId(), command.x, command.y);
+    }
+
+    protected void whenTowerIsSold() {
+        SellTowerCommand command = new SellTowerCommand();
+        command.playerId = wizard.getPlayerId();
+        command.x = (int)tower.getX();
+        command.y = (int)tower.getY();
+        commandExecutor.executeVoid(command);
     }
 
     @SuppressWarnings("SameParameterValue")

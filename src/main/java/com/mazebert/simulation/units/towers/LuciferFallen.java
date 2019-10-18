@@ -5,24 +5,22 @@ import com.mazebert.simulation.Element;
 import com.mazebert.simulation.Rarity;
 import com.mazebert.simulation.units.Gender;
 
-public strictfp class Lucifer extends Tower {
+public strictfp class LuciferFallen extends Tower {
 
-    public Lucifer() {
-        setBaseCooldown(1.0f);
+    public LuciferFallen() {
+        setBaseCooldown(0.5f);
         setBaseRange(3.0f);
         setAttackType(AttackType.Fal);
-        setStrength(1.0f);
-        setDamageSpread(0.1f);
+        setStrength(1.4f);
+        setDamageSpread(0.0f);
         setGender(Gender.Male);
         setElement(Element.Light);
 
-        addAbility(new LuciferSummonLightbringer());
-        addAbility(new LuciferRemoveLightbringer());
     }
 
     @Override
     protected float getGoldCostFactor() {
-        return 2.75f;
+        return 0;
     }
 
     @Override
@@ -56,7 +54,7 @@ public strictfp class Lucifer extends Tower {
     }
 
     @Override
-    public boolean isLight() {
+    public boolean isDark() {
         return true;
     }
 }

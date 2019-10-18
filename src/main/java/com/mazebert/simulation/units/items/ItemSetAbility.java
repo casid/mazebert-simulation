@@ -40,7 +40,7 @@ public abstract strictfp class ItemSetAbility extends StackableAbility<Tower> im
 
     @SuppressWarnings("Java8MapApi") // Must run on non Java 8 android devices, too.
     @Override
-    public void onItemEquipped(Tower tower, int index, Item oldItem, Item newItem) {
+    public void onItemEquipped(Tower tower, int index, Item oldItem, Item newItem, boolean userAction) {
         int oldAmount = currentItems.size();
 
         if (Sim.context().version >= Sim.vDoL) {

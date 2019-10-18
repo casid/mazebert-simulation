@@ -36,7 +36,7 @@ public strictfp class EquipItem extends Usecase<EquipItemCommand> {
 
     private void unequip(EquipItemCommand command, Wizard wizard, Tower tower) {
         dropCurrentlyEquippedItem(command, wizard, tower);
-        tower.setItem(command.inventoryIndex, null);
+        tower.setItem(command.inventoryIndex, null, true);
     }
 
     private void equip(EquipItemCommand command, Wizard wizard, Tower tower) {
@@ -51,7 +51,7 @@ public strictfp class EquipItem extends Usecase<EquipItemCommand> {
         Item item = wizard.itemStash.remove(command.itemType);
         if (item != null) {
             dropCurrentlyEquippedItem(command, wizard, tower);
-            tower.setItem(command.inventoryIndex, item);
+            tower.setItem(command.inventoryIndex, item, true);
         }
     }
 
