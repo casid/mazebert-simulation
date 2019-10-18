@@ -82,7 +82,7 @@ public strictfp class ReviveEffectTest extends SimTest {
             creep.simulate(Creep.DEATH_TIME);
         }
 
-        assertThat(unitGateway.hasUnit(creep)).isFalse();
+        thenCreepIsNotRevived();
     }
 
     @Test
@@ -92,10 +92,24 @@ public strictfp class ReviveEffectTest extends SimTest {
         whenTowerAttacks();
         creep.simulate(Creep.DEATH_TIME);
 
-        assertThat(unitGateway.hasUnit(creep)).isFalse();
+        thenCreepIsNotRevived();
+    }
+
+    @Test
+    void resurrect_notWhenRestingInPiece() {
+        creep.setRestsInPiece(true);
+
+        whenTowerAttacks();
+        creep.simulate(Creep.DEATH_TIME);
+
+        thenCreepIsNotRevived();
     }
 
     private void whenTowerAttacks() {
         tower.simulate(tower.getCooldown());
+    }
+
+    private void thenCreepIsNotRevived() {
+        assertThat(unitGateway.hasUnit(creep)).isFalse();
     }
 }

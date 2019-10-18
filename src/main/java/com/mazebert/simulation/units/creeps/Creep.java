@@ -48,6 +48,7 @@ public strictfp class Creep extends Unit {
     private transient final FollowPathAbility followPathAbility;
     private transient boolean steady;
     private transient boolean immortal;
+    private transient boolean restsInPiece;
 
     public Creep() {
         this(new FollowPathCreepAbility());
@@ -377,5 +378,13 @@ public strictfp class Creep extends Unit {
             Sim.context().creepIdAutoIncrement = 0;
         }
         return id;
+    }
+
+    public void setRestsInPiece(boolean restsInPiece) {
+        this.restsInPiece = restsInPiece;
+    }
+
+    public boolean isRestsInPiece() {
+        return restsInPiece;
     }
 }

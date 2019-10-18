@@ -24,7 +24,7 @@ public strictfp class ReviveEffect extends Ability<Creep> implements OnDeadListe
 
     @Override
     public void onDead(Creep creep) {
-        if (resurrections < 4 && randomPlugin.getFloatAbs() < 0.5f) {
+        if (!creep.isRestsInPiece() && resurrections < 4 && randomPlugin.getFloatAbs() < 0.5f) {
             creep.resurrect(0.5 * creep.getMaxHealth());
             ++resurrections;
         }
