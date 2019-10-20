@@ -2,13 +2,11 @@ package com.mazebert.simulation.units.towers;
 
 import com.mazebert.simulation.projectiles.ProjectileGateway;
 import com.mazebert.simulation.units.creeps.Creep;
-import com.mazebert.simulation.units.creeps.CreepBuilder;
 import com.mazebert.simulation.units.items.BabySword;
 import com.mazebert.simulation.units.items.ItemTest;
 import com.mazebert.simulation.units.items.ItemType;
 import com.mazebert.simulation.units.items.Lightbringer;
 import org.junit.jupiter.api.Test;
-import org.jusecase.Builders;
 
 import static com.mazebert.simulation.units.creeps.CreepBuilder.creep;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -94,6 +92,16 @@ class LuciferTest extends ItemTest {
         creep.setHealth(99.0f); // Creep healed by some other ability
         creep.simulate(1.0f);
         assertThat(creep.getHealth()).isEqualTo(100); // Not more than full health
+    }
+
+    @Test
+    void damagedCreepsRestInPiece() {
+        Creep creep = a(creep());
+        unitGateway.addUnit(creep);
+
+        whenTowerAttacks();
+
+        assertThat(creep.isRestsInPiece()).isTrue();
     }
 
     @Override
