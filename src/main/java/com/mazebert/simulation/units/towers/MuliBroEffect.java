@@ -4,9 +4,9 @@ import com.mazebert.simulation.Sim;
 import com.mazebert.simulation.projectiles.OnProjectileImpact;
 import com.mazebert.simulation.projectiles.Projectile;
 import com.mazebert.simulation.projectiles.ProjectileGateway;
-import com.mazebert.simulation.units.abilities.CooldownAbility;
+import com.mazebert.simulation.units.abilities.CooldownUnitAbility;
 
-public strictfp class MuliBroEffect extends CooldownAbility<Huli> implements OnProjectileImpact {
+public strictfp class MuliBroEffect extends CooldownUnitAbility<Huli> implements OnProjectileImpact {
 
     private final ProjectileGateway projectileGateway = Sim.context().projectileGateway;
 
@@ -24,7 +24,7 @@ public strictfp class MuliBroEffect extends CooldownAbility<Huli> implements OnP
 
     @Override
     protected boolean onCooldownReached() {
-        Muli muli = (Muli)getOrigin();
+        Muli muli = (Muli) getOrigin();
         projectileGateway.shoot(Huli.PROJECTILE_VIEW_TYPE, getUnit(), muli, Huli.PROJECTILE_SPEED, this);
 
         return true;

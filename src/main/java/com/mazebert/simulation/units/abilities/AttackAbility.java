@@ -12,7 +12,7 @@ import com.mazebert.simulation.units.wizards.Wizard;
 
 import java.util.Arrays;
 
-public strictfp class AttackAbility extends CooldownAbility<Tower> implements OnUnitAddedListener, OnUnitRemovedListener, OnAttackOrderedListener {
+public strictfp class AttackAbility extends CooldownUnitAbility<Tower> implements OnUnitAddedListener, OnUnitRemovedListener, OnAttackOrderedListener {
 
     private final UnitGateway unitGateway = Sim.context().unitGateway;
     private final int version = Sim.context().version;

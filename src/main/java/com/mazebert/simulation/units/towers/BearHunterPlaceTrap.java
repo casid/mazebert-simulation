@@ -12,10 +12,10 @@ import com.mazebert.simulation.maps.MapGrid;
 import com.mazebert.simulation.maps.Tile;
 import com.mazebert.simulation.plugins.random.RandomPlugin;
 import com.mazebert.simulation.units.Unit;
-import com.mazebert.simulation.units.abilities.CooldownAbility;
+import com.mazebert.simulation.units.abilities.CooldownUnitAbility;
 import com.mazebert.simulation.units.traps.BearHunterTrap;
 
-public strictfp class BearHunterPlaceTrap extends CooldownAbility<Tower> implements OnUnitAddedListener, OnUnitRemovedListener, OnRangeChangedListener, Predicate<BearHunterTrap> {
+public strictfp class BearHunterPlaceTrap extends CooldownUnitAbility<Tower> implements OnUnitAddedListener, OnUnitRemovedListener, OnRangeChangedListener, Predicate<BearHunterTrap> {
     private final UnitGateway unitGateway = Sim.context().unitGateway;
     private final GameGateway gameGateway = Sim.context().gameGateway;
     private final RandomPlugin randomPlugin = Sim.context().randomPlugin;

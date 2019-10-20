@@ -1,10 +1,9 @@
 package com.mazebert.simulation.units.abilities;
 
 import com.mazebert.simulation.listeners.OnUpdateListener;
-import com.mazebert.simulation.units.CooldownUnit;
 import com.mazebert.simulation.units.Unit;
 
-public abstract strictfp class CooldownAbility<U extends Unit & CooldownUnit> extends Ability<U> implements OnUpdateListener {
+public abstract strictfp class CooldownAbility<U extends Unit> extends Ability<U> implements OnUpdateListener {
     private float passedTime;
 
     @Override
@@ -36,9 +35,7 @@ public abstract strictfp class CooldownAbility<U extends Unit & CooldownUnit> ex
         } while (dt > 0);
     }
 
-    protected float getCooldown() {
-        return getUnit().getCooldown();
-    }
+    protected abstract float getCooldown();
 
     protected abstract boolean onCooldownReached();
 }

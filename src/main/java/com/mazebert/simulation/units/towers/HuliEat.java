@@ -4,10 +4,10 @@ import com.mazebert.simulation.Sim;
 import com.mazebert.simulation.SimulationListeners;
 import com.mazebert.simulation.listeners.OnAttackListener;
 import com.mazebert.simulation.units.Gender;
-import com.mazebert.simulation.units.abilities.CooldownAbility;
+import com.mazebert.simulation.units.abilities.CooldownUnitAbility;
 import com.mazebert.simulation.units.creeps.Creep;
 
-public strictfp class HuliEat extends CooldownAbility<Tower> implements OnAttackListener {
+public strictfp class HuliEat extends CooldownUnitAbility<Tower> implements OnAttackListener {
 
     private static final float DAMAGE_PER_BANANA = 0.02f;
 

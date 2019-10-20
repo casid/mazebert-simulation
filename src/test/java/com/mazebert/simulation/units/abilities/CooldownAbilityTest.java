@@ -114,7 +114,7 @@ public class CooldownAbilityTest {
         assertThat(throwable).isInstanceOf(IllegalStateException.class).hasMessage("This ability is already owned by " + unit);
     }
 
-    private class MyCooldownAbility extends CooldownAbility<Tower> {
+    private class MyCooldownAbility extends CooldownUnitAbility<Tower> {
 
         @Override
         protected boolean onCooldownReached() {

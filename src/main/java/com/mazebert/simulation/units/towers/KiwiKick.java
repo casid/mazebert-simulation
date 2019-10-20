@@ -4,10 +4,10 @@ import com.mazebert.java8.Consumer;
 import com.mazebert.simulation.Sim;
 import com.mazebert.simulation.SimulationListeners;
 import com.mazebert.simulation.gateways.UnitGateway;
-import com.mazebert.simulation.units.abilities.CooldownAbility;
+import com.mazebert.simulation.units.abilities.CooldownUnitAbility;
 import com.mazebert.simulation.units.creeps.Creep;
 
-public strictfp class KiwiKick extends CooldownAbility<Tower> implements Consumer<Creep> {
+public strictfp class KiwiKick extends CooldownUnitAbility<Tower> implements Consumer<Creep> {
 
     private final UnitGateway unitGateway = Sim.context().unitGateway;
     private final SimulationListeners simulationListeners = Sim.context().simulationListeners;
