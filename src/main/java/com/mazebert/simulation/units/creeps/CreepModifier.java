@@ -40,12 +40,10 @@ public strictfp enum CreepModifier {
             case Fast:
                 creep.setSpeedModifier(creep.getSpeedModifier() * 1.5f);
                 creep.setMaxHealth(creep.getMaxHealth() / 1.5);
-                creep.setHealth(creep.getMaxHealth());
                 break;
             case Slow:
                 creep.setSpeedModifier(creep.getSpeedModifier() / 1.5f);
                 creep.setMaxHealth(creep.getMaxHealth() * 1.5);
-                creep.setHealth(creep.getMaxHealth());
                 break;
             case Wisdom:
                 creep.setExperienceModifier(creep.getExperienceModifier() * 1.6f);
@@ -58,17 +56,14 @@ public strictfp enum CreepModifier {
                 break;
             case Revive:
                 creep.setMaxHealth(creep.getMaxHealth() / 2);
-                creep.setHealth(creep.getMaxHealth());
                 creep.addAbility(new ReviveEffect());
                 break;
             case Steady:
                 creep.setMaxHealth(creep.getMaxHealth() * 0.7);
-                creep.setHealth(creep.getMaxHealth());
                 creep.setSteady(true);
                 break;
             case Union:
                 creep.setMaxHealth(creep.getMaxHealth() * creep.getWave().creepCount * Sim.context().playerGateway.getPlayerCount());
-                creep.setHealth(creep.getMaxHealth());
                 creep.addAbility(new UnionEffect());
                 break;
             case Loot:
@@ -76,7 +71,6 @@ public strictfp enum CreepModifier {
                 break;
             case Ghost:
                 creep.setMaxHealth(creep.getMaxHealth() * GhostEffect.CHANCE_TO_MISS);
-                creep.setHealth(creep.getMaxHealth());
                 creep.addAbility(new GhostEffect());
                 break;
         }

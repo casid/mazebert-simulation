@@ -277,7 +277,7 @@ public strictfp class InstantDamageAbilityTest extends SimTest {
         creep.setArmor(100);
         tower.setBaseDamage(100.0f);
         tower.addArmorPenetration(2.0f);
-        creep.setHealth(200);
+        creep.setMaxHealth(200);
 
         whenTowerAttacks();
 

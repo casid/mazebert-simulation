@@ -332,7 +332,6 @@ public strictfp class WaveSpawnerTest extends SimTest {
         whenGameIsStarted();
         Creep creep = getCreep(0);
         creep.setMaxHealth(100);
-        creep.setHealth(100);
         creep.resurrect(10);
         creep.setPath(new Path(0.0f, 0.0f, 0.0f, 1.0f));
 

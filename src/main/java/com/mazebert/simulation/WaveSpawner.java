@@ -146,7 +146,6 @@ public strictfp final class WaveSpawner implements OnGameStartedListener, OnWave
         Creep goblin = new Creep();
         goblin.setWizard(wizard);
         goblin.setWave(wave);
-        goblin.setHealth(health);
         goblin.setMaxHealth(health);
         goblin.setDropChance(4.0f);
         goblin.setMinDrops(1);
@@ -220,7 +219,6 @@ public strictfp final class WaveSpawner implements OnGameStartedListener, OnWave
             Creep creep = new Creep();
             creep.setWizard(wizard);
             creep.setWave(wave);
-            creep.setHealth(healthOfOneCreep);
             creep.setMaxHealth(healthOfOneCreep);
             creep.setGold(i / playerCount == creepIndexWithRemainingGold ? goldOfOneCreep + goldRemaining : goldOfOneCreep);
             creep.setArmor(round);
@@ -487,7 +485,6 @@ public strictfp final class WaveSpawner implements OnGameStartedListener, OnWave
                 Creep underling = new Creep();
                 underling.setWizard(wizard);
                 underling.setWave(wave);
-                underling.setHealth(healthOfOneCreep);
                 underling.setMaxHealth(healthOfOneCreep);
                 underling.setArmor(round);
                 applyWaveAttributes(underling, wave);

@@ -48,7 +48,6 @@ public strictfp class TrainingHologramSpawn extends Ability<Tower> implements On
 
         dummy.setWizard(getUnit().getWizard());
         dummy.setWave(dummyWave);
-        dummy.setHealth(1);
         dummy.setMaxHealth(1);
         dummy.setGold(0);
         dummy.setArmor(1);

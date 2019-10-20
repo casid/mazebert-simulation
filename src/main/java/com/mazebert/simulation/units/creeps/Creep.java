@@ -125,6 +125,8 @@ public strictfp class Creep extends Unit {
                 deathTime = 0.0f;
                 setState(CreepState.Death);
                 onDeath.dispatch(this);
+            } else if (health > maxHealth) {
+                this.health = maxHealth;
             } else {
                 this.health = health;
             }
@@ -219,6 +221,7 @@ public strictfp class Creep extends Unit {
     public void setMaxHealth(double maxHealth) {
         this.maxHealth = maxHealth;
         this.initialHealth = maxHealth;
+        this.health = maxHealth;
     }
 
     public double getInitialHealth() {
