@@ -20,7 +20,7 @@ public strictfp class Lightbringer extends Item {
 
     @Override
     public Rarity getRarity() {
-        return Rarity.Legendary;
+        return Rarity.Unique;
     }
 
     @Override
@@ -46,10 +46,5 @@ public strictfp class Lightbringer extends Item {
     @Override
     public boolean isLight() {
         return true;
-    }
-
-    @Override
-    public boolean isForgeable() {
-        return false;
     }
 }

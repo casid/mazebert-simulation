@@ -70,6 +70,14 @@ class LuciferTest extends ItemTest {
     }
 
     @Test
+    void inventorySizeIsIncreased_nothingHappens() {
+        whenItemIsEquipped(ItemType.LightbladeAcademyDrone, 1);
+        whenItemIsEquipped(ItemType.LightbladeAcademySword, 2);
+
+        assertThat(unitGateway.hasUnit(lucifer)).isTrue();
+    }
+
+    @Test
     void lightbringerHeals() {
         Creep creep = a(creep());
         unitGateway.addUnit(creep);

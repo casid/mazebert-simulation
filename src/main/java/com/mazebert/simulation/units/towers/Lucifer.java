@@ -13,8 +13,8 @@ public strictfp class Lucifer extends Tower {
     public Lucifer() {
         setBaseCooldown(2.5f);
         setBaseRange(3.0f);
-        setAttackType(AttackType.Fal);
-        setStrength(2.0f);
+        setAttackType(AttackType.All);
+        setStrength(2.5f);
         setDamageSpread(0.5f);
         setGender(Gender.Male);
         setElement(Element.Light);
@@ -38,12 +38,12 @@ public strictfp class Lucifer extends Tower {
 
     @Override
     public String getDescription() {
-        return "todo";
+        return "The higher you are...";
     }
 
     @Override
     public Rarity getRarity() {
-        return Rarity.Legendary;
+        return Rarity.Unique;
     }
 
     @Override
