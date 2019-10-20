@@ -5,7 +5,7 @@ import com.mazebert.simulation.Rarity;
 public strictfp class Lightbringer extends Item {
 
     public Lightbringer() {
-        super();
+        super(new LightbringerHealAbility(), new LightbringerRemoveAbility());
     }
 
     @Override
@@ -15,7 +15,7 @@ public strictfp class Lightbringer extends Item {
 
     @Override
     public String getDescription() {
-        return "Sword of Lucifer, the angel";
+        return "Lucifer's sword";
     }
 
     @Override

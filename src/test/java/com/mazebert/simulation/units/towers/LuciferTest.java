@@ -1,12 +1,18 @@
 package com.mazebert.simulation.units.towers;
 
+import com.mazebert.simulation.projectiles.ProjectileGateway;
+import com.mazebert.simulation.units.creeps.Creep;
+import com.mazebert.simulation.units.creeps.CreepBuilder;
 import com.mazebert.simulation.units.items.BabySword;
 import com.mazebert.simulation.units.items.ItemTest;
 import com.mazebert.simulation.units.items.ItemType;
 import com.mazebert.simulation.units.items.Lightbringer;
 import org.junit.jupiter.api.Test;
+import org.jusecase.Builders;
 
+import static com.mazebert.simulation.units.creeps.CreepBuilder.creep;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.jusecase.Builders.a;
 
 class LuciferTest extends ItemTest {
 
@@ -14,6 +20,7 @@ class LuciferTest extends ItemTest {
 
     @Override
     protected Tower createTower() {
+        projectileGateway = new ProjectileGateway();
         return lucifer = new Lucifer();
     }
 
@@ -62,6 +69,38 @@ class LuciferTest extends ItemTest {
         assertThat(unitGateway.hasUnit(lucifer)).isFalse();
         assertThat(getLuciferFallen()).isNull();
         assertThat(wizard.itemStash.get(ItemType.Lightbringer)).isNull();
+    }
+
+    @Test
+    void lightbringerHeals() {
+        Creep creep = a(creep());
+        unitGateway.addUnit(creep);
+
+        whenTowerAttacks();
+
+        double healthAfterAttack = creep.getHealth();
+        creep.simulate(1.0f);
+        double healthAfterHeal = creep.getHealth();
+        assertThat(healthAfterHeal).isGreaterThan(healthAfterAttack);
+    }
+
+    @Test
+    void lightbringerHeals_notMoreThanFullHealth() {
+        Creep creep = a(creep());
+        unitGateway.addUnit(creep);
+
+        whenTowerAttacks();
+
+        creep.setHealth(99.0f); // Creep healed by some other ability
+        creep.simulate(1.0f);
+        assertThat(creep.getHealth()).isEqualTo(100); // Not more than full health
+    }
+
+    @Override
+    protected void whenTowerAttacks() {
+        super.whenTowerAttacks();
+        projectileGateway.simulate(0.5f);
+        projectileGateway.simulate(0.5f);
     }
 
     private LuciferFallen getLuciferFallen() {

@@ -34,5 +34,9 @@ public abstract strictfp class PoisonAbility extends Ability<Tower> implements O
         poisonEffect.addPoison(duration, calculatePoisonDamage(target, damage, multicrits));
     }
 
+    public float getDuration() {
+        return duration;
+    }
+
     protected abstract double calculatePoisonDamage(Creep target, double damage, int multicrits);
 }

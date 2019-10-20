@@ -55,23 +55,11 @@ public strictfp class LuciferRemoveLightbringer extends Ability<Tower> implement
         wizard.itemStash.remove(ItemType.Lightbringer);
     }
 
+    /**
+     * Logic is here, the description is at the item: {@link com.mazebert.simulation.units.items.LightbringerRemoveAbility}
+     */
     @Override
     public boolean isVisibleToUser() {
-        return true;
-    }
-
-    @Override
-    public String getTitle() {
-        return "Looming Darkness";
-    }
-
-    @Override
-    public String getDescription() {
-        return "When Lucifer gives Lightbringer away he turns into a fallen angel.";
-    }
-
-    @Override
-    public String getIconFile() {
-        return "blood_demon_blade_512"; // TODO
+        return false;
     }
 }
