@@ -17,6 +17,7 @@ public strictfp class Phoenix extends Tower {
         setElement(Element.Light);
 
         addAbility(new PhoenixBurn());
+        addAbility(new PhoenixRebirth());
     }
 
     @Override

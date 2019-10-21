@@ -1,7 +1,10 @@
 package com.mazebert.simulation.units.towers;
 
+import com.mazebert.simulation.commands.ActivateAbilityCommand;
+import com.mazebert.simulation.units.abilities.ActiveAbilityType;
 import com.mazebert.simulation.units.creeps.Creep;
 import com.mazebert.simulation.units.items.ItemTest;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static com.mazebert.simulation.units.creeps.CreepBuilder.creep;
@@ -11,6 +14,12 @@ import static org.jusecase.Builders.a;
 public strictfp class PhoenixTest extends ItemTest {
 
     Phoenix phoenix;
+
+    @BeforeEach
+    void setUp() {
+        wizard.gold = PhoenixRebirth.GOLD_COST;
+        wizard.towerStash.add(TowerType.Phoenix);
+    }
 
     @Override
     protected Tower createTower() {
@@ -73,5 +82,64 @@ public strictfp class PhoenixTest extends ItemTest {
         creep.simulate(0.1f);
         creep.simulate(0.1f);
         assertThat(creep.getHealth()).isEqualTo(98.69999998062849);
+    }
+
+    @Test
+    void rebirth() {
+        whenAbilityIsActivated();
+
+        assertThat(phoenix.getAddedAbsoluteBaseDamage()).isEqualTo(PhoenixRebirth.DAMAGE_GAIN);
+        assertThat(wizard.gold).isEqualTo(0);
+        assertThat(wizard.towerStash.size()).isEqualTo(0);
+    }
+
+    @Test
+    void rebirth_multipleTimes() {
+        wizard.gold += PhoenixRebirth.GOLD_COST;
+        wizard.towerStash.add(TowerType.Phoenix);
+
+        whenAbilityIsActivated();
+        whenAbilityIsActivated();
+
+        assertThat(phoenix.getAddedAbsoluteBaseDamage()).isEqualTo(2 * PhoenixRebirth.DAMAGE_GAIN);
+        assertThat(wizard.gold).isEqualTo(0);
+        assertThat(wizard.towerStash.size()).isEqualTo(0);
+    }
+
+    @Test
+    void rebirth_notEnoughGold() {
+        wizard.gold = 0;
+        whenAbilityIsActivated();
+        assertThat(phoenix.getAddedAbsoluteBaseDamage()).isEqualTo(0);
+    }
+
+    @Test
+    void rebirth_noPhoenixCard() {
+        wizard.towerStash.remove(TowerType.Phoenix);
+        whenAbilityIsActivated();
+        assertThat(phoenix.getAddedAbsoluteBaseDamage()).isEqualTo(0);
+    }
+
+    @Test
+    void rebirth_noDamage() {
+        Creep creep = a(creep());
+        unitGateway.addUnit(creep);
+
+        whenAbilityIsActivated();
+        creep.simulate(0.1f);
+        creep.simulate(0.1f);
+        creep.simulate(0.1f);
+        assertThat(creep.getHealth()).isEqualTo(100);
+
+        phoenix.simulate(PhoenixRebirth.REBIRTH_TIME);
+        creep.simulate(0.1f);
+        assertThat(creep.getHealth()).isEqualTo(98.69999998062849);
+    }
+
+    private void whenAbilityIsActivated() {
+        ActivateAbilityCommand command = new ActivateAbilityCommand();
+        command.playerId = wizard.getPlayerId();
+        command.abilityType = ActiveAbilityType.PhoenixRebirth;
+        commandExecutor.executeVoid(command);
     }
 }

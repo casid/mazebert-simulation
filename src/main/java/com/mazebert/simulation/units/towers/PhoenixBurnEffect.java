@@ -12,9 +12,11 @@ public strictfp class PhoenixBurnEffect extends Ability<Creep> implements OnUpda
 
     private final Tower phoenix;
     private final double damagePerSecond;
+    private final PhoenixRebirth phoenixRebirth;
 
     public PhoenixBurnEffect(Tower phoenix) {
         this.phoenix = phoenix;
+        this.phoenixRebirth = phoenix.getAbility(PhoenixRebirth.class);
         DamageSystem.DamageInfo damageInfo = damageSystem.rollDamage(phoenix);
 
         this.damagePerSecond = damageInfo.damage / phoenix.getCooldown();
@@ -38,7 +40,7 @@ public strictfp class PhoenixBurnEffect extends Ability<Creep> implements OnUpda
     public void onUpdate(float dt) {
         if (getUnit().isDead()) {
             getUnit().removeAbility(this);
-        } else {
+        } else if (phoenixRebirth.isAlive()) {
             damageSystem.dealDamage(this, phoenix, getUnit(), damagePerSecond * dt, 0, true);
         }
     }
