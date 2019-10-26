@@ -22,4 +22,24 @@ public strictfp class PhoenixBurn extends AuraAbility<Phoenix, Creep> {
             unit.removeAbility(ability);
         }
     }
+
+    @Override
+    public boolean isVisibleToUser() {
+        return true;
+    }
+
+    @Override
+    public String getTitle() {
+        return "Ring of Fire";
+    }
+
+    @Override
+    public String getDescription() {
+        return "While Phoenix is alive, all creeps in range are burned.";
+    }
+
+    @Override
+    public String getIconFile() {
+        return "phoenix_burn";
+    }
 }

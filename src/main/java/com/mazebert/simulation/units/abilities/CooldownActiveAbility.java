@@ -33,8 +33,4 @@ public abstract strictfp class CooldownActiveAbility extends ActiveAbility imple
             simulationListeners.onUpdate.remove(this);
         }
     }
-
-    protected void onAbilityReady() {
-        getUnit().onAbilityReady.dispatch(this);
-    }
 }

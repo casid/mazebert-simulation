@@ -32,12 +32,12 @@ public strictfp class Phoenix extends Tower {
 
     @Override
     public String getDescription() {
-        return "todo";
+        return "Born from ash for aeons.";
     }
 
     @Override
     public String getAuthor() {
-        return "todo"; // todo
+        return "Ghul";
     }
 
     @Override
@@ -57,6 +57,6 @@ public strictfp class Phoenix extends Tower {
 
     @Override
     public String getModelId() {
-        return "huli_the_monkey"; // todo
+        return "phoenix";
     }
 }

@@ -99,6 +99,7 @@ public strictfp class PhoenixTest extends ItemTest {
         wizard.towerStash.add(TowerType.Phoenix);
 
         whenAbilityIsActivated();
+        tower.simulate(PhoenixRebirth.REBIRTH_TIME);
         whenAbilityIsActivated();
 
         assertThat(phoenix.getAddedAbsoluteBaseDamage()).isEqualTo(2 * PhoenixRebirth.DAMAGE_GAIN);
@@ -118,6 +119,16 @@ public strictfp class PhoenixTest extends ItemTest {
         wizard.towerStash.remove(TowerType.Phoenix);
         whenAbilityIsActivated();
         assertThat(phoenix.getAddedAbsoluteBaseDamage()).isEqualTo(0);
+    }
+
+    @Test
+    void rebirth_notAliveYet() {
+        wizard.gold += PhoenixRebirth.GOLD_COST;
+        wizard.towerStash.add(TowerType.Phoenix);
+
+        whenAbilityIsActivated();
+
+        assertThat(phoenix.getAbility(PhoenixRebirth.class).isReady()).isFalse();
     }
 
     @Test

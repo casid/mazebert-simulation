@@ -26,10 +26,15 @@ public strictfp class PhoenixRebirth extends ActiveAbility implements OnUpdateLi
 
     @Override
     public float getReadyProgress() {
+        if (!isAlive()) {
+            return 0;
+        }
+
         Wizard wizard = getUnit().getWizard();
         if (wizard.gold < GOLD_COST) {
             return 0;
         }
+
         if (wizard.towerStash.getIndex(TowerType.Phoenix) == -1) {
             return 0;
         }
@@ -53,6 +58,9 @@ public strictfp class PhoenixRebirth extends ActiveAbility implements OnUpdateLi
             rebirthTime -= dt;
             if (rebirthTime < 0) {
                 rebirthTime = 0;
+                if (!isDisposed()) {
+                    onAbilityReady();
+                }
             }
         }
     }
@@ -68,21 +76,16 @@ public strictfp class PhoenixRebirth extends ActiveAbility implements OnUpdateLi
 
     @Override
     public String getTitle() {
-        return "Rebirth";
+        return "Fall and Rebirth";
     }
 
     @Override
     public String getDescription() {
-        return "Sacrifice " + format.gold(GOLD_COST, getCurrency()) + " and a " + format.card(TowerType.Phoenix) + " card in your hand to be reborn from ash and permanently gain +" + DAMAGE_GAIN + " base damage.";
+        return "Sacrifice " + format.gold(GOLD_COST, getCurrency()) + " and a " + format.card(TowerType.Phoenix) + " card in your hand to be reborn from ash after " + format.seconds(REBIRTH_TIME) + " and permanently gain +" + DAMAGE_GAIN + " base damage.";
     }
 
     @Override
     public String getIconFile() {
-        return "cup_512"; // TODO
-    }
-
-    @Override
-    public String getLevelBonus() {
-        return "Deal no damage for " + format.seconds(REBIRTH_TIME) + "s";
+        return "powder_512";
     }
 }
