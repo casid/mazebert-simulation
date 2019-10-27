@@ -15,10 +15,7 @@ public strictfp class GaneshaLevelAura extends AuraAbility<Tower, Tower> {
 
     @Override
     protected void onAuraLeft(Tower unit) {
-        GaneshaLevelAuraEffect ability = unit.getAbility(GaneshaLevelAuraEffect.class, getUnit());
-        if (ability != null) {
-            unit.removeAbility(ability);
-        }
+        unit.removeAbility(GaneshaLevelAuraEffect.class, getUnit());
     }
 
     @Override

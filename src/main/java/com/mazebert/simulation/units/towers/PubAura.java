@@ -16,10 +16,7 @@ public strictfp class PubAura extends AuraAbility<Tower, Tower> {
 
     @Override
     protected void onAuraLeft(Tower unit) {
-        PubAuraEffect ability = unit.getAbility(PubAuraEffect.class, getUnit());
-        if (ability != null) {
-            unit.removeAbility(ability);
-        }
+        unit.removeAbility(PubAuraEffect.class, getUnit());
     }
 
     @Override

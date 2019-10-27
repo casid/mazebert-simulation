@@ -33,10 +33,7 @@ public strictfp class TinkerAura extends AuraAbility<Tinker, Tower> implements O
 
     @Override
     protected void onAuraLeft(Tower unit) {
-        TinkerAuraEffect ability = unit.getAbility(TinkerAuraEffect.class, this);
-        if (ability != null) {
-            unit.removeAbility(ability);
-        }
+        unit.removeAbility(TinkerAuraEffect.class, this);
     }
 
     @Override

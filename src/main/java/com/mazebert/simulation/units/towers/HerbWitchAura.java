@@ -16,10 +16,7 @@ public strictfp class HerbWitchAura extends AuraAbility<Tower, Tower> {
 
     @Override
     protected void onAuraLeft(Tower unit) {
-        HerbWitchAuraEffect ability = unit.getAbility(HerbWitchAuraEffect.class, getUnit());
-        if (ability != null) {
-            unit.removeAbility(ability);
-        }
+        unit.removeAbility(HerbWitchAuraEffect.class, getUnit());
     }
 
     @Override

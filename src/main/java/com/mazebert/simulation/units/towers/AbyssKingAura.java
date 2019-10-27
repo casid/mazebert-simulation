@@ -28,10 +28,7 @@ public strictfp class AbyssKingAura extends AuraAbility<AbyssKing, Tower> {
 
     @Override
     protected void onAuraLeft(Tower unit) {
-        AbyssKingAuraEffect ability = unit.getAbility(AbyssKingAuraEffect.class, getUnit());
-        if (ability != null) {
-            unit.removeAbility(ability);
-        }
+        unit.removeAbility(AbyssKingAuraEffect.class, getUnit());
     }
 
     public void update(int armySize) {

@@ -17,10 +17,7 @@ public strictfp class PhoenixBurn extends AuraAbility<Phoenix, Creep> {
 
     @Override
     protected void onAuraLeft(Creep unit) {
-        PhoenixBurnEffect ability = unit.getAbility(PhoenixBurnEffect.class, getUnit());
-        if (ability != null) {
-            unit.removeAbility(ability);
-        }
+        unit.removeAbility(PhoenixBurnEffect.class, getUnit());
     }
 
     @Override

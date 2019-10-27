@@ -16,10 +16,7 @@ public strictfp class MoneyBinAura extends AuraAbility<Tower, Tower> {
 
     @Override
     protected void onAuraLeft(Tower unit) {
-        MoneyBinAuraEffect ability = unit.getAbility(MoneyBinAuraEffect.class, getUnit());
-        if (ability != null) {
-            unit.removeAbility(ability);
-        }
+        unit.removeAbility(MoneyBinAuraEffect.class, getUnit());
     }
 
     @Override
