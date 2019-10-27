@@ -44,6 +44,11 @@ public strictfp class Lightbringer extends Item {
     }
 
     @Override
+    public boolean isForgeable() {
+        return false;
+    }
+
+    @Override
     public boolean isLight() {
         return true;
     }
