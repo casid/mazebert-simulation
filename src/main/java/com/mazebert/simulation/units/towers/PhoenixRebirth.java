@@ -76,7 +76,7 @@ public strictfp class PhoenixRebirth extends ActiveAbility implements OnUpdateLi
 
     @Override
     public String getTitle() {
-        return "Fall and Rebirth";
+        return "Rebirth";
     }
 
     @Override

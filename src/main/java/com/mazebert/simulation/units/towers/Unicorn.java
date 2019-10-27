@@ -52,6 +52,6 @@ public strictfp class Unicorn extends Tower {
 
     @Override
     public String getModelId() {
-        return "yggdrasil"; // TODO visuals
+        return "unicorn";
     }
 }
