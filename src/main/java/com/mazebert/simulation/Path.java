@@ -28,6 +28,14 @@ public strictfp class Path {
         }
     }
 
+    public Path(Path p1, Path p2) {
+        this.size = p1.size + p2.size;
+        this.points = new float[size * 2];
+
+        System.arraycopy(p1.points, 0, points, 0, p1.points.length);
+        System.arraycopy(p2.points, 0, points, p1.points.length, p2.points.length);
+    }
+
     public float[] get(int pathIndex, float[] result) {
         result[0] = points[pathIndex * 2];
         result[1] = points[pathIndex * 2 + 1];

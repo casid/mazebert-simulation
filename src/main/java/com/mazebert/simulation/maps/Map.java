@@ -66,6 +66,10 @@ public strictfp abstract class Map {
         return startWaypoint;
     }
 
+    public Point getEndWaypoint() {
+        return endWaypoint;
+    }
+
     @SuppressWarnings("unused")
     public int getMaxScrollY() {
         return maxScrollY;

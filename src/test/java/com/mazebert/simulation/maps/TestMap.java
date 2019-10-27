@@ -51,4 +51,9 @@ public strictfp class TestMap extends Map {
             tile.type.walkable = true;
         }
     }
+
+    public void givenEndWaypoint(int x, int y) {
+        Tile tile = tiles.get(x + y * size);
+        tile.waypointIndex = 1;
+    }
 }
