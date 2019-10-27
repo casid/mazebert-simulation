@@ -63,4 +63,9 @@ public strictfp class LuciferFallen extends Tower {
     public boolean isDark() {
         return true;
     }
+
+    @Override
+    public boolean isDropable() {
+        return false;
+    }
 }
