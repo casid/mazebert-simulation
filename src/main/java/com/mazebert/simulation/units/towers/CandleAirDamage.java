@@ -13,6 +13,16 @@ public strictfp class CandleAirDamage extends AirDamageWithLevelBonusAbility {
     }
 
     @Override
+    public String getTitle() {
+        return "Crash and burn";
+    }
+
+    @Override
+    public String getDescription() {
+        return "Candle deals " + format.percent(bonus) + "% increased damage against air.";
+    }
+
+    @Override
     public String getIconFile() {
         return "0067_fireball_512";
     }
