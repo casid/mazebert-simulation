@@ -1,6 +1,7 @@
 package com.mazebert.simulation.units.towers;
 
 import com.mazebert.simulation.CardCategory;
+import com.mazebert.simulation.WaveType;
 import com.mazebert.simulation.units.abilities.AuraAbility;
 import com.mazebert.simulation.units.creeps.Creep;
 
@@ -19,6 +20,11 @@ public strictfp class CandleAttractionAura extends AuraAbility<Candle, Creep> {
     @Override
     protected void onAuraLeft(Creep unit) {
         unit.removeAbility(CandleAttractionEffect.class, getUnit());
+    }
+
+    @Override
+    protected boolean isQualifiedForAura(Creep unit) {
+        return unit.getWave().type == WaveType.Air;
     }
 
     @Override

@@ -3,6 +3,7 @@ package com.mazebert.simulation.units.towers;
 import com.mazebert.simulation.Path;
 import com.mazebert.simulation.SimTest;
 import com.mazebert.simulation.SimulationListeners;
+import com.mazebert.simulation.WaveType;
 import com.mazebert.simulation.gateways.GameGateway;
 import com.mazebert.simulation.gateways.UnitGateway;
 import com.mazebert.simulation.maps.TestMap;
@@ -54,6 +55,17 @@ class CandleTest extends SimTest {
         assertThat(creep.getY()).isEqualTo(candle.getY());
 
         creep.simulate(4); // creep flies to the end waypoint
+        assertThat(creep.getX()).isEqualTo(5);
+        assertThat(creep.getY()).isEqualTo(0);
+    }
+
+    @Test
+    void creepPathChanges_onlyForAir() {
+        creep.getWave().type = WaveType.Normal;
+        creep.simulate(1.0f); // enters candle
+        candle.simulate(0.1f); // Candle needs a tick to recognize this
+
+        creep.simulate(4); // creep is not air and will not fly to the candle
         assertThat(creep.getX()).isEqualTo(5);
         assertThat(creep.getY()).isEqualTo(0);
     }
