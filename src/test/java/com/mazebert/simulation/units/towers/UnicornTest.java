@@ -9,6 +9,7 @@ import com.mazebert.simulation.plugins.random.RandomPluginTrainer;
 import com.mazebert.simulation.stash.StashEntry;
 import com.mazebert.simulation.systems.LootSystemTrainer;
 import com.mazebert.simulation.units.TestTower;
+import com.mazebert.simulation.units.items.HelmOfHades;
 import com.mazebert.simulation.units.potions.Potion;
 import com.mazebert.simulation.units.potions.PotionType;
 import com.mazebert.simulation.units.wizards.Wizard;
@@ -120,6 +121,16 @@ strictfp class UnicornTest extends SimTest {
     void creepEntersRange_death_notForAir() {
         randomPluginTrainer.givenFloatAbs(0.0f);
         unitGateway.addUnit(a(creep().air()));
+
+        assertThat(unitGateway.hasUnit(unicorn)).isTrue();
+    }
+
+    @Test
+    void creepEntersRange_death_notWhenInvisible() {
+        unicorn.setItem(0, new HelmOfHades());
+
+        randomPluginTrainer.givenFloatAbs(0.0f);
+        unitGateway.addUnit(a(creep()));
 
         assertThat(unitGateway.hasUnit(unicorn)).isTrue();
     }

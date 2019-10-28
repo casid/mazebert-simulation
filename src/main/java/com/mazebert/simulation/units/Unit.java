@@ -221,6 +221,10 @@ public abstract strictfp class Unit implements Hashable {
         return (A)abilities.find(a -> abilityClass.isAssignableFrom(a.getClass()) && a.getOrigin() == origin);
     }
 
+    public <A extends Ability> boolean hasAbility(Class<A> abilityClass) {
+        return getAbility(abilityClass) != null;
+    }
+
     public int getAbilityCount() {
         return abilities.size();
     }

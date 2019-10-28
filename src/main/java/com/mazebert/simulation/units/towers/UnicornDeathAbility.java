@@ -7,6 +7,7 @@ import com.mazebert.simulation.stash.StashEntry;
 import com.mazebert.simulation.systems.LootSystem;
 import com.mazebert.simulation.units.abilities.AuraAbility;
 import com.mazebert.simulation.units.creeps.Creep;
+import com.mazebert.simulation.units.items.HelmOfHadesInvisibleAbility;
 import com.mazebert.simulation.units.potions.Potion;
 import com.mazebert.simulation.units.potions.PotionType;
 import com.mazebert.simulation.units.potions.UnicornTears;
@@ -25,6 +26,10 @@ public strictfp class UnicornDeathAbility extends AuraAbility<Tower, Creep> {
     protected void onAuraEntered(Creep unit) {
         WaveType waveType = unit.getWave().type;
         if (waveType == WaveType.Challenge || waveType == WaveType.Horseman || waveType == WaveType.Air) {
+            return;
+        }
+
+        if (getUnit().hasAbility(HelmOfHadesInvisibleAbility.class)) {
             return;
         }
 
