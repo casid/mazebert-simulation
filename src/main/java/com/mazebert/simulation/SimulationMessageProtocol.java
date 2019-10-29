@@ -44,8 +44,5 @@ public strictfp class SimulationMessageProtocol extends BitMessageProtocol {
             // Actually not a command, but we need to register it here so that the ids stay in order.
             protocol.register(new LoadingProgressSerializer());
         }
-        if (version >= Sim.vDoL) {
-            protocol.register(new AttackCreepCommandSerializer());
-        }
     }
 }

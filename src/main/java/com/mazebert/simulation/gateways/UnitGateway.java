@@ -219,10 +219,6 @@ public strictfp final class UnitGateway {
         }
     }
 
-    public Creep findCreepById(int creepId) {
-        return creeps.find(c -> c.id == creepId);
-    }
-
     private static final class CreepInRangePredicate implements Predicate<Creep> {
 
         public float x;

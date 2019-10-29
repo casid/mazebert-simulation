@@ -187,47 +187,6 @@ public class AttackAbilityTest extends SimTest implements OnAttackListener {
         thenUnitIsAttacked(creep);
     }
 
-    @Test
-    void attack_ordered() {
-        Creep otherCreep = new Creep();
-        unitGateway.addUnit(otherCreep);
-        wizard.onAttackOrdered.dispatch(wizard, otherCreep);
-
-        whenTowerAttacks();
-
-        thenUnitIsAttacked(otherCreep);
-    }
-
-    @Test
-    void attack_ordered_outOfRange() {
-        Creep otherCreep = new Creep();
-        otherCreep.setX(1000);
-        unitGateway.addUnit(otherCreep);
-        wizard.onAttackOrdered.dispatch(wizard, otherCreep);
-
-        whenTowerAttacks();
-
-        thenUnitIsAttacked(creep);
-
-        // Comes back in range...
-
-        otherCreep.setX(0);
-        whenTowerAttacks();
-        thenUnitIsAttacked(otherCreep);
-    }
-
-    @Test
-    void attack_ordered_deadAlready() {
-        Creep otherCreep = new Creep();
-        unitGateway.addUnit(otherCreep);
-        otherCreep.setHealth(0);
-        wizard.onAttackOrdered.dispatch(wizard, otherCreep);
-
-        whenTowerAttacks();
-
-        thenUnitIsAttacked(creep);
-    }
-
     @Override
     public void onAttack(Creep target) {
         attackedUnits.add(target);

@@ -2,22 +2,16 @@ package com.mazebert.simulation.units.abilities;
 
 import com.mazebert.simulation.Sim;
 import com.mazebert.simulation.gateways.UnitGateway;
-import com.mazebert.simulation.listeners.OnAttackOrderedListener;
-import com.mazebert.simulation.listeners.OnUnitAddedListener;
-import com.mazebert.simulation.listeners.OnUnitRemovedListener;
-import com.mazebert.simulation.units.Unit;
 import com.mazebert.simulation.units.creeps.Creep;
 import com.mazebert.simulation.units.towers.Tower;
-import com.mazebert.simulation.units.wizards.Wizard;
 
 import java.util.Arrays;
 
-public strictfp class AttackAbility extends CooldownUnitAbility<Tower> implements OnUnitAddedListener, OnUnitRemovedListener, OnAttackOrderedListener {
+public strictfp class AttackAbility extends CooldownUnitAbility<Tower> {
 
     private final UnitGateway unitGateway = Sim.context().unitGateway;
     private final int version = Sim.context().version;
 
-    private Creep orderedTarget;
     private Creep[] currentTargets;
     private boolean canAttackSameTarget;
 
@@ -37,38 +31,13 @@ public strictfp class AttackAbility extends CooldownUnitAbility<Tower> implement
     @Override
     protected void initialize(Tower unit) {
         super.initialize(unit);
-        unit.onUnitAdded.add(this);
-        unit.onUnitRemoved.add(this);
         Arrays.fill(currentTargets, null);
-        orderedTarget = null;
     }
 
     @Override
     public void dispose(Tower unit) {
-        orderedTarget = null;
         Arrays.fill(currentTargets, null);
-        unit.onUnitRemoved.remove(this);
-        unit.onUnitAdded.remove(this);
         super.dispose(unit);
-    }
-
-    @Override
-    public void onUnitAdded(Unit unit) {
-        if (unit.getWizard() != null) {
-            unit.getWizard().onAttackOrdered.add(this);
-        }
-    }
-
-    @Override
-    public void onUnitRemoved(Unit unit) {
-        if (unit.getWizard() != null) {
-            unit.getWizard().onAttackOrdered.remove(this);
-        }
-    }
-
-    @Override
-    public void onAttackOrdered(Wizard wizard, Creep creep) {
-        orderedTarget = creep;
     }
 
     @Override
@@ -98,14 +67,6 @@ public strictfp class AttackAbility extends CooldownUnitAbility<Tower> implement
     }
 
     private Creep findTarget(int i) {
-        if (i == 0 && orderedTarget != null) {
-            if (orderedTarget.isPartOfGame()) {
-                currentTargets[i] = orderedTarget;
-            } else {
-                orderedTarget = null;
-            }
-        }
-
         Tower tower = getUnit();
         if (currentTargets[i] != null && currentTargets[i].isInRange(tower, tower.getRange())) {
             return currentTargets[i];
@@ -122,13 +83,13 @@ public strictfp class AttackAbility extends CooldownUnitAbility<Tower> implement
         return target;
     }
 
+    public int getTargets() {
+        return currentTargets.length;
+    }
+
     public void setTargets(int targets) {
         if (targets != currentTargets.length) {
             currentTargets = new Creep[targets];
         }
-    }
-
-    public int getTargets() {
-        return currentTargets.length;
     }
 }
