@@ -82,6 +82,7 @@ public strictfp enum ItemType implements CardType<Item> {
     DrinkingHorn(67, DrinkingHorn.class),
     UselessMachine(68, UselessMachine.class),
     Lightbringer(69, Lightbringer.class),
+    FatKnightArmor(70, FatKnightArmor.class),
     ;
 
     private static int maxId;
