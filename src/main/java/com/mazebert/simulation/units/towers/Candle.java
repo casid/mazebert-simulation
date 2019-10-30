@@ -64,4 +64,9 @@ public strictfp class Candle extends Tower {
     public String getModelId() {
         return "candle";
     }
+
+    @Override
+    public int getImageOffsetOnCardY() {
+        return -10;
+    }
 }
