@@ -7,7 +7,11 @@ import com.mazebert.simulation.WaveType;
 import com.mazebert.simulation.gateways.GameGateway;
 import com.mazebert.simulation.gateways.UnitGateway;
 import com.mazebert.simulation.maps.TestMap;
+import com.mazebert.simulation.plugins.random.RandomPluginTrainer;
+import com.mazebert.simulation.systems.ExperienceSystem;
+import com.mazebert.simulation.systems.LootSystemTrainer;
 import com.mazebert.simulation.units.creeps.Creep;
+import com.mazebert.simulation.units.creeps.effects.ReviveEffect;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -26,6 +30,9 @@ class CandleTest extends SimTest {
         simulationListeners = new SimulationListeners();
         unitGateway = new UnitGateway();
         gameGateway = new GameGateway();
+        experienceSystem = new ExperienceSystem();
+        lootSystem = new LootSystemTrainer();
+        randomPlugin = new RandomPluginTrainer();
 
         map = new TestMap(6);
         map.givenEndWaypoint(5, 0);
@@ -86,6 +93,27 @@ class CandleTest extends SimTest {
         creep.simulate(3); // creep flies to the first candle
         assertThat(creep.getX()).isEqualTo(candle.getX());
         assertThat(creep.getY()).isEqualTo(candle.getY());
+    }
+
+    @Test
+    void creepPathChanges_revive() {
+        creep.addAbility(new ReviveEffect());
+        creep.simulate(1.0f); // enters candle
+        candle.simulate(0.1f); // Candle needs a tick to recognize this
+        assertThat(creep.getX()).isEqualTo(1);
+        assertThat(creep.getY()).isEqualTo(0);
+
+        creep.simulate(4); // creep flies to the candle
+        assertThat(creep.getX()).isEqualTo(candle.getX());
+        assertThat(creep.getY()).isEqualTo(candle.getY());
+
+        creep.simulate(2); // creep flies towards the end waypoint
+        candle.kill(creep);
+        creep.simulate(Creep.DEATH_TIME);
+
+        creep.simulate(2); // creep flies towards the end waypoint?
+        assertThat(creep.getX()).isEqualTo(5);
+        assertThat(creep.getY()).isEqualTo(0);
     }
 
     @Test
