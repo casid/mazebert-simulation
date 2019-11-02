@@ -40,4 +40,10 @@ public class TowerTypeTest extends SimTest {
             assertThat(tower.getAttackType()).describedAs("Tower " + type + " has no attack type").isNotNull();
         }
     }
+
+    @Test
+    void allCardsAreAvailable() {
+        season = true;
+        assertThat(TowerType.getValues()).containsExactly(TowerType.values());
+    }
 }
