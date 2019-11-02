@@ -3,6 +3,7 @@ package com.mazebert.simulation.units.towers;
 import com.mazebert.simulation.CardCategory;
 import com.mazebert.simulation.Sim;
 import com.mazebert.simulation.WaveType;
+import com.mazebert.simulation.gateways.UnitGateway;
 import com.mazebert.simulation.stash.StashEntry;
 import com.mazebert.simulation.systems.LootSystem;
 import com.mazebert.simulation.units.abilities.AuraAbility;
@@ -17,6 +18,7 @@ import com.mazebert.simulation.usecases.SellTower;
 public strictfp class UnicornDeathAbility extends AuraAbility<Tower, Creep> {
 
     private final LootSystem lootSystem = Sim.context().lootSystem;
+    private final UnitGateway unitGateway = Sim.context().unitGateway;
 
     public UnicornDeathAbility() {
         super(CardCategory.Tower, Creep.class, 1);
@@ -25,7 +27,7 @@ public strictfp class UnicornDeathAbility extends AuraAbility<Tower, Creep> {
     @Override
     protected void onAuraEntered(Creep unit) {
         WaveType waveType = unit.getWave().type;
-        if (waveType == WaveType.Challenge || waveType == WaveType.Horseman || waveType == WaveType.Air) {
+        if (waveType == WaveType.Challenge || waveType == WaveType.MassChallenge || waveType == WaveType.Horseman || waveType == WaveType.Air) {
             return;
         }
 
@@ -40,7 +42,8 @@ public strictfp class UnicornDeathAbility extends AuraAbility<Tower, Creep> {
             StashEntry<Potion> entry = wizard.potionStash.get(PotionType.UnicornTears);
             ((UnicornTears)entry.getCard()).setLevels(getUnit().getLevel() / 2);
 
-            new SellTower().execute(wizard, getUnit());
+            unitGateway.returnAllItemsToInventory(wizard, getUnit());
+            unitGateway.removeUnit(getUnit());
         }
     }
 
@@ -61,7 +64,7 @@ public strictfp class UnicornDeathAbility extends AuraAbility<Tower, Creep> {
 
     @Override
     public String getDescription() {
-        return "Non-challenge ground creeps entering her range have a 25% chance to hunt her down, leaving " + format.card(PotionType.UnicornTears) + " behind.";
+        return "Ground creeps entering unicorns range have a 25% chance to kill her, leaving " + format.card(PotionType.UnicornTears) + " behind (not challenges).";
     }
 
     @Override

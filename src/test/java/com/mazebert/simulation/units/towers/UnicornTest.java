@@ -77,6 +77,7 @@ strictfp class UnicornTest extends SimTest {
         unitGateway.addUnit(a(creep()));
 
         assertThat(unitGateway.hasUnit(unicorn)).isFalse();
+        assertThat(wizard.gold).isEqualTo(0);
     }
 
     @Test
@@ -105,6 +106,14 @@ strictfp class UnicornTest extends SimTest {
     void creepEntersRange_death_notForChallenge() {
         randomPluginTrainer.givenFloatAbs(0.0f);
         unitGateway.addUnit(a(creep().challenge()));
+
+        assertThat(unitGateway.hasUnit(unicorn)).isTrue();
+    }
+
+    @Test
+    void creepEntersRange_death_notForMassChallenge() {
+        randomPluginTrainer.givenFloatAbs(0.0f);
+        unitGateway.addUnit(a(creep().massChallenge()));
 
         assertThat(unitGateway.hasUnit(unicorn)).isTrue();
     }
