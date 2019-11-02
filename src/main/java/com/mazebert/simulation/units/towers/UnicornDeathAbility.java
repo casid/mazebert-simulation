@@ -42,8 +42,7 @@ public strictfp class UnicornDeathAbility extends AuraAbility<Tower, Creep> {
             StashEntry<Potion> entry = wizard.potionStash.get(PotionType.UnicornTears);
             ((UnicornTears)entry.getCard()).setLevels(getUnit().getLevel() / 2);
 
-            unitGateway.returnAllItemsToInventory(wizard, getUnit());
-            unitGateway.removeUnit(getUnit());
+            unitGateway.destroyTower(getUnit());
         }
     }
 
