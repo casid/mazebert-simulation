@@ -1,5 +1,6 @@
 package com.mazebert.simulation.usecases;
 
+import com.mazebert.simulation.Rarity;
 import com.mazebert.simulation.Sim;
 import com.mazebert.simulation.commands.BuildTowerCommand;
 import com.mazebert.simulation.gateways.GameGateway;
@@ -12,6 +13,7 @@ import com.mazebert.simulation.units.abilities.Ability;
 import com.mazebert.simulation.units.abilities.StackableAbility;
 import com.mazebert.simulation.units.items.Item;
 import com.mazebert.simulation.units.towers.Tower;
+import com.mazebert.simulation.units.towers.TowerType;
 import com.mazebert.simulation.units.wizards.Wizard;
 
 import java.util.ArrayList;
@@ -42,6 +44,13 @@ public strictfp class BuildTower extends Usecase<BuildTowerCommand> {
 
         if (gameGateway.getMap().getType() == MapType.GoldenGrounds && !wizard.ownsFoilCard(command.towerType)) {
             return;
+        }
+
+        if (command.towerType == TowerType.SnowGlobe) {
+            Tower oldTower = unitGateway.findTower(wizard.getPlayerId(), command.x, command.y);
+            if (oldTower == null || oldTower.getRarity() != Rarity.Common) {
+                return;
+            }
         }
 
         Tower tower = wizard.towerStash.remove(command.towerType);
@@ -77,6 +86,10 @@ public strictfp class BuildTower extends Usecase<BuildTowerCommand> {
 
         if (items != null) {
             transferItems(wizard, tower, items);
+        }
+
+        if (oldTower != null) {
+            tower.onTowerReplaced.dispatch(oldTower);
         }
 
         return oldTower;

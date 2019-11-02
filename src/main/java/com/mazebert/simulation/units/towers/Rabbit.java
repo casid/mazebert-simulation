@@ -5,6 +5,7 @@ import com.mazebert.simulation.Element;
 import com.mazebert.simulation.Rarity;
 import com.mazebert.simulation.projectiles.ProjectileViewType;
 import com.mazebert.simulation.units.Gender;
+import com.mazebert.simulation.units.abilities.AttackAbility;
 import com.mazebert.simulation.units.abilities.ProjectileDamageAbility;
 
 public strictfp class Rabbit extends Tower {
@@ -17,6 +18,7 @@ public strictfp class Rabbit extends Tower {
         setGender(Gender.Male);
         setElement(Element.Nature);
 
+        addAbility(new AttackAbility());
         addAbility(new RabbitMultishot());
         addAbility(new ProjectileDamageAbility(ProjectileViewType.Carrot, 11.8f));
     }
@@ -59,6 +61,6 @@ public strictfp class Rabbit extends Tower {
     @Override
     public void populateCustomTowerBonus(CustomTowerBonus bonus) {
         bonus.title = "Carrots:";
-        bonus.value = "" + getAbility(RabbitMultishot.class).getTargets();
+        bonus.value = "" + getAbility(AttackAbility.class).getTargets();
     }
 }

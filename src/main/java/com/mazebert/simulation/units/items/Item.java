@@ -9,16 +9,20 @@ import com.mazebert.simulation.units.abilities.Ability;
 import com.mazebert.simulation.units.towers.Tower;
 
 public strictfp abstract class Item implements Card {
-    private final Ability[] abilities;
-    private final boolean set;
+    private Ability[] abilities;
+    private boolean set;
     private final ItemType type;
 
     protected final FormatPlugin format = Sim.context().formatPlugin;
 
     public Item(Ability... abilities) {
+        setAbilities(abilities);
+        this.type = ItemType.forClass(getClass());
+    }
+
+    public void setAbilities(Ability... abilities) {
         this.abilities = abilities;
         this.set = containsAbility(ItemSetAbility.class);
-        this.type = ItemType.forClass(getClass());
     }
 
     @Override

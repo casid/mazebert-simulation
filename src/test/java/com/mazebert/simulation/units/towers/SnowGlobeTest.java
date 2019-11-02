@@ -1,0 +1,154 @@
+package com.mazebert.simulation.units.towers;
+
+import com.mazebert.simulation.CommandExecutor;
+import com.mazebert.simulation.SimTest;
+import com.mazebert.simulation.SimulationListeners;
+import com.mazebert.simulation.commands.BuildTowerCommand;
+import com.mazebert.simulation.gateways.GameGateway;
+import com.mazebert.simulation.gateways.UnitGateway;
+import com.mazebert.simulation.maps.TestMap;
+import com.mazebert.simulation.plugins.random.RandomPluginTrainer;
+import com.mazebert.simulation.systems.LootSystemTrainer;
+import com.mazebert.simulation.units.abilities.AttackSoundAbility;
+import com.mazebert.simulation.units.items.Item;
+import com.mazebert.simulation.units.items.ItemType;
+import com.mazebert.simulation.units.wizards.Wizard;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import static org.assertj.core.api.Assertions.assertThat;
+
+strictfp class SnowGlobeTest extends SimTest {
+
+    Wizard wizard;
+
+    @BeforeEach
+    void setUp() {
+        simulationListeners = new SimulationListeners();
+        unitGateway = new UnitGateway();
+        randomPlugin = new RandomPluginTrainer();
+        lootSystem = new LootSystemTrainer();
+        gameGateway = new GameGateway();
+        gameGateway.getGame().map = new TestMap(1);
+        commandExecutor = new CommandExecutor();
+        commandExecutor.init();
+
+        wizard = new Wizard();
+        wizard.addGold(100_000);
+        unitGateway.addUnit(wizard);
+    }
+
+    @Test
+    void cannotBeBuiltOnItsOwn() {
+        whenTowerIsBuilt(TowerType.SnowGlobe);
+        assertThat(unitGateway.hasUnits(SnowGlobe.class)).isFalse();
+    }
+
+    @Test
+    void onlyCommonTowers() {
+        givenTowerToReplace(TowerType.Frog);
+        whenTowerIsBuilt(TowerType.SnowGlobe);
+        assertThat(unitGateway.hasUnits(Frog.class)).isTrue();
+        assertThat(unitGateway.hasUnits(SnowGlobe.class)).isFalse();
+    }
+
+    @Test
+    void beaver() {
+        givenTowerToReplace(TowerType.Beaver);
+        whenTowerIsBuilt(TowerType.SnowGlobe);
+        thenSnowGlobeAbilitiesAre(BeaverStun.class);
+    }
+
+    @Test
+    void dandelion() {
+        givenTowerToReplace(TowerType.Dandelion);
+        whenTowerIsBuilt(TowerType.SnowGlobe);
+        thenSnowGlobeAbilitiesAre(DandelionSplash.class);
+    }
+
+    @Test
+    void rabbit() {
+        givenTowerToReplace(TowerType.Rabbit);
+        whenTowerIsBuilt(TowerType.SnowGlobe);
+        thenSnowGlobeAbilitiesAre(RabbitMultishot.class);
+    }
+
+    @Test
+    void scientist() {
+        givenTowerToReplace(TowerType.Scientist);
+        whenTowerIsBuilt(TowerType.SnowGlobe);
+        thenSnowGlobeAbilitiesAre(ScientistExperience.class);
+    }
+
+    @Test
+    void pocketThief() {
+        givenTowerToReplace(TowerType.PocketThief);
+        whenTowerIsBuilt(TowerType.SnowGlobe);
+        thenSnowGlobeAbilitiesAre(PocketThiefGold.class);
+    }
+
+    @Test
+    void mummy() {
+        givenTowerToReplace(TowerType.Mummy);
+        whenTowerIsBuilt(TowerType.SnowGlobe);
+        thenSnowGlobeAbilitiesAre(MummyStumble.class);
+    }
+
+    @Test
+    void noviceWizard() {
+        givenTowerToReplace(TowerType.NoviceWizard);
+        whenTowerIsBuilt(TowerType.SnowGlobe);
+        thenSnowGlobeAbilitiesAre(AttackSoundAbility.class, NoviceWizardSpell.class);
+    }
+
+    @Test
+    void spider() {
+        givenTowerToReplace(TowerType.Spider);
+        whenTowerIsBuilt(TowerType.SnowGlobe);
+        thenSnowGlobeAbilitiesAre(AttackSoundAbility.class, SpiderWeb.class);
+    }
+
+    @Test
+    void adventurer() {
+        givenTowerToReplace(TowerType.Adventurer);
+        whenTowerIsBuilt(TowerType.SnowGlobe);
+        thenSnowGlobeAbilitiesAre(AdventurerLight.class);
+    }
+
+    @Test
+    void gargoyle() {
+        givenTowerToReplace(TowerType.Gargoyle);
+        whenTowerIsBuilt(TowerType.SnowGlobe);
+        thenSnowGlobeAbilitiesAre(AttackSoundAbility.class, GargoyleKnockback.class);
+    }
+
+    @Test
+    void guard() {
+        givenTowerToReplace(TowerType.Guard);
+        whenTowerIsBuilt(TowerType.SnowGlobe);
+        thenSnowGlobeAbilitiesAre(GuardAura.class);
+    }
+
+    private void givenTowerToReplace(TowerType towerType) {
+        whenTowerIsBuilt(towerType);
+    }
+
+    private void whenTowerIsBuilt(TowerType towerType) {
+        wizard.towerStash.add(towerType);
+        BuildTowerCommand request = new BuildTowerCommand();
+        request.towerType = towerType;
+        commandExecutor.executeVoid(request);
+    }
+
+    private void thenSnowGlobeAbilitiesAre(Class... ablities) {
+        assertThat(unitGateway.getAmount(Tower.class)).isZero();
+
+        List<Class> actual = new ArrayList<>();
+        Item snowGlobe = wizard.itemStash.get(ItemType.SnowGlobe).getCard();
+        snowGlobe.forEachAbility(a -> actual.add(a.getClass()));
+        assertThat(actual).containsExactly(ablities);
+    }
+}

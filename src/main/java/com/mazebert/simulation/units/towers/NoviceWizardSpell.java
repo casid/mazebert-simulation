@@ -3,12 +3,11 @@ package com.mazebert.simulation.units.towers;
 import com.mazebert.simulation.Sim;
 import com.mazebert.simulation.SimulationListeners;
 import com.mazebert.simulation.listeners.OnDamageListener;
-import com.mazebert.simulation.plugins.random.RandomPlugin;
 import com.mazebert.simulation.units.abilities.Ability;
 import com.mazebert.simulation.units.abilities.ProjectileDamageAbility;
 import com.mazebert.simulation.units.creeps.Creep;
 
-public strictfp class NoviceWizardSpell extends Ability<NoviceWizard> implements OnDamageListener {
+public strictfp class NoviceWizardSpell extends Ability<Tower> implements OnDamageListener {
     public static final float warpSeconds = 3.0f;
     public static final float banishmentSeconds = 3.0f;
     public static final float banishmentAmplifier = 0.5f;
@@ -20,16 +19,15 @@ public strictfp class NoviceWizardSpell extends Ability<NoviceWizard> implements
     private static final int badColor = 0x990000;
 
     private final SimulationListeners simulationListeners = Sim.context().simulationListeners;
-    private final RandomPlugin randomPlugin = Sim.context().randomPlugin;
 
     @Override
-    protected void initialize(NoviceWizard unit) {
+    protected void initialize(Tower unit) {
         super.initialize(unit);
         unit.onDamage.add(this);
     }
 
     @Override
-    protected void dispose(NoviceWizard unit) {
+    protected void dispose(Tower unit) {
         unit.onDamage.remove(this);
         super.dispose(unit);
     }
@@ -97,7 +95,7 @@ public strictfp class NoviceWizardSpell extends Ability<NoviceWizard> implements
     public String getDescription() {
         return format.percent(spellChance) + "% chance on attack to cast a spell from his book, but each spell has a " + format.percent(backfireChance) + "% chance to backfire.\n" +
                 "<c=#8000d9>Time Warp</c> moves the creep " + format.seconds(warpSeconds) + " in the <c=#009900>past</c>/<c=#990000>future</c>.\n" +
-                "<c=#8000d9>Banishment</c> causes the creep to receive " + format.percent(banishmentAmplifier) + "% <c=#009900>more</c>/<c=#990000>less</c> damage for " + format.seconds(banishmentSeconds) +".";
+                "<c=#8000d9>Banishment</c> causes the creep to receive " + format.percent(banishmentAmplifier) + "% <c=#009900>more</c>/<c=#990000>less</c> damage for " + format.seconds(banishmentSeconds) + ".";
     }
 
     @Override
