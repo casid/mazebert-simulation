@@ -9,6 +9,7 @@ import com.mazebert.simulation.units.abilities.DamageAbility;
 import com.mazebert.simulation.units.abilities.RandomGenderAbility;
 import com.mazebert.simulation.units.items.Item;
 import com.mazebert.simulation.units.items.ItemType;
+import com.mazebert.simulation.units.items.SnowGlobe;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,7 +38,7 @@ public strictfp class SnowGlobeCreateItem extends Ability<Tower> implements OnTo
         ItemStash itemStash = getUnit().getWizard().itemStash;
         itemStash.add(ItemType.SnowGlobe, true);
 
-        Item item = itemStash.get(ItemType.SnowGlobe).getCard();
+        SnowGlobe item = (SnowGlobe)itemStash.get(ItemType.SnowGlobe).getCard();
 
         Tower tower = towerType.create();
 
@@ -50,6 +51,7 @@ public strictfp class SnowGlobeCreateItem extends Ability<Tower> implements OnTo
         });
 
         item.setAbilities(abilities.toArray(new Ability[0]));
+        item.setDescription("A little " + format.card(towerType) + " lives in here.");
 
         tower.dispose();
     }

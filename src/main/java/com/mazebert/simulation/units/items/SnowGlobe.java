@@ -4,6 +4,8 @@ import com.mazebert.simulation.Rarity;
 
 public strictfp class SnowGlobe extends Item {
 
+    private String description = "There is room for a common tower in here.";
+
     @Override
     public String getName() {
         return "Snow Globe";
@@ -11,7 +13,7 @@ public strictfp class SnowGlobe extends Item {
 
     @Override
     public String getDescription() {
-        return "A little x is in this globe.";
+        return description;
     }
 
     @Override
@@ -37,5 +39,9 @@ public strictfp class SnowGlobe extends Item {
     @Override
     public boolean isDropable() {
         return false;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }

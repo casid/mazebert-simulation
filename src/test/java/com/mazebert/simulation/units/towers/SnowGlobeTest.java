@@ -7,6 +7,7 @@ import com.mazebert.simulation.commands.BuildTowerCommand;
 import com.mazebert.simulation.gateways.GameGateway;
 import com.mazebert.simulation.gateways.UnitGateway;
 import com.mazebert.simulation.maps.TestMap;
+import com.mazebert.simulation.plugins.FormatPlugin;
 import com.mazebert.simulation.plugins.random.RandomPluginTrainer;
 import com.mazebert.simulation.systems.LootSystemTrainer;
 import com.mazebert.simulation.units.abilities.AttackSoundAbility;
@@ -31,6 +32,7 @@ strictfp class SnowGlobeTest extends SimTest {
         unitGateway = new UnitGateway();
         randomPlugin = new RandomPluginTrainer();
         lootSystem = new LootSystemTrainer();
+        formatPlugin = new FormatPlugin();
         gameGateway = new GameGateway();
         gameGateway.getGame().map = new TestMap(1);
         commandExecutor = new CommandExecutor();
@@ -53,6 +55,13 @@ strictfp class SnowGlobeTest extends SimTest {
         whenTowerIsBuilt(TowerType.SnowGlobe);
         assertThat(unitGateway.hasUnits(Frog.class)).isTrue();
         assertThat(unitGateway.hasUnits(SnowGlobe.class)).isFalse();
+    }
+
+    @Test
+    void descriptionContainsTower() {
+        givenTowerToReplace(TowerType.Beaver);
+        whenTowerIsBuilt(TowerType.SnowGlobe);
+        assertThat(getSnowGlobeItem().getDescription()).isEqualTo("A little <c=#fefefe>Beaver</c> lives in here.");
     }
 
     @Test
@@ -147,8 +156,12 @@ strictfp class SnowGlobeTest extends SimTest {
         assertThat(unitGateway.getAmount(Tower.class)).isZero();
 
         List<Class> actual = new ArrayList<>();
-        Item snowGlobe = wizard.itemStash.get(ItemType.SnowGlobe).getCard();
+        Item snowGlobe = getSnowGlobeItem();
         snowGlobe.forEachAbility(a -> actual.add(a.getClass()));
         assertThat(actual).containsExactly(ablities);
+    }
+
+    private Item getSnowGlobeItem() {
+        return wizard.itemStash.get(ItemType.SnowGlobe).getCard();
     }
 }
