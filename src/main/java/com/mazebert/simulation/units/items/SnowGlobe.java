@@ -28,7 +28,7 @@ public strictfp class SnowGlobe extends Item {
 
     @Override
     public String getIcon() {
-        return "0095_One_Handed_Sworld_512"; // todo
+        return "05_magic_globe_512";
     }
 
     @Override
