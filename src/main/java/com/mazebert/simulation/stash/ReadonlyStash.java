@@ -13,6 +13,7 @@ public interface ReadonlyStash<T extends Card> {
     ReadonlyStashEntry<T> get(int index);
     ReadonlyStashEntry<T> get(CardType<T> cardType);
     int getIndex(CardType<T> cardType);
+    boolean contains(CardType<T> cardType);
 
     @SuppressWarnings("unused") // for client
     CardCategory getCardCategory();

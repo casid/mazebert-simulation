@@ -90,22 +90,13 @@ strictfp class BloodDemonTest extends SimTest {
         assertThat(bloodDemon.getAddedAbsoluteBaseDamage()).isEqualTo(99.0f);
     }
 
-    // TODO add test with inventory size changing item!
-
     private void whenBloodDemonIsBuilt() {
         whenTowerIsBuilt(TowerType.BloodDemon);
         this.bloodDemon = unitGateway.findUnit(BloodDemon.class, wizard.getPlayerId());
     }
 
     private void whenTowerIsBuilt(TowerType towerType) {
-        wizard.towerStash.add(towerType);
-
-        BuildTowerCommand command = new BuildTowerCommand();
-        command.towerType = towerType;
-        command.playerId = wizard.playerId;
-        command.x = 0;
-        command.y = 0;
-        commandExecutor.executeVoid(command);
+        whenTowerIsBuilt(wizard, towerType, 0, 0);
     }
 
     private void whenItemIsDropped() {
@@ -113,12 +104,6 @@ strictfp class BloodDemonTest extends SimTest {
     }
 
     private void whenItemIsEquipped(ItemType itemType) {
-        EquipItemCommand command = new EquipItemCommand();
-        command.playerId = wizard.getPlayerId();
-        command.inventoryIndex = 0;
-        command.itemType = itemType;
-        command.towerX = 0;
-        command.towerY = 0;
-        commandExecutor.executeVoid(command);
+        whenItemIsEquipped(bloodDemon, itemType, 0);
     }
 }

@@ -187,12 +187,7 @@ class BowlingBallTest extends ItemTest {
     }
 
     private void whenBowlingBallIsRolled() {
-        ActivateAbilityCommand command = new ActivateAbilityCommand();
-        command.playerId = wizard.getPlayerId();
-        command.towerX = (int) tower.getX();
-        command.towerY = (int) tower.getY();
-        command.abilityType = ActiveAbilityType.BowlingBallRollAbility;
-        commandExecutor.executeVoid(command);
+        whenAbilityIsActivated(tower, ActiveAbilityType.BowlingBallRollAbility);
 
         ball = unitGateway.findUnit(BowlingBallUnit.class, wizard.getPlayerId());
     }

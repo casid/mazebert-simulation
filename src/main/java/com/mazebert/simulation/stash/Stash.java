@@ -226,6 +226,11 @@ public abstract strictfp class Stash<T extends Card> implements ReadonlyStash<T>
     }
 
     @Override
+    public boolean contains(CardType<T> cardType) {
+        return entryByType.containsKey(cardType);
+    }
+
+    @Override
     public void hash(Hash hash) {
         for (StashEntry<T> entry : entries) {
             hash.add(entry);

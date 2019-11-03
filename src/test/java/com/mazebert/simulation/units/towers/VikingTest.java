@@ -133,11 +133,7 @@ class VikingTest extends SimTest {
     }
 
     private void givenMeadPotionIsDrank() {
-        wizard.potionStash.add(PotionType.Mead);
-        DrinkPotionCommand command = new DrinkPotionCommand();
-        command.potionType = PotionType.Mead;
-        command.playerId = wizard.getPlayerId();
-        commandExecutor.executeVoid(command);
+        whenPotionIsConsumed(viking, PotionType.Mead);
     }
 
     private void whenVikingAttacks() {

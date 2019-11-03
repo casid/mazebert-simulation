@@ -4,8 +4,6 @@ import com.mazebert.simulation.CommandExecutor;
 import com.mazebert.simulation.SimTest;
 import com.mazebert.simulation.Simulation;
 import com.mazebert.simulation.SimulationListeners;
-import com.mazebert.simulation.commands.ActivateAbilityCommand;
-import com.mazebert.simulation.commands.EquipItemCommand;
 import com.mazebert.simulation.gateways.GameGateway;
 import com.mazebert.simulation.gateways.PlayerGatewayTrainer;
 import com.mazebert.simulation.gateways.UnitGateway;
@@ -131,17 +129,10 @@ class MrIronTest extends SimTest {
     }
 
     private void givenItemIsEquipped(ItemType itemType, int inventoryIndex) {
-        wizard.itemStash.add(itemType);
-        EquipItemCommand command = new EquipItemCommand();
-        command.itemType = itemType;
-        command.inventoryIndex = inventoryIndex;
-        command.playerId = wizard.getPlayerId();
-        commandExecutor.executeVoid(command);
+        whenItemIsEquipped(mrIron, itemType, inventoryIndex);
     }
 
     private void whenAbilityIsActivated() {
-        ActivateAbilityCommand command = new ActivateAbilityCommand();
-        command.abilityType = ActiveAbilityType.MrIronConstruct;
-        commandExecutor.executeVoid(command);
+        whenAbilityIsActivated(mrIron, ActiveAbilityType.MrIronConstruct);
     }
 }

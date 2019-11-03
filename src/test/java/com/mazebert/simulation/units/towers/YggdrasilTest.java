@@ -4,9 +4,6 @@ import com.mazebert.simulation.CommandExecutor;
 import com.mazebert.simulation.Element;
 import com.mazebert.simulation.SimTest;
 import com.mazebert.simulation.SimulationListeners;
-import com.mazebert.simulation.commands.BuildTowerCommand;
-import com.mazebert.simulation.commands.DrinkPotionCommand;
-import com.mazebert.simulation.commands.EquipItemCommand;
 import com.mazebert.simulation.gateways.GameGateway;
 import com.mazebert.simulation.gateways.UnitGateway;
 import com.mazebert.simulation.maps.TestMap;
@@ -75,6 +72,7 @@ public strictfp class YggdrasilTest extends SimTest {
         Tower tower = new TestTower();
         tower.setX(1);
         tower.setElement(Element.Nature);
+        tower.setWizard(wizard);
         unitGateway.addUnit(tower);
 
         whenYggdrasilIsBuilt();
@@ -92,6 +90,7 @@ public strictfp class YggdrasilTest extends SimTest {
         Tower tower = new TestTower();
         tower.setX(1);
         tower.setElement(Element.Nature);
+        tower.setWizard(wizard);
         unitGateway.addUnit(tower);
 
         whenYggdrasilIsBuilt();
@@ -109,6 +108,7 @@ public strictfp class YggdrasilTest extends SimTest {
         Tower tower = new TestTower();
         tower.setX(1);
         tower.setElement(Element.Nature);
+        tower.setWizard(wizard);
         unitGateway.addUnit(tower);
 
         whenYggdrasilIsBuilt();
@@ -125,6 +125,7 @@ public strictfp class YggdrasilTest extends SimTest {
         Tower tower = new TestTower();
         tower.setX(1);
         tower.setElement(Element.Metropolis);
+        tower.setWizard(wizard);
         unitGateway.addUnit(tower);
 
         whenYggdrasilIsBuilt();
@@ -139,6 +140,7 @@ public strictfp class YggdrasilTest extends SimTest {
         Tower tower = new TestTower();
         tower.setX(1);
         tower.setElement(Element.Nature);
+        tower.setWizard(wizard);
         unitGateway.addUnit(tower);
 
         whenYggdrasilIsBuilt();
@@ -161,30 +163,11 @@ public strictfp class YggdrasilTest extends SimTest {
     }
 
     private void whenYggdrasilDrinksPotion(PotionType type) {
-        wizard.potionStash.add(type);
-        DrinkPotionCommand command = new DrinkPotionCommand();
-        command.potionType = type;
-        commandExecutor.executeVoid(command);
+        whenPotionIsConsumed(yggdrasil, type);
     }
 
     private void whenBranchIsEquipped(Tower tower, int index) {
-        EquipItemCommand command = new EquipItemCommand();
-        command.inventoryIndex = index;
-        command.towerX = (int) tower.getX();
-        command.towerY = (int) tower.getY();
-        command.itemType = ItemType.BranchOfYggdrasil;
-        commandExecutor.executeVoid(command);
-    }
-
-    @SuppressWarnings("SameParameterValue")
-    private void whenTowerIsReplaced(Tower tower, TowerType type) {
-        wizard.towerStash.add(type);
-        BuildTowerCommand command = new BuildTowerCommand();
-        command.x = (int) tower.getX();
-        command.y = (int) tower.getY();
-        command.towerType = type;
-        command.playerId = wizard.playerId;
-        commandExecutor.executeVoid(command);
+        whenItemIsEquipped(tower, ItemType.BranchOfYggdrasil, index);
     }
 
     private void thenInventoryIsFilledWithBranches() {

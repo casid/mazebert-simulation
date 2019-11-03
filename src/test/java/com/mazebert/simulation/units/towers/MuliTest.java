@@ -243,14 +243,7 @@ strictfp class MuliTest extends SimTest {
 
     @SuppressWarnings("SameParameterValue")
     private void givenItemIsEquipped(ItemType itemType) {
-        wizard.itemStash.add(itemType);
-        EquipItemCommand command = new EquipItemCommand();
-        command.playerId = wizard.getPlayerId();
-        command.inventoryIndex = 0;
-        command.itemType = itemType;
-        command.towerX = 0;
-        command.towerY = 0;
-        commandExecutor.executeVoid(command);
+        whenItemIsEquipped(muli, itemType, 0);
     }
 
     private void thenBanansAre(int bananas) {

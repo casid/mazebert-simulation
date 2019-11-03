@@ -148,9 +148,6 @@ public strictfp class PhoenixTest extends ItemTest {
     }
 
     private void whenAbilityIsActivated() {
-        ActivateAbilityCommand command = new ActivateAbilityCommand();
-        command.playerId = wizard.getPlayerId();
-        command.abilityType = ActiveAbilityType.PhoenixRebirth;
-        commandExecutor.executeVoid(command);
+        whenAbilityIsActivated(phoenix, ActiveAbilityType.PhoenixRebirth);
     }
 }

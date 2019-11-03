@@ -102,13 +102,6 @@ strictfp class AcolyteOfGreedTest extends SimTest {
 
     @SuppressWarnings("SameParameterValue")
     private void whenAcolyteIsBuilt(int x, int y) {
-        wizard.towerStash.add(TowerType.AcolyteOfGreed);
-
-        BuildTowerCommand command = new BuildTowerCommand();
-        command.towerType = TowerType.AcolyteOfGreed;
-        command.playerId = wizard.playerId;
-        command.x = x;
-        command.y = y;
-        commandExecutor.executeVoid(command);
+        whenTowerIsBuilt(wizard, TowerType.AcolyteOfGreed, x, y);
     }
 }

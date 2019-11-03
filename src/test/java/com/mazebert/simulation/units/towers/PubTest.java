@@ -3,11 +3,11 @@ package com.mazebert.simulation.units.towers;
 import com.mazebert.simulation.CommandExecutor;
 import com.mazebert.simulation.SimTest;
 import com.mazebert.simulation.SimulationListeners;
-import com.mazebert.simulation.commands.ActivateAbilityCommand;
 import com.mazebert.simulation.gateways.UnitGateway;
 import com.mazebert.simulation.systems.PubSystem;
 import com.mazebert.simulation.units.TestTower;
 import com.mazebert.simulation.units.abilities.ActiveAbilityType;
+import com.mazebert.simulation.units.wizards.Wizard;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -15,6 +15,7 @@ import static com.mazebert.simulation.systems.PubSystem.*;
 import static org.assertj.core.api.Assertions.assertThat;
 
 strictfp class PubTest extends SimTest {
+    Wizard wizard;
     Pub pub;
     TestTower otherTower;
 
@@ -24,7 +25,11 @@ strictfp class PubTest extends SimTest {
         unitGateway = new UnitGateway();
         pubSystem = new PubSystem();
 
+        wizard = new Wizard();
+        unitGateway.addUnit(wizard);
+
         pub = new Pub();
+        pub.setWizard(wizard);
         unitGateway.addUnit(pub);
 
         otherTower = new TestTower();
@@ -102,8 +107,6 @@ strictfp class PubTest extends SimTest {
     }
 
     private void whenAbilityIsActivated() {
-        ActivateAbilityCommand command = new ActivateAbilityCommand();
-        command.abilityType = ActiveAbilityType.PubParty;
-        commandExecutor.executeVoid(command);
+        whenAbilityIsActivated(pub, ActiveAbilityType.PubParty);
     }
 }

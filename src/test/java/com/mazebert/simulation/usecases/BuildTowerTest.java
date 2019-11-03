@@ -282,20 +282,11 @@ class BuildTowerTest extends UsecaseTest<BuildTowerCommand> {
     }
 
     private void givenItemIsEquipped(ItemType itemType, int inventoryIndex) {
-        wizard.itemStash.add(itemType);
-        EquipItemCommand command = new EquipItemCommand();
-        command.itemType = itemType;
-        command.inventoryIndex = inventoryIndex;
-        command.playerId = wizard.getPlayerId();
-        commandExecutor.executeVoid(command);
+        whenItemIsEquipped(builtTower, itemType, inventoryIndex);
     }
 
     private void givenPotionIsDrank(PotionType potionType) {
-        wizard.potionStash.add(potionType);
-        DrinkPotionCommand command = new DrinkPotionCommand();
-        command.potionType = potionType;
-        command.playerId = wizard.getPlayerId();
-        commandExecutor.executeVoid(command);
+        whenPotionIsConsumed(builtTower, potionType);
     }
 
     @Override
