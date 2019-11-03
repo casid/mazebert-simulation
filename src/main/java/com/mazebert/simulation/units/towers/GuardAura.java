@@ -27,7 +27,7 @@ public strictfp class GuardAura extends AuraAbility<Tower, Tower> {
 
     @Override
     protected boolean isQualifiedForAura(Tower unit) {
-        return unit instanceof Guard || unit instanceof Templar;
+        return unit.hasAbility(GuardAura.class);
     }
 
     @Override

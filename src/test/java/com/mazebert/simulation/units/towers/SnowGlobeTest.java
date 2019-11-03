@@ -3,7 +3,6 @@ package com.mazebert.simulation.units.towers;
 import com.mazebert.simulation.CommandExecutor;
 import com.mazebert.simulation.SimTest;
 import com.mazebert.simulation.SimulationListeners;
-import com.mazebert.simulation.commands.BuildTowerCommand;
 import com.mazebert.simulation.gateways.GameGateway;
 import com.mazebert.simulation.gateways.UnitGateway;
 import com.mazebert.simulation.maps.TestMap;
@@ -145,7 +144,12 @@ strictfp class SnowGlobeTest extends SimTest {
     void guard_bonus() {
         givenTowerToReplace(TowerType.Guard);
         whenTowerIsBuilt(TowerType.SnowGlobe);
-        // TODO refactor first
+
+        Tower phoenix = whenTowerIsBuilt(wizard, TowerType.Phoenix, 0, 0);
+        whenItemIsEquipped(phoenix, ItemType.SnowGlobe);
+        whenTowerIsBuilt(wizard, TowerType.Guard, 1, 0);
+
+        assertThat(phoenix.getAddedAbsoluteBaseDamage()).isEqualTo(2);
     }
 
     private void givenTowerToReplace(TowerType towerType) {
@@ -153,16 +157,7 @@ strictfp class SnowGlobeTest extends SimTest {
     }
 
     private void whenTowerIsBuilt(TowerType towerType) {
-        whenTowerIsBuilt(towerType, 0, 0);
-    }
-
-    private void whenTowerIsBuilt(TowerType towerType, int x, int y) {
-        wizard.towerStash.add(towerType);
-        BuildTowerCommand request = new BuildTowerCommand();
-        request.x = x;
-        request.y = y;
-        request.towerType = towerType;
-        commandExecutor.executeVoid(request);
+        whenTowerIsBuilt(wizard, towerType, 0, 0);
     }
 
     private void thenSnowGlobeAbilitiesAre(Class... ablities) {

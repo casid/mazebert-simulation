@@ -11,6 +11,7 @@ import com.mazebert.simulation.listeners.OnUnitRemovedListener;
 import com.mazebert.simulation.listeners.OnUpdateListener;
 import com.mazebert.simulation.units.Unit;
 import com.mazebert.simulation.units.creeps.Creep;
+import com.mazebert.simulation.units.items.Item;
 import com.mazebert.simulation.units.towers.Tower;
 
 import java.lang.reflect.Array;
@@ -70,7 +71,7 @@ public abstract strictfp class AuraAbility<S extends Unit, T extends Unit> exten
     }
 
     private boolean initDirectly() {
-        return origin != CardCategory.Tower;
+        return origin != CardCategory.Tower || getOrigin() instanceof Item;
     }
 
     @SuppressWarnings("unchecked")

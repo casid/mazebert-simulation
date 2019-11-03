@@ -4,8 +4,6 @@ import com.mazebert.simulation.Balancing;
 import com.mazebert.simulation.CommandExecutor;
 import com.mazebert.simulation.SimulationListeners;
 import com.mazebert.simulation.commands.BuildTowerCommand;
-import com.mazebert.simulation.commands.DrinkPotionCommand;
-import com.mazebert.simulation.commands.EquipItemCommand;
 import com.mazebert.simulation.gateways.GameGateway;
 import com.mazebert.simulation.gateways.GameTurnGateway;
 import com.mazebert.simulation.gateways.UnitGateway;

@@ -13,6 +13,10 @@ public class SimTest extends Context {
         Sim.setContext(this);
     }
 
+    protected void whenItemIsEquipped(Tower tower, ItemType itemType) {
+        whenItemIsEquipped(tower, itemType, 0);
+    }
+
     protected void whenItemIsEquipped(Tower tower, ItemType itemType, int inventoryIndex) {
         Wizard wizard = tower.getWizard();
         if (itemType != null && !wizard.itemStash.contains(itemType)) {
