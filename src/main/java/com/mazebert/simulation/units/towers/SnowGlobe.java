@@ -53,4 +53,9 @@ public strictfp class SnowGlobe extends Tower {
     public String getModelId() {
         return "snow_globe";
     }
+
+    @Override
+    public boolean isHarmful() {
+        return true;
+    }
 }

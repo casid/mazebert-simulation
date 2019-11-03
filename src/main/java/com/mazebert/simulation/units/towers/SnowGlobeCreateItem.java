@@ -1,5 +1,6 @@
 package com.mazebert.simulation.units.towers;
 
+import com.mazebert.simulation.Rarity;
 import com.mazebert.simulation.Sim;
 import com.mazebert.simulation.listeners.OnTowerReplacedListener;
 import com.mazebert.simulation.stash.ItemStash;
@@ -46,6 +47,7 @@ public strictfp class SnowGlobeCreateItem extends Ability<Tower> implements OnTo
             if (isSupportedAbility(a)) {
                 tower.removeAbility(a);
                 abilities.add(a);
+                a.setOrigin(item); // For UI
             }
         });
 
@@ -83,16 +85,11 @@ public strictfp class SnowGlobeCreateItem extends Ability<Tower> implements OnTo
 
     @Override
     public String getDescription() {
-        return "Replace a tower with Snow Globe to capture it. The " + format.card(ItemType.SnowGlobe) + " item is added to your hand, granting all abilities of the replaced tower.";
+        return "Replace a " + format.rarity(Rarity.Common) + " tower to remove it from the field. A " + format.card(ItemType.SnowGlobe) + " item containing the captured tower is added to your hand, granting all abilities of the replaced tower.";
     }
 
     @Override
     public String getIconFile() {
         return "05_magic_globe_512";
-    }
-
-    @Override
-    public String getLevelBonus() {
-        return "Can not be built on its own\nCan replace common towers only";
     }
 }

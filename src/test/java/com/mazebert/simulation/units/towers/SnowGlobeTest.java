@@ -34,7 +34,7 @@ strictfp class SnowGlobeTest extends SimTest {
         lootSystem = new LootSystemTrainer();
         formatPlugin = new FormatPlugin();
         gameGateway = new GameGateway();
-        gameGateway.getGame().map = new TestMap(1);
+        gameGateway.getGame().map = new TestMap(2);
         commandExecutor = new CommandExecutor();
         commandExecutor.init();
 
@@ -141,13 +141,26 @@ strictfp class SnowGlobeTest extends SimTest {
         thenSnowGlobeAbilitiesAre(GuardAura.class);
     }
 
+    @Test
+    void guard_bonus() {
+        givenTowerToReplace(TowerType.Guard);
+        whenTowerIsBuilt(TowerType.SnowGlobe);
+        // TODO refactor first
+    }
+
     private void givenTowerToReplace(TowerType towerType) {
         whenTowerIsBuilt(towerType);
     }
 
     private void whenTowerIsBuilt(TowerType towerType) {
+        whenTowerIsBuilt(towerType, 0, 0);
+    }
+
+    private void whenTowerIsBuilt(TowerType towerType, int x, int y) {
         wizard.towerStash.add(towerType);
         BuildTowerCommand request = new BuildTowerCommand();
+        request.x = x;
+        request.y = y;
         request.towerType = towerType;
         commandExecutor.executeVoid(request);
     }
