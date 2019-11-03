@@ -7,7 +7,6 @@ import com.mazebert.simulation.units.abilities.Ability;
 import com.mazebert.simulation.units.abilities.AttackAbility;
 import com.mazebert.simulation.units.abilities.DamageAbility;
 import com.mazebert.simulation.units.abilities.RandomGenderAbility;
-import com.mazebert.simulation.units.items.Item;
 import com.mazebert.simulation.units.items.ItemType;
 import com.mazebert.simulation.units.items.SnowGlobe;
 
@@ -38,7 +37,7 @@ public strictfp class SnowGlobeCreateItem extends Ability<Tower> implements OnTo
         ItemStash itemStash = getUnit().getWizard().itemStash;
         itemStash.add(ItemType.SnowGlobe, true);
 
-        SnowGlobe item = (SnowGlobe)itemStash.get(ItemType.SnowGlobe).getCard();
+        SnowGlobe item = (SnowGlobe) itemStash.get(ItemType.SnowGlobe).getCard();
 
         Tower tower = towerType.create();
 
@@ -72,5 +71,28 @@ public strictfp class SnowGlobeCreateItem extends Ability<Tower> implements OnTo
         return true;
     }
 
-    // TODO description (battle cry!)
+    @Override
+    public boolean isVisibleToUser() {
+        return true;
+    }
+
+    @Override
+    public String getTitle() {
+        return "Capture (Battlecry)";
+    }
+
+    @Override
+    public String getDescription() {
+        return "Replace a tower with Snow Globe to capture it. The " + format.card(ItemType.SnowGlobe) + " item is added to your hand, granting all abilities of the replaced tower.";
+    }
+
+    @Override
+    public String getIconFile() {
+        return "05_magic_globe_512";
+    }
+
+    @Override
+    public String getLevelBonus() {
+        return "Can not be built on its own\nCan replace common towers only";
+    }
 }
