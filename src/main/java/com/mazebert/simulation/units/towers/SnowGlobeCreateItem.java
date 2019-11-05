@@ -52,7 +52,7 @@ public strictfp class SnowGlobeCreateItem extends Ability<Tower> implements OnTo
         });
 
         item.setAbilities(abilities.toArray(new Ability[0]));
-        item.setDescription("A little " + format.card(towerType) + " lives in here.");
+        item.setTowerType(towerType);
 
         tower.dispose();
     }

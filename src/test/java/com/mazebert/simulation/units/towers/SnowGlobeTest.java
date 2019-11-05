@@ -141,6 +141,30 @@ strictfp class SnowGlobeTest extends SimTest {
     }
 
     @Test
+    void nature() {
+        givenTowerToReplace(TowerType.Dandelion);
+        whenTowerIsBuilt(TowerType.SnowGlobe);
+        assertThat(getSnowGlobeItem().isDark()).isFalse();
+        assertThat(getSnowGlobeItem().isLight()).isFalse();
+    }
+
+    @Test
+    void light() {
+        givenTowerToReplace(TowerType.Guard);
+        whenTowerIsBuilt(TowerType.SnowGlobe);
+        assertThat(getSnowGlobeItem().isDark()).isFalse();
+        assertThat(getSnowGlobeItem().isLight()).isTrue();
+    }
+
+    @Test
+    void darkness() {
+        givenTowerToReplace(TowerType.NoviceWizard);
+        whenTowerIsBuilt(TowerType.SnowGlobe);
+        assertThat(getSnowGlobeItem().isDark()).isTrue();
+        assertThat(getSnowGlobeItem().isLight()).isFalse();
+    }
+
+    @Test
     void guard_bonus() {
         givenTowerToReplace(TowerType.Guard);
         whenTowerIsBuilt(TowerType.SnowGlobe);

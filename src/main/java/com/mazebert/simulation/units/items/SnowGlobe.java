@@ -1,10 +1,11 @@
 package com.mazebert.simulation.units.items;
 
 import com.mazebert.simulation.Rarity;
+import com.mazebert.simulation.units.towers.TowerType;
 
 public strictfp class SnowGlobe extends Item {
 
-    private String description = "There is room for a common tower in here.";
+    private TowerType towerType;
 
     @Override
     public String getName() {
@@ -13,7 +14,10 @@ public strictfp class SnowGlobe extends Item {
 
     @Override
     public String getDescription() {
-        return description;
+        if (towerType == null) {
+            return "There is room for a common tower in here.";
+        }
+        return "A little " + format.card(towerType) + " lives in here.";
     }
 
     @Override
@@ -41,7 +45,23 @@ public strictfp class SnowGlobe extends Item {
         return false;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setTowerType(TowerType towerType) {
+        this.towerType = towerType;
+    }
+
+    @Override
+    public boolean isLight() {
+        if (towerType == null) {
+            return false;
+        }
+        return towerType.instance().isLight();
+    }
+
+    @Override
+    public boolean isDark() {
+        if (towerType == null) {
+            return false;
+        }
+        return towerType.instance().isDark();
     }
 }
