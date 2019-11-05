@@ -1,6 +1,7 @@
 package com.mazebert.simulation.units.items;
 
 import com.mazebert.simulation.units.abilities.DamageWithLevelBonusAbility;
+import com.mazebert.simulation.units.towers.KingArthur;
 import com.mazebert.simulation.units.towers.Tower;
 
 public strictfp class ExcaliburAbility extends DamageWithLevelBonusAbility {
@@ -15,15 +16,33 @@ public strictfp class ExcaliburAbility extends DamageWithLevelBonusAbility {
     @Override
     protected void initialize(Tower unit) {
         super.initialize(unit);
-        unit.addCritDamage(critDamageBonus);
-        unit.addMulticrit(multicritBonus);
+        if (unit instanceof KingArthur) {
+            unit.addCritDamage(2.0f * critDamageBonus);
+            unit.addMulticrit(2 * multicritBonus);
+        } else {
+            unit.addCritDamage(critDamageBonus);
+            unit.addMulticrit(multicritBonus);
+        }
     }
 
     @Override
     protected void dispose(Tower unit) {
-        unit.addCritDamage(-critDamageBonus);
-        unit.addMulticrit(-multicritBonus);
+        if (unit instanceof KingArthur) {
+            unit.addCritDamage(-2.0f * critDamageBonus);
+            unit.addMulticrit(-2 * multicritBonus);
+        } else {
+            unit.addCritDamage(-critDamageBonus);
+            unit.addMulticrit(-multicritBonus);
+        }
         super.dispose(unit);
+    }
+
+    @Override
+    protected void addToAttribute(float amount) {
+        if (getUnit() instanceof KingArthur) {
+            amount *= 2.0f;
+        }
+        super.addToAttribute(amount);
     }
 
     @Override
