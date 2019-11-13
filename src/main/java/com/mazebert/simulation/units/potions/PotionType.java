@@ -50,6 +50,7 @@ public strictfp enum PotionType implements CardType<Potion> {
     private static PotionType[] LOOKUP;
 
     private static final PotionType[] STANDARD =      {CommonDamage, CommonSpeed, CommonCrit, Mead, UncommonDamage, UncommonSpeed, UncommonCrit, UncommonDrops, RareDamage, RareSpeed, RareCrit, RareDrops, Tears, Nillos, Painkiller, Sacrifice, EssenceOfWisdom, EssenceOfLuck, AngelicElixir, CardDustCrit, CardDustLuck, CardDustLevel, CardDustVital, DrinkAll, ChangeSex, ResearchNature, ResearchMetropolis, ResearchDarkness};
+    private static final PotionType[] STANDARD_DOL =  {CommonDamage, CommonSpeed, CommonCrit, Mead, UncommonDamage, UncommonSpeed, UncommonCrit, UncommonDrops, RareDamage, RareSpeed, RareCrit, RareDrops, Tears, Nillos, Painkiller, Sacrifice, EssenceOfWisdom, EssenceOfLuck, AngelicElixir, CardDustCrit, CardDustLuck, CardDustLevel, CardDustVital, DrinkAll, ChangeSex, ResearchNature, ResearchMetropolis, ResearchDarkness, WhiteRussian};
     private static final PotionType[] DAWN_OF_LIGHT = {CommonDamage, CommonSpeed, CommonCrit, Mead, UncommonDamage, UncommonSpeed, UncommonCrit, UncommonDrops, RareDamage, RareSpeed, RareCrit, RareDrops, Tears, Nillos, Painkiller, Sacrifice, EssenceOfWisdom, EssenceOfLuck, AngelicElixir, CardDustCrit, CardDustLuck, CardDustLevel, CardDustVital, DrinkAll, ChangeSex, ResearchNature, ResearchMetropolis, ResearchDarkness, ResearchLight, WhiteRussian, UnicornTears};
 
     static {
@@ -74,6 +75,8 @@ public strictfp enum PotionType implements CardType<Potion> {
     public static PotionType[] getValues() {
         if (Sim.isDoLSeasonContent()) {
             return DAWN_OF_LIGHT;
+        } else if (Sim.context().version >= Sim.vDoL) {
+            return STANDARD_DOL;
         }
         return STANDARD;
     }
