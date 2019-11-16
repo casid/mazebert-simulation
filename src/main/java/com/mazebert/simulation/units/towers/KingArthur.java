@@ -23,7 +23,7 @@ public strictfp class KingArthur extends Tower {
         addAbility(new AttackSoundAbility("sounds/abyss_king_attack.mp3"));
         addAbility(new InstantDamageAbility());
         addAbility(new KingArthurExcalibur());
-        addAbility(new GuardAura(getBaseRange()));
+        addAbility(new GuardAura(getBaseRange(), 3));
     }
 
     @Override

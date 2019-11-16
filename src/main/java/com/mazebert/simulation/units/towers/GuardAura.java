@@ -5,10 +5,15 @@ import com.mazebert.simulation.units.abilities.AuraAbility;
 
 public strictfp class GuardAura extends AuraAbility<Tower, Tower> {
 
-    private static final float baseDamageBonus = 2;
+    private final float baseDamageBonus;
 
     public GuardAura(float range) {
+        this(range, 2);
+    }
+
+    public GuardAura(float range, float baseDamageBonus) {
         super(CardCategory.Tower, Tower.class, range);
+        this.baseDamageBonus = baseDamageBonus;
     }
 
     @Override
