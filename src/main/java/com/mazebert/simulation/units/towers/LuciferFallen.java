@@ -16,7 +16,7 @@ public strictfp class LuciferFallen extends Tower {
         setStrength(0.8f);
         setDamageSpread(0.5f);
         setGender(Gender.Male);
-        setElement(Element.Light);
+        setElement(Element.Darkness);
 
         addAbility(new AttackAbility());
         addAbility(new InstantDamageAbility());

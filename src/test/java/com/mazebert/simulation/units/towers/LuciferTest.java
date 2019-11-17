@@ -1,12 +1,12 @@
 package com.mazebert.simulation.units.towers;
 
-import com.mazebert.simulation.maps.GoldenGrounds;
 import com.mazebert.simulation.projectiles.ProjectileGateway;
 import com.mazebert.simulation.units.creeps.Creep;
 import com.mazebert.simulation.units.items.BabySword;
 import com.mazebert.simulation.units.items.ItemTest;
 import com.mazebert.simulation.units.items.ItemType;
 import com.mazebert.simulation.units.items.Lightbringer;
+import com.mazebert.simulation.units.quests.OnlyLightQuest;
 import org.junit.jupiter.api.Test;
 
 import static com.mazebert.simulation.units.creeps.CreepBuilder.creep;
@@ -112,6 +112,15 @@ class LuciferTest extends ItemTest {
         whenTowerAttacks();
 
         assertThat(creep.isRestsInPiece()).isTrue();
+    }
+
+    @Test
+    void onlyLightQuestFails() {
+        wizard.addAbility(new OnlyLightQuest());
+
+        whenItemIsEquipped(null);
+
+        assertThat(wizard.hasAbility(OnlyLightQuest.class)).isFalse();
     }
 
     @Override
