@@ -21,7 +21,7 @@ public strictfp class SnowGlobe extends Tower {
 
     @Override
     protected float getGoldCostFactor() {
-        return 0.85f;
+        return 1.35f;
     }
 
     @Override

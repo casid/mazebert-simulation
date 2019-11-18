@@ -28,7 +28,7 @@ public strictfp class KingArthur extends Tower {
 
     @Override
     protected float getGoldCostFactor() {
-        return 1.5f;
+        return 1.61f;
     }
 
     @Override
