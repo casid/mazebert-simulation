@@ -4,21 +4,29 @@ import com.mazebert.simulation.Balancing;
 import com.mazebert.simulation.Sim;
 import com.mazebert.simulation.Wave;
 import com.mazebert.simulation.listeners.OnRoundStartedListener;
+import com.mazebert.simulation.listeners.OnUnitAddedListener;
+import com.mazebert.simulation.units.Unit;
 import com.mazebert.simulation.units.abilities.Ability;
 
-public strictfp class UnicornExperienceAbility extends Ability<Tower> implements OnRoundStartedListener {
+public strictfp class UnicornExperienceAbility extends Ability<Tower> implements OnRoundStartedListener, OnUnitAddedListener {
     @Override
     protected void initialize(Tower unit) {
         super.initialize(unit);
-        Sim.context().simulationListeners.onRoundStarted.add(this);
+        unit.onUnitAdded.add(this);
     }
 
     @Override
     protected void dispose(Tower unit) {
+        unit.onUnitAdded.remove(this);
         Sim.context().simulationListeners.onRoundStarted.remove(this);
         super.dispose(unit);
     }
 
+    @Override
+    public void onUnitAdded(Unit unit) {
+        unit.onUnitAdded.remove(this);
+        Sim.context().simulationListeners.onRoundStarted.add(this);
+    }
 
     @Override
     public void onRoundStarted(Wave wave) {
