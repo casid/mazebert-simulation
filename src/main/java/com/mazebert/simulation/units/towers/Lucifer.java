@@ -14,7 +14,7 @@ public strictfp class Lucifer extends Tower {
         setBaseCooldown(2.5f);
         setBaseRange(3.0f);
         setAttackType(AttackType.All);
-        setStrength(2.5f);
+        setStrength(0.5f);
         setDamageSpread(0.5f);
         setGender(Gender.Male);
         setElement(Element.Light);
@@ -28,7 +28,7 @@ public strictfp class Lucifer extends Tower {
 
     @Override
     protected float getGoldCostFactor() {
-        return 2.75f;
+        return 1.75f;
     }
 
     @Override
@@ -58,7 +58,7 @@ public strictfp class Lucifer extends Tower {
 
     @Override
     public String getModelId() {
-        return "yggdrasil"; // TODO visuals
+        return "lucifer";
     }
 
     @Override

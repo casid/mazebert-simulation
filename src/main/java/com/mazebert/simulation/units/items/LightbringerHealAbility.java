@@ -1,12 +1,17 @@
 package com.mazebert.simulation.units.items;
 
+import com.mazebert.simulation.listeners.OnLevelChangedListener;
+import com.mazebert.simulation.units.Unit;
 import com.mazebert.simulation.units.abilities.PoisonAbility;
 import com.mazebert.simulation.units.creeps.Creep;
 import com.mazebert.simulation.units.towers.Tower;
 
-public strictfp class LightbringerHealAbility extends PoisonAbility {
+public strictfp class LightbringerHealAbility extends PoisonAbility implements OnLevelChangedListener {
     private static final float HEALING_AMOUNT = 0.5f;
-    private static final int MULTICRIT = 3;
+    private static final int MULTICRIT = 1;
+    private static final int BASE_DAMAGE_PER_LEVEL = 6;
+
+    private int currentBonus;
 
     public LightbringerHealAbility() {
         super(5.0f);
@@ -16,10 +21,12 @@ public strictfp class LightbringerHealAbility extends PoisonAbility {
     protected void initialize(Tower unit) {
         super.initialize(unit);
         unit.addMulticrit(MULTICRIT);
+        updateBonus();
     }
 
     @Override
     protected void dispose(Tower unit) {
+        removeBonus();
         unit.addMulticrit(-MULTICRIT);
         super.dispose(unit);
     }
@@ -35,17 +42,38 @@ public strictfp class LightbringerHealAbility extends PoisonAbility {
     }
 
     @Override
+    public void onLevelChanged(Unit unit, int oldLevel, int newLevel) {
+        updateBonus();
+    }
+
+    private void updateBonus() {
+        removeBonus();
+
+        currentBonus = calculateBonus();
+        getUnit().addAddedAbsoluteBaseDamage(currentBonus);
+    }
+
+    private int calculateBonus() {
+        return getUnit().getLevel() * BASE_DAMAGE_PER_LEVEL;
+    }
+
+    private void removeBonus() {
+        getUnit().addAddedAbsoluteBaseDamage(-currentBonus);
+        currentBonus = 0;
+    }
+
+    @Override
     public String getTitle() {
-        return "Healing";
+        return "Smite and Heal";
     }
 
     @Override
     public String getDescription() {
-        return format.percentWithSignAndUnit(HEALING_AMOUNT) + " of Lucifer's damage is healed back over " + format.seconds(getDuration()) + ".";
+        return format.percentWithSignAndUnit(HEALING_AMOUNT) + " damage is healed over " + format.seconds(getDuration()) + ".";
     }
 
     @Override
     public String getLevelBonus() {
-        return "+" + MULTICRIT + " multicrit";
+        return "+" + BASE_DAMAGE_PER_LEVEL + " base damage per level\n" + "+" + MULTICRIT + " multicrit";
     }
 }

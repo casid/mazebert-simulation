@@ -20,6 +20,6 @@ public strictfp class LightbringerRemoveAbility extends Ability<Tower> {
 
     @Override
     public String getDescription() {
-        return "When Lucifer gives Lightbringer away he turns into a fallen angel.";
+        return "When Lucifer gives Lightbringer away he turns into a fallen angel and the sword breaks in two.";
     }
 }

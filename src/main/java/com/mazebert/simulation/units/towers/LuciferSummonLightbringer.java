@@ -27,6 +27,6 @@ public strictfp class LuciferSummonLightbringer extends GainItemOnBuildAbility {
 
     @Override
     public String getIconFile() {
-        return "blood_demon_blade_512"; // TODO
+        return "lightbringer_512";
     }
 }

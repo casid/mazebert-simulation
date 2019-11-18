@@ -5,7 +5,7 @@ import com.mazebert.simulation.Rarity;
 public strictfp class Lightbringer extends Item {
 
     public Lightbringer() {
-        super(new LightbringerHealAbility(), new LightbringerRemoveAbility());
+        super(new LightbringerRemoveAbility(), new LightbringerHealAbility());
     }
 
     @Override
@@ -30,7 +30,7 @@ public strictfp class Lightbringer extends Item {
 
     @Override
     public String getIcon() {
-        return "blood_demon_blade_512"; // TODO
+        return "lightbringer_512";
     }
 
     @Override
