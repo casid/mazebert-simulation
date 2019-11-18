@@ -22,10 +22,12 @@ public strictfp class LightbringerHealAbility extends PoisonAbility implements O
         super.initialize(unit);
         unit.addMulticrit(MULTICRIT);
         updateBonus();
+        unit.onLevelChanged.add(this);
     }
 
     @Override
     protected void dispose(Tower unit) {
+        unit.onLevelChanged.remove(this);
         removeBonus();
         unit.addMulticrit(-MULTICRIT);
         super.dispose(unit);

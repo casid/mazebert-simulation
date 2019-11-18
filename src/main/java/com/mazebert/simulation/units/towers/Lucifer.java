@@ -14,7 +14,7 @@ public strictfp class Lucifer extends Tower {
         setBaseCooldown(2.5f);
         setBaseRange(3.0f);
         setAttackType(AttackType.All);
-        setStrength(0.5f);
+        setStrength(0.9f);
         setDamageSpread(0.5f);
         setGender(Gender.Male);
         setElement(Element.Light);
