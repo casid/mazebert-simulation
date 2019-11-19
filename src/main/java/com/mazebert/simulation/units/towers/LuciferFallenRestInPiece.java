@@ -20,6 +20,6 @@ public strictfp class LuciferFallenRestInPiece extends RestInPieceAbility {
 
     @Override
     public String getIconFile() {
-        return "blood_demon_blade_512"; // TODO
+        return "lucifer_fallen_rip_512";
     }
 }

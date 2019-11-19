@@ -11,9 +11,9 @@ public strictfp class LuciferFallen extends Tower {
 
     public LuciferFallen() {
         setBaseCooldown(2.5f);
-        setBaseRange(3.0f);
+        setBaseRange(2.0f);
         setAttackType(AttackType.Vex);
-        setStrength(0.8f);
+        setStrength(0.6f);
         setDamageSpread(0.5f);
         setGender(Gender.Male);
         setElement(Element.Darkness);
@@ -36,7 +36,7 @@ public strictfp class LuciferFallen extends Tower {
 
     @Override
     public String getDescription() {
-        return "...the lower you fall.";
+        return "...the lower you fall.\n(Cannot be built)";
     }
 
     @Override
@@ -56,7 +56,7 @@ public strictfp class LuciferFallen extends Tower {
 
     @Override
     public String getModelId() {
-        return "yggdrasil"; // TODO visuals
+        return "lucifer_fallen";
     }
 
     @Override
