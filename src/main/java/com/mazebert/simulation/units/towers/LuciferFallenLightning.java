@@ -25,6 +25,6 @@ public strictfp class LuciferFallenLightning extends ChainAbility {
 
     @Override
     public String getDescription() {
-        return "Damages to up " + getMaxChains() + " creeps at once.";
+        return "Damages up to " + getMaxChains() + " creeps at once.";
     }
 }

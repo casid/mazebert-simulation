@@ -4,7 +4,7 @@ import com.mazebert.simulation.listeners.OnDamageListener;
 import com.mazebert.simulation.units.creeps.Creep;
 import com.mazebert.simulation.units.towers.Tower;
 
-public strictfp class RestInPieceAbility extends Ability<Tower> implements OnDamageListener {
+public strictfp class RestInPeaceAbility extends Ability<Tower> implements OnDamageListener {
 
     @Override
     protected void initialize(Tower unit) {

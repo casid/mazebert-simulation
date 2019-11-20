@@ -1,8 +1,8 @@
 package com.mazebert.simulation.units.towers;
 
-import com.mazebert.simulation.units.abilities.RestInPieceAbility;
+import com.mazebert.simulation.units.abilities.RestInPeaceAbility;
 
-public strictfp class LuciferFallenRestInPiece extends RestInPieceAbility {
+public strictfp class LuciferFallenRestInPeace extends RestInPeaceAbility {
     @Override
     public boolean isVisibleToUser() {
         return true;

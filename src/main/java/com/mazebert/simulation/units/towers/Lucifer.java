@@ -23,7 +23,7 @@ public strictfp class Lucifer extends Tower {
         addAbility(new ProjectileDamageAbility(ProjectileViewType.Fireball, 13));
         addAbility(new LuciferSummonLightbringer());
         addAbility(new LuciferRemoveLightbringer());
-        addAbility(new LuciferRestInPiece());
+        addAbility(new LuciferRestInPeace());
     }
 
     @Override

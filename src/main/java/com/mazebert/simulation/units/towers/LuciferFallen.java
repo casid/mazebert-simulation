@@ -21,7 +21,7 @@ public strictfp class LuciferFallen extends Tower {
         addAbility(new AttackAbility());
         addAbility(new InstantDamageAbility());
         addAbility(new LuciferFallenLightning());
-        addAbility(new LuciferFallenRestInPiece());
+        addAbility(new LuciferFallenRestInPeace());
     }
 
     @Override

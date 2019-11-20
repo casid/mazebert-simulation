@@ -1,8 +1,8 @@
 package com.mazebert.simulation.units.towers;
 
-import com.mazebert.simulation.units.abilities.RestInPieceAbility;
+import com.mazebert.simulation.units.abilities.RestInPeaceAbility;
 
-public strictfp class LuciferRestInPiece extends RestInPieceAbility {
+public strictfp class LuciferRestInPeace extends RestInPeaceAbility {
     @Override
     public boolean isVisibleToUser() {
         return true;
@@ -10,12 +10,12 @@ public strictfp class LuciferRestInPiece extends RestInPieceAbility {
 
     @Override
     public String getTitle() {
-        return "Eternal piece";
+        return "Eternal peace";
     }
 
     @Override
     public String getDescription() {
-        return "Damaged creeps rest in piece.";
+        return "Damaged creeps rest in peace.";
     }
 
     @Override
