@@ -43,6 +43,6 @@ public strictfp class WitheredSetAbility extends ItemSetAbility implements OnDam
 
     @Override
     public String getDescription() {
-        return "Attacks have a 2% chance to send the creep 1s back in time. (2 set items)\nEvery attack adds a 3% damage amplification for 6 seconds up to 75%. (3 set items)";
+        return "Attacks have a 2% chance to send the creep 1s back in time. (2 set items)\nEvery attack adds a 3% damage amp for 6s up to 75%. (3 set items)";
     }
 }
