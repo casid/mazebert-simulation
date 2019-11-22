@@ -1,11 +1,13 @@
 package com.mazebert.simulation.units.towers;
 
 import com.mazebert.simulation.Sim;
+import com.mazebert.simulation.SimulationListeners;
 import com.mazebert.simulation.Wave;
 import com.mazebert.simulation.WaveOrigin;
 import com.mazebert.simulation.listeners.OnDeathListener;
 import com.mazebert.simulation.listeners.OnRoundStartedListener;
 import com.mazebert.simulation.listeners.OnUnitAddedListener;
+import com.mazebert.simulation.systems.ExperienceSystem;
 import com.mazebert.simulation.units.Unit;
 import com.mazebert.simulation.units.abilities.Ability;
 import com.mazebert.simulation.units.abilities.FollowPathCreepStaticAbility;
@@ -15,6 +17,8 @@ import com.mazebert.simulation.units.creeps.effects.HologramEffect;
 public strictfp class TrainingHologramSpawn extends Ability<Tower> implements OnRoundStartedListener, OnUnitAddedListener, OnDeathListener {
     public static final float XP = 5.0f;
     public static final float XP_PER_LEVEL = 0.2f;
+
+    private final ExperienceSystem experienceSystem = Sim.context().experienceSystem;
 
     @Override
     protected void initialize(Tower unit) {
@@ -60,7 +64,7 @@ public strictfp class TrainingHologramSpawn extends Ability<Tower> implements On
 
     @Override
     public void onDeath(Creep creep) {
-        getUnit().addExperience(creep.getExperience());
+        experienceSystem.grantExperience(getUnit(), creep.getExperience());
         creep.onDeath.remove(this);
     }
 

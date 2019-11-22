@@ -82,6 +82,17 @@ strictfp class TrainingHologramTest extends SimTest {
         assertThat(unitGateway.getAmount(Creep.class)).isEqualTo(0);
     }
 
+    @Test
+    void xpBonus() {
+        trainingHologram.addExperienceModifier(2.0f);
+
+        whenWaveIsSpawned();
+
+        Creep dummy = (Creep) unitGateway.getUnit(2);
+        dummy.setHealth(0);
+        assertThat(trainingHologram.getExperience()).isEqualTo(3 * TrainingHologramSpawn.XP);
+    }
+
     private Wave whenWaveIsSpawned() {
         Wave wave = new Wave();
         wave.creepType = CreepType.Spider;
