@@ -8,18 +8,21 @@ import com.mazebert.simulation.units.creeps.Creep;
 
 public strictfp class PhoenixBurnEffect extends Ability<Creep> implements OnUpdateListener {
 
+    private static final float DPS_UPDATE_INTERVAL = 1;
+
     private final DamageSystem damageSystem = Sim.context().damageSystem;
 
     private final Tower phoenix;
-    private final double damagePerSecond;
     private final PhoenixRebirth phoenixRebirth;
+
+    private double dps;
+    private float nextDpsUpdate = DPS_UPDATE_INTERVAL;
 
     public PhoenixBurnEffect(Tower phoenix) {
         this.phoenix = phoenix;
         this.phoenixRebirth = phoenix.getAbility(PhoenixRebirth.class);
-        DamageSystem.DamageInfo damageInfo = damageSystem.rollDamage(phoenix);
 
-        this.damagePerSecond = damageInfo.damage / phoenix.getCooldown();
+        calculateDps();
 
         setOrigin(phoenix);
     }
@@ -41,7 +44,21 @@ public strictfp class PhoenixBurnEffect extends Ability<Creep> implements OnUpda
         if (getUnit().isDead()) {
             getUnit().removeAbility(this);
         } else if (phoenixRebirth.isAlive()) {
-            damageSystem.dealDamage(this, phoenix, getUnit(), damagePerSecond * dt, 0, true);
+            updateDpsIfRequired(dt);
+            damageSystem.dealDamage(this, phoenix, getUnit(), dps * dt, 0, true);
         }
+    }
+
+    private void updateDpsIfRequired(float dt) {
+        nextDpsUpdate -= dt;
+        if (nextDpsUpdate <= 0) {
+            calculateDps();
+            nextDpsUpdate = DPS_UPDATE_INTERVAL;
+        }
+    }
+
+    private void calculateDps() {
+        DamageSystem.DamageInfo damageInfo = damageSystem.rollDamage(phoenix);
+        dps = damageInfo.damage / phoenix.getCooldown();
     }
 }

@@ -1,6 +1,5 @@
 package com.mazebert.simulation.units.towers;
 
-import com.mazebert.simulation.commands.ActivateAbilityCommand;
 import com.mazebert.simulation.units.abilities.ActiveAbilityType;
 import com.mazebert.simulation.units.creeps.Creep;
 import com.mazebert.simulation.units.items.ItemTest;
