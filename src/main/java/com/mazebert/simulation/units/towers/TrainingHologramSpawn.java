@@ -13,8 +13,8 @@ import com.mazebert.simulation.units.creeps.Creep;
 import com.mazebert.simulation.units.creeps.effects.HologramEffect;
 
 public strictfp class TrainingHologramSpawn extends Ability<Tower> implements OnRoundStartedListener, OnUnitAddedListener, OnDeathListener {
-    public static final float XP = 3.0f;
-    public static final float XP_PER_LEVEL = 0.1f;
+    public static final float XP = 5.0f;
+    public static final float XP_PER_LEVEL = 0.2f;
 
     @Override
     protected void initialize(Tower unit) {
