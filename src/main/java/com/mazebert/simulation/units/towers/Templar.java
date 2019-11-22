@@ -23,7 +23,7 @@ public strictfp class Templar extends Tower {
         addAbility(new AttackSoundAbility("sounds/abyss_king_attack.mp3"));
         addAbility(new InstantDamageAbility()); // Required for crit bonus to work!
         addAbility(new RandomGenderAbility());
-        addAbility(new GuardAura(getBaseRange()));
+        addAbility(new TemplarGuardAura(getBaseRange()));
     }
 
     @Override
