@@ -14,7 +14,7 @@ public strictfp class KingArthur extends Tower {
         setBaseCooldown(4.0f);
         setBaseRange(2.0f);
         setAttackType(AttackType.Fal);
-        setStrength(0.8f);
+        setStrength(0.95f);
         setDamageSpread(0.4f);
         setGender(Gender.Male);
         setElement(Element.Light);
@@ -23,7 +23,7 @@ public strictfp class KingArthur extends Tower {
         addAbility(new AttackSoundAbility("sounds/abyss_king_attack.mp3"));
         addAbility(new InstantDamageAbility());
         addAbility(new KingArthurExcalibur());
-        addAbility(new GuardAura(getBaseRange(), 3));
+        addAbility(new GuardAura(getBaseRange(), 5));
     }
 
     @Override
