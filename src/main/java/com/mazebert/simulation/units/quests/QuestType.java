@@ -46,10 +46,12 @@ public strictfp enum QuestType {
     OnlyDarknessAndLightQuest(34, OnlyDarknessAndLightQuest.class),
     OnlyNatureAndLightQuest(35, OnlyNatureAndLightQuest.class),
     OnlyMetropolisAndLightQuest(36, OnlyMetropolisAndLightQuest.class),
+    PlayDoLSeasonGameQuest(37, PlayDoLSeasonGameQuest.class),
+    WinDoLSeasonGameQuest(38, WinDoLSeasonGameQuest.class),
     ;
 
     private static final QuestType[] STANDARD      = {KillChallengesQuest, OnlyDarknessAndNatureQuest, OnlyNatureAndMetropolisQuest, Map1VictoryQuest, Map2VictoryQuest, WatchCreditsQuest, OnlyDarknessAndMetropolisQuest, OnlyDarknessQuest, OnlyNatureQuest, OnlyMetropolisQuest, Map3VictoryQuest, Map4VictoryQuest, BonusSurvivalQuest, CollectGoldQuest, TowerLevelsQuest, VisitBlackMarketQuest, VisitDevelopersInnQuest, BuyBlackMarketOfferQuest, BowlPerfectGameQuest, BowlStrikesQuest, TransmuteUniquesQuest, TransmuteStackQuest, DrinkAllPotionsQuest, TransmuteCardsQuest, KnusperHexeQuest, BaluQuest, MuliQuest, Map4VictoryUnlockReginnQuest, CoopQuest, HardVictoryQuest};
-    private static final QuestType[] DAWN_OF_LIGHT = {KillChallengesQuest, OnlyDarknessAndNatureQuest, OnlyNatureAndMetropolisQuest, Map1VictoryQuest, Map2VictoryQuest, WatchCreditsQuest, OnlyDarknessAndMetropolisQuest, OnlyDarknessQuest, OnlyNatureQuest, OnlyMetropolisQuest, Map3VictoryQuest, Map4VictoryQuest, BonusSurvivalQuest, CollectGoldQuest, TowerLevelsQuest, VisitBlackMarketQuest, VisitDevelopersInnQuest, BuyBlackMarketOfferQuest, BowlPerfectGameQuest, BowlStrikesQuest, TransmuteUniquesQuest, TransmuteStackQuest, DrinkAllPotionsQuest, TransmuteCardsQuest, KnusperHexeQuest, BaluQuest, MuliQuest, Map4VictoryUnlockReginnQuest, CoopQuest, HardVictoryQuest, Map5VictoryQuest, Map5VictoryUnlockHeroQuest, OnlyLightQuest, OnlyDarknessAndLightQuest, OnlyNatureAndLightQuest, OnlyMetropolisAndLightQuest};
+    private static final QuestType[] DAWN_OF_LIGHT = {KillChallengesQuest, OnlyDarknessAndNatureQuest, OnlyNatureAndMetropolisQuest, Map1VictoryQuest, Map2VictoryQuest, WatchCreditsQuest, OnlyDarknessAndMetropolisQuest, OnlyDarknessQuest, OnlyNatureQuest, OnlyMetropolisQuest, Map3VictoryQuest, Map4VictoryQuest, BonusSurvivalQuest, CollectGoldQuest, TowerLevelsQuest, VisitBlackMarketQuest, VisitDevelopersInnQuest, BuyBlackMarketOfferQuest, BowlPerfectGameQuest, BowlStrikesQuest, TransmuteUniquesQuest, TransmuteStackQuest, DrinkAllPotionsQuest, TransmuteCardsQuest, KnusperHexeQuest, BaluQuest, MuliQuest, Map4VictoryUnlockReginnQuest, CoopQuest, HardVictoryQuest, Map5VictoryQuest, Map5VictoryUnlockHeroQuest, OnlyLightQuest, OnlyDarknessAndLightQuest, OnlyNatureAndLightQuest, OnlyMetropolisAndLightQuest, PlayDoLSeasonGameQuest, WinDoLSeasonGameQuest};
 
     public final int id;
     public final Class<? extends Quest> questClass;
@@ -81,6 +83,7 @@ public strictfp enum QuestType {
     }
 
     public static QuestType[] getValues() {
+        // After the season, do not include the DoL season quests anymore
         if (Sim.isDoLSeasonContent()) {
             return DAWN_OF_LIGHT;
         }
