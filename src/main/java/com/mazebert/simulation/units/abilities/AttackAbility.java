@@ -35,7 +35,7 @@ public strictfp class AttackAbility extends CooldownUnitAbility<Tower> {
     }
 
     @Override
-    public void dispose(Tower unit) {
+    protected void dispose(Tower unit) {
         Arrays.fill(currentTargets, null);
         super.dispose(unit);
     }

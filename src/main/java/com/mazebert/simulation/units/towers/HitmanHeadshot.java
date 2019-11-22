@@ -8,9 +8,9 @@ public strictfp class HitmanHeadshot extends Ability<Tower> {
 
     @Override
     protected void initialize(Tower unit) {
+        super.initialize(unit);
         unit.addCritChance(critChanceBonus);
         unit.addCritDamage(critDamageBonus);
-        super.initialize(unit);
     }
 
     @Override

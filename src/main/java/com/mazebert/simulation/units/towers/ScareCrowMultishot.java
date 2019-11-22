@@ -26,7 +26,7 @@ public strictfp class ScareCrowMultishot extends AttackAbility implements OnLeve
     }
 
     @Override
-    public void dispose(Tower unit) {
+    protected void dispose(Tower unit) {
         unit.onLevelChanged.remove(this);
         super.dispose(unit);
     }
