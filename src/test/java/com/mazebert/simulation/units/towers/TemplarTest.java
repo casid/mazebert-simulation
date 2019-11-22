@@ -74,12 +74,12 @@ strictfp class TemplarTest extends SimTest {
         templar.simulate(0.1f);
         templar.simulate(0.1f);
 
-        assertThat(templar.getCritChance()).isEqualTo(1.06f);
+        assertThat(templar.getCritChance()).isEqualTo(1.16f);
 
         unitGateway.addUnit(a(creep()));
         whenTemplarAttacks();
 
-        assertThat(templar.getCritChance()).isEqualTo(0.049999952f);
+        assertThat(templar.getCritChance()).isEqualTo(0.14999998f);
     }
 
     @Test

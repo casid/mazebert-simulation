@@ -14,7 +14,7 @@ public strictfp class Templar extends Tower {
         setBaseCooldown(3.0f);
         setBaseRange(2.0f);
         setAttackType(AttackType.Fal);
-        setStrength(0.7f);
+        setStrength(0.8f);
         setDamageSpread(0.25f);
         setGender(Gender.Unknown);
         setElement(Element.Light);
