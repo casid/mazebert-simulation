@@ -36,6 +36,7 @@ strictfp class UnicornTest extends SimTest {
 
         wizard = new Wizard();
         unitGateway.addUnit(wizard);
+        assertThat(wizard.interestBonus).isEqualTo(0);
 
         unicorn = new Unicorn();
         unicorn.setExperience(0);
@@ -142,5 +143,18 @@ strictfp class UnicornTest extends SimTest {
         unitGateway.addUnit(a(creep()));
 
         assertThat(unitGateway.hasUnit(unicorn)).isTrue();
+    }
+
+    @Test
+    void interest() {
+        assertThat(wizard.interestBonus).isEqualTo(0.02f);
+    }
+
+    @Test
+    void interest_death() {
+        randomPluginTrainer.givenFloatAbs(0.0f);
+        unitGateway.addUnit(a(creep()));
+
+        assertThat(wizard.interestBonus).isEqualTo(0.0f);
     }
 }
