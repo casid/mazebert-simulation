@@ -6,6 +6,7 @@ import com.mazebert.simulation.gateways.UnitGateway;
 import com.mazebert.simulation.plugins.random.RandomPluginTrainer;
 import com.mazebert.simulation.systems.DamageSystemTrainer;
 import com.mazebert.simulation.units.Gender;
+import com.mazebert.simulation.units.items.GuardLance;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -64,6 +65,18 @@ strictfp class GuardTest extends SimTest {
 
         assertThat(guard.getAddedAbsoluteBaseDamage()).isEqualTo(0);
         assertThat(adventurer.getAddedAbsoluteBaseDamage()).isEqualTo(0);
+    }
+
+    @Test
+    void otherTower_guardLance() {
+        Guard guard = new Guard();
+        unitGateway.addUnit(guard);
+        Adventurer adventurer = new Adventurer();
+        adventurer.setItem(0, new GuardLance());
+        unitGateway.addUnit(adventurer);
+
+        assertThat(guard.getAddedAbsoluteBaseDamage()).isEqualTo(2);
+        assertThat(adventurer.getAddedAbsoluteBaseDamage()).isEqualTo(2); // This comes from the lance!
     }
 
     @Test

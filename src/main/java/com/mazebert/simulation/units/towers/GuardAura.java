@@ -2,6 +2,7 @@ package com.mazebert.simulation.units.towers;
 
 import com.mazebert.simulation.CardCategory;
 import com.mazebert.simulation.units.abilities.AuraAbility;
+import com.mazebert.simulation.units.items.GuardLanceAbility;
 
 public strictfp class GuardAura extends AuraAbility<Tower, Tower> {
 
@@ -32,7 +33,7 @@ public strictfp class GuardAura extends AuraAbility<Tower, Tower> {
 
     @Override
     protected boolean isQualifiedForAura(Tower unit) {
-        return unit.hasAbility(GuardAura.class);
+        return unit.hasAbility(GuardAura.class) || unit.hasAbility(GuardLanceAbility.class);
     }
 
     @Override
