@@ -8,7 +8,7 @@ public strictfp class GuardLanceTest extends ItemTest {
     void damage() {
         whenItemIsEquipped(ItemType.GuardLance);
         Assertions.assertThat(tower.getAddedAbsoluteBaseDamage()).isEqualTo(2);
-        Assertions.assertThat(tower.getAddedRelativeBaseDamage()).isEqualTo(0.1f);
+        Assertions.assertThat(tower.getAddedRelativeBaseDamage()).isEqualTo(0.2f);
     }
 
     @Test
@@ -16,7 +16,7 @@ public strictfp class GuardLanceTest extends ItemTest {
         whenItemIsEquipped(ItemType.GuardLance, 0);
         whenItemIsEquipped(ItemType.GuardLance, 1);
         Assertions.assertThat(tower.getAddedAbsoluteBaseDamage()).isEqualTo(4);
-        Assertions.assertThat(tower.getAddedRelativeBaseDamage()).isEqualTo(0.2f);
+        Assertions.assertThat(tower.getAddedRelativeBaseDamage()).isEqualTo(0.4f);
     }
 
     @Test
@@ -25,6 +25,6 @@ public strictfp class GuardLanceTest extends ItemTest {
         whenItemIsEquipped(ItemType.GuardLance, 1);
         whenItemIsEquipped(null, 1);
         Assertions.assertThat(tower.getAddedAbsoluteBaseDamage()).isEqualTo(2);
-        Assertions.assertThat(tower.getAddedRelativeBaseDamage()).isEqualTo(0.1f);
+        Assertions.assertThat(tower.getAddedRelativeBaseDamage()).isEqualTo(0.2f);
     }
 }

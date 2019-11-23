@@ -5,7 +5,7 @@ import com.mazebert.simulation.units.towers.Tower;
 
 public strictfp class GuardLanceAbility extends StackableAbility<Tower> {
     private static final int ABSOLUTE_DAMAGE = 2;
-    private static final float RELATIVE_DAMAGE = 0.1f;
+    private static final float RELATIVE_DAMAGE = 0.2f;
 
     private int currentAbsoluteDamage;
     private float currentRelativeDamage;
