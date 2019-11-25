@@ -159,7 +159,7 @@ public abstract strictfp class AuraAbility<S extends Unit, T extends Unit> exten
         setRange(tower.getRange());
     }
 
-    private void updateAuraTargets() {
+    public void updateAuraTargets() {
         if (active != null) {
             markAllCurrentTargetsAsUnvisited();
 

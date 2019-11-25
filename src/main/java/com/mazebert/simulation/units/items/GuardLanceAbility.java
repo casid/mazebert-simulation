@@ -1,6 +1,8 @@
 package com.mazebert.simulation.units.items;
 
+import com.mazebert.simulation.Sim;
 import com.mazebert.simulation.units.abilities.StackableAbility;
+import com.mazebert.simulation.units.towers.GuardAura;
 import com.mazebert.simulation.units.towers.Tower;
 
 public strictfp class GuardLanceAbility extends StackableAbility<Tower> {
@@ -9,6 +11,27 @@ public strictfp class GuardLanceAbility extends StackableAbility<Tower> {
 
     private int currentAbsoluteDamage;
     private float currentRelativeDamage;
+
+    @Override
+    protected void initialize(Tower unit) {
+        super.initialize(unit);
+        updateAuras();
+    }
+
+    @Override
+    protected void dispose(Tower unit) {
+        super.dispose(unit);
+        updateAuras();
+    }
+
+    private void updateAuras() {
+        Sim.context().unitGateway.forEachTower(t -> {
+            GuardAura guardAura = t.getAbility(GuardAura.class);
+            if (guardAura != null) {
+                guardAura.updateAuraTargets();
+            }
+        });
+    }
 
     @Override
     protected void updateStacks() {

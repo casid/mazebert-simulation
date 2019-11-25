@@ -18,6 +18,12 @@ public strictfp class GuardAura extends AuraAbility<Tower, Tower> {
     }
 
     @Override
+    protected void initialize(Tower unit) {
+        super.initialize(unit);
+        setRange(unit.getRange());
+    }
+
+    @Override
     protected void onAuraEntered(Tower unit) {
         if (unit != getUnit()) {
             getUnit().addAddedAbsoluteBaseDamage(baseDamageBonus);

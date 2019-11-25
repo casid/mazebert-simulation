@@ -33,7 +33,7 @@ strictfp class SnowGlobeTest extends SimTest {
         lootSystem = new LootSystemTrainer();
         formatPlugin = new FormatPlugin();
         gameGateway = new GameGateway();
-        gameGateway.getGame().map = new TestMap(2);
+        gameGateway.getGame().map = new TestMap(4);
         commandExecutor = new CommandExecutor();
         commandExecutor.init();
 
@@ -174,6 +174,35 @@ strictfp class SnowGlobeTest extends SimTest {
         whenTowerIsBuilt(wizard, TowerType.Guard, 1, 0);
 
         assertThat(phoenix.getAddedAbsoluteBaseDamage()).isEqualTo(2);
+    }
+
+    @Test
+    void guard_rangeBonus() {
+        givenTowerToReplace(TowerType.Guard);
+        whenTowerIsBuilt(TowerType.SnowGlobe);
+
+        Tower adventurer = whenTowerIsBuilt(wizard, TowerType.Adventurer, 0, 0);
+        whenItemIsEquipped(adventurer, ItemType.SnowGlobe);
+        whenTowerIsBuilt(wizard, TowerType.Guard, 3, 0);
+
+        assertThat(adventurer.getAddedAbsoluteBaseDamage()).isEqualTo(2);
+    }
+
+    @Test
+    void guard_itemBonus() {
+        givenTowerToReplace(TowerType.Guard);
+        whenTowerIsBuilt(TowerType.SnowGlobe);
+
+        Tower adventurer = whenTowerIsBuilt(wizard, TowerType.Adventurer, 0, 0);
+        whenItemIsEquipped(adventurer, ItemType.SnowGlobe);
+        Tower gargoyle = whenTowerIsBuilt(wizard, TowerType.Gargoyle, 3, 0);
+        whenItemIsEquipped(gargoyle, ItemType.GuardLance);
+
+        assertThat(adventurer.getAddedAbsoluteBaseDamage()).isEqualTo(2);
+
+        whenItemIsEquipped(gargoyle, null);
+
+        assertThat(adventurer.getAddedAbsoluteBaseDamage()).isEqualTo(0);
     }
 
     private void givenTowerToReplace(TowerType towerType) {
