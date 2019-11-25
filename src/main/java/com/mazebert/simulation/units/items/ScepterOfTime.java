@@ -36,9 +36,6 @@ public strictfp class ScepterOfTime extends Item {
 
     @Override
     public int getItemLevel() {
-        if (Sim.context().season) {
-            return 7;
-        }
         return 80;
     }
 

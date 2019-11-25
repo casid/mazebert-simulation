@@ -1,5 +1,6 @@
 package com.mazebert.simulation.units.wizards;
 
+import com.mazebert.simulation.Sim;
 import com.mazebert.simulation.units.items.Item;
 import com.mazebert.simulation.units.items.ItemType;
 
@@ -19,6 +20,9 @@ public strictfp class TimeMasterPower extends WizardPower {
 
     @Override
     public int getRequiredLevel() {
+        if (Sim.isDoLSeasonContent()) {
+            return 1;
+        }
         return 40;
     }
 
