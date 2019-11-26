@@ -10,7 +10,7 @@ public strictfp class GuardLance extends Item {
 
     @Override
     public String getIcon() {
-        return "0094_One_Handed_Hammer_512"; // TODO
+        return "guard_lance";
     }
 
     @Override
