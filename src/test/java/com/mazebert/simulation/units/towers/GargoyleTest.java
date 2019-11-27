@@ -43,6 +43,13 @@ strictfp class GargoyleTest extends SimTest {
     }
 
     @Test
+    void knockback_level() {
+        gargoyle.setLevel(16);
+        whenGargoyleAttacks();
+        assertThat(creep.getY()).isEqualTo(-2);
+    }
+
+    @Test
     void knockback_onlyIfTriggered() {
         randomPluginTrainer.givenFloatAbs(0.8f);
         whenGargoyleAttacks();
