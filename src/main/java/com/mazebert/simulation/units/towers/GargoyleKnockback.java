@@ -44,7 +44,7 @@ public strictfp class GargoyleKnockback extends KnockbackAbility implements OnLe
 
     @Override
     public String getLevelBonus() {
-        return "+1 tile at level 16";
+        return super.getLevelBonus() + "\n+1 tile at level 16";
     }
 
     @Override
