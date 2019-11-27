@@ -116,7 +116,7 @@ strictfp class SnowGlobeTest extends SimTest {
     void spider() {
         givenTowerToReplace(TowerType.Spider);
         whenTowerIsBuilt(TowerType.SnowGlobe);
-        thenSnowGlobeAbilitiesAre(AttackSoundAbility.class, SpiderWeb.class);
+        thenSnowGlobeAbilitiesAre(AttackSoundAbility.class, SpiderWebDoL.class);
     }
 
     @Test

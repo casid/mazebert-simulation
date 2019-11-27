@@ -24,7 +24,7 @@ public strictfp class Spider extends Tower {
         addAbility(new AttackAbility());
         addAbility(new AttackSoundAbility("sounds/web-spit.mp3"));
         addAbility(new ProjectileDamageAbility(ProjectileViewType.Web, 11.8f));
-        if (Sim.isDoLSeasonContent()) {
+        if (Sim.context().version >= Sim.vDoL) {
             addAbility(new SpiderWebDoL());
         } else {
             addAbility(new SpiderWeb());

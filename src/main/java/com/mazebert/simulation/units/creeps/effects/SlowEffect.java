@@ -35,6 +35,7 @@ public strictfp class SlowEffect extends StackableByOriginAbility<Creep> impleme
 
         totalMultiplier *= slowMultiplier;
         getUnit().setSpeedModifier(getUnit().getSpeedModifier() * slowMultiplier);
+        getUnit().addImmobilizeResistance(0.05f);
         ++stackCount;
 
         return true;

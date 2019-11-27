@@ -22,7 +22,6 @@ class SpiderTest extends ItemTest {
 
     @Override
     protected Tower createTower() {
-        season = true;
         projectileGateway = new ProjectileGateway();
         return new Spider();
     }
@@ -31,6 +30,7 @@ class SpiderTest extends ItemTest {
     void web() {
         whenTowerAttacks();
         assertThat(creep.getAbility(SpiderWebEffect.class).getStackCount()).isEqualTo(1);
+        assertThat(creep.getImmobilizeResistance()).isEqualTo(0.05f);
     }
 
     @Test
