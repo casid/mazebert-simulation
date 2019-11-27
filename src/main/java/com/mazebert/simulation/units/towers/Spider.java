@@ -3,6 +3,7 @@ package com.mazebert.simulation.units.towers;
 import com.mazebert.simulation.AttackType;
 import com.mazebert.simulation.Element;
 import com.mazebert.simulation.Rarity;
+import com.mazebert.simulation.Sim;
 import com.mazebert.simulation.projectiles.ProjectileViewType;
 import com.mazebert.simulation.units.Gender;
 import com.mazebert.simulation.units.abilities.AttackAbility;
@@ -23,7 +24,11 @@ public strictfp class Spider extends Tower {
         addAbility(new AttackAbility());
         addAbility(new AttackSoundAbility("sounds/web-spit.mp3"));
         addAbility(new ProjectileDamageAbility(ProjectileViewType.Web, 11.8f));
-        addAbility(new SpiderWeb());
+        if (Sim.isDoLSeasonContent()) {
+            addAbility(new SpiderWebDoL());
+        } else {
+            addAbility(new SpiderWeb());
+        }
     }
 
     @Override

@@ -32,13 +32,17 @@ public strictfp abstract class ImmobilizeAbility extends Ability<Tower> implemen
             return;
         }
 
+        if (getUnit().isImmobilizeAbilityTriggered(getChance(target), target)) {
+            immobilize(target);
+        }
+    }
+
+    protected float getChance(Creep creep) {
         float chance = this.chance;
         if (chancePerLevel > 0) {
             chance += chancePerLevel * getUnit().getLevel();
         }
-        if (getUnit().isImmobilizeAbilityTriggered(chance, target)) {
-            immobilize(target);
-        }
+        return chance;
     }
 
     protected abstract void immobilize(Creep target);
