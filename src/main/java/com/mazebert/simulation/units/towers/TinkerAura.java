@@ -11,7 +11,7 @@ public strictfp class TinkerAura extends AuraAbility<Tinker, Tower> implements O
     private int[] potionsByRarity = new int[Rarity.VALUES.length];
 
     public TinkerAura() {
-        super(CardCategory.Tower, Tower.class, 1);
+        super(CardCategory.Tower, Tower.class, 2);
     }
 
     @Override
