@@ -32,6 +32,8 @@ strictfp class InitPlayerTest extends UsecaseTest<InitPlayerCommand> {
 
     @BeforeEach
     void setUp() {
+        season = true;
+
         simulationListeners = new SimulationListeners();
         unitGateway = new UnitGateway();
         playerGateway = new PlayerGatewayTrainer();
@@ -167,7 +169,7 @@ strictfp class InitPlayerTest extends UsecaseTest<InitPlayerCommand> {
         whenRequestIsExecuted();
 
         Wizard wizard = unitGateway.getWizard(request.playerId);
-        assertThat(wizard.maxElementResearchPoints).isEqualTo(2);
+        assertThat(wizard.maxElementResearchPoints).isEqualTo(3);
     }
 
     @Test
@@ -177,7 +179,7 @@ strictfp class InitPlayerTest extends UsecaseTest<InitPlayerCommand> {
         whenRequestIsExecuted();
 
         Wizard wizard = unitGateway.getWizard(request.playerId);
-        assertThat(wizard.maxElementResearchPoints).isEqualTo(1);
+        assertThat(wizard.maxElementResearchPoints).isEqualTo(2);
     }
 
     @Test
