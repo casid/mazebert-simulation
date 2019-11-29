@@ -71,7 +71,7 @@ public strictfp class LightbringerHealAbility extends PoisonAbility implements O
 
     @Override
     public String getDescription() {
-        return format.percentWithSignAndUnit(HEALING_AMOUNT) + " damage is healed over " + format.seconds(getDuration()) + ".";
+        return format.percent(HEALING_AMOUNT) + "% damage is healed over " + format.seconds(getDuration()) + ".";
     }
 
     @Override
