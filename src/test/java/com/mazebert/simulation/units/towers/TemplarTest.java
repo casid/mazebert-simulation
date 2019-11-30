@@ -88,7 +88,7 @@ strictfp class TemplarTest extends SimTest {
         guard.setX(1);
         unitGateway.addUnit(guard);
 
-        assertThat(templar.getAddedAbsoluteBaseDamage()).isEqualTo(2);
+        assertThat(templar.getAddedAbsoluteBaseDamage()).isEqualTo(4);
     }
 
     private void whenTemplarAttacks() {

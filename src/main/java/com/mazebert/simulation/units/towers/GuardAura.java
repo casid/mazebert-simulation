@@ -9,7 +9,7 @@ public strictfp class GuardAura extends AuraAbility<Tower, Tower> {
     private final float baseDamageBonus;
 
     public GuardAura(float range) {
-        this(range, 2);
+        this(range, 4);
     }
 
     public GuardAura(float range, float baseDamageBonus) {
