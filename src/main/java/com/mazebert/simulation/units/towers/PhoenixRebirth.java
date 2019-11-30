@@ -7,7 +7,7 @@ import com.mazebert.simulation.units.wizards.Wizard;
 public strictfp class PhoenixRebirth extends ActiveAbility implements OnUpdateListener {
 
     public static final long GOLD_COST = 1000;
-    public static final int DAMAGE_GAIN = 7;
+    public static final int DAMAGE_GAIN = 14;
     public static final int REBIRTH_TIME = 10;
 
     private float rebirthTime;
@@ -48,7 +48,7 @@ public strictfp class PhoenixRebirth extends ActiveAbility implements OnUpdateLi
         wizard.addGold(-GOLD_COST);
         wizard.towerStash.remove(TowerType.Phoenix);
 
-        getUnit().addAddedAbsoluteBaseDamage(7);
+        getUnit().addAddedAbsoluteBaseDamage(DAMAGE_GAIN);
         rebirthTime += REBIRTH_TIME;
     }
 
