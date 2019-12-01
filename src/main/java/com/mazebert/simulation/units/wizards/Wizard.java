@@ -20,7 +20,7 @@ import com.mazebert.simulation.units.towers.TowerType;
 import java.util.EnumSet;
 
 public strictfp class Wizard extends Unit {
-    public final OnHealthChanged onHealthChanged = new OnHealthChanged();
+    public final OnWizardHealthChanged onHealthChanged = new OnWizardHealthChanged();
     public final OnLevelChanged onLevelChanged = new OnLevelChanged();
     public final OnGoldChanged onGoldChanged = new OnGoldChanged();
     public final OnCardsTransmuted onCardsTransmuted = new OnCardsTransmuted();

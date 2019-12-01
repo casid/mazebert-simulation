@@ -8,6 +8,7 @@ import com.mazebert.simulation.maps.FollowPathResult;
 import com.mazebert.simulation.units.Unit;
 import com.mazebert.simulation.units.abilities.FollowPathAbility;
 import com.mazebert.simulation.units.abilities.FollowPathCreepAbility;
+import com.mazebert.simulation.units.towers.Tower;
 
 public strictfp class Creep extends Unit {
     public static final float DEATH_TIME = 2.0f;
@@ -16,7 +17,7 @@ public strictfp class Creep extends Unit {
     public final OnDead onDead = new OnDead();
     public final OnResurrect onResurrect = new OnResurrect();
     public final OnTargetReached onTargetReached = new OnTargetReached();
-    public final OnHealthChanged onHealthChanged = new OnHealthChanged();
+    public final OnCreepHealthChanged onHealthChanged = new OnCreepHealthChanged();
     public final OnDamage onDamage = new OnDamage();
 
     private double health = 100.0;
@@ -107,10 +108,10 @@ public strictfp class Creep extends Unit {
     }
 
     public void setHealth(double health) {
-        setHealth(health, false);
+        setHealth(null, health, false);
     }
 
-    public void setHealth(double health, boolean notify) {
+    public void setHealth(Tower tower, double health, boolean notify) {
         if (this.health > 0.0 && !isImmortal()) {
             double oldHealth = this.health;
 
@@ -126,7 +127,7 @@ public strictfp class Creep extends Unit {
             }
 
             if (notify) {
-                onHealthChanged.dispatch(this, oldHealth, this.health);
+                onHealthChanged.dispatch(tower, this, oldHealth, this.health);
             }
         }
     }

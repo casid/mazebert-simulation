@@ -4,14 +4,14 @@ import com.mazebert.simulation.*;
 import com.mazebert.simulation.gateways.GameGateway;
 import com.mazebert.simulation.gateways.PlayerGateway;
 import com.mazebert.simulation.gateways.UnitGateway;
-import com.mazebert.simulation.listeners.OnHealthChangedListener;
+import com.mazebert.simulation.listeners.OnWizardHealthChangedListener;
 import com.mazebert.simulation.listeners.OnWaveFinishedListener;
 import com.mazebert.simulation.tutorial.Tutorial;
 import com.mazebert.simulation.units.Unit;
 import com.mazebert.simulation.units.towers.TowerType;
 import com.mazebert.simulation.units.wizards.Wizard;
 
-public strictfp class GameSystem implements OnHealthChangedListener, OnWaveFinishedListener {
+public strictfp class GameSystem implements OnWizardHealthChangedListener, OnWaveFinishedListener {
     private final SimulationListeners simulationListeners = Sim.context().simulationListeners;
     private final PlayerGateway playerGateway = Sim.context().playerGateway;
     private final GameGateway gameGateway = Sim.context().gameGateway;

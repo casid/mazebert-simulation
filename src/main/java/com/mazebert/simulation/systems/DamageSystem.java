@@ -82,7 +82,7 @@ public strictfp class DamageSystem {
             updateBestHit(tower, damage);
             updateTotalDamage(tower, damage);
 
-            creep.setHealth(creep.getHealth() - damage, true);
+            creep.setHealth(tower, creep.getHealth() - damage, true);
             tower.onDamage.dispatch(origin, creep, damage, multicrits);
             creep.onDamage.dispatch(origin, creep, damage, multicrits);
 

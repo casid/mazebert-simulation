@@ -144,6 +144,24 @@ class UnionEffectTest extends SimTest {
         assertThat(creep2.getState()).isEqualTo(CreepState.Dead);
     }
 
+    @Test
+    void experience() {
+        damageSystemTrainer.givenConstantDamage(1000);
+
+        Creep creep1 = a(creep());
+        creep1.addAbility(new UnionEffect());
+        unitGateway.addUnit(creep1);
+
+        Creep creep2 = a(creep());
+        creep2.addAbility(new UnionEffect());
+        creep2.setWave(creep1.getWave());
+        unitGateway.addUnit(creep2);
+
+        whenTowerAttacks();
+
+        assertThat(tower.getExperience()).isEqualTo(4);
+    }
+
     void whenTowerAttacks() {
         tower.simulate(tower.getBaseCooldown());
     }

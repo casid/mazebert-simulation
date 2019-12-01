@@ -2,12 +2,12 @@ package com.mazebert.simulation.units.creeps.effects;
 
 import com.mazebert.simulation.Sim;
 import com.mazebert.simulation.gateways.UnitGateway;
-import com.mazebert.simulation.listeners.OnHealthChangedListener;
-import com.mazebert.simulation.units.Unit;
+import com.mazebert.simulation.listeners.OnCreepHealthChangedListener;
 import com.mazebert.simulation.units.abilities.Ability;
 import com.mazebert.simulation.units.creeps.Creep;
+import com.mazebert.simulation.units.towers.Tower;
 
-public strictfp class UnionEffect extends Ability<Creep> implements OnHealthChangedListener {
+public strictfp class UnionEffect extends Ability<Creep> implements OnCreepHealthChangedListener {
     private final UnitGateway unitGateway = Sim.context().unitGateway;
 
     @Override
@@ -23,11 +23,13 @@ public strictfp class UnionEffect extends Ability<Creep> implements OnHealthChan
     }
 
     @Override
-    public void onHealthChanged(Unit u, double oldHealth, double newHealth) {
-        Creep unit = (Creep)u;
-        unitGateway.forEachCreep(creep -> {
-            if (creep != unit && creep.getWave() == unit.getWave()) {
-                creep.setHealth(newHealth, false);
+    public void onHealthChanged(Tower tower, Creep creep, double oldHealth, double newHealth) {
+        unitGateway.forEachCreep(c -> {
+            if (c != creep && c.getWave() == creep.getWave()) {
+                c.setHealth(tower, newHealth, false);
+                if (c.isDead() && tower != null) {
+                    tower.onKill.dispatch(c);
+                }
             }
         });
     }

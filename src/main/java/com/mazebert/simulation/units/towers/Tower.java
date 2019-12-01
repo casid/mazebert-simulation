@@ -616,7 +616,7 @@ public strictfp abstract class Tower extends Unit implements CooldownUnit, Card,
 
     public void kill(Creep creep, boolean notifyHealth) {
         if (creep.isPartOfGame() && !creep.isImmortal()) {
-            creep.setHealth(0, notifyHealth);
+            creep.setHealth(this, 0, notifyHealth);
             onKill.dispatch(creep);
         }
     }
