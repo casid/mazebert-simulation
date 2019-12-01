@@ -19,6 +19,7 @@ import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.atomic.LongAdder;
 import java.util.stream.Collectors;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -100,7 +101,7 @@ public class BackwardCompatiblityTester {
         List<Path> files = Files.walk(gamesDirectory.resolve("" + version), 1).collect(Collectors.toList());
         int total = files.size();
         System.out.println("Validating " + total + " games (version " + version + ")");
-        AtomicInteger counter = new AtomicInteger();
+        LongAdder counter = new LongAdder();
 
         files.parallelStream().forEach(file -> {
             try {
@@ -119,7 +120,8 @@ public class BackwardCompatiblityTester {
 
                 checkGame(file, version);
             } finally {
-                System.out.println(counter.incrementAndGet() + "/" + total + "");
+                counter.add(1);
+                System.out.println(counter + "/" + total + "");
             }
         });
     }
