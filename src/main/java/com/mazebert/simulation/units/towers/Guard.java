@@ -13,7 +13,7 @@ public strictfp class Guard extends Tower {
         setBaseCooldown(2.0f);
         setBaseRange(2);
         setAttackType(AttackType.Ber);
-        setStrength(0.75f);
+        setStrength(0.95f);
         setDamageSpread(0.2f);
         setGender(Gender.Unknown);
         setElement(Element.Light);
