@@ -8,14 +8,13 @@ import org.jusecase.util.GenericTypeResolver;
 public class UsecaseTest<Request> extends SimTest {
     protected VoidUsecase<Request> usecase;
     protected Request request;
-    protected Throwable error;
 
     @BeforeEach
     void initRequest() {
         createRequest();
     }
 
-    @SuppressWarnings({"unchecked", "ConstantConditions"})
+    @SuppressWarnings({"unchecked"})
     public void createRequest() {
         try {
             Class<?> requestClass = GenericTypeResolver.resolve(UsecaseTest.class, getClass(), 0);
@@ -27,13 +26,5 @@ public class UsecaseTest<Request> extends SimTest {
 
     protected void whenRequestIsExecuted() {
         usecase.execute(request);
-    }
-
-    protected void whenErrorRequestIsExecuted() {
-        try {
-            whenRequestIsExecuted();
-        } catch (Throwable e) {
-            error = e;
-        }
     }
 }
