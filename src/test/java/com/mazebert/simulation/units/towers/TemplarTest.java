@@ -74,21 +74,59 @@ strictfp class TemplarTest extends SimTest {
         templar.simulate(0.1f);
         templar.simulate(0.1f);
 
-        assertThat(templar.getCritChance()).isEqualTo(1.16f);
+        assertThat(templar.getCritChance()).isEqualTo(1.06f);
 
         unitGateway.addUnit(a(creep()));
         whenTemplarAttacks();
 
-        assertThat(templar.getCritChance()).isEqualTo(0.14999998f);
+        assertThat(templar.getCritChance()).isEqualTo(0.049999952f);
     }
 
     @Test
-    void guardAura() {
+    void noOtherGuards() {
+        assertThat(templar.getAddedAbsoluteBaseDamage()).isEqualTo(0);
+        assertThat(templar.getCritChance()).isEqualTo(0.05f);
+        assertThat(templar.getCritDamage()).isEqualTo(0.25f);
+    }
+
+    @Test
+    void oneOtherGuard() {
         Guard guard = new Guard();
         guard.setX(1);
         unitGateway.addUnit(guard);
 
         assertThat(templar.getAddedAbsoluteBaseDamage()).isEqualTo(4);
+        assertThat(templar.getCritChance()).isEqualTo(0.09f);
+        assertThat(templar.getCritDamage()).isEqualTo(0.45f);
+    }
+
+    @Test
+    void twoOtherGuards() {
+        Guard guard = new Guard();
+        guard.setX(1);
+        unitGateway.addUnit(guard);
+        Guard guard2 = new Guard();
+        guard2.setX(-1);
+        unitGateway.addUnit(guard2);
+
+        assertThat(templar.getAddedAbsoluteBaseDamage()).isEqualTo(8);
+        assertThat(templar.getCritChance()).isEqualTo(0.13f);
+        assertThat(templar.getCritDamage()).isEqualTo(0.65f);
+    }
+
+    @Test
+    void guardRemoved() {
+        Guard guard = new Guard();
+        guard.setX(1);
+        unitGateway.addUnit(guard);
+        Guard guard2 = new Guard();
+        guard2.setX(-1);
+        unitGateway.addUnit(guard2);
+        unitGateway.removeUnit(guard);
+
+        assertThat(templar.getAddedAbsoluteBaseDamage()).isEqualTo(4);
+        assertThat(templar.getCritChance()).isEqualTo(0.089999996f);
+        assertThat(templar.getCritDamage()).isEqualTo(0.45f);
     }
 
     private void whenTemplarAttacks() {

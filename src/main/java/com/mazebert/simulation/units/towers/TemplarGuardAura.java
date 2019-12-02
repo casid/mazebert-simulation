@@ -1,8 +1,8 @@
 package com.mazebert.simulation.units.towers;
 
 public strictfp class TemplarGuardAura extends GuardAura {
-    private final float CRIT_CHANCE_BONUS = 0.1f;
-    private final float CRIT_DAMAGE_BONUS = 0.5f;
+    private final float CRIT_CHANCE_BONUS = 0.04f;
+    private final float CRIT_DAMAGE_BONUS = 0.2f;
 
     public TemplarGuardAura(float range) {
         super(range);
@@ -11,15 +11,18 @@ public strictfp class TemplarGuardAura extends GuardAura {
     @Override
     protected void initialize(Tower unit) {
         super.initialize(unit);
-        unit.addCritChance(CRIT_CHANCE_BONUS);
-        unit.addCritDamage(CRIT_DAMAGE_BONUS);
     }
 
     @Override
     protected void dispose(Tower unit) {
-        unit.addCritChance(-CRIT_CHANCE_BONUS);
-        unit.addCritDamage(-CRIT_DAMAGE_BONUS);
         super.dispose(unit);
+    }
+
+    @Override
+    protected void adjustGuardBonus(float sign) {
+        super.adjustGuardBonus(sign);
+        getUnit().addCritChance(sign * CRIT_CHANCE_BONUS);
+        getUnit().addCritDamage(sign * CRIT_DAMAGE_BONUS);
     }
 
     @Override

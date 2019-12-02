@@ -26,15 +26,19 @@ public strictfp class GuardAura extends AuraAbility<Tower, Tower> {
     @Override
     protected void onAuraEntered(Tower unit) {
         if (unit != getUnit()) {
-            getUnit().addAddedAbsoluteBaseDamage(baseDamageBonus);
+            adjustGuardBonus(+1);
         }
     }
 
     @Override
     protected void onAuraLeft(Tower unit) {
         if (unit != getUnit()) {
-            getUnit().addAddedAbsoluteBaseDamage(-baseDamageBonus);
+            adjustGuardBonus(-1);
         }
+    }
+
+    protected void adjustGuardBonus(float sign) {
+        getUnit().addAddedAbsoluteBaseDamage(sign * baseDamageBonus);
     }
 
     @Override
