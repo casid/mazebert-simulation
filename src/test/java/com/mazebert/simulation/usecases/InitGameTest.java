@@ -51,7 +51,7 @@ class InitGameTest extends UsecaseTest<InitGameCommand> {
 
     @Test
     void seedIsSet() {
-        request.gameId = UUID.randomUUID();
+        request.gameId = new UUID(1, 2);
         whenRequestIsExecuted();
         randomPluginTrainer.thenSeedIsSetTo(request.gameId);
     }
