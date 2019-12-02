@@ -18,6 +18,7 @@ import com.mazebert.simulation.units.creeps.effects.*;
 import com.mazebert.simulation.units.items.ItemType;
 import com.mazebert.simulation.units.towers.Spider;
 import com.mazebert.simulation.units.towers.TowerType;
+import com.mazebert.simulation.units.towers.TrainingHologram;
 import com.mazebert.simulation.units.wizards.Wizard;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -996,6 +997,27 @@ public strictfp class WaveSpawnerTest extends SimTest {
         timeLord.simulate(1.0f / timeLord.getSpeed());
 
         assertThat(finished.get()).isTrue();
+    }
+
+    @Test
+    void bonusRound_timeLordEncounter_trainingHologram() {
+        whenTimeLordEncounterIsReached();
+        unitGateway.addUnit(new TrainingHologram());
+        for (int i = 0; i < 200; ++i) {
+            simulationListeners.onUpdate.dispatch(1.0f);
+        }
+
+        // Countdown expires
+        assertThat(timeLordCountDown).isNull();
+        List<Creep> timeLords = new ArrayList<>();
+        unitGateway.forEachCreep(c -> {
+            if (c.getType() == CreepType.TimeLord) {
+                timeLords.add(c);
+            }
+        });
+
+        // There is only one time lord, and no hologram
+        assertThat(timeLords).hasSize(1);
     }
 
     @Test

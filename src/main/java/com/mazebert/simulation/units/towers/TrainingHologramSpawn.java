@@ -1,9 +1,6 @@
 package com.mazebert.simulation.units.towers;
 
-import com.mazebert.simulation.Sim;
-import com.mazebert.simulation.SimulationListeners;
-import com.mazebert.simulation.Wave;
-import com.mazebert.simulation.WaveOrigin;
+import com.mazebert.simulation.*;
 import com.mazebert.simulation.listeners.OnDeathListener;
 import com.mazebert.simulation.listeners.OnRoundStartedListener;
 import com.mazebert.simulation.listeners.OnUnitAddedListener;
@@ -39,6 +36,10 @@ public strictfp class TrainingHologramSpawn extends Ability<Tower> implements On
 
     @Override
     public void onRoundStarted(Wave wave) {
+        if (wave.type == WaveType.TimeLord) {
+            return;
+        }
+
         Creep dummy = new Creep(new FollowPathCreepStaticAbility());
         dummy.addAbility(new HologramEffect());
         dummy.setX(getUnit().getX());
