@@ -16,7 +16,7 @@ public strictfp class Unicorn extends Tower {
         setGender(Gender.Female);
         setElement(Element.Light);
 
-        addAbility(new UnicornDeathAbility());
+        addAbility(new UnicornImpaleAbility());
         addAbility(new UnicornExperienceAbility());
     }
 

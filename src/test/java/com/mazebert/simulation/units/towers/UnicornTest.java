@@ -7,8 +7,11 @@ import com.mazebert.simulation.SimulationListeners;
 import com.mazebert.simulation.gateways.UnitGateway;
 import com.mazebert.simulation.plugins.random.RandomPluginTrainer;
 import com.mazebert.simulation.stash.StashEntry;
+import com.mazebert.simulation.systems.DamageSystem;
+import com.mazebert.simulation.systems.ExperienceSystem;
 import com.mazebert.simulation.systems.LootSystemTrainer;
 import com.mazebert.simulation.units.TestTower;
+import com.mazebert.simulation.units.creeps.Creep;
 import com.mazebert.simulation.units.items.HelmOfHades;
 import com.mazebert.simulation.units.potions.Potion;
 import com.mazebert.simulation.units.potions.PotionType;
@@ -33,6 +36,8 @@ strictfp class UnicornTest extends SimTest {
         randomPluginTrainer = new RandomPluginTrainer();
         randomPlugin = randomPluginTrainer;
         lootSystem = new LootSystemTrainer();
+        experienceSystem = new ExperienceSystem();
+        damageSystem = new DamageSystem();
 
         wizard = new Wizard();
         unitGateway.addUnit(wizard);
@@ -96,6 +101,40 @@ strictfp class UnicornTest extends SimTest {
     }
 
     @Test
+    void creepEntersRange_impale() {
+        Creep creep = a(creep().boss());
+        unitGateway.addUnit(creep);
+
+        assertThat(creep.getHealth()).isEqualTo(80);
+    }
+
+    @Test
+    void creepEntersRange_impale_kill() {
+        Creep creep = a(creep().boss());
+        creep.setHealth(19);
+        unitGateway.addUnit(creep);
+
+        assertThat(creep.isDead()).isTrue();
+        assertThat(unitGateway.hasUnit(unicorn)).isTrue(); // Dead creeps cannot kill unicorn
+    }
+
+    @Test
+    void creepEntersRange_impale_notForAir() {
+        Creep creep = a(creep().air());
+        unitGateway.addUnit(creep);
+
+        assertThat(creep.getHealth()).isEqualTo(100);
+    }
+
+    @Test
+    void creepEntersRange_impale_notForTimeLord() {
+        Creep creep = a(creep().timeLord());
+        unitGateway.addUnit(creep);
+
+        assertThat(creep.getHealth()).isEqualTo(100);
+    }
+
+    @Test
     void creepEntersRange_lucky() {
         randomPluginTrainer.givenFloatAbs(0.5f);
         unitGateway.addUnit(a(creep()));
@@ -120,11 +159,11 @@ strictfp class UnicornTest extends SimTest {
     }
 
     @Test
-    void creepEntersRange_death_notForHorseman() {
+    void creepEntersRange_death_forHorseman() {
         randomPluginTrainer.givenFloatAbs(0.0f);
         unitGateway.addUnit(a(creep().horseman()));
 
-        assertThat(unitGateway.hasUnit(unicorn)).isTrue();
+        assertThat(unitGateway.hasUnit(unicorn)).isFalse();
     }
 
     @Test

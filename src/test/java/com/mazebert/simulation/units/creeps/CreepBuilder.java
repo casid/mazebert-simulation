@@ -58,4 +58,9 @@ public class CreepBuilder implements Builder<Creep> {
         creep.getWave().type = WaveType.MassChallenge;
         return this;
     }
+
+    public CreepBuilder timeLord() {
+        creep.getWave().type = WaveType.TimeLord;
+        return this;
+    }
 }

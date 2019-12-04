@@ -5,6 +5,7 @@ import com.mazebert.simulation.Sim;
 import com.mazebert.simulation.WaveType;
 import com.mazebert.simulation.gateways.UnitGateway;
 import com.mazebert.simulation.stash.StashEntry;
+import com.mazebert.simulation.systems.DamageSystem;
 import com.mazebert.simulation.systems.LootSystem;
 import com.mazebert.simulation.units.abilities.AuraAbility;
 import com.mazebert.simulation.units.creeps.Creep;
@@ -13,37 +14,52 @@ import com.mazebert.simulation.units.potions.Potion;
 import com.mazebert.simulation.units.potions.PotionType;
 import com.mazebert.simulation.units.potions.UnicornTears;
 import com.mazebert.simulation.units.wizards.Wizard;
-import com.mazebert.simulation.usecases.SellTower;
 
-public strictfp class UnicornDeathAbility extends AuraAbility<Tower, Creep> {
+public strictfp class UnicornImpaleAbility extends AuraAbility<Tower, Creep> {
 
     private final LootSystem lootSystem = Sim.context().lootSystem;
     private final UnitGateway unitGateway = Sim.context().unitGateway;
+    private final DamageSystem damageSystem = Sim.context().damageSystem;
 
-    public UnicornDeathAbility() {
+    public UnicornImpaleAbility() {
         super(CardCategory.Tower, Creep.class, 1);
     }
 
     @Override
-    protected void onAuraEntered(Creep unit) {
-        WaveType waveType = unit.getWave().type;
-        if (waveType == WaveType.Challenge || waveType == WaveType.MassChallenge || waveType == WaveType.Horseman || waveType == WaveType.Air) {
+    protected void onAuraEntered(Creep creep) {
+        WaveType waveType = creep.getWave().type;
+        if (waveType == WaveType.Air || waveType == WaveType.TimeLord) {
             return;
         }
 
-        if (getUnit().hasAbility(HelmOfHadesInvisibleAbility.class)) {
-            return;
-        }
+        damageSystem.dealDamage(this, getUnit(), creep, 0.2 * creep.getMaxHealth(), 0, false);
 
-        if (getUnit().isNegativeAbilityTriggered(0.25f)) {
+        if (isUnicornKilled(creep)) {
             Wizard wizard = getUnit().getWizard();
-            lootSystem.addToStash(wizard, unit, wizard.potionStash, PotionType.UnicornTears);
+            lootSystem.addToStash(wizard, creep, wizard.potionStash, PotionType.UnicornTears);
 
             StashEntry<Potion> entry = wizard.potionStash.get(PotionType.UnicornTears);
-            ((UnicornTears)entry.getCard()).setLevels(getUnit().getLevel() / 2);
+            ((UnicornTears) entry.getCard()).setLevels(getUnit().getLevel() / 2);
 
             unitGateway.destroyTower(getUnit());
         }
+    }
+
+    private boolean isUnicornKilled(Creep creep) {
+        if (creep.isDead()) {
+            return false;
+        }
+
+        WaveType waveType = creep.getWave().type;
+        if (waveType == WaveType.Challenge || waveType == WaveType.MassChallenge) {
+            return false;
+        }
+
+        if (getUnit().hasAbility(HelmOfHadesInvisibleAbility.class)) {
+            return false;
+        }
+
+        return getUnit().isNegativeAbilityTriggered(0.25f);
     }
 
     @Override
@@ -58,12 +74,12 @@ public strictfp class UnicornDeathAbility extends AuraAbility<Tower, Creep> {
 
     @Override
     public String getTitle() {
-        return "Horn hunt";
+        return "Impale";
     }
 
     @Override
     public String getDescription() {
-        return "Ground creeps entering unicorns range have a 25% chance to kill her, leaving " + format.card(PotionType.UnicornTears) + " behind (not challenges).";
+        return "Ground creeps entering her range lose 20% health. Survivors (except challenges) have a 25% chance to kill her, leaving " + format.card(PotionType.UnicornTears) + " behind.";
     }
 
     @Override
