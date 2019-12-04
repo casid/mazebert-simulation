@@ -47,7 +47,9 @@ public strictfp class TimeLordEffect extends Ability<Creep> implements OnDamageL
 
     @Override
     public void onDamage(Object origin, Creep target, double damage, int multicrits) {
-        totalDamage += damage;
+        if (damage > 0) {
+            totalDamage += damage;
+        }
     }
 
     @Override

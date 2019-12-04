@@ -117,6 +117,23 @@ public strictfp class TimeLordEffectTest extends SimTest {
     }
 
     @Test
+    void damageConvertedToBonusRoundSeconds_negativeDamage() {
+        timeLordEffect.onDamage(null, null, 1000000, 1);
+        timeLordEffect.onDamage(null, null, 1000000, 1);
+        timeLordEffect.onDamage(null, null, 1000000, 1);
+        timeLordEffect.onDamage(null, null, 1000000, 1);
+        timeLordEffect.onDamage(null, null, 1000000, 1);
+        timeLordEffect.onDamage(null, null, -1000000, 1);
+        timeLordEffect.onDamage(null, null, -1000000, 1);
+        timeLordEffect.onDamage(null, null, -1000000, 1);
+        timeLordEffect.onDamage(null, null, -1000000, 1);
+        timeLordEffect.onDamage(null, null, -1000000, 1);
+        timeLordEffect.onUpdate(1.0f);
+
+        assertThat(gameGateway.getGame().bonusRoundSeconds).isEqualTo(5030);
+    }
+
+    @Test
     void damageConvertedToBonusRoundSeconds_bigHit() {
         timeLordEffect.onDamage(null, null, 100000000, 1);
         timeLordEffect.onUpdate(1.0f);
