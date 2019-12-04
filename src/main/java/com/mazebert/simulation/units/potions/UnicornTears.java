@@ -4,10 +4,11 @@ import com.mazebert.simulation.Rarity;
 
 public strictfp class UnicornTears extends Potion {
 
-    private static final UnicornTearsAbility unicornTearsAbility = new UnicornTearsAbility();
+    private final UnicornTearsAbility unicornTearsAbility;
 
     public UnicornTears() {
-        super(unicornTearsAbility);
+        super(new UnicornTearsAbility());
+        unicornTearsAbility = getAbility(0, UnicornTearsAbility.class);
     }
 
     @Override

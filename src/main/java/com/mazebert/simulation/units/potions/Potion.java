@@ -52,4 +52,9 @@ public strictfp abstract class Potion implements Card {
     public PotionType getType() {
         return type;
     }
+
+    @SuppressWarnings("unchecked")
+    public <T extends Ability> T getAbility(int index, Class<T> abilityClass) {
+        return (T)abilities[index];
+    }
 }
