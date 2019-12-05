@@ -38,9 +38,7 @@ public class FaceTimeLordQuestTest extends SimTest implements OnQuestCompletedLi
 
     @Test
     void timeLordCountDown() {
-        simulationListeners.onTimeLordCountDown.dispatch(30);
-        simulationListeners.onTimeLordCountDown.dispatch(29);
-        simulationListeners.onTimeLordCountDown.dispatch(28);
+        simulationListeners.onTimeLordStarted.dispatch();
 
         assertThat(completedQuest).isNotNull();
     }
