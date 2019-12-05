@@ -130,6 +130,8 @@ public strictfp class DamageSystem {
         double damageFactor = calculateArmorDamageFactor(tower.getAttackType(), wave.armorType);
         if (wave.type == WaveType.Air) {
             damageFactor *= tower.getDamageAgainstAir();
+        } else if (wave.type.isBoss()) {
+            damageFactor *= tower.getDamageAgainstBosses();
         }
 
         switch (wave.armorType) {

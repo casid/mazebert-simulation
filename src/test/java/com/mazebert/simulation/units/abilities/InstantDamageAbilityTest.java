@@ -209,10 +209,54 @@ public strictfp class InstantDamageAbilityTest extends SimTest {
     }
 
     @Test
+    void constantDamage_damageAgainstBosses() {
+        creep.getWave().type = WaveType.Boss;
+        tower.setBaseDamage(10.0f);
+        tower.addDamageAgainstBosses(1.0f);
+
+        whenTowerAttacks();
+
+        assertThat(creep.getHealth()).isEqualTo(80.0f);
+    }
+
+    @Test
+    void constantDamage_damageAgainstBosses_challenge() {
+        creep.getWave().type = WaveType.Challenge;
+        tower.setBaseDamage(10.0f);
+        tower.addDamageAgainstBosses(1.0f);
+
+        whenTowerAttacks();
+
+        assertThat(creep.getHealth()).isEqualTo(80.0f);
+    }
+
+    @Test
+    void constantDamage_damageAgainstBosses_horseman() {
+        creep.getWave().type = WaveType.Horseman;
+        tower.setBaseDamage(10.0f);
+        tower.addDamageAgainstBosses(1.0f);
+
+        whenTowerAttacks();
+
+        assertThat(creep.getHealth()).isEqualTo(80.0f);
+    }
+
+    @Test
+    void constantDamage_damageAgainstBosses_timelord() {
+        creep.getWave().type = WaveType.TimeLord;
+        tower.setBaseDamage(10.0f);
+        tower.addDamageAgainstBosses(1.0f);
+
+        whenTowerAttacks();
+
+        assertThat(creep.getHealth()).isEqualTo(80.0f);
+    }
+
+    @Test
     void constantDamage_damageAgainstAir() {
         creep.getWave().type = WaveType.Air;
         tower.setBaseDamage(10.0f);
-        tower.setDamageAgainstAir(2.0f);
+        tower.addDamageAgainstAir(1.0f);
 
         whenTowerAttacks();
 

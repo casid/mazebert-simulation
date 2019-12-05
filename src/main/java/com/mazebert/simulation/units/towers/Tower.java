@@ -61,6 +61,7 @@ public strictfp abstract class Tower extends Unit implements CooldownUnit, Card,
     private float damageAgainstVex = 1;
     private float damageAgainstZod = 1;
     private float damageAgainstAir = 1;
+    private float damageAgainstBosses = 1;
     private float armorPenetration;
     private float chanceToMiss;
     private float luck = 1.0f; // factor 1 is regular luck of every tower
@@ -720,6 +721,14 @@ public strictfp abstract class Tower extends Unit implements CooldownUnit, Card,
 
     public void addDamageAgainstAir(float amount) {
         this.damageAgainstAir += amount;
+    }
+
+    public float getDamageAgainstBosses() {
+        return damageAgainstBosses;
+    }
+
+    public void addDamageAgainstBosses(float amount) {
+        this.damageAgainstBosses += amount;
     }
 
     public void addArmorPenetration(float amount) {
