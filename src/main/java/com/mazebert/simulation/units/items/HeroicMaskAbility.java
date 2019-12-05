@@ -11,12 +11,14 @@ public strictfp class HeroicMaskAbility extends Ability<Tower> {
         super.initialize(unit);
         unit.addExperienceModifier(BONUS);
         unit.addAddedRelativeBaseDamage(BONUS);
+        unit.addCritChance(BONUS);
         unit.addLuck(BONUS);
     }
 
     @Override
     protected void dispose(Tower unit) {
         unit.addLuck(-BONUS);
+        unit.addCritChance(-BONUS);
         unit.addAddedRelativeBaseDamage(-BONUS);
         unit.addExperienceModifier(-BONUS);
         super.dispose(unit);
@@ -36,6 +38,7 @@ public strictfp class HeroicMaskAbility extends Ability<Tower> {
     public String getDescription() {
         return format.percentWithSignAndUnit(BONUS) + " experience\n" +
                 format.percentWithSignAndUnit(BONUS) + " damage\n" +
+                format.percentWithSignAndUnit(BONUS) + " crit chance\n" +
                 format.percentWithSignAndUnit(BONUS) + " luck\n";
     }
 }

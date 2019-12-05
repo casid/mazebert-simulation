@@ -24,6 +24,7 @@ public strictfp class HeroicSetTest extends ItemTest {
         whenItemIsEquipped(ItemType.HeroicMask);
         assertThat(tower.getExperienceModifier()).isEqualTo(1 + BONUS);
         assertThat(tower.getAddedRelativeBaseDamage()).isEqualTo(BONUS);
+        assertThat(tower.getCritChance()).isEqualTo(0.05f + BONUS);
         assertThat(tower.getLuck()).isEqualTo(1 + BONUS);
     }
 
@@ -33,6 +34,7 @@ public strictfp class HeroicSetTest extends ItemTest {
         whenItemIsEquipped(null);
         assertThat(tower.getExperienceModifier()).isEqualTo(1 + BONUS - BONUS);
         assertThat(tower.getAddedRelativeBaseDamage()).isEqualTo(BONUS - BONUS);
+        assertThat(tower.getCritChance()).isEqualTo(0.05f + BONUS - BONUS);
         assertThat(tower.getLuck()).isEqualTo(1 + BONUS - BONUS);
     }
 
