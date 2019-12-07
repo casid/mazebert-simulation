@@ -2,25 +2,25 @@ package com.mazebert.simulation.units.items;
 
 import com.mazebert.simulation.Rarity;
 
-public strictfp class WellDoneSteak extends Item {
+public strictfp class Beheader extends Item {
 
-    public WellDoneSteak() {
-        super(new WellDoneSteakAbility());
+    public Beheader() {
+        super(new BeheaderCritAbility(), new BeheaderDamageAbility());
     }
 
     @Override
     public String getName() {
-        return "Well done T-Bone Steak";
+        return "Beheader";
     }
 
     @Override
     public String getDescription() {
-        return "This steak is totally cooked through and tough as leather. Food for the brave.";
+        return "The philosophy of this axe is that head and body should be separate.";
     }
 
     @Override
     public Rarity getRarity() {
-        return Rarity.Common;
+        return Rarity.Rare;
     }
 
     @Override
@@ -30,11 +30,11 @@ public strictfp class WellDoneSteak extends Item {
 
     @Override
     public String getIcon() {
-        return "0063_meat_512";
+        return "beheader";
     }
 
     @Override
     public int getItemLevel() {
-        return 11;
+        return 58;
     }
 }

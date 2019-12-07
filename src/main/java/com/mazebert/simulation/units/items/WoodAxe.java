@@ -2,25 +2,25 @@ package com.mazebert.simulation.units.items;
 
 import com.mazebert.simulation.Rarity;
 
-public strictfp class RareSteak extends Item {
+public strictfp class WoodAxe extends Item {
 
-    public RareSteak() {
-        super(new RareSteakCritAbility(), new RareSteakDamageAbility());
+    public WoodAxe() {
+        super(new WoodAxeAbility());
     }
 
     @Override
     public String getName() {
-        return "Rare T-Bone Steak";
+        return "Wood Axe";
     }
 
     @Override
     public String getDescription() {
-        return "This steak is bloody like hell. A steak for true butchers.";
+        return "You can cut anything with it. Wood, steaks, creeps...";
     }
 
     @Override
     public Rarity getRarity() {
-        return Rarity.Rare;
+        return Rarity.Common;
     }
 
     @Override
@@ -30,11 +30,11 @@ public strictfp class RareSteak extends Item {
 
     @Override
     public String getIcon() {
-        return "0063_meat_512";
+        return "wood_axe";
     }
 
     @Override
     public int getItemLevel() {
-        return 58;
+        return 11;
     }
 }

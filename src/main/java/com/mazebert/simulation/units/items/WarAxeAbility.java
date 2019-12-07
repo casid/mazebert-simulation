@@ -2,13 +2,13 @@ package com.mazebert.simulation.units.items;
 
 import com.mazebert.simulation.units.abilities.DamageWithLevelBonusAbility;
 
-public strictfp class RareSteakDamageAbility extends DamageWithLevelBonusAbility {
-    public RareSteakDamageAbility() {
-        super(0.3f, 0.01f);
+public strictfp class WarAxeAbility extends DamageWithLevelBonusAbility {
+    public WarAxeAbility() {
+        super(0.25f, 0.005f);
     }
 
     @Override
     public String getTitle() {
-        return "Blood splatter";
+        return "Axetinction";
     }
 }

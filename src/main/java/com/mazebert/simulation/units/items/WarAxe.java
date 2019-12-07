@@ -2,20 +2,20 @@ package com.mazebert.simulation.units.items;
 
 import com.mazebert.simulation.Rarity;
 
-public strictfp class MediumSteak extends Item {
+public strictfp class WarAxe extends Item {
 
-    public MediumSteak() {
-        super(new MediumSteakAbility());
+    public WarAxe() {
+        super(new WarAxeAbility());
     }
 
     @Override
     public String getName() {
-        return "Medium T-Bone Steak";
+        return "War Axe";
     }
 
     @Override
     public String getDescription() {
-        return "This medium steak is tender and juicy. Food for the gourmets.";
+        return "Made for war, it thirsts for blood.";
     }
 
     @Override
@@ -30,7 +30,7 @@ public strictfp class MediumSteak extends Item {
 
     @Override
     public String getIcon() {
-        return "0063_meat_512";
+        return "war_axe";
     }
 
     @Override

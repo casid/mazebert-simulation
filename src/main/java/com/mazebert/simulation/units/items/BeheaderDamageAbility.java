@@ -2,13 +2,13 @@ package com.mazebert.simulation.units.items;
 
 import com.mazebert.simulation.units.abilities.DamageWithLevelBonusAbility;
 
-public strictfp class MediumSteakAbility extends DamageWithLevelBonusAbility {
-    public MediumSteakAbility() {
-        super(0.25f, 0.005f);
+public strictfp class BeheaderDamageAbility extends DamageWithLevelBonusAbility {
+    public BeheaderDamageAbility() {
+        super(0.3f, 0.01f);
     }
 
     @Override
     public String getTitle() {
-        return "Die by the meat";
+        return "Blood splatter";
     }
 }

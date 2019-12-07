@@ -15,12 +15,12 @@ public strictfp enum ItemType implements CardType<Item> {
     // 3) ADD NEW IDS TO THE BOTTOM!
     WoodenStaff(1, WoodenStaff.class),
     LeatherBoots(2, LeatherBoots.class),
-    WellDoneSteak(3, WellDoneSteak.class),
+    WoodAxe(3, WoodAxe.class),
     BabySword(4, BabySword.class),
     SchoolBook(5, SchoolBook.class),
     WetTowel(6, WetTowel.class),
     Pumpkin(7, Pumpkin.class),
-    MediumSteak(8, MediumSteak.class),
+    WarAxe(8, WarAxe.class),
     Handbag(9, Handbag.class),
     GoldCoins(10, GoldCoins.class),
     RingOfGreed(11, RingOfGreed.class),
@@ -30,7 +30,7 @@ public strictfp enum ItemType implements CardType<Item> {
     LuckyPants(15, LuckyPants.class),
     PaintingOfSolea(16, PaintingOfSolea.class),
     MeatMallet(17, MeatMallet.class),
-    RareSteak(18, RareSteak.class),
+    Beheader(18, Beheader.class),
     SevenLeaguesBoots(19, SevenLeaguesBoots.class),
     FistfulOfSteel(20, FistfulOfSteel.class),
     Cauldron(21, Cauldron.class),
@@ -106,8 +106,8 @@ public strictfp enum ItemType implements CardType<Item> {
     public final int id;
     public final Class<? extends Item> itemClass;
 
-    private static final ItemType[] STANDARD      = {WoodenStaff, LeatherBoots, WellDoneSteak, BabySword, SchoolBook, WetTowel, Pumpkin, MediumSteak, Handbag, GoldCoins, RingOfGreed, LongBow, MonsterTeeth, MagicMushroom, LuckyPants, PaintingOfSolea, MeatMallet, RareSteak, SevenLeaguesBoots, FistfulOfSteel, Cauldron, KeyOfWisdom, VikingHelmet, Barrel, Excalibur, HelmOfHades, MesserschmidtsReaver, DungeonDoor, ScepterOfTime, WeddingRing1, WeddingRing2, NorlsFurySword, NorlsFuryAmulet, FrozenWater, FrozenHeart, FrozenCandle, FrozenBook, WitheredCactus, WitheredToadstool, WitheredBandages, ImpatienceWrathWatch, ImpatienceWrathTrain, ImpatienceWrathForce, DarkBabySword, DarkGoldCoins, DarkRingOfGreed, DarkMeatMallet, DarkCauldron, DarkFistfulOfSteel, DarkBlade, Wolfskin, BloodDemonBlade, Seelenreisser, UnluckyPants, SkullOfDarkness, SpectralDaggers, SpectralCape, BowlingBall, LightbladeAcademySword, LightbladeAcademyDrone, TransmuteUniques, TransmuteStack, Mjoelnir, PoisonArrow, Trident, BranchOfYggdrasil};
-    private static final ItemType[] DAWN_OF_LIGHT = {WoodenStaff, LeatherBoots, WellDoneSteak, BabySword, SchoolBook, WetTowel, Pumpkin, MediumSteak, Handbag, GoldCoins, RingOfGreed, LongBow, MonsterTeeth, MagicMushroom, LuckyPants, PaintingOfSolea, MeatMallet, RareSteak, SevenLeaguesBoots, FistfulOfSteel, Cauldron, KeyOfWisdom, VikingHelmet, Barrel, Excalibur, HelmOfHades, MesserschmidtsReaver, DungeonDoor, ScepterOfTime, WeddingRing1, WeddingRing2, NorlsFurySword, NorlsFuryAmulet, FrozenWater, FrozenHeart, FrozenCandle, FrozenBook, WitheredCactus, WitheredToadstool, WitheredBandages, ImpatienceWrathWatch, ImpatienceWrathTrain, ImpatienceWrathForce, DarkBabySword, DarkGoldCoins, DarkRingOfGreed, DarkMeatMallet, DarkCauldron, DarkFistfulOfSteel, DarkBlade, Wolfskin, BloodDemonBlade, Seelenreisser, UnluckyPants, SkullOfDarkness, SpectralDaggers, SpectralCape, BowlingBall, LightbladeAcademySword, LightbladeAcademyDrone, TransmuteUniques, TransmuteStack, Mjoelnir, PoisonArrow, Trident, BranchOfYggdrasil, DrinkingHorn, UselessMachine, Lightbringer, FatKnightArmor, SnowGlobe, GuardLance, HeroicCape, HeroicMask};
+    private static final ItemType[] STANDARD      = {WoodenStaff, LeatherBoots, WoodAxe, BabySword, SchoolBook, WetTowel, Pumpkin, WarAxe, Handbag, GoldCoins, RingOfGreed, LongBow, MonsterTeeth, MagicMushroom, LuckyPants, PaintingOfSolea, MeatMallet, Beheader, SevenLeaguesBoots, FistfulOfSteel, Cauldron, KeyOfWisdom, VikingHelmet, Barrel, Excalibur, HelmOfHades, MesserschmidtsReaver, DungeonDoor, ScepterOfTime, WeddingRing1, WeddingRing2, NorlsFurySword, NorlsFuryAmulet, FrozenWater, FrozenHeart, FrozenCandle, FrozenBook, WitheredCactus, WitheredToadstool, WitheredBandages, ImpatienceWrathWatch, ImpatienceWrathTrain, ImpatienceWrathForce, DarkBabySword, DarkGoldCoins, DarkRingOfGreed, DarkMeatMallet, DarkCauldron, DarkFistfulOfSteel, DarkBlade, Wolfskin, BloodDemonBlade, Seelenreisser, UnluckyPants, SkullOfDarkness, SpectralDaggers, SpectralCape, BowlingBall, LightbladeAcademySword, LightbladeAcademyDrone, TransmuteUniques, TransmuteStack, Mjoelnir, PoisonArrow, Trident, BranchOfYggdrasil};
+    private static final ItemType[] DAWN_OF_LIGHT = {WoodenStaff, LeatherBoots, WoodAxe, BabySword, SchoolBook, WetTowel, Pumpkin, WarAxe, Handbag, GoldCoins, RingOfGreed, LongBow, MonsterTeeth, MagicMushroom, LuckyPants, PaintingOfSolea, MeatMallet, Beheader, SevenLeaguesBoots, FistfulOfSteel, Cauldron, KeyOfWisdom, VikingHelmet, Barrel, Excalibur, HelmOfHades, MesserschmidtsReaver, DungeonDoor, ScepterOfTime, WeddingRing1, WeddingRing2, NorlsFurySword, NorlsFuryAmulet, FrozenWater, FrozenHeart, FrozenCandle, FrozenBook, WitheredCactus, WitheredToadstool, WitheredBandages, ImpatienceWrathWatch, ImpatienceWrathTrain, ImpatienceWrathForce, DarkBabySword, DarkGoldCoins, DarkRingOfGreed, DarkMeatMallet, DarkCauldron, DarkFistfulOfSteel, DarkBlade, Wolfskin, BloodDemonBlade, Seelenreisser, UnluckyPants, SkullOfDarkness, SpectralDaggers, SpectralCape, BowlingBall, LightbladeAcademySword, LightbladeAcademyDrone, TransmuteUniques, TransmuteStack, Mjoelnir, PoisonArrow, Trident, BranchOfYggdrasil, DrinkingHorn, UselessMachine, Lightbringer, FatKnightArmor, SnowGlobe, GuardLance, HeroicCape, HeroicMask};
 
     ItemType(int id, Class<? extends Item> itemClass) {
         this.id = id;
