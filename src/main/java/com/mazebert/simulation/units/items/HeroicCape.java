@@ -20,7 +20,7 @@ public strictfp class HeroicCape extends Item {
 
     @Override
     public String getIcon() {
-        return "0100_Wooden_Bow_512"; // TODO
+        return "hero_cape";
     }
 
     @Override

@@ -15,12 +15,12 @@ public strictfp class HeroicMask extends Item {
 
     @Override
     public String getDescription() {
-        return "Put it on. It's all it takes to become bad-ass.";
+        return "Put it on - it's all it takes to look bad-ass.";
     }
 
     @Override
     public String getIcon() {
-        return "0100_Wooden_Bow_512"; // TODO
+        return "hero_mask";
     }
 
     @Override
