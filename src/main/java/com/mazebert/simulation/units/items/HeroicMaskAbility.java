@@ -39,6 +39,6 @@ public strictfp class HeroicMaskAbility extends Ability<Tower> {
         return format.percentWithSignAndUnit(BONUS) + " experience\n" +
                 format.percentWithSignAndUnit(BONUS) + " damage\n" +
                 format.percentWithSignAndUnit(BONUS) + " crit chance\n" +
-                format.percentWithSignAndUnit(BONUS) + " luck\n";
+                format.percentWithSignAndUnit(BONUS) + " luck";
     }
 }
