@@ -12,6 +12,7 @@ import com.mazebert.simulation.systems.ExperienceSystem;
 import com.mazebert.simulation.systems.LootSystemTrainer;
 import com.mazebert.simulation.units.TestTower;
 import com.mazebert.simulation.units.creeps.Creep;
+import com.mazebert.simulation.units.creeps.CreepBuilder;
 import com.mazebert.simulation.units.items.HelmOfHades;
 import com.mazebert.simulation.units.potions.Potion;
 import com.mazebert.simulation.units.potions.PotionType;
@@ -19,7 +20,6 @@ import com.mazebert.simulation.units.wizards.Wizard;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static com.mazebert.simulation.units.creeps.CreepBuilder.creep;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.jusecase.Builders.a;
 
@@ -84,6 +84,14 @@ strictfp class UnicornTest extends SimTest {
 
         assertThat(unitGateway.hasUnit(unicorn)).isFalse();
         assertThat(wizard.gold).isEqualTo(0);
+    }
+
+    @Test
+    void creepEntersRange_death_notForOtherWizard() {
+        randomPluginTrainer.givenFloatAbs(0.0f);
+        unitGateway.addUnit(a(creep().withWizard(new Wizard())));
+
+        assertThat(unitGateway.hasUnit(unicorn)).isTrue();
     }
 
     @Test
@@ -195,5 +203,9 @@ strictfp class UnicornTest extends SimTest {
         unitGateway.addUnit(a(creep()));
 
         assertThat(wizard.interestBonus).isEqualTo(0.0f);
+    }
+
+    CreepBuilder creep() {
+        return CreepBuilder.creep().withWizard(wizard);
     }
 }

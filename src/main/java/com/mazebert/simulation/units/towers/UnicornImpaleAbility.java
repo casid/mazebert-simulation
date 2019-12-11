@@ -32,6 +32,10 @@ public strictfp class UnicornImpaleAbility extends AuraAbility<Tower, Creep> {
             return;
         }
 
+        if (creep.getWizard() != getUnit().getWizard()) {
+            return;
+        }
+
         damageSystem.dealDamage(this, getUnit(), creep, 0.2 * creep.getMaxHealth(), 0, false);
 
         if (isUnicornKilled(creep)) {
