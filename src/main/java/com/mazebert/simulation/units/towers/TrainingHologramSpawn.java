@@ -65,8 +65,11 @@ public strictfp class TrainingHologramSpawn extends Ability<Tower> implements On
 
     @Override
     public void onDeath(Creep creep) {
-        experienceSystem.grantExperience(getUnit(), creep.getExperience());
-        creep.onDeath.remove(this);
+        Tower hologram = getUnit();
+        if (hologram != null) {
+            experienceSystem.grantExperience(hologram, creep.getExperience());
+            creep.onDeath.remove(this);
+        }
     }
 
     @Override

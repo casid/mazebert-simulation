@@ -73,6 +73,19 @@ strictfp class TrainingHologramTest extends SimTest {
     }
 
     @Test
+    void sold() {
+        Gargoyle gargoyle = new Gargoyle();
+        unitGateway.addUnit(gargoyle);
+
+        whenWaveIsSpawned();
+        Creep dummy = (Creep) unitGateway.getUnit(3);
+        unitGateway.removeUnit(trainingHologram);
+        gargoyle.simulate(gargoyle.getCooldown());
+
+        assertThat(dummy.getHealth()).isEqualTo(0);
+    }
+
+    @Test
     void initializedOnBuildOnly() {
         unitGateway.removeUnit(trainingHologram);
         new TrainingHologram();
