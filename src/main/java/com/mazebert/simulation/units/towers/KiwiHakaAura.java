@@ -16,6 +16,10 @@ public strictfp class KiwiHakaAura extends AuraAbility<Kiwi, Creep> {
 
     @Override
     protected void onAuraEntered(Creep unit) {
+        if (unit.isSteady() && Sim.isDoLSeasonContent()) {
+            return;
+        }
+
         StunEffect stunEffect = unit.addAbilityStack(StunEffect.class);
         stunEffect.setDuration(haka.getRemainingDuration());
     }

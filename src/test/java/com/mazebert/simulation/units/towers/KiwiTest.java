@@ -29,6 +29,7 @@ class KiwiTest extends SimTest {
         unitGateway = new UnitGateway();
         gameGateway = new GameGateway();
         randomPlugin = randomPluginTrainer;
+        season = true;
 
         map = new TestMap(1);
         gameGateway.getGame().map = map;
@@ -51,5 +52,18 @@ class KiwiTest extends SimTest {
         creep.simulate(0.1f);
 
         assertThat(creep.getState()).isEqualTo(CreepState.Hit);
+    }
+
+    @Test
+    void haka_stunImmune() {
+        Creep creep = a(creep());
+        creep.setSteady(true);
+        unitGateway.addUnit(creep);
+
+        kiwi.getAbility(KiwiHaka.class).activate();
+        kiwi.simulate(0.1f);
+        creep.simulate(0.1f);
+
+        assertThat(creep.getState()).isEqualTo(CreepState.Running);
     }
 }
