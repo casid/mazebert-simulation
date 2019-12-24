@@ -69,6 +69,6 @@ public strictfp class UnicornExperienceAbility extends Ability<Tower> implements
 
     @Override
     public String getLevelBonus() {
-        return format.percentWithSignAndUnit(interestBonus) + " interest";
+        return format.percentWithSignAndUnit(interestBonus) + " interest rate";
     }
 }
