@@ -9,6 +9,7 @@ import com.mazebert.simulation.units.towers.Tower;
 
 public strictfp class UnionEffect extends Ability<Creep> implements OnCreepHealthChangedListener {
     private final UnitGateway unitGateway = Sim.context().unitGateway;
+    private final int version = Sim.context().version;
 
     @Override
     protected void initialize(Creep unit) {
@@ -26,9 +27,11 @@ public strictfp class UnionEffect extends Ability<Creep> implements OnCreepHealt
     public void onHealthChanged(Tower tower, Creep creep, double oldHealth, double newHealth) {
         unitGateway.forEachCreep(c -> {
             if (c != creep && c.getWave() == creep.getWave()) {
-                c.setHealth(tower, newHealth, false);
-                if (c.isDead() && tower != null) {
-                    tower.onKill.dispatch(c);
+                if (version < Sim.v19 || !c.isDead()) {
+                    c.setHealth(tower, newHealth, false);
+                    if (c.isDead() && tower != null) {
+                        tower.onKill.dispatch(c);
+                    }
                 }
             }
         });

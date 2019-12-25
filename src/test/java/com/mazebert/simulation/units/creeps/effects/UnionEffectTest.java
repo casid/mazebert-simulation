@@ -1,5 +1,6 @@
 package com.mazebert.simulation.units.creeps.effects;
 
+import com.mazebert.simulation.Sim;
 import com.mazebert.simulation.SimTest;
 import com.mazebert.simulation.SimulationListeners;
 import com.mazebert.simulation.gateways.UnitGateway;
@@ -90,6 +91,26 @@ class UnionEffectTest extends SimTest {
 
         assertThat(creep1.getHealth()).isEqualTo(0);
         assertThat(creep2.getHealth()).isEqualTo(100);
+    }
+
+    @Test
+    void instantKill_dot() {
+        version = Sim.v19;
+        Creep creep1 = a(creep());
+        creep1.addAbility(new UnionEffect());
+        unitGateway.addUnit(creep1);
+
+        Creep creep2 = a(creep());
+        creep2.addAbility(new UnionEffect());
+        creep2.setWave(creep1.getWave());
+        unitGateway.addUnit(creep2);
+
+        tower = new Mummy();
+
+        whenTowerAttacks();
+        damageSystemTrainer.dealDamage(tower, tower, creep2);
+
+        assertThat(tower.getExperience()).isEqualTo(2); // mummy kill counts only once!
     }
 
     @Test
