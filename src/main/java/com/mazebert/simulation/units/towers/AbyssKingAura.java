@@ -2,6 +2,7 @@ package com.mazebert.simulation.units.towers;
 
 import com.mazebert.simulation.CardCategory;
 import com.mazebert.simulation.Element;
+import com.mazebert.simulation.Sim;
 import com.mazebert.simulation.units.abilities.AuraAbility;
 
 public strictfp class AbyssKingAura extends AuraAbility<AbyssKing, Tower> {
@@ -23,7 +24,12 @@ public strictfp class AbyssKingAura extends AuraAbility<AbyssKing, Tower> {
 
     @Override
     protected void onAuraEntered(Tower unit) {
-        unit.addAbility(new AbyssKingAuraEffect(getUnit()));
+        AbyssKingAuraEffect ability = new AbyssKingAuraEffect(getUnit());
+        unit.addAbility(ability);
+
+        if (Sim.context().version >= Sim.v19) {
+            ability.update(armySize);
+        }
     }
 
     @Override

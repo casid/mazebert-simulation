@@ -1,5 +1,6 @@
 package com.mazebert.simulation.units.towers;
 
+import com.mazebert.simulation.Sim;
 import com.mazebert.simulation.SimTest;
 import com.mazebert.simulation.SimulationListeners;
 import com.mazebert.simulation.gateways.UnitGateway;
@@ -63,6 +64,22 @@ strictfp class AbyssKingTest extends SimTest {
 
         creep.setHealth(0);
         assertThat(abyssKing.getArmySize()).isEqualTo(1);
+
+        assertThat(scareCrow.getAddedRelativeBaseDamage()).isEqualTo(AbyssKingAura.damagePerUndead);
+        assertThat(scareCrow.getCritDamage()).isEqualTo(0.25f + AbyssKingAura.critDamagePerUndead);
+        assertThat(scareCrow.getCritChance()).isEqualTo(0.05f + AbyssKingAura.critChancePerUndead);
+    }
+
+    @Test
+    void towersAreInitializedCorrectly() {
+        version = Sim.v19;
+        creep.setHealth(0);
+        assertThat(abyssKing.getArmySize()).isEqualTo(1);
+
+        ScareCrow scareCrow = new ScareCrow();
+        scareCrow.setX(10);
+        scareCrow.setY(10);
+        unitGateway.addUnit(scareCrow);
 
         assertThat(scareCrow.getAddedRelativeBaseDamage()).isEqualTo(AbyssKingAura.damagePerUndead);
         assertThat(scareCrow.getCritDamage()).isEqualTo(0.25f + AbyssKingAura.critDamagePerUndead);
