@@ -1,6 +1,7 @@
 package com.mazebert.simulation.units.creeps;
 
 import com.mazebert.simulation.Path;
+import com.mazebert.simulation.Sim;
 import com.mazebert.simulation.Wave;
 import com.mazebert.simulation.hash.Hash;
 import com.mazebert.simulation.listeners.*;
@@ -304,7 +305,11 @@ public strictfp class Creep extends Unit {
             if (distance > 0) {
                 addImmobilizeResistance(0.1f);
             }
-            followPathAbility.followPath(-distance, true);
+            if (Sim.context().version >= Sim.v19) {
+                followPathAbility.followPathDistance(-distance, true);
+            } else {
+                followPathAbility.followPath(-distance, true);
+            }
         }
     }
 

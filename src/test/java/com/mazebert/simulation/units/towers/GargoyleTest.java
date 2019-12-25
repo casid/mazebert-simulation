@@ -22,6 +22,8 @@ strictfp class GargoyleTest extends SimTest {
 
     @BeforeEach
     void setUp() {
+        version = 19;
+
         simulationListeners = new SimulationListeners();
         unitGateway = new UnitGateway();
         damageSystem = new DamageSystemTrainer();
@@ -33,6 +35,7 @@ strictfp class GargoyleTest extends SimTest {
         creep = a(creep());
         creep.setPath(new Path(0.0f, -10.0f, 0.0f, 10.0f));
         creep.setY(0);
+        creep.setBaseSpeed(0.5f);
         unitGateway.addUnit(creep);
     }
 
