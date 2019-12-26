@@ -133,13 +133,33 @@ public strictfp class BuildTower extends Usecase<BuildTowerCommand> {
         for (int i = 0; i < items.length; ++i) {
             Item item = items[i];
             if (item != null) {
-                if (i >= tower.getInventorySize() || item.isForbiddenToEquip(tower) || tower.getItem(i) != null) {
-                    wizard.itemStash.add(item.getType());
-                } else {
+                if (isPossibleToTransferItem(tower, item, i)) {
                     tower.setItem(i, item);
+                } else {
+                    wizard.itemStash.add(item.getType());
                 }
             }
         }
+    }
+
+    private boolean isPossibleToTransferItem(Tower tower, Item item, int index) {
+        if (tower.isDisposed()) {
+            return false;
+        }
+
+        if (index >= tower.getInventorySize()) {
+            return false;
+        }
+
+        if (item.isForbiddenToEquip(tower)) {
+            return false;
+        }
+
+        if (tower.getItem(index) != null) {
+            return false; // already has an item equipped
+        }
+
+        return true;
     }
 
     private Tile getTile(int x, int y) {
