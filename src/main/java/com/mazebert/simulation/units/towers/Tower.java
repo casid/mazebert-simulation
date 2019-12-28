@@ -397,7 +397,11 @@ public strictfp abstract class Tower extends Unit implements CooldownUnit, Card,
     }
 
     public boolean isNegativeAbilityTriggered(float chance) {
-        return Sim.context().randomPlugin.getFloatAbs() * luck <= chance;
+        if (version < Sim.v19) {
+            return Sim.context().randomPlugin.getFloatAbs() * luck <= chance;
+        } else {
+            return !isAbilityTriggered(1.0f - chance);
+        }
     }
 
     public int getKills() {
