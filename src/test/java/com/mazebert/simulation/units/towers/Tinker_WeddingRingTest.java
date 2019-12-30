@@ -22,13 +22,13 @@ public strictfp class Tinker_WeddingRingTest extends ItemTest {
 
         otherTower = new TestTower();
         otherTower.setWizard(wizard);
+        otherTower.setX(1);
         unitGateway.addUnit(otherTower);
 
         whenItemIsEquipped(tinker, ItemType.WeddingRing1);
         whenItemIsEquipped(otherTower, ItemType.WeddingRing2);
 
-        tinker.simulate(WeddingRingSystem.SECONDS_FOR_MARRIAGE);
-        otherTower.simulate(WeddingRingSystem.SECONDS_FOR_MARRIAGE);
+        simulationListeners.onUpdate.dispatch(WeddingRingSystem.SECONDS_FOR_MARRIAGE);
     }
 
     @Override
@@ -46,7 +46,7 @@ public strictfp class Tinker_WeddingRingTest extends ItemTest {
         whenPotionIsConsumed(otherTower, PotionType.ChangeSex);
 
         assertThat(tinker.getGender()).isEqualTo(Gender.Female);
-        assertThat(tinker.getLuck()).isEqualTo(1.0999999f);
+        assertThat(tinker.getLuck()).isEqualTo(1.05f);
     }
 
     @Test
@@ -56,6 +56,6 @@ public strictfp class Tinker_WeddingRingTest extends ItemTest {
         whenPotionIsConsumed(otherTower, PotionType.RareSpeed);
         whenPotionIsConsumed(otherTower, PotionType.RareSpeed);
 
-        assertThat(tinker.getLuck()).isEqualTo(1.0659999f);
+        assertThat(tinker.getLuck()).isEqualTo(1.05f);
     }
 }
