@@ -1,6 +1,7 @@
 package com.mazebert.simulation.units.potions;
 
 import com.mazebert.simulation.Rarity;
+import com.mazebert.simulation.Sim;
 
 public strictfp class UnicornTears extends Potion {
 
@@ -53,5 +54,14 @@ public strictfp class UnicornTears extends Potion {
 
     public void setLevels(int levels) {
         unicornTearsAbility.setLevels(levels);
+    }
+
+    @Override
+    public Potion copy() {
+        UnicornTears copy = (UnicornTears)super.copy();
+        if (Sim.context().version >= Sim.v19) {
+            copy.setLevels(unicornTearsAbility.getLevels());
+        }
+        return copy;
     }
 }

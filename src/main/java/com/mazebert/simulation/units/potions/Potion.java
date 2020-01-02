@@ -4,6 +4,7 @@ import com.mazebert.java8.Consumer;
 import com.mazebert.simulation.Card;
 import com.mazebert.simulation.Rarity;
 import com.mazebert.simulation.units.abilities.Ability;
+import com.mazebert.simulation.units.towers.Tower;
 
 public strictfp abstract class Potion implements Card {
     private final Ability[] abilities;
@@ -56,5 +57,14 @@ public strictfp abstract class Potion implements Card {
     @SuppressWarnings("unchecked")
     public <T extends Ability> T getAbility(int index, Class<T> abilityClass) {
         return (T)abilities[index];
+    }
+
+    public Potion copy() {
+        return getType().create();
+    }
+
+    public void applyTo(Tower tower) {
+        Potion potion = copy();
+        potion.forEachAbility(tower::addAbility);
     }
 }

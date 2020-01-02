@@ -33,8 +33,7 @@ public strictfp class WeddingRingPlayerSystem implements OnPotionConsumedListene
     public void onPotionConsumed(Tower tower, Potion potion) {
         Tower otherTower = getOtherTower(tower);
         if (otherTower != null) {
-            potion = potion.getType().create();
-            potion.forEachAbility(otherTower::addAbility);
+            potion.applyTo(otherTower);
         }
     }
 

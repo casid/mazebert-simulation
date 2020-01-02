@@ -38,10 +38,7 @@ public strictfp class BranchOfYggdrasilAbility extends Ability<Tower> implements
 
     @Override
     public void onPotionConsumed(Tower yggdrasil, Potion potion) {
-        Tower tower = getUnit();
-
-        potion = potion.getType().create();
-        potion.forEachAbility(tower::addAbility);
+        potion.applyTo(getUnit());
     }
 
     @Override

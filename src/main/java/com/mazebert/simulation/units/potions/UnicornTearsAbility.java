@@ -12,6 +12,10 @@ public strictfp class UnicornTearsAbility extends Ability<Tower> {
         this.levels = levels;
     }
 
+    public int getLevels() {
+        return levels;
+    }
+
     @Override
     protected void initialize(Tower unit) {
         super.initialize(unit);
