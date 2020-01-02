@@ -23,6 +23,7 @@ public strictfp class Tinker_WeddingRingTest extends ItemTest {
         otherTower = new TestTower();
         otherTower.setWizard(wizard);
         otherTower.setX(1);
+        otherTower.setGender(Gender.Male);
         unitGateway.addUnit(otherTower);
 
         whenItemIsEquipped(tinker, ItemType.WeddingRing1);
