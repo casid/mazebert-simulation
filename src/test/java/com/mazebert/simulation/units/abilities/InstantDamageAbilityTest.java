@@ -471,7 +471,7 @@ public strictfp class InstantDamageAbilityTest extends SimTest {
     void missChance_miss() {
         tower.setBaseDamage(10.0f);
         tower.setChanceToMiss(0.5f);
-        randomPluginTrainer.givenFloatAbs(0.1f);
+        randomPluginTrainer.givenFloatAbs(0.9f);
 
         whenTowerAttacks();
 
@@ -482,7 +482,7 @@ public strictfp class InstantDamageAbilityTest extends SimTest {
     void missChance_hit() {
         tower.setBaseDamage(10.0f);
         tower.setChanceToMiss(0.5f);
-        randomPluginTrainer.givenFloatAbs(0.6f);
+        randomPluginTrainer.givenFloatAbs(0.4f);
 
         whenTowerAttacks();
 
@@ -493,7 +493,7 @@ public strictfp class InstantDamageAbilityTest extends SimTest {
     void missChance_creep_miss() {
         tower.setBaseDamage(10.0f);
         creep.addChanceToMiss(0.5f);
-        randomPluginTrainer.givenFloatAbs(0.1f);
+        randomPluginTrainer.givenFloatAbs(0.9f);
 
         whenTowerAttacks();
 
@@ -504,7 +504,7 @@ public strictfp class InstantDamageAbilityTest extends SimTest {
     void missChance_creep_hit() {
         tower.setBaseDamage(10.0f);
         creep.addChanceToMiss(0.5f);
-        randomPluginTrainer.givenFloatAbs(0.6f);
+        randomPluginTrainer.givenFloatAbs(0.4f);
 
         whenTowerAttacks();
 

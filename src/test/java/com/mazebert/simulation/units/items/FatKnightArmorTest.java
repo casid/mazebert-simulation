@@ -49,4 +49,12 @@ strictfp class FatKnightArmorTest extends ItemTest {
 
         assertThat(rabbit.getInventorySize()).isEqualTo(4);
     }
+
+    @Test
+    void dupeIsNotPossible() {
+        whenItemIsEquipped(ItemType.FatKnightArmor, 3);
+        whenItemIsEquipped(null, 3);
+
+        assertThat(wizard.itemStash.get(ItemType.FatKnightArmor).amount).isEqualTo(1);
+    }
 }

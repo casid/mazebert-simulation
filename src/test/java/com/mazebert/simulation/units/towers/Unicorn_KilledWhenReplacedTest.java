@@ -24,7 +24,7 @@ strictfp class Unicorn_KilledWhenReplacedTest extends ItemTest {
      */
     @Test
     void testItemsReturnToInventory() {
-        randomPluginTrainer.givenFloatAbs(0.0f);
+        randomPluginTrainer.givenFloatAbs(0.9f);
         unitGateway.addUnit(a(creep()));
         whenItemIsEquipped(ItemType.BabySword, 1);
         whenItemIsEquipped(ItemType.BabySword, 2);

@@ -49,7 +49,7 @@ strictfp class NoviceWizardTest extends SimTest {
         randomPluginTrainer.givenFloatAbs(
                 0.0f, // spell triggered
                 0.3f, // time warp
-                0.0f // warp forward
+                0.9f // warp forward
         );
 
         whenNoviceWizardAttacks();
@@ -65,7 +65,7 @@ strictfp class NoviceWizardTest extends SimTest {
         randomPluginTrainer.givenFloatAbs(
                 0.0f, // spell triggered
                 0.3f, // time warp
-                0.9f // warp backward
+                0.0f // warp backward
         );
 
         whenNoviceWizardAttacks();
@@ -84,7 +84,7 @@ strictfp class NoviceWizardTest extends SimTest {
         randomPluginTrainer.givenFloatAbs(
                 0.0f, // spell triggered
                 0.3f, // time warp
-                0.9f // warp backward
+                0.0f // warp backward
         );
 
         whenNoviceWizardAttacks();
@@ -98,7 +98,7 @@ strictfp class NoviceWizardTest extends SimTest {
         randomPluginTrainer.givenFloatAbs(
                 0.0f, // spell triggered
                 0.3f, // time warp
-                0.9f // warp backward
+                0.0f // warp backward
         );
 
         whenNoviceWizardAttacks();
@@ -113,7 +113,7 @@ strictfp class NoviceWizardTest extends SimTest {
         randomPluginTrainer.givenFloatAbs(
                 0.0f, // spell triggered
                 0.3f, // time warp
-                0.9f // warp backward
+                0.0f // warp backward
         );
 
         whenNoviceWizardAttacks();
@@ -127,7 +127,7 @@ strictfp class NoviceWizardTest extends SimTest {
         randomPluginTrainer.givenFloatAbs(
                 0.0f, // spell triggered
                 0.6f, // banish
-                0.9f // more damage
+                0.0f // more damage
         );
 
         whenNoviceWizardAttacks();
@@ -140,10 +140,10 @@ strictfp class NoviceWizardTest extends SimTest {
         randomPluginTrainer.givenFloatAbs(
                 0.0f, // spell triggered
                 0.6f, // banish
-                0.9f, // more damage
+                0.0f, // more damage
                 0.0f, // spell triggered
                 0.6f, // banish
-                0.9f // more damage
+                0.0f // more damage
         );
 
         whenNoviceWizardAttacks();
@@ -157,7 +157,7 @@ strictfp class NoviceWizardTest extends SimTest {
         randomPluginTrainer.givenFloatAbs(
                 0.0f, // spell triggered
                 0.6f, // banish
-                0.0f // less damage
+                0.9f // less damage
         );
 
         whenNoviceWizardAttacks();

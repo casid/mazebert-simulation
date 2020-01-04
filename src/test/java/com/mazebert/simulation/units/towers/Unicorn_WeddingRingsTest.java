@@ -46,6 +46,7 @@ class Unicorn_WeddingRingsTest extends ItemTest {
 
         simulationListeners.onUpdate.dispatch(WeddingRingSystem.SECONDS_FOR_MARRIAGE);
 
+        randomPluginTrainer.givenFloatAbs(0.9f);
         unitGateway.addUnit(a(creep().withWizard(wizard)));
     }
 

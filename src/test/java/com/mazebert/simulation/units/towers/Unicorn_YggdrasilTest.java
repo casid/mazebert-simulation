@@ -29,8 +29,6 @@ class Unicorn_YggdrasilTest extends ItemTest {
 
     @BeforeEach
     void setUp() {
-        weddingRingSystem = new WeddingRingSystem();
-
         unicorn.setLevel(50);
 
         tower1 = new TestTower();
@@ -56,6 +54,7 @@ class Unicorn_YggdrasilTest extends ItemTest {
         whenItemIsEquipped(tower1, ItemType.BranchOfYggdrasil);
         whenItemIsEquipped(tower2, ItemType.BranchOfYggdrasil);
 
+        randomPluginTrainer.givenFloatAbs(0.99f);
         unitGateway.addUnit(a(creep().withWizard(wizard)));
     }
 

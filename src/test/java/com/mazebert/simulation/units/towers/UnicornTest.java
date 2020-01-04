@@ -79,7 +79,7 @@ strictfp class UnicornTest extends SimTest {
 
     @Test
     void creepEntersRange_death() {
-        randomPluginTrainer.givenFloatAbs(0.0f);
+        randomPluginTrainer.givenFloatAbs(0.9f);
         unitGateway.addUnit(a(creep()));
 
         assertThat(unitGateway.hasUnit(unicorn)).isFalse();
@@ -88,7 +88,7 @@ strictfp class UnicornTest extends SimTest {
 
     @Test
     void creepEntersRange_death_notForOtherWizard() {
-        randomPluginTrainer.givenFloatAbs(0.0f);
+        randomPluginTrainer.givenFloatAbs(0.9f);
         unitGateway.addUnit(a(creep().withWizard(new Wizard())));
 
         assertThat(unitGateway.hasUnit(unicorn)).isTrue();
@@ -98,7 +98,7 @@ strictfp class UnicornTest extends SimTest {
     void creepEntersRange_death_tears() {
         unicorn.setExperience(Balancing.getTowerExperienceForLevel(10) + 1.0f);
         Tower tower = new TestTower();
-        randomPluginTrainer.givenFloatAbs(0.0f);
+        randomPluginTrainer.givenFloatAbs(0.9f);
         unitGateway.addUnit(a(creep()));
 
         StashEntry<Potion> tears = wizard.potionStash.get(PotionType.UnicornTears);
@@ -152,7 +152,7 @@ strictfp class UnicornTest extends SimTest {
 
     @Test
     void creepEntersRange_death_notForChallenge() {
-        randomPluginTrainer.givenFloatAbs(0.0f);
+        randomPluginTrainer.givenFloatAbs(0.9f);
         unitGateway.addUnit(a(creep().challenge()));
 
         assertThat(unitGateway.hasUnit(unicorn)).isTrue();
@@ -160,7 +160,7 @@ strictfp class UnicornTest extends SimTest {
 
     @Test
     void creepEntersRange_death_notForMassChallenge() {
-        randomPluginTrainer.givenFloatAbs(0.0f);
+        randomPluginTrainer.givenFloatAbs(0.9f);
         unitGateway.addUnit(a(creep().massChallenge()));
 
         assertThat(unitGateway.hasUnit(unicorn)).isTrue();
@@ -168,7 +168,7 @@ strictfp class UnicornTest extends SimTest {
 
     @Test
     void creepEntersRange_death_forHorseman() {
-        randomPluginTrainer.givenFloatAbs(0.0f);
+        randomPluginTrainer.givenFloatAbs(0.9f);
         unitGateway.addUnit(a(creep().horseman()));
 
         assertThat(unitGateway.hasUnit(unicorn)).isFalse();
@@ -176,7 +176,7 @@ strictfp class UnicornTest extends SimTest {
 
     @Test
     void creepEntersRange_death_notForAir() {
-        randomPluginTrainer.givenFloatAbs(0.0f);
+        randomPluginTrainer.givenFloatAbs(0.9f);
         unitGateway.addUnit(a(creep().air()));
 
         assertThat(unitGateway.hasUnit(unicorn)).isTrue();
@@ -186,7 +186,7 @@ strictfp class UnicornTest extends SimTest {
     void creepEntersRange_death_notWhenInvisible() {
         unicorn.setItem(0, new HelmOfHades());
 
-        randomPluginTrainer.givenFloatAbs(0.0f);
+        randomPluginTrainer.givenFloatAbs(0.9f);
         unitGateway.addUnit(a(creep()));
 
         assertThat(unitGateway.hasUnit(unicorn)).isTrue();
@@ -199,7 +199,7 @@ strictfp class UnicornTest extends SimTest {
 
     @Test
     void interest_death() {
-        randomPluginTrainer.givenFloatAbs(0.0f);
+        randomPluginTrainer.givenFloatAbs(0.9f);
         unitGateway.addUnit(a(creep()));
 
         assertThat(wizard.interestBonus).isEqualTo(0.0f);
