@@ -42,7 +42,7 @@ public strictfp class SnowGlobeCreateItem extends Ability<Tower> implements OnTo
 
         Tower tower = towerType.create();
 
-        List<Ability> abilities = new ArrayList<>();
+        List<Ability<?>> abilities = new ArrayList<>();
         tower.forEachAbility(a -> {
             if (isSupportedAbility(a)) {
                 tower.removeAbility(a);
@@ -57,7 +57,7 @@ public strictfp class SnowGlobeCreateItem extends Ability<Tower> implements OnTo
         tower.dispose();
     }
 
-    private boolean isSupportedAbility(Ability ability) {
+    private boolean isSupportedAbility(Ability<?> ability) {
         if (ability instanceof AttackAbility) {
             return false;
         }
