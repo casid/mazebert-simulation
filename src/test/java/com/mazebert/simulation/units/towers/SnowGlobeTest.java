@@ -189,6 +189,23 @@ strictfp class SnowGlobeTest extends SimTest {
     }
 
     @Test
+    void guard_rangeBonus_helmOfHades() {
+        givenTowerToReplace(TowerType.Guard);
+        whenTowerIsBuilt(TowerType.SnowGlobe);
+
+        Tower ripper = whenTowerIsBuilt(wizard, TowerType.TheRipper, 0, 0);
+        whenItemIsEquipped(ripper, ItemType.SnowGlobe, 0);
+        whenTowerIsBuilt(wizard, TowerType.Guard, 2, 0);
+        assertThat(ripper.getAddedAbsoluteBaseDamage()).isEqualTo(0);
+
+        whenItemIsEquipped(ripper, ItemType.HelmOfHades, 1);
+        assertThat(ripper.getAddedAbsoluteBaseDamage()).isEqualTo(4);
+
+        whenItemIsEquipped(ripper, null, 1);
+        assertThat(ripper.getAddedAbsoluteBaseDamage()).isEqualTo(0);
+    }
+
+    @Test
     void guard_itemBonus() {
         givenTowerToReplace(TowerType.Guard);
         whenTowerIsBuilt(TowerType.SnowGlobe);
@@ -213,13 +230,13 @@ strictfp class SnowGlobeTest extends SimTest {
         whenTowerIsBuilt(wizard, towerType, 0, 0);
     }
 
-    private void thenSnowGlobeAbilitiesAre(Class... ablities) {
+    private void thenSnowGlobeAbilitiesAre(Class<?>... abilities) {
         assertThat(unitGateway.getAmount(Tower.class)).isZero();
 
-        List<Class> actual = new ArrayList<>();
+        List<Class<?>> actual = new ArrayList<>();
         Item snowGlobe = getSnowGlobeItem();
         snowGlobe.forEachAbility(a -> actual.add(a.getClass()));
-        assertThat(actual).containsExactly(ablities);
+        assertThat(actual).containsExactly(abilities);
     }
 
     private Item getSnowGlobeItem() {

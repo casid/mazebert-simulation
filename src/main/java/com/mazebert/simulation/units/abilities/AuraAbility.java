@@ -29,6 +29,7 @@ public abstract strictfp class AuraAbility<S extends Unit, T extends Unit> exten
     private final CardCategory origin;
     private final Class<T> targetClass;
     private float range;
+    private float initialRange;
 
     private T[] active;
     private int activeSize;
@@ -40,7 +41,7 @@ public abstract strictfp class AuraAbility<S extends Unit, T extends Unit> exten
     public AuraAbility(CardCategory origin, Class<T> targetClass, float range) {
         this.origin = origin;
         this.targetClass = targetClass;
-        this.range = range;
+        this.range = this.initialRange = range;
     }
 
     public void setRange(float range) {
@@ -122,7 +123,11 @@ public abstract strictfp class AuraAbility<S extends Unit, T extends Unit> exten
     }
 
     private boolean isRangeDynamic() {
-        return range == 0 && getUnit() instanceof Tower;
+        if (version >= Sim.v19) {
+            return initialRange == 0 && getUnit() instanceof Tower;
+        } else {
+            return range == 0 && getUnit() instanceof Tower;
+        }
     }
 
     @Override

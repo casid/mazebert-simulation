@@ -1,6 +1,7 @@
 package com.mazebert.simulation.units.towers;
 
 import com.mazebert.simulation.CardCategory;
+import com.mazebert.simulation.Sim;
 import com.mazebert.simulation.units.abilities.AuraAbility;
 import com.mazebert.simulation.units.items.GuardLanceAbility;
 
@@ -13,7 +14,7 @@ public strictfp class GuardAura extends AuraAbility<Tower, Tower> {
     }
 
     public GuardAura(float range, float baseDamageBonus) {
-        super(CardCategory.Tower, Tower.class, range);
+        super(CardCategory.Tower, Tower.class, Sim.context().version >= Sim.v19 ? 0 : range);
         this.baseDamageBonus = baseDamageBonus;
     }
 
