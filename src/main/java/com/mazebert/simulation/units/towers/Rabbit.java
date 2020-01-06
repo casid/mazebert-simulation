@@ -35,7 +35,7 @@ public strictfp class Rabbit extends Tower {
 
     @Override
     public String getDescription() {
-        return "Baby Rabbit is a natural killer. His carrots are deadly and feared by most creeps.";
+        return "Baby Rabbit is cute and likes to share his carrots.";
     }
 
     @Override
