@@ -23,6 +23,6 @@ public class OnlyDarknessQuestTest extends SimTest {
     void description() {
         formatPlugin = new FormatPlugin();
         OnlyDarknessQuest quest = new OnlyDarknessQuest();
-        assertThat(quest.getDescription()).isEqualTo("Win a game with  and <c=#444444>Darkness</c> towers only.");
+        assertThat(quest.getDescription()).isEqualTo("Win a game with <c=#444444>Darkness</c> towers only.");
     }
 }
