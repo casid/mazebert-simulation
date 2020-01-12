@@ -75,10 +75,12 @@ public abstract strictfp class RestrictedElementsQuest extends Quest implements 
         StringBuilder result = new StringBuilder("Win a game with ");
         int i = 0;
         for (Element allowedElement : allowedElements) {
-            if (i == allowedElements.size() - 1) {
-                result.append(" and ");
-            } else if (i > 0) {
-                result.append(", ");
+            if (i > 0) {
+                if (i == allowedElements.size() - 1) {
+                    result.append(" and ");
+                } else {
+                    result.append(", ");
+                }
             }
 
             result.append(format.element(allowedElement));
