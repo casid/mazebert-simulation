@@ -1,6 +1,7 @@
 package com.mazebert.simulation.units.towers;
 
 import com.mazebert.simulation.AttackType;
+import com.mazebert.simulation.Context;
 import com.mazebert.simulation.Element;
 import com.mazebert.simulation.Rarity;
 import com.mazebert.simulation.units.Gender;
@@ -36,7 +37,7 @@ public strictfp class MoneyBin extends Tower {
 
     @Override
     public String getDescription() {
-        return "You will swim in money.";
+        return "You will swim in " + Context.currency.pluralLowercase + ".";
     }
 
     @Override
