@@ -135,7 +135,7 @@ public strictfp class BuildTower extends Usecase<BuildTowerCommand> {
             if (item != null) {
                 if (isPossibleToTransferItem(tower, item, i)) {
                     tower.setItem(i, item);
-                } else {
+                } else if (item.isAllowedToReturnToInventory()) {
                     wizard.itemStash.add(item.getType());
                 }
             }

@@ -1,6 +1,9 @@
 package com.mazebert.simulation.units.items;
 
 import com.mazebert.simulation.Rarity;
+import com.mazebert.simulation.Sim;
+import com.mazebert.simulation.units.towers.Tower;
+import com.mazebert.simulation.units.towers.TowerType;
 
 public strictfp class Lightbringer extends Item {
 
@@ -51,5 +54,18 @@ public strictfp class Lightbringer extends Item {
     @Override
     public boolean isLight() {
         return true;
+    }
+
+    @Override
+    public boolean isForbiddenToEquip(Tower tower) {
+        if (Sim.context().version < Sim.v20) {
+            return false;
+        }
+        return tower.getType() != TowerType.Lucifer;
+    }
+
+    @Override
+    public boolean isAllowedToReturnToInventory() {
+        return Sim.context().version < Sim.v20;
     }
 }

@@ -1,5 +1,6 @@
 package com.mazebert.simulation.units.towers;
 
+import com.mazebert.simulation.Sim;
 import com.mazebert.simulation.projectiles.ProjectileGateway;
 import com.mazebert.simulation.units.creeps.Creep;
 import com.mazebert.simulation.units.items.BabySword;
@@ -46,11 +47,9 @@ class LuciferTest extends ItemTest {
     }
 
     @Test
-    void swordRemoved_lightbringerIsReplacedByDarkSwords() {
+    void swordRemoved_destroyed() {
         whenItemIsEquipped(null);
-
         assertThat(wizard.itemStash.get(ItemType.Lightbringer)).isNull();
-        // TODO
     }
 
     @Test
@@ -63,7 +62,21 @@ class LuciferTest extends ItemTest {
     }
 
     @Test
-    void luciferIsReplaced() {
+    void luciferIsReplaced_v19() {
+        version = Sim.v19;
+
+        Tower dandelion = whenTowerIsReplaced(lucifer, TowerType.Dandelion);
+
+        assertThat(unitGateway.hasUnit(lucifer)).isFalse();
+        assertThat(getLuciferFallen()).isNull();
+        assertThat(wizard.itemStash.get(ItemType.Lightbringer)).isNull();
+        assertThat(dandelion.getItem(0)).isInstanceOf(Lightbringer.class); // leaked in old versions
+    }
+
+    @Test
+    void luciferIsReplaced_v20() {
+        version = Sim.v20;
+
         whenTowerIsReplaced(lucifer, TowerType.Dandelion);
 
         assertThat(unitGateway.hasUnit(lucifer)).isFalse();

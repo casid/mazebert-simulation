@@ -17,6 +17,7 @@ public strictfp class Sim {
     public static final int v17 = 17;
     public static final int vDoL = 18; // Dawn of Light release
     public static final int v19 = 19;
+    public static final int v20 = 20; // Dawn of Light season end merge
 
     // For android 19 compatibility
     private static ThreadLocal<Context> context = new ThreadLocal<Context>() {

@@ -81,4 +81,8 @@ public strictfp abstract class Item implements Card {
     public boolean isForbiddenToEquip(Tower tower) {
         return false;
     }
+
+    public boolean isAllowedToReturnToInventory() {
+        return true;
+    }
 }
