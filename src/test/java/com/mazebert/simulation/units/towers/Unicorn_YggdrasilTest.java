@@ -2,7 +2,6 @@ package com.mazebert.simulation.units.towers;
 
 import com.mazebert.simulation.Element;
 import com.mazebert.simulation.Sim;
-import com.mazebert.simulation.systems.WeddingRingSystem;
 import com.mazebert.simulation.units.TestTower;
 import com.mazebert.simulation.units.items.ItemTest;
 import com.mazebert.simulation.units.items.ItemType;
@@ -51,8 +50,8 @@ class Unicorn_YggdrasilTest extends ItemTest {
         whenItemIsEquipped(yggdrasil, null, 0);
         whenItemIsEquipped(yggdrasil, null, 1);
 
-        whenItemIsEquipped(tower1, ItemType.BranchOfYggdrasil);
-        whenItemIsEquipped(tower2, ItemType.BranchOfYggdrasil);
+        whenItemIsEquipped(tower1, ItemType.BranchOfYggdrasilLegacy);
+        whenItemIsEquipped(tower2, ItemType.BranchOfYggdrasilLegacy);
 
         randomPluginTrainer.givenFloatAbs(0.99f);
         unitGateway.addUnit(a(creep().withWizard(wizard)));

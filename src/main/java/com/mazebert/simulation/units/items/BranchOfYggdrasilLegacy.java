@@ -5,10 +5,10 @@ import com.mazebert.simulation.Rarity;
 import com.mazebert.simulation.units.towers.Tower;
 import com.mazebert.simulation.units.towers.Yggdrasil;
 
-public strictfp class BranchOfYggdrasil extends Item {
+public strictfp class BranchOfYggdrasilLegacy extends Item {
 
-    public BranchOfYggdrasil() {
-        super(new BranchOfYggdrasilAbility());
+    public BranchOfYggdrasilLegacy() {
+        super(new BranchOfYggdrasilLegacyAbility());
     }
 
     @Override

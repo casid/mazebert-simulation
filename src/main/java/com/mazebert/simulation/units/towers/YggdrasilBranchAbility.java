@@ -5,7 +5,7 @@ import com.mazebert.simulation.gateways.UnitGateway;
 import com.mazebert.simulation.listeners.OnUnitAddedListener;
 import com.mazebert.simulation.units.Unit;
 import com.mazebert.simulation.units.abilities.Ability;
-import com.mazebert.simulation.units.items.BranchOfYggdrasil;
+import com.mazebert.simulation.units.items.BranchOfYggdrasilLegacy;
 
 public strictfp class YggdrasilBranchAbility extends Ability<Yggdrasil> implements OnUnitAddedListener {
     private final UnitGateway unitGateway = Sim.context().unitGateway;
@@ -28,7 +28,7 @@ public strictfp class YggdrasilBranchAbility extends Ability<Yggdrasil> implemen
         unitGateway.returnAllItemsToInventory(getUnit());
 
         for (int i = 0; i < yggdrasil.getInventorySize(); ++i) {
-            BranchOfYggdrasil item = new BranchOfYggdrasil();
+            BranchOfYggdrasilLegacy item = new BranchOfYggdrasilLegacy();
             yggdrasil.setItem(i, item);
         }
     }

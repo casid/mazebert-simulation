@@ -161,7 +161,7 @@ strictfp class WeddingRingTest extends ItemTest {
 
         simulationListeners.onUpdate.dispatch(WeddingRingSystem.SECONDS_FOR_MARRIAGE);
 
-        whenItemIsEquipped(tower, ItemType.BranchOfYggdrasil, 1);
+        whenItemIsEquipped(tower, ItemType.BranchOfYggdrasilLegacy, 1);
         whenPotionIsConsumed(yggdrasil, PotionType.CommonSpeed);
 
         assertThat(tower.getAttackSpeedAdd()).isEqualTo(0.08f);
@@ -180,7 +180,7 @@ strictfp class WeddingRingTest extends ItemTest {
 
         simulationListeners.onUpdate.dispatch(WeddingRingSystem.SECONDS_FOR_MARRIAGE);
 
-        whenItemIsEquipped(tower, ItemType.BranchOfYggdrasil, 1);
+        whenItemIsEquipped(tower, ItemType.BranchOfYggdrasilLegacy, 1);
         whenPotionIsConsumed(tower, PotionType.CommonSpeed);
 
         assertThat(tower.getAttackSpeedAdd()).isEqualTo(0.04f);
@@ -199,10 +199,10 @@ strictfp class WeddingRingTest extends ItemTest {
 
         simulationListeners.onUpdate.dispatch(WeddingRingSystem.SECONDS_FOR_MARRIAGE);
 
-        whenItemIsEquipped(yggdrasil, ItemType.BranchOfYggdrasil, 0);
-        whenItemIsEquipped(yggdrasil, ItemType.BranchOfYggdrasil, 1);
-        whenItemIsEquipped(tower, ItemType.BranchOfYggdrasil, 1);
-        whenItemIsEquipped(otherTower, ItemType.BranchOfYggdrasil, 1);
+        whenItemIsEquipped(yggdrasil, ItemType.BranchOfYggdrasilLegacy, 0);
+        whenItemIsEquipped(yggdrasil, ItemType.BranchOfYggdrasilLegacy, 1);
+        whenItemIsEquipped(tower, ItemType.BranchOfYggdrasilLegacy, 1);
+        whenItemIsEquipped(otherTower, ItemType.BranchOfYggdrasilLegacy, 1);
         whenPotionIsConsumed(tower, PotionType.CommonSpeed);
 
         assertThat(tower.getAttackSpeedAdd()).isEqualTo(0.04f);
@@ -222,7 +222,7 @@ strictfp class WeddingRingTest extends ItemTest {
 
         simulationListeners.onUpdate.dispatch(WeddingRingSystem.SECONDS_FOR_MARRIAGE);
 
-        whenItemIsEquipped(tower, ItemType.BranchOfYggdrasil, 1);
+        whenItemIsEquipped(tower, ItemType.BranchOfYggdrasilLegacy, 1);
         whenPotionIsConsumed(yggdrasil, PotionType.Tears);
 
         assertThat(tower.getMulticrit()).isEqualTo(3);

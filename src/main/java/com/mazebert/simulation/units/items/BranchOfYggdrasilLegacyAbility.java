@@ -8,7 +8,7 @@ import com.mazebert.simulation.units.potions.Potion;
 import com.mazebert.simulation.units.towers.Tower;
 import com.mazebert.simulation.units.towers.Yggdrasil;
 
-public strictfp class BranchOfYggdrasilAbility extends Ability<Tower> implements OnPotionConsumedListener {
+public strictfp class BranchOfYggdrasilLegacyAbility extends Ability<Tower> implements OnPotionConsumedListener {
 
     private final UnitGateway unitGateway = Sim.context().unitGateway;
 
