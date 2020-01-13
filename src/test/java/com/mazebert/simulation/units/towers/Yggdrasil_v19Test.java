@@ -1,9 +1,6 @@
 package com.mazebert.simulation.units.towers;
 
-import com.mazebert.simulation.CommandExecutor;
-import com.mazebert.simulation.Element;
-import com.mazebert.simulation.SimTest;
-import com.mazebert.simulation.SimulationListeners;
+import com.mazebert.simulation.*;
 import com.mazebert.simulation.gateways.GameGateway;
 import com.mazebert.simulation.gateways.UnitGateway;
 import com.mazebert.simulation.maps.TestMap;
@@ -19,13 +16,15 @@ import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public strictfp class YggdrasilTest extends SimTest {
+public strictfp class Yggdrasil_v19Test extends SimTest {
     Wizard wizard;
     Yggdrasil yggdrasil;
 
 
     @BeforeEach
     void setUp() {
+        version = Sim.v19;
+
         simulationListeners = new SimulationListeners();
         unitGateway = new UnitGateway();
         gameGateway = new GameGateway();
@@ -41,6 +40,11 @@ public strictfp class YggdrasilTest extends SimTest {
 
         yggdrasil = new Yggdrasil();
         yggdrasil.setWizard(wizard);
+    }
+
+    @Test
+    void element() {
+        assertThat(yggdrasil.getElement()).isEqualTo(Element.Nature);
     }
 
     @Test

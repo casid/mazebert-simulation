@@ -3,6 +3,7 @@ package com.mazebert.simulation.units.towers;
 import com.mazebert.simulation.AttackType;
 import com.mazebert.simulation.Element;
 import com.mazebert.simulation.Rarity;
+import com.mazebert.simulation.Sim;
 import com.mazebert.simulation.units.Gender;
 
 public strictfp class Yggdrasil extends Tower {
@@ -14,7 +15,11 @@ public strictfp class Yggdrasil extends Tower {
         setStrength(0.0f);
         setDamageSpread(0.0f);
         setGender(Gender.Unknown);
-        setElement(Element.Nature);
+        if (version >= Sim.v20) {
+            setElement(Element.Unknown);
+        } else {
+            setElement(Element.Nature);
+        }
 
         addAbility(new YggdrasilBranchAbility());
         addAbility(new YggdrasilPotionAbility());
