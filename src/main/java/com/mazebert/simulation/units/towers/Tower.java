@@ -2,6 +2,7 @@ package com.mazebert.simulation.units.towers;
 
 import com.mazebert.simulation.*;
 import com.mazebert.simulation.hash.Hash;
+import com.mazebert.simulation.hash.Hashable;
 import com.mazebert.simulation.listeners.*;
 import com.mazebert.simulation.plugins.FormatPlugin;
 import com.mazebert.simulation.plugins.random.RandomPlugin;
@@ -117,7 +118,7 @@ public strictfp abstract class Tower extends Unit implements CooldownUnit, Card,
         hash.add(luck);
         hash.add(itemChance);
         hash.add(itemQuality);
-        hash.add(element);
+        hash.add((Hashable) element);
         hash.add(gender);
         hash.add(attackType);
         hash.add(experienceModifier);

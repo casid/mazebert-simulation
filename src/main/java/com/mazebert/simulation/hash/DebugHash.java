@@ -34,7 +34,7 @@ public strictfp class DebugHash extends Hash {
     }
 
     @Override
-    public void add(Enum value) {
+    public void add(Enum<?> value) {
         super.add(value);
         log("enum=" + value);
     }

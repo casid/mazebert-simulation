@@ -1,6 +1,10 @@
 package com.mazebert.simulation;
 
-public strictfp enum Element {
+import com.mazebert.simulation.hash.Hash;
+import com.mazebert.simulation.hash.Hashable;
+
+public strictfp enum Element implements Hashable {
+    Unknown(0, 0x868686),
     Nature(1, 0x71864c),
     Metropolis(2, 0x868686),
     Darkness(3, 0x444444),
@@ -43,5 +47,10 @@ public strictfp enum Element {
 
     public String getName() {
         return name();
+    }
+
+    @Override
+    public void hash(Hash hash) {
+        hash.add(id);
     }
 }

@@ -25,7 +25,7 @@ public strictfp class Hash {
         add(Double.doubleToLongBits(value));
     }
 
-    public void add(Enum value) {
+    public void add(Enum<?> value) {
         if (value == null) {
             add(0);
         } else {
