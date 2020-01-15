@@ -248,7 +248,7 @@ public abstract strictfp class Stash<T extends Card> implements ReadonlyStash<T>
     }
 
     public CardType<T> getRandomDrop(Rarity rarity, RandomPlugin randomPlugin) {
-        CardType<T>[] possibleDrops = cardByDropRarity.get(rarity);
+        CardType<T>[] possibleDrops = getPossibleDrops(rarity);
         if (possibleDrops.length <= 0) {
             return null;
         }
@@ -257,8 +257,12 @@ public abstract strictfp class Stash<T extends Card> implements ReadonlyStash<T>
         return possibleDrops[dropIndex];
     }
 
+    CardType<T>[] getPossibleDrops(Rarity rarity) {
+        return cardByDropRarity.get(rarity);
+    }
+
     public CardType<T> getRandomDrop(Rarity rarity, RandomPlugin randomPlugin, int maxItemLevel, boolean excludeSupporterCards) {
-        CardType<T>[] possibleDrops = excludeSupporterCards ? cardByDropRarityExcludingSupporterCards.get(rarity) : cardByDropRarity.get(rarity);
+        CardType<T>[] possibleDrops = excludeSupporterCards ? cardByDropRarityExcludingSupporterCards.get(rarity) : getPossibleDrops(rarity);
         if (possibleDrops.length <= 0) {
             return null;
         }
