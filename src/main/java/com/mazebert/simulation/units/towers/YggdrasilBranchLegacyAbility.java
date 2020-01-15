@@ -7,7 +7,7 @@ import com.mazebert.simulation.units.Unit;
 import com.mazebert.simulation.units.abilities.Ability;
 import com.mazebert.simulation.units.items.BranchOfYggdrasilLegacy;
 
-public strictfp class YggdrasilBranchAbility extends Ability<Yggdrasil> implements OnUnitAddedListener {
+public strictfp class YggdrasilBranchLegacyAbility extends Ability<Yggdrasil> implements OnUnitAddedListener {
     private final UnitGateway unitGateway = Sim.context().unitGateway;
 
     @Override

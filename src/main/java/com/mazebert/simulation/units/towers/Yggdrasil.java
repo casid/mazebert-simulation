@@ -21,8 +21,8 @@ public strictfp class Yggdrasil extends Tower {
             setElement(Element.Nature);
         }
 
-        addAbility(new YggdrasilBranchAbility());
-        addAbility(new YggdrasilPotionAbility());
+        addAbility(new YggdrasilBranchLegacyAbility());
+        addAbility(new YggdrasilPotionLegacyAbility());
     }
 
     @Override
@@ -52,6 +52,9 @@ public strictfp class Yggdrasil extends Tower {
 
     @Override
     public String getSinceVersion() {
+        if (version >= Sim.v20) {
+            return "2.1";
+        }
         return "1.5";
     }
 

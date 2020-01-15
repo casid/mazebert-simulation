@@ -2,7 +2,7 @@ package com.mazebert.simulation.units.towers;
 
 import com.mazebert.simulation.units.abilities.Ability;
 
-public strictfp class YggdrasilPotionAbility extends Ability<Yggdrasil> {
+public strictfp class YggdrasilPotionLegacyAbility extends Ability<Yggdrasil> {
 
     @Override
     public boolean isVisibleToUser() {
