@@ -6,9 +6,7 @@ import com.mazebert.simulation.gateways.UnitGateway;
 import com.mazebert.simulation.maps.TestMap;
 import com.mazebert.simulation.systems.LootSystemTrainer;
 import com.mazebert.simulation.units.TestTower;
-import com.mazebert.simulation.units.items.BranchOfYggdrasilLegacy;
-import com.mazebert.simulation.units.items.ItemType;
-import com.mazebert.simulation.units.items.WoodenStaff;
+import com.mazebert.simulation.units.items.*;
 import com.mazebert.simulation.units.potions.PotionType;
 import com.mazebert.simulation.units.wizards.Wizard;
 import org.junit.jupiter.api.BeforeEach;
@@ -64,11 +62,11 @@ public strictfp class Yggdrasil_v20Test extends SimTest {
     }
 
     @Test
-    void potionsAreAddedToBranchCarriers() {
+    void yggdrasilReceivesNoPotionEffects() {
         whenYggdrasilIsBuilt();
         whenYggdrasilDrinksPotion();
 
-        assertThat(yggdrasil.getAttackSpeedAdd()).isEqualTo(0.04f + 4 * 0.04f);
+        assertThat(yggdrasil.getAttackSpeedAdd()).isEqualTo(0.04f);
     }
 
     @Test
@@ -81,7 +79,7 @@ public strictfp class Yggdrasil_v20Test extends SimTest {
 
         whenYggdrasilIsBuilt();
         unitGateway.returnAllItemsToInventory(yggdrasil);
-        whenBranchIsEquipped(tower, 0);
+        whenItemIsEquipped(tower, ItemType.BranchOfYggdrasilNature, 0);
 
         whenYggdrasilDrinksPotion();
 
@@ -93,13 +91,13 @@ public strictfp class Yggdrasil_v20Test extends SimTest {
     void otherBranchCarrier_tears() {
         Tower tower = new TestTower();
         tower.setX(1);
-        tower.setElement(Element.Nature);
+        tower.setElement(Element.Darkness);
         tower.setWizard(wizard);
         unitGateway.addUnit(tower);
 
         whenYggdrasilIsBuilt();
         unitGateway.returnAllItemsToInventory(yggdrasil);
-        whenBranchIsEquipped(tower, 0);
+        whenItemIsEquipped(tower, ItemType.BranchOfYggdrasilDarkness, 0);
 
         whenYggdrasilDrinksPotion(PotionType.Tears);
 
@@ -117,15 +115,15 @@ public strictfp class Yggdrasil_v20Test extends SimTest {
 
         whenYggdrasilIsBuilt();
         unitGateway.returnAllItemsToInventory(yggdrasil);
-        whenBranchIsEquipped(tower, 0);
-        whenBranchIsEquipped(tower, 1);
+        whenItemIsEquipped(tower, ItemType.BranchOfYggdrasilNature, 0);
+        whenItemIsEquipped(tower, ItemType.BranchOfYggdrasilMetropolis, 1);
 
-        assertThat(tower.getItem(0)).isInstanceOf(BranchOfYggdrasilLegacy.class);
+        assertThat(tower.getItem(0)).isInstanceOf(BranchOfYggdrasilNature.class);
         assertThat(tower.getItem(1)).isNull();
     }
 
     @Test
-    void otherBranchCarrier_onlyNatureTowers() {
+    void otherBranchCarrier_wrongBranchElement() {
         Tower tower = new TestTower();
         tower.setX(1);
         tower.setElement(Element.Metropolis);
@@ -134,13 +132,13 @@ public strictfp class Yggdrasil_v20Test extends SimTest {
 
         whenYggdrasilIsBuilt();
         unitGateway.returnAllItemsToInventory(yggdrasil);
-        whenBranchIsEquipped(tower, 0);
+        whenItemIsEquipped(tower, ItemType.BranchOfYggdrasilNature, 0);
 
         assertThat(tower.getItem(0)).isNull();
     }
 
     @Test
-    void otherBranchCarrier_removedWhenReplacedByNonNatureTower() {
+    void otherBranchCarrier_removedWhenReplacedByOtherElementTower() {
         Tower tower = new TestTower();
         tower.setX(1);
         tower.setElement(Element.Nature);
@@ -149,13 +147,13 @@ public strictfp class Yggdrasil_v20Test extends SimTest {
 
         whenYggdrasilIsBuilt();
         unitGateway.returnAllItemsToInventory(yggdrasil);
-        whenBranchIsEquipped(tower, 0);
+        whenItemIsEquipped(tower, ItemType.BranchOfYggdrasilNature, 0);
 
         whenTowerIsReplaced(tower, TowerType.Hitman);
 
         Hitman hitman = unitGateway.findUnit(Hitman.class, wizard.playerId);
         assertThat(hitman.getItem(0)).isNull();
-        assertThat(wizard.itemStash.get(ItemType.BranchOfYggdrasilLegacy).amount).isEqualTo(4);
+        assertThat(wizard.itemStash.get(ItemType.BranchOfYggdrasilNature).amount).isEqualTo(1);
     }
 
     private void whenYggdrasilIsBuilt() {
@@ -170,13 +168,10 @@ public strictfp class Yggdrasil_v20Test extends SimTest {
         whenPotionIsConsumed(yggdrasil, type);
     }
 
-    private void whenBranchIsEquipped(Tower tower, int index) {
-        whenItemIsEquipped(tower, ItemType.BranchOfYggdrasilLegacy, index);
-    }
-
     private void thenInventoryIsFilledWithBranches() {
-        for (int i = 0; i < yggdrasil.getInventorySize(); ++i) {
-            assertThat(yggdrasil.getItem(0)).isInstanceOf(BranchOfYggdrasilLegacy.class);
-        }
+        assertThat(yggdrasil.getItem(0)).isInstanceOf(BranchOfYggdrasilNature.class);
+        assertThat(yggdrasil.getItem(1)).isInstanceOf(BranchOfYggdrasilMetropolis.class);
+        assertThat(yggdrasil.getItem(2)).isInstanceOf(BranchOfYggdrasilDarkness.class);
+        assertThat(yggdrasil.getItem(3)).isInstanceOf(BranchOfYggdrasilLight.class);
     }
 }

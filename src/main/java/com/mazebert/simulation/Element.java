@@ -4,11 +4,11 @@ import com.mazebert.simulation.hash.Hash;
 import com.mazebert.simulation.hash.Hashable;
 
 public strictfp enum Element implements Hashable {
-    Unknown(0, 0x868686),
-    Nature(1, 0x71864c),
-    Metropolis(2, 0x868686),
-    Darkness(3, 0x444444),
-    Light(4, 0xffffff),
+    Unknown(0, 0x868686, "None"),
+    Nature(1, 0x71864c, "Jotunheim"),
+    Metropolis(2, 0x868686, "Midgard"),
+    Darkness(3, 0x444444, "Helheim"),
+    Light(4, 0xffffff, "Asgard"),
     ;
 
     private static Element[] LOOKUP;
@@ -35,10 +35,12 @@ public strictfp enum Element implements Hashable {
 
     public final int id;
     public final int color;
+    public final String norseWorld;
 
-    Element(int id, int color) {
+    Element(int id, int color, String norseWorld) {
         this.id = id;
         this.color = color;
+        this.norseWorld = norseWorld;
     }
 
     public static Element forId(int id) {

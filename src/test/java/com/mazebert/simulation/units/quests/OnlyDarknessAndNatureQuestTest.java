@@ -1,5 +1,6 @@
 package com.mazebert.simulation.units.quests;
 
+import com.mazebert.simulation.Sim;
 import com.mazebert.simulation.plugins.FormatPlugin;
 import com.mazebert.simulation.units.creeps.Creep;
 import com.mazebert.simulation.units.items.ItemTest;
@@ -19,6 +20,8 @@ public class OnlyDarknessAndNatureQuestTest extends ItemTest {
 
     @BeforeEach
     void setUp() {
+        version = Sim.v20;
+        wizard.gold = 100000;
         formatPlugin = new FormatPlugin();
 
         quest = new OnlyDarknessAndNatureQuest();
@@ -46,6 +49,12 @@ public class OnlyDarknessAndNatureQuestTest extends ItemTest {
         whenTowerIsReplaced(tower, TowerType.Spider);
 
         assertThat(quest.getCurrentAmount()).isEqualTo(0);
+        assertThat(wizard.getAbility(OnlyDarknessAndNatureQuest.class)).isNotNull();
+    }
+
+    @Test
+    void unknownElementBuilt() {
+        whenTowerIsReplaced(tower, TowerType.Yggdrasil);
         assertThat(wizard.getAbility(OnlyDarknessAndNatureQuest.class)).isNotNull();
     }
 

@@ -53,7 +53,7 @@ public abstract strictfp class RestrictedElementsQuest extends Quest implements 
         }
 
         Tower tower = (Tower)unit;
-        if (allowedElements.contains(tower.getElement())) {
+        if (allowedElements.contains(tower.getElement()) || tower.getElement() == Element.Unknown) {
             return false;
         }
 
@@ -72,21 +72,6 @@ public abstract strictfp class RestrictedElementsQuest extends Quest implements 
 
     @Override
     public String getDescription() {
-        StringBuilder result = new StringBuilder("Win a game with ");
-        int i = 0;
-        for (Element allowedElement : allowedElements) {
-            if (i > 0) {
-                if (i == allowedElements.size() - 1) {
-                    result.append(" and ");
-                } else {
-                    result.append(", ");
-                }
-            }
-
-            result.append(format.element(allowedElement));
-            ++i;
-        }
-        result.append(" towers only.");
-        return result.toString();
+        return format.listing("Win a game with ", allowedElements, format::element, " towers only.");
     }
 }

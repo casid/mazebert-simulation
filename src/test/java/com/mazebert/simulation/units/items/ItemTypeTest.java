@@ -6,7 +6,6 @@ import org.junit.jupiter.api.Test;
 import java.util.HashMap;
 import java.util.Map;
 
-import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.fail;
 
 class ItemTypeTest extends SimTest {
@@ -21,11 +20,5 @@ class ItemTypeTest extends SimTest {
             }
             ids.put(type.id, type);
         }
-    }
-
-    @Test
-    void allCardsAreAvailable() {
-        season = true;
-        assertThat(ItemType.getValues()).containsExactly(ItemType.values());
     }
 }

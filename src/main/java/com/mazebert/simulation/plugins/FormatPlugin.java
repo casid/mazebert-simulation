@@ -1,11 +1,13 @@
 package com.mazebert.simulation.plugins;
 
+import com.mazebert.java8.Function;
 import com.mazebert.simulation.*;
 import com.mazebert.simulation.units.Currency;
 
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
+import java.util.Collection;
 import java.util.Locale;
 
 public strictfp class FormatPlugin {
@@ -219,6 +221,10 @@ public strictfp class FormatPlugin {
         return colored(element.getName(), element.color);
     }
 
+    public String norseWorld(Element element) {
+        return colored(element.norseWorld, element.color);
+    }
+
     public String distance(float distance) {
         if (distance > 0 && distance < 1) {
             return oneFractionFormat.format(distance) + " tiles";
@@ -227,5 +233,24 @@ public strictfp class FormatPlugin {
             return "1 tile";
         }
         return noFractionFormat.format(distance) + " tiles";
+    }
+
+    public <T> String listing(String prefix, Collection<T> data, Function<T, String> mapper, String suffix) {
+        StringBuilder result = new StringBuilder(prefix);
+        int i = 0;
+        for (T item : data) {
+            if (i > 0) {
+                if (i == data.size() - 1) {
+                    result.append(" and ");
+                } else {
+                    result.append(", ");
+                }
+            }
+
+            result.append(mapper.apply(item));
+            ++i;
+        }
+        result.append(suffix);
+        return result.toString();
     }
 }

@@ -87,6 +87,10 @@ public strictfp enum ItemType implements CardType<Item> {
     GuardLance(72, GuardLance.class),
     HeroicCape(73, HeroicCape.class),
     HeroicMask(74, HeroicMask.class),
+    BranchOfYggdrasilNature(75, BranchOfYggdrasilNature.class),
+    BranchOfYggdrasilMetropolis(76, BranchOfYggdrasilMetropolis.class),
+    BranchOfYggdrasilDarkness(77, BranchOfYggdrasilDarkness.class),
+    BranchOfYggdrasilLight(78, BranchOfYggdrasilLight.class),
     ;
 
     private static int maxId;
@@ -108,6 +112,7 @@ public strictfp enum ItemType implements CardType<Item> {
 
     private static final ItemType[] STANDARD      = {WoodenStaff, LeatherBoots, WoodAxe, BabySword, SchoolBook, WetTowel, Pumpkin, WarAxe, Handbag, GoldCoins, RingOfGreed, LongBow, MonsterTeeth, MagicMushroom, LuckyPants, PaintingOfSolea, MeatMallet, Beheader, SevenLeaguesBoots, FistfulOfSteel, Cauldron, KeyOfWisdom, VikingHelmet, Barrel, Excalibur, HelmOfHades, MesserschmidtsReaver, DungeonDoor, ScepterOfTime, WeddingRing1, WeddingRing2, NorlsFurySword, NorlsFuryAmulet, FrozenWater, FrozenHeart, FrozenCandle, FrozenBook, WitheredCactus, WitheredToadstool, WitheredBandages, ImpatienceWrathWatch, ImpatienceWrathTrain, ImpatienceWrathForce, DarkBabySword, DarkGoldCoins, DarkRingOfGreed, DarkMeatMallet, DarkCauldron, DarkFistfulOfSteel, DarkBlade, Wolfskin, BloodDemonBlade, Seelenreisser, UnluckyPants, SkullOfDarkness, SpectralDaggers, SpectralCape, BowlingBall, LightbladeAcademySword, LightbladeAcademyDrone, TransmuteUniques, TransmuteStack, Mjoelnir, PoisonArrow, Trident, BranchOfYggdrasilLegacy};
     private static final ItemType[] DAWN_OF_LIGHT = {WoodenStaff, LeatherBoots, WoodAxe, BabySword, SchoolBook, WetTowel, Pumpkin, WarAxe, Handbag, GoldCoins, RingOfGreed, LongBow, MonsterTeeth, MagicMushroom, LuckyPants, PaintingOfSolea, MeatMallet, Beheader, SevenLeaguesBoots, FistfulOfSteel, Cauldron, KeyOfWisdom, VikingHelmet, Barrel, Excalibur, HelmOfHades, MesserschmidtsReaver, DungeonDoor, ScepterOfTime, WeddingRing1, WeddingRing2, NorlsFurySword, NorlsFuryAmulet, FrozenWater, FrozenHeart, FrozenCandle, FrozenBook, WitheredCactus, WitheredToadstool, WitheredBandages, ImpatienceWrathWatch, ImpatienceWrathTrain, ImpatienceWrathForce, DarkBabySword, DarkGoldCoins, DarkRingOfGreed, DarkMeatMallet, DarkCauldron, DarkFistfulOfSteel, DarkBlade, Wolfskin, BloodDemonBlade, Seelenreisser, UnluckyPants, SkullOfDarkness, SpectralDaggers, SpectralCape, BowlingBall, LightbladeAcademySword, LightbladeAcademyDrone, TransmuteUniques, TransmuteStack, Mjoelnir, PoisonArrow, Trident, BranchOfYggdrasilLegacy, DrinkingHorn, UselessMachine, Lightbringer, FatKnightArmor, SnowGlobe, GuardLance, HeroicCape, HeroicMask};
+    private static final ItemType[] STANDARD_DOL  = {WoodenStaff, LeatherBoots, WoodAxe, BabySword, SchoolBook, WetTowel, Pumpkin, WarAxe, Handbag, GoldCoins, RingOfGreed, LongBow, MonsterTeeth, MagicMushroom, LuckyPants, PaintingOfSolea, MeatMallet, Beheader, SevenLeaguesBoots, FistfulOfSteel, Cauldron, KeyOfWisdom, VikingHelmet, Barrel, Excalibur, HelmOfHades, MesserschmidtsReaver, DungeonDoor, ScepterOfTime, WeddingRing1, WeddingRing2, NorlsFurySword, NorlsFuryAmulet, FrozenWater, FrozenHeart, FrozenCandle, FrozenBook, WitheredCactus, WitheredToadstool, WitheredBandages, ImpatienceWrathWatch, ImpatienceWrathTrain, ImpatienceWrathForce, DarkBabySword, DarkGoldCoins, DarkRingOfGreed, DarkMeatMallet, DarkCauldron, DarkFistfulOfSteel, DarkBlade, Wolfskin, BloodDemonBlade, Seelenreisser, UnluckyPants, SkullOfDarkness, SpectralDaggers, SpectralCape, BowlingBall, LightbladeAcademySword, LightbladeAcademyDrone, TransmuteUniques, TransmuteStack, Mjoelnir, PoisonArrow, Trident, /*                     */DrinkingHorn, UselessMachine, Lightbringer, FatKnightArmor, SnowGlobe, GuardLance, HeroicCape, HeroicMask, BranchOfYggdrasilNature, BranchOfYggdrasilMetropolis, BranchOfYggdrasilDarkness, BranchOfYggdrasilLight};
 
     ItemType(int id, Class<? extends Item> itemClass) {
         this.id = id;
@@ -115,6 +120,9 @@ public strictfp enum ItemType implements CardType<Item> {
     }
 
     public static ItemType[] getValues() {
+        if (Sim.context().version >= Sim.v20) {
+            return STANDARD_DOL;
+        }
         if (Sim.isDoLSeasonContent()) {
             return DAWN_OF_LIGHT;
         }

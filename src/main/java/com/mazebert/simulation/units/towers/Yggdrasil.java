@@ -17,12 +17,13 @@ public strictfp class Yggdrasil extends Tower {
         setGender(Gender.Unknown);
         if (version >= Sim.v20) {
             setElement(Element.Unknown);
+            addAbility(new YggdrasilBranchAbility());
+            addAbility(new YggdrasilPotionAbility());
         } else {
             setElement(Element.Nature);
+            addAbility(new YggdrasilBranchLegacyAbility());
+            addAbility(new YggdrasilPotionLegacyAbility());
         }
-
-        addAbility(new YggdrasilBranchLegacyAbility());
-        addAbility(new YggdrasilPotionLegacyAbility());
     }
 
     @Override
