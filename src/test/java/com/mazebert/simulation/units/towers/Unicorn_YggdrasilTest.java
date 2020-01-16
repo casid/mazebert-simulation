@@ -28,6 +28,8 @@ class Unicorn_YggdrasilTest extends ItemTest {
 
     @BeforeEach
     void setUp() {
+        version = Sim.v19; // For newer versions, Yggdrasil changed to a better version anyway!
+
         unicorn.setLevel(50);
 
         tower1 = new TestTower();
@@ -70,8 +72,6 @@ class Unicorn_YggdrasilTest extends ItemTest {
 
     @Test
     void v19() {
-        version = Sim.v19;
-
         whenPotionIsConsumed(yggdrasil, PotionType.UnicornTears);
 
         assertThat(yggdrasil.getLevel()).isEqualTo(75);
