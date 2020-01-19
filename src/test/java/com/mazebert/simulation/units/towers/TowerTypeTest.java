@@ -1,5 +1,6 @@
 package com.mazebert.simulation.units.towers;
 
+import com.mazebert.simulation.Sim;
 import com.mazebert.simulation.SimTest;
 import com.mazebert.simulation.SimulationListeners;
 import org.junit.jupiter.api.BeforeEach;
@@ -44,6 +45,13 @@ public class TowerTypeTest extends SimTest {
     @Test
     void allCardsAreAvailable() {
         season = true;
+        assertThat(TowerType.getValues()).containsExactly(TowerType.values());
+    }
+
+    @Test
+    void allCardsAreAvailable_afterSeason() {
+        version = Sim.v20;
+        season = false;
         assertThat(TowerType.getValues()).containsExactly(TowerType.values());
     }
 }

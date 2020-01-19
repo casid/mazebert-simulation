@@ -40,6 +40,7 @@ public strictfp class Sim {
     }
 
     public static boolean isDoLSeasonContent() {
-        return context().version >= vDoL && context().season;
+        int version = context().version;
+        return version >= v20 || (version >= vDoL && context().season);
     }
 }
