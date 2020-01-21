@@ -1,6 +1,7 @@
 package com.mazebert.simulation.units.items;
 
 import com.mazebert.simulation.Rarity;
+import com.mazebert.simulation.Sim;
 import com.mazebert.simulation.minigames.BowlingGame;
 
 public strictfp class BowlingBall extends Item {
@@ -57,6 +58,6 @@ public strictfp class BowlingBall extends Item {
 
     @Override
     public boolean isBlackMarketOffer() {
-        return true;
+        return Sim.context().version < Sim.v20;
     }
 }

@@ -1,6 +1,7 @@
 package com.mazebert.simulation.units.items;
 
 import com.mazebert.simulation.Rarity;
+import com.mazebert.simulation.Sim;
 
 public strictfp class SpectralDaggers extends Item {
 
@@ -45,6 +46,6 @@ public strictfp class SpectralDaggers extends Item {
 
     @Override
     public boolean isBlackMarketOffer() {
-        return true;
+        return Sim.context().version < Sim.v20;
     }
 }
