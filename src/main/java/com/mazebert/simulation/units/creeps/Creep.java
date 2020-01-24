@@ -7,7 +7,6 @@ import com.mazebert.simulation.hash.Hash;
 import com.mazebert.simulation.listeners.*;
 import com.mazebert.simulation.maps.FollowPathResult;
 import com.mazebert.simulation.units.Unit;
-import com.mazebert.simulation.units.abilities.FollowPathAbility;
 import com.mazebert.simulation.units.abilities.FollowPathCreepAbility;
 import com.mazebert.simulation.units.towers.Tower;
 
@@ -43,7 +42,7 @@ public strictfp class Creep extends Unit {
 
     private transient double initialHealth;
     private transient float deathTime;
-    private transient final FollowPathAbility followPathAbility;
+    private transient final FollowPathCreepAbility followPathAbility;
     private transient boolean steady;
     private transient boolean immortal;
     private transient boolean restsInPiece;
@@ -52,7 +51,7 @@ public strictfp class Creep extends Unit {
         this(new FollowPathCreepAbility());
     }
 
-    public Creep(FollowPathAbility followPathAbility) {
+    public Creep(FollowPathCreepAbility followPathAbility) {
         this.followPathAbility = followPathAbility;
         addAbility(followPathAbility);
     }
