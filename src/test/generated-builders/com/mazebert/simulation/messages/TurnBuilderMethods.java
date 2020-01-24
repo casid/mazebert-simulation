@@ -2,7 +2,6 @@ package com.mazebert.simulation.messages;
 
 import org.jusecase.builders.Builder;
 
-@javax.annotation.Generated(value="jusecase-builders-generator")
 public interface TurnBuilderMethods<T extends Turn, B extends Builder> extends Builder<T> {
     @Override
     default T build() {
