@@ -83,6 +83,8 @@ public class HitpointBalancingTester implements OnGameStartedListener {
     public void onGameStarted() {
         Sim.context().simulationListeners.onGameStarted.remove(this);
 
+        // TODO find a way to implement it
+
     }
 
     private static class AbortedException extends RuntimeException {
