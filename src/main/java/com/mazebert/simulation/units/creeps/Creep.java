@@ -10,6 +10,7 @@ import com.mazebert.simulation.units.Unit;
 import com.mazebert.simulation.units.abilities.FollowPathCreepAbility;
 import com.mazebert.simulation.units.towers.Tower;
 import com.mazebert.simulation.units.wizards.Wizard;
+import com.mazebert.simulation.util.DamageMap;
 
 public strictfp class Creep extends Unit {
     public static final float DEATH_TIME = 2.0f;
@@ -44,6 +45,7 @@ public strictfp class Creep extends Unit {
     private transient double initialHealth;
     private transient float deathTime;
     private transient final FollowPathCreepAbility followPathAbility;
+    private transient final DamageMap damageMap = new DamageMap();
     private transient boolean steady;
     private transient boolean immortal;
     private transient boolean restsInPiece;
@@ -125,6 +127,10 @@ public strictfp class Creep extends Unit {
                 this.health = maxHealth;
             } else {
                 this.health = health;
+            }
+
+            if (tower != null) {
+                damageMap.add(tower, oldHealth - health);
             }
 
             if (notify) {
@@ -388,5 +394,9 @@ public strictfp class Creep extends Unit {
         if (Sim.context().version < Sim.v20) {
             super.setWizard(wizard);
         }
+    }
+
+    public DamageMap getDamageMap() {
+        return damageMap;
     }
 }

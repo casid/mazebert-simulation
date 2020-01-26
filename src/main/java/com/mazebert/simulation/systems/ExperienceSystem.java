@@ -19,6 +19,20 @@ public strictfp class ExperienceSystem {
     private final DifficultyGateway difficultyGateway = Sim.context().difficultyGateway;
     private final SimulationListeners simulationListeners = Sim.context().simulationListeners;
 
+    public void grantExperience(Tower tower, Creep creep, boolean showNotification) {
+        float experience = creep.getExperienceModifier() * creep.getExperience();
+
+        if (Sim.context().version >= Sim.v20) {
+            creep.getDamageMap().forEachNormalized((t, d) -> {
+                if (d > 0) {
+                    grantExperience(t, (float) d * experience, showNotification);
+                }
+            });
+        } else {
+            grantExperience(tower, experience, showNotification);
+        }
+    }
+
     public void grantExperience(Tower tower, float experience, boolean showNotification) {
         if (experience > 0) {
             experience *= tower.getExperienceModifier();
