@@ -83,6 +83,16 @@ public class WaveSpawner_TwoPlayersTest extends SimTest {
     }
 
     @Test
+    void experience_round1() {
+        givenBossWave();
+        whenGameIsStarted();
+        whenGameIsUpdated();
+        Creep boss = getCreep(0);
+
+        assertThat(boss.getExperience()).isEqualTo(40.6f);
+    }
+
+    @Test
     void modifier_union() {
         Wave wave = new Wave();
         wave.round = 1;

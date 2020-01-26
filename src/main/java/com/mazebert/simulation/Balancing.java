@@ -73,7 +73,7 @@ public strictfp class Balancing {
 
         double midGameFactor = difficulty.midGameFactor;
         double earlyGameFactor = difficulty.earlyGameFactor;
-        if (version >= Sim.vDoL && playerCount > 1) {
+        if (playerCount > 1 && version >= Sim.vDoL) {
             int factor = playerCount - 1;
             earlyGameFactor += 0.25 * factor;
             midGameFactor += 0.0003 * factor;
@@ -97,8 +97,12 @@ public strictfp class Balancing {
         }
     }
 
-    public static float getExperienceForRound(int round, WaveType waveType) {
+    public static float getExperienceForRound(int version, int round, WaveType waveType, int playerCount) {
         float experience = getExperienceForRound(round);
+
+        if (playerCount > 1 && version >= Sim.v20) {
+            experience *= playerCount;
+        }
 
         switch (waveType) {
             case Horseman:
