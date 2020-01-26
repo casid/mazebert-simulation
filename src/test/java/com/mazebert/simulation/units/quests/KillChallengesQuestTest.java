@@ -1,5 +1,6 @@
 package com.mazebert.simulation.units.quests;
 
+import com.mazebert.simulation.Sim;
 import com.mazebert.simulation.units.creeps.Creep;
 import com.mazebert.simulation.units.creeps.CreepBuilder;
 import com.mazebert.simulation.units.items.ItemTest;
@@ -55,6 +56,7 @@ public class KillChallengesQuestTest extends ItemTest {
 
     @Test
     void challengeOfOtherWizardKilled() {
+        version = Sim.v19;
         Creep creep = a(creep().challenge());
         creep.setWizard(new Wizard());
         unitGateway.addUnit(creep);

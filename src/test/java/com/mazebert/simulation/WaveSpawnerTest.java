@@ -556,14 +556,15 @@ public strictfp class WaveSpawnerTest extends SimTest {
     void gold_distributed() {
         wave = new Wave();
         wave.round = 1;
-        wave.creepCount = 2;
+        wave.creepCount = 4;
         waveGateway.addWave(wave);
-        randomPluginTrainer.givenFloatAbs(0.9f);
 
         whenAllCreepsAreSpawned();
 
-        assertThat(getCreep(0).getGold()).isEqualTo(25);
-        assertThat(getCreep(1).getGold()).isEqualTo(26);
+        assertThat(getCreep(0).getGold()).isEqualTo(13);
+        assertThat(getCreep(1).getGold()).isEqualTo(13);
+        assertThat(getCreep(2).getGold()).isEqualTo(13);
+        assertThat(getCreep(3).getGold()).isEqualTo(12);
     }
 
     @Test
@@ -1055,7 +1056,7 @@ public strictfp class WaveSpawnerTest extends SimTest {
         waveSpawner.spawnTreasureGoblins(wizard, 1);
         simulationListeners.onUpdate.dispatch(1.0f);
 
-        Creep goblin = unitGateway.findUnit(Creep.class, wizard.getPlayerId());
+        Creep goblin = getCreep(0);
         goblin.simulate(1000);
 
         assertThat(wizard.health).isEqualTo(0.95f);
@@ -1073,7 +1074,7 @@ public strictfp class WaveSpawnerTest extends SimTest {
         unitGateway.addUnit(spider);
         spider.onUpdate.dispatch(spider.getCooldown());
 
-        Creep goblin = unitGateway.findUnit(Creep.class, wizard.getPlayerId());
+        Creep goblin = getCreep(0);
         goblin.simulate(1000);
 
         projectileGateway.simulate(0.5f);

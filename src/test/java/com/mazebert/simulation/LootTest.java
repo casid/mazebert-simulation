@@ -68,7 +68,6 @@ public class LootTest extends SimTest {
         damageSystemTrainer.givenConstantDamage(1000); // one shot!
 
         creep = new Creep();
-        creep.setWizard(wizard1);
         Wave wave = new Wave();
         wave.round = 1;
         creep.setWave(wave);
@@ -96,7 +95,8 @@ public class LootTest extends SimTest {
     void loot_belongsToOtherWizard() {
         creep.setWizard(wizard2);
         randomPluginTrainer.givenFloatAbs(
-                0.0f, // This is a drop
+                0.9f, // No drop for wizard 1
+                0.0f, // This is a drop for wizard 2
                 0.99f, // The rarity of this drop is common
                 0.0f, // This is an item drop
                 BABY_SWORD_ROLL // It's a baby sword!
@@ -508,6 +508,29 @@ public class LootTest extends SimTest {
         whenTowerAttacks();
 
         assertThat(wizard1.gold).isEqualTo(240);
+    }
+
+    @Test
+    void treasureGoblin_killedByTowerOfWizard1() {
+        creep.getWave().origin = WaveOrigin.Treasure;
+        creep.setGold(10);
+
+        whenTowerAttacks();
+
+        assertThat(wizard1.gold).isEqualTo(10);
+        assertThat(wizard2.gold).isEqualTo(0);
+    }
+
+    @Test
+    void treasureGoblin_killedByTowerOfWizard2() {
+        creep.getWave().origin = WaveOrigin.Treasure;
+        creep.setGold(10);
+        tower.setWizard(wizard2);
+
+        whenTowerAttacks();
+
+        assertThat(wizard1.gold).isEqualTo(0);
+        assertThat(wizard2.gold).isEqualTo(10);
     }
 
     private void whenTowerAttacks() {

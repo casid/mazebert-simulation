@@ -2,6 +2,7 @@ package com.mazebert.simulation.units.towers;
 
 
 import com.mazebert.simulation.Balancing;
+import com.mazebert.simulation.Sim;
 import com.mazebert.simulation.SimTest;
 import com.mazebert.simulation.SimulationListeners;
 import com.mazebert.simulation.gateways.UnitGateway;
@@ -88,6 +89,7 @@ strictfp class UnicornTest extends SimTest {
 
     @Test
     void creepEntersRange_death_notForOtherWizard() {
+        version = Sim.v19;
         randomPluginTrainer.givenFloatAbs(0.9f);
         unitGateway.addUnit(a(creep().withWizard(new Wizard())));
 

@@ -32,7 +32,7 @@ public strictfp class UnicornImpaleAbility extends AuraAbility<Tower, Creep> {
             return;
         }
 
-        if (creep.getWizard() != getUnit().getWizard()) {
+        if (creep.getWizard() != null && creep.getWizard() != getUnit().getWizard()) {
             return;
         }
 

@@ -32,7 +32,7 @@ public strictfp class KillChallengesQuest extends Quest implements OnUnitRemoved
     public void onUnitRemoved(Unit unit) {
         if (unit instanceof Creep) {
             Creep creep = (Creep)unit;
-            if (creep.getWizard() != getUnit()) {
+            if (creep.getWizard() != null && creep.getWizard() != getUnit()) {
                 return;
             }
             if (!creep.isDead()) {

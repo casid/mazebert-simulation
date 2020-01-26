@@ -63,7 +63,11 @@ public strictfp enum CreepModifier {
                 creep.setSteady(true);
                 break;
             case Union:
-                creep.setMaxHealth(creep.getMaxHealth() * creep.getWave().creepCount * Sim.context().playerGateway.getPlayerCount());
+                if (Sim.context().version >= Sim.v20) {
+                    creep.setMaxHealth(creep.getMaxHealth() * creep.getWave().creepCount);
+                } else {
+                    creep.setMaxHealth(creep.getMaxHealth() * creep.getWave().creepCount * Sim.context().playerGateway.getPlayerCount());
+                }
                 creep.addAbility(new UnionEffect());
                 break;
             case Loot:

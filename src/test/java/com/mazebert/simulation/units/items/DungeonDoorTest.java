@@ -29,7 +29,7 @@ public class DungeonDoorTest extends ItemTest {
         whenItemIsEquipped(ItemType.DungeonDoor);
         simulationListeners.onRoundStarted.dispatch(new Wave());
 
-        Creep goblin = unitGateway.findUnit(Creep.class, wizard.getPlayerId());
+        Creep goblin = (Creep)unitGateway.getUnit(2);
         assertThat(goblin.getX()).isEqualTo(17);
         assertThat(goblin.getY()).isEqualTo(14);
     }

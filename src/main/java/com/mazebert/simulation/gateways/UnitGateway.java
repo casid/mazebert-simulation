@@ -16,6 +16,7 @@ public strictfp final class UnitGateway {
     private final SafeIterationArray<Unit> units = new SafeIterationArray<>();
     private final SafeIterationArray<Creep> creeps = new SafeIterationArray<>();
     private final SafeIterationArray<Tower> towers = new SafeIterationArray<>();
+    private final SafeIterationArray<Wizard> wizards = new SafeIterationArray<>();
 
     private final CreepInRangePredicate creepInRangePredicate = new CreepInRangePredicate();
     private final CreepInRangeExcludedPredicate creepInRangeExcludedPredicate = new CreepInRangeExcludedPredicate();
@@ -27,6 +28,8 @@ public strictfp final class UnitGateway {
             creeps.add((Creep) unit);
         } else if (unit instanceof Tower) {
             towers.add((Tower) unit);
+        } else if (unit instanceof Wizard) {
+            wizards.add((Wizard)unit);
         }
         Sim.context().simulationListeners.onUnitAdded.dispatch(unit);
         unit.onUnitAdded.dispatch(unit);
@@ -56,6 +59,8 @@ public strictfp final class UnitGateway {
             creeps.remove((Creep) unit);
         } else if (unit instanceof Tower) {
             towers.remove((Tower) unit);
+        } else if (unit instanceof Wizard) {
+            wizards.remove((Wizard)unit);
         }
         unit.onUnitRemoved.dispatch(unit);
         Sim.context().simulationListeners.onUnitRemoved.dispatch(unit);
@@ -136,6 +141,10 @@ public strictfp final class UnitGateway {
         towers.forEach(unitConsumer);
     }
 
+    public void forEachWizard(Consumer<Wizard> unitConsumer) {
+        wizards.forEach(unitConsumer);
+    }
+
     @SuppressWarnings("unchecked")
     public <U extends Tower> void forEachTower(Class<U> unitClass, Consumer<U> unitConsumer) {
         towers.forEach(unit -> {
@@ -160,7 +169,7 @@ public strictfp final class UnitGateway {
             creepInRangeConsumer.x = x;
             creepInRangeConsumer.y = y;
             creepInRangeConsumer.range = range;
-            creepInRangeConsumer.unitConsumer = unitConsumer;
+            creepInRangeConsumer.unitConsumer = (Consumer<Creep>) unitConsumer;
             creeps.forEach(creepInRangeConsumer);
             creepInRangeConsumer.unitConsumer = null;
         } else if (unitClass == Tower.class) {
@@ -179,7 +188,11 @@ public strictfp final class UnitGateway {
     }
 
     public Wizard getWizard(int playerId) {
-        return findUnit(Wizard.class, playerId);
+        return wizards.find(w -> w.playerId == playerId);
+    }
+
+    public int getWizardCount() {
+        return wizards.size();
     }
 
     public boolean hasUnit(Unit unit) {
@@ -258,12 +271,11 @@ public strictfp final class UnitGateway {
         public float x;
         public float y;
         public float range;
-        public Consumer unitConsumer;
+        public Consumer<Creep> unitConsumer;
 
         @Override
         public void accept(Creep creep) {
             if (creep.isInRange(x, y, range)) {
-                //noinspection unchecked
                 unitConsumer.accept(creep);
             }
         }

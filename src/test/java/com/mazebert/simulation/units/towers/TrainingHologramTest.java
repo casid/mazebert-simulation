@@ -48,7 +48,6 @@ strictfp class TrainingHologramTest extends SimTest {
         assertThat(dummy.getHealth()).isEqualTo(1);
         assertThat(dummy.getMaxHealth()).isEqualTo(1);
         assertThat(dummy.getGold()).isEqualTo(0);
-        assertThat(dummy.getWizard()).isEqualTo(wizard);
         assertThat(dummy.getArmor()).isEqualTo(1);
         assertThat(dummy.getExperience()).isEqualTo(TrainingHologramSpawn.XP);
         assertThat(dummy.getType()).isEqualTo(CreepType.Spider);

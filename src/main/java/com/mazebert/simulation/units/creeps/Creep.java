@@ -9,6 +9,7 @@ import com.mazebert.simulation.maps.FollowPathResult;
 import com.mazebert.simulation.units.Unit;
 import com.mazebert.simulation.units.abilities.FollowPathCreepAbility;
 import com.mazebert.simulation.units.towers.Tower;
+import com.mazebert.simulation.units.wizards.Wizard;
 
 public strictfp class Creep extends Unit {
     public static final float DEATH_TIME = 2.0f;
@@ -379,5 +380,13 @@ public strictfp class Creep extends Unit {
 
     public boolean isRestsInPiece() {
         return restsInPiece;
+    }
+
+    @Override
+    public void setWizard(Wizard wizard) {
+        // From version 20 on, creeps do not have a specific wizard!
+        if (Sim.context().version < Sim.v20) {
+            super.setWizard(wizard);
+        }
     }
 }

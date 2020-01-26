@@ -67,17 +67,19 @@ public class WaveSpawner_TwoPlayersTest extends SimTest {
         creep1.setPath(new Path(0.0f, 0.0f, 0.0f, 1.0f));
         creep1.simulate(1.0f);
 
-        assertThat(unitGateway.getAmount(Creep.class)).isEqualTo(1); // creep of wizard 2
-        assertThat(wizard1.health).isEqualTo(0.5f);
-        assertThat(wizard2.health).isEqualTo(1.0f);
+        assertThat(unitGateway.getAmount(Creep.class)).isEqualTo(0); // players share the same boss
+        assertThat(wizard1.health).isEqualTo(0.75f);
+        assertThat(wizard2.health).isEqualTo(0.75f);
+    }
 
-        Creep creep2 = getCreep(0);
-        creep2.setPath(new Path(0.0f, 0.0f, 0.0f, 1.0f));
-        creep2.simulate(1.0f);
+    @Test
+    void health_round1() {
+        givenBossWave();
+        whenGameIsStarted();
+        whenGameIsUpdated();
+        Creep boss = getCreep(0);
 
-        assertThat(unitGateway.getAmount(Creep.class)).isEqualTo(0); // all gone
-        assertThat(wizard1.health).isEqualTo(0.5f);
-        assertThat(wizard2.health).isEqualTo(0.5f);
+        assertThat(boss.getHealth()).isEqualTo(409.6);
     }
 
     @Test

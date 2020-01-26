@@ -195,8 +195,54 @@ public strictfp final class WaveSpawner implements OnGameStartedListener, OnWave
         waveGateway.generateMissingWaves(randomPlugin);
     }
 
-    @SuppressWarnings("Duplicates")
     private void spawnWave(Wave wave) {
+        if (version >= Sim.v20) {
+            spawnWaveNew(wave);
+        } else {
+            spawnWaveLegacy(wave);
+        }
+    }
+
+    @SuppressWarnings("Duplicates")
+    private void spawnWaveNew(Wave wave) {
+        int round = wave.round;
+        int playerCount = playerGateway.getPlayerCount();
+
+        double healthOfAllCreeps = Balancing.getTotalCreepHitpoints(version, round, difficultyGateway.getDifficulty(), playerCount);
+        double healthOfOneCreep = getHealthOfOneCreep(wave, healthOfAllCreeps);
+
+        int goldOfAllCreeps = Balancing.getGoldForRound(round, version);
+        int goldOfOneCreep = goldOfAllCreeps / wave.creepCount;
+        int goldRemaining = goldOfAllCreeps % wave.creepCount;
+
+        float experienceOfAllCreeps = Balancing.getExperienceForRound(round, wave.type);
+        float experienceOfOneCreep = experienceOfAllCreeps / wave.creepCount;
+
+        int spawnCount = wave.creepCount;
+        for (int i = 0; i < spawnCount; ++i) {
+            Creep creep = new Creep();
+            creep.setWave(wave);
+            creep.setMaxHealth(healthOfOneCreep);
+            if (goldRemaining > 0) {
+                --goldRemaining;
+                creep.setGold(goldOfOneCreep + 1);
+            } else {
+                creep.setGold(goldOfOneCreep);
+            }
+            creep.setArmor(round);
+            creep.setExperience(experienceOfOneCreep);
+            applyWaveAttributes(creep, wave);
+
+            creepQueue.add(creep);
+        }
+
+        wave.remainingCreepCount = spawnCount;
+
+        simulationListeners.onRoundStarted.dispatch(wave);
+    }
+
+    @SuppressWarnings("Duplicates")
+    private void spawnWaveLegacy(Wave wave) {
         int round = wave.round;
         int playerCount = playerGateway.getPlayerCount();
 
@@ -408,9 +454,14 @@ public strictfp final class WaveSpawner implements OnGameStartedListener, OnWave
         if (wave.type == WaveType.TimeLord) {
             Sim.context().gameSystem.finishBonusRound();
         } else if (wave.type != WaveType.Challenge && wave.type != WaveType.MassChallenge) {
-            Wizard wizard = creep.getWizard();
             float leaked = calculateLeaked(creep, wave);
-            wizard.addHealth(-leaked);
+            Wizard wizard = creep.getWizard();
+            if (wizard == null) {
+                float addHealth = -leaked / unitGateway.getWizardCount();
+                unitGateway.forEachWizard(w -> w.addHealth(addHealth));
+            } else {
+                wizard.addHealth(-leaked);
+            }
         }
 
         if (creep.isPartOfGame()) {

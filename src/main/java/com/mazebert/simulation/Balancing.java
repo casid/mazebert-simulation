@@ -87,6 +87,9 @@ public strictfp class Balancing {
         }
 
         double hp = endgameHitpoints + midGameFactor * x * x * x * x + earlyGameFactor * x * x + getLinearCreepHitpoints(round);
+        if (playerCount > 1 && version >= Sim.v20) {
+            hp *= playerCount;
+        }
         if (version >= Sim.v15) {
             return hp;
         } else {

@@ -2,6 +2,7 @@ package com.mazebert.simulation.systems;
 
 import com.mazebert.simulation.*;
 import com.mazebert.simulation.commands.TransmuteCardsCommand;
+import com.mazebert.simulation.gateways.UnitGateway;
 import com.mazebert.simulation.plugins.FormatPlugin;
 import com.mazebert.simulation.plugins.random.RandomPlugin;
 import com.mazebert.simulation.stash.Stash;
@@ -15,11 +16,22 @@ public strictfp class LootSystem {
     private final RandomPlugin randomPlugin = Sim.context().randomPlugin;
     private final SimulationListeners simulationListeners = Sim.context().simulationListeners;
     private final FormatPlugin formatPlugin = Sim.context().formatPlugin;
+    private final UnitGateway unitGateway = Sim.context().unitGateway;
     private final int version = Sim.context().version;
 
     public void loot(Tower tower, Creep creep) {
-        Wizard wizard = creep.getWizard();
+        if (version >= Sim.v20) {
+            if (creep.getWave().origin == WaveOrigin.Treasure) {
+                loot(tower.getWizard(), tower, creep);
+            } else {
+                unitGateway.forEachWizard(wizard -> loot(wizard, tower, creep));
+            }
+        } else {
+            loot(creep.getWizard(), tower, creep);
+        }
+    }
 
+    private void loot(Wizard wizard, Tower tower, Creep creep) {
         lootCards(wizard, tower, creep);
         lootGold(wizard, tower, creep);
     }
