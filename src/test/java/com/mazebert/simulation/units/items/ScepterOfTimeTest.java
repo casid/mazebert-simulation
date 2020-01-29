@@ -1,5 +1,6 @@
 package com.mazebert.simulation.units.items;
 
+import com.mazebert.simulation.Sim;
 import com.mazebert.simulation.Simulation;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -10,6 +11,7 @@ public strictfp class ScepterOfTimeTest extends ItemTest {
 
     @BeforeEach
     void setUp() {
+        version = Sim.v19;
         simulation = new Simulation(false);
     }
 

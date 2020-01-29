@@ -41,7 +41,6 @@ public strictfp class ScepterOfTime extends Item {
 
     @Override
     public boolean isTradingAllowed() {
-        //noinspection RedundantIfStatement
         if (Sim.context().version < Sim.v13) {
             return true;
         }
@@ -50,6 +49,9 @@ public strictfp class ScepterOfTime extends Item {
 
     @Override
     public boolean isUniqueInstance() {
+        if (Sim.context().version >= Sim.v20) {
+            return true;
+        }
         return false;
     }
 

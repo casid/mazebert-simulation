@@ -757,31 +757,6 @@ public strictfp class WaveSpawnerTest extends SimTest {
     }
 
     @Test
-    void lastRoundCompleted() {
-        givenWave(WaveType.Horseman);
-        wave.round = 200;
-
-        whenGameIsStarted();
-        whenCreepIsKilled(getCreep(0));
-        whenGameIsUpdated();
-
-        assertThat(wizard.itemStash.get(ItemType.ScepterOfTime).amount).isEqualTo(1);
-    }
-
-    @Test
-    void lastRoundCompleted_canHaveTwoScepters() {
-        givenWave(WaveType.Horseman);
-        wave.round = 200;
-        wizard.itemStash.add(ItemType.ScepterOfTime);
-
-        whenGameIsStarted();
-        whenCreepIsKilled(getCreep(0));
-        whenGameIsUpdated();
-
-        assertThat(wizard.itemStash.get(ItemType.ScepterOfTime).amount).isEqualTo(2);
-    }
-
-    @Test
     void roundCompleted() {
         givenBossWave();
 
