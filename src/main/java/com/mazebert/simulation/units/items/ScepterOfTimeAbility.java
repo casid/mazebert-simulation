@@ -4,16 +4,16 @@ import com.mazebert.simulation.Sim;
 import com.mazebert.simulation.Simulation;
 import com.mazebert.simulation.SimulationListeners;
 import com.mazebert.simulation.gateways.UnitGateway;
-import com.mazebert.simulation.units.abilities.CooldownActiveAbility;
+import com.mazebert.simulation.units.abilities.ActiveAbility;
 
-public strictfp class ScepterOfTimeAbility extends CooldownActiveAbility {
+public strictfp class ScepterOfTimeAbility extends ActiveAbility {
 
     private final SimulationListeners simulationListeners = Sim.context().simulationListeners;
     private final UnitGateway unitGateway = Sim.context().unitGateway;
 
     @Override
-    public float getCooldown() {
-        return 1.0f;
+    public float getReadyProgress() {
+        return 1;
     }
 
     @Override
@@ -30,6 +30,9 @@ public strictfp class ScepterOfTimeAbility extends CooldownActiveAbility {
                 break;
             case 3:
                 setTimeModifier(simulation, 4);
+                break;
+            default:
+                setTimeModifier(simulation, 1);
                 break;
         }
     }

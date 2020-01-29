@@ -49,6 +49,15 @@ public strictfp class ScepterOfTimeTest extends ItemTest {
         assertThat(simulation.getTimeModifier()).isEqualTo(4);
     }
 
+    @Test
+    void toggled_1x() {
+        whenItemIsEquipped(ItemType.ScepterOfTime);
+        simulation.setTimeModifier(4);
+        whenAbilityIsActivated(tower, ActiveAbilityType.ScepterOfTimeToggle);
+
+        assertThat(simulation.getTimeModifier()).isEqualTo(1);
+    }
+
     @Nested
     class Notifications {
         SimulationListenersTrainer simulationListenersTrainer = new SimulationListenersTrainer();
