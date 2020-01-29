@@ -211,7 +211,11 @@ public strictfp final class Simulation {
     }
 
     public void adjustSpeed(float factor) {
-        timeModifier *= factor;
+        setTimeModifier(timeModifier * factor);
+    }
+
+    public void setTimeModifier(float timeModifier) {
+        this.timeModifier = timeModifier;
         turnTimeInSeconds = unmodifiedTurnTimeInSeconds * timeModifier;
     }
 

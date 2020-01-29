@@ -6,7 +6,7 @@ import com.mazebert.simulation.Sim;
 public strictfp class ScepterOfTime extends Item {
 
     public ScepterOfTime() {
-        super(new ScepterOfTimeAbility());
+        super(Sim.context().version >= Sim.v20 ? new ScepterOfTimeAbility() : new ScepterOfTimeLegacyAbility());
     }
 
     @Override

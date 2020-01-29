@@ -2,6 +2,7 @@ package com.mazebert.simulation.units.abilities;
 
 import com.mazebert.simulation.Sim;
 import com.mazebert.simulation.units.items.BowlingBallRollAbility;
+import com.mazebert.simulation.units.items.ScepterOfTimeAbility;
 import com.mazebert.simulation.units.towers.*;
 
 public strictfp enum ActiveAbilityType {
@@ -10,6 +11,7 @@ public strictfp enum ActiveAbilityType {
     KiwiHaka(3, KiwiHaka.class),
     BowlingBallRollAbility(4, BowlingBallRollAbility.class),
     PhoenixRebirth(5, PhoenixRebirth.class),
+    ScepterOfTimeToggle(6, ScepterOfTimeAbility.class),
     ;
 
     public final int id;
