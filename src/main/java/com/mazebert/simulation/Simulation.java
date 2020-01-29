@@ -232,6 +232,10 @@ public strictfp final class Simulation {
         return timeModifier;
     }
 
+    public float getRawTimeModifier() {
+        return timeModifier;
+    }
+
     @SuppressWarnings("unused") // Used by client
     public float getTimeDilation() {
         return timeDilation;

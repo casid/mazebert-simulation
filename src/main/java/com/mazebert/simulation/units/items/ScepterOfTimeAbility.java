@@ -5,6 +5,7 @@ import com.mazebert.simulation.Simulation;
 import com.mazebert.simulation.SimulationListeners;
 import com.mazebert.simulation.gateways.UnitGateway;
 import com.mazebert.simulation.units.abilities.ActiveAbility;
+import com.mazebert.simulation.units.abilities.CooldownActiveAbility;
 
 public strictfp class ScepterOfTimeAbility extends ActiveAbility {
 
@@ -13,13 +14,13 @@ public strictfp class ScepterOfTimeAbility extends ActiveAbility {
 
     @Override
     public float getReadyProgress() {
-        return 1;
+        return 1.0f;
     }
 
     @Override
     public void activate() {
         Simulation simulation = Sim.context().simulation;
-        int timeModifier = (int) simulation.getTimeModifier();
+        int timeModifier = (int) simulation.getRawTimeModifier();
 
         switch (timeModifier) {
             case 1:
@@ -41,9 +42,16 @@ public strictfp class ScepterOfTimeAbility extends ActiveAbility {
         simulation.setTimeModifier(timeModifier);
 
         if (simulationListeners.areNotificationsEnabled()) {
-            String notification = getUnit().getWizard().name + " made time pass " + timeModifier + "x faster.";
+            String notification = createNotification(timeModifier);
             unitGateway.forEachWizard(w -> simulationListeners.showNotification(w, notification));
         }
+    }
+
+    private String createNotification(int timeModifier) {
+        if (timeModifier == 1) {
+            return getUnit().getWizard().name + " changed time back to normal.";
+        }
+        return getUnit().getWizard().name + " made time pass " + timeModifier + "x faster.";
     }
 
     @Override
