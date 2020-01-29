@@ -5,7 +5,6 @@ import com.mazebert.simulation.Simulation;
 import com.mazebert.simulation.SimulationListeners;
 import com.mazebert.simulation.gateways.UnitGateway;
 import com.mazebert.simulation.units.abilities.ActiveAbility;
-import com.mazebert.simulation.units.abilities.CooldownActiveAbility;
 
 public strictfp class ScepterOfTimeAbility extends ActiveAbility {
 
