@@ -60,7 +60,7 @@ public strictfp class ScepterOfTimeAbility extends ActiveAbility {
 
     @Override
     public String getTitle() {
-        return "Ancient perception";
+        return "Ancient perception (Active ability)";
     }
 
     @Override
