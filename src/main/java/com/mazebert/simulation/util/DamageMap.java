@@ -54,7 +54,10 @@ public final strictfp class DamageMap {
         }
 
         for (int i = 0; i < size; ++i) {
-            damageConsumer.accept(keys[i], values[i] / total);
+            double normalizedDamage = values[i] / total;
+            if (normalizedDamage > 0) {
+                damageConsumer.accept(keys[i], normalizedDamage);
+            }
         }
     }
 

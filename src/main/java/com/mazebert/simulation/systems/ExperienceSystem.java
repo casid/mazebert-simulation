@@ -24,11 +24,7 @@ public strictfp class ExperienceSystem {
 
         if (Sim.context().version >= Sim.v20) {
             if (experience > 0) {
-                creep.getDamageMap().forEachNormalized((t, d) -> {
-                    if (d > 0) {
-                        grantExperience(t, (float) d * experience, showNotification);
-                    }
-                });
+                creep.getDamageMap().forEachNormalized((t, d) -> grantExperience(t, (float) d * experience, showNotification));
             }
         } else {
             grantExperience(tower, experience, showNotification);
