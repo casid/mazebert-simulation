@@ -1,5 +1,6 @@
 package com.mazebert.simulation.usecases;
 
+import com.mazebert.simulation.Context;
 import com.mazebert.simulation.Sim;
 import com.mazebert.simulation.SimulationListeners;
 import com.mazebert.simulation.WaveSpawner;
@@ -11,6 +12,7 @@ import com.mazebert.simulation.gateways.GameGateway;
 import com.mazebert.simulation.gateways.WaveGateway;
 import com.mazebert.simulation.plugins.random.UuidRandomPlugin;
 import com.mazebert.simulation.systems.GameSystem;
+import com.mazebert.simulation.units.Currency;
 
 public strictfp class InitGame extends Usecase<InitGameCommand> {
 
@@ -51,6 +53,10 @@ public strictfp class InitGame extends Usecase<InitGameCommand> {
             Sim.context().waveSpawner = new WaveSpawner();
 
             Sim.context().gameCountDown.start();
+        }
+
+        if (simulationListeners.areNotificationsEnabled()) {
+            Context.currency = Currency.Gold; // Reset currency for client display only
         }
 
         simulationListeners.onGameInitialized.dispatch();
