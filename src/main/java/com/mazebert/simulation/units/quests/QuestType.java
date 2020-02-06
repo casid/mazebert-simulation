@@ -53,6 +53,7 @@ public strictfp enum QuestType {
 
     private static final QuestType[] STANDARD      = {KillChallengesQuest, OnlyDarknessAndNatureQuest, OnlyNatureAndMetropolisQuest, Map1VictoryQuest, Map2VictoryQuest, WatchCreditsQuest, OnlyDarknessAndMetropolisQuest, OnlyDarknessQuest, OnlyNatureQuest, OnlyMetropolisQuest, Map3VictoryQuest, Map4VictoryQuest, BonusSurvivalQuest, CollectGoldQuest, TowerLevelsQuest, VisitBlackMarketQuest, VisitDevelopersInnQuest, BuyBlackMarketOfferQuest, BowlPerfectGameQuest, BowlStrikesQuest, TransmuteUniquesQuest, TransmuteStackQuest, DrinkAllPotionsQuest, TransmuteCardsQuest, KnusperHexeQuest, BaluQuest, MuliQuest, Map4VictoryUnlockReginnQuest, CoopQuest, HardVictoryQuest};
     private static final QuestType[] DAWN_OF_LIGHT = {KillChallengesQuest, OnlyDarknessAndNatureQuest, OnlyNatureAndMetropolisQuest, Map1VictoryQuest, Map2VictoryQuest, WatchCreditsQuest, OnlyDarknessAndMetropolisQuest, OnlyDarknessQuest, OnlyNatureQuest, OnlyMetropolisQuest, Map3VictoryQuest, Map4VictoryQuest, BonusSurvivalQuest, CollectGoldQuest, TowerLevelsQuest, VisitBlackMarketQuest, VisitDevelopersInnQuest, BuyBlackMarketOfferQuest, BowlPerfectGameQuest, BowlStrikesQuest, TransmuteUniquesQuest, TransmuteStackQuest, DrinkAllPotionsQuest, TransmuteCardsQuest, KnusperHexeQuest, BaluQuest, MuliQuest, Map4VictoryUnlockReginnQuest, CoopQuest, HardVictoryQuest, Map5VictoryQuest, Map5VictoryUnlockHeroQuest, OnlyLightQuest, OnlyDarknessAndLightQuest, OnlyNatureAndLightQuest, OnlyMetropolisAndLightQuest, PlayDoLSeasonGameQuest, WinDoLSeasonGameQuest, FaceTimeLord};
+    private static final QuestType[] STANDARD_DOL = {KillChallengesQuest, OnlyDarknessAndNatureQuest, OnlyNatureAndMetropolisQuest, Map1VictoryQuest, Map2VictoryQuest, WatchCreditsQuest, OnlyDarknessAndMetropolisQuest, OnlyDarknessQuest, OnlyNatureQuest, OnlyMetropolisQuest, Map3VictoryQuest, Map4VictoryQuest, BonusSurvivalQuest, CollectGoldQuest, TowerLevelsQuest, VisitBlackMarketQuest, VisitDevelopersInnQuest, BuyBlackMarketOfferQuest, BowlPerfectGameQuest, BowlStrikesQuest, TransmuteUniquesQuest, TransmuteStackQuest, DrinkAllPotionsQuest, TransmuteCardsQuest, KnusperHexeQuest, BaluQuest, MuliQuest, Map4VictoryUnlockReginnQuest, CoopQuest, HardVictoryQuest, Map5VictoryQuest, Map5VictoryUnlockHeroQuest, OnlyLightQuest, OnlyDarknessAndLightQuest, OnlyNatureAndLightQuest, OnlyMetropolisAndLightQuest, FaceTimeLord};
 
     public final int id;
     public final Class<? extends Quest> questClass;
@@ -84,7 +85,9 @@ public strictfp enum QuestType {
     }
 
     public static QuestType[] getValues() {
-        // After the season, do not include the DoL season quests anymore
+        if (Sim.context().version >= Sim.v20) {
+            return STANDARD_DOL;
+        }
         if (Sim.isDoLSeasonContent()) {
             return DAWN_OF_LIGHT;
         }
