@@ -108,9 +108,16 @@ public abstract strictfp class AuraAbility<S extends Unit, T extends Unit> exten
     }
 
     private void disposeAura(S unit) {
-        markAllCurrentTargetsAsUnvisited();
-        removeAllUnvisitedTargets();
+        if (version >= Sim.v20) {
+            while (activeSize > 0) {
+                onAuraLeft(active[--activeSize]);
+            }
+        } else {
+            markAllCurrentTargetsAsUnvisited();
+            removeAllUnvisitedTargets();
+        }
         this.active = null;
+        this.activeSize = 0;
 
         unit.onUpdate.remove(this);
         if (unit instanceof Tower) {
