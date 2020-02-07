@@ -5,6 +5,8 @@ import org.jusecase.bitpack.BitReader;
 import org.jusecase.bitpack.BitSerializer;
 import org.jusecase.bitpack.BitWriter;
 
+import java.util.Collections;
+
 public strictfp class ReplayPlayerTurnSerializer implements BitSerializer<ReplayTurn> {
     @Override
     public ReplayTurn createObject() {
@@ -19,5 +21,8 @@ public strictfp class ReplayPlayerTurnSerializer implements BitSerializer<Replay
     @Override
     public void deserialize(BitReader reader, ReplayTurn object) {
         object.commands = reader.readObjectsWithDifferentTypesAsList(4);
+        if (object.commands == null) {
+            object.commands = Collections.emptyList();
+        }
     }
 }
