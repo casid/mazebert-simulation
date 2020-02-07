@@ -57,4 +57,18 @@ strictfp class FatKnightArmorTest extends ItemTest {
 
         assertThat(wizard.itemStash.get(ItemType.FatKnightArmor).amount).isEqualTo(1);
     }
+
+    @Test
+    void doesNotCrashWithOtherAuras() {
+        Tower guard = whenTowerNeighbourIsBuilt(this.tower, TowerType.Guard, 1, 1);
+        whenTowerNeighbourIsBuilt(this.tower, TowerType.Rabbit, 0, 1);
+        Tower beaver = whenTowerNeighbourIsBuilt(this.tower, TowerType.Beaver, 1, 0);
+
+        whenItemIsEquipped(ItemType.FatKnightArmor);
+        whenItemIsEquipped(beaver, ItemType.GuardLance, 4);
+        whenItemIsEquipped(null);
+
+        assertThat(guard.getInventorySize()).isEqualTo(4); // Inventory size was left at 5
+        whenItemIsEquipped(ItemType.FatKnightArmor); // Re-equipping resulted in a crash
+    }
 }
