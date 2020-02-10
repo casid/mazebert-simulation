@@ -66,4 +66,50 @@ class SafeIterationArrayTest {
         assertThat(units.get(1)).isSameAs(e3);
         assertThat(units.get(2)).isSameAs(e4);
     }
+
+    @Test
+    void removeIf_none() {
+        TestTower e1 = new TestTower();
+        units.add(e1);
+        TestTower e2 = new TestTower();
+        units.add(e2);
+        TestTower e3 = new TestTower();
+        units.add(e3);
+
+        int removed = units.removeIf(t -> false);
+
+        assertThat(removed).isEqualTo(0);
+        assertThat(units.size()).isEqualTo(3);
+    }
+
+    @Test
+    void removeIf_all() {
+        TestTower e1 = new TestTower();
+        units.add(e1);
+        TestTower e2 = new TestTower();
+        units.add(e2);
+        TestTower e3 = new TestTower();
+        units.add(e3);
+
+        int removed = units.removeIf(t -> true);
+
+        assertThat(removed).isEqualTo(3);
+        assertThat(units.size()).isEqualTo(0);
+    }
+
+    @Test
+    void removeIf_two() {
+        TestTower e1 = new TestTower();
+        units.add(e1);
+        TestTower e2 = new TestTower();
+        units.add(e2);
+        TestTower e3 = new TestTower();
+        units.add(e3);
+
+        int removed = units.removeIf(t -> t == e3 || t == e2);
+
+        assertThat(removed).isEqualTo(2);
+        assertThat(units.size()).isEqualTo(1);
+        assertThat(units.get(0)).isSameAs(e1);
+    }
 }

@@ -42,6 +42,19 @@ public strictfp final class SafeIterationArray<T> {
         return false;
     }
 
+    @SuppressWarnings("unchecked")
+    public int removeIf(Predicate<T> predicate) {
+        int amount = 0;
+
+        for (int i = 0; i < size; ++i) {
+            if (predicate.test((T)elements[i])) {
+                remove(i--);
+                ++amount;
+            }
+        }
+        return amount;
+    }
+
     public void remove(int index) {
         if (iterationDepth > 0) {
             elements[index] = null;
