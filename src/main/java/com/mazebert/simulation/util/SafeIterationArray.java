@@ -47,7 +47,8 @@ public strictfp final class SafeIterationArray<T> {
         int amount = 0;
 
         for (int i = 0; i < size; ++i) {
-            if (predicate.test((T)elements[i])) {
+            T element = (T) elements[i];
+            if (element != null && predicate.test(element)) {
                 remove(i--);
                 ++amount;
             }
