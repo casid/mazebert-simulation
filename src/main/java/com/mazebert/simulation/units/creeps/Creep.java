@@ -307,7 +307,7 @@ public strictfp class Creep extends Unit {
     }
 
     public void knockback(float distance) {
-        if (!steady) {
+        if (!steady && isPartOfGame()) {
             if (distance > 0) {
                 addImmobilizeResistance(0.1f);
             }
@@ -320,7 +320,7 @@ public strictfp class Creep extends Unit {
     }
 
     public void warpInTime(float warpSeconds) {
-        if (!steady) {
+        if (!steady && isPartOfGame()) {
             if (warpSeconds < 0) {
                 addImmobilizeResistance(0.1f);
             }

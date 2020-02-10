@@ -46,4 +46,16 @@ strictfp class Creep_PredictWalkTest {
         creep.predictWalk(0, 3, -3, followPathResult);
         assertThat(followPathResult.pathIndex).isEqualTo(0);
     }
+
+    @Test
+    void warp_disposedDoesNotCrash() {
+        creep.dispose();
+        creep.warpInTime(1);
+    }
+
+    @Test
+    void knockback_disposedDoesNotCrash() {
+        creep.dispose();
+        creep.knockback(1);
+    }
 }
