@@ -32,13 +32,14 @@ public strictfp final class SafeIterationArray<T> {
         return size;
     }
 
-    public void remove(T element) {
+    public boolean remove(T element) {
         for (int i = 0; i < size; ++i) {
             if (element == elements[i]) {
                 remove(i);
-                break;
+                return true;
             }
         }
+        return false;
     }
 
     public void remove(int index) {
