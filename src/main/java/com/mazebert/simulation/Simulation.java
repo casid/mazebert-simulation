@@ -62,7 +62,7 @@ public strictfp final class Simulation {
     public void start(InitGameCommand initGameCommand, InitPlayerCommand initPlayerCommand) {
         if (replayWriterGateway.isWriteEnabled()) {
             ReplayHeader header = new ReplayHeader();
-            header.version = Sim.version;
+            header.version = initGameCommand.version;
             header.playerId = playerGateway.getSimulationPlayerId();
             header.playerCount = playerGateway.getPlayerCount();
             header.season = Sim.context().season;
