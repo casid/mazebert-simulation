@@ -3,6 +3,7 @@ package com.mazebert.simulation.units.towers;
 import com.mazebert.simulation.AttackType;
 import com.mazebert.simulation.Element;
 import com.mazebert.simulation.Rarity;
+import com.mazebert.simulation.Sim;
 import com.mazebert.simulation.projectiles.ProjectileViewType;
 import com.mazebert.simulation.units.Gender;
 import com.mazebert.simulation.units.abilities.AttackAbility;
@@ -20,6 +21,9 @@ public strictfp class Frog extends Tower {
         setElement(Element.Nature);
 
         addAbility(new AttackAbility());
+        if (Sim.context().version >= Sim.v20) {
+            addAbility(new FrogPoisonArmorAbility());
+        }
         addAbility(new FrogPoisonAbility());
         addAbility(new ProjectileDamageAbility(ProjectileViewType.FrogSpit, 12));
     }
@@ -36,7 +40,7 @@ public strictfp class Frog extends Tower {
 
     @Override
     public String getDescription() {
-        return "This frog likes to kill its victims slowly. His poisonous spit causes immense pain.";
+        return "This frog likes to kill his victims slowly. His poisonous spit causes immense pain.";
     }
 
     @Override

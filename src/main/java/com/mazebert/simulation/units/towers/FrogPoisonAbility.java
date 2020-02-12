@@ -1,17 +1,26 @@
 package com.mazebert.simulation.units.towers;
 
+import com.mazebert.simulation.Sim;
 import com.mazebert.simulation.units.abilities.PoisonAbility;
 import com.mazebert.simulation.units.creeps.Creep;
 
 public strictfp class FrogPoisonAbility extends PoisonAbility {
 
+    private final double damagePerLevel;
+
     public FrogPoisonAbility() {
         super(3.0f);
+
+        if (Sim.context().version >= Sim.v20) {
+            damagePerLevel = 0.02;
+        } else {
+            damagePerLevel = 0.01;
+        }
     }
 
     @Override
     protected double calculatePoisonDamage(Creep target, double damage, int multicrits) {
-        return (1.0 + 0.01 * getUnit().getLevel()) * damage;
+        return (1.0 + damagePerLevel * getUnit().getLevel()) * damage;
     }
 
     @Override
@@ -26,7 +35,7 @@ public strictfp class FrogPoisonAbility extends PoisonAbility {
 
     @Override
     public String getDescription() {
-        return "Whenever this tower damages a creep it deals 100% of this damage as poison damage over 3 seconds to the creep. This ability stacks.";
+        return "Deals 100% damage as poison damage over 3 seconds. This ability stacks.";
     }
 
     @Override
@@ -36,6 +45,6 @@ public strictfp class FrogPoisonAbility extends PoisonAbility {
 
     @Override
     public String getLevelBonus() {
-        return "+1% poison damage per level";
+        return format.percentWithSignAndUnit((float) damagePerLevel) + " poison damage per level";
     }
 }
