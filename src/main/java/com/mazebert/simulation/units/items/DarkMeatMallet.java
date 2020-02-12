@@ -1,5 +1,6 @@
 package com.mazebert.simulation.units.items;
 
+import com.mazebert.simulation.Element;
 import com.mazebert.simulation.Rarity;
 import com.mazebert.simulation.units.abilities.DarkItemAbility;
 
@@ -45,7 +46,7 @@ public strictfp class DarkMeatMallet extends Item {
     }
 
     @Override
-    public boolean isDark() {
-        return true;
+    public Element getElement() {
+        return Element.Darkness;
     }
 }

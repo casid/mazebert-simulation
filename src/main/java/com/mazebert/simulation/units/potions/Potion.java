@@ -21,11 +21,6 @@ public strictfp abstract class Potion implements Card {
     }
 
     @Override
-    public boolean isDark() {
-        return false;
-    }
-
-    @Override
     public boolean isDropable() {
         return true;
     }

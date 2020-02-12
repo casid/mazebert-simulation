@@ -1,5 +1,6 @@
 package com.mazebert.simulation.units.items;
 
+import com.mazebert.simulation.Element;
 import com.mazebert.simulation.Rarity;
 
 public strictfp class HeroicMask extends Item {
@@ -39,7 +40,7 @@ public strictfp class HeroicMask extends Item {
     }
 
     @Override
-    public boolean isLight() {
-        return true;
+    public Element getElement() {
+        return Element.Light;
     }
 }

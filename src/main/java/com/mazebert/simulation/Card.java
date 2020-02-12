@@ -20,10 +20,16 @@ public interface Card {
 
     int getItemLevel();
 
-    boolean isDark();
+    default Element getElement() {
+        return Element.Unknown;
+    }
+
+    default boolean isDark() {
+        return getElement() == Element.Darkness;
+    }
 
     default boolean isLight() {
-        return false;
+        return getElement() == Element.Light;
     }
 
     default boolean isForgeable() {

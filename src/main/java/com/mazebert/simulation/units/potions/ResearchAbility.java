@@ -24,6 +24,10 @@ public strictfp class ResearchAbility extends Ability<Tower> {
         }
     }
 
+    public Element getElement() {
+        return element;
+    }
+
     @Override
     public boolean isVisibleToUser() {
         return true;

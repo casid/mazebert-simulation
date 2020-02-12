@@ -1,5 +1,6 @@
 package com.mazebert.simulation.units.items;
 
+import com.mazebert.simulation.Element;
 import com.mazebert.simulation.Rarity;
 import com.mazebert.simulation.units.towers.TowerType;
 
@@ -50,18 +51,10 @@ public strictfp class SnowGlobe extends Item {
     }
 
     @Override
-    public boolean isLight() {
+    public Element getElement() {
         if (towerType == null) {
-            return false;
+            return super.getElement();
         }
-        return towerType.instance().isLight();
-    }
-
-    @Override
-    public boolean isDark() {
-        if (towerType == null) {
-            return false;
-        }
-        return towerType.instance().isDark();
+        return towerType.instance().getElement();
     }
 }

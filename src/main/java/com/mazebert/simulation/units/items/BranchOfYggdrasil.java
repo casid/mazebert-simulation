@@ -15,6 +15,11 @@ public abstract strictfp class BranchOfYggdrasil extends Item {
     }
 
     @Override
+    public Element getElement() {
+        return element;
+    }
+
+    @Override
     public String getName() {
         return "Branch to " + element.norseWorld;
     }

@@ -1,5 +1,6 @@
 package com.mazebert.simulation.units.items;
 
+import com.mazebert.simulation.Element;
 import com.mazebert.simulation.Rarity;
 
 public strictfp class Seelenreisser extends Item {
@@ -39,7 +40,7 @@ public strictfp class Seelenreisser extends Item {
     }
 
     @Override
-    public boolean isDark() {
-        return true;
+    public Element getElement() {
+        return Element.Darkness;
     }
 }

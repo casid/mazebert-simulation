@@ -1,5 +1,6 @@
 package com.mazebert.simulation.units.items;
 
+import com.mazebert.simulation.Element;
 import com.mazebert.simulation.Rarity;
 
 public strictfp class BloodDemonBlade extends Item {
@@ -47,8 +48,8 @@ public strictfp class BloodDemonBlade extends Item {
     }
 
     @Override
-    public boolean isDark() {
-        return true;
+    public Element getElement() {
+        return Element.Darkness;
     }
 
     @Override

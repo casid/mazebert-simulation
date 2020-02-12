@@ -1,12 +1,20 @@
 package com.mazebert.simulation.units.potions;
 
+import com.mazebert.simulation.Element;
 import com.mazebert.simulation.Rarity;
-import com.mazebert.simulation.units.abilities.Ability;
 
 public strictfp abstract class Research extends Potion {
 
-    public Research(Ability... abilities) {
-        super(abilities);
+    private final Element element;
+
+    public Research(ResearchAbility researchAbility) {
+        super(researchAbility);
+        element = researchAbility.getElement();
+    }
+
+    @Override
+    public Element getElement() {
+        return element;
     }
 
     @Override

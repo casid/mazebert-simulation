@@ -1,5 +1,6 @@
 package com.mazebert.simulation.units.potions;
 
+import com.mazebert.simulation.Element;
 import com.mazebert.simulation.Rarity;
 import com.mazebert.simulation.Sim;
 
@@ -48,8 +49,8 @@ public strictfp class UnicornTears extends Potion {
     }
 
     @Override
-    public boolean isLight() {
-        return true;
+    public Element getElement() {
+        return Element.Light;
     }
 
     public void setLevels(int levels) {

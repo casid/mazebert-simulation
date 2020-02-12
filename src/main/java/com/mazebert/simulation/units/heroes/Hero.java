@@ -23,11 +23,6 @@ public abstract strictfp class Hero extends Unit implements Card {
     }
 
     @Override
-    public boolean isDark() {
-        return false;
-    }
-
-    @Override
     public boolean isDropable() {
         return true;
     }

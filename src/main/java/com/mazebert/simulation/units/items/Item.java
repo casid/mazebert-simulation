@@ -31,11 +31,6 @@ public strictfp abstract class Item implements Card {
     }
 
     @Override
-    public boolean isDark() {
-        return false;
-    }
-
-    @Override
     public boolean isDropable() {
         return true;
     }

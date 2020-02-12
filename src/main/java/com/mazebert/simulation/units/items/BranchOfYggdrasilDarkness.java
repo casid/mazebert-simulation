@@ -6,9 +6,4 @@ public strictfp class BranchOfYggdrasilDarkness extends BranchOfYggdrasil {
     public BranchOfYggdrasilDarkness() {
         super(Element.Darkness);
     }
-
-    @Override
-    public boolean isDark() {
-        return true;
-    }
 }

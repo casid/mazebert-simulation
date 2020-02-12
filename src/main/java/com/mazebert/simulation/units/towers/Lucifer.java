@@ -60,9 +60,4 @@ public strictfp class Lucifer extends Tower {
     public String getModelId() {
         return "lucifer";
     }
-
-    @Override
-    public boolean isLight() {
-        return true;
-    }
 }

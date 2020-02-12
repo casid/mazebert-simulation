@@ -1,5 +1,6 @@
 package com.mazebert.simulation.units.potions;
 
+import com.mazebert.simulation.Element;
 import com.mazebert.simulation.Rarity;
 
 public strictfp class WhiteRussian extends Potion {
@@ -53,7 +54,7 @@ public strictfp class WhiteRussian extends Potion {
     }
 
     @Override
-    public boolean isLight() {
-        return true;
+    public Element getElement() {
+        return Element.Light;
     }
 }

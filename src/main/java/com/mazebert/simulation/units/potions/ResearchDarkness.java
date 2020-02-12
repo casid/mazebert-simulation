@@ -24,9 +24,4 @@ public strictfp class ResearchDarkness extends Research {
     public String getSinceVersion() {
         return "1.6";
     }
-
-    @Override
-    public boolean isDark() {
-        return true;
-    }
 }

@@ -1,5 +1,6 @@
 package com.mazebert.simulation.units.heroes;
 
+import com.mazebert.simulation.Element;
 import com.mazebert.simulation.Rarity;
 
 public strictfp class Bookworm extends Hero {
@@ -40,7 +41,7 @@ public strictfp class Bookworm extends Hero {
     }
 
     @Override
-    public boolean isLight() {
-        return true;
+    public Element getElement() {
+        return Element.Light;
     }
 }

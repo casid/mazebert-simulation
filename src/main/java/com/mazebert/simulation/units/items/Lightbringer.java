@@ -1,5 +1,6 @@
 package com.mazebert.simulation.units.items;
 
+import com.mazebert.simulation.Element;
 import com.mazebert.simulation.Rarity;
 import com.mazebert.simulation.Sim;
 import com.mazebert.simulation.units.towers.Tower;
@@ -52,8 +53,8 @@ public strictfp class Lightbringer extends Item {
     }
 
     @Override
-    public boolean isLight() {
-        return true;
+    public Element getElement() {
+        return Element.Light;
     }
 
     @Override

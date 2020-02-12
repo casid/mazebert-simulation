@@ -24,9 +24,4 @@ public strictfp class ResearchLight extends Research {
     public String getSinceVersion() {
         return "2.0";
     }
-
-    @Override
-    public boolean isLight() {
-        return true;
-    }
 }

@@ -1,5 +1,6 @@
 package com.mazebert.simulation.units.heroes;
 
+import com.mazebert.simulation.Element;
 import com.mazebert.simulation.Rarity;
 
 public strictfp class ProphetLucien extends Hero {
@@ -39,8 +40,8 @@ public strictfp class ProphetLucien extends Hero {
     }
 
     @Override
-    public boolean isLight() {
-        return true;
+    public Element getElement() {
+        return Element.Light;
     }
 
     @Override
