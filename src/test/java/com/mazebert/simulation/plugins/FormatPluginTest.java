@@ -68,7 +68,7 @@ class FormatPluginTest {
     void percent() {
         assertThat(format.percent(0.0f)).isEqualTo("0");
         assertThat(format.percent(1.0f)).isEqualTo("100");
-        assertThat(format.percent(1.001f)).isEqualTo("100");
+        assertThat(format.percent(1.001f)).isEqualTo("100.1");
         assertThat(format.percent(0.001f)).isEqualTo("0.1");
         assertThat(format.percent(0.0001f)).isEqualTo("0.01");
         assertThat(format.percent(0.00001f)).isEqualTo("0.001");
@@ -77,6 +77,12 @@ class FormatPluginTest {
         assertThat(format.percent(0.00000001f)).isEqualTo("0");
         assertThat(format.percent(0.3999999f)).isEqualTo("40");
         assertThat(format.percent(-0.00000001f)).isEqualTo("0");
+        assertThat(format.percent(0.0016f)).isEqualTo("0.16");
+    }
+
+    @Test
+    void name() {
+        assertThat(format.percent(0.0000001f)).isEqualTo("0.00001");
     }
 
     @Test

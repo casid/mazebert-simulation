@@ -134,7 +134,7 @@ public strictfp class FormatPlugin {
     }
 
     public String percent(float value) {
-        return percent(value, calculateRequiredDigits(value, 5));
+        return percent(value, calculateRequiredDigits(value, 4) + 1);
     }
 
     public String percent(float value, int digits) {
@@ -203,12 +203,12 @@ public strictfp class FormatPlugin {
         return colored(lowercase ? rarity.nameLowercase : rarity.name, rarity.color);
     }
 
-    public String card(CardType cardType) {
+    public String card(CardType<?> cardType) {
         Card card = cardType.instance();
         return colored(card.getName(), card.getRarity().color);
     }
 
-    public String card(CardType cardType, int maxLength) {
+    public String card(CardType<?> cardType, int maxLength) {
         Card card = cardType.instance();
         String name = card.getName();
         if (name.length() > maxLength) {
