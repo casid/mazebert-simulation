@@ -1,6 +1,7 @@
 package com.mazebert.simulation.units.wizards;
 
 import com.mazebert.simulation.Rarity;
+import com.mazebert.simulation.Sim;
 import com.mazebert.simulation.units.towers.TowerType;
 
 public strictfp class DeckMasterPower extends WizardPower {
@@ -16,6 +17,10 @@ public strictfp class DeckMasterPower extends WizardPower {
         }
 
         if (selectedTower.instance().getRarity().ordinal() > getRarity().ordinal()) {
+            return;
+        }
+
+        if (Sim.context().version >= Sim.v20 && !selectedTower.instance().isDropable()) {
             return;
         }
 

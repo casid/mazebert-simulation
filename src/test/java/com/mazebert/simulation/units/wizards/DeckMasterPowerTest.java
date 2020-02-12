@@ -1,5 +1,6 @@
 package com.mazebert.simulation.units.wizards;
 
+import com.mazebert.simulation.Sim;
 import com.mazebert.simulation.SimTest;
 import com.mazebert.simulation.SimulationListeners;
 import com.mazebert.simulation.gateways.UnitGateway;
@@ -53,6 +54,23 @@ strictfp class DeckMasterPowerTest extends SimTest {
         wizard.level = 69;
         whenAbilityIsAdded();
         assertThat(wizard.towerStash.size()).isEqualTo(0);
+    }
+
+    @Test
+    void forbiddenCard() {
+        power.setSelectedTower(TowerType.LuciferFallen);
+        whenAbilityIsAdded();
+        assertThat(wizard.towerStash.size()).isEqualTo(0);
+    }
+
+    @Test
+    void forbiddenCard_worksWithOldVersion() {
+        version = Sim.v19;
+        power.setSelectedTower(TowerType.LuciferFallen);
+
+        whenAbilityIsAdded();
+
+        assertThat(wizard.towerStash.get(TowerType.LuciferFallen).amount).isEqualTo(1);
     }
 
     private void whenAbilityIsAdded() {
