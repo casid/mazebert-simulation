@@ -1,11 +1,21 @@
 package com.mazebert.simulation.units.heroes;
 
 import com.mazebert.simulation.Rarity;
+import com.mazebert.simulation.Sim;
+import com.mazebert.simulation.changelog.Changelog;
+import com.mazebert.simulation.changelog.ChangelogEntry;
 
 public strictfp class LittleFinger extends Hero {
 
     public LittleFinger() {
         addAbility(new LittleFingerAbility());
+    }
+
+    @Override
+    public Changelog getChangelog() {
+        return new Changelog(
+                new ChangelogEntry(Sim.v10, false, 2014)
+        );
     }
 
     @Override

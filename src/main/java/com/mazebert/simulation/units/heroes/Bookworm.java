@@ -2,12 +2,22 @@ package com.mazebert.simulation.units.heroes;
 
 import com.mazebert.simulation.Element;
 import com.mazebert.simulation.Rarity;
+import com.mazebert.simulation.Sim;
+import com.mazebert.simulation.changelog.Changelog;
+import com.mazebert.simulation.changelog.ChangelogEntry;
 
 public strictfp class Bookworm extends Hero {
 
     public Bookworm() {
         addAbility(new BookwormBooksAbility());
         addAbility(new BookwormExperienceAbility());
+    }
+
+    @Override
+    public Changelog getChangelog() {
+        return new Changelog(
+                new ChangelogEntry(Sim.v13, false, 2019)
+        );
     }
 
     @Override
