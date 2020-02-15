@@ -1,11 +1,21 @@
 package com.mazebert.simulation.units.items;
 
 import com.mazebert.simulation.Rarity;
+import com.mazebert.simulation.Sim;
+import com.mazebert.simulation.changelog.Changelog;
+import com.mazebert.simulation.changelog.ChangelogEntry;
 
 public strictfp class FatKnightArmor extends Item {
 
     public FatKnightArmor() {
         super(new FatKnightArmorAbility());
+    }
+
+    @Override
+    public Changelog getChangelog() {
+        return new Changelog(
+                ChangelogEntry.DAWN_OF_LIGHT
+        );
     }
 
     @Override

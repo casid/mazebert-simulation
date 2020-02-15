@@ -1,12 +1,22 @@
 package com.mazebert.simulation.units.items;
 
 import com.mazebert.simulation.Rarity;
+import com.mazebert.simulation.Sim;
+import com.mazebert.simulation.changelog.Changelog;
+import com.mazebert.simulation.changelog.ChangelogEntry;
 import com.mazebert.simulation.units.abilities.VikingAbility;
 
 public strictfp class VikingHelmet extends Item {
 
     public VikingHelmet() {
         super(new VikingHelmetLuckAbility(), new VikingHelmetDamageAbility(), new VikingAbility());
+    }
+
+    @Override
+    public Changelog getChangelog() {
+        return new Changelog(
+                new ChangelogEntry(Sim.v10, false, 2013)
+        );
     }
 
     @Override

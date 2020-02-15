@@ -1,8 +1,18 @@
 package com.mazebert.simulation.units.items;
 
 import com.mazebert.simulation.Rarity;
+import com.mazebert.simulation.Sim;
+import com.mazebert.simulation.changelog.Changelog;
+import com.mazebert.simulation.changelog.ChangelogEntry;
 
 public strictfp class TransmuteUniques extends TutorialItem {
+
+    @Override
+    public Changelog getChangelog() {
+        return new Changelog(
+                new ChangelogEntry(Sim.v10, false, 2015)
+        );
+    }
 
     @Override
     public String getDescription() {

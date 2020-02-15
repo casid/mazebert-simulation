@@ -1,11 +1,22 @@
 package com.mazebert.simulation.units.items;
 
 import com.mazebert.simulation.Rarity;
+import com.mazebert.simulation.Sim;
+import com.mazebert.simulation.changelog.Changelog;
+import com.mazebert.simulation.changelog.ChangelogEntry;
 
 public strictfp class WitheredCactus extends Item {
 
     public WitheredCactus() {
         super(new WitheredCactusAbility(), new WitheredSetAbility());
+    }
+
+    @Override
+    public Changelog getChangelog() {
+        return new Changelog(
+                new ChangelogEntry(Sim.vDoL, false, 2019, "Reduced bonus from 15% to 3%."),
+                new ChangelogEntry(Sim.v10, false, 2014)
+        );
     }
 
     @Override

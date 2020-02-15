@@ -2,11 +2,20 @@ package com.mazebert.simulation.units.items;
 
 import com.mazebert.simulation.Element;
 import com.mazebert.simulation.Rarity;
+import com.mazebert.simulation.changelog.Changelog;
+import com.mazebert.simulation.changelog.ChangelogEntry;
 
 public strictfp class HeroicMask extends Item {
 
     public HeroicMask() {
         super(new HeroicMaskAbility(), new HeroicSetAbility());
+    }
+
+    @Override
+    public Changelog getChangelog() {
+        return new Changelog(
+                ChangelogEntry.DAWN_OF_LIGHT
+        );
     }
 
     @Override

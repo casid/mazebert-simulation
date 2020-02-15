@@ -2,6 +2,8 @@ package com.mazebert.simulation.units.items;
 
 import com.mazebert.simulation.Rarity;
 import com.mazebert.simulation.Sim;
+import com.mazebert.simulation.changelog.Changelog;
+import com.mazebert.simulation.changelog.ChangelogEntry;
 import com.mazebert.simulation.units.abilities.Ability;
 
 public strictfp class Mjoelnir extends Item {
@@ -16,6 +18,13 @@ public strictfp class Mjoelnir extends Item {
 
     public Mjoelnir() {
         super(getAbilities());
+    }
+
+    @Override
+    public Changelog getChangelog() {
+        return new Changelog(
+                new ChangelogEntry(Sim.v10, false, 2015)
+        );
     }
 
     @Override

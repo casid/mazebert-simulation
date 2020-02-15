@@ -2,6 +2,8 @@ package com.mazebert.simulation.units.items;
 
 import com.mazebert.simulation.Rarity;
 import com.mazebert.simulation.Sim;
+import com.mazebert.simulation.changelog.Changelog;
+import com.mazebert.simulation.changelog.ChangelogEntry;
 import com.mazebert.simulation.minigames.BowlingGame;
 
 public strictfp class BowlingBall extends Item {
@@ -15,6 +17,13 @@ public strictfp class BowlingBall extends Item {
         super(new BowlingBallRollAbility(), new BowlingBallGameAbility());
         getAbility(BowlingBallRollAbility.class).setGame(game);
         getAbility(BowlingBallGameAbility.class).setGame(game);
+    }
+
+    @Override
+    public Changelog getChangelog() {
+        return new Changelog(
+                new ChangelogEntry(Sim.v10, false, 2015)
+        );
     }
 
     @Override

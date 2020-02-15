@@ -2,11 +2,21 @@ package com.mazebert.simulation.units.items;
 
 import com.mazebert.simulation.Element;
 import com.mazebert.simulation.Rarity;
+import com.mazebert.simulation.Sim;
+import com.mazebert.simulation.changelog.Changelog;
+import com.mazebert.simulation.changelog.ChangelogEntry;
 
 public strictfp class Seelenreisser extends Item {
 
     public Seelenreisser() {
         super(new SeelenreisserAbility());
+    }
+
+    @Override
+    public Changelog getChangelog() {
+        return new Changelog(
+                new ChangelogEntry(Sim.v10, false, 2014)
+        );
     }
 
     @Override
