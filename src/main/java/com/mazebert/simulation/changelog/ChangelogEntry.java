@@ -37,4 +37,8 @@ public strictfp class ChangelogEntry {
     public String[] getChanges() {
         return changes;
     }
+
+    public boolean isInitial() {
+        return changes == INITIAL_CHANGES;
+    }
 }
