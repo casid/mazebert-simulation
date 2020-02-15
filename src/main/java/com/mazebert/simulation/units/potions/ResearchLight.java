@@ -1,8 +1,18 @@
 package com.mazebert.simulation.units.potions;
 
+import com.mazebert.simulation.changelog.Changelog;
+import com.mazebert.simulation.changelog.ChangelogEntry;
+
 public strictfp class ResearchLight extends Research {
     public ResearchLight() {
         super(new ResearchLightAbility());
+    }
+
+    @Override
+    public Changelog getChangelog() {
+        return new Changelog(
+                ChangelogEntry.DAWN_OF_LIGHT
+        );
     }
 
     @Override

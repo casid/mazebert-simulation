@@ -3,6 +3,8 @@ package com.mazebert.simulation.units.potions;
 import com.mazebert.simulation.Element;
 import com.mazebert.simulation.Rarity;
 import com.mazebert.simulation.Sim;
+import com.mazebert.simulation.changelog.Changelog;
+import com.mazebert.simulation.changelog.ChangelogEntry;
 
 public strictfp class UnicornTears extends Potion {
 
@@ -11,6 +13,13 @@ public strictfp class UnicornTears extends Potion {
     public UnicornTears() {
         super(new UnicornTearsAbility());
         unicornTearsAbility = getAbility(0, UnicornTearsAbility.class);
+    }
+
+    @Override
+    public Changelog getChangelog() {
+        return new Changelog(
+                new ChangelogEntry(Sim.v10, false, 2013)
+        );
     }
 
     @Override
