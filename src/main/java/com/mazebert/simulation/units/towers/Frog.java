@@ -4,6 +4,8 @@ import com.mazebert.simulation.AttackType;
 import com.mazebert.simulation.Element;
 import com.mazebert.simulation.Rarity;
 import com.mazebert.simulation.Sim;
+import com.mazebert.simulation.changelog.Changelog;
+import com.mazebert.simulation.changelog.ChangelogEntry;
 import com.mazebert.simulation.projectiles.ProjectileViewType;
 import com.mazebert.simulation.units.Gender;
 import com.mazebert.simulation.units.abilities.AttackAbility;
@@ -26,6 +28,14 @@ public strictfp class Frog extends Tower {
         }
         addAbility(new FrogPoisonAbility());
         addAbility(new ProjectileDamageAbility(ProjectileViewType.FrogSpit, 12));
+    }
+
+    @Override
+    public Changelog getChangelog() {
+        return new Changelog(
+                new ChangelogEntry(Sim.v20, false, 2020, "Add Toxic decomposition ability", "Poison damage per level increased from 1% to 2%"),
+                new ChangelogEntry(Sim.v10, false, 2013)
+        );
     }
 
     @Override

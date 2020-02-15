@@ -1,6 +1,7 @@
 package com.mazebert.simulation;
 
 import com.mazebert.java8.Consumer;
+import com.mazebert.simulation.changelog.Changelog;
 import com.mazebert.simulation.units.abilities.Ability;
 
 public interface Card {
@@ -61,6 +62,10 @@ public interface Card {
     }
 
     String getSinceVersion();
+
+    default Changelog getChangelog() {
+        return Changelog.EMPTY;
+    }
 
     void forEachAbility(Consumer<Ability> consumer);
 

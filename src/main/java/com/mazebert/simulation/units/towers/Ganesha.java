@@ -3,6 +3,9 @@ package com.mazebert.simulation.units.towers;
 import com.mazebert.simulation.AttackType;
 import com.mazebert.simulation.Element;
 import com.mazebert.simulation.Rarity;
+import com.mazebert.simulation.Sim;
+import com.mazebert.simulation.changelog.Changelog;
+import com.mazebert.simulation.changelog.ChangelogEntry;
 import com.mazebert.simulation.units.Gender;
 
 public strictfp class Ganesha extends Tower {
@@ -18,6 +21,13 @@ public strictfp class Ganesha extends Tower {
 
         addAbility(new GaneshaExperienceAura());
         addAbility(new GaneshaLevelAura());
+    }
+
+    @Override
+    public Changelog getChangelog() {
+        return new Changelog(
+                new ChangelogEntry(Sim.v10, false, 2013)
+        );
     }
 
     @Override

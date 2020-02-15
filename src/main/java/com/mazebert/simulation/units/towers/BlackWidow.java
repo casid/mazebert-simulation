@@ -4,6 +4,8 @@ import com.mazebert.simulation.AttackType;
 import com.mazebert.simulation.Element;
 import com.mazebert.simulation.Rarity;
 import com.mazebert.simulation.Sim;
+import com.mazebert.simulation.changelog.Changelog;
+import com.mazebert.simulation.changelog.ChangelogEntry;
 import com.mazebert.simulation.units.Gender;
 import com.mazebert.simulation.units.abilities.AttackAbility;
 import com.mazebert.simulation.units.abilities.InstantDamageAbility;
@@ -24,6 +26,13 @@ public strictfp class BlackWidow extends Tower {
         addAbility(new InstantDamageAbility());
         addAbility(new BlackWidowAura());
         addAbility(new BlackWidowKill());
+    }
+
+    @Override
+    public Changelog getChangelog() {
+        return new Changelog(
+                new ChangelogEntry(Sim.v10, false, 2013)
+        );
     }
 
     @Override

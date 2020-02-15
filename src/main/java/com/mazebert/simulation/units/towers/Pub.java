@@ -4,6 +4,8 @@ import com.mazebert.simulation.AttackType;
 import com.mazebert.simulation.Element;
 import com.mazebert.simulation.Rarity;
 import com.mazebert.simulation.Sim;
+import com.mazebert.simulation.changelog.Changelog;
+import com.mazebert.simulation.changelog.ChangelogEntry;
 import com.mazebert.simulation.projectiles.ProjectileViewType;
 import com.mazebert.simulation.units.Gender;
 import com.mazebert.simulation.units.abilities.AttackAbility;
@@ -23,12 +25,19 @@ public strictfp class Pub extends Tower {
         addAbility(new AttackAbility());
         addAbility(new ProjectileDamageAbility(ProjectileViewType.Beer, 6));
         addAbility(new PubAura());
-        if (Sim.context().version <= 10) {
-            addAbility(new PubParty10());
-        } else {
+        if (Sim.context().version >= Sim.v11) {
             addAbility(new PubParty());
+        } else {
+            addAbility(new PubParty10());
         }
+    }
 
+    @Override
+    public Changelog getChangelog() {
+        return new Changelog(
+                new ChangelogEntry(Sim.v11, false, 2019, "Rebalanced Pub Party"),
+                new ChangelogEntry(Sim.v10, false, 2014)
+        );
     }
 
     @Override

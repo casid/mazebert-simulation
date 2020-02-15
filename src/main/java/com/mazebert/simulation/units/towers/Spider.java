@@ -4,6 +4,8 @@ import com.mazebert.simulation.AttackType;
 import com.mazebert.simulation.Element;
 import com.mazebert.simulation.Rarity;
 import com.mazebert.simulation.Sim;
+import com.mazebert.simulation.changelog.Changelog;
+import com.mazebert.simulation.changelog.ChangelogEntry;
 import com.mazebert.simulation.projectiles.ProjectileViewType;
 import com.mazebert.simulation.units.Gender;
 import com.mazebert.simulation.units.abilities.AttackAbility;
@@ -29,6 +31,14 @@ public strictfp class Spider extends Tower {
         } else {
             addAbility(new SpiderWeb());
         }
+    }
+
+    @Override
+    public Changelog getChangelog() {
+        return new Changelog(
+                new ChangelogEntry(Sim.vDoL, false, 2019, "Spider web counts as immobilize ability"),
+                new ChangelogEntry(Sim.v10, false, 2014)
+        );
     }
 
     @Override

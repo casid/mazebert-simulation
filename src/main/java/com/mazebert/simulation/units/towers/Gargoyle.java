@@ -3,6 +3,9 @@ package com.mazebert.simulation.units.towers;
 import com.mazebert.simulation.AttackType;
 import com.mazebert.simulation.Element;
 import com.mazebert.simulation.Rarity;
+import com.mazebert.simulation.Sim;
+import com.mazebert.simulation.changelog.Changelog;
+import com.mazebert.simulation.changelog.ChangelogEntry;
 import com.mazebert.simulation.units.Gender;
 import com.mazebert.simulation.units.abilities.AttackAbility;
 import com.mazebert.simulation.units.abilities.AttackSoundAbility;
@@ -23,6 +26,13 @@ public strictfp class Gargoyle extends Tower {
         addAbility(new AttackSoundAbility("sounds/stone-hit.mp3"));
         addAbility(new InstantDamageAbility());
         addAbility(new GargoyleKnockback());
+    }
+
+    @Override
+    public Changelog getChangelog() {
+        return new Changelog(
+                new ChangelogEntry(Sim.vDoL, true, 2019)
+        );
     }
 
     @Override

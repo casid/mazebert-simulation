@@ -3,6 +3,9 @@ package com.mazebert.simulation.units.towers;
 import com.mazebert.simulation.AttackType;
 import com.mazebert.simulation.Element;
 import com.mazebert.simulation.Rarity;
+import com.mazebert.simulation.Sim;
+import com.mazebert.simulation.changelog.Changelog;
+import com.mazebert.simulation.changelog.ChangelogEntry;
 import com.mazebert.simulation.projectiles.ProjectileViewType;
 import com.mazebert.simulation.units.Gender;
 import com.mazebert.simulation.units.abilities.AttackAbility;
@@ -22,6 +25,13 @@ public strictfp class Scientist extends Tower {
         addAbility(new AttackAbility());
         addAbility(new ScientistExperience());
         addAbility(new ProjectileDamageAbility(ProjectileViewType.ChemicalPotion, 10));
+    }
+
+    @Override
+    public Changelog getChangelog() {
+        return new Changelog(
+                new ChangelogEntry(Sim.v10, false, 2013)
+        );
     }
 
     @Override

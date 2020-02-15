@@ -3,6 +3,9 @@ package com.mazebert.simulation.units.towers;
 import com.mazebert.simulation.AttackType;
 import com.mazebert.simulation.Element;
 import com.mazebert.simulation.Rarity;
+import com.mazebert.simulation.Sim;
+import com.mazebert.simulation.changelog.Changelog;
+import com.mazebert.simulation.changelog.ChangelogEntry;
 import com.mazebert.simulation.units.Gender;
 import com.mazebert.simulation.units.abilities.AttackSoundAbility;
 import com.mazebert.simulation.units.abilities.InstantDamageAbility;
@@ -24,6 +27,13 @@ public strictfp class Templar extends Tower {
         addAbility(new InstantDamageAbility()); // Required for crit bonus to work!
         addAbility(new RandomGenderAbility());
         addAbility(new TemplarGuardAura(getBaseRange()));
+    }
+
+    @Override
+    public Changelog getChangelog() {
+        return new Changelog(
+                ChangelogEntry.DAWN_OF_LIGHT
+        );
     }
 
     @Override

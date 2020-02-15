@@ -3,6 +3,9 @@ package com.mazebert.simulation.units.towers;
 import com.mazebert.simulation.AttackType;
 import com.mazebert.simulation.Element;
 import com.mazebert.simulation.Rarity;
+import com.mazebert.simulation.Sim;
+import com.mazebert.simulation.changelog.Changelog;
+import com.mazebert.simulation.changelog.ChangelogEntry;
 import com.mazebert.simulation.units.Gender;
 
 public strictfp class Kiwi extends Tower {
@@ -19,6 +22,13 @@ public strictfp class Kiwi extends Tower {
         addAbility(new KiwiDamage());
         addAbility(new KiwiHaka());
         addAbility(new KiwiKick());
+    }
+
+    @Override
+    public Changelog getChangelog() {
+        return new Changelog(
+                new ChangelogEntry(Sim.v10, false, 2015)
+        );
     }
 
     @Override
