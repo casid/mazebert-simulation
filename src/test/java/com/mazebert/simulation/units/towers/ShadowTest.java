@@ -15,7 +15,7 @@ import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.Assertions.assertThat;
 
 strictfp class ShadowTest extends SimTest {
-    static final float max = 8.020025f;
+    static final float max = 14.019972f;
 
     DamageSystemTrainer damageSystemTrainer = new DamageSystemTrainer();
     RandomPluginTrainer randomPluginTrainer = new RandomPluginTrainer();
@@ -115,10 +115,10 @@ strictfp class ShadowTest extends SimTest {
         whenShadowAttacks();
         whenShadowAttacks();
 
-        assertThat(shadow.getDamageAgainstVex()).isEqualTo(7.9900246f);
+        assertThat(shadow.getDamageAgainstVex()).isEqualTo(13.989971f);
         wave.armorType = ArmorType.Vex;
         whenShadowAttacks();
-        assertThat(shadow.getDamageAgainstVex()).isEqualTo(8.020024f);
+        assertThat(shadow.getDamageAgainstVex()).isEqualTo(14.019971f);
     }
 
     @Test
@@ -158,7 +158,7 @@ strictfp class ShadowTest extends SimTest {
     }
 
     private void whenShadowCapsAdaption() {
-        for (int i = 0; i < 1000; ++i) {
+        for (int i = 0; i < 1400; ++i) {
             whenShadowAttacks();
         }
     }

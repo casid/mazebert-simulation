@@ -23,7 +23,7 @@ public strictfp class Trident_ScareCrowTest extends ItemTest {
     @Test
     void levelUp() {
         whenItemIsEquipped(ItemType.Trident);
-        tower.setLevel(14);
+        tower.setLevel(7);
         assertThat(tower.getAbility(AttackAbility.class).getTargets()).isEqualTo(5);
     }
 }

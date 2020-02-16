@@ -1,26 +1,35 @@
 package com.mazebert.simulation.units.items;
 
+import com.mazebert.simulation.Sim;
 import com.mazebert.simulation.units.abilities.Ability;
 import com.mazebert.simulation.units.towers.Tower;
 
 public strictfp class HeroicMaskAbility extends Ability<Tower> {
-    public static final float BONUS = 0.05f;
+    private final float bonus;
+
+    public HeroicMaskAbility() {
+        if (Sim.context().version >= Sim.v20) {
+            bonus = 0.1f;
+        } else {
+            bonus = 0.05f;
+        }
+    }
 
     @Override
     protected void initialize(Tower unit) {
         super.initialize(unit);
-        unit.addExperienceModifier(BONUS);
-        unit.addAddedRelativeBaseDamage(BONUS);
-        unit.addCritChance(BONUS);
-        unit.addLuck(BONUS);
+        unit.addExperienceModifier(bonus);
+        unit.addAddedRelativeBaseDamage(bonus);
+        unit.addCritChance(bonus);
+        unit.addLuck(bonus);
     }
 
     @Override
     protected void dispose(Tower unit) {
-        unit.addLuck(-BONUS);
-        unit.addCritChance(-BONUS);
-        unit.addAddedRelativeBaseDamage(-BONUS);
-        unit.addExperienceModifier(-BONUS);
+        unit.addLuck(-bonus);
+        unit.addCritChance(-bonus);
+        unit.addAddedRelativeBaseDamage(-bonus);
+        unit.addExperienceModifier(-bonus);
         super.dispose(unit);
     }
 
@@ -36,9 +45,9 @@ public strictfp class HeroicMaskAbility extends Ability<Tower> {
 
     @Override
     public String getDescription() {
-        return format.percentWithSignAndUnit(BONUS) + " experience\n" +
-                format.percentWithSignAndUnit(BONUS) + " damage\n" +
-                format.percentWithSignAndUnit(BONUS) + " crit chance\n" +
-                format.percentWithSignAndUnit(BONUS) + " luck";
+        return format.percentWithSignAndUnit(bonus) + " experience\n" +
+                format.percentWithSignAndUnit(bonus) + " damage\n" +
+                format.percentWithSignAndUnit(bonus) + " crit chance\n" +
+                format.percentWithSignAndUnit(bonus) + " luck";
     }
 }

@@ -48,7 +48,7 @@ strictfp class ScareCrowTest extends SimTest {
 
     @Test
     void moreCrowsOnLevelUp() {
-        scareCrow.setLevel(14);
+        scareCrow.setLevel(7);
         whenScareCrowAttacks();
         assertThat(creep.getHealth()).isEqualTo(70);
     }

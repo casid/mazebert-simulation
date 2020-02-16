@@ -175,7 +175,7 @@ class ElectricChairTest extends SimTest implements OnChainListener {
 
     @Test
     void customBonus_level() {
-        electricChair.setLevel(14 * 2);
+        electricChair.setLevel(7 * 2);
 
         CustomTowerBonus bonus = new CustomTowerBonus();
         electricChair.populateCustomTowerBonus(bonus);

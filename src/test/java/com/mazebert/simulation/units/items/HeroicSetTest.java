@@ -2,10 +2,12 @@ package com.mazebert.simulation.units.items;
 
 import org.junit.jupiter.api.Test;
 
-import static com.mazebert.simulation.units.items.HeroicMaskAbility.BONUS;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public strictfp class HeroicSetTest extends ItemTest {
+    private static final float MASK_BONUS = 0.1f;
+    private static final float SET_BONUS = 0.4f;
+
     @Test
     void cape() {
         whenItemIsEquipped(ItemType.HeroicCape);
@@ -22,20 +24,20 @@ public strictfp class HeroicSetTest extends ItemTest {
     @Test
     void mask() {
         whenItemIsEquipped(ItemType.HeroicMask);
-        assertThat(tower.getExperienceModifier()).isEqualTo(1 + BONUS);
-        assertThat(tower.getAddedRelativeBaseDamage()).isEqualTo(BONUS);
-        assertThat(tower.getCritChance()).isEqualTo(0.05f + BONUS);
-        assertThat(tower.getLuck()).isEqualTo(1 + BONUS);
+        assertThat(tower.getExperienceModifier()).isEqualTo(1 + MASK_BONUS);
+        assertThat(tower.getAddedRelativeBaseDamage()).isEqualTo(MASK_BONUS);
+        assertThat(tower.getCritChance()).isEqualTo(0.05f + MASK_BONUS);
+        assertThat(tower.getLuck()).isEqualTo(1 + MASK_BONUS);
     }
 
     @Test
     void mask_removed() {
         whenItemIsEquipped(ItemType.HeroicMask);
         whenItemIsEquipped(null);
-        assertThat(tower.getExperienceModifier()).isEqualTo(1 + BONUS - BONUS);
-        assertThat(tower.getAddedRelativeBaseDamage()).isEqualTo(BONUS - BONUS);
-        assertThat(tower.getCritChance()).isEqualTo(0.05f + BONUS - BONUS);
-        assertThat(tower.getLuck()).isEqualTo(1 + BONUS - BONUS);
+        assertThat(tower.getExperienceModifier()).isEqualTo(1 + MASK_BONUS - MASK_BONUS);
+        assertThat(tower.getAddedRelativeBaseDamage()).isEqualTo(MASK_BONUS - MASK_BONUS);
+        assertThat(tower.getCritChance()).isEqualTo(0.05f + MASK_BONUS - MASK_BONUS);
+        assertThat(tower.getLuck()).isEqualTo(1 + MASK_BONUS - MASK_BONUS);
     }
 
     @Test
@@ -43,7 +45,7 @@ public strictfp class HeroicSetTest extends ItemTest {
         whenItemIsEquipped(ItemType.HeroicMask, 0);
         whenItemIsEquipped(ItemType.HeroicCape, 1);
 
-        assertThat(tower.getAttackSpeedAdd()).isEqualTo(HeroicSetAbility.BONUS);
+        assertThat(tower.getAttackSpeedAdd()).isEqualTo(SET_BONUS);
     }
 
     @Test
@@ -52,6 +54,6 @@ public strictfp class HeroicSetTest extends ItemTest {
         whenItemIsEquipped(ItemType.HeroicCape, 1);
         whenItemIsEquipped(null, 1);
 
-        assertThat(tower.getAttackSpeedAdd()).isEqualTo(HeroicSetAbility.BONUS - HeroicSetAbility.BONUS);
+        assertThat(tower.getAttackSpeedAdd()).isEqualTo(SET_BONUS - SET_BONUS);
     }
 }
