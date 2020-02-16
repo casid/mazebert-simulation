@@ -3,9 +3,9 @@ package com.mazebert.simulation.changelog;
 import com.mazebert.simulation.Sim;
 
 public strictfp class ChangelogEntry {
-    public static final ChangelogEntry DAWN_OF_LIGHT = new ChangelogEntry(Sim.vDoL, true, 2019);
-
     private static final String[] INITIAL_CHANGES = {"Added to the game"};
+
+    public static final ChangelogEntry DAWN_OF_LIGHT = new ChangelogEntry(Sim.vDoL, true, 2019);
 
     private final int simVersion;
     private final boolean season;

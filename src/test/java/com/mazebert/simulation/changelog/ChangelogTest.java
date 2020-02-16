@@ -43,6 +43,11 @@ public class ChangelogTest extends SimTest {
             Changelog changelog = type.instance().getChangelog();
             assertThat(changelog).describedAs("Changelog of card " + type + " is null").isNotNull();
             assertThat(changelog.getEntries().length).describedAs("Changelog of card " + type + " is empty").isGreaterThan(0);
+
+            for (ChangelogEntry changelogEntry : changelog.getEntries()) {
+                assertThat(changelogEntry.getChanges()).describedAs("Changes of card " + type + "/" + changelogEntry.getSimVersion() + " is null").isNotNull();
+                assertThat(changelogEntry.getChanges().length).describedAs("Changes of card " + type + "/" + changelogEntry.getSimVersion() + " is empty").isGreaterThan(0);
+            }
         }
     }
 }
