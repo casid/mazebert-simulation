@@ -63,9 +63,7 @@ public interface Card {
 
     String getSinceVersion();
 
-    default Changelog getChangelog() {
-        return Changelog.EMPTY;
-    }
+    Changelog getChangelog();
 
     void forEachAbility(Consumer<Ability> consumer);
 

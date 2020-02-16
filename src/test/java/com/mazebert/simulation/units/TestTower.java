@@ -2,6 +2,7 @@ package com.mazebert.simulation.units;
 
 import com.mazebert.simulation.AttackType;
 import com.mazebert.simulation.Rarity;
+import com.mazebert.simulation.changelog.Changelog;
 import com.mazebert.simulation.units.towers.CustomTowerBonus;
 import com.mazebert.simulation.units.towers.Tower;
 
@@ -35,6 +36,11 @@ public class TestTower extends Tower {
     @Override
     public String getSinceVersion() {
         return "1.0.0";
+    }
+
+    @Override
+    public Changelog getChangelog() {
+        return null;
     }
 
     @Override

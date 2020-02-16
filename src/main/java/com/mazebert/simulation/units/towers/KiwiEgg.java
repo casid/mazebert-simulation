@@ -1,9 +1,8 @@
 package com.mazebert.simulation.units.towers;
 
-import com.mazebert.simulation.AttackType;
-import com.mazebert.simulation.Balancing;
-import com.mazebert.simulation.Element;
-import com.mazebert.simulation.Rarity;
+import com.mazebert.simulation.*;
+import com.mazebert.simulation.changelog.Changelog;
+import com.mazebert.simulation.changelog.ChangelogEntry;
 import com.mazebert.simulation.units.Gender;
 
 public strictfp class KiwiEgg extends Tower {
@@ -20,6 +19,13 @@ public strictfp class KiwiEgg extends Tower {
         setElement(Element.Nature);
 
         addAbility(hatch = new KiwiEggHatch());
+    }
+
+    @Override
+    public Changelog getChangelog() {
+        return new Changelog(
+                new ChangelogEntry(Sim.v10, false, 2015)
+        );
     }
 
     @Override
