@@ -10,11 +10,19 @@ public strictfp class ScareCrowMultishot extends AttackAbility implements OnLeve
 
     private final SimulationListeners simulationListeners = Sim.context().simulationListeners;
 
+    private final int levelsForOneCrow;
+
     private boolean crowsNeedToReturn;
     private int crows = 1;
 
     public ScareCrowMultishot() {
         super(1, true);
+
+        if (Sim.context().version >= Sim.v20) {
+            levelsForOneCrow = 7;
+        } else {
+            levelsForOneCrow = 14;
+        }
     }
 
     @Override
@@ -62,7 +70,7 @@ public strictfp class ScareCrowMultishot extends AttackAbility implements OnLeve
     }
 
     public int getCrows() {
-        return 2 + getUnit().getLevel() / 14;
+        return 2 + getUnit().getLevel() / levelsForOneCrow;
     }
 
     @Override
@@ -87,6 +95,6 @@ public strictfp class ScareCrowMultishot extends AttackAbility implements OnLeve
 
     @Override
     public String getLevelBonus() {
-        return "+ 1 crow every 14 levels";
+        return "+1 crow every " + levelsForOneCrow + " levels";
     }
 }

@@ -27,6 +27,7 @@ public strictfp class ScareCrow extends Tower {
     @Override
     public Changelog getChangelog() {
         return new Changelog(
+                new ChangelogEntry(Sim.v20, false, 2020, "+1 crow every 7 instead of 14 levels"),
                 new ChangelogEntry(Sim.v10, false, 2013)
         );
     }
