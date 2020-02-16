@@ -7,15 +7,26 @@ import com.mazebert.simulation.units.abilities.CooldownAbility;
 import com.mazebert.simulation.units.creeps.Creep;
 
 public strictfp class TheRipperKillingSpree extends CooldownAbility<Tower> implements OnKillListener {
-    private static final float BONUS_PER_KILL = 1.0f;
-    private static final float BONUS_PER_LEVEL = 0.02f;
     private static final float BONUS_TIME = 2.0f;
 
     private final SimulationListeners simulationListeners = Sim.context().simulationListeners;
 
+    private final float bonusPerKill;
+    private final float bonusPerLevel;
+
     private boolean isActive;
     private boolean isReplenishing;
     private float addedBonus;
+
+    public TheRipperKillingSpree() {
+        if (Sim.context().version >= Sim.v20) {
+            bonusPerKill = 1.6f;
+            bonusPerLevel = 0.03f;
+        } else {
+            bonusPerKill = 1.0f;
+            bonusPerLevel = 0.02f;
+        }
+    }
 
     @Override
     protected void initialize(Tower unit) {
@@ -61,7 +72,7 @@ public strictfp class TheRipperKillingSpree extends CooldownAbility<Tower> imple
     }
 
     private void addBonus() {
-        addedBonus = BONUS_PER_KILL + getUnit().getLevel() * BONUS_PER_LEVEL;
+        addedBonus = bonusPerKill + getUnit().getLevel() * bonusPerLevel;
         getUnit().addAttackSpeed(addedBonus);
 
         isActive = true;
@@ -88,13 +99,13 @@ public strictfp class TheRipperKillingSpree extends CooldownAbility<Tower> imple
 
     @Override
     public String getDescription() {
-        return "Each kill The Ripper goes into a murderous spree gaining " + format.percent(BONUS_PER_KILL) +
+        return "Each kill The Ripper goes into a murderous spree gaining " + format.percent(bonusPerKill) +
                 "% attack speed for " + format.seconds(BONUS_TIME) + " (does not stack).";
     }
 
     @Override
     public String getLevelBonus() {
-        return format.percentWithSignAndUnit(BONUS_PER_LEVEL) + " attack speed per level.";
+        return format.percentWithSignAndUnit(bonusPerLevel) + " attack speed per level.";
     }
 
     @Override

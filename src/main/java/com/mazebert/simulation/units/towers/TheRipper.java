@@ -34,6 +34,7 @@ public strictfp class TheRipper extends Tower {
     @Override
     public Changelog getChangelog() {
         return new Changelog(
+                new ChangelogEntry(Sim.v20, false, 2020, "Killing Spree speed bonus increased from 100% to 160%.", "Killing Spree speed bonus per level increased from 2% to 3%."),
                 new ChangelogEntry(Sim.v10, false, 2015)
         );
     }
