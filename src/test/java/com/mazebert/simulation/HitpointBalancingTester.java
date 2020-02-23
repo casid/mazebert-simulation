@@ -6,26 +6,23 @@ import com.mazebert.simulation.replay.data.ReplayHeader;
 import com.mazebert.simulation.units.Unit;
 import com.mazebert.simulation.units.abilities.Ability;
 import com.mazebert.simulation.units.creeps.Creep;
-import org.assertj.core.internal.Diff;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.parallel.Execution;
 import org.junit.jupiter.api.parallel.ExecutionMode;
 
-import java.io.*;
+import java.io.BufferedInputStream;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
+import java.io.UncheckedIOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
-import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.ConcurrentMap;
 import java.util.concurrent.atomic.LongAdder;
 import java.util.stream.Collectors;
-
-import static org.assertj.core.api.Assertions.assertThat;
 
 @Execution(ExecutionMode.SAME_THREAD)
 public class HitpointBalancingTester {
@@ -42,20 +39,26 @@ public class HitpointBalancingTester {
 
     @Test
     void multiplayer() throws IOException {
-        checkGames(18, 2);
-        checkGames(19, 2);
+        checkGames(18, 2, 0);
+        checkGames(19, 2, 0);
         storeData("hitpoint-balancing-mp.csv");
     }
 
     @Test
-    void multiplayer_hitpoints() {
-        addHitpointsReference(19, 2);
+    void multiplayer_reference() {
+        addHitpointsReference(20, 2);
         storeData("hitpoint-balancing-mp-reference.csv");
     }
 
     @Test
-    void singleplayer_hitpoints() {
-        addHitpointsReference(19, 1);
+    void singleplayer() throws IOException {
+        checkGames(19, 1, 1000);
+        storeData("hitpoint-balancing-sp.csv");
+    }
+
+    @Test
+    void singleplayer_reference() {
+        addHitpointsReference(20, 1);
         storeData("hitpoint-balancing-sp-reference.csv");
     }
 
@@ -74,7 +77,7 @@ public class HitpointBalancingTester {
     }
 
     private void storeData(String filename) {
-        try(OutputStreamWriter writer = new OutputStreamWriter(Files.newOutputStream(Paths.get(filename), StandardOpenOption.CREATE, StandardOpenOption.WRITE, StandardOpenOption.TRUNCATE_EXISTING))) {
+        try (OutputStreamWriter writer = new OutputStreamWriter(Files.newOutputStream(Paths.get(filename), StandardOpenOption.CREATE, StandardOpenOption.WRITE, StandardOpenOption.TRUNCATE_EXISTING))) {
             List<Map.Entry<String, double[]>> entries = validatedGames.entrySet().stream().sorted(Map.Entry.comparingByKey()).collect(Collectors.toList());
             for (Map.Entry<String, double[]> entry : entries) {
                 writer.write(entry.getKey());
@@ -90,7 +93,7 @@ public class HitpointBalancingTester {
     }
 
     @SuppressWarnings("SameParameterValue")
-    private void checkGames(int version, int playerCount) throws IOException {
+    private void checkGames(int version, int playerCount, int limit) throws IOException {
         List<Path> files = Files.walk(gamesDirectory.resolve("" + version), 1).collect(Collectors.toList());
         int total = files.size();
         System.out.println("Validating " + total + " games (version " + version + ")");
@@ -98,6 +101,10 @@ public class HitpointBalancingTester {
 
         files.parallelStream().forEach(file -> {
             try {
+                if (limit > 0 && counter.sum() > limit) {
+                    return;
+                }
+
                 if (Files.isDirectory(file)) {
                     return;
                 }
@@ -201,7 +208,6 @@ public class HitpointBalancingTester {
                 new SimulationValidator().validate(version, replayReader, this::beforeValidation, null);
             } catch (NextRoundException e) {
                 // We need to simulate the next round
-                System.out.println("Damage for round " + round + " was " + damagePerRound[round - 1]);
                 simulate(round + 1);
             } catch (AbortedException e) {
                 // This game is no longer interesting for us
@@ -229,11 +235,11 @@ public class HitpointBalancingTester {
         @Override
         public void onUnitAdded(Unit unit) {
             if (unit instanceof Creep) {
-                Creep creep = (Creep)unit;
+                Creep creep = (Creep) unit;
 
                 if (creep.getWave().round == round) {
                     roundReached = true;
-                    //creep.setImmortal(true);
+                    creep.setImmortal(true);
                     creep.addAbility(new TrackDamageAbility(round - 1, damagePerRound));
                 } else if (creep.getWave().round > round || roundReached) {
                     creep.setHealth(0); // Instantly kill that creep, in order to not mess with our calculation

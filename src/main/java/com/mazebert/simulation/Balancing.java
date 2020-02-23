@@ -73,17 +73,32 @@ public strictfp class Balancing {
 
         double midGameFactor = difficulty.midGameFactor;
         double earlyGameFactor = difficulty.earlyGameFactor;
+        double endGameFactor = difficulty.endGameFactor;
         if (playerCount > 1 && version >= Sim.vDoL) {
-            int factor = playerCount - 1;
-            earlyGameFactor += 0.25 * factor;
-            midGameFactor += 0.0003 * factor;
+            if (version >= Sim.v20) {
+                earlyGameFactor *= playerCount;
+                midGameFactor *= playerCount;
+                endGameFactor *= playerCount;
+            } else {
+                int factor = playerCount - 1;
+                earlyGameFactor += 0.25 * factor;
+                midGameFactor += 0.0003 * factor;
+            }
         }
 
         // Add endgame hitpoints if we are there yet!
+        double endgameHitpointsStart = 140.0;
+        if (version >= Sim.v20) {
+            if (playerCount == 1) {
+                endgameHitpointsStart = 120.0;
+            } else {
+                endgameHitpointsStart = 100.0;
+            }
+        }
         double endgameHitpoints = 0.0;
-        if (x >= 140.0) {
-            double endgameX = x - 140;
-            endgameHitpoints = difficulty.endGameFactor * endgameX * endgameX * endgameX * endgameX;
+        if (x >= endgameHitpointsStart) {
+            double endgameX = x - endgameHitpointsStart;
+            endgameHitpoints = endGameFactor * endgameX * endgameX * endgameX * endgameX;
         }
 
         double hp = endgameHitpoints + midGameFactor * x * x * x * x + earlyGameFactor * x * x + getLinearCreepHitpoints(round);
