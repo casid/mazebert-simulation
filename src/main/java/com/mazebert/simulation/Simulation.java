@@ -47,6 +47,7 @@ public strictfp final class Simulation {
     private boolean pause;
     private boolean running = true;
     private boolean replayPause;
+    private boolean hashCheckDisabled;
     private Hash hash = new Hash();
 
     public Simulation() {
@@ -179,7 +180,7 @@ public strictfp final class Simulation {
                 List<Turn> playerTurns = replayFrame.getTurns();
                 simulateTurn(playerTurns);
                 int expected = hashHistory.getOldest();
-                if (replayFrame.hash != expected) {
+                if (replayFrame.hash != expected && !hashCheckDisabled) {
                     throw new DsyncException("Oh shit, we have a dsync during loading. Expected: " + expected + ", actual: " + replayFrame.hash + "(My turn: " + replayFrame.turnNumber + ", theirs: " + replayFrame.turnNumber, lastValidTurnNumber);
                 }
                 hashHistory.add(hash.get());
@@ -187,7 +188,7 @@ public strictfp final class Simulation {
                 lastValidTurnNumber = replayFrame.turnNumber;
             } else { // last frame
                 int expected = hashHistory.getNewest();
-                if (replayFrame.hash != expected) {
+                if (replayFrame.hash != expected && !hashCheckDisabled) {
                     throw new DsyncException("Oh shit, we have a dsync during loading. Expected: " + expected + ", actual: " + replayFrame.hash + "(My turn: " + replayFrame.turnNumber + ", theirs: " + replayFrame.turnNumber, lastValidTurnNumber);
                 }
             }
@@ -243,6 +244,10 @@ public strictfp final class Simulation {
 
     public float getPlayTimeInSeconds() {
         return playTimeInSeconds;
+    }
+
+    public void setHashCheckDisabled(boolean hashCheckDisabled) {
+        this.hashCheckDisabled = hashCheckDisabled;
     }
 
     private void simulate(List<Turn> playerTurns) {
