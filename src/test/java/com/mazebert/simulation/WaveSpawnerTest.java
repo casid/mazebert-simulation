@@ -629,7 +629,7 @@ public strictfp class WaveSpawnerTest extends SimTest {
 
         whenAllCreepsAreSpawned();
 
-        assertThat(getCreep(0).getHealth()).isEqualTo(1.0071072581412636E20);
+        assertThat(getCreep(0).getHealth()).isEqualTo(1.0075058339137554E20);
     }
 
     @Test
