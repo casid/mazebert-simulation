@@ -173,7 +173,7 @@ strictfp class SnowGlobeTest extends SimTest {
         whenItemIsEquipped(phoenix, ItemType.SnowGlobe);
         whenTowerIsBuilt(wizard, TowerType.Guard, 1, 0);
 
-        assertThat(phoenix.getAddedAbsoluteBaseDamage()).isEqualTo(4);
+        assertThat(phoenix.getAddedAbsoluteBaseDamage()).isEqualTo(6);
     }
 
     @Test
@@ -185,7 +185,7 @@ strictfp class SnowGlobeTest extends SimTest {
         whenItemIsEquipped(adventurer, ItemType.SnowGlobe);
         whenTowerIsBuilt(wizard, TowerType.Guard, 3, 0);
 
-        assertThat(adventurer.getAddedAbsoluteBaseDamage()).isEqualTo(4);
+        assertThat(adventurer.getAddedAbsoluteBaseDamage()).isEqualTo(6);
     }
 
     @Test
@@ -199,7 +199,7 @@ strictfp class SnowGlobeTest extends SimTest {
         assertThat(ripper.getAddedAbsoluteBaseDamage()).isEqualTo(0);
 
         whenItemIsEquipped(ripper, ItemType.HelmOfHades, 1);
-        assertThat(ripper.getAddedAbsoluteBaseDamage()).isEqualTo(4);
+        assertThat(ripper.getAddedAbsoluteBaseDamage()).isEqualTo(6);
 
         whenItemIsEquipped(ripper, null, 1);
         assertThat(ripper.getAddedAbsoluteBaseDamage()).isEqualTo(0);
@@ -215,7 +215,7 @@ strictfp class SnowGlobeTest extends SimTest {
         Tower gargoyle = whenTowerIsBuilt(wizard, TowerType.Gargoyle, 3, 0);
         whenItemIsEquipped(gargoyle, ItemType.GuardLance);
 
-        assertThat(adventurer.getAddedAbsoluteBaseDamage()).isEqualTo(4);
+        assertThat(adventurer.getAddedAbsoluteBaseDamage()).isEqualTo(6);
 
         whenItemIsEquipped(gargoyle, null);
 

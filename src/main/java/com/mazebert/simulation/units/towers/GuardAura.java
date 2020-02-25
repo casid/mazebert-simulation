@@ -10,7 +10,7 @@ public strictfp class GuardAura extends AuraAbility<Tower, Tower> {
     private final float baseDamageBonus;
 
     public GuardAura(float range) {
-        this(range, 4);
+        this(range, Sim.context().version >= Sim.v20 ? 6 : 4);
     }
 
     public GuardAura(float range, float baseDamageBonus) {

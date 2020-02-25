@@ -6,8 +6,8 @@ import com.mazebert.simulation.units.towers.GuardAura;
 import com.mazebert.simulation.units.towers.Tower;
 
 public strictfp class GuardLanceAbility extends StackableAbility<Tower> {
-    private static final int ABSOLUTE_DAMAGE = 4;
-    private static final float RELATIVE_DAMAGE = 0.2f;
+    private final int absoluteDamage = Sim.context().version >= Sim.v20 ? 6 : 4;
+    private final float relativeDamage = 0.2f;
 
     private int currentAbsoluteDamage;
     private float currentRelativeDamage;
@@ -36,11 +36,11 @@ public strictfp class GuardLanceAbility extends StackableAbility<Tower> {
     @Override
     protected void updateStacks() {
         getUnit().addAddedAbsoluteBaseDamage(-currentAbsoluteDamage);
-        currentAbsoluteDamage = ABSOLUTE_DAMAGE * getStackCount();
+        currentAbsoluteDamage = absoluteDamage * getStackCount();
         getUnit().addAddedAbsoluteBaseDamage(currentAbsoluteDamage);
 
         getUnit().addAddedRelativeBaseDamage(-currentRelativeDamage);
-        currentRelativeDamage = RELATIVE_DAMAGE * getStackCount();
+        currentRelativeDamage = relativeDamage * getStackCount();
         getUnit().addAddedRelativeBaseDamage(currentRelativeDamage);
     }
 
@@ -61,6 +61,6 @@ public strictfp class GuardLanceAbility extends StackableAbility<Tower> {
 
     @Override
     public String getLevelBonus() {
-        return "+" + ABSOLUTE_DAMAGE + " base damage\n" + format.percentWithSignAndUnit(RELATIVE_DAMAGE) + " damage";
+        return "+" + absoluteDamage + " base damage\n" + format.percentWithSignAndUnit(relativeDamage) + " damage";
     }
 }

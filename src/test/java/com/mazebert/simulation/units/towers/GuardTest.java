@@ -38,8 +38,8 @@ strictfp class GuardTest extends SimTest {
         Guard guard2 = new Guard();
         unitGateway.addUnit(guard2);
 
-        assertThat(guard1.getAddedAbsoluteBaseDamage()).isEqualTo(4);
-        assertThat(guard2.getAddedAbsoluteBaseDamage()).isEqualTo(4);
+        assertThat(guard1.getAddedAbsoluteBaseDamage()).isEqualTo(6);
+        assertThat(guard2.getAddedAbsoluteBaseDamage()).isEqualTo(6);
     }
 
     @Test
@@ -51,9 +51,9 @@ strictfp class GuardTest extends SimTest {
         Guard guard3 = new Guard();
         unitGateway.addUnit(guard3);
 
-        assertThat(guard1.getAddedAbsoluteBaseDamage()).isEqualTo(8);
-        assertThat(guard2.getAddedAbsoluteBaseDamage()).isEqualTo(8);
-        assertThat(guard3.getAddedAbsoluteBaseDamage()).isEqualTo(8);
+        assertThat(guard1.getAddedAbsoluteBaseDamage()).isEqualTo(12);
+        assertThat(guard2.getAddedAbsoluteBaseDamage()).isEqualTo(12);
+        assertThat(guard3.getAddedAbsoluteBaseDamage()).isEqualTo(12);
     }
 
     @Test
@@ -75,8 +75,8 @@ strictfp class GuardTest extends SimTest {
         adventurer.setItem(0, new GuardLance());
         unitGateway.addUnit(adventurer);
 
-        assertThat(guard.getAddedAbsoluteBaseDamage()).isEqualTo(4);
-        assertThat(adventurer.getAddedAbsoluteBaseDamage()).isEqualTo(4); // This comes from the lance!
+        assertThat(guard.getAddedAbsoluteBaseDamage()).isEqualTo(6);
+        assertThat(adventurer.getAddedAbsoluteBaseDamage()).isEqualTo(6); // This comes from the lance!
     }
 
     @Test

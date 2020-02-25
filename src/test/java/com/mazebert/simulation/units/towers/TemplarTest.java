@@ -95,7 +95,7 @@ strictfp class TemplarTest extends SimTest {
         guard.setX(1);
         unitGateway.addUnit(guard);
 
-        assertThat(templar.getAddedAbsoluteBaseDamage()).isEqualTo(4);
+        assertThat(templar.getAddedAbsoluteBaseDamage()).isEqualTo(6);
         assertThat(templar.getCritChance()).isEqualTo(0.09f);
         assertThat(templar.getCritDamage()).isEqualTo(0.45f);
     }
@@ -109,7 +109,7 @@ strictfp class TemplarTest extends SimTest {
         guard2.setX(-1);
         unitGateway.addUnit(guard2);
 
-        assertThat(templar.getAddedAbsoluteBaseDamage()).isEqualTo(8);
+        assertThat(templar.getAddedAbsoluteBaseDamage()).isEqualTo(12);
         assertThat(templar.getCritChance()).isEqualTo(0.13f);
         assertThat(templar.getCritDamage()).isEqualTo(0.65f);
     }
@@ -124,7 +124,7 @@ strictfp class TemplarTest extends SimTest {
         unitGateway.addUnit(guard2);
         unitGateway.removeUnit(guard);
 
-        assertThat(templar.getAddedAbsoluteBaseDamage()).isEqualTo(4);
+        assertThat(templar.getAddedAbsoluteBaseDamage()).isEqualTo(6);
         assertThat(templar.getCritChance()).isEqualTo(0.089999996f);
         assertThat(templar.getCritDamage()).isEqualTo(0.45f);
     }
