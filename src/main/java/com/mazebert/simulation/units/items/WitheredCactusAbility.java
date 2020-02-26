@@ -5,6 +5,9 @@ import com.mazebert.simulation.units.abilities.ArmorPenetrationWithLevelBonusAbi
 
 public strictfp class WitheredCactusAbility extends ArmorPenetrationWithLevelBonusAbility {
     public static float getBonus() {
+        if (Sim.context().version >= Sim.v20) {
+            return 0.05f;
+        }
         if (Sim.context().version >= Sim.vDoL) {
             return 0.03f;
         }
@@ -12,6 +15,9 @@ public strictfp class WitheredCactusAbility extends ArmorPenetrationWithLevelBon
     }
 
     public static float getBonusPerLevel() {
+        if (Sim.context().version >= Sim.v20) {
+            return 0.0005f;
+        }
         if (Sim.context().version >= Sim.vDoL) {
             return 0.0003f;
         }
