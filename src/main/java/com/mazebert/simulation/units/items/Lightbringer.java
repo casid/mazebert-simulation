@@ -68,10 +68,10 @@ public strictfp class Lightbringer extends Item {
 
     @Override
     public boolean isForbiddenToEquip(Tower tower) {
-        if (Sim.context().version < Sim.v20) {
-            return false;
+        if (Sim.context().version >= Sim.v20) {
+            return tower.getType() != TowerType.Lucifer;
         }
-        return tower.getType() != TowerType.Lucifer;
+        return false;
     }
 
     @Override
