@@ -38,16 +38,28 @@ public class HitpointBalancingTester {
     }
 
     @Test
-    void multiplayer() throws IOException {
+    void multiplayer2() throws IOException {
         checkGames(18, 2, 0);
         checkGames(19, 2, 0);
-        storeData("hitpoint-balancing-mp.csv");
+        storeData("hitpoint-balancing-mp2.csv");
     }
 
     @Test
-    void multiplayer_reference() {
+    void multiplayer2_reference() {
         addHitpointsReference(20, 2);
-        storeData("hitpoint-balancing-mp-reference.csv");
+        storeData("hitpoint-balancing-mp2-reference.csv");
+    }
+
+    @Test
+    void multiplayer3_reference() {
+        addHitpointsReference(20, 3);
+        storeData("hitpoint-balancing-mp3-reference.csv");
+    }
+
+    @Test
+    void multiplayer4_reference() {
+        addHitpointsReference(20, 4);
+        storeData("hitpoint-balancing-mp4-reference.csv");
     }
 
     @Test
