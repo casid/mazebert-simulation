@@ -97,7 +97,7 @@ public strictfp class PhoenixTest extends ItemTest {
 
     @Test
     void rebirth_multipleTimes() {
-        wizard.gold += GOLD_COST;
+        wizard.gold += 2 * GOLD_COST;
         wizard.towerStash.add(TowerType.Phoenix);
 
         whenAbilityIsActivated();

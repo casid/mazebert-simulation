@@ -9,9 +9,11 @@ public strictfp class PhoenixRebirth extends ActiveAbility implements OnUpdateLi
 
     public static final int REBIRTH_TIME = 10;
 
-    private final long goldCost = Sim.context().version >= Sim.v20 ? 500 : 1000;
+    private final long initialGoldCost = Sim.context().version >= Sim.v20 ? 500 : 1000;
+    private final long goldCostPerRebirth = Sim.context().version >= Sim.v20 ? 500 : 0;
     private final int damageGain = Sim.context().version >= Sim.v20 ? 21 : 14;
 
+    private long currentGoldCost = initialGoldCost;
     private float rebirthTime;
 
     @Override
@@ -33,7 +35,7 @@ public strictfp class PhoenixRebirth extends ActiveAbility implements OnUpdateLi
         }
 
         Wizard wizard = getUnit().getWizard();
-        if (wizard.gold < goldCost) {
+        if (wizard.gold < currentGoldCost) {
             return 0;
         }
 
@@ -47,11 +49,13 @@ public strictfp class PhoenixRebirth extends ActiveAbility implements OnUpdateLi
     @Override
     public void activate() {
         Wizard wizard = getUnit().getWizard();
-        wizard.addGold(-goldCost);
+        wizard.addGold(-currentGoldCost);
         wizard.towerStash.remove(TowerType.Phoenix);
 
         getUnit().addAddedAbsoluteBaseDamage(damageGain);
         rebirthTime += REBIRTH_TIME;
+
+        currentGoldCost += goldCostPerRebirth;
     }
 
     @Override
@@ -83,7 +87,15 @@ public strictfp class PhoenixRebirth extends ActiveAbility implements OnUpdateLi
 
     @Override
     public String getDescription() {
-        return "Sacrifice " + format.gold(goldCost, getCurrency()) + " and a " + format.card(TowerType.Phoenix) + " card in your hand to be reborn from ash after " + format.seconds(REBIRTH_TIME) + " and permanently gain +" + damageGain + " base damage.";
+        return "Sacrifice " + format.gold(currentGoldCost, getCurrency()) + " and a " + format.card(TowerType.Phoenix) + " card in your hand to be reborn from ash after " + format.seconds(REBIRTH_TIME) + " and permanently gain +" + damageGain + " base damage.";
+    }
+
+    @Override
+    public String getLevelBonus() {
+        if (goldCostPerRebirth > 0) {
+            return "+" + format.gold(goldCostPerRebirth, getCurrency()) + " per rebirth";
+        }
+        return null;
     }
 
     @Override
