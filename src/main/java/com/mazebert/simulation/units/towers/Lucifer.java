@@ -32,6 +32,7 @@ public strictfp class Lucifer extends Tower {
     @Override
     public Changelog getChangelog() {
         return new Changelog(
+                new ChangelogEntry(Sim.v20, false, 2020, "Lightbringer cannot be leaked to other towers.", "Lightbringer damage per level increased from 6 to 11."),
                 ChangelogEntry.DAWN_OF_LIGHT
         );
     }

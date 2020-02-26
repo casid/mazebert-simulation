@@ -1,5 +1,6 @@
 package com.mazebert.simulation.units.items;
 
+import com.mazebert.simulation.Sim;
 import com.mazebert.simulation.listeners.OnLevelChangedListener;
 import com.mazebert.simulation.units.Unit;
 import com.mazebert.simulation.units.abilities.PoisonAbility;
@@ -9,7 +10,8 @@ import com.mazebert.simulation.units.towers.Tower;
 public strictfp class LightbringerHealAbility extends PoisonAbility implements OnLevelChangedListener {
     private static final float HEALING_AMOUNT = 0.5f;
     private static final int MULTICRIT = 1;
-    private static final int BASE_DAMAGE_PER_LEVEL = 6;
+
+    private final int baseDamagePerLevel = Sim.context().version >= Sim.v20 ? 11 : 6;
 
     private int currentBonus;
 
@@ -56,7 +58,7 @@ public strictfp class LightbringerHealAbility extends PoisonAbility implements O
     }
 
     private int calculateBonus() {
-        return getUnit().getLevel() * BASE_DAMAGE_PER_LEVEL;
+        return getUnit().getLevel() * baseDamagePerLevel;
     }
 
     private void removeBonus() {
@@ -76,6 +78,6 @@ public strictfp class LightbringerHealAbility extends PoisonAbility implements O
 
     @Override
     public String getLevelBonus() {
-        return "+" + BASE_DAMAGE_PER_LEVEL + " base damage per level\n" + "+" + MULTICRIT + " multicrit";
+        return "+" + baseDamagePerLevel + " base damage per level\n" + "+" + MULTICRIT + " multicrit";
     }
 }

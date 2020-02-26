@@ -17,6 +17,7 @@ public strictfp class Lightbringer extends Item {
     @Override
     public Changelog getChangelog() {
         return new Changelog(
+                new ChangelogEntry(Sim.v20, false, 2020, "Base damage per level increased from 6 to 11."),
                 ChangelogEntry.DAWN_OF_LIGHT
         );
     }
