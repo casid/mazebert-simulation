@@ -3,6 +3,7 @@ package com.mazebert.simulation.units.towers;
 import com.mazebert.simulation.AttackType;
 import com.mazebert.simulation.Element;
 import com.mazebert.simulation.Rarity;
+import com.mazebert.simulation.Sim;
 import com.mazebert.simulation.changelog.Changelog;
 import com.mazebert.simulation.changelog.ChangelogEntry;
 import com.mazebert.simulation.units.Gender;
@@ -20,7 +21,11 @@ public strictfp class LuciferFallen extends Tower {
         setGender(Gender.Male);
         setElement(Element.Darkness);
 
-        addAbility(new AttackAbility());
+        if (Sim.context().version >= Sim.v20) {
+            addAbility(new AttackAbility(2));
+        } else {
+            addAbility(new AttackAbility());
+        }
         addAbility(new InstantDamageAbility());
         addAbility(new LuciferFallenLightning());
         addAbility(new LuciferFallenRestInPeace());
@@ -29,6 +34,7 @@ public strictfp class LuciferFallen extends Tower {
     @Override
     public Changelog getChangelog() {
         return new Changelog(
+                new ChangelogEntry(Sim.v20, false, 2020, "Lucifer can attack up to 2 creeps at once."),
                 ChangelogEntry.DAWN_OF_LIGHT
         );
     }

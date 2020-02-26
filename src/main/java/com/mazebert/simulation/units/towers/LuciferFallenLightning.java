@@ -1,5 +1,6 @@
 package com.mazebert.simulation.units.towers;
 
+import com.mazebert.simulation.Sim;
 import com.mazebert.simulation.projectiles.ChainViewType;
 import com.mazebert.simulation.units.abilities.ChainAbility;
 
@@ -25,6 +26,10 @@ public strictfp class LuciferFallenLightning extends ChainAbility {
 
     @Override
     public String getDescription() {
-        return "Damage chains to up to " + getMaxChains() + " creeps.";
+        if (Sim.context().version >= Sim.v20) {
+            return "Damage chains to up to " + getMaxChains() + " creeps.\nAttacks up to 2 creeps at once.";
+        } else {
+            return "Damage chains to up to " + getMaxChains() + " creeps.";
+        }
     }
 }
