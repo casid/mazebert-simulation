@@ -26,6 +26,7 @@ public strictfp class Phoenix extends Tower {
     @Override
     public Changelog getChangelog() {
         return new Changelog(
+                new ChangelogEntry(Sim.v20, false, 2020, "Rebirth gold cost reduced from 1000 to 500.", "Rebirth damage increased from 14 to 21."),
                 ChangelogEntry.DAWN_OF_LIGHT
         );
     }

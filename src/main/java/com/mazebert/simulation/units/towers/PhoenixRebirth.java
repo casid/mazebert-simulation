@@ -1,14 +1,16 @@
 package com.mazebert.simulation.units.towers;
 
+import com.mazebert.simulation.Sim;
 import com.mazebert.simulation.listeners.OnUpdateListener;
 import com.mazebert.simulation.units.abilities.ActiveAbility;
 import com.mazebert.simulation.units.wizards.Wizard;
 
 public strictfp class PhoenixRebirth extends ActiveAbility implements OnUpdateListener {
 
-    public static final long GOLD_COST = 1000;
-    public static final int DAMAGE_GAIN = 14;
     public static final int REBIRTH_TIME = 10;
+
+    private final long goldCost = Sim.context().version >= Sim.v20 ? 500 : 1000;
+    private final int damageGain = Sim.context().version >= Sim.v20 ? 21 : 14;
 
     private float rebirthTime;
 
@@ -31,7 +33,7 @@ public strictfp class PhoenixRebirth extends ActiveAbility implements OnUpdateLi
         }
 
         Wizard wizard = getUnit().getWizard();
-        if (wizard.gold < GOLD_COST) {
+        if (wizard.gold < goldCost) {
             return 0;
         }
 
@@ -45,10 +47,10 @@ public strictfp class PhoenixRebirth extends ActiveAbility implements OnUpdateLi
     @Override
     public void activate() {
         Wizard wizard = getUnit().getWizard();
-        wizard.addGold(-GOLD_COST);
+        wizard.addGold(-goldCost);
         wizard.towerStash.remove(TowerType.Phoenix);
 
-        getUnit().addAddedAbsoluteBaseDamage(DAMAGE_GAIN);
+        getUnit().addAddedAbsoluteBaseDamage(damageGain);
         rebirthTime += REBIRTH_TIME;
     }
 
@@ -81,7 +83,7 @@ public strictfp class PhoenixRebirth extends ActiveAbility implements OnUpdateLi
 
     @Override
     public String getDescription() {
-        return "Sacrifice " + format.gold(GOLD_COST, getCurrency()) + " and a " + format.card(TowerType.Phoenix) + " card in your hand to be reborn from ash after " + format.seconds(REBIRTH_TIME) + " and permanently gain +" + DAMAGE_GAIN + " base damage.";
+        return "Sacrifice " + format.gold(goldCost, getCurrency()) + " and a " + format.card(TowerType.Phoenix) + " card in your hand to be reborn from ash after " + format.seconds(REBIRTH_TIME) + " and permanently gain +" + damageGain + " base damage.";
     }
 
     @Override

@@ -12,11 +12,14 @@ import static org.jusecase.Builders.a;
 
 public strictfp class PhoenixTest extends ItemTest {
 
+    static final int GOLD_COST = 500;
+    static final int DAMAGE_GAIN = 21;
+
     Phoenix phoenix;
 
     @BeforeEach
     void setUp() {
-        wizard.gold = PhoenixRebirth.GOLD_COST;
+        wizard.gold = GOLD_COST;
         wizard.towerStash.add(TowerType.Phoenix);
     }
 
@@ -87,21 +90,21 @@ public strictfp class PhoenixTest extends ItemTest {
     void rebirth() {
         whenAbilityIsActivated();
 
-        assertThat(phoenix.getAddedAbsoluteBaseDamage()).isEqualTo(PhoenixRebirth.DAMAGE_GAIN);
+        assertThat(phoenix.getAddedAbsoluteBaseDamage()).isEqualTo(DAMAGE_GAIN);
         assertThat(wizard.gold).isEqualTo(0);
         assertThat(wizard.towerStash.size()).isEqualTo(0);
     }
 
     @Test
     void rebirth_multipleTimes() {
-        wizard.gold += PhoenixRebirth.GOLD_COST;
+        wizard.gold += GOLD_COST;
         wizard.towerStash.add(TowerType.Phoenix);
 
         whenAbilityIsActivated();
         tower.simulate(PhoenixRebirth.REBIRTH_TIME);
         whenAbilityIsActivated();
 
-        assertThat(phoenix.getAddedAbsoluteBaseDamage()).isEqualTo(2 * PhoenixRebirth.DAMAGE_GAIN);
+        assertThat(phoenix.getAddedAbsoluteBaseDamage()).isEqualTo(2 * DAMAGE_GAIN);
         assertThat(wizard.gold).isEqualTo(0);
         assertThat(wizard.towerStash.size()).isEqualTo(0);
     }
@@ -122,7 +125,6 @@ public strictfp class PhoenixTest extends ItemTest {
 
     @Test
     void rebirth_notAliveYet() {
-        wizard.gold += PhoenixRebirth.GOLD_COST;
         wizard.towerStash.add(TowerType.Phoenix);
 
         whenAbilityIsActivated();
