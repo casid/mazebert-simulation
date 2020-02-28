@@ -93,7 +93,7 @@ public strictfp class PhoenixRebirth extends ActiveAbility implements OnUpdateLi
     @Override
     public String getLevelBonus() {
         if (goldCostPerRebirth > 0) {
-            return "+" + format.gold(goldCostPerRebirth, getCurrency()) + " per rebirth";
+            return "+" + format.gold(goldCostPerRebirth, getCurrency()) + " cost per rebirth";
         }
         return null;
     }
