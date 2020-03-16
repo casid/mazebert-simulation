@@ -83,7 +83,7 @@ public strictfp final class Simulation {
 
     private void scheduleInitGame(InitGameCommand initGameCommand) {
         List<Command> commands = new ArrayList<>();
-        if (initGameCommand.rounds > 0) {
+        if (initGameCommand != null && initGameCommand.rounds > 0) {
             commands.add(initGameCommand);
         }
         schedule(commands, 0);
