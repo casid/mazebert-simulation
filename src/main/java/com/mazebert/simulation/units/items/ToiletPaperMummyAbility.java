@@ -40,6 +40,6 @@ public strictfp class ToiletPaperMummyAbility extends Ability<Tower> {
 
     @Override
     public String getDescription() {
-        return "+" + targets + " additional targets if equipped by " + format.card(TowerType.Mummy);
+        return "+" + targets + " additional targets\nwhen equipped by " + format.card(TowerType.Mummy) + ".";
     }
 }

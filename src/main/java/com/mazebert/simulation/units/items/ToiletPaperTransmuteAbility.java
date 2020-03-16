@@ -19,6 +19,6 @@ public strictfp class ToiletPaperTransmuteAbility extends Ability<Tower> {
 
     @Override
     public String getDescription() {
-        return "Transmute to receive " + AMOUNT + " items of " + format.rarity(Rarity.Unique) + " or " + format.rarity(Rarity.Legendary) + " rarity.";
+        return "Transmute to receive " + AMOUNT + " items of " + format.rarity(Rarity.Unique) + " or " + format.rarity(Rarity.Legendary) + " rarity in return.";
     }
 }

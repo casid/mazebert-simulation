@@ -1,5 +1,6 @@
 package com.mazebert.simulation.units.items;
 
+import com.mazebert.simulation.Element;
 import com.mazebert.simulation.Rarity;
 import com.mazebert.simulation.Sim;
 import com.mazebert.simulation.changelog.Changelog;
@@ -19,13 +20,18 @@ public strictfp class ToiletPaper extends Item {
     }
 
     @Override
+    public Element getElement() {
+        return Element.Metropolis;
+    }
+
+    @Override
     public String getName() {
         return "Toilet Paper";
     }
 
     @Override
     public String getDescription() {
-        return "You may be dead, but your arse is clean.";
+        return "You may be dead,\nbut your arse is clean.";
     }
 
     @Override
