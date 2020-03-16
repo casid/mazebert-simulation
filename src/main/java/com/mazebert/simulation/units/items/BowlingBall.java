@@ -67,6 +67,6 @@ public strictfp class BowlingBall extends Item {
 
     @Override
     public boolean isBlackMarketOffer() {
-        return Sim.context().version < Sim.v20;
+        return Sim.context().version < Sim.vDoLEnd;
     }
 }

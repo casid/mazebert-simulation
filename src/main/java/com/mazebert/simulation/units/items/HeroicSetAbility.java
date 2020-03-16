@@ -10,7 +10,7 @@ public strictfp class HeroicSetAbility extends ItemSetAbility {
 
     public HeroicSetAbility() {
         super(EnumSet.of(ItemType.HeroicCape, ItemType.HeroicMask));
-        if (Sim.context().version >= Sim.v20) {
+        if (Sim.context().version >= Sim.vDoLEnd) {
             bonus = 0.4f;
         } else {
             bonus = 0.2f;

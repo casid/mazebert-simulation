@@ -1,9 +1,6 @@
 package com.mazebert.simulation.units.towers;
 
-import com.mazebert.simulation.ArmorType;
-import com.mazebert.simulation.SimTest;
-import com.mazebert.simulation.SimulationListeners;
-import com.mazebert.simulation.Wave;
+import com.mazebert.simulation.*;
 import com.mazebert.simulation.gateways.UnitGateway;
 import com.mazebert.simulation.plugins.random.RandomPluginTrainer;
 import com.mazebert.simulation.projectiles.ProjectileGateway;
@@ -26,6 +23,8 @@ strictfp class ShadowTest extends SimTest {
 
     @BeforeEach
     void setUp() {
+        version = Sim.vDoLEnd;
+
         simulationListeners = new SimulationListeners();
         unitGateway = new UnitGateway();
         projectileGateway = new ProjectileGateway();

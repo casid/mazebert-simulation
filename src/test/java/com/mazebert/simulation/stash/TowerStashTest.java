@@ -18,7 +18,7 @@ class TowerStashTest extends SimTest {
 
     @Test
     void yggdrasilCanAlwaysDrop() {
-        version = Sim.v20;
+        version = Sim.vDoLEnd;
         TowerStash towerStash = new TowerStash(); // Stash with no researched elements
         assertThat(towerStash.getPossibleDrops(Rarity.Unique)).containsExactly(TowerType.Yggdrasil);
     }

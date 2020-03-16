@@ -15,7 +15,7 @@ public strictfp class HeroicMask extends Item {
     @Override
     public Changelog getChangelog() {
         return new Changelog(
-                new ChangelogEntry(Sim.v20, false, 2020, "Modifiers increased from 5% to 10%.", "Set bonus increased from 20% to 40% attack speed."),
+                new ChangelogEntry(Sim.vDoLEnd, false, 2020, "Modifiers increased from 5% to 10%.", "Set bonus increased from 20% to 40% attack speed."),
                 ChangelogEntry.DAWN_OF_LIGHT
         );
     }

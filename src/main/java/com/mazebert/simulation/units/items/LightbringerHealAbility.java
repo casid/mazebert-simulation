@@ -11,7 +11,7 @@ public strictfp class LightbringerHealAbility extends PoisonAbility implements O
     private static final float HEALING_AMOUNT = 0.5f;
     private static final int MULTICRIT = 1;
 
-    private final int baseDamagePerLevel = Sim.context().version >= Sim.v20 ? 11 : 6;
+    private final int baseDamagePerLevel = Sim.context().version >= Sim.vDoLEnd ? 11 : 6;
 
     private int currentBonus;
 

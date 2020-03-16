@@ -108,7 +108,7 @@ public abstract strictfp class AuraAbility<S extends Unit, T extends Unit> exten
     }
 
     private void disposeAura(S unit) {
-        if (version >= Sim.v20) {
+        if (version >= Sim.vCorona) {
             while (activeSize > 0) {
                 onAuraLeft(active[--activeSize]);
             }

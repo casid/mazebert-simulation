@@ -1,9 +1,16 @@
 package com.mazebert.simulation.units.items;
 
+import com.mazebert.simulation.Sim;
 import org.assertj.core.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 public strictfp class GuardLanceTest extends ItemTest {
+    @BeforeEach
+    void setUp() {
+        version = Sim.vDoLEnd;
+    }
+
     @Test
     void damage() {
         whenItemIsEquipped(ItemType.GuardLance);

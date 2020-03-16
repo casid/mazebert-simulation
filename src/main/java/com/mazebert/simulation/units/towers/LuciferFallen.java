@@ -21,7 +21,7 @@ public strictfp class LuciferFallen extends Tower {
         setGender(Gender.Male);
         setElement(Element.Darkness);
 
-        if (Sim.context().version >= Sim.v20) {
+        if (Sim.context().version >= Sim.vDoLEnd) {
             addAbility(new AttackAbility(2));
         } else {
             addAbility(new AttackAbility());
@@ -34,7 +34,7 @@ public strictfp class LuciferFallen extends Tower {
     @Override
     public Changelog getChangelog() {
         return new Changelog(
-                new ChangelogEntry(Sim.v20, false, 2020, "Lucifer can attack up to 2 creeps at once."),
+                new ChangelogEntry(Sim.vDoLEnd, false, 2020, "Lucifer can attack up to 2 creeps at once."),
                 ChangelogEntry.DAWN_OF_LIGHT
         );
     }

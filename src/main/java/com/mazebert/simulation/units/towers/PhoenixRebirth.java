@@ -9,9 +9,9 @@ public strictfp class PhoenixRebirth extends ActiveAbility implements OnUpdateLi
 
     public static final int REBIRTH_TIME = 10;
 
-    private final long initialGoldCost = Sim.context().version >= Sim.v20 ? 500 : 1000;
-    private final long goldCostPerRebirth = Sim.context().version >= Sim.v20 ? 500 : 0;
-    private final int damageGain = Sim.context().version >= Sim.v20 ? 21 : 14;
+    private final long initialGoldCost = Sim.context().version >= Sim.vDoLEnd ? 500 : 1000;
+    private final long goldCostPerRebirth = Sim.context().version >= Sim.vDoLEnd ? 500 : 0;
+    private final int damageGain = Sim.context().version >= Sim.vDoLEnd ? 21 : 14;
 
     private long currentGoldCost = initialGoldCost;
     private float rebirthTime;

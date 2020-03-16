@@ -19,7 +19,7 @@ public strictfp class TheRipperKillingSpree extends CooldownAbility<Tower> imple
     private float addedBonus;
 
     public TheRipperKillingSpree() {
-        if (Sim.context().version >= Sim.v20) {
+        if (Sim.context().version >= Sim.vDoLEnd) {
             bonusPerKill = 1.6f;
             bonusPerLevel = 0.03f;
         } else {

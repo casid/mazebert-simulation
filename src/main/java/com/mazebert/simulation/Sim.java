@@ -17,7 +17,8 @@ public strictfp class Sim {
     public static final int v17 = 17;
     public static final int vDoL = 18; // Dawn of Light release
     public static final int v19 = 19;
-    public static final int v20 = 20; // Dawn of Light season end merge
+    public static final int vCorona = 20;
+    public static final int vDoLEnd = 21; // Dawn of Light season end merge
 
     // For android 19 compatibility
     private static ThreadLocal<Context> context = new ThreadLocal<Context>() {
@@ -41,6 +42,6 @@ public strictfp class Sim {
 
     public static boolean isDoLSeasonContent() {
         int version = context().version;
-        return version >= v20 || (version >= vDoL && context().season);
+        return version >= vDoLEnd || (version >= vDoL && context().season);
     }
 }

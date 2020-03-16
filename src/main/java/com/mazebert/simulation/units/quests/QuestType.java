@@ -85,7 +85,7 @@ public strictfp enum QuestType {
     }
 
     public static QuestType[] getValues() {
-        if (Sim.context().version >= Sim.v20) {
+        if (Sim.context().version >= Sim.vDoLEnd) {
             return STANDARD_DOL;
         }
         if (Sim.isDoLSeasonContent()) {

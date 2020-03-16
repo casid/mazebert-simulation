@@ -38,6 +38,7 @@ public class LootTest extends SimTest {
     @BeforeEach
     void setUp() {
         season = true;
+        version = Sim.vDoLEnd;
 
         simulationListeners = new SimulationListeners();
         unitGateway = new UnitGateway();

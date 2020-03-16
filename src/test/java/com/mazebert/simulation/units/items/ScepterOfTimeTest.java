@@ -1,5 +1,6 @@
 package com.mazebert.simulation.units.items;
 
+import com.mazebert.simulation.Sim;
 import com.mazebert.simulation.Simulation;
 import com.mazebert.simulation.SimulationListenersTrainer;
 import com.mazebert.simulation.units.abilities.ActiveAbilityType;
@@ -14,6 +15,7 @@ public strictfp class ScepterOfTimeTest extends ItemTest {
 
     @BeforeEach
     void setUp() {
+        version = Sim.vDoLEnd;
         simulation = new Simulation(false);
     }
 

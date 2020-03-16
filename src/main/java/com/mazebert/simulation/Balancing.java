@@ -75,7 +75,7 @@ public strictfp class Balancing {
         double earlyGameFactor = difficulty.earlyGameFactor;
         double endGameFactor = difficulty.endGameFactor;
         if (playerCount > 1 && version >= Sim.vDoL) {
-            if (version >= Sim.v20) {
+            if (version >= Sim.vDoLEnd) {
                 earlyGameFactor *= playerCount;
                 midGameFactor *= playerCount;
                 endGameFactor *= playerCount;
@@ -88,7 +88,7 @@ public strictfp class Balancing {
 
         // Add endgame hitpoints if we are there yet!
         double endgameHitpointsStart = 140.0;
-        if (version >= Sim.v20) {
+        if (version >= Sim.vDoLEnd) {
             if (playerCount == 1) {
                 endgameHitpointsStart = 120.0;
             } else {
@@ -102,7 +102,7 @@ public strictfp class Balancing {
         }
 
         double hp = endgameHitpoints + midGameFactor * x * x * x * x + earlyGameFactor * x * x + getLinearCreepHitpoints(round);
-        if (playerCount > 1 && version >= Sim.v20) {
+        if (playerCount > 1 && version >= Sim.vDoLEnd) {
             hp *= playerCount;
         }
         if (version >= Sim.v15) {
@@ -115,7 +115,7 @@ public strictfp class Balancing {
     public static float getExperienceForRound(int version, int round, WaveType waveType, int playerCount) {
         float experience = getExperienceForRound(round);
 
-        if (playerCount > 1 && version >= Sim.v20) {
+        if (playerCount > 1 && version >= Sim.vDoLEnd) {
             experience *= playerCount;
         }
 

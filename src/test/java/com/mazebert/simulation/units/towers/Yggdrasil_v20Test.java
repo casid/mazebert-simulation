@@ -21,7 +21,7 @@ public strictfp class Yggdrasil_v20Test extends SimTest {
 
     @BeforeEach
     void setUp() {
-        version = Sim.v20;
+        version = Sim.vDoLEnd;
 
         simulationListeners = new SimulationListeners();
         unitGateway = new UnitGateway();

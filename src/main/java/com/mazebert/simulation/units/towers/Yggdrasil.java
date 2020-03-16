@@ -17,7 +17,7 @@ public strictfp class Yggdrasil extends Tower {
         setStrength(0.0f);
         setDamageSpread(0.0f);
         setGender(Gender.Unknown);
-        if (version >= Sim.v20) {
+        if (version >= Sim.vDoLEnd) {
             setElement(Element.Unknown);
             addAbility(new YggdrasilBranchAbility());
             addAbility(new YggdrasilPotionAbility());
@@ -31,7 +31,7 @@ public strictfp class Yggdrasil extends Tower {
     @Override
     public Changelog getChangelog() {
         return new Changelog(
-                new ChangelogEntry(Sim.v20, false, 2020, "Element changed from Nature to Unknown", "Yggdrasil can drop no matter what elements you choose", "There is one branch per element, connecting the norse worlds Jotunheim (Nature), Midgard (Metro), Helheim (Darkness) and Asgard (Light)", "Yggdrasil is not affected by branches in its inventory"),
+                new ChangelogEntry(Sim.vDoLEnd, false, 2020, "Element changed from Nature to Unknown", "Yggdrasil can drop no matter what elements you choose", "There is one branch per element, connecting the norse worlds Jotunheim (Nature), Midgard (Metro), Helheim (Darkness) and Asgard (Light)", "Yggdrasil is not affected by branches in its inventory"),
                 new ChangelogEntry(Sim.v10, false, 2019)
         );
     }
@@ -63,7 +63,7 @@ public strictfp class Yggdrasil extends Tower {
 
     @Override
     public String getSinceVersion() {
-        if (version >= Sim.v20) {
+        if (version >= Sim.vDoLEnd) {
             return "2.1";
         }
         return "1.5";

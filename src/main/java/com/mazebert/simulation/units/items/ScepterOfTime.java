@@ -8,13 +8,13 @@ import com.mazebert.simulation.changelog.ChangelogEntry;
 public strictfp class ScepterOfTime extends Item {
 
     public ScepterOfTime() {
-        super(Sim.context().version >= Sim.v20 ? new ScepterOfTimeAbility() : new ScepterOfTimeLegacyAbility());
+        super(Sim.context().version >= Sim.vDoLEnd ? new ScepterOfTimeAbility() : new ScepterOfTimeLegacyAbility());
     }
 
     @Override
     public Changelog getChangelog() {
         return new Changelog(
-                new ChangelogEntry(Sim.v20, false, 2020, "Scepter of Time now has an active ability that is shared by all players."),
+                new ChangelogEntry(Sim.vDoLEnd, false, 2020, "Scepter of Time now has an active ability that is shared by all players."),
                 new ChangelogEntry(Sim.v13, false, 2019, "Scepter of Time can no longer be transmuted."),
                 new ChangelogEntry(Sim.v10, false, 2014)
         );
@@ -60,7 +60,7 @@ public strictfp class ScepterOfTime extends Item {
 
     @Override
     public boolean isUniqueInstance() {
-        if (Sim.context().version >= Sim.v20) {
+        if (Sim.context().version >= Sim.vDoLEnd) {
             return true;
         }
         return false;

@@ -32,7 +32,7 @@ public strictfp class Templar extends Tower {
     @Override
     public Changelog getChangelog() {
         return new Changelog(
-                new ChangelogEntry(Sim.v20, false, 2020, "Base damage for every other guard in range increased from 4 to 6."),
+                new ChangelogEntry(Sim.vDoLEnd, false, 2020, "Base damage for every other guard in range increased from 4 to 6."),
                 ChangelogEntry.DAWN_OF_LIGHT
         );
     }

@@ -1,5 +1,6 @@
 package com.mazebert.simulation.units.towers;
 
+import com.mazebert.simulation.Sim;
 import com.mazebert.simulation.SimTest;
 import com.mazebert.simulation.SimulationListeners;
 import com.mazebert.simulation.gateways.UnitGateway;
@@ -17,6 +18,8 @@ strictfp class GuardTest extends SimTest {
 
     @BeforeEach
     void setUp() {
+        version = Sim.vDoLEnd;
+
         simulationListeners = new SimulationListeners();
         unitGateway = new UnitGateway();
         damageSystem = new DamageSystemTrainer();

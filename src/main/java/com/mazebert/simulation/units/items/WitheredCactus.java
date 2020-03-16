@@ -14,7 +14,7 @@ public strictfp class WitheredCactus extends Item {
     @Override
     public Changelog getChangelog() {
         return new Changelog(
-                new ChangelogEntry(Sim.v20, false, 2020, "Increased bonus from 3% to 5%."),
+                new ChangelogEntry(Sim.vDoLEnd, false, 2020, "Increased bonus from 3% to 5%."),
                 new ChangelogEntry(Sim.vDoL, false, 2019, "Reduced bonus from 15% to 3%."),
                 new ChangelogEntry(Sim.v10, false, 2014)
         );

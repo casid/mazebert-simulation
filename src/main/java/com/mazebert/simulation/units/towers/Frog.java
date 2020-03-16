@@ -23,7 +23,7 @@ public strictfp class Frog extends Tower {
         setElement(Element.Nature);
 
         addAbility(new AttackAbility());
-        if (Sim.context().version >= Sim.v20) {
+        if (Sim.context().version >= Sim.vDoLEnd) {
             addAbility(new FrogPoisonArmorAbility());
         }
         addAbility(new FrogPoisonAbility());
@@ -33,7 +33,7 @@ public strictfp class Frog extends Tower {
     @Override
     public Changelog getChangelog() {
         return new Changelog(
-                new ChangelogEntry(Sim.v20, false, 2020, "Add Toxic decomposition ability", "Poison damage per level increased from 1% to 2%"),
+                new ChangelogEntry(Sim.vDoLEnd, false, 2020, "Add Toxic decomposition ability", "Poison damage per level increased from 1% to 2%"),
                 new ChangelogEntry(Sim.v10, false, 2013)
         );
     }

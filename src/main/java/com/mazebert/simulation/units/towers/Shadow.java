@@ -31,7 +31,7 @@ public strictfp class Shadow extends Tower {
     @Override
     public Changelog getChangelog() {
         return new Changelog(
-                new ChangelogEntry(Sim.v20, false, 2020, "Increase maximum adaption from 700% to 1300%"),
+                new ChangelogEntry(Sim.vDoLEnd, false, 2020, "Increase maximum adaption from 700% to 1300%"),
                 new ChangelogEntry(Sim.v10, false, 2013)
         );
     }

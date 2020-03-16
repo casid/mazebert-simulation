@@ -6,7 +6,7 @@ import com.mazebert.simulation.units.towers.GuardAura;
 import com.mazebert.simulation.units.towers.Tower;
 
 public strictfp class GuardLanceAbility extends StackableAbility<Tower> {
-    private final int absoluteDamage = Sim.context().version >= Sim.v20 ? 6 : 4;
+    private final int absoluteDamage = Sim.context().version >= Sim.vDoLEnd ? 6 : 4;
     private final float relativeDamage = 0.2f;
 
     private int currentAbsoluteDamage;

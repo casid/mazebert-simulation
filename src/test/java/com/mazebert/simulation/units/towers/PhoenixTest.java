@@ -1,5 +1,6 @@
 package com.mazebert.simulation.units.towers;
 
+import com.mazebert.simulation.Sim;
 import com.mazebert.simulation.units.abilities.ActiveAbilityType;
 import com.mazebert.simulation.units.creeps.Creep;
 import com.mazebert.simulation.units.items.ItemTest;
@@ -25,6 +26,8 @@ public strictfp class PhoenixTest extends ItemTest {
 
     @Override
     protected Tower createTower() {
+        version = Sim.vDoLEnd;
+
         phoenix = new Phoenix();
         return phoenix;
     }

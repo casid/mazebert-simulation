@@ -20,7 +20,7 @@ public class OnlyDarknessAndNatureQuestTest extends ItemTest {
 
     @BeforeEach
     void setUp() {
-        version = Sim.v20;
+        version = Sim.vDoLEnd;
         wizard.gold = 100000;
         formatPlugin = new FormatPlugin();
 

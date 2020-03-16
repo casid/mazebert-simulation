@@ -26,7 +26,7 @@ public strictfp class LuciferFallenLightning extends ChainAbility {
 
     @Override
     public String getDescription() {
-        if (Sim.context().version >= Sim.v20) {
+        if (Sim.context().version >= Sim.vDoLEnd) {
             return "Attacks up to 2 creeps at once.\nDamage chains to up to " + getMaxChains() + " creeps.";
         } else {
             return "Damage chains to up to " + getMaxChains() + " creeps.";

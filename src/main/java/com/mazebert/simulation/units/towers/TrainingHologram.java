@@ -25,7 +25,7 @@ public strictfp class TrainingHologram extends Tower {
     @Override
     public Changelog getChangelog() {
         return new Changelog(
-                new ChangelogEntry(Sim.v20, false, 2020, "XP per level increased from 0.2 to 0.5"),
+                new ChangelogEntry(Sim.vDoLEnd, false, 2020, "XP per level increased from 0.2 to 0.5"),
                 ChangelogEntry.DAWN_OF_LIGHT
         );
     }

@@ -16,6 +16,8 @@ strictfp class DeckMasterPowerTest extends SimTest {
 
     @BeforeEach
     void setUp() {
+        version = Sim.vDoLEnd;
+
         simulationListeners = new SimulationListeners();
         unitGateway = new UnitGateway();
 

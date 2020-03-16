@@ -17,7 +17,7 @@ public strictfp class Lightbringer extends Item {
     @Override
     public Changelog getChangelog() {
         return new Changelog(
-                new ChangelogEntry(Sim.v20, false, 2020, "Base damage per level increased from 6 to 11."),
+                new ChangelogEntry(Sim.vDoLEnd, false, 2020, "Base damage per level increased from 6 to 11."),
                 ChangelogEntry.DAWN_OF_LIGHT
         );
     }
@@ -69,7 +69,7 @@ public strictfp class Lightbringer extends Item {
 
     @Override
     public boolean isForbiddenToEquip(Tower tower) {
-        if (Sim.context().version >= Sim.v20) {
+        if (Sim.context().version >= Sim.vDoLEnd) {
             return tower.getType() != TowerType.Lucifer;
         }
         return false;
@@ -77,6 +77,6 @@ public strictfp class Lightbringer extends Item {
 
     @Override
     public boolean isAllowedToReturnToInventory() {
-        return Sim.context().version < Sim.v20;
+        return Sim.context().version < Sim.vDoLEnd;
     }
 }

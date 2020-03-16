@@ -75,7 +75,7 @@ class LuciferTest extends ItemTest {
 
     @Test
     void luciferIsReplaced_v20() {
-        version = Sim.v20;
+        version = Sim.vDoLEnd;
 
         whenTowerIsReplaced(lucifer, TowerType.Dandelion);
 

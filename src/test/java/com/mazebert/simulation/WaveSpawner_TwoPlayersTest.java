@@ -29,6 +29,8 @@ public class WaveSpawner_TwoPlayersTest extends SimTest {
 
     @BeforeEach
     void setUp() {
+        version = Sim.vDoLEnd;
+
         simulationListeners = new SimulationListeners();
 
         formatPlugin = new FormatPlugin();

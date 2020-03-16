@@ -196,7 +196,7 @@ public strictfp final class WaveSpawner implements OnGameStartedListener, OnWave
     }
 
     private void spawnWave(Wave wave) {
-        if (version >= Sim.v20) {
+        if (version >= Sim.vDoLEnd) {
             spawnWaveNew(wave);
         } else {
             spawnWaveLegacy(wave);
@@ -435,7 +435,7 @@ public strictfp final class WaveSpawner implements OnGameStartedListener, OnWave
         lootSystem.grantGoldInterest(wizard);
         lootSystem.researchTower(wizard, wave.round);
 
-        if (version < Sim.v20 && playerGateway.getPlayerCount() == 1) {
+        if (version < Sim.vDoLEnd && playerGateway.getPlayerCount() == 1) {
             if (version >= Sim.v13) {
                 if (wave.round == 200) {
                     lootSystem.addToStash(wizard, lastCreep, wizard.itemStash, ItemType.ScepterOfTime);

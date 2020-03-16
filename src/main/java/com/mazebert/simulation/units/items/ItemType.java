@@ -120,7 +120,7 @@ public strictfp enum ItemType implements CardType<Item> {
     }
 
     public static ItemType[] getValues() {
-        if (Sim.context().version >= Sim.v20) {
+        if (Sim.context().version >= Sim.vDoLEnd) {
             return STANDARD_DOL;
         }
         if (Sim.isDoLSeasonContent()) {

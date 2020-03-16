@@ -14,7 +14,7 @@ public strictfp class GuardLance extends Item {
     @Override
     public Changelog getChangelog() {
         return new Changelog(
-                new ChangelogEntry(Sim.v20, false, 2020, "Base damage increased from 4 to 6."),
+                new ChangelogEntry(Sim.vDoLEnd, false, 2020, "Base damage increased from 4 to 6."),
                 ChangelogEntry.DAWN_OF_LIGHT
         );
     }

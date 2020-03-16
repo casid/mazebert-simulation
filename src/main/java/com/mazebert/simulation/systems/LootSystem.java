@@ -20,7 +20,7 @@ public strictfp class LootSystem {
     private final int version = Sim.context().version;
 
     public void loot(Tower tower, Creep creep) {
-        if (version >= Sim.v20) {
+        if (version >= Sim.vDoLEnd) {
             if (creep.getWave().origin == WaveOrigin.Treasure) {
                 loot(tower.getWizard(), tower, creep);
             } else {

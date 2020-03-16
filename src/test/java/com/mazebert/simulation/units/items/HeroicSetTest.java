@@ -1,5 +1,6 @@
 package com.mazebert.simulation.units.items;
 
+import com.mazebert.simulation.Sim;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -7,6 +8,10 @@ import static org.assertj.core.api.Assertions.assertThat;
 public strictfp class HeroicSetTest extends ItemTest {
     private static final float MASK_BONUS = 0.1f;
     private static final float SET_BONUS = 0.4f;
+
+    public HeroicSetTest() {
+        version = Sim.vDoLEnd;
+    }
 
     @Test
     void cape() {

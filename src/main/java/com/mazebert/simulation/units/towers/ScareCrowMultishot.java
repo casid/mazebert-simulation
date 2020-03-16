@@ -18,7 +18,7 @@ public strictfp class ScareCrowMultishot extends AttackAbility implements OnLeve
     public ScareCrowMultishot() {
         super(1, true);
 
-        if (Sim.context().version >= Sim.v20) {
+        if (Sim.context().version >= Sim.vDoLEnd) {
             levelsForOneCrow = 7;
         } else {
             levelsForOneCrow = 14;

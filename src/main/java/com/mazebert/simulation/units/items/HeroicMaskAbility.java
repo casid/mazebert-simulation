@@ -8,7 +8,7 @@ public strictfp class HeroicMaskAbility extends Ability<Tower> {
     private final float bonus;
 
     public HeroicMaskAbility() {
-        if (Sim.context().version >= Sim.v20) {
+        if (Sim.context().version >= Sim.vDoLEnd) {
             bonus = 0.1f;
         } else {
             bonus = 0.05f;

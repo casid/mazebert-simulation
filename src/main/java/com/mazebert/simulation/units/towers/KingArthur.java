@@ -26,13 +26,13 @@ public strictfp class KingArthur extends Tower {
         addAbility(new AttackSoundAbility("sounds/abyss_king_attack.mp3"));
         addAbility(new InstantDamageAbility());
         addAbility(new KingArthurExcalibur());
-        addAbility(new GuardAura(getBaseRange(), Sim.context().version >= Sim.v20 ? 12 : 6));
+        addAbility(new GuardAura(getBaseRange(), Sim.context().version >= Sim.vDoLEnd ? 12 : 6));
     }
 
     @Override
     public Changelog getChangelog() {
         return new Changelog(
-                new ChangelogEntry(Sim.v20, false, 2020, "Base damage for every other guard in range increased from 6 to 12."),
+                new ChangelogEntry(Sim.vDoLEnd, false, 2020, "Base damage for every other guard in range increased from 6 to 12."),
                 ChangelogEntry.DAWN_OF_LIGHT
         );
     }

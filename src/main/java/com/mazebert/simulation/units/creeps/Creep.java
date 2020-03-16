@@ -390,8 +390,8 @@ public strictfp class Creep extends Unit {
 
     @Override
     public void setWizard(Wizard wizard) {
-        // From version 20 on, creeps do not have a specific wizard!
-        if (Sim.context().version < Sim.v20) {
+        // After DoL, creeps do not have a specific wizard!
+        if (Sim.context().version < Sim.vDoLEnd) {
             super.setWizard(wizard);
         }
     }

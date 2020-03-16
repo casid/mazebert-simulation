@@ -11,7 +11,7 @@ public strictfp class ElectricChairLightning extends ChainAbility implements OnL
 
     public ElectricChairLightning() {
         super(ChainViewType.Lightning, 1);
-        if (Sim.context().version >= Sim.v20) {
+        if (Sim.context().version >= Sim.vDoLEnd) {
             levelsForOneChain = 7;
         } else {
             levelsForOneChain = 14;

@@ -20,7 +20,7 @@ public strictfp class DeckMasterPower extends WizardPower {
             return;
         }
 
-        if (Sim.context().version >= Sim.v20 && !selectedTower.instance().isDropable()) {
+        if (Sim.context().version >= Sim.vDoLEnd && !selectedTower.instance().isDropable()) {
             return;
         }
 

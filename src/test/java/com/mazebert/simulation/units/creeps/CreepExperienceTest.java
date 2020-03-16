@@ -1,5 +1,6 @@
 package com.mazebert.simulation.units.creeps;
 
+import com.mazebert.simulation.Sim;
 import com.mazebert.simulation.SimTest;
 import com.mazebert.simulation.SimulationListeners;
 import com.mazebert.simulation.gateways.UnitGateway;
@@ -27,10 +28,12 @@ public class CreepExperienceTest extends SimTest {
         damageSystem = new DamageSystemTrainer();
         experienceSystem = new ExperienceSystem();
         lootSystem = new LootSystemTrainer();
+
+        version = Sim.vDoLEnd;
     }
 
     @Test
-    void name() {
+    void experienceIsDistributed() {
         Hitman hitman = new Hitman();
         unitGateway.addUnit(hitman);
 

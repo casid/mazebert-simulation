@@ -14,7 +14,7 @@ import com.mazebert.simulation.units.creeps.effects.HologramEffect;
 public strictfp class TrainingHologramSpawn extends Ability<Tower> implements OnRoundStartedListener, OnUnitAddedListener, OnDeathListener {
     public static final float XP = 5.0f;
 
-    private final float xpPerLevel = Sim.context().version >= Sim.v20 ? 0.5f : 0.2f;
+    private final float xpPerLevel = Sim.context().version >= Sim.vDoLEnd ? 0.5f : 0.2f;
 
     private final ExperienceSystem experienceSystem = Sim.context().experienceSystem;
 

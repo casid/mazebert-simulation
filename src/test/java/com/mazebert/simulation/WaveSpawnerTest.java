@@ -46,6 +46,7 @@ public strictfp class WaveSpawnerTest extends SimTest {
     @BeforeEach
     void setUp() {
         season = true;
+        version = Sim.vDoLEnd;
 
         simulationListeners = new SimulationListeners();
         simulationListeners.onWaveFinished.add(wave -> waveFinished = true);

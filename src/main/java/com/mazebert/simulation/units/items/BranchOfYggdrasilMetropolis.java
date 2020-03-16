@@ -13,7 +13,7 @@ public strictfp class BranchOfYggdrasilMetropolis extends BranchOfYggdrasil {
     @Override
     public Changelog getChangelog() {
         return new Changelog(
-                new ChangelogEntry(Sim.v20, false, 2020)
+                new ChangelogEntry(Sim.vDoLEnd, false, 2020)
         );
     }
 }

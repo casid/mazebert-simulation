@@ -80,7 +80,7 @@ public class HitpointBalancingTester {
             double[] hitpoints = new double[500];
             for (int i = 0; i < hitpoints.length; i++) {
                 hitpoints[i] = Balancing.getTotalCreepHitpoints(version, i + 1, difficulty, playerCount);
-                if (version < Sim.v20) {
+                if (version < Sim.vDoLEnd) {
                     hitpoints[i] *= playerCount; // More creeps where spawned back in the days
                 }
             }

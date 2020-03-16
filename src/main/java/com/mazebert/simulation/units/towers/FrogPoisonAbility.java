@@ -11,7 +11,7 @@ public strictfp class FrogPoisonAbility extends PoisonAbility {
     public FrogPoisonAbility() {
         super(3.0f);
 
-        if (Sim.context().version >= Sim.v20) {
+        if (Sim.context().version >= Sim.vDoLEnd) {
             damagePerLevel = 0.02;
         } else {
             damagePerLevel = 0.01;
