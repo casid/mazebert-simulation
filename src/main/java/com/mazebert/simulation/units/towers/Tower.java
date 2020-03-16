@@ -361,6 +361,10 @@ public strictfp abstract class Tower extends Unit implements CooldownUnit, Card,
         if (chance > Balancing.MAX_TRIGGER_CHANCE) {
             chance = Balancing.MAX_TRIGGER_CHANCE;
         }
+        return isAbilityTriggeredByRawChance(chance);
+    }
+
+    private boolean isAbilityTriggeredByRawChance(float chance) {
         if (multiluck > 1) {
             for (int i = 0; i < multiluck; ++i) {
                 if (Sim.context().randomPlugin.getFloatAbs() < chance) {
@@ -388,10 +392,16 @@ public strictfp abstract class Tower extends Unit implements CooldownUnit, Card,
     }
 
     public boolean isNegativeAbilityTriggered(float chance) {
-        if (version < Sim.v19) {
-            return Sim.context().randomPlugin.getFloatAbs() * luck <= chance;
-        } else {
+        if (version >= Sim.vCorona) {
+            if (luck > 1.0f) {
+                return !isAbilityTriggeredByRawChance(1.0f - (chance / luck));
+            } else {
+                return !isAbilityTriggeredByRawChance((1.0f - chance) * luck);
+            }
+        } else if (version >= Sim.v19) {
             return !isAbilityTriggered(1.0f - chance);
+        } else {
+            return Sim.context().randomPlugin.getFloatAbs() * luck <= chance;
         }
     }
 

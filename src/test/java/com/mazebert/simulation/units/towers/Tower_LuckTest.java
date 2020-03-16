@@ -1,6 +1,5 @@
 package com.mazebert.simulation.units.towers;
 
-import com.mazebert.simulation.Sim;
 import com.mazebert.simulation.SimTest;
 import com.mazebert.simulation.plugins.random.RandomPluginTrainer;
 import com.mazebert.simulation.units.TestTower;
@@ -17,7 +16,6 @@ public strictfp class Tower_LuckTest extends SimTest {
 
     @BeforeEach
     void setUp() {
-        version = Sim.v19;
         randomPlugin = randomPluginTrainer = new RandomPluginTrainer();
 
         tower = new TestTower();
@@ -111,5 +109,45 @@ public strictfp class Tower_LuckTest extends SimTest {
         randomPluginTrainer.givenFloatAbs(0.0f);
         tower.addLuck(-1.0f);
         assertThat(tower.isNegativeAbilityTriggered(0.5f)).isTrue();
+    }
+
+    @Test
+    void negativeAbility_mead() {
+        randomPluginTrainer.givenFloatAbs(0.9f);
+        assertThat(tower.isNegativeAbilityTriggered(0.01f)).isFalse();
+    }
+
+    @Test
+    void negativeAbility_mead2() {
+        randomPluginTrainer.givenFloatAbs(0.99f);
+        assertThat(tower.isNegativeAbilityTriggered(0.01f)).isTrue();
+    }
+
+    @Test
+    void negativeAbility_mead3() {
+        tower.addLuck(1.0f);
+        randomPluginTrainer.givenFloatAbs(0.99f);
+        assertThat(tower.isNegativeAbilityTriggered(0.01f)).isFalse();
+    }
+
+    @Test
+    void negativeAbility_mead4() {
+        tower.addLuck(0.1f);
+        randomPluginTrainer.givenFloatAbs(0.5f);
+        assertThat(tower.isNegativeAbilityTriggered(1.01f)).isTrue();
+    }
+
+    @Test
+    void negativeAbility_mead5() {
+        tower.addLuck(1.0f);
+        randomPluginTrainer.givenFloatAbs(0.0f);
+        assertThat(tower.isNegativeAbilityTriggered(1.01f)).isFalse();
+    }
+
+    @Test
+    void negativeAbility_mead6() {
+        tower.addLuck(1.0f);
+        randomPluginTrainer.givenFloatAbs(0.0f);
+        assertThat(tower.isNegativeAbilityTriggered(2.0f)).isTrue();
     }
 }
