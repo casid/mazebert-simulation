@@ -8,6 +8,7 @@ import com.mazebert.simulation.hash.Hashable;
 import com.mazebert.simulation.listeners.OnCardAdded;
 import com.mazebert.simulation.listeners.OnCardRemoved;
 import com.mazebert.simulation.plugins.random.RandomPlugin;
+import com.mazebert.simulation.units.wizards.Wizard;
 
 import java.util.*;
 
@@ -259,6 +260,21 @@ public abstract strictfp class Stash<T extends Card> implements ReadonlyStash<T>
 
     CardType<T>[] getPossibleDrops(Rarity rarity) {
         return cardByDropRarity.get(rarity);
+    }
+
+    public void addPossibleDropsExcludingSupporterCards(Wizard wizard, Rarity rarity, Collection<CardType<T>> result) {
+        CardType<T>[] possibleDrops = cardByDropRarityExcludingSupporterCards.get(rarity);
+
+        for (CardType<T> possibleDrop : possibleDrops) {
+            if (isUniqueAlreadyDropped(possibleDrop)) {
+                continue;
+            }
+            if (rarity == Rarity.Legendary && !wizard.ownsFoilCard(possibleDrop)) {
+                continue;
+            }
+
+            result.add(possibleDrop);
+        }
     }
 
     public CardType<T> getRandomDrop(Rarity rarity, RandomPlugin randomPlugin, int maxItemLevel, boolean excludeSupporterCards) {

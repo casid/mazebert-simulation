@@ -9,6 +9,7 @@ import com.mazebert.simulation.stash.ReadonlyStash;
 import com.mazebert.simulation.stash.Stash;
 import com.mazebert.simulation.stash.TowerStash;
 import com.mazebert.simulation.units.items.ItemType;
+import com.mazebert.simulation.units.items.ToiletPaperTransmuteAbility;
 import com.mazebert.simulation.units.potions.PotionType;
 import com.mazebert.simulation.units.wizards.Wizard;
 
@@ -65,6 +66,11 @@ public strictfp class TransmuteCards extends Usecase<TransmuteCardsCommand> {
             return;
         }
 
+        if (command.cardType == ItemType.ToiletPaper) {
+            transmuteToiletPaper(wizard, stash, command.cardType);
+            return;
+        }
+
         if (command.all) {
             transmuteAll(wizard, stash, command.cardType, false);
         } else {
@@ -73,6 +79,28 @@ public strictfp class TransmuteCards extends Usecase<TransmuteCardsCommand> {
             }
             transmute(wizard, stash, command.cardType, command.automatic);
         }
+    }
+
+    @SuppressWarnings("unchecked")
+    private void transmuteToiletPaper(Wizard wizard, Stash stash, CardType cardType) {
+        int index = stash.getIndex(cardType);
+        stash.remove(cardType);
+
+        List<CardType> result = new ArrayList<>();
+
+        List<CardType> possibleItems = new ArrayList<>();
+        stash.addPossibleDropsExcludingSupporterCards(wizard, Rarity.Unique, possibleItems);
+        stash.addPossibleDropsExcludingSupporterCards(wizard, Rarity.Legendary, possibleItems);
+
+        for (int i = 0; i < ToiletPaperTransmuteAbility.AMOUNT && !possibleItems.isEmpty(); ++i) {
+            CardType item = randomPlugin.get(possibleItems);
+            possibleItems.remove(item);
+
+            insertDrop(wizard, stash, cardType, index, item, false);
+            result.add(item);
+        }
+
+        wizard.onCardsTransmuted.dispatch(Rarity.Legendary, result, 1);
     }
 
     @SuppressWarnings("unchecked")
