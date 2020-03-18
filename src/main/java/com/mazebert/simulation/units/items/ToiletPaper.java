@@ -51,6 +51,6 @@ public strictfp class ToiletPaper extends Item {
 
     @Override
     public int getItemLevel() {
-        return 50;
+        return 100;
     }
 }
