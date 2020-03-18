@@ -16,7 +16,7 @@ public strictfp class AutoTransmuteCards extends Usecase<AutoTransmuteCardsComma
             return;
         }
 
-        @SuppressWarnings("Duplicates") Stash stash = wizard.getStash(command.cardCategory);
+        @SuppressWarnings("Duplicates") Stash<?> stash = wizard.getStash(command.cardCategory);
         if (stash == null) {
             return;
         }
