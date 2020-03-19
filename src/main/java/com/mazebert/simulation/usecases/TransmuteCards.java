@@ -92,6 +92,11 @@ public strictfp class TransmuteCards extends Usecase<TransmuteCardsCommand> {
         stash.addPossibleDropsExcludingSupporterCards(wizard, Rarity.Unique, possibleItems);
         stash.addPossibleDropsExcludingSupporterCards(wizard, Rarity.Legendary, possibleItems);
 
+        if (Sim.context().version >= Sim.vDoLEnd) {
+            possibleItems.remove(ItemType.WeddingRing1);
+            possibleItems.remove(ItemType.WeddingRing2);
+        }
+
         for (int i = 0; i < ToiletPaperTransmuteAbility.AMOUNT && !possibleItems.isEmpty(); ++i) {
             CardType item = randomPlugin.get(possibleItems);
             possibleItems.remove(item);
