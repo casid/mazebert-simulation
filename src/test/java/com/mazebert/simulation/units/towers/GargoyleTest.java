@@ -4,6 +4,7 @@ import com.mazebert.simulation.Path;
 import com.mazebert.simulation.SimTest;
 import com.mazebert.simulation.SimulationListeners;
 import com.mazebert.simulation.gateways.UnitGateway;
+import com.mazebert.simulation.plugins.FormatPlugin;
 import com.mazebert.simulation.plugins.random.RandomPluginTrainer;
 import com.mazebert.simulation.systems.DamageSystemTrainer;
 import com.mazebert.simulation.units.creeps.Creep;
@@ -22,12 +23,11 @@ strictfp class GargoyleTest extends SimTest {
 
     @BeforeEach
     void setUp() {
-        version = 19;
-
         simulationListeners = new SimulationListeners();
         unitGateway = new UnitGateway();
         damageSystem = new DamageSystemTrainer();
         randomPlugin = randomPluginTrainer;
+        formatPlugin = new FormatPlugin();
 
         gargoyle = new Gargoyle();
         unitGateway.addUnit(gargoyle);
@@ -81,6 +81,13 @@ strictfp class GargoyleTest extends SimTest {
         assertThat(creep.getImmobilizeResistance()).isEqualTo(0.09f);
         creep.simulate(1.0f);
         assertThat(creep.getImmobilizeResistance()).isEqualTo(0.0f);
+    }
+
+    @Test
+    void customBonus() {
+        CustomTowerBonus customTowerBonus = new CustomTowerBonus();
+        gargoyle.populateCustomTowerBonus(customTowerBonus);
+        assertThat(customTowerBonus.value).isEqualTo("7%");
     }
 
     private void whenGargoyleAttacks() {

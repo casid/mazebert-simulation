@@ -74,4 +74,10 @@ public strictfp class Gargoyle extends Tower {
     public String getAuthor() {
         return "jhoijhoi & shimakura";
     }
+
+    @Override
+    public void populateCustomTowerBonus(CustomTowerBonus bonus) {
+        bonus.title = "Knockback chance:";
+        bonus.value = format.percent(getAbility(GargoyleKnockback.class).getCurrentChance()) + "%";
+    }
 }
