@@ -30,6 +30,6 @@ class FrogTest extends ItemTest {
 
         tower.populateCustomTowerBonus(customTowerBonus);
 
-        assertThat(customTowerBonus.value).isEqualTo("110%");
+        assertThat(customTowerBonus.value).isEqualTo("120%");
     }
 }
