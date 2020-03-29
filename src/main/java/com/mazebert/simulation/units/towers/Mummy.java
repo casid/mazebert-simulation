@@ -78,4 +78,10 @@ public strictfp class Mummy extends Tower {
     public int getImageOffsetOnCardY() {
         return 22;
     }
+
+    @Override
+    public void populateCustomTowerBonus(CustomTowerBonus bonus) {
+        bonus.title = "Kill chance:";
+        bonus.value = format.percent(getAbility(MummyStumble.class).getCurrentChance()) + "%";
+    }
 }

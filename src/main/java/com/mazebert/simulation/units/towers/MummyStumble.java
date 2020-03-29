@@ -30,7 +30,7 @@ public strictfp class MummyStumble extends Ability<Tower> implements OnAttackLis
     @Override
     public void onAttack(Creep target) {
         if (target.getWave().type.isBoss()) {
-            if (!target.isSteady() && getUnit().isImmobilizeAbilityTriggered(chance + getUnit().getLevel() * chanceLevelBonus, target)) {
+            if (!target.isSteady() && getUnit().isImmobilizeAbilityTriggered(getCurrentChance(), target)) {
                 StunEffect stunEffect = target.addAbilityStack(StunEffect.class);
                 stunEffect.setDuration(bossStunDuration);
                 if (simulationListeners.areNotificationsEnabled()) {
@@ -38,13 +38,17 @@ public strictfp class MummyStumble extends Ability<Tower> implements OnAttackLis
                 }
             }
         } else {
-            if (getUnit().isAbilityTriggered(chance + getUnit().getLevel() * chanceLevelBonus)) {
+            if (getUnit().isAbilityTriggered(getCurrentChance())) {
                 getUnit().kill(target);
                 if (simulationListeners.areNotificationsEnabled()) {
                     simulationListeners.showNotification(target, "DBTP!", 0x333333);
                 }
             }
         }
+    }
+
+    public float getCurrentChance() {
+        return chance + getUnit().getLevel() * chanceLevelBonus;
     }
 
     @Override
