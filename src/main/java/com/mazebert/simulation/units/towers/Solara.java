@@ -87,7 +87,7 @@ public strictfp class Solara extends Tower {
 
     @Override
     public void populateCustomTowerBonus(CustomTowerBonus bonus) {
-        bonus.title = "Burn damage";
+        bonus.title = "Burn damage:";
         bonus.value = format.percent(burn.getBurnDamageFactor()) + "%";
     }
 }

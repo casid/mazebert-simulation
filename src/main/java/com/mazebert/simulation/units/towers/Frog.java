@@ -77,4 +77,10 @@ public strictfp class Frog extends Tower {
     public int getImageOffsetOnCardY() {
         return 8;
     }
+
+    @Override
+    public void populateCustomTowerBonus(CustomTowerBonus bonus) {
+        bonus.title = "Poison damage:";
+        bonus.value = format.percent((float)getAbility(FrogPoisonAbility.class).getCurrentPoisonDamage()) + "%";
+    }
 }

@@ -20,7 +20,11 @@ public strictfp class FrogPoisonAbility extends PoisonAbility {
 
     @Override
     protected double calculatePoisonDamage(Creep target, double damage, int multicrits) {
-        return (1.0 + damagePerLevel * getUnit().getLevel()) * damage;
+        return getCurrentPoisonDamage() * damage;
+    }
+
+    public double getCurrentPoisonDamage() {
+        return 1.0 + damagePerLevel * getUnit().getLevel();
     }
 
     @Override
