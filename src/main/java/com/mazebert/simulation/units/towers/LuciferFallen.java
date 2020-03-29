@@ -22,7 +22,7 @@ public strictfp class LuciferFallen extends Tower {
         setElement(Element.Darkness);
 
         if (Sim.context().version >= Sim.vDoLEnd) {
-            addAbility(new AttackAbility(2));
+            addAbility(new AttackAbility(2, true));
         } else {
             addAbility(new AttackAbility());
         }
