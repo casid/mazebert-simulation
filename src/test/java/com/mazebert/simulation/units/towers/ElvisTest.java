@@ -4,6 +4,7 @@ import com.mazebert.simulation.Path;
 import com.mazebert.simulation.SimTest;
 import com.mazebert.simulation.SimulationListeners;
 import com.mazebert.simulation.gateways.UnitGateway;
+import com.mazebert.simulation.plugins.FormatPlugin;
 import com.mazebert.simulation.units.creeps.Creep;
 import org.assertj.core.data.Offset;
 import org.junit.jupiter.api.BeforeEach;
@@ -20,6 +21,7 @@ strictfp class ElvisTest extends SimTest {
     void setUp() {
         simulationListeners = new SimulationListeners();
         unitGateway = new UnitGateway();
+        formatPlugin = new FormatPlugin();
 
         elvis = new Elvis();
         unitGateway.addUnit(elvis);
@@ -61,6 +63,16 @@ strictfp class ElvisTest extends SimTest {
 
         whenCreepMovesAlongPath(1.6f);
         assertThat(creep.getSpeedModifier()).isEqualTo(1.0f); // leaves range, back to normal
+    }
+
+    @Test
+    void customBonus() {
+        CustomTowerBonus customTowerBonus = new CustomTowerBonus();
+
+        elvis.populateCustomTowerBonus(customTowerBonus);
+
+        assertThat(customTowerBonus.title).isEqualTo("Slow duration:");
+        assertThat(customTowerBonus.value).isEqualTo("2s");
     }
 
     private void whenCreepMovesAlongPath(float time) {

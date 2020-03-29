@@ -16,7 +16,7 @@ public strictfp class ElvisAura extends AuraAbility<Tower, Creep> {
         }
 
         ElvisAuraEffect effect = unit.addAbilityStack(getUnit(), ElvisAuraEffect.class);
-        effect.setDuration(2.0f + getUnit().getLevel() * 0.01f);
+        effect.setDuration(getCurrentSlowDuration());
     }
 
     @Override
@@ -47,5 +47,9 @@ public strictfp class ElvisAura extends AuraAbility<Tower, Creep> {
     @Override
     public String getLevelBonus() {
         return "+0.1 seconds per level";
+    }
+
+    public float getCurrentSlowDuration() {
+        return 2.0f + getUnit().getLevel() * 0.01f;
     }
 }

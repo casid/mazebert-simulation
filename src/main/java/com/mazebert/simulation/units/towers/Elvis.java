@@ -77,4 +77,10 @@ public strictfp class Elvis extends Tower {
     public String getAuthor() {
         return "Thomas Pircher";
     }
+
+    @Override
+    public void populateCustomTowerBonus(CustomTowerBonus bonus) {
+        bonus.title = "Slow duration:";
+        bonus.value = format.seconds(getAbility(ElvisAura.class).getCurrentSlowDuration());
+    }
 }
