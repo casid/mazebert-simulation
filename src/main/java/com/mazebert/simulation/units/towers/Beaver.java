@@ -68,4 +68,10 @@ public strictfp class Beaver extends Tower {
     protected float getGoldCostFactor() {
         return 0.95f;
     }
+
+    @Override
+    public void populateCustomTowerBonus(CustomTowerBonus bonus) {
+        bonus.title = "Stun chance:";
+        bonus.value = format.percent(getAbility(BeaverStun.class).getCurrentChance()) + "%";
+    }
 }

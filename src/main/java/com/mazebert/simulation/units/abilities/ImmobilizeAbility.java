@@ -66,4 +66,8 @@ public strictfp abstract class ImmobilizeAbility extends Ability<Tower> implemen
         }
         return super.getLevelBonus();
     }
+
+    public float getCurrentChance() {
+        return chance + getUnit().getLevel() * chancePerLevel;
+    }
 }
