@@ -98,15 +98,15 @@ public class WaveSpawner_TwoPlayersTest extends SimTest {
     void modifier_union() {
         Wave wave = new Wave();
         wave.round = 1;
-        wave.creepCount = 1;
-        wave.type = WaveType.Boss;
+        wave.creepCount = 5;
+        wave.type = WaveType.Normal;
         wave.creepType = CreepType.Orc;
         wave.creepModifier1 = CreepModifier.Union;
         waveGateway.addWave(wave);
 
         whenAllCreepsAreSpawned();
 
-        assertThat(getCreep(0).getHealth()).isEqualTo(409.6); // all creeps have the same health (the rounds health pool * player count)
+        assertThat(getCreep(0).getHealth()).isEqualTo(512); // all creeps have the same health (the rounds health pool * player count)
         assertThat(getCreep(0).getAbility(UnionEffect.class)).isNotNull();
     }
 

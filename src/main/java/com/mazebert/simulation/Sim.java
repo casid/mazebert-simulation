@@ -19,8 +19,9 @@ public strictfp class Sim {
     public static final int v19 = 19;
     public static final int vCorona = 20;
     public static final int vDoLEnd = 21; // Dawn of Light season end merge
+    public static final int vDoLEndBeta1 = 22; // Beta version TODO replace with vDoLEnd after beta
     @SuppressWarnings("unused")
-    public static final int vCoC = 22; // Call of Cthulhu release
+    public static final int vCoC = 1000; // Call of Cthulhu release TODO adjust after beta
 
     // For android 19 compatibility
     private static ThreadLocal<Context> context = new ThreadLocal<Context>() {

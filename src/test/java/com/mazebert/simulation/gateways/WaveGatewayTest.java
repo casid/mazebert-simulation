@@ -176,7 +176,8 @@ class WaveGatewayTest extends SimTest {
     }
 
     @Test
-    void waveGeneration_modifiers_unionBoss_possibleForMultiPlayer() {
+    void waveGeneration_modifiers_unionBoss_possibleForLegacyMultiPlayer() {
+        version = Sim.vDoL;
         round = 101;
         randomPluginTrainer.givenFloatAbs(BOSS_ROLL, 0.0f, 0.0f, 0.31f, UNION_ROLL, 0.0f);
         playerGatewayTrainer.givenPlayerCount(2);
@@ -186,6 +187,19 @@ class WaveGatewayTest extends SimTest {
         assertThat(wave.type).isEqualTo(WaveType.Boss);
         assertThat(wave.creepModifier1).isEqualTo(CreepModifier.Union);
         assertThat(wave.creepModifier2).isEqualTo(null);
+    }
+
+    @Test
+    void waveGeneration_modifiers_unionBoss_notPossibleForNewMultiPlayer() {
+        version = Sim.vDoLEndBeta1;
+        round = 101;
+        randomPluginTrainer.givenFloatAbs(BOSS_ROLL, 0.0f, 0.0f, 0.31f, UNION_ROLL, 0.0f);
+        playerGatewayTrainer.givenPlayerCount(2);
+
+        whenWaveIsGenerated();
+
+        assertThat(wave.type).isEqualTo(WaveType.Boss);
+        assertThat(wave.creepModifier1).isNotEqualTo(CreepModifier.Union);
     }
 
     @Test

@@ -104,7 +104,11 @@ public strictfp enum CreepModifier {
         }
 
         if (this == Union && wave.creepCount <= 1) {
-            return Sim.context().playerGateway.getPlayerCount() > 1;
+            if (Sim.context().version >= Sim.vDoLEndBeta1) {
+                return false;
+            } else {
+                return Sim.context().playerGateway.getPlayerCount() > 1;
+            }
         }
         return true;
     }
