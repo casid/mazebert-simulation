@@ -519,6 +519,24 @@ public class TransmuteCardsTest extends UsecaseTest<TransmuteCardsCommand> imple
         assertThat(wizard.itemStash.get(2).cardType).isEqualTo(ItemType.Handbag);
     }
 
+    @Test
+    void tower_fourCards_keepOne() {
+        wizard.towerStash.add(TowerType.Dandelion);
+        wizard.towerStash.add(TowerType.Dandelion);
+        wizard.towerStash.add(TowerType.Dandelion);
+        wizard.towerStash.add(TowerType.Dandelion);
+        request.cardCategory = CardCategory.Tower;
+        request.cardType = TowerType.Dandelion;
+        request.all = true;
+        request.amountToKeep = 1;
+
+        whenRequestIsExecuted();
+
+        assertThat(wizard.towerStash.size()).isEqualTo(1);
+        assertThat(wizard.towerStash.transmutedCommons).isEqualTo(3);
+        assertThat(wizard.towerStash.get(0).cardType).isEqualTo(TowerType.Dandelion);
+    }
+
     @Override
     public void onCardTransmuted(Rarity rarity, CardType cardType, boolean automatic) {
         result = cardType;

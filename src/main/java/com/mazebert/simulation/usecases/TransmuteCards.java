@@ -72,7 +72,7 @@ public strictfp class TransmuteCards extends Usecase<TransmuteCardsCommand> {
         }
 
         if (command.all) {
-            transmuteAll(wizard, stash, command.cardType, false);
+            transmuteAll(wizard, stash, command.cardType, command.amountToKeep);
         } else {
             if (command.cardType == ItemType.TransmuteStack) {
                 return;
@@ -109,15 +109,15 @@ public strictfp class TransmuteCards extends Usecase<TransmuteCardsCommand> {
     }
 
     @SuppressWarnings("unchecked")
-    public void transmuteAll(Wizard wizard, Stash stash, CardType cardType, boolean automatic) {
+    private void transmuteAll(Wizard wizard, Stash stash, CardType cardType, int amountToKeep) {
         List<CardType> result = null;
         int transmutedCards = 0;
 
         int index = stash.getIndex(cardType);
 
-        Card card;
-        while ((card = stash.remove(cardType, false, automatic)) != null) {
-            CardType drop = transmute(wizard, stash, card, cardType, index, automatic);
+        while (stash.getAmount(cardType) > amountToKeep) {
+            Card card = stash.remove(cardType, false, false);
+            CardType drop = transmute(wizard, stash, card, cardType, index, false);
             if (drop != null) {
                 if (result == null) {
                     result = new ArrayList<>();
@@ -133,7 +133,7 @@ public strictfp class TransmuteCards extends Usecase<TransmuteCardsCommand> {
     }
 
     @SuppressWarnings("unchecked")
-    public void transmute(Wizard wizard, Stash stash, CardType cardType, boolean automatic) {
+    private void transmute(Wizard wizard, Stash stash, CardType cardType, boolean automatic) {
         int index = stash.getIndex(cardType);
 
         Card card = stash.remove(cardType, false, automatic);

@@ -374,6 +374,14 @@ public abstract strictfp class Stash<T extends Card> implements ReadonlyStash<T>
         return autoTransmutes.contains(type);
     }
 
+    public int getAmount(CardType<T> cardType) {
+        StashEntry<T> stashEntry = get(cardType);
+        if (stashEntry == null) {
+            return 0;
+        }
+        return stashEntry.amount;
+    }
+
     private static class ItemLevelComparator implements Comparator<CardType<? extends Card>> {
 
         @Override
