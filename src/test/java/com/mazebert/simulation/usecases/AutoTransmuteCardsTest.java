@@ -48,4 +48,17 @@ public class AutoTransmuteCardsTest extends UsecaseTest<AutoTransmuteCardsComman
 
         assertThat(wizard.towerStash.isAutoTransmute(TowerType.Rabbit)).isFalse();
     }
+
+    @Test
+    void tower_keepOne() {
+        request.cardCategory = CardCategory.Tower;
+        request.cardType = TowerType.Rabbit;
+        request.amountToKeep = 1;
+
+        whenRequestIsExecuted();
+
+        assertThat(wizard.towerStash.isAutoTransmute(TowerType.Rabbit)).isFalse();
+        wizard.towerStash.add(TowerType.Rabbit);
+        assertThat(wizard.towerStash.isAutoTransmute(TowerType.Rabbit)).isTrue();
+    }
 }

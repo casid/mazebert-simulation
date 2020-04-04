@@ -26,7 +26,7 @@ public strictfp class AutoTransmuteCards extends Usecase<AutoTransmuteCardsComma
             stash.removeAutoTransmute(command.cardType);
         } else {
             //noinspection unchecked
-            stash.addAutoTransmute(command.cardType);
+            stash.addAutoTransmute(command.cardType, command.amountToKeep);
         }
 
     }

@@ -63,6 +63,16 @@ strictfp class DarkForge_CraftTest extends SimTest {
     }
 
     @Test
+    void darkItemsCanBeAutoTransmuted_keepOne() {
+        randomPluginTrainer.givenFloatAbs(0.0f);
+        wizard.itemStash.addAutoTransmute(ItemType.DarkBabySword, 1);
+
+        whenRoundIsStarted();
+
+        assertThat(wizard.itemStash.transmutedCommons).isEqualTo(0);
+    }
+
+    @Test
     void darkItemsCanBeAutoTransmuted_withoutArrayOutOfBounds() {
         randomPluginTrainer.givenFloatAbs(0.0f);
         wizard.itemStash.add(ItemType.Handbag);

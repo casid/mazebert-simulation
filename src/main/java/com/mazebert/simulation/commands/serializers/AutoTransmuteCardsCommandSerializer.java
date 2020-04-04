@@ -1,11 +1,18 @@
 package com.mazebert.simulation.commands.serializers;
 
+import com.mazebert.simulation.Sim;
 import com.mazebert.simulation.commands.AutoTransmuteCardsCommand;
 import org.jusecase.bitpack.BitReader;
 import org.jusecase.bitpack.BitSerializer;
 import org.jusecase.bitpack.BitWriter;
 
 public strictfp class AutoTransmuteCardsCommandSerializer implements BitSerializer<AutoTransmuteCardsCommand> {
+
+    private final int version;
+
+    public AutoTransmuteCardsCommandSerializer(int version) {
+        this.version = version;
+    }
 
     @Override
     public AutoTransmuteCardsCommand createObject() {
@@ -17,6 +24,9 @@ public strictfp class AutoTransmuteCardsCommandSerializer implements BitSerializ
         EnumSerializer.writeTowerPotionOrItemCardCategory(writer, object.cardCategory);
         EnumSerializer.writeCardType(writer, object.cardCategory, object.cardType);
         writer.writeBoolean(object.remove);
+        if (!object.remove && version >= Sim.vDoLEndBeta1) {
+            writer.writeUnsignedInt8(object.amountToKeep);
+        }
     }
 
     @Override
@@ -24,5 +34,8 @@ public strictfp class AutoTransmuteCardsCommandSerializer implements BitSerializ
         object.cardCategory = EnumSerializer.readTowerPotionOrItemCardCategory(reader);
         object.cardType = EnumSerializer.readCardType(reader, object.cardCategory);
         object.remove = reader.readBoolean();
+        if (!object.remove && version >= Sim.vDoLEndBeta1) {
+            object.amountToKeep = reader.readUnsignedInt8();
+        }
     }
 }

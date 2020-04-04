@@ -38,7 +38,7 @@ public strictfp class SimulationMessageProtocol extends BitMessageProtocol {
             protocol.register(new TakeElementCardCommandSerializer());
         }
         if (version >= Sim.v13) {
-            protocol.register(new AutoTransmuteCardsCommandSerializer());
+            protocol.register(new AutoTransmuteCardsCommandSerializer(version));
         }
         if (version >= Sim.v17) {
             // Actually not a command, but we need to register it here so that the ids stay in order.

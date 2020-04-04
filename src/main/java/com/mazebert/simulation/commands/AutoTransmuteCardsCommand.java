@@ -7,4 +7,5 @@ public strictfp class AutoTransmuteCardsCommand extends Command {
     public CardCategory cardCategory;
     public CardType cardType;
     public boolean remove;
+    public int amountToKeep;
 }
