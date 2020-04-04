@@ -123,6 +123,26 @@ public class TransmuteCardsTest extends UsecaseTest<TransmuteCardsCommand> imple
     }
 
     @Test
+    void tower_autoTransmute_keepOne() {
+        wizard.towerStash.add(TowerType.Dandelion);
+        wizard.towerStash.add(TowerType.Dandelion);
+        wizard.towerStash.add(TowerType.Dandelion);
+        wizard.towerStash.add(TowerType.Dandelion);
+        // Frog was configured for auto-transmute, but manually transmuted afterwards
+        request.cardCategory = CardCategory.Tower;
+        request.cardType = TowerType.Dandelion;
+        request.all = true;
+        wizard.towerStash.addAutoTransmute(TowerType.Frog, 1);
+
+        whenRequestIsExecuted();
+
+        // This means, we do not auto transmute the new frog, since the player said he wants to keep one frog.
+        assertThat(wizard.towerStash.size()).isEqualTo(1);
+        assertThat(wizard.towerStash.transmutedCommons).isEqualTo(0);
+        assertThat(wizard.towerStash.transmutedUncommons).isEqualTo(0);
+    }
+
+    @Test
     void tower_autoTransmuteRecursive_Common() {
         for (int i = 0; i < 16; ++i) {
             wizard.towerStash.add(TowerType.Dandelion);

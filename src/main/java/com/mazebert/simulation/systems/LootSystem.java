@@ -148,7 +148,7 @@ public strictfp class LootSystem {
         stash.add(drop, true);
         simulationListeners.onCardDropped.dispatch(wizard, creep, drop.instance());
 
-        if (stash.isAutoTransmute(drop)) {
+        if (stash.isAutoTransmute(drop, true)) {
             TransmuteCardsCommand command = new TransmuteCardsCommand();
             command.cardCategory = drop.category();
             command.cardType = drop;

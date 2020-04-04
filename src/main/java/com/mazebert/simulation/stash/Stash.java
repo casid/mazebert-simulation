@@ -18,7 +18,7 @@ public abstract strictfp class Stash<T extends Card> implements ReadonlyStash<T>
     private final List<StashEntry<T>> entries = new ArrayList<>();
     private final Map<Object, StashEntry<T>> entryByType;
     private final Map<Object, T> droppedUniques;
-    private final Set autoTransmutes;
+    private final Map<Object, Integer> autoTransmutes;
     private EnumMap<Rarity, CardType<T>[]> cardByDropRarity;
     private EnumMap<Rarity, CardType<T>[]> cardByDropRarityExcludingSupporterCards;
 
@@ -31,7 +31,7 @@ public abstract strictfp class Stash<T extends Card> implements ReadonlyStash<T>
 
     private transient int lastViewedIndex;
 
-    protected Stash(Map<Object, StashEntry<T>> entryByType, Map<Object, T> uniques, Set autoTransmutes) {
+    protected Stash(Map<Object, StashEntry<T>> entryByType, Map<Object, T> uniques, Map<Object, Integer> autoTransmutes) {
         this.entryByType = entryByType;
         this.droppedUniques = uniques;
         this.autoTransmutes = autoTransmutes;
@@ -327,7 +327,7 @@ public abstract strictfp class Stash<T extends Card> implements ReadonlyStash<T>
     @SuppressWarnings("unchecked")
     public List<T> getAutoTransmutes() {
         List<T> result = new ArrayList<>();
-        for (Object autoTransmute : autoTransmutes) {
+        for (Object autoTransmute : autoTransmutes.keySet()) {
             result.add(((CardType<T>) autoTransmute).instance());
 
         }
@@ -361,9 +361,12 @@ public abstract strictfp class Stash<T extends Card> implements ReadonlyStash<T>
         return onCardRemoved;
     }
 
-    @SuppressWarnings("unchecked")
     public void addAutoTransmute(CardType<T> type) {
-        autoTransmutes.add(type);
+        addAutoTransmute(type, 0);
+    }
+
+    public void addAutoTransmute(CardType<T> type, int amountToKeep) {
+        autoTransmutes.put(type, amountToKeep);
     }
 
     public void removeAutoTransmute(CardType<T> type) {
@@ -371,7 +374,24 @@ public abstract strictfp class Stash<T extends Card> implements ReadonlyStash<T>
     }
 
     public boolean isAutoTransmute(CardType<T> type) {
-        return autoTransmutes.contains(type);
+        return isAutoTransmute(type, false);
+    }
+
+    public boolean isAutoTransmute(CardType<T> type, boolean alreadyAdded) {
+        Integer amountToKeep = autoTransmutes.get(type);
+        if (amountToKeep == null) {
+            return false;
+        }
+
+        if (amountToKeep <= 0) {
+            return true;
+        }
+
+        if (alreadyAdded) {
+            return getAmount(type) > amountToKeep;
+        } else {
+            return getAmount(type) >= amountToKeep;
+        }
     }
 
     public int getAmount(CardType<T> cardType) {

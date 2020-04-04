@@ -164,6 +164,23 @@ public class LootTest extends SimTest {
     }
 
     @Test
+    void loot_woodenStaff_autoTransmute_keepOne() {
+        randomPluginTrainer.givenFloatAbs(
+                0.0f, // This is a drop
+                0.99f, // The rarity of this drop is common
+                0.0f, // This is an item drop
+                WOODEN_STAFF_ROLL // It's a wooden staff!
+        );
+        creep.setMaxDrops(1);
+        wizard1.itemStash.addAutoTransmute(ItemType.WoodenStaff, 1);
+
+        whenTowerAttacks();
+
+        assertThat(wizard1.itemStash.size()).isEqualTo(1);
+        assertThat(wizard1.itemStash.transmutedCommons).isEqualTo(0);
+    }
+
+    @Test
     void loot_woodenStaff_autoTransmute_notifies() {
         randomPluginTrainer.givenFloatAbs(
                 0.0f, // This is a drop
