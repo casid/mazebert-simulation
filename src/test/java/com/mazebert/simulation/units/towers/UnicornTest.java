@@ -186,12 +186,24 @@ strictfp class UnicornTest extends SimTest {
 
     @Test
     void creepEntersRange_death_notWhenInvisible() {
+        version = Sim.vDoL;
         unicorn.setItem(0, new HelmOfHades());
 
         randomPluginTrainer.givenFloatAbs(0.9f);
         unitGateway.addUnit(a(creep()));
 
         assertThat(unitGateway.hasUnit(unicorn)).isTrue();
+    }
+
+    @Test
+    void creepEntersRange_death_notWhenInvisible_noLongerPossibleBecauseOfMultiplayer() {
+        version = Sim.vDoLEndBeta1;
+        unicorn.setItem(0, new HelmOfHades());
+
+        randomPluginTrainer.givenFloatAbs(0.9f);
+        unitGateway.addUnit(a(creep()));
+
+        assertThat(unitGateway.hasUnit(unicorn)).isFalse();
     }
 
     @Test
