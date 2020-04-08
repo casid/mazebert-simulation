@@ -99,6 +99,11 @@ public class BackwardCompatiblityTester {
         checkGames(Sim.v19);
     }
 
+    @Test
+    void check_20() throws IOException {
+        checkGames(Sim.vCorona);
+    }
+
     @Disabled
     @Test
     void checkOne() {
