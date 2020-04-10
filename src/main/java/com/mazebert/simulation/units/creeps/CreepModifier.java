@@ -72,6 +72,10 @@ public strictfp enum CreepModifier {
                 break;
             case Loot:
                 creep.setDropChance(creep.getDropChance() * 1.2f);
+                if (Sim.context().version >= Sim.vDoLEndBeta3 && creep.getWave().creepCount == 1) {
+                    creep.setMinDrops(creep.getMinDrops() + 1);
+                    creep.setMaxDrops(creep.getMaxDrops() + 1);
+                }
                 break;
             case Ghost:
                 creep.setMaxHealth(creep.getMaxHealth() * GhostEffect.CHANCE_TO_MISS);

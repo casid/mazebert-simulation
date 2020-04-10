@@ -15,7 +15,6 @@ import com.mazebert.simulation.units.creeps.CreepModifier;
 import com.mazebert.simulation.units.creeps.CreepState;
 import com.mazebert.simulation.units.creeps.CreepType;
 import com.mazebert.simulation.units.creeps.effects.*;
-import com.mazebert.simulation.units.items.ItemType;
 import com.mazebert.simulation.units.towers.Spider;
 import com.mazebert.simulation.units.towers.TowerType;
 import com.mazebert.simulation.units.towers.TrainingHologram;
@@ -45,9 +44,6 @@ public strictfp class WaveSpawnerTest extends SimTest {
 
     @BeforeEach
     void setUp() {
-        season = true;
-        version = Sim.vDoLEnd;
-
         simulationListeners = new SimulationListeners();
         simulationListeners.onWaveFinished.add(wave -> waveFinished = true);
         simulationListeners.onRoundStarted.add(wave -> roundStarted = wave.round);
@@ -532,6 +528,40 @@ public strictfp class WaveSpawnerTest extends SimTest {
 
         assertThat(getCreep(0).getGold()).isEqualTo(81);
         assertThat(getCreep(0).getExperienceModifier()).isEqualTo(1.6f);
+    }
+
+    @Test
+    void modifier_loot_normal() {
+        wave = new Wave();
+        wave.round = 1;
+        wave.creepCount = 10;
+        wave.creepType = CreepType.Orc;
+        wave.type = WaveType.Normal;
+        wave.creepModifier1 = CreepModifier.Loot;
+        waveGateway.addWave(wave);
+
+        whenAllCreepsAreSpawned();
+
+        assertThat(getCreep(0).getDropChance()).isEqualTo(1.2f);
+        assertThat(getCreep(0).getMinDrops()).isEqualTo(0);
+        assertThat(getCreep(0).getMaxDrops()).isEqualTo(2);
+    }
+
+    @Test
+    void modifier_loot_boss() {
+        wave = new Wave();
+        wave.round = 1;
+        wave.creepCount = 1;
+        wave.creepType = CreepType.Orc;
+        wave.type = WaveType.Boss;
+        wave.creepModifier1 = CreepModifier.Loot;
+        waveGateway.addWave(wave);
+
+        whenAllCreepsAreSpawned();
+
+        assertThat(getCreep(0).getDropChance()).isEqualTo(6.0f);
+        assertThat(getCreep(0).getMinDrops()).isEqualTo(1);
+        assertThat(getCreep(0).getMaxDrops()).isEqualTo(5);
     }
 
     @Test

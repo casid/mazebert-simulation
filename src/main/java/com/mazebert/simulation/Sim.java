@@ -5,7 +5,7 @@ public strictfp class Sim {
      * If there are breaking changes, increment this number and the version in pom.xml
      * If there are no breaking changes, there is no need for a new version
      */
-    public static final int version = 22;
+    public static final int version = 23;
 
     public static final int v10 = 10;
     public static final int v11 = 11;
