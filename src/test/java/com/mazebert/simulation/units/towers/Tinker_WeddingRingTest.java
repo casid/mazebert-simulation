@@ -39,7 +39,7 @@ public strictfp class Tinker_WeddingRingTest extends ItemTest {
 
     @Test
     void initialLuck() {
-        assertThat(tinker.getLuck()).isEqualTo(1.05f);
+        assertThat(tinker.getLuck()).isEqualTo(1.1f);
     }
 
     @Test
@@ -47,7 +47,7 @@ public strictfp class Tinker_WeddingRingTest extends ItemTest {
         whenPotionIsConsumed(otherTower, PotionType.ChangeSex);
 
         assertThat(tinker.getGender()).isEqualTo(Gender.Female);
-        assertThat(tinker.getLuck()).isEqualTo(1.05f);
+        assertThat(tinker.getLuck()).isEqualTo(1.1f);
     }
 
     @Test
@@ -57,6 +57,6 @@ public strictfp class Tinker_WeddingRingTest extends ItemTest {
         whenPotionIsConsumed(otherTower, PotionType.RareSpeed);
         whenPotionIsConsumed(otherTower, PotionType.RareSpeed);
 
-        assertThat(tinker.getLuck()).isEqualTo(1.05f);
+        assertThat(tinker.getLuck()).isEqualTo(1.1f);
     }
 }

@@ -29,55 +29,63 @@ strictfp class TinkerTest extends SimTest {
 
     @Test
     void luckAura() {
-        assertThat(tinker.getLuck()).isEqualTo(1.05f);
-        assertThat(otherTower.getLuck()).isEqualTo(1.05f);
+        assertThat(tinker.getLuck()).isEqualTo(1.1f);
+        assertThat(otherTower.getLuck()).isEqualTo(1.1f);
     }
 
     @Test
     void luckAura_potionConsumed_common() {
         tinker.onPotionConsumed.dispatch(tinker, new CommonSpeed());
 
-        assertThat(tinker.getLuck()).isEqualTo(1.0509999f);
-        assertThat(otherTower.getLuck()).isEqualTo(1.0509999f);
+        assertThat(tinker.getLuck()).isEqualTo(1.102f);
+        assertThat(otherTower.getLuck()).isEqualTo(1.102f);
     }
 
     @Test
     void luckAura_potionConsumed_uncommon() {
         tinker.onPotionConsumed.dispatch(tinker, new UncommonSpeed());
 
-        assertThat(tinker.getLuck()).isEqualTo(1.0519999f);
-        assertThat(otherTower.getLuck()).isEqualTo(1.0519999f);
+        assertThat(tinker.getLuck()).isEqualTo(1.104f);
+        assertThat(otherTower.getLuck()).isEqualTo(1.104f);
     }
 
     @Test
     void luckAura_potionConsumed_rare() {
         tinker.onPotionConsumed.dispatch(tinker, new RareSpeed());
 
-        assertThat(tinker.getLuck()).isEqualTo(1.0539999f);
-        assertThat(otherTower.getLuck()).isEqualTo(1.0539999f);
+        assertThat(tinker.getLuck()).isEqualTo(1.108f);
+        assertThat(otherTower.getLuck()).isEqualTo(1.108f);
     }
 
     @Test
     void luckAura_potionConsumed_unique() {
         tinker.onPotionConsumed.dispatch(tinker, new Tears());
 
-        assertThat(tinker.getLuck()).isEqualTo(1.0899999f);
-        assertThat(otherTower.getLuck()).isEqualTo(1.0899999f);
+        assertThat(tinker.getLuck()).isEqualTo(1.16f);
+        assertThat(otherTower.getLuck()).isEqualTo(1.16f);
+    }
+
+    @Test
+    void luckAura_potionConsumed_tutorial() {
+        tinker.onPotionConsumed.dispatch(tinker, new DrinkAll());
+
+        assertThat(tinker.getLuck()).isEqualTo(1.1f);
+        assertThat(otherTower.getLuck()).isEqualTo(1.1f);
     }
 
     @Test
     void luckAura_potionConsumed_legendary() {
         tinker.onPotionConsumed.dispatch(tinker, new ChangeSex());
 
-        assertThat(tinker.getLuck()).isEqualTo(1.0999999f);
-        assertThat(otherTower.getLuck()).isEqualTo(1.0999999f);
+        assertThat(tinker.getLuck()).isEqualTo(1.1800001f);
+        assertThat(otherTower.getLuck()).isEqualTo(1.1800001f);
     }
 
     @Test
     void luckAura_potionConsumed_supporterReward() {
         tinker.onPotionConsumed.dispatch(tinker, new WhiteRussian());
 
-        assertThat(tinker.getLuck()).isEqualTo(1.05f);
-        assertThat(otherTower.getLuck()).isEqualTo(1.05f);
+        assertThat(tinker.getLuck()).isEqualTo(1.1f);
+        assertThat(otherTower.getLuck()).isEqualTo(1.1f);
     }
 }

@@ -1,20 +1,10 @@
 package com.mazebert.simulation.units.towers;
 
-import com.mazebert.simulation.Rarity;
 import com.mazebert.simulation.listeners.OnPotionConsumedListener;
 import com.mazebert.simulation.units.abilities.Ability;
 import com.mazebert.simulation.units.potions.Potion;
 
 public strictfp class TinkerAuraEffect extends Ability<Tower> implements OnPotionConsumedListener {
-
-    public static final float BONUS = 0.05f;
-    public static final float[] BONUS_PER_POTION = {
-            0.001f, // Common
-            0.002f, // Uncommon
-            0.004f, // Rare
-            0.04f, // Unique
-            0.05f, // Legendary
-    };
 
     private final Tinker tinker;
     private float currentBonus;
