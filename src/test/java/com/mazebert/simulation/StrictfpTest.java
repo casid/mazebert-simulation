@@ -1,5 +1,6 @@
 package com.mazebert.simulation;
 
+import com.mazebert.simulation.util.CardComparator;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
@@ -10,6 +11,8 @@ import static com.mazebert.util.ClassScanner.getClasses;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class StrictfpTest {
+
+    private static final Class[] WHITELIST = {CardComparator.class};
 
     @Test
     void allSimulationClassesUseStrictFloatingPointMode() throws IOException, ClassNotFoundException {
@@ -33,6 +36,10 @@ public class StrictfpTest {
             return true;
         }
 
+        if (isWhiteListed(clazz)) {
+            return true;
+        }
+
         for (Method method : clazz.getDeclaredMethods()) {
             String methodName = method.getName();
             if (methodName.contains("ajc$preClinit") || methodName.contains("$jacocoInit") || methodName.contains("access$")) {
@@ -51,5 +58,14 @@ public class StrictfpTest {
             }
         }
         return true;
+    }
+
+    private boolean isWhiteListed(Class clazz) {
+        for (Class whiteListedClass : WHITELIST) {
+            if (clazz == whiteListedClass) {
+                return true;
+            }
+        }
+        return false;
     }
 }
