@@ -6,6 +6,9 @@ import java.util.Comparator;
 
 public class CardComparator implements Comparator<Card> {
 
+    @SuppressWarnings("unused") // by ladder and client
+    public static final CardComparator INSTANCE = new CardComparator();
+
     @Override
     public int compare(Card o1, Card o2) {
         int result = Integer.compare(o1.getRarity().ordinal(), o2.getRarity().ordinal());
