@@ -1,6 +1,5 @@
 package com.mazebert.simulation.gateways;
 
-import com.mazebert.simulation.Sim;
 import com.mazebert.simulation.messages.Turn;
 import com.mazebert.simulation.replay.ReplayReader;
 import com.mazebert.simulation.replay.data.ReplayFrame;
@@ -28,7 +27,6 @@ public strictfp class ReplayTurnGateway implements TurnGateway {
     @Override
     public List<Turn> waitForAllPlayerTurns(MessageGateway messageGateway) {
         if (nextFrame == null) {
-            Sim.context().simulation.setRunning(false);
             return Collections.emptyList();
         }
 
