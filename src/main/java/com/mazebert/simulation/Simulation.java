@@ -199,9 +199,10 @@ public strictfp final class Simulation {
         if (replayPause) {
             sleepPlugin.sleepUntil(sleepPlugin.nanoTime(), turnTimeInNanos);
         } else {
+            long start = sleepPlugin.nanoTime();
             List<Turn> playerTurns = turnGateway.waitForAllPlayerTurns(messageGateway);
             if (running) {
-                simulate(playerTurns);
+                simulate(start, playerTurns);
 
                 List<Command> commands = localCommandGateway.reset();
                 schedule(commands, turnGateway.getTurnNumberForLocalCommands());
@@ -250,9 +251,7 @@ public strictfp final class Simulation {
         this.hashCheckDisabled = hashCheckDisabled;
     }
 
-    private void simulate(List<Turn> playerTurns) {
-        long start = sleepPlugin.nanoTime();
-
+    private void simulate(long start, List<Turn> playerTurns) {
         int myHash = checkHashes(playerTurns);
 
         if (monitor.isRequired()) {
