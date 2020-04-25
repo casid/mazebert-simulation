@@ -94,7 +94,7 @@ public strictfp class LootSystem {
 
     public void addGold(Wizard wizard, Unit source, int gold) {
         if (simulationListeners.areNotificationsEnabled()) {
-            simulationListeners.showNotification(source, formatPlugin.goldGain(gold), 0xffff00);
+            simulationListeners.showNotification(wizard, source, formatPlugin.goldGain(gold), 0xffff00);
         }
         wizard.addGold(gold);
     }

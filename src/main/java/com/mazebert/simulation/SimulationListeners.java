@@ -2,6 +2,7 @@ package com.mazebert.simulation;
 
 import com.mazebert.simulation.listeners.*;
 import com.mazebert.simulation.units.Unit;
+import com.mazebert.simulation.units.wizards.Wizard;
 
 public strictfp class SimulationListeners {
     public final OnGameInitialized onGameInitialized = new OnGameInitialized();
@@ -42,6 +43,10 @@ public strictfp class SimulationListeners {
 
     public boolean areNotificationsEnabled() {
         return onNotification.isExposed();
+    }
+
+    public void showNotification(Wizard wizard, Unit unit, String text, int color) {
+        onNotification.dispatch(wizard, unit, text, color);
     }
 
     public void showNotification(Unit unit, String text, int color) {
