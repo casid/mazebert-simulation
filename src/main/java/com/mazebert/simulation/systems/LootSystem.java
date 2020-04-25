@@ -87,7 +87,9 @@ public strictfp class LootSystem {
             goldInterest = Balancing.MAX_GOLD_INTEREST;
         }
         wizard.addGold(goldInterest);
-        simulationListeners.showNotification(wizard, "Interest: " + formatPlugin.gold(goldInterest, Context.currency));
+        if (simulationListeners.areNotificationsEnabled()) {
+            simulationListeners.showNotification(wizard, "Interest: " + formatPlugin.gold(goldInterest, Context.currency));
+        }
     }
 
     public void addGold(Wizard wizard, Unit source, int gold) {

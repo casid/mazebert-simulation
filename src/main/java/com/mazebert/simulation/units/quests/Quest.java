@@ -53,7 +53,7 @@ public abstract strictfp class Quest extends Ability<Wizard> {
     }
 
     protected void questFailed() {
-        if (!isHidden()) {
+        if (!isHidden() && Sim.context().simulationListeners.areNotificationsEnabled()) {
             Sim.context().simulationListeners.showNotification(getUnit(), "Quest failed: " + getTitle());
         }
         getUnit().removeAbility(this);
