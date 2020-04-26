@@ -27,7 +27,7 @@ public strictfp class Sim {
     public static final int vCoC = 1000; // Call of Cthulhu release TODO adjust after beta
 
     // For android 19 compatibility
-    private static ThreadLocal<Context> context = new ThreadLocal<Context>() {
+    private static final ThreadLocal<Context> context = new ThreadLocal<Context>() {
         @Override
         protected strictfp Context initialValue() {
             return new Context();
