@@ -32,7 +32,7 @@ public strictfp class BlackWidowAura extends AuraAbility<Tower, Creep> implement
 
     @Override
     public String getTitle() {
-        return "Last will";
+        return "Last Will";
     }
 
     @Override
@@ -47,6 +47,6 @@ public strictfp class BlackWidowAura extends AuraAbility<Tower, Creep> implement
 
     @Override
     public String getLevelBonus() {
-        return "+ 0.5% item chance per level\n+ 1% " + getCurrency().pluralLowercase + " per level";
+        return "+0.5% item chance per level.\n+1% " + getCurrency().pluralLowercase + " per level.";
     }
 }

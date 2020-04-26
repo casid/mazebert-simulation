@@ -35,12 +35,12 @@ public strictfp class BlackWidowKill extends Ability<Tower> implements OnKillLis
 
     @Override
     public String getTitle() {
-        return "Personal satisfaction";
+        return "Personal Satisfaction";
     }
 
     @Override
     public String getDescription() {
-        return "When Black Widow kills a seduced creep on her own she gains " + XP + " experience.";
+        return "Whenever Black Widow kills a seduced creep, she gains " + XP + " experience.";
     }
 
     @Override

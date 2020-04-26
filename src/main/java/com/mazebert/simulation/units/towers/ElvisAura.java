@@ -31,12 +31,12 @@ public strictfp class ElvisAura extends AuraAbility<Tower, Creep> {
 
     @Override
     public String getTitle() {
-        return "Worst - Show - Ever";
+        return "Worst. Show. Ever.";
     }
 
     @Override
     public String getDescription() {
-        return "Creeps entering his range are shocked and slowed by 50% for 2 seconds. After that, their speed is increased by 25% until they escaped the horrible show.";
+        return "Creeps entering his range are shocked and slowed by 50% for 2 seconds. After that, their speed increases by 25% until they escape his horrible show.";
     }
 
     @Override
@@ -46,7 +46,7 @@ public strictfp class ElvisAura extends AuraAbility<Tower, Creep> {
 
     @Override
     public String getLevelBonus() {
-        return "+0.1 seconds per level";
+        return "+0.1 seconds per level.";
     }
 
     public float getCurrentSlowDuration() {

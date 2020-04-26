@@ -63,7 +63,7 @@ public strictfp class MrIronConstruct extends CooldownActiveAbility {
         String legendaryString = format.rarity(Rarity.Legendary);
         String uniqueString = format.rarity(Rarity.Unique);
         String setString = "<c=#00ee00>set</c>";
-        return "Mr. Iron leaves his battle suit for " + format.seconds(COOLDOWN) + " to improve it. All currently equipped items are removed and integrated in the suit. Cannot integrate " + legendaryString + ", " + uniqueString + " or " + setString + " items.";
+        return "Mr. Iron leaves his armor for " + format.seconds(COOLDOWN) + " to upgrade it, permanently integrating all equipped items. Can't integrate " + legendaryString + ", " + uniqueString + " or " + setString + " items.";
     }
 
     @Override

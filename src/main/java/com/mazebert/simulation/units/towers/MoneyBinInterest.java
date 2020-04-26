@@ -37,12 +37,12 @@ public strictfp class MoneyBinInterest extends Ability<Tower> implements OnUnitA
 
     @Override
     public String getTitle() {
-        return "Capitalist";
+        return "The Rewards of Capitalism";
     }
 
     @Override
     public String getDescription() {
-        return "The interest rate is increased by 1%.";
+        return "Your interest rate increases by 1%.";
     }
 
     @Override

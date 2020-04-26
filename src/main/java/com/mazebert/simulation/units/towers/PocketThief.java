@@ -41,7 +41,7 @@ public strictfp class PocketThief extends Tower {
 
     @Override
     public String getDescription() {
-        return "This girl knows how to survive in the shadows of Downtown Metropolis.";
+        return "She's learned how to survive in the shadows of downtown.";
     }
 
     @Override

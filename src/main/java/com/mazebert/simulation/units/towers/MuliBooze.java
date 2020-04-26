@@ -18,19 +18,19 @@ public strictfp class MuliBooze extends Ability<Tower> {
 
     @Override
     public String getTitle() {
-        return "Banana liquor";
+        return "Banana Beer";
     }
 
     @Override
     public String getDescription() {
-        return format.percent(CHANCE) + "% chance to spend " + format.gold(GOLD, getCurrency()) + " on liquor when he's not busy:";
+        return format.percent(CHANCE) + "% chance to spend " + format.gold(GOLD, getCurrency()) + " on beer when he's not busy:";
     }
 
     @Override
     public String getLevelBonus() {
-        return format.percentWithSignAndUnit(CRIT_CHANCE_ADD) + " crit chance\n" +
-                format.percentWithSignAndUnit(CRIT_DAMAGE_ADD) + " crit damage\n" +
-                format.seconds(HANGOVER_DURATION) + " hangover on next attack";
+        return format.percentWithSignAndUnit(CRIT_CHANCE_ADD) + " crit chance.\n" +
+                format.percentWithSignAndUnit(CRIT_DAMAGE_ADD) + " crit damage.\n" +
+                format.seconds(HANGOVER_DURATION) + " hangover on next attack.";
     }
 
     @Override

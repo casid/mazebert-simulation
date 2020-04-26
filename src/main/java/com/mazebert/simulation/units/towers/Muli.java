@@ -48,7 +48,7 @@ public strictfp class Muli extends Tower {
 
     @Override
     public String getDescription() {
-        return "Muli is the brother of Huli, kidnapped by scientists when he was a baby.";
+        return "Huli's brother, kidnapped and experimented on when he was a baby.";
     }
 
     @Override

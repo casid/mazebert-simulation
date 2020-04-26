@@ -61,7 +61,7 @@ public strictfp class Hitman extends Tower {
 
     @Override
     public String getDescription() {
-        return "This professional killer prefers to attack from the distance, hidden in shadows.";
+        return "This professional killer attacks from a distance, cloaked in shadow.";
     }
 
     @Override

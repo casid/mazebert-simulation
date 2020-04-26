@@ -35,6 +35,7 @@ public strictfp class Pub extends Tower {
     @Override
     public Changelog getChangelog() {
         return new Changelog(
+                new ChangelogEntry(Sim.vDoLEnd, false, 2020, "Aura range is always the same as Pubs' range."),
                 new ChangelogEntry(Sim.v11, false, 2019, "Rebalanced Pub Party"),
                 new ChangelogEntry(Sim.v10, false, 2014)
         );

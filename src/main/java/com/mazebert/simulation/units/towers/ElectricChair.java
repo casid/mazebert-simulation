@@ -41,7 +41,7 @@ public strictfp class ElectricChair extends Tower {
 
     @Override
     public String getDescription() {
-        return "This electric chair can't hold back its energy if any criminal comes into range.";
+        return "When creeps come into range, the Electric Chair can't hold back its energy.";
     }
 
     @Override

@@ -41,7 +41,7 @@ public strictfp class ScientistExperience extends Ability<Tower> implements OnAt
 
     @Override
     public String getDescription() {
-        return "Everytime the Scientist attacks a creep, he makes a note and his potions become more effective. He gains " + BONUS + " experience.";
+        return "Each time the Scientist attacks, his solutions become more effective. He gains " + BONUS + " experience.";
     }
 
     @Override
@@ -51,6 +51,6 @@ public strictfp class ScientistExperience extends Ability<Tower> implements OnAt
 
     @Override
     public String getLevelBonus() {
-        return "+ " + BONUS_PER_LEVEL + " experience per tower level";
+        return "+ " + BONUS_PER_LEVEL + " experience per level";
     }
 }

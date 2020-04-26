@@ -20,12 +20,12 @@ public strictfp class MrIronLightning extends InstantDamageAbility {
 
     @Override
     public String getTitle() {
-        return "Electro Punch";
+        return "Repulsor Blasts";
     }
 
     @Override
     public String getDescription() {
-        return "Shoots two powerful bolts of electricity. Cannot attack during construction.";
+        return "Shoots two powerful blasts of energy. Does not attack while upgrading.";
     }
 
     @Override

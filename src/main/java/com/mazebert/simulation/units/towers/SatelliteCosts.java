@@ -45,7 +45,7 @@ public strictfp class SatelliteCosts extends Ability<Tower> implements OnAttackL
 
     @Override
     public String getDescription() {
-        return "Every attack of the satellite costs 70% of its current base damage in " + getCurrency().pluralLowercase + ".";
+        return "Each attack costs 70% of the Satellite's base damage in " + getCurrency().pluralLowercase + ".";
     }
 
     @Override

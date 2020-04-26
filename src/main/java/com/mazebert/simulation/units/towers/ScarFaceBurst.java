@@ -149,12 +149,12 @@ public strictfp class ScarFaceBurst extends Ability<Tower> implements OnAttackLi
 
     @Override
     public String getTitle() {
-        return "Ka-boom";
+        return "Ka-boom!";
     }
 
     @Override
     public String getDescription() {
-        return "Bullets split into several pieces spreading in a small cone over the map, dealing 100% damage to all creeps they hurt.";
+        return "Bullets split into several pieces, spreading over the map in a small cone and dealing 100% damage to all creeps they hit.";
     }
 
     @Override

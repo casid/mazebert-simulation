@@ -27,6 +27,7 @@ public strictfp class MoneyBin extends Tower {
     @Override
     public Changelog getChangelog() {
         return new Changelog(
+                new ChangelogEntry(Sim.vDoLEnd, false, 2020, "Aura range is always the same as Money Bin's range."),
                 new ChangelogEntry(Sim.v10, false, 2013)
         );
     }

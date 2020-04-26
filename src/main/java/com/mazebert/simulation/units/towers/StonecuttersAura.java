@@ -72,12 +72,12 @@ public strictfp class StonecuttersAura extends AuraAbility<Stonecutters, Tower> 
 
     @Override
     public String getTitle() {
-        return "Member requirements";
+        return "Membership Requirement";
     }
 
     @Override
     public String getDescription() {
-        return "Every Metropolis tower with level " + MEMBER_LEVEL_REQUIREMENT + " or greater.";
+        return "Every Metropolis tower level " + MEMBER_LEVEL_REQUIREMENT + " or greater becomes a member.";
     }
 
     @Override

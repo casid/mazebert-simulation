@@ -52,7 +52,7 @@ public strictfp class ElectricChairLightning extends ChainAbility implements OnL
 
     @Override
     public String getDescription() {
-        return "The electricity of this chair is so strong, that it jumps to 1 other creep on the map.";
+        return "The electricity of this chair is so strong that it jumps to 1 other creep on the map.";
     }
 
     @Override

@@ -32,12 +32,12 @@ public strictfp class MuliBro extends AuraAbility<Muli, Huli> {
 
     @Override
     public String getTitle() {
-        return "Banana bro!";
+        return "Banana Bro!";
     }
 
     @Override
     public String getDescription() {
-        return "All Hulis on the map throw bananas to Muli. If Muli has no bananas, he can't attack!";
+        return "All Hulis on the map throw bananas to Muli. Muli can't attack unless he has bananas!";
     }
 
     @Override

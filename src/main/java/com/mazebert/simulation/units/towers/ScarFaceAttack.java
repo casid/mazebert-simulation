@@ -20,12 +20,12 @@ public strictfp class ScarFaceAttack extends AttackAbility {
 
     @Override
     public String getTitle() {
-        return "Burst";
+        return "Rat-a-tat-tat!";
     }
 
     @Override
     public String getDescription() {
-        return "After firing, there is a " + format.percent(CHANCE) + "% chance to fire another shot.";
+        return "After each attack, there is a " + format.percent(CHANCE) + "% chance to fire another shot.";
     }
 
     @Override

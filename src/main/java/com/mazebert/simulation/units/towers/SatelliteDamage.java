@@ -42,12 +42,12 @@ public strictfp class SatelliteDamage extends Ability<Tower> implements OnUnitAd
 
     @Override
     public String getTitle() {
-        return "Laser Beam";
+        return "Money-fueled Lasers";
     }
 
     @Override
     public String getDescription() {
-        return "The satellite shoots at creeps within range. The more " + getCurrency().pluralLowercase + " you have, the more damage is dealt.";
+        return "The satellite shoots a laser beam at creeps within range. The more " + getCurrency().pluralLowercase + " you have, the more damage the laser deals.";
     }
 
     @Override

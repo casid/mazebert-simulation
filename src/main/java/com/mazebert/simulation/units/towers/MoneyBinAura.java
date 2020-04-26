@@ -1,12 +1,13 @@
 package com.mazebert.simulation.units.towers;
 
 import com.mazebert.simulation.CardCategory;
+import com.mazebert.simulation.Sim;
 import com.mazebert.simulation.units.abilities.AuraAbility;
 
 public strictfp class MoneyBinAura extends AuraAbility<Tower, Tower> {
 
     public MoneyBinAura() {
-        super(CardCategory.Tower, Tower.class, 3);
+        super(CardCategory.Tower, Tower.class, Sim.context().version >= Sim.vDoLEndBeta5 ? 0 : 3);
     }
 
     @Override
@@ -31,7 +32,7 @@ public strictfp class MoneyBinAura extends AuraAbility<Tower, Tower> {
 
     @Override
     public String getDescription() {
-        return "The " + getCurrency().singularLowercase + " bonus of towers within " + (int)getRange() + " range is increased by 60%.";
+        return "The " + getCurrency().singularLowercase + " bonus of towers within range increases by 60%.";
     }
 
     @Override

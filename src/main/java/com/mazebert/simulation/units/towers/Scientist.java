@@ -41,7 +41,7 @@ public strictfp class Scientist extends Tower {
 
     @Override
     public String getDescription() {
-        return "This scientist dedicated his life to the research of creeps.";
+        return "This brainiac has dedicated his life to researching creeps.";
     }
 
     @Override

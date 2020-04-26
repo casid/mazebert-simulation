@@ -47,12 +47,12 @@ public strictfp class PocketThiefGold extends Ability<Tower> implements OnAttack
 
     @Override
     public String getTitle() {
-        return "Pick Pocketing";
+        return "Pickpocketing";
     }
 
     @Override
     public String getDescription() {
-        return "Everytime the thief attacks, there is a 25% chance to steal 3 " + getCurrency().pluralLowercase + ".";
+        return "Each time Pocket Thief attacks, she has a 25% chance to steal 3 " + getCurrency().pluralLowercase + ".";
     }
 
     @Override
@@ -62,6 +62,6 @@ public strictfp class PocketThiefGold extends Ability<Tower> implements OnAttack
 
     @Override
     public String getLevelBonus() {
-        return "+ 3 " + getCurrency().pluralLowercase + " at level 6 and 12";
+        return "+ 3 " + getCurrency().pluralLowercase + " at level 6 and 12.";
     }
 }

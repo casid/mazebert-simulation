@@ -32,7 +32,7 @@ public strictfp class HitmanHeadshot extends Ability<Tower> {
 
     @Override
     public String getDescription() {
-        return "Sometimes a bullet hits the sweet spot between the eyes.";
+        return "Sometimes a bullet hits the sweet spot, right between the eyes.";
     }
 
     @Override

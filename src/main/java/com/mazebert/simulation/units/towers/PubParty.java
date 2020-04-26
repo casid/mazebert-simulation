@@ -30,7 +30,7 @@ public strictfp class PubParty extends ActiveAbility {
     @Override
     public String getDescription() {
         return "Every " + format.seconds(PubSystem.COOLDOWN_TIME) +
-                " your Irish Pubs can call out St Paddy's Day. All towers on the map dress green and gain " +
+                " your Irish Pubs can call out St Paddy's Day. All towers on the map dress in green and gain " +
                 format.percentWithSignAndUnit(PubSystem.DAMAGE_BONUS_PER_PUB) + " damage per Irish Pub for " +
                 format.seconds(PubSystem.PARTY_TIME) + ".";
     }
