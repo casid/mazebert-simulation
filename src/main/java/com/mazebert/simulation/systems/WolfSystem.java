@@ -18,9 +18,10 @@ public strictfp class WolfSystem implements OnUnitAddedListener, OnLevelChangedL
     public static final float CRIT_DAMAGE = 0.02f;
 
     private final ExperienceSystem experienceSystem = Sim.context().experienceSystem;
+    private final int version = Sim.context().version;
 
-    private List<Wolf> wolves = new ArrayList<>();
-    private Set<Tower> pretenders = new HashSet<>();
+    private final List<Wolf> wolves = new ArrayList<>();
+    private final Set<Tower> pretenders = new HashSet<>();
     private Wolf alphaWolf;
     private int packLevel;
     private float critChance;
@@ -48,6 +49,10 @@ public strictfp class WolfSystem implements OnUnitAddedListener, OnLevelChangedL
     }
 
     public void addPretender(Tower tower) {
+        if (version >= Sim.vDoLEndBeta5 && tower instanceof Wolf) {
+            return;
+        }
+
         pretenders.add(tower);
         tower.onLevelChanged.add(this);
         update();

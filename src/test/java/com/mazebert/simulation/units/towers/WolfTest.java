@@ -7,6 +7,7 @@ import com.mazebert.simulation.gateways.DifficultyGateway;
 import com.mazebert.simulation.gateways.UnitGateway;
 import com.mazebert.simulation.systems.ExperienceSystem;
 import com.mazebert.simulation.systems.WolfSystem;
+import com.mazebert.simulation.units.items.Wolfskin;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -69,5 +70,11 @@ strictfp class WolfTest extends SimTest {
         wolf.populateCustomTowerBonus(bonus);
         assertThat(bonus.title).isEqualTo("Status:");
         assertThat(bonus.value).isEqualTo("Alpha wolf");
+    }
+
+    @Test
+    void noDoubleBonusFromWolfskin() {
+        wolf.setItem(0, new Wolfskin());
+        assertThat(wolf.getCritChance()).isEqualTo(0.14999999f);
     }
 }
