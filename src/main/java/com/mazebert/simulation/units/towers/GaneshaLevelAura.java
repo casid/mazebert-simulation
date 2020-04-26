@@ -1,11 +1,12 @@
 package com.mazebert.simulation.units.towers;
 
 import com.mazebert.simulation.CardCategory;
+import com.mazebert.simulation.Sim;
 import com.mazebert.simulation.units.abilities.AuraAbility;
 
 public strictfp class GaneshaLevelAura extends AuraAbility<Tower, Tower> {
     public GaneshaLevelAura() {
-        super(CardCategory.Tower, Tower.class, 3);
+        super(CardCategory.Tower, Tower.class, Sim.context().version >= Sim.vDoLEndBeta5 ? 0 : 3);
     }
 
     @Override
@@ -30,7 +31,7 @@ public strictfp class GaneshaLevelAura extends AuraAbility<Tower, Tower> {
 
     @Override
     public String getDescription() {
-        return "Whenever a tower in 3 range levels up, Ganesha will do so as well.";
+        return "Whenever a tower in range levels up, Ganesha levels up.";
     }
 
     @Override

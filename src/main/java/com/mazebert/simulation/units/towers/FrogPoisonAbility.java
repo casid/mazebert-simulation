@@ -34,7 +34,7 @@ public strictfp class FrogPoisonAbility extends PoisonAbility {
 
     @Override
     public String getTitle() {
-        return "Frog Poison";
+        return "Poison Spit";
     }
 
     @Override
@@ -49,6 +49,6 @@ public strictfp class FrogPoisonAbility extends PoisonAbility {
 
     @Override
     public String getLevelBonus() {
-        return format.percentWithSignAndUnit((float) damagePerLevel) + " poison damage per level";
+        return format.percentWithSignAndUnit((float) damagePerLevel) + " poison damage per level.";
     }
 }

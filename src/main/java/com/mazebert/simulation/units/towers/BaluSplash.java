@@ -14,7 +14,7 @@ public strictfp class BaluSplash extends SplashAbility {
 
     @Override
     public String getDescription() {
-        return "Creeps in " + getRange() + " range around Balu's target receive " + format.percent(getDamageFactor()) + "% splash damage.";
+        return "Creeps within " + getRange() + " range of Balu's target receive " + format.percent(getDamageFactor()) + "% splash damage.";
     }
 
     @Override

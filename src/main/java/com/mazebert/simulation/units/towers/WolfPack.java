@@ -36,12 +36,12 @@ public strictfp class WolfPack extends Ability<Tower> implements OnKillListener 
 
     @Override
     public String getTitle() {
-        return "Wolf pack";
+        return "Wolfpack";
     }
 
     @Override
     public String getDescription() {
-        return "Everytime a wolf kills, all other wolves gain +" + XP + " experience.";
+        return "Each time a wolf kills, all other wolves gain +" + XP + " experience.";
     }
 
     @Override

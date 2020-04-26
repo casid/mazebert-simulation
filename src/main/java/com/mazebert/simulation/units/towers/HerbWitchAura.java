@@ -1,12 +1,13 @@
 package com.mazebert.simulation.units.towers;
 
 import com.mazebert.simulation.CardCategory;
+import com.mazebert.simulation.Sim;
 import com.mazebert.simulation.units.abilities.AuraAbility;
 
 public strictfp class HerbWitchAura extends AuraAbility<Tower, Tower> {
 
     public HerbWitchAura() {
-        super(CardCategory.Tower, Tower.class, 2);
+        super(CardCategory.Tower, Tower.class, Sim.context().version >= Sim.vDoLEndBeta5 ? 0 : 2);
     }
 
     @Override
@@ -31,7 +32,7 @@ public strictfp class HerbWitchAura extends AuraAbility<Tower, Tower> {
 
     @Override
     public String getDescription() {
-        return "The attack speed of allies in 2 range is increased by 10%.";
+        return "The attack speed of allies in range is increased by 10%.";
     }
 
     @Override

@@ -63,7 +63,7 @@ public strictfp class Wolf extends Tower {
 
     @Override
     public String getDescription() {
-        return "All for one, and one for all.";
+        return "Wolves hunt better in packs.";
     }
 
     @Override

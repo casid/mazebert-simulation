@@ -1,13 +1,14 @@
 package com.mazebert.simulation.units.towers;
 
 import com.mazebert.simulation.CardCategory;
+import com.mazebert.simulation.Sim;
 import com.mazebert.simulation.units.abilities.AuraAbility;
 
 public strictfp class ManitouAura extends AuraAbility<Tower, Tower> {
     private static final int BONUS = 2;
 
     public ManitouAura() {
-        super(CardCategory.Tower, Tower.class, 3);
+        super(CardCategory.Tower, Tower.class, Sim.context().version >= Sim.vDoLEndBeta5 ? 0 : 3);
     }
 
     @Override
@@ -32,7 +33,7 @@ public strictfp class ManitouAura extends AuraAbility<Tower, Tower> {
 
     @Override
     public String getDescription() {
-        return "Other towers feel the presence of the Great Spirit. They are blessed with the strength of the buffalo.";
+        return "Towers within range are blessed with the strength of the buffalo.";
     }
 
     @Override
@@ -42,6 +43,6 @@ public strictfp class ManitouAura extends AuraAbility<Tower, Tower> {
 
     @Override
     public String getLevelBonus() {
-        return "+" + BONUS + " multicrit for all towers\nwithin " + (int)getRange() + " range.";
+        return "+" + BONUS + " multicrit for all towers within range.";
     }
 }

@@ -41,7 +41,7 @@ public strictfp class Beaver extends Tower {
 
     @Override
     public String getDescription() {
-        return "Beaver is good at two things. Sleeping and throwing wood at creeps.";
+        return "The Beaver is good at two things: Sleeping, and throwing wood at creeps.";
     }
 
     @Override

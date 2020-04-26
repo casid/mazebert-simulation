@@ -78,9 +78,9 @@ public strictfp class HuliEat extends CooldownUnitAbility<Tower> implements OnAt
     @Override
     public String getDescription() {
         if (getUnit().getGender() == Gender.Male) {
-            return "Whenever Huli eats a banana, his damage is increased by 2%. Huli can eat 50 bananas.";
+            return "Whenever Huli eats a banana, his damage increases by 2%. Huli can eat 50 bananas.";
         } else {
-            return "Whenever Huli eats a banana, her damage is increased by 2%. Huli can eat 50 bananas.";
+            return "Whenever Huli eats a banana, her damage increases by 2%. Huli can eat 50 bananas.";
         }
     }
 

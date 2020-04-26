@@ -28,8 +28,8 @@ public abstract strictfp class AuraAbility<S extends Unit, T extends Unit> exten
 
     private final CardCategory origin;
     private final Class<T> targetClass;
+    private final float initialRange;
     private float range;
-    private float initialRange;
 
     private T[] active;
     private int activeSize;

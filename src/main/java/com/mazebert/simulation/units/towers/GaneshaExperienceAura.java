@@ -1,11 +1,12 @@
 package com.mazebert.simulation.units.towers;
 
 import com.mazebert.simulation.CardCategory;
+import com.mazebert.simulation.Sim;
 import com.mazebert.simulation.units.abilities.AuraAbility;
 
 public strictfp class GaneshaExperienceAura extends AuraAbility<Tower, Tower> {
     public GaneshaExperienceAura() {
-        super(CardCategory.Tower, Tower.class, 3);
+        super(CardCategory.Tower, Tower.class, Sim.context().version >= Sim.vDoLEndBeta5 ? 0 : 3);
     }
 
     @Override
@@ -25,12 +26,12 @@ public strictfp class GaneshaExperienceAura extends AuraAbility<Tower, Tower> {
 
     @Override
     public String getTitle() {
-        return "Wisdom of the gods";
+        return "Wisdom of the Gods";
     }
 
     @Override
     public String getDescription() {
-        return "Allies in 3 range gain 20% more experience.";
+        return "Allies in range gain 20% more experience.";
     }
 
     @Override
@@ -40,6 +41,6 @@ public strictfp class GaneshaExperienceAura extends AuraAbility<Tower, Tower> {
 
     @Override
     public String getLevelBonus() {
-        return "+ 0.5% experience gain per level.";
+        return "+ 0.5% experience per level.";
     }
 }

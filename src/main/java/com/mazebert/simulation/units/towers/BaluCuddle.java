@@ -144,7 +144,7 @@ public strictfp class BaluCuddle extends CooldownAbility<Tower> implements OnUni
         if (version < Sim.v13) {
             return "Every " + format.cooldown(BASE_COOLDOWN) + " a tower in range is forced to cuddle Balu and slowed down by " + format.percent(SLOW_DOWN) + "% for " + format.cooldown(SLOW_DOWN_TIME) + ".\nBalu gains " + format.percent(DAMAGE_COOLDOWN) + "% more damage.";
         } else {
-            return "Every round a tower in range is forced to cuddle Balu and slowed down by " + format.percent(SLOW_DOWN) + "% for " + format.cooldown(SLOW_DOWN_TIME) + ".\nBalu gains " + format.percent(DAMAGE) + "% more damage.";
+            return "Each round a tower in range is forced to cuddle Balu and slowed by " + format.percent(SLOW_DOWN) + "% for " + format.cooldown(SLOW_DOWN_TIME) + ".\nBalu gains " + format.percent(DAMAGE) + "% damage.";
         }
     }
 

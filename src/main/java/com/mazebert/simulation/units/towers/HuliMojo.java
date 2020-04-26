@@ -88,13 +88,13 @@ public strictfp class HuliMojo extends AuraAbility<Tower, Tower> implements OnLe
 
     @Override
     public String getTitle() {
-        return "Mojo";
+        return "Hulis' Mojo";
     }
 
     @Override
     public String getDescription() {
         String otherGender = getUnit().getGender() == Gender.Male ? "female" : "male";
-        return "Hulis crit chance is increased by " + format.percent(CRIT_CHANCE_PER_TOWER) + "% for each " + otherGender + " tower in range.";
+        return "Hulis' crit chance increases by " + format.percent(CRIT_CHANCE_PER_TOWER) + "% for each " + otherGender + " tower in range.";
     }
 
     @Override

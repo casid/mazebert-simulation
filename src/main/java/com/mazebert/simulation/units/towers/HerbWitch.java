@@ -31,6 +31,7 @@ public strictfp class HerbWitch extends Tower {
     @Override
     public Changelog getChangelog() {
         return new Changelog(
+                new ChangelogEntry(Sim.vDoLEnd, false, 2020, "Aura range is always the same as Herb Witch's range."),
                 new ChangelogEntry(Sim.v10, false, 2013)
         );
     }
@@ -47,7 +48,7 @@ public strictfp class HerbWitch extends Tower {
 
     @Override
     public String getDescription() {
-        return "The potions of this witch give strength to her allies.";
+        return "Herb Witch's potions lend strength to her allies.";
     }
 
     @Override

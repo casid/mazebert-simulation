@@ -20,7 +20,7 @@ public strictfp class VikingMultishot extends AttackAbility {
 
     @Override
     public String getDescription() {
-        return "Holgar throws two axes at once. He likes the sound of two cracking skulls.";
+        return "Holgar enjoys the sound of two cracking skulls, so he throws two axes at once.";
     }
 
     @Override

@@ -29,12 +29,12 @@ public strictfp class WolfAura extends Ability<Tower> {
 
     @Override
     public String getTitle() {
-        return "Alpha wolf";
+        return "Alpha Wolf";
     }
 
     @Override
     public String getDescription() {
-        return "The most experienced wolf takes the lead and gains for each tower level in the pack:";
+        return "The most experienced wolf takes the lead and gains for each level in the pack:";
     }
 
     @Override

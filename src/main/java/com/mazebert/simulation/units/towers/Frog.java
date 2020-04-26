@@ -50,7 +50,7 @@ public strictfp class Frog extends Tower {
 
     @Override
     public String getDescription() {
-        return "This frog likes to kill his victims slowly. His poisonous spit causes immense pain.";
+        return "This frog enjoys killing his victims slowly. His poison spit causes immense pain.";
     }
 
     @Override

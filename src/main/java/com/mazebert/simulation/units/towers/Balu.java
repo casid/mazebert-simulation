@@ -46,7 +46,7 @@ public strictfp class Balu extends Tower {
 
     @Override
     public String getDescription() {
-        return "The fluffiest bear in the world.";
+        return "The fluffiest, cuddliest bear in the world.";
     }
 
     @Override

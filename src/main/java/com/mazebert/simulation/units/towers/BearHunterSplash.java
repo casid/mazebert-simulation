@@ -9,12 +9,12 @@ public strictfp class BearHunterSplash extends SplashAbility {
 
     @Override
     public String getTitle() {
-        return "Blood splatter";
+        return "Blood Spatter";
     }
 
     @Override
     public String getDescription() {
-        return "Creeps in " + getRange() + " range around the trapped creep receive " + format.percent(getDamageFactor()) + "% damage.";
+        return "Creeps in " + getRange() + " range around trapped creeps receive " + format.percent(getDamageFactor()) + "% damage.";
     }
 
     @Override

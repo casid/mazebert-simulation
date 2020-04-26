@@ -56,12 +56,12 @@ public strictfp class RabbitMultishot extends Ability<Tower> implements OnLevelC
 
     @Override
     public String getTitle() {
-        return "Multishot";
+        return "Carrots for Everyone";
     }
 
     @Override
     public String getDescription() {
-        return "Rabbit shoots with bad ass carrots and can attack up to 2 creeps at once.";
+        return "Baby Rabbit attacks up to 2 targets at once.";
     }
 
     @Override

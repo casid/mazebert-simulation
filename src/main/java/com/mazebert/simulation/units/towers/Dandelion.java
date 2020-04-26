@@ -40,7 +40,7 @@ public strictfp class Dandelion extends Tower {
 
     @Override
     public String getDescription() {
-        return "The devastating blast of this dandelion can hurt many creeps at once.";
+        return "Dandelion's devastating blasts hurt many creeps at once.";
     }
 
     @Override

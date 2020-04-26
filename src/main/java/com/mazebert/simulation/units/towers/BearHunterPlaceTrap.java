@@ -139,7 +139,7 @@ public strictfp class BearHunterPlaceTrap extends CooldownUnitAbility<Tower> imp
 
     @Override
     public String getDescription() {
-        return "Every " + format.cooldown(getUnit().getBaseCooldown()) + " the bear hunter places a trap somewhere in his range. Traps can stack.";
+        return "Every " + format.cooldown(getUnit().getBaseCooldown()) + ", Bear Hunter places a trap somewhere in range. Traps can stack.";
     }
 
     @Override

@@ -46,7 +46,7 @@ public strictfp class Viking extends Tower {
 
     @Override
     public String getDescription() {
-        return "Holgar is the terror of the seven seas with a slight alcohol problem.";
+        return "The terror of the seven seas - with a slight alcohol problem.";
     }
 
     @Override
