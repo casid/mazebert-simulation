@@ -33,12 +33,12 @@ public strictfp class BloodDemonSummonBlade extends GainItemOnBuildAbility {
 
     @Override
     public String getDescription() {
-        return "When you build Blood Demon, your health is reduced to " + format.percent(healthReduction) + "%. In exchange, Blood Demon summons " + format.card(ItemType.BloodDemonBlade) + ".";
+        return "When you build Blood Demon, your health is reduced to " + format.percent(healthReduction) + "%.\nIn exchange, Blood Demon summons and equips " + format.card(ItemType.BloodDemonBlade) + ".";
     }
 
     @Override
     public String getLevelBonus() {
-        return "+" + bladeDamagePerLifeLost + " base damage on blade / life lost.";
+        return "+" + bladeDamagePerLifeLost + " base damage on blade for each life you lost.";
     }
 
     @Override

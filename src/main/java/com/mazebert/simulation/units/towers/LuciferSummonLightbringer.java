@@ -2,6 +2,7 @@ package com.mazebert.simulation.units.towers;
 
 import com.mazebert.simulation.units.abilities.GainItemOnBuildAbility;
 import com.mazebert.simulation.units.items.Item;
+import com.mazebert.simulation.units.items.ItemType;
 import com.mazebert.simulation.units.items.Lightbringer;
 
 public strictfp class LuciferSummonLightbringer extends GainItemOnBuildAbility {
@@ -22,7 +23,7 @@ public strictfp class LuciferSummonLightbringer extends GainItemOnBuildAbility {
 
     @Override
     public String getDescription() {
-        return "When you build Lucifer, he summons his legendary sword, Lightbringer.";
+        return "When you build Lucifer, he summons his legendary sword, " + format.card(ItemType.Lightbringer) + ".";
     }
 
     @Override

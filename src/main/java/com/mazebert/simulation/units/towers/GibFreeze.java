@@ -55,6 +55,6 @@ public strictfp class GibFreeze extends Ability<Tower> implements OnDamageListen
 
     @Override
     public String getLevelBonus() {
-        return "+ 1 stack every " + stackEveryLevel + " levels.";
+        return "+1 stack every " + stackEveryLevel + " levels.";
     }
 }

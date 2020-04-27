@@ -42,6 +42,6 @@ public strictfp class HerbWitchAura extends AuraAbility<Tower, Tower> {
 
     @Override
     public String getLevelBonus() {
-        return "+ 0.5% attack speed per level.";
+        return "+0.5% attack speed per level.";
     }
 }

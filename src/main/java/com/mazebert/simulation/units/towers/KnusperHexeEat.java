@@ -64,7 +64,7 @@ public strictfp class KnusperHexeEat extends Ability<KnusperHexe> implements OnA
 
     @Override
     public String getLevelBonus() {
-        return "+ " + format.percent(chancePerLevel) + "% chance per level.";
+        return "+" + format.percent(chancePerLevel) + "% chance per level.";
     }
 
     @Override

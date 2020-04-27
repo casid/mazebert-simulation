@@ -46,7 +46,7 @@ public strictfp class VikingMead extends Ability<Tower> implements OnKillListene
 
     @Override
     public String getDescription() {
-        return "Whenever Holgar kills a creep, there is a " + format.percent(CHANCE) + "% chance he finds a bottle of mead.";
+        return "Whenever Holgar kills a creep, there is a " + format.percent(CHANCE) + "% chance he finds a " + format.card(PotionType.Mead) + ".";
     }
 
     @Override

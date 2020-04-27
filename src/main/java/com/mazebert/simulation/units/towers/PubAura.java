@@ -42,6 +42,6 @@ public strictfp class PubAura extends AuraAbility<Tower, Tower> {
 
     @Override
     public String getLevelBonus() {
-        return "+ 0.5% damage per level.";
+        return "+0.5% damage per level.";
     }
 }

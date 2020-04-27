@@ -55,6 +55,6 @@ public strictfp class SatelliteCosts extends Ability<Tower> implements OnAttackL
 
     @Override
     public String getLevelBonus() {
-        return "-0.2% " + getCurrency().singularLowercase + " cost per level";
+        return "-0.2% " + getCurrency().singularLowercase + " cost per level.";
     }
 }

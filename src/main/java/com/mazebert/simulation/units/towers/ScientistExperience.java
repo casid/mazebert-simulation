@@ -51,6 +51,6 @@ public strictfp class ScientistExperience extends Ability<Tower> implements OnAt
 
     @Override
     public String getLevelBonus() {
-        return "+ " + BONUS_PER_LEVEL + " experience per level";
+        return "+" + BONUS_PER_LEVEL + " experience per level.";
     }
 }

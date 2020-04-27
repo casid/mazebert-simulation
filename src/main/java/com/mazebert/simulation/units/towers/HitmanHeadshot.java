@@ -42,6 +42,7 @@ public strictfp class HitmanHeadshot extends Ability<Tower> {
 
     @Override
     public String getLevelBonus() {
-        return "+ 25% crit chance\n+ 25% crit damage";
+        return format.percentWithSignAndUnit(critChanceBonus) + " crit chance.\n" +
+               format.percentWithSignAndUnit(critDamageBonus) + " crit damage.";
     }
 }

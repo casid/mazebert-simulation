@@ -55,7 +55,7 @@ public strictfp class MrIronConstruct extends CooldownActiveAbility {
 
     @Override
     public String getTitle() {
-        return "Construct";
+        return "Armor Upgrade";
     }
 
     @Override

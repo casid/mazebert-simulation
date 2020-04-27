@@ -156,9 +156,9 @@ public strictfp class BaluCuddle extends CooldownAbility<Tower> implements OnUni
     @Override
     public String getLevelBonus() {
         if (version < Sim.v13) {
-            return "+ " + format.percent(DAMAGE_COOLDOWN_PER_LEVEL) + "% damage per level";
+            return format.percentWithSignAndUnit(DAMAGE_COOLDOWN_PER_LEVEL) + " damage per level";
         } else {
-            return "+ " + format.percent(DAMAGE_PER_LEVEL) + "% damage per level";
+            return format.percentWithSignAndUnit(DAMAGE_PER_LEVEL) + " damage per level";
         }
     }
 }

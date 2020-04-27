@@ -57,6 +57,6 @@ public strictfp class ElectricChairLightning extends ChainAbility implements OnL
 
     @Override
     public String getLevelBonus() {
-        return "+1 jump every " + levelsForOneChain + " levels";
+        return "+1 jump every " + levelsForOneChain + " levels.";
     }
 }

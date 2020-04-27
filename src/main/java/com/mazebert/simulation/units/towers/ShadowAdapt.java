@@ -144,7 +144,7 @@ public strictfp class ShadowAdapt extends Ability<Tower> implements OnDamageList
 
     @Override
     public String getLevelBonus() {
-        return "+ " + format.percent(chanceLevelBonus, 2) + "% chance per level\nMaximum adaption: " + format.percent(max) + "%.";
+        return "+" + format.percent(chanceLevelBonus, 2) + "% chance per level.\nMaximum adaption: " + format.percent(max) + "%.";
     }
 
     @Override

@@ -63,7 +63,7 @@ public strictfp class MummyStumble extends Ability<Tower> implements OnAttackLis
 
     @Override
     public String getDescription() {
-        return format.percent(chance) + "% chance to instantly kill upon attack.\nBosses stumble for " + format.seconds(bossStunDuration) + " instead.";
+        return format.percent(chance) + "% chance to instantly kill upon attack. Bosses stumble for " + format.seconds(bossStunDuration) + " instead.";
     }
 
     @Override
@@ -73,6 +73,6 @@ public strictfp class MummyStumble extends Ability<Tower> implements OnAttackLis
 
     @Override
     public String getLevelBonus() {
-        return "+ " + format.percent(chanceLevelBonus) + "% chance per level.";
+        return format.percentWithSignAndUnit(chanceLevelBonus) + " chance per level.";
     }
 }

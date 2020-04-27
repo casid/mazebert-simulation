@@ -45,6 +45,6 @@ public strictfp class KnusperHexeAura extends AuraAbility<KnusperHexe, Creep> {
 
     @Override
     public String getLevelBonus() {
-        return "+ 1 armor reduction per child eaten.";
+        return "+1 armor reduction per child eaten.";
     }
 }

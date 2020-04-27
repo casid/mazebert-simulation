@@ -62,6 +62,6 @@ public strictfp class PocketThiefGold extends Ability<Tower> implements OnAttack
 
     @Override
     public String getLevelBonus() {
-        return "+ 3 " + getCurrency().pluralLowercase + " at level 6 and 12.";
+        return "+3 " + getCurrency().pluralLowercase + " at level 6 and 12.";
     }
 }

@@ -149,6 +149,6 @@ public strictfp class BearHunterPlaceTrap extends CooldownUnitAbility<Tower> imp
 
     @Override
     public String getLevelBonus() {
-        return "+ 0.5% attackspeed per level\n- 70% damage to air";
+        return "+0.5% attackspeed per level.\n-70% damage to air";
     }
 }

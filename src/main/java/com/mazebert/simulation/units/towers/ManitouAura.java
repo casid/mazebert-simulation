@@ -33,7 +33,7 @@ public strictfp class ManitouAura extends AuraAbility<Tower, Tower> {
 
     @Override
     public String getDescription() {
-        return "Towers within range are blessed with the strength of the buffalo.";
+        return "Towers are blessed with the strength of the buffalo.";
     }
 
     @Override

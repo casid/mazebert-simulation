@@ -41,6 +41,6 @@ public strictfp class GaneshaExperienceAura extends AuraAbility<Tower, Tower> {
 
     @Override
     public String getLevelBonus() {
-        return "+ 0.5% experience per level.";
+        return "+0.5% experience per level.";
     }
 }

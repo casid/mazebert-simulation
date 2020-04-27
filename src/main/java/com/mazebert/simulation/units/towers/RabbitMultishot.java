@@ -71,6 +71,6 @@ public strictfp class RabbitMultishot extends Ability<Tower> implements OnLevelC
 
     @Override
     public String getLevelBonus() {
-        return "+ 1 target at level 16";
+        return "+ 1 target at level 16.";
     }
 }

@@ -55,7 +55,7 @@ public strictfp class Satellite extends Tower {
 
     @Override
     public String getDescription() {
-        return "The best creep-killing tech that money can buy.";
+        return "The best creep-killing tech\nthat money can buy.";
     }
 
     @Override

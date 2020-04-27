@@ -42,7 +42,7 @@ public strictfp class MoneyBinInterest extends Ability<Tower> implements OnUnitA
 
     @Override
     public String getDescription() {
-        return "Your interest rate increases by 1%.";
+        return "Your interest rate increases\nby 1%.";
     }
 
     @Override

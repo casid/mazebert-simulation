@@ -45,7 +45,7 @@ public strictfp class Gib extends Tower {
 
     @Override
     public String getDescription() {
-        return "A daemon of frost that freezes its targets more and more.\n(Obtainable only by summoning.)";
+        return "A daemon of frost that freezes its targets more and more.\n(Obtainable only by summoning)";
     }
 
     @Override
