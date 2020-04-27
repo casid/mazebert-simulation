@@ -83,7 +83,7 @@ public strictfp class UnicornImpaleAbility extends AuraAbility<Tower, Creep> {
 
     @Override
     public String getDescription() {
-        return "Ground creeps entering her range lose 20% health. Survivors (except challenges) have a 25% chance to kill her, leaving " + format.card(PotionType.UnicornTears) + " behind.";
+        return "Ground creeps entering her range lose 20% health. Survivors (except challenges) have a 25% chance to kill her, leaving behind " + format.card(PotionType.UnicornTears) + ".";
     }
 
     @Override

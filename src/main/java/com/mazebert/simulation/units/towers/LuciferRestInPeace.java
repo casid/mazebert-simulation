@@ -10,7 +10,7 @@ public strictfp class LuciferRestInPeace extends RestInPeaceAbility {
 
     @Override
     public String getTitle() {
-        return "Eternal peace";
+        return "Eternal Peace";
     }
 
     @Override

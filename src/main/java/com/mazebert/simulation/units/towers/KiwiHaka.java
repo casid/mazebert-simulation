@@ -80,7 +80,7 @@ public strictfp class KiwiHaka extends CooldownActiveAbility {
 
     @Override
     public String getDescription() {
-        return "Kiwi performs the mighty Haka stunning all creeps in range for " + format.seconds(DURATION) + ".";
+        return "Kiwi performs the mighty Haka, stunning all creeps in range for " + format.seconds(DURATION) + ".";
     }
 
     @Override
@@ -90,6 +90,6 @@ public strictfp class KiwiHaka extends CooldownActiveAbility {
 
     @Override
     public String getLevelBonus() {
-        return "Cooldown " + format.seconds(COOLDOWN);
+        return "Cooldown " + format.seconds(COOLDOWN) + ".";
     }
 }

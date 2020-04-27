@@ -59,7 +59,7 @@ public strictfp class UnicornExperienceAbility extends Ability<Tower> implements
 
     @Override
     public String getDescription() {
-        return "Every survived round the unicorn gains +1 level.";
+        return "Each round she survives, the Unicorn gains 1 level.";
     }
 
     @Override
@@ -69,6 +69,6 @@ public strictfp class UnicornExperienceAbility extends Ability<Tower> implements
 
     @Override
     public String getLevelBonus() {
-        return format.percentWithSignAndUnit(interestBonus) + " interest rate";
+        return format.percentWithSignAndUnit(interestBonus) + " interest rate.";
     }
 }

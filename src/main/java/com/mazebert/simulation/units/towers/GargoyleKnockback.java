@@ -39,12 +39,12 @@ public strictfp class GargoyleKnockback extends KnockbackAbility implements OnLe
 
     @Override
     public String getDescription() {
-        return "Hurtles from his perch to slam into the creep wave. " + super.getDescription();
+        return "Hurtles from his perch to slam into creeps. " + super.getDescription();
     }
 
     @Override
     public String getLevelBonus() {
-        return super.getLevelBonus() + "\n+1 tile at level 16";
+        return super.getLevelBonus() + "\n+1 tile at level 16.";
     }
 
     @Override

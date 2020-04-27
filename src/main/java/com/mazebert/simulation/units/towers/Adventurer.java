@@ -41,7 +41,7 @@ public strictfp class Adventurer extends Tower {
 
     @Override
     public String getDescription() {
-        return "With her light, she can find treasures from any deep and dark caves.";
+        return "Her light helps her find treasures in deep, dark caves.";
     }
 
     @Override

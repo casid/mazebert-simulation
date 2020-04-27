@@ -10,12 +10,12 @@ public strictfp class AdventurerLight extends ItemChanceWithLevelBonusAbility {
 
     @Override
     public String getTitle() {
-        return "Treasure Light";
+        return "Adventurer's Treasure";
     }
 
     @Override
     public String getDescription() {
-        return format.percentWithSignAndUnit(bonus) + " item chance";
+        return format.percentWithSignAndUnit(bonus) + " item chance.";
     }
 
     @Override

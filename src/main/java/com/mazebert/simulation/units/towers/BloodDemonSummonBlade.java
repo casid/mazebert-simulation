@@ -3,6 +3,7 @@ package com.mazebert.simulation.units.towers;
 import com.mazebert.simulation.units.abilities.GainItemOnBuildAbility;
 import com.mazebert.simulation.units.items.BloodDemonBlade;
 import com.mazebert.simulation.units.items.Item;
+import com.mazebert.simulation.units.items.ItemType;
 
 public strictfp class BloodDemonSummonBlade extends GainItemOnBuildAbility {
 
@@ -27,17 +28,17 @@ public strictfp class BloodDemonSummonBlade extends GainItemOnBuildAbility {
 
     @Override
     public String getTitle() {
-        return "Bathe in your blood";
+        return "Bathe in Your Blood";
     }
 
     @Override
     public String getDescription() {
-        return "When Blood Demon is built, your health is reduced to " + format.percent(healthReduction) + "%. In exchange, a legendary blade is summoned and put into Blood Demon's inventory.";
+        return "When you build Blood Demon, your health is reduced to " + format.percent(healthReduction) + "%. In exchange, Blood Demon summons " + format.card(ItemType.BloodDemonBlade) + ".";
     }
 
     @Override
     public String getLevelBonus() {
-        return "+ " + bladeDamagePerLifeLost + " base damage on blade / life lost";
+        return "+" + bladeDamagePerLifeLost + " base damage on blade / life lost.";
     }
 
     @Override

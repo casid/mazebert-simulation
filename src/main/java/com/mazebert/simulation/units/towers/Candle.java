@@ -47,7 +47,7 @@ public strictfp class Candle extends Tower {
 
     @Override
     public String getDescription() {
-        return "It attracts flying critters!";
+        return "Flying creeps love Candle's light.";
     }
 
     @Override

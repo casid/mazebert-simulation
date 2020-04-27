@@ -69,7 +69,7 @@ public strictfp class TinkerAura extends AuraAbility<Tinker, Tower> implements O
 
     @Override
     public String getDescription() {
-        return "The luck of allies within range is increased by " + format.percentWithSignAndUnit(bonus) + ". Luck increases whenever the Tinker drinks a potion (cosmetic potions do not count).";
+        return "The luck of allies within range is increased by " + format.percentWithSignAndUnit(bonus) + ". Luck increases whenever the Tinker drinks a non-cosmetic potion.";
     }
 
     @Override

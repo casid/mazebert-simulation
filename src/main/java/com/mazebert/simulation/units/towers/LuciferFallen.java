@@ -51,7 +51,7 @@ public strictfp class LuciferFallen extends Tower {
 
     @Override
     public String getDescription() {
-        return "...the lower you fall.\n(Cannot be built)";
+        return "... the lower you fall.\n(Cannot be built)";
     }
 
     @Override

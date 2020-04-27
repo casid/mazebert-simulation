@@ -22,7 +22,7 @@ public strictfp class LuciferSummonLightbringer extends GainItemOnBuildAbility {
 
     @Override
     public String getDescription() {
-        return "When Lucifer is built, he summons his legendary sword Lightbringer.";
+        return "When you build Lucifer, he summons his legendary sword, Lightbringer.";
     }
 
     @Override

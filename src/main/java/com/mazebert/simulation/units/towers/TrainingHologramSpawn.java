@@ -90,7 +90,7 @@ public strictfp class TrainingHologramSpawn extends Ability<Tower> implements On
 
     @Override
     public String getLevelBonus() {
-        return format.experienceWithSignAndUnit(xpPerLevel) + " per tower level";
+        return format.experienceWithSignAndUnit(xpPerLevel) + " per tower level.";
     }
 
     @Override

@@ -32,7 +32,7 @@ public strictfp class PhoenixBurn extends AuraAbility<Phoenix, Creep> {
 
     @Override
     public String getDescription() {
-        return "While Phoenix is alive, all creeps in range are burned.";
+        return "While Phoenix is alive, all creeps in range burn.";
     }
 
     @Override

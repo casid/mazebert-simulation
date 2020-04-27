@@ -49,7 +49,7 @@ public strictfp class Templar extends Tower {
 
     @Override
     public String getDescription() {
-        return "Give me guidance, Almighty!";
+        return "Give me guidance, Almighty!\n(Counts as a Guard)";
     }
 
     @Override

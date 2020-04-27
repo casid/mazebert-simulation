@@ -85,7 +85,7 @@ public strictfp class SnowGlobeCreateItem extends Ability<Tower> implements OnTo
 
     @Override
     public String getDescription() {
-        return "Replace a " + format.rarity(Rarity.Common) + " tower to remove it from the field. A " + format.card(ItemType.SnowGlobe) + " item containing the captured tower is added to your hand, granting all abilities of the replaced tower.";
+        return "Replace a " + format.rarity(Rarity.Common) + " tower to capture it in the Globe. A " + format.card(ItemType.SnowGlobe) + " item that grants all abilities of the captured tower is added to your hand.";
     }
 
     @Override

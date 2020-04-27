@@ -37,7 +37,7 @@ public strictfp class TemplarAttack extends AttackAbility {
 
     @Override
     public String getTitle() {
-        return "True believer";
+        return "True Believer";
     }
 
     @Override
@@ -52,6 +52,6 @@ public strictfp class TemplarAttack extends AttackAbility {
 
     @Override
     public String getLevelBonus() {
-        return format.percentWithSignAndUnit(CRIT_CHANCE_PER_LEVEL) + " per level";
+        return format.percentWithSignAndUnit(CRIT_CHANCE_PER_LEVEL) + " per level.";
     }
 }

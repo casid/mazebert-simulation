@@ -27,7 +27,7 @@ public strictfp class TemplarGuardAura extends GuardAura {
 
     @Override
     public String getLevelBonus() {
-        return format.percentWithSignAndUnit(CRIT_CHANCE_BONUS) + " crit chance\n" +
-                format.percentWithSignAndUnit(CRIT_DAMAGE_BONUS) + " crit damage";
+        return format.percentWithSignAndUnit(CRIT_CHANCE_BONUS) + " crit chance.\n" +
+                format.percentWithSignAndUnit(CRIT_DAMAGE_BONUS) + " crit damage.";
     }
 }

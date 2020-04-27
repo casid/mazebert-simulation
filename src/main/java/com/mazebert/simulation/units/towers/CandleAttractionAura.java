@@ -34,12 +34,12 @@ public strictfp class CandleAttractionAura extends AuraAbility<Candle, Creep> {
 
     @Override
     public String getTitle() {
-        return "Attraction";
+        return "Ooh, Shiny";
     }
 
     @Override
     public String getDescription() {
-        return "Any flying monster that enters its range will first go to the candle before continuing its path (Monsters in range of other candles are immune).";
+        return "Any flying monster that enters Candle's range moves toward Candle before continuing its path. (Monsters in range of other candles are immune).";
     }
 
     @Override

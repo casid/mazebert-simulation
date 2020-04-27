@@ -87,7 +87,7 @@ public strictfp class PhoenixRebirth extends ActiveAbility implements OnUpdateLi
 
     @Override
     public String getDescription() {
-        return "Sacrifice " + format.gold(currentGoldCost, getCurrency()) + " and a " + format.card(TowerType.Phoenix) + " card in your hand to be reborn from ash after " + format.seconds(REBIRTH_TIME) + " and permanently gain +" + damageGain + " base damage.";
+        return "Sacrifice " + format.gold(currentGoldCost, getCurrency()) + " and a " + format.card(TowerType.Phoenix) + " card from your hand. After " + format.seconds(REBIRTH_TIME) + " Phoenix is reborn from ash and gains " + damageGain + " base damage.";
     }
 
     @Override

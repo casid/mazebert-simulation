@@ -49,7 +49,7 @@ public strictfp class Lucifer extends Tower {
 
     @Override
     public String getDescription() {
-        return "The higher you are...";
+        return "The higher you climb ...";
     }
 
     @Override

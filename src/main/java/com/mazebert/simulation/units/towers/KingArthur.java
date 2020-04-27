@@ -49,7 +49,7 @@ public strictfp class KingArthur extends Tower {
 
     @Override
     public String getDescription() {
-        return "I'm a guardian of the light, I'll defeat the core of all evil!";
+        return "I'm the guardian of the light. I'll defeat all evil!\n(Counts as a Guard)";
     }
 
     @Override

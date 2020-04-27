@@ -47,7 +47,7 @@ public strictfp class BloodDemon extends Tower {
 
     @Override
     public String getDescription() {
-        return "Rhagh-Daaaaarrrhhh.";
+        return "Rhagh-daaaaarrrhhh ...";
     }
 
     @Override

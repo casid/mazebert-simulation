@@ -19,7 +19,7 @@ public strictfp class KingArthurExcalibur extends Ability<Tower> {
 
     @Override
     public String getDescription() {
-        return "When King Arthur wields " + format.card(ItemType.Excalibur) + ", the swords stats are doubled.";
+        return "When King Arthur wields " + format.card(ItemType.Excalibur) + ", the swords bonuses are doubled.";
     }
 
     @Override

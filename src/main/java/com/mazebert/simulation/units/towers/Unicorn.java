@@ -42,7 +42,7 @@ public strictfp class Unicorn extends Tower {
 
     @Override
     public String getDescription() {
-        return "The treasure at the end of the rainbow.\n(does not attack)";
+        return "The treasure at the end of the rainbow.\n(Does not attack)";
     }
 
     @Override

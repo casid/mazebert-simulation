@@ -43,7 +43,7 @@ public strictfp class Phoenix extends Tower {
 
     @Override
     public String getDescription() {
-        return "Born from ash for aeons.";
+        return "Born from ash, aeon after aeon.";
     }
 
     @Override

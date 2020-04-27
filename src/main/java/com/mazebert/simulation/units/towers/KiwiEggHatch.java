@@ -97,7 +97,7 @@ public strictfp class KiwiEggHatch extends Ability<KiwiEgg> implements OnUnitAdd
 
     @Override
     public String getDescription() {
-        return "A mighty Kiwi hatches from this egg after " + ROUNDS + " rounds.";
+        return "A mighty " + format.card(TowerType.Kiwi) + " hatches after " + ROUNDS + " rounds.";
     }
 
     @Override
