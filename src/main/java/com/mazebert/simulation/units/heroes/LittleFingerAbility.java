@@ -20,12 +20,12 @@ public strictfp class LittleFingerAbility extends HeroTowerBuffAbility {
 
     @Override
     public String getTitle() {
-        return "The little difference.";
+        return "The Little Difference.";
     }
 
     @Override
     public String getDescription() {
-        return format.percentWithSignAndUnit(itemChance) + " item chance\n" +
-                format.percentWithSignAndUnit(itemQuality) + " item quality";
+        return format.percentWithSignAndUnit(itemChance) + " item chance.\n" +
+                format.percentWithSignAndUnit(itemQuality) + " item quality.";
     }
 }

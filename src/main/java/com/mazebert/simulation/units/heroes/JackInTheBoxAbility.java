@@ -23,11 +23,11 @@ public strictfp class JackInTheBoxAbility extends HeroTowerBuffAbility {
 
     @Override
     public String getTitle() {
-        return "Goblin out of hat";
+        return "Goblins out of Hat";
     }
 
     @Override
     public String getDescription() {
-        return 	"Whenever a golden tower is built, there is a " + format.percent(CHANCE) + "% chance jack summons a treasure goblin.";
+        return 	"Whenever you build a golden tower, Jack has a " + format.percent(CHANCE) + "% chance to summon a treasure goblin.";
     }
 }

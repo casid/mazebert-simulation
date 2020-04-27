@@ -25,7 +25,7 @@ public strictfp class JackInTheBox extends Hero {
 
     @Override
     public String getDescription() {
-        return "He's a lousy jack, that's why he's hiding in a box. He can summon goblins, though.\n" + getWizardLevelRequirementText();
+        return "He's a lousy jack. That's why he hides in a box. He can summon goblins, though.\n" + getWizardLevelRequirementText();
     }
 
     @Override

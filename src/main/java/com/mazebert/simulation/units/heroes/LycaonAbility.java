@@ -25,7 +25,7 @@ public strictfp class LycaonAbility extends HeroTowerBuffAbility {
 
     @Override
     public String getDescription() {
-        return format.percentWithSignAndUnit(critChance) + " crit chance\n" +
-                format.percentWithSignAndUnit(critDamage) + " crit damage";
+        return format.percentWithSignAndUnit(critChance) + " crit chance.\n" +
+                format.percentWithSignAndUnit(critDamage) + " crit damage.";
     }
 }

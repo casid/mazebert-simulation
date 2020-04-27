@@ -31,10 +31,10 @@ public strictfp class JesterKingAbility extends HeroTowerBuffAbility {
 
     @Override
     public String getDescription() {
-        return format.percentWithSignAndUnit(luckBonus) + " luck\n" +
-                format.percentWithSignAndUnit(itemBonus) + " item chance\n" +
-                format.percentWithSignAndUnit(goldBonus) + " gold\n" +
-                format.percentWithSignAndUnit(damageMalus) + " damage\n" +
-                format.percentWithSignAndUnit(experienceMalus) + " experience";
+        return format.percentWithSignAndUnit(luckBonus) + " luck.\n" +
+                format.percentWithSignAndUnit(itemBonus) + " item chance.\n" +
+                format.percentWithSignAndUnit(goldBonus) + " gold.\n" +
+                format.percentWithSignAndUnit(damageMalus) + " damage.\n" +
+                format.percentWithSignAndUnit(experienceMalus) + " experience.";
     }
 }

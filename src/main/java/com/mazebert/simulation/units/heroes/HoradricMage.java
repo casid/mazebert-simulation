@@ -20,12 +20,12 @@ public strictfp class HoradricMage extends Hero {
 
     @Override
     public String getName() {
-        return "The 'horadric' Mage";
+        return "The 'Horadric' Mage";
     }
 
     @Override
     public String getDescription() {
-        return "He's not horadric and he's not even a mage, but he can build everything out of a pen and a string.\n" + getWizardLevelRequirementText();
+        return "He's not horadric. He's not a mage.\nBut he can build anything out of a pen and some string.\n" + getWizardLevelRequirementText();
     }
 
     @Override

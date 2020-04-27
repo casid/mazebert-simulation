@@ -25,7 +25,7 @@ public strictfp class BookwormExperienceAbility extends HeroTowerBuffAbility {
 
     @Override
     public String getDescription() {
-        return format.percentWithSignAndUnit(experience) + " experience\n" +
-                format.percentWithSignAndUnit(damage) + " damage";
+        return format.percentWithSignAndUnit(experience) + " experience.\n" +
+                format.percentWithSignAndUnit(damage) + " damage.";
     }
 }

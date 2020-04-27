@@ -32,13 +32,13 @@ public strictfp class LoanSharkAbility extends HeroTowerBuffAbility {
 
     @Override
     public String getTitle() {
-        return "Money for nothing!";
+        return "Money for Nothing!";
     }
 
     @Override
     public String getDescription() {
-        return "+" + format.gold(startingGold) + " starting " + Context.currency.pluralLowercase + "\n" +
-                format.percentWithSignAndUnit(interestMalus) + " interest\n" +
-                format.percentWithSignAndUnit(goldMalus) + " " + Context.currency.pluralLowercase;
+        return "+" + format.gold(startingGold) + " starting " + Context.currency.pluralLowercase + ".\n" +
+                format.percentWithSignAndUnit(interestMalus) + " interest.\n" +
+                format.percentWithSignAndUnit(goldMalus) + " " + Context.currency.pluralLowercase + ".";
     }
 }

@@ -20,12 +20,12 @@ public strictfp class ShadowManeAbility extends HeroTowerBuffAbility {
 
     @Override
     public String getTitle() {
-        return "The meaning of haste.";
+        return "The Meaning of Haste.";
     }
 
     @Override
     public String getDescription() {
-        return format.percentWithSignAndUnit(attackSpeed) + " attack speed\n" +
-                format.percentWithSignAndUnit(xpBonus) + " experience";
+        return format.percentWithSignAndUnit(attackSpeed) + " attack speed.\n" +
+                format.percentWithSignAndUnit(xpBonus) + " experience.";
     }
 }

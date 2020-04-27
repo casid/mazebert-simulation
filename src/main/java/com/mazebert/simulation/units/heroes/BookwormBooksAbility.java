@@ -34,11 +34,11 @@ public strictfp class BookwormBooksAbility extends Ability<Hero> implements OnUn
 
     @Override
     public String getTitle() {
-        return "Take these";
+        return "Take These";
     }
 
     @Override
     public String getDescription() {
-        return "A copy of every book item card is added\nto your starting hand.";
+        return "A copy of every book item is added\nto your starting hand.";
     }
 }

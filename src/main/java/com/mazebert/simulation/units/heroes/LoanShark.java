@@ -25,7 +25,7 @@ public strictfp class LoanShark extends Hero {
 
     @Override
     public String getDescription() {
-        return "We can loan you enough money to get you completely out of debt.\n" + getWizardLevelRequirementText();
+        return "We'll get you out of debt - at a price.\n" + getWizardLevelRequirementText();
     }
 
     @Override

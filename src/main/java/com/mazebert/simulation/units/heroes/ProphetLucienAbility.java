@@ -19,12 +19,12 @@ public strictfp class ProphetLucienAbility extends HeroTowerBuffAbility {
 
     @Override
     public String getTitle() {
-        return "Roll your dice twice";
+        return "Roll your Dice Twice";
     }
 
     @Override
     public String getDescription() {
-        return format.percentWithSignAndUnit(damageMalus) + " damage\n" +
-                "+" + multiluck + " multiluck";
+        return format.percentWithSignAndUnit(damageMalus) + " damage.\n" +
+                "+" + multiluck + " multiluck.";
     }
 }

@@ -31,10 +31,10 @@ public strictfp class RodericAbility extends HeroTowerBuffAbility {
 
     @Override
     public String getDescription() {
-        return format.percentWithSignAndUnit(damageBonus) + " damage\n" +
-                format.percentWithSignAndUnit(critChanceBonus) + " crit chance\n" +
-                "+" + multicritBonus + " multicrit\n" +
-                format.percentWithSignAndUnit(attackSpeedMalus) + " attack speed\n" +
-                format.percentWithSignAndUnit(luckMalus) + " luck";
+        return format.percentWithSignAndUnit(damageBonus) + " damage.\n" +
+                format.percentWithSignAndUnit(critChanceBonus) + " crit chance.\n" +
+                "+" + multicritBonus + " multicrit.\n" +
+                format.percentWithSignAndUnit(attackSpeedMalus) + " attack speed.\n" +
+                format.percentWithSignAndUnit(luckMalus) + " luck.";
     }
 }

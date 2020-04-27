@@ -25,7 +25,7 @@ public strictfp class Lycaon extends Hero {
 
     @Override
     public String getDescription() {
-        return "The cursed man who lost everything,\nis the man to fear the most.";
+        return "A man who's lost everything\nis a man to be feared.";
     }
 
     @Override

@@ -20,11 +20,11 @@ public strictfp class InnKeeperAbility extends HeroTowerBuffAbility {
 
     @Override
     public String getTitle() {
-        return "Drink with me!";
+        return "Drink with Me!";
     }
 
     @Override
     public String getDescription() {
-        return "After drinking a potion,\nyour towers will have to\nburp from time to time.";
+        return "After drinking a potion,\nyour towers will burp\nfrom time to time.";
     }
 }

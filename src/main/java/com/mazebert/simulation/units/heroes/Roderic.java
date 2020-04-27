@@ -25,7 +25,7 @@ public strictfp class Roderic extends Hero {
 
     @Override
     public String getDescription() {
-        return "Life before death,\nstrength before weakness,\njourney before destination.\n" + getWizardLevelRequirementText();
+        return "Life before death.\nStrength before weakness.\nJourney before destination.\n" + getWizardLevelRequirementText();
     }
 
     @Override

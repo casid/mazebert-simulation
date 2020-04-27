@@ -30,13 +30,13 @@ public strictfp class HoradricMageAbility extends HeroTowerBuffAbility {
 
     @Override
     public String getTitle() {
-        return "Mage in a box!";
+        return "Mage in a Box!";
     }
 
     @Override
     public String getDescription() {
-        return format.percentWithSignAndUnit(damageMalus) + " damage\n" +
-                format.percentWithSignAndUnit(attackSpeedMalus) + " attack speed\n" +
-                "You only need 3 items/towers to combine";
+        return format.percentWithSignAndUnit(damageMalus) + " damage.\n" +
+                format.percentWithSignAndUnit(attackSpeedMalus) + " attack speed.\n" +
+                "You only need 3 items or towers to transmute.";
     }
 }

@@ -37,7 +37,7 @@ public strictfp class KvotheAbility extends Ability<Hero> implements OnUnitAdded
 
     @Override
     public String getTitle() {
-        return "Reward for the brave";
+        return "Reward for the Brave";
     }
 
     @Override

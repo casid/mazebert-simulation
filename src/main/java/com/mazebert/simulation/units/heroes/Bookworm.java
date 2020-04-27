@@ -32,7 +32,7 @@ public strictfp class Bookworm extends Hero {
 
     @Override
     public String getDescription() {
-        return "I know I don't know anything.\nDid you know that?\n" + getWizardLevelRequirementText();
+        return "I know that I don't know anything. Did you know that?\n" + getWizardLevelRequirementText();
     }
 
     @Override

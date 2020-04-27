@@ -26,7 +26,7 @@ public strictfp class CookieMonster extends Hero {
 
     @Override
     public String getDescription() {
-        return "Cookies, cookies, cookies! You have some?";
+        return "Cookies! Cookies! Cookies! You got some?";
     }
 
     @Override
