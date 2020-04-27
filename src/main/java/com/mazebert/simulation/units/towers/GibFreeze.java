@@ -45,7 +45,7 @@ public strictfp class GibFreeze extends Ability<Tower> implements OnDamageListen
 
     @Override
     public String getDescription() {
-        return "When Gib damages a creep, the creep is slowed down by " + format.percent(1.0f - slowMultiplier) + "% but its armor is increased by 1. The effects ends after " + format.seconds(slowDuration) + " and can stack " + stackCount + " times.";
+        return "Whenever Gib damages a creep, that creep is slowed by " + format.percent(1.0f - slowMultiplier) + "% and its armor is increased by 1. These effects ends after " + format.seconds(slowDuration) + " and can stack " + stackCount + " times.";
     }
 
     @Override
@@ -55,6 +55,6 @@ public strictfp class GibFreeze extends Ability<Tower> implements OnDamageListen
 
     @Override
     public String getLevelBonus() {
-        return "+ 1 stack every " + stackEveryLevel + " levels";
+        return "+ 1 stack every " + stackEveryLevel + " levels.";
     }
 }

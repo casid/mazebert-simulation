@@ -46,7 +46,7 @@ public strictfp class AcolyteOfGreed extends Tower {
 
     @Override
     public String getDescription() {
-        return "The greeeeed speaks to me!";
+        return "The greeeeed speakssss to meeee ...";
     }
 
     @Override

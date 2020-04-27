@@ -30,7 +30,7 @@ public strictfp class KnusperHexeAura extends AuraAbility<KnusperHexe, Creep> {
 
     @Override
     public String getTitle() {
-        return "Weakening presence";
+        return "Weakening Presence";
     }
 
     @Override

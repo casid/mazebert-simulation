@@ -46,12 +46,12 @@ public strictfp class AbyssKingSwallow extends AuraAbility<AbyssKing, Creep> imp
 
     @Override
     public String getDescription() {
-        return "Creeps killed in range have a " + format.percent(chance) + "% chance to join his Undead Army.";
+        return "Creeps killed in range have a " + format.percent(chance) + "% chance to join his undead army.";
     }
 
     @Override
     public String getLevelBonus() {
-        return format.percentWithSignAndUnit(chancePerLevel) + " chance per level";
+        return format.percentWithSignAndUnit(chancePerLevel) + " chance per level.";
     }
 
     @Override

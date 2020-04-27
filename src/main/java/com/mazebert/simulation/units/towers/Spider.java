@@ -48,7 +48,7 @@ public strictfp class Spider extends Tower {
 
     @Override
     public String getDescription() {
-        return "When I'm grown up, I will eat my mate. Nom, nom!";
+        return "When I'm grown up, I'll eat my mate. Nom, nom!";
     }
 
     @Override

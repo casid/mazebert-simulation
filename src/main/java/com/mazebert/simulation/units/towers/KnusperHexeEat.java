@@ -59,12 +59,12 @@ public strictfp class KnusperHexeEat extends Ability<KnusperHexe> implements OnA
 
     @Override
     public String getDescription() {
-        return "Everytime Knusperhexe attacks a mass creep, there is a " + format.percent(chance, 0) + "% chance that she kidnaps, cooks and eats it.";
+        return "Each time Knusperhexe attacks a mass creep, there's a " + format.percent(chance, 0) + "% chance that she kidnaps, cooks and eats it.";
     }
 
     @Override
     public String getLevelBonus() {
-        return "+ " + format.percent(chancePerLevel) + "% chance per level";
+        return "+ " + format.percent(chancePerLevel) + "% chance per level.";
     }
 
     @Override

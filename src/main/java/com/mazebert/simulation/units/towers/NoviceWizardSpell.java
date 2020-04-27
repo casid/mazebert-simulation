@@ -88,13 +88,13 @@ public strictfp class NoviceWizardSpell extends Ability<Tower> implements OnDama
 
     @Override
     public String getTitle() {
-        return "Book of spells";
+        return "Book of Spells";
     }
 
     @Override
     public String getDescription() {
-        return format.percent(spellChance) + "% chance on attack to cast a spell from his book, but each spell has a " + format.percent(backfireChance) + "% chance to backfire.\n" +
-                "<c=#8000d9>Time Warp</c> moves the creep " + format.seconds(warpSeconds) + " in the <c=#009900>past</c>/<c=#990000>future</c>.\n" +
+        return format.percent(spellChance) + "% chance to cast a spell from his book upon attack, but each spell has a " + format.percent(backfireChance) + "% chance to backfire.\n" +
+                "<c=#8000d9>Time Warp</c> moves the creep " + format.seconds(warpSeconds) + " into the <c=#009900>past</c>/<c=#990000>future</c>.\n" +
                 "<c=#8000d9>Banishment</c> causes the creep to receive " + format.percent(banishmentAmplifier) + "% <c=#009900>more</c>/<c=#990000>less</c> damage for " + format.seconds(banishmentSeconds) + ".";
     }
 
@@ -105,6 +105,6 @@ public strictfp class NoviceWizardSpell extends Ability<Tower> implements OnDama
 
     @Override
     public String getLevelBonus() {
-        return format.percentWithSignAndUnit(spellChanceLevelBonus) + " cast chance per level";
+        return format.percentWithSignAndUnit(spellChanceLevelBonus) + " cast chance per level.";
     }
 }

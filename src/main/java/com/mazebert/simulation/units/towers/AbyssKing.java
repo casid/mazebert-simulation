@@ -51,7 +51,7 @@ public strictfp class AbyssKing extends Tower {
 
     @Override
     public String getDescription() {
-        return "Commander of the Undead.";
+        return "Lord of the Undead.";
     }
 
     @Override

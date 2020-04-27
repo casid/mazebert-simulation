@@ -118,12 +118,12 @@ public strictfp class DarkForgeCraft extends Ability<Tower> implements OnUnitAdd
 
     @Override
     public String getTitle() {
-        return "Dark items";
+        return "Dark Items";
     }
 
     @Override
     public String getDescription() {
-        return "Every round there is a " + format.percent(CHANCE) + "% chance to create a dark item. The item level depends on the level of the Forge.";
+        return "Each round, the Forge has a " + format.percent(CHANCE) + "% chance to create a dark item. The item level depends on the level of the Forge.";
     }
 
     @Override

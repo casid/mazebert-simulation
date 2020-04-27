@@ -16,4 +16,9 @@ public strictfp class SolaraFireball extends SplashAbility {
     public String getIconFile() {
         return "0067_fireball_512";
     }
+
+    @Override
+    public String getDescription() {
+        return "Creeps within " + getRange() + " range of Solara's target receive " + format.percent(getDamageFactor()) + "% damage.";
+    }
 }

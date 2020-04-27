@@ -80,12 +80,12 @@ public strictfp class ScareCrowMultishot extends AttackAbility implements OnLeve
 
     @Override
     public String getTitle() {
-        return "Dark wings";
+        return "Dark Wings";
     }
 
     @Override
     public String getDescription() {
-        return "Scarecrow attacks with all crows sitting on it. Every 2nd attack the crows return. Scarecrow commands 2 crows.";
+        return "Scarecrow attacks with all crows sitting on it. On Scarecrow's next attack, the crows return. Scarecrow commands 2 crows.";
     }
 
     @Override
@@ -95,6 +95,6 @@ public strictfp class ScareCrowMultishot extends AttackAbility implements OnLeve
 
     @Override
     public String getLevelBonus() {
-        return "+1 crow every " + levelsForOneCrow + " levels";
+        return "+1 crow every " + levelsForOneCrow + " levels.";
     }
 }

@@ -44,7 +44,7 @@ public strictfp class ScareCrow extends Tower {
 
     @Override
     public String getDescription() {
-        return "Once built by farmers, Scarecrow joined the dark side and became the master of a flock of vicious crows.";
+        return "Originally built by farmers, Scarecrow joined the dark side and mastered a flock of vicious crows.";
     }
 
     @Override

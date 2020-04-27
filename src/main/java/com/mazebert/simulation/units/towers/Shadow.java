@@ -48,7 +48,7 @@ public strictfp class Shadow extends Tower {
 
     @Override
     public String getDescription() {
-        return "It can take many forms.";
+        return "It takes many forms.";
     }
 
     @Override

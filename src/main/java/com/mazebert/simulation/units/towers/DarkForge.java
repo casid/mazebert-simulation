@@ -46,7 +46,7 @@ public strictfp class DarkForge extends Tower {
 
     @Override
     public String getDescription() {
-        return "This forge crafts powerful items, but enchanted with a vicious curse.";
+        return "This forge crafts powerful items, enchanted with a vicious curse.\n";
     }
 
     @Override

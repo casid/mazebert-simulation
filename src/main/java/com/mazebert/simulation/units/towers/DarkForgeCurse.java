@@ -12,12 +12,12 @@ public strictfp class DarkForgeCurse extends Ability<Tower> {
 
     @Override
     public String getTitle() {
-        return "Dark curse";
+        return "Dark Curse";
     }
 
     @Override
     public String getDescription() {
-        return "Every time a tower equipped with a dark item gains experience, it loses " + format.percent(DarkItemAbility.TRIBUTE) + "% of it as tribute to the Forge.";
+        return "Each time a tower equipped with a dark item gains experience, it sacrifices " + format.percent(DarkItemAbility.TRIBUTE) + "% of it in tribute to the Forge.";
     }
 
     @Override

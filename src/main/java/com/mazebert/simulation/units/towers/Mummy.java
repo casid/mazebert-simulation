@@ -41,7 +41,7 @@ public strictfp class Mummy extends Tower {
 
     @Override
     public String getDescription() {
-        return "Interesting fact: Likes to wrap herself and her victims in toilet paper.";
+        return "Likes to wrap herself and her victims in toilet paper.";
     }
 
     @Override

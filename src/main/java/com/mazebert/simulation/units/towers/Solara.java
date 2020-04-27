@@ -52,7 +52,7 @@ public strictfp class Solara extends Tower {
 
     @Override
     public String getDescription() {
-        return "She is really HOT. Don't make her angry!";
+        return "Solara is HOT, and she burns with righteous fury.";
     }
 
     @Override

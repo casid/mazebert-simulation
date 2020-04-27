@@ -61,15 +61,15 @@ public strictfp class AbyssKingAura extends AuraAbility<AbyssKing, Tower> {
 
     @Override
     public String getDescription() {
-        return "For every Undead in his army, all Darkness towers get:";
+        return "For each undead in his army, all Darkness towers get:";
     }
 
     @Override
     public String getLevelBonus() {
         return
-                format.percentWithSignAndUnit(damagePerUndead) + " damage\n" +
-                format.percentWithSignAndUnit(critDamagePerUndead) + " crit damage\n" +
-                format.percentWithSignAndUnit(critChancePerUndead) + " crit chance";
+                format.percentWithSignAndUnit(damagePerUndead) + " damage.\n" +
+                format.percentWithSignAndUnit(critDamagePerUndead) + " crit damage.\n" +
+                format.percentWithSignAndUnit(critChancePerUndead) + " crit chance.";
     }
 
     @Override

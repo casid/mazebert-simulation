@@ -58,12 +58,12 @@ public strictfp class MummyStumble extends Ability<Tower> implements OnAttackLis
 
     @Override
     public String getTitle() {
-        return "Death by toilet paper";
+        return "Death by Toilet Paper";
     }
 
     @Override
     public String getDescription() {
-        return format.percent(chance) + "% chance on attack to instantly kill a creep.\nBosses can't be killed, but stumble for " + format.seconds(bossStunDuration) + ".";
+        return format.percent(chance) + "% chance to instantly kill upon attack.\nBosses stumble for " + format.seconds(bossStunDuration) + " instead.";
     }
 
     @Override
@@ -73,6 +73,6 @@ public strictfp class MummyStumble extends Ability<Tower> implements OnAttackLis
 
     @Override
     public String getLevelBonus() {
-        return "+ " + format.percent(chanceLevelBonus) + "% chance per level";
+        return "+ " + format.percent(chanceLevelBonus) + "% chance per level.";
     }
 }

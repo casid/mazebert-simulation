@@ -43,7 +43,7 @@ public strictfp class NoviceWizard extends Tower {
 
     @Override
     public String getDescription() {
-        return "I'll kill you. I'll kill you all!\nAh-hahahah!";
+        return "I'll kill you. I'll kill you all!\nAhahaha!";
     }
 
     @Override

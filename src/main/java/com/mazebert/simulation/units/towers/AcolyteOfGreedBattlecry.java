@@ -56,7 +56,7 @@ public strictfp class AcolyteOfGreedBattlecry extends Ability<Tower> implements 
 
     @Override
     public String getDescription() {
-        return "Treasure goblins are summoned, at the time you build the Acolyte.";
+        return "Treasure goblins appear, when you build the Acolyte.";
     }
 
     @Override

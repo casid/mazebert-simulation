@@ -54,17 +54,17 @@ public strictfp class SpiderWeb extends Ability<Tower> implements OnDamageListen
 
     @Override
     public String getTitle() {
-        return "Spin Web";
+        return "Webspinner";
     }
 
     @Override
     public String getDescription() {
-        return "Each attack has a " + format.percent(chance) + "% chance (" + format.percent(chanceAgainstBoss) + "% against bosses) to slow the target by " + format.percent(slow) + "% for " + format.seconds(slowDuration) + ". Can stack " + maxStackCount + " times.";
+        return "Each attack has an " + format.percent(chance) + "% chance (" + format.percent(chanceAgainstBoss) + "% against bosses) to slow the target by " + format.percent(slow) + "% for " + format.seconds(slowDuration) + ". Can stack up to " + maxStackCount + " times.";
     }
 
     @Override
     public String getLevelBonus() {
-        return format.percentWithSignAndUnit(slowPerLevel) + " slow per level";
+        return format.percentWithSignAndUnit(slowPerLevel) + " slow per level.";
     }
 
     @Override

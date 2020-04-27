@@ -16,7 +16,7 @@ public strictfp class LuciferFallenLightning extends ChainAbility {
 
     @Override
     public String getTitle() {
-        return "Hell's touch";
+        return "Hell's Touch";
     }
 
     @Override

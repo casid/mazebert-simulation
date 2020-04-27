@@ -99,7 +99,7 @@ public strictfp class TheRipperKillingSpree extends CooldownAbility<Tower> imple
 
     @Override
     public String getDescription() {
-        return "Each kill The Ripper goes into a murderous spree gaining " + format.percent(bonusPerKill) +
+        return "Killing sends The Ripper into a murderous rage. He gains " + format.percent(bonusPerKill) +
                 "% attack speed for " + format.seconds(BONUS_TIME) + " (does not stack).";
     }
 
