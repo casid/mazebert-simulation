@@ -14,15 +14,8 @@ public abstract strictfp class BossDamageWithLevelBonusAbility extends Attribute
         return "Damage against bosses";
     }
 
-    public String getDescription() {
-        return "The damage against bosses\nis increased by " + format.percent(bonus) + "%.";
-    }
-
     @Override
-    public String getLevelBonus() {
-        if (bonusPerLevel <= 0.0f) {
-            return null;
-        }
-        return format.percentWithSignAndUnit(bonusPerLevel) + " per level.";
+    protected String getAttributeName() {
+        return "boss damage";
     }
 }

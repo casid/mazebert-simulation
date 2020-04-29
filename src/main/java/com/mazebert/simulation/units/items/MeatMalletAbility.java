@@ -34,11 +34,11 @@ public strictfp class MeatMalletAbility extends DamageWithLevelBonusAbility {
 
     @Override
     public String getTitle() {
-        return "A good beating";
+        return "Titanic Tenderizer";
     }
 
     @Override
-    public String getDescription() {
-        return "Damage increased by " + format.percent(bonus) + "%\nCrit chance reduced by " + format.percent(critChanceMalus) + "%";
+    public String getLevelBonus() {
+        return format.percentWithSignAndUnit(-critChanceMalus) + " crit chance.\n" + super.getLevelBonus();
     }
 }

@@ -30,11 +30,11 @@ public strictfp class UselessMachineAbility extends Ability<Tower> {
 
     @Override
     public String getTitle() {
-        return "Do it yourself";
+        return "Is This Thing On?";
     }
 
     @Override
-    public String getDescription() {
-        return "Deal no damage\n" + format.percentWithSignAndUnit(experienceMalus) + " experience\n" + format.percentWithSignAndUnit(attackSpeedBonus) + " attack speed";
+    public String getLevelBonus() {
+        return "Deal no damage.\n" + format.percentWithSignAndUnit(experienceMalus) + " experience.\n" + format.percentWithSignAndUnit(attackSpeedBonus) + " attack speed.";
     }
 }

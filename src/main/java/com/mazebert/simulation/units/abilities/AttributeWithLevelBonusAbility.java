@@ -91,4 +91,14 @@ public abstract strictfp class AttributeWithLevelBonusAbility extends StackableA
     public boolean isVisibleToUser() {
         return true;
     }
+
+    @Override
+    public String getLevelBonus() {
+        if (bonusPerLevel <= 0.0f) {
+            return format.percentWithSignAndUnit(bonus) + " " + getAttributeName() + ".";
+        }
+        return format.percentWithSignAndUnit(bonus) + " " + getAttributeName() + ".\n" + format.percentWithSignAndUnit(bonusPerLevel) + " " + getAttributeName() + " per level.";
+    }
+
+    protected abstract String getAttributeName();
 }

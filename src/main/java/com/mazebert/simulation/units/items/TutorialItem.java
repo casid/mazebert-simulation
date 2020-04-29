@@ -12,7 +12,7 @@ public strictfp abstract class TutorialItem extends Item {
 
     @Override
     public String getDescription() {
-        return "Alright, it's not the largest sword but size doesn't really matter, huh?";
+        return "";
     }
 
     @Override

@@ -25,7 +25,7 @@ public strictfp class MesserschmidtsReaver extends Item {
 
     @Override
     public String getDescription() {
-        return "The greatest battle axe ever forged. Very powerful... if one could ever lift it.";
+        return "The greatest battle axe ever forged. It's quite powerful ... but quite heavy.";
     }
 
     @Override

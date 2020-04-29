@@ -68,12 +68,12 @@ public strictfp class LightbringerHealAbility extends PoisonAbility implements O
 
     @Override
     public String getTitle() {
-        return "Smite and Heal";
+        return "Destruction and Redemption";
     }
 
     @Override
     public String getDescription() {
-        return format.percent(HEALING_AMOUNT) + "% damage is healed over " + format.seconds(getDuration()) + ".";
+        return "Damaged creeps are healed by " + format.percent(HEALING_AMOUNT) + "% of damage dealt over " + format.seconds(getDuration()) + ".";
     }
 
     @Override

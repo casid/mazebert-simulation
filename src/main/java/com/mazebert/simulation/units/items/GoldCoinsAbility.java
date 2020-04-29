@@ -9,6 +9,6 @@ public strictfp class GoldCoinsAbility extends GoldWithLevelBonusAbility {
 
     @Override
     public String getTitle() {
-        return "Attractive coins";
+        return "Attractive Coins";
     }
 }

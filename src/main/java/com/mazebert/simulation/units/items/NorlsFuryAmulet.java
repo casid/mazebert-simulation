@@ -25,7 +25,7 @@ public strictfp class NorlsFuryAmulet extends Item {
 
     @Override
     public String getDescription() {
-        return "This amulet once belonged to Norl, an ancient hero of the North. It was a gift from his true love to protect him.";
+        return "This amulet once belonged to Norl, an ancient hero of the North. It was a gift from his true love, to protect him.";
     }
 
     @Override

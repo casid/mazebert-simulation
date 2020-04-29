@@ -44,10 +44,10 @@ public strictfp class HeroicMaskAbility extends Ability<Tower> {
     }
 
     @Override
-    public String getDescription() {
-        return format.percentWithSignAndUnit(bonus) + " experience\n" +
-                format.percentWithSignAndUnit(bonus) + " damage\n" +
-                format.percentWithSignAndUnit(bonus) + " crit chance\n" +
-                format.percentWithSignAndUnit(bonus) + " luck";
+    public String getLevelBonus() {
+        return format.percentWithSignAndUnit(bonus) + " experience.\n" +
+                format.percentWithSignAndUnit(bonus) + " damage.\n" +
+                format.percentWithSignAndUnit(bonus) + " crit chance.\n" +
+                format.percentWithSignAndUnit(bonus) + " luck.";
     }
 }

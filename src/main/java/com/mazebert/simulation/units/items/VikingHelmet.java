@@ -26,7 +26,7 @@ public strictfp class VikingHelmet extends Item {
 
     @Override
     public String getDescription() {
-        return "Whoever wears this helmet, will look bad-ass.";
+        return "Whoever wears this helmet, will look badass.";
     }
 
     @Override

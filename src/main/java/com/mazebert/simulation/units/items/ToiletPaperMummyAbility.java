@@ -35,11 +35,11 @@ public strictfp class ToiletPaperMummyAbility extends Ability<Tower> {
 
     @Override
     public String getTitle() {
-        return "Prepared Mummy";
+        return "Mummy's Always Prepared";
     }
 
     @Override
-    public String getDescription() {
-        return "+" + targets + " additional targets\nwhen equipped by " + format.card(TowerType.Mummy) + ".";
+    public String getLevelBonus() {
+        return "+" + targets + " targets when carried by " + format.card(TowerType.Mummy) + ".";
     }
 }

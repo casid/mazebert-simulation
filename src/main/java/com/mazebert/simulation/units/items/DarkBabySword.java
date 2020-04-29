@@ -27,7 +27,7 @@ public strictfp class DarkBabySword extends Item {
 
     @Override
     public String getDescription() {
-        return "A cursed baby sword, forged in the fires of the Dark Forge.";
+        return "A cursed baby sword, crafted in the fires of the Dark Forge.";
     }
 
     @Override

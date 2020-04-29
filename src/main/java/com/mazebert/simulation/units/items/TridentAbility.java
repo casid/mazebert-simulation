@@ -38,11 +38,11 @@ public strictfp class TridentAbility extends Ability<Tower> {
 
     @Override
     public String getTitle() {
-        return "Make three out of one";
+        return "Make Three out of One";
     }
 
     @Override
-    public String getDescription() {
-        return "+2 additional targets\n" + format.percentWithSignAndUnit(attackSpeedMalus) + " attack speed\n" + format.percentWithSignAndUnit(damageMalus) + " damage";
+    public String getLevelBonus() {
+        return "+2 targets.\n" + format.percentWithSignAndUnit(attackSpeedMalus) + " attack speed.\n" + format.percentWithSignAndUnit(damageMalus) + " damage.";
     }
 }

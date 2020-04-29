@@ -25,7 +25,7 @@ public strictfp class Wolfskin extends Item {
 
     @Override
     public String getDescription() {
-        return "Even a sheep can look like a wolf in the right clothing.";
+        return "In the right clothing, even a sheep can look like a wolf.";
     }
 
     @Override

@@ -29,7 +29,7 @@ public strictfp class PoisonArrowAbility extends PoisonAbility {
 
     @Override
     public String getDescription() {
-        return "Whenever the carrier damages a creep, " + format.percent(damage) + "% additonal damage is dealt as poison damage over " + duration + " seconds. This ability stacks.";
+        return "Whenever the carrier damages a creep, that creep receives an additional " + format.percent(damage) + "% poison damage over " + duration + " seconds. This ability stacks.";
     }
 
     @Override

@@ -26,7 +26,7 @@ public strictfp class Beheader extends Item {
 
     @Override
     public String getDescription() {
-        return "The philosophy of this axe is that head and body should be separate.";
+        return "This axe believes heads and bodies should remain separate.";
     }
 
     @Override

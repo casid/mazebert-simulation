@@ -9,6 +9,6 @@ public strictfp class BabySwordAbility extends DamageWithLevelBonusAbility {
 
     @Override
     public String getTitle() {
-        return "En garde";
+        return "En Garde";
     }
 }

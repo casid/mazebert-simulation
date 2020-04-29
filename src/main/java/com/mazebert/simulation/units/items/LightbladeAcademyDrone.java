@@ -20,7 +20,7 @@ public strictfp class LightbladeAcademyDrone extends Item {
 
     @Override
     public String getName() {
-        return "GT1, the little robot";
+        return "GT1, the Little Robot";
     }
 
     @Override

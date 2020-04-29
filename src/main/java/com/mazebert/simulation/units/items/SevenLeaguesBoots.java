@@ -20,12 +20,12 @@ public strictfp class SevenLeaguesBoots extends Item {
 
     @Override
     public String getName() {
-        return "Seven-leagues boots";
+        return "Seven-leagues Boots";
     }
 
     @Override
     public String getDescription() {
-        return "These famous boots allow the wearing tower to take strides of seven leagues per step, resulting in great speed.";
+        return "These famous boots allow the carrier to stride seven leagues per step.";
     }
 
     @Override

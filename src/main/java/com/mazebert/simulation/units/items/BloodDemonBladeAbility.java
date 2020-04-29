@@ -34,7 +34,7 @@ public strictfp class BloodDemonBladeAbility extends Ability<Tower> {
     }
 
     @Override
-    public String getDescription() {
-        return "+ " + (int)damage + " tower base damage";
+    public String getLevelBonus() {
+        return "+" + (int) damage + " base damage.";
     }
 }

@@ -19,12 +19,12 @@ public strictfp class UselessMachine extends Item {
 
     @Override
     public String getName() {
-        return "The useless machine";
+        return "The Useless Machine";
     }
 
     @Override
     public String getDescription() {
-        return "Somebody forgot to change the battery and it won't flip the switch back on.";
+        return "Nobody knows what it's supposed to do.";
     }
 
     @Override

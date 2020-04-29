@@ -9,6 +9,6 @@ public strictfp class RingOfGreedAbility extends ItemChanceWithLevelBonusAbility
 
     @Override
     public String getTitle() {
-        return "Treasure hunter";
+        return "Treasure Hunter";
     }
 }

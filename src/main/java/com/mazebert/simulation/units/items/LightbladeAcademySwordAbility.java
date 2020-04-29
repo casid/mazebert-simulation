@@ -69,12 +69,12 @@ public strictfp class LightbladeAcademySwordAbility extends Ability<Tower> imple
 
     @Override
     public String getTitle() {
-        return "Master of the blade";
+        return "Master of the Blade";
     }
 
     @Override
-    public String getDescription() {
-        return format.percentWithSignAndUnit(DAMAGE_LEVEL_BONUS) + " damage per tower level.\n(Requires tower level " + REQUIRED_LEVEL + ")";
+    public String getLevelBonus() {
+        return format.percentWithSignAndUnit(DAMAGE_LEVEL_BONUS) + " damage per level.\n(Requires level " + REQUIRED_LEVEL + ")";
     }
 
     public String getBladeIcon() {

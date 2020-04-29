@@ -27,7 +27,7 @@ public strictfp class DarkBlade extends Item {
 
     @Override
     public String getDescription() {
-        return "The masterpiece of the Dark Forge.";
+        return "The Dark Forge's masterpiece.";
     }
 
     @Override

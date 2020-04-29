@@ -25,7 +25,7 @@ public strictfp class DrinkingHorn extends Item {
 
     @Override
     public String getDescription() {
-        return "A viking's favorite mug.\nOnly equipable by vikings.";
+        return "A warrior's favorite mug.\nEquippable only by Vikings.";
     }
 
     @Override

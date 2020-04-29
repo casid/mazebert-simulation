@@ -42,6 +42,6 @@ public strictfp class FatKnightArmorAbility extends AuraAbility<Tower, Tower> {
 
     @Override
     public String getLevelBonus() {
-        return "+" + INVENTORY_SIZE + " inventory slot\n" + format.percentWithSignAndUnit(ATTACK_SPEED) + " attack speed";
+        return "+" + INVENTORY_SIZE + " inventory slot.\n" + format.percentWithSignAndUnit(ATTACK_SPEED) + " attack speed.";
     }
 }

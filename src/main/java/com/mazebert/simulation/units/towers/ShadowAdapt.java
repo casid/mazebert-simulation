@@ -139,7 +139,7 @@ public strictfp class ShadowAdapt extends Ability<Tower> implements OnDamageList
                 format.percent(chance, 0) + "% chance to raise Shadow's damage against this armor type by " +
                 format.percent(damageIncrease, 0) + "%, while lowering the damage against other armor types by " +
                 format.percent(-damageDecrease, 0) + "%. " +
-                "(Damaging Zod armor counts randomly as <c=#5d8b4c>Ber</c>, <c=#9da9bc>Fal</c> or <c=#760983>Vex</c>)";
+                "(Damaging " + format.armorType(ArmorType.Zod) + " armor counts randomly as " + format.armorType(ArmorType.Ber) + ", " + format.armorType(ArmorType.Fal) + " or " + format.armorType(ArmorType.Vex) + ")";
     }
 
     @Override

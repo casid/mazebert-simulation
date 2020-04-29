@@ -9,6 +9,6 @@ public strictfp class BeheaderDamageAbility extends DamageWithLevelBonusAbility 
 
     @Override
     public String getTitle() {
-        return "Blood splatter";
+        return "Blood Splatter";
     }
 }

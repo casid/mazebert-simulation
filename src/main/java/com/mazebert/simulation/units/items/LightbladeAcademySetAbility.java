@@ -20,11 +20,11 @@ public strictfp class LightbladeAcademySetAbility extends ItemSetAbility {
 
     @Override
     public String getTitle() {
-        return "A strong force";
+        return "A Strong Force";
     }
 
     @Override
     public String getDescription() {
-        return "+ 1 inventory slot (2 set items)";
+        return "+1 inventory slot. (2 set items)";
     }
 }

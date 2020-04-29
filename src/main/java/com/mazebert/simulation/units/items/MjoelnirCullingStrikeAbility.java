@@ -10,7 +10,7 @@ public strictfp class MjoelnirCullingStrikeAbility extends CullingStrikeAbility 
 
     @Override
     public String getTitle() {
-        return "Lightning overload";
+        return "Lightning Strike";
     }
 
     @Override

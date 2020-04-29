@@ -14,16 +14,8 @@ public strictfp class ArmorPenetrationWithLevelBonusAbility extends AttributeWit
         return "Armor penetration";
     }
 
-    public String getDescription() {
-        return "Attacks penetrate " + format.percent(bonus) + "% armor.";
-    }
-
     @Override
-    public String getLevelBonus() {
-        if (bonusPerLevel <= 0.0) {
-            return null;
-        }
-
-        return format.percentWithSignAndUnit(bonusPerLevel) + " armor penetration per level.";
+    protected String getAttributeName() {
+        return "armor penetration";
     }
 }

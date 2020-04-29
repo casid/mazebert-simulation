@@ -34,7 +34,7 @@ public strictfp class Mjoelnir extends Item {
 
     @Override
     public String getDescription() {
-        return "Hammer of Thor.";
+        return "Thor's mighty hammer.";
     }
 
     @Override

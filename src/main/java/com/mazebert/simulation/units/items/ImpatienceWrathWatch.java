@@ -25,7 +25,7 @@ public strictfp class ImpatienceWrathWatch extends Item {
 
     @Override
     public String getDescription() {
-        return "Tick tack...";
+        return "Tick tock ...";
     }
 
     @Override

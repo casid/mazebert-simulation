@@ -25,7 +25,7 @@ public strictfp class BabySword extends Item {
 
     @Override
     public String getDescription() {
-        return "Alright, it's not the largest sword but size doesn't really matter, huh?";
+        return "It's not the largest sword, but size doesn't matter, right?";
     }
 
     @Override

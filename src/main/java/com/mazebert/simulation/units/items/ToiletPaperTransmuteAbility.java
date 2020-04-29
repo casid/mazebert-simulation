@@ -14,7 +14,7 @@ public strictfp class ToiletPaperTransmuteAbility extends Ability<Tower> {
 
     @Override
     public String getTitle() {
-        return "Prepper's " + getCurrency().pluralLowercase;
+        return "Prepper's " + getCurrency().plural;
     }
 
     @Override

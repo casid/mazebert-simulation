@@ -43,13 +43,17 @@ public strictfp class PaintingOfSoleaAbility extends LuckWithLevelBonusAbility i
 
     @Override
     public String getTitle() {
-        return "Beautiful distraction";
+        return "Beautiful Distraction";
     }
 
     @Override
     public String getDescription() {
-        return format.percentWithSignAndUnit(attackSpeedBonus) + " attack speed\n" +
-                format.percentWithSignAndUnit(luckBonus) + " luck\n" +
-                format.percent(missChance) + " % chance, that the tower looks at the picture and misses his attack. Enlighted by the beauty, the tower gets " + format.experience(xpBonus) + " experience.";
+        return format.percent(missChance) + " % chance that the carrier stares at Solea and misses its attack. Enlighted by Solea's beauty, the carrier gains " + format.experienceWithSignAndUnit(xpBonus) + ".";
+    }
+
+    @Override
+    public String getLevelBonus() {
+        return format.percentWithSignAndUnit(attackSpeedBonus) + " attack speed.\n" +
+                format.percentWithSignAndUnit(luckBonus) + " luck.\n";
     }
 }

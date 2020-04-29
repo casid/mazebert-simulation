@@ -64,7 +64,7 @@ public strictfp class ScepterOfTimeAbility extends ActiveAbility {
     }
 
     @Override
-    public String getDescription() {
-        return "It can change the flow of time.";
+    public String getLevelBonus() {
+        return "Make time pass 2, 3 or 4 times faster.";
     }
 }

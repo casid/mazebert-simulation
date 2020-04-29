@@ -20,7 +20,7 @@ public strictfp class BowlingBallGameAbility extends Ability<Tower> {
 
     @Override
     public String getTitle() {
-        return "Current game";
+        return "Current Game";
     }
 
     @Override

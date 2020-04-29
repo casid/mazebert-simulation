@@ -38,8 +38,8 @@ public strictfp class MjoelnirChainAbility extends ChainAbility {
 
     @Override
     public String getDescription() {
-        return "Every 3rd attack " +
-                "chain lightning hits up to " + CREEPS + " creeps dealing " +
+        return "Every third attack " +
+                "chain lightning hits up to " + CREEPS + " creeps and deals " +
                 format.percent(damage) + "% of the carrier's damage.";
     }
 }

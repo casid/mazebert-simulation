@@ -26,7 +26,7 @@ public strictfp class WoodAxe extends Item {
 
     @Override
     public String getDescription() {
-        return "You can cut anything with it. Wood, steaks, creeps...";
+        return "You can cut anything with it. Wood, steaks, creeps ...";
     }
 
     @Override

@@ -1,5 +1,7 @@
 package com.mazebert.simulation.units.items;
 
+import com.mazebert.simulation.units.towers.TowerType;
+
 import java.util.EnumSet;
 import java.util.Set;
 
@@ -31,6 +33,6 @@ public strictfp class FrozenSetAbility extends ItemSetAbility {
 
     @Override
     public String getDescription() {
-        return "Slow target by 10% (2 set items)\nKill a creep after wearing the set for at least 1 minute, to sacrifice the set for a frozen daemon tower card. (4 set items)";
+        return "Slow target by 10% (2 set items)\nKill a creep after wearing the set for at least 1 minute, to sacrifice the set for " + format.card(TowerType.Gib) + ". (4 set items)";
     }
 }

@@ -45,12 +45,11 @@ public strictfp class UnluckyPantsAbility extends AuraAbility<Tower, Tower> {
 
     @Override
     public String getTitle() {
-        return "Everybody gets lucky but you.";
+        return "Great Wingman, Though";
     }
 
     @Override
-    public String getDescription() {
-        String bonus = format.percent(UnluckyPantsAbility.bonus);
-        return "The luck of towers in " + (int)getRange() + " range is increased by " + bonus + "%, while the luck of this tower is decreased by " + bonus + "%.";
+    public String getLevelBonus() {
+        return format.percentWithSignAndUnit(-bonus) + " luck.\n" + format.percentWithSignAndUnit(bonus) + " luck to towers in " + (int)getRange() + " range.";
     }
 }

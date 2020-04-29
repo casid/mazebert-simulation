@@ -25,7 +25,7 @@ public strictfp class WitheredBandages extends Item {
 
     @Override
     public String getDescription() {
-        return "Haunted spirits are restless.";
+        return "These bandages wrap too tightly.";
     }
 
     @Override

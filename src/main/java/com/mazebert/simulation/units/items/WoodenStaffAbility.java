@@ -9,6 +9,6 @@ public strictfp class WoodenStaffAbility extends DamageWithLevelBonusAbility {
 
     @Override
     public String getTitle() {
-        return "Knock, knock!";
+        return "Knock, Knock!";
     }
 }

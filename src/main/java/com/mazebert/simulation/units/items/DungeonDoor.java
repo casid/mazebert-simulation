@@ -34,7 +34,7 @@ public strictfp class DungeonDoor extends Item {
 
     @Override
     public String getDescription() {
-        return "Most of the time this door is locked...";
+        return "Most of the time this door is locked ...";
     }
 
     @Override

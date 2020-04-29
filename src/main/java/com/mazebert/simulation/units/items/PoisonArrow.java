@@ -25,7 +25,7 @@ public strictfp class PoisonArrow extends Item {
 
     @Override
     public String getDescription() {
-        return "Hydra's poisonous blood is dripping from this arrow.";
+        return "A hydra's poisonous blood drips from this arrow.";
     }
 
     @Override

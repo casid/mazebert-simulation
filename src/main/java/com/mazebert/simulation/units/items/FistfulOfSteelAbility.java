@@ -28,11 +28,11 @@ public strictfp class FistfulOfSteelAbility extends AuraAbility<Tower, Tower> {
 
     @Override
     public String getTitle() {
-        return "Enrage the crowd";
+        return "Enrage the Crowd";
     }
 
     @Override
-    public String getDescription() {
-        return "The crit chance of towers in " + (int)getRange() + " range is increased by " + format.percent(bonus) + "%.";
+    public String getLevelBonus() {
+        return format.percentWithSignAndUnit(bonus) + " crit chance for towers in " + (int)getRange() + " range.";
     }
 }

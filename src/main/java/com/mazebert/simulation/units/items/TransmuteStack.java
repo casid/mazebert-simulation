@@ -9,7 +9,7 @@ public strictfp class TransmuteStack extends TutorialItem {
 
     @Override
     public String getDescription() {
-        return "You can transmute an entire stack of cards by double tapping.\n\nTry it with these four notes!";
+        return "You can transmute an entire stack of cards by double tapping it.\n\nTry it with these four notes!";
     }
 
     @Override

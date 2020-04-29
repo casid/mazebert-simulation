@@ -9,6 +9,6 @@ public strictfp class LeatherBootsAbility extends SpeedWithLevelBonusAbility {
 
     @Override
     public String getTitle() {
-        return "Smelly haste!";
+        return "Smelly Boots, Speedy Feet";
     }
 }

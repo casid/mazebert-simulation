@@ -9,6 +9,6 @@ public strictfp class WetTowelAbility extends CritChanceWithLevelBonusAbility {
 
     @Override
     public String getTitle() {
-        return "Whooosh!";
+        return "Slap!";
     }
 }

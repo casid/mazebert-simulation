@@ -25,7 +25,7 @@ public strictfp class LongBow extends Item {
 
     @Override
     public String getDescription() {
-        return "There's nothing better than a Welsh longbow to shoot some birds for lunch.";
+        return "When you need to shoot some birds for lunch, nothing beats a Welsh longbow.";
     }
 
     @Override

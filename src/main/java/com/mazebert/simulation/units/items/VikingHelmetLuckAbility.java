@@ -7,4 +7,9 @@ public strictfp class VikingHelmetLuckAbility extends LuckWithLevelBonusAbility 
     public VikingHelmetLuckAbility() {
         super(0.2f, 0.0f);
     }
+
+    @Override
+    public String getTitle() {
+        return "Viking's Luck";
+    }
 }

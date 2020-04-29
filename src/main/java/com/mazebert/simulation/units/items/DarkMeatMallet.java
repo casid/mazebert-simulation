@@ -32,7 +32,7 @@ public strictfp class DarkMeatMallet extends Item {
 
     @Override
     public String getDescription() {
-        return "A cursed meat mallet, forged in the fires of the Dark Forge.";
+        return "A cursed meat mallet, crafted in the fires of the Dark Forge.";
     }
 
     @Override

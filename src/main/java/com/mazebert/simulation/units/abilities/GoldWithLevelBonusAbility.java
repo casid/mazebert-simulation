@@ -14,16 +14,8 @@ public strictfp class GoldWithLevelBonusAbility extends AttributeWithLevelBonusA
         return "More " + getCurrency().pluralLowercase + "!";
     }
 
-    public String getDescription() {
-        return "The carrier of this item will find\n" + format.percent(bonus) + "% more " + getCurrency().pluralLowercase + ".";
-    }
-
     @Override
-    public String getLevelBonus() {
-        if (bonusPerLevel <= 0.0) {
-            return null;
-        }
-
-        return format.percentWithSignAndUnit(bonusPerLevel) + " " + getCurrency().pluralLowercase + " per level.";
+    protected String getAttributeName() {
+        return getCurrency().pluralLowercase;
     }
 }

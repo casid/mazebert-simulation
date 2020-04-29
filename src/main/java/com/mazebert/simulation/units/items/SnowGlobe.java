@@ -25,9 +25,9 @@ public strictfp class SnowGlobe extends Item {
     @Override
     public String getDescription() {
         if (towerType == null) {
-            return "There is room for a common tower in here.";
+            return "There is room for a common tower inside.";
         }
-        return "A little " + format.card(towerType) + " lives in here.";
+        return "A little " + format.card(towerType) + " lives inside.";
     }
 
     @Override

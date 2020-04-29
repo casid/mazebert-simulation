@@ -59,11 +59,11 @@ public strictfp class DarkItemAbility extends StackableAbility<Tower> implements
 
     @Override
     public String getTitle() {
-        return "<c=#a800ff>Tribute to Dark Forge</c>";
+        return "<c=#a800ff>Dark Forge Tribute</c>";
     }
 
     @Override
     public String getDescription() {
-        return "<c=#8800aa>When the carrier gains experience, " + format.percent(TRIBUTE) + "% of it is lost as tribute to the Forge</c>";
+        return "<c=#8800aa>Each time the carrier gains experience, it sacrifices " + format.percent(TRIBUTE) + "% of it in tribute to the forge.</c>";
     }
 }

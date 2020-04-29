@@ -28,6 +28,6 @@ public strictfp class ImpatienceWrathTrainAbility extends Ability<Tower> {
 
     @Override
     public String getLevelBonus() {
-        return format.percentWithSignAndUnit(attackSpeedBonus) + " attack speed\n" + format.percentWithSignAndUnit(critChanceMalus) + " crit chance";
+        return format.percentWithSignAndUnit(attackSpeedBonus) + " attack speed.\n" + format.percentWithSignAndUnit(critChanceMalus) + " crit chance.";
     }
 }

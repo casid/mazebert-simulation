@@ -23,11 +23,11 @@ public strictfp class HelmOfHadesRangeAbility extends Ability<Tower> {
 
     @Override
     public String getTitle() {
-        return "True sight";
+        return "True Sight";
     }
 
     @Override
-    public String getDescription() {
-        return "The carrier's range is increased by 1.";
+    public String getLevelBonus() {
+        return "+1 range.";
     }
 }

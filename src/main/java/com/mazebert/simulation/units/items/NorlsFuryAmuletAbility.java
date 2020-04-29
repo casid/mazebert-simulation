@@ -9,6 +9,6 @@ public strictfp class NorlsFuryAmuletAbility extends ExperienceWithLevelBonusAbi
 
     @Override
     public String getTitle() {
-        return "Return to me, safe and sound.";
+        return "";
     }
 }

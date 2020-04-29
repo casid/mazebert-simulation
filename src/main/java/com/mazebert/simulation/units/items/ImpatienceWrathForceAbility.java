@@ -74,17 +74,7 @@ public strictfp class ImpatienceWrathForceAbility extends Ability<Tower> impleme
     }
 
     @Override
-    public String getTitle() {
-        return "Hurry up";
-    }
-
-    @Override
     public String getDescription() {
-        return "For every attack the tower produces, it gains " + format.percentWithSignAndUnit(damageBonus) + " damage (Maximum " + format.percent(maxDamageBonus) + "%). This effect stacks and resets after " + format.seconds(resetCountdown) + " without attacking.";
-    }
-
-    @Override
-    public String getLevelBonus() {
-        return null;
+        return format.percentWithSignAndUnit(damageBonus) + " damage for every attack the tower produces (Maximum " + format.percent(maxDamageBonus) + "%).\nThis effect stacks and resets after " + format.seconds(resetCountdown) + " without attacking.";
     }
 }

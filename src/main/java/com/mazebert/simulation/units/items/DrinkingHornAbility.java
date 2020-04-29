@@ -44,11 +44,11 @@ public strictfp class DrinkingHornAbility extends Ability<Tower> implements OnAb
 
     @Override
     public String getTitle() {
-        return "Drink with the gods";
+        return "Drink with the Gods";
     }
 
     @Override
-    public String getDescription() {
-        return format.percentWithSignAndUnit(potionBonus) + " effect of consumed potions\n" + format.percentWithSignAndUnit(luckBonus) + " luck\n" + format.percentWithSignAndUnit(missChance) + " chance to miss attacks";
+    public String getLevelBonus() {
+        return format.percentWithSignAndUnit(potionBonus) + " effect of consumed potions.\n" + format.percentWithSignAndUnit(luckBonus) + " luck.\n" + format.percentWithSignAndUnit(missChance) + " chance to miss attacks.";
     }
 }

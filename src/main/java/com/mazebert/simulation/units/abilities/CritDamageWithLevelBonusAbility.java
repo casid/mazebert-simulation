@@ -14,16 +14,8 @@ public strictfp class CritDamageWithLevelBonusAbility extends AttributeWithLevel
         return "Increased crit damage";
     }
 
-    public String getDescription() {
-        return "The crit damage of the carrier is\nincreased by " + format.percent(bonus) + "%.";
-    }
-
     @Override
-    public String getLevelBonus() {
-        if (bonusPerLevel <= 0.0) {
-            return null;
-        }
-
-        return format.percentWithSignAndUnit(bonusPerLevel) + " crit damage per level.";
+    protected String getAttributeName() {
+        return "crit damage";
     }
 }

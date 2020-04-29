@@ -24,7 +24,7 @@ public strictfp class LeatherBoots extends Item {
 
     @Override
     public String getDescription() {
-        return "These boots smell so badly, that the carrier is always in haste.";
+        return "The carrier runs faster, trying to escape these boots' awful odor.";
     }
 
     @Override

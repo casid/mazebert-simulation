@@ -34,7 +34,7 @@ public strictfp class MagicMushroom extends Item {
 
     @Override
     public String getDescription() {
-        return "This mushroom has the infinite potential to make you high.";
+        return "This mushroom has infinite potential to get you high.";
     }
 
     @Override

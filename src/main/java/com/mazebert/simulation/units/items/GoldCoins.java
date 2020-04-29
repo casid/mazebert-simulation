@@ -25,7 +25,7 @@ public strictfp class GoldCoins extends Item {
 
     @Override
     public String getDescription() {
-        return "Beware the attraction of money! It's the first law of the universe.";
+        return "This money makes money.";
     }
 
     @Override

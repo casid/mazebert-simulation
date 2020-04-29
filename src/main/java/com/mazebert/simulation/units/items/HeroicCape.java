@@ -27,7 +27,7 @@ public strictfp class HeroicCape extends Item {
 
     @Override
     public String getDescription() {
-        return "It's sexy and it flows in the wind.";
+        return "It's sexy, and it flows in the wind.";
     }
 
     @Override

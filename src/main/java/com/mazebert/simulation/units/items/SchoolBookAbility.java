@@ -9,6 +9,6 @@ public strictfp class SchoolBookAbility extends ExperienceWithLevelBonusAbility 
 
     @Override
     public String getTitle() {
-        return "Much to learn you have";
+        return "Much to Learn You Have";
     }
 }

@@ -25,7 +25,7 @@ public strictfp class SchoolBook extends Item {
 
     @Override
     public String getDescription() {
-        return "The cover of this book states: \"Become a successful tower in 24 days.\"";
+        return "The book's cover says: \"How to Become a Successful Tower in Just 7 Days.\"";
     }
 
     @Override

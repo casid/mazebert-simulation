@@ -14,16 +14,8 @@ public strictfp class LuckWithLevelBonusAbility extends AttributeWithLevelBonusA
         return "Increased luck";
     }
 
-    public String getDescription() {
-        return "Luck is increased by " + format.percent(bonus) + "%.";
-    }
-
     @Override
-    public String getLevelBonus() {
-        if (bonusPerLevel <= 0.0) {
-            return null;
-        }
-
-        return format.percentWithSignAndUnit(bonusPerLevel) + " luck per level.";
+    protected String getAttributeName() {
+        return "luck";
     }
 }

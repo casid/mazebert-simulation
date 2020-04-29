@@ -9,6 +9,6 @@ public strictfp class WoodAxeAbility extends DamageWithLevelBonusAbility {
 
     @Override
     public String getTitle() {
-        return "Chop, chop, chop";
+        return "Chop, Chop, Chop";
     }
 }

@@ -9,6 +9,6 @@ public strictfp class NorlsFurySwordAbility extends DamageWithLevelBonusAbility 
 
     @Override
     public String getTitle() {
-        return "It is still sharp...";
+        return "";
     }
 }

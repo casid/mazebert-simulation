@@ -27,7 +27,7 @@ public strictfp class DarkRingOfGreed extends Item {
 
     @Override
     public String getDescription() {
-        return "A cursed ring of greed, forged in the fires of the Dark Forge.";
+        return "A cursed ring of greed, crafted in the fires of the Dark Forge.";
     }
 
     @Override

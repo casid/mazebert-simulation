@@ -49,7 +49,7 @@ public strictfp class DarkBladeAbility extends CooldownAbility<Tower> {
     }
 
     @Override
-    public String getDescription() {
-        return "-" + experienceMalus + " experience every " + format.seconds(getCooldown()) + "\nCrit chance increased by " + format.percent(critChanceBonus) + "% \n+" + multicritBonus + " multicrit";
+    public String getLevelBonus() {
+        return "-" + format.experience(experienceMalus) + " experience every " + format.seconds(getCooldown()) + ".\n" + format.percentWithSignAndUnit(critChanceBonus) + " crit chance.\n+" + multicritBonus + " multicrit.";
     }
 }

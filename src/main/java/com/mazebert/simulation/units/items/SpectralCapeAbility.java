@@ -9,6 +9,6 @@ public strictfp class SpectralCapeAbility extends ArmorPenetrationWithLevelBonus
 
     @Override
     public String getTitle() {
-        return "Focus";
+        return "";
     }
 }

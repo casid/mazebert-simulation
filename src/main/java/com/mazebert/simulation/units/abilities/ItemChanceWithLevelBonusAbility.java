@@ -14,16 +14,8 @@ public strictfp class ItemChanceWithLevelBonusAbility extends AttributeWithLevel
         return "Increased item chance";
     }
 
-    public String getDescription() {
-        return "The item chance of the carrier is\nincreased by " + format.percent(bonus) + "%.";
-    }
-
     @Override
-    public String getLevelBonus() {
-        if (bonusPerLevel <= 0.0) {
-            return null;
-        }
-
-        return format.percentWithSignAndUnit(bonusPerLevel) + " item chance per level.";
+    protected String getAttributeName() {
+        return "item chance";
     }
 }

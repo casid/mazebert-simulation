@@ -25,7 +25,7 @@ public strictfp class Excalibur extends Item {
 
     @Override
     public String getDescription() {
-        return "King Arthur's legendary sword. It slices through iron as through wood.";
+        return "King Arthur's legendary sword. It slices through iron as though it were wood.";
     }
 
     @Override

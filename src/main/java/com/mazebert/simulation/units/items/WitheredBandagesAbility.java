@@ -24,17 +24,12 @@ public strictfp class WitheredBandagesAbility extends SpeedWithLevelBonusAbility
 
     @Override
     public String getTitle() {
-        return "Curse of the Pharao";
-    }
-
-    @Override
-    public String getDescription() {
-        return format.percentWithSignAndUnit(luckBonus) + " luck\n" +
-                format.percentWithSignAndUnit(bonus) + " attack speed <c=#fff8c6>(" + format.percent(bonusPerLevel) + "%/level)</c>";
+        //return "Curse of the Pharao";
+        return ""; // Not enough space
     }
 
     @Override
     public String getLevelBonus() {
-        return null;
+        return format.percentWithSignAndUnit(luckBonus) + " luck\n" + super.getLevelBonus();
     }
 }

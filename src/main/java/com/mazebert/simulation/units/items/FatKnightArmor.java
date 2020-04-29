@@ -20,12 +20,12 @@ public strictfp class FatKnightArmor extends Item {
 
     @Override
     public String getName() {
-        return "Armor of a fat knight";
+        return "Armor of a Fat Knight";
     }
 
     @Override
     public String getDescription() {
-        return "This armor is so big that it fits 9 towers.";
+        return "This armor is so big, it fits 9 towers.";
     }
 
     @Override

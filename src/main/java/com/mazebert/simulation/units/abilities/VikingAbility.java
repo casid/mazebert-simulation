@@ -30,11 +30,11 @@ public strictfp class VikingAbility extends Ability<Tower> {
 
     @Override
     public String getTitle() {
-        return "Viking Wannabe";
+        return "Viking's Legacy";
     }
 
     @Override
-    public String getDescription() {
+    public String getLevelBonus() {
         return "The carrier becomes a Viking.";
     }
 }

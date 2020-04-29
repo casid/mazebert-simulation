@@ -25,7 +25,7 @@ public strictfp class KeyOfWisdom extends Item {
 
     @Override
     public String getDescription() {
-        return "Unlock the mind, invite the wisdom, become enlightened.";
+        return "Unlock your mind. Invite wisdom. Become enlightened.";
     }
 
     @Override

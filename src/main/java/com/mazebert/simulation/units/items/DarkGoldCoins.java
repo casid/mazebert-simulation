@@ -27,7 +27,7 @@ public strictfp class DarkGoldCoins extends Item {
 
     @Override
     public String getDescription() {
-        return "Cursed gold coins, forged in the fires of the Dark Forge.";
+        return "Cursed gold coins, crafted in the fires of the Dark Forge.";
     }
 
     @Override

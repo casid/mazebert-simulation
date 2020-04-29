@@ -9,6 +9,6 @@ public strictfp class LongBowAbility extends AirDamageWithLevelBonusAbility {
 
     @Override
     public String getTitle() {
-        return "Hunt 'em down";
+        return "Hunt 'Em Down";
     }
 }

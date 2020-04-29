@@ -56,16 +56,16 @@ public strictfp class BranchOfYggdrasilAbility extends Ability<Tower> implements
 
     @Override
     public String getTitle() {
-        return "Everything is connected";
+        return "Everything is Connected";
     }
 
     @Override
     public String getDescription() {
-        return "Whenever Yggdrasil drinks a potion, the carrier of this item receives the effect of that potion, too.";
+        return "Whenever Yggdrasil drinks a potion, the carrier also receives the effect of that potion.";
     }
 
     @Override
     public String getLevelBonus() {
-        return "Limited to 1\nLimited to " + format.element(element) + " towers";
+        return "Limited to 1.\nLimited to " + format.element(element) + " towers.";
     }
 }

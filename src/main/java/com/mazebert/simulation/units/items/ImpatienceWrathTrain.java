@@ -25,7 +25,7 @@ public strictfp class ImpatienceWrathTrain extends Item {
 
     @Override
     public String getDescription() {
-        return "Choo Choo...";
+        return "Choo choo!";
     }
 
     @Override

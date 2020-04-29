@@ -51,16 +51,16 @@ public strictfp class GuardLanceAbility extends StackableAbility<Tower> {
 
     @Override
     public String getTitle() {
-        return "Guard wannabe";
+        return "Wannabe Guard";
     }
 
     @Override
     public String getDescription() {
-        return "The carrier becomes a guard.";
+        return "The carrier becomes a Guard.";
     }
 
     @Override
     public String getLevelBonus() {
-        return "+" + absoluteDamage + " base damage\n" + format.percentWithSignAndUnit(relativeDamage) + " damage";
+        return "+" + absoluteDamage + " base damage.\n" + format.percentWithSignAndUnit(relativeDamage) + " damage.";
     }
 }

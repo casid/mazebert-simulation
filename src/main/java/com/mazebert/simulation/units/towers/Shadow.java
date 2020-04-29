@@ -1,9 +1,6 @@
 package com.mazebert.simulation.units.towers;
 
-import com.mazebert.simulation.AttackType;
-import com.mazebert.simulation.Element;
-import com.mazebert.simulation.Rarity;
-import com.mazebert.simulation.Sim;
+import com.mazebert.simulation.*;
 import com.mazebert.simulation.changelog.Changelog;
 import com.mazebert.simulation.changelog.ChangelogEntry;
 import com.mazebert.simulation.projectiles.ProjectileViewType;
@@ -84,9 +81,9 @@ public strictfp class Shadow extends Tower {
     @Override
     public void populateCustomTowerBonus(CustomTowerBonus bonus) {
         bonus.title = "A:";
-        bonus.value = "<c=#5d8b4c>" + formatAdaptionNumber(adapt.getDamageAdaptedForBer()) + "%</c>/" +
-                "<c=#9da9bc>" + formatAdaptionNumber(adapt.getDamageAdaptedForFal()) + "%</c>/" +
-                "<c=#760983>" + formatAdaptionNumber(adapt.getDamageAdaptedForVex()) + "%</c>";
+        bonus.value = format.armorType(formatAdaptionNumber(adapt.getDamageAdaptedForBer()) + "%", ArmorType.Ber) + "/" +
+                format.armorType(formatAdaptionNumber(adapt.getDamageAdaptedForFal()) + "%", ArmorType.Fal) + "/" +
+                format.armorType(formatAdaptionNumber(adapt.getDamageAdaptedForVex()) + "%", ArmorType.Vex);
 
     }
 

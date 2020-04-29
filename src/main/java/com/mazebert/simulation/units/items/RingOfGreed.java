@@ -20,7 +20,7 @@ public strictfp class RingOfGreed extends Item {
 
     @Override
     public String getName() {
-        return "Ring of greed";
+        return "Ring of Greed";
     }
 
     @Override

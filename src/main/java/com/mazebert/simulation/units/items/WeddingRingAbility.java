@@ -33,16 +33,16 @@ public strictfp class WeddingRingAbility extends Ability<Tower> {
 
     @Override
     public String getTitle() {
-        return "Bond of Marriage";
+        return "Bonds of Marriage";
     }
 
     @Override
     public String getDescription() {
-        return "Whenever the carrier of this ring drinks a potion, the carrier of the other ring receives the effect of that potion, too.";
+        return "Whenever the carrier of this ring drinks a potion, the carrier of the other ring also receives that potion's effect.";
     }
 
     @Override
     public String getLevelBonus() {
-        return "It takes " + format.seconds(WeddingRingSystem.SECONDS_FOR_MARRIAGE) + " to establish the bond of marriage.";
+        return  "It takes " + format.seconds(WeddingRingSystem.SECONDS_FOR_MARRIAGE) + " to establish the bonds of marriage.";
     }
 }

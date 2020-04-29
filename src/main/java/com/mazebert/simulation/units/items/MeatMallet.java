@@ -30,7 +30,7 @@ public strictfp class MeatMallet extends Item {
 
     @Override
     public String getDescription() {
-        return "A great tool for a good beating. Cracks flesh and bones without a problem.";
+        return "A great tool for delivering a great beating. It smashes flesh and bones without a problem.";
     }
 
     @Override

@@ -221,6 +221,14 @@ public strictfp class FormatPlugin {
         return colored(element.getName(), element.color);
     }
 
+    public String armorType(ArmorType armorType) {
+        return colored(armorType.name(), armorType.color);
+    }
+
+    public String armorType(String content, ArmorType armorType) {
+        return colored(content, armorType.color);
+    }
+
     public String norseWorld(Element element) {
         return colored(element.norseWorld, element.color);
     }

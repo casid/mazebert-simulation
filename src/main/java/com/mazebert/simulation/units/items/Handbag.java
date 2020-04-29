@@ -25,7 +25,7 @@ public strictfp class Handbag extends Item {
 
     @Override
     public String getDescription() {
-        return "This handbag is the latest fashion and seems to be quite expensive.";
+        return "This handbag is the latest fashion ... and quite expensive.";
     }
 
     @Override

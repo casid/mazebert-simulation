@@ -37,12 +37,17 @@ public strictfp class MesserschmidtsReaverAbility extends SplashAbility {
 
     @Override
     public String getTitle() {
-        return "It's really heavy";
+        return "No, Seriously. It's Really Heavy.";
     }
 
     @Override
     public String getDescription() {
-        return "Range reduced by " + format.percent(rangeMalus) + "%\nAttackspeed reduced by " + format.percent(attackSpeedMalus) + "%\n" + format.percent(getDamageFactor()) + "% splash damage in " + getRange() + " range around the target";
+        return "";
+    }
+
+    @Override
+    public String getLevelBonus() {
+        return format.percentWithSignAndUnit(-rangeMalus) + " range.\n" + format.percentWithSignAndUnit(-attackSpeedMalus) + " attack speed\n" + format.percent(getDamageFactor()) + "% splash damage within " + getRange() + " range of the carrier's target.";
     }
 
     @Override

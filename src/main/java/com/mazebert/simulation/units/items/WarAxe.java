@@ -26,7 +26,7 @@ public strictfp class WarAxe extends Item {
 
     @Override
     public String getDescription() {
-        return "Made for war, it thirsts for blood.";
+        return "Made for war. Thirsty for blood.";
     }
 
     @Override

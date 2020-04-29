@@ -27,7 +27,7 @@ public strictfp class WitheredCactus extends Item {
 
     @Override
     public String getDescription() {
-        return "The happy days of this cactus are gone.";
+        return "This cactus's happy days are gone.";
     }
 
     @Override

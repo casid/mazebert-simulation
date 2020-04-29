@@ -24,7 +24,7 @@ public strictfp class WoodenStaff extends Item {
 
     @Override
     public String getDescription() {
-        return "This staff was used by generations\nof shepherds to teach their sheep\nto knock it off.";
+        return "Generations of shepherds have used this staff to teach their sheep to knock it off.";
     }
 
     @Override

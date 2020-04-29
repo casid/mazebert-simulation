@@ -38,6 +38,6 @@ public strictfp class LightbladeAcademyDroneAbility extends ProjectileDamageAbil
     @Override
     public String getDescription() {
         return "Whenever the carrier attacks, there is a " +
-                format.percent(CHANCE) + "% chance GT1 shoots a laser beam at the target dealing 100% of the carrier's damage.";
+                format.percent(CHANCE) + "% chance GT1 shoots a laser beam at the target, dealing 100% of the carrier's damage.";
     }
 }

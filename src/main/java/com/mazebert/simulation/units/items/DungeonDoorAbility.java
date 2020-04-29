@@ -41,11 +41,11 @@ public strictfp class DungeonDoorAbility extends Ability<Tower> implements OnRou
 
     @Override
     public String getTitle() {
-        return "Treasure goblin";
+        return "Treasure Goblin";
     }
 
     @Override
     public String getDescription() {
-        return "Every round there is a " + format.percent(chance) + "% chance that a treasure goblin escapes the dungeon. The goblin spawns next to the carrier.";
+        return "Each round there is a " + format.percent(chance) + "% chance that a treasure goblin escapes the dungeon. The goblin spawns next to the carrier.";
     }
 }

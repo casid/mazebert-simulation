@@ -66,11 +66,11 @@ public strictfp class BowlingBallRollAbility extends CooldownActiveAbility {
 
     @Override
     public String getTitle() {
-        return "Roll ball (Active ability)";
+        return "Bowl a Frame (Active ability)";
     }
 
     @Override
     public String getDescription() {
-        return "You can roll the ball every " + format.seconds(BALL_COOLDOWN) + ". Ground units hit by the ball have a " + format.percent(DEATH_CHANCE) + "% chance to die instantly. Bosses deflect the ball to the gutter.";
+        return "Every " + format.seconds(BALL_COOLDOWN) + ", the carrier can bowl a frame. Ground units hit by the carrier's bowling ball have a " + format.percent(DEATH_CHANCE) + "% chance to die instantly. Bosses kick the ball into the gutter.";
     }
 }

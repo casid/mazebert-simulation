@@ -28,11 +28,11 @@ public strictfp class BarrelAbility extends AuraAbility<Tower, Tower> {
 
     @Override
     public String getTitle() {
-        return "Tasty pints";
+        return "Tasty Pints";
     }
 
     @Override
-    public String getDescription() {
-        return "The damage of towers in " + (int)getRange() + " range is increased by " + format.percent(bonus) + "%.";
+    public String getLevelBonus() {
+        return format.percentWithSignAndUnit(bonus) + " damage for towers in " + (int)getRange() + " range.";
     }
 }

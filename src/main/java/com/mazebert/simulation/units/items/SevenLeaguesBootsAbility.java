@@ -9,6 +9,6 @@ public strictfp class SevenLeaguesBootsAbility extends SpeedWithLevelBonusAbilit
 
     @Override
     public String getTitle() {
-        return "Seven leagues per step";
+        return "Great Strides";
     }
 }

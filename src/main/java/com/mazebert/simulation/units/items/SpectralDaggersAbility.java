@@ -78,16 +78,16 @@ public strictfp class SpectralDaggersAbility extends Ability<Tower> implements O
 
     @Override
     public String getTitle() {
-        return "Focus";
+        return "";
     }
 
     @Override
     public String getDescription() {
-        return format.percent(chance) + "% chance on attack to gain +1 multicrit. Can stack " + maxStacksBase + " times. The stack is lost upon changing target.";
+        return format.percent(chance) + "% chance to gain +1 multicrit upon attack. Stacks up to " + maxStacksBase + " times, but stacks are lost upon changing target.";
     }
 
     @Override
     public String getLevelBonus() {
-        return format.percentWithSignAndUnit(critChance) + " crit chance";
+        return format.percentWithSignAndUnit(critChance) + " crit chance.";
     }
 }

@@ -25,7 +25,7 @@ public strictfp class FrozenHeart extends Item {
 
     @Override
     public String getDescription() {
-        return "Life still resides within this heart.";
+        return "Somehow, life still resides within this heart.";
     }
 
     @Override

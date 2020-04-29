@@ -25,7 +25,7 @@ public strictfp class NorlsFurySword extends Item {
 
     @Override
     public String getDescription() {
-        return "A long forgotten sword, once worn by Norl, an ancient hero of the North. Some of its former powers are still inside this blade...";
+        return "A long-forgotten sword once wielded by Norl, an ancient hero of the North. Some of his power still resides within the blade ...";
     }
 
     @Override

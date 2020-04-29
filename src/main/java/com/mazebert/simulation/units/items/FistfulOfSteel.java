@@ -25,7 +25,7 @@ public strictfp class FistfulOfSteel extends Item {
 
     @Override
     public String getDescription() {
-        return "A .44 full of bullets\nFace full of pale\nEyes full of empty\nA stare full of nails.";
+        return "A .44 full of bullets.\nFace full of pale.\nEyes full of empty.\nA stare full of nails.";
     }
 
     @Override

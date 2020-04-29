@@ -25,7 +25,7 @@ public strictfp class FrozenBook extends Item {
 
     @Override
     public String getDescription() {
-        return "A brilliant book, but your fingers get cold as you read it.";
+        return "A brilliant book, but your fingers freeze as you read it.";
     }
 
     @Override

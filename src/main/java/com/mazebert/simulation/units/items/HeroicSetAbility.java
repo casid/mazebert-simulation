@@ -35,6 +35,6 @@ public strictfp class HeroicSetAbility extends ItemSetAbility {
 
     @Override
     public String getDescription() {
-        return format.percentWithSignAndUnit(bonus) + " attack speed (2 set items)";
+        return format.percentWithSignAndUnit(bonus) + " attack speed. (2 set items)";
     }
 }

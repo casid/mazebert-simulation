@@ -56,14 +56,10 @@ public strictfp class SeelenreisserAbility extends Ability<Tower> implements OnK
     }
 
     @Override
-    public String getDescription() {
-        return format.percentWithSignAndUnit(totalDamage) + " damage (item bound)\n" +
-                format.percentWithSignAndUnit(critChance) + " crit chance\n" +
-                multicrit + " multicrit";
-    }
-
-    @Override
     public String getLevelBonus() {
-        return format.percentWithSignAndUnit(damagePerKill) + " damage per kill (" + format.percent(damagePerBossKill) +  "% for bosses)";
+        return "+" + format.percent(totalDamage) + "% damage (itembound).\n" +
+                format.percentWithSignAndUnit(critChance) + " crit chance.\n" +
+                multicrit + " multicrit.\n" +
+                format.percentWithSignAndUnit(damagePerKill) + " damage per kill (" + format.percent(damagePerBossKill) +  "% for bosses)";
     }
 }

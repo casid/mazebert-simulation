@@ -1,5 +1,7 @@
 package com.mazebert.simulation.units.abilities;
 
+import com.mazebert.simulation.ArmorType;
+
 public abstract strictfp class FalDamageWithLevelBonusAbility extends AttributeWithLevelBonusAbility {
     public FalDamageWithLevelBonusAbility(float bonus, float bonusPerLevel) {
         super(bonus, bonusPerLevel);
@@ -14,15 +16,8 @@ public abstract strictfp class FalDamageWithLevelBonusAbility extends AttributeW
         return "Damage against Fal";
     }
 
-    public String getDescription() {
-        return "The damage against Fal\nis increased by " + format.percent(bonus) + "%.";
-    }
-
     @Override
-    public String getLevelBonus() {
-        if (bonusPerLevel <= 0.0f) {
-            return null;
-        }
-        return format.percentWithSignAndUnit(bonusPerLevel) + " Fal damage per level.";
+    protected String getAttributeName() {
+        return format.armorType(ArmorType.Fal) + " damage";
     }
 }

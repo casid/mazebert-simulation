@@ -63,7 +63,7 @@ strictfp class SnowGlobeTest extends SimTest {
     void descriptionContainsTower() {
         givenTowerToReplace(TowerType.Beaver);
         whenTowerIsBuilt(TowerType.SnowGlobe);
-        assertThat(getSnowGlobeItem().getDescription()).isEqualTo("A little <c=#fefefe>Beaver</c> lives in here.");
+        assertThat(getSnowGlobeItem().getDescription()).isEqualTo("A little <c=#fefefe>Beaver</c> lives inside.");
     }
 
     @Test

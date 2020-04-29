@@ -56,7 +56,7 @@ public strictfp class ExcaliburAbility extends DamageWithLevelBonusAbility {
     }
 
     @Override
-    public String getDescription() {
-        return "Damage increased by " + format.percent(damageBonus) + "%\nCrit damage increased by " + format.percent(critDamageBonus) + "% \n+" + multicritBonus + " multicrit";
+    public String getLevelBonus() {
+        return format.percentWithSignAndUnit(critDamageBonus) + " crit damage.\n+" + multicritBonus + " multicrit.\n" + super.getLevelBonus();
     }
 }

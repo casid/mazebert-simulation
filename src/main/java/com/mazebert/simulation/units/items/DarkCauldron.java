@@ -27,7 +27,7 @@ public strictfp class DarkCauldron extends Item {
 
     @Override
     public String getDescription() {
-        return "A cursed cauldron, forged in the fires of the Dark Forge.";
+        return "A cursed cauldron, crafted in the fires of the Dark Forge.";
     }
 
     @Override

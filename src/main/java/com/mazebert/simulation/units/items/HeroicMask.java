@@ -27,7 +27,7 @@ public strictfp class HeroicMask extends Item {
 
     @Override
     public String getDescription() {
-        return "Put it on - it's all it takes to look bad-ass.";
+        return "All it takes to look badass.";
     }
 
     @Override

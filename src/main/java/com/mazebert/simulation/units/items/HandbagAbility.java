@@ -44,11 +44,6 @@ public strictfp class HandbagAbility extends ItemChanceWithLevelBonusAbility imp
 
     @Override
     public String getDescription() {
-        return "If the carrier of this bag is female, her item chance is increased by " + format.percent(bonus) + "%. For male towers this bag has no effect, except that it makes them look stupid.";
-    }
-
-    @Override
-    public String getLevelBonus() {
-        return format.percentWithSignAndUnit(bonusPerLevel) + " item chance per level.";
+        return "Only works on female towers. Male towers get no bonus (beyond looking silly).";
     }
 }

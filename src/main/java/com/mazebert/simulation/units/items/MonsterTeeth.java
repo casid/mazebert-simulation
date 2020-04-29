@@ -30,7 +30,7 @@ public strictfp class MonsterTeeth extends Item {
 
     @Override
     public String getDescription() {
-        return "Those teeth haven't seen a dentist in their entire life.";
+        return "These teeth haven't seen a dentist their entire life.";
     }
 
     @Override

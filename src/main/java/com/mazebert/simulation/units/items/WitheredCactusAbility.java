@@ -30,6 +30,7 @@ public strictfp class WitheredCactusAbility extends ArmorPenetrationWithLevelBon
 
     @Override
     public String getTitle() {
-        return "One Thousand Stiches";
+        //return "One Thousand Stiches";
+        return ""; // Not enough space
     }
 }

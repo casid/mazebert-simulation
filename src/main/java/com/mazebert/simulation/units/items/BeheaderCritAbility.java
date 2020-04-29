@@ -9,6 +9,6 @@ public strictfp class BeheaderCritAbility extends CritChanceWithLevelBonusAbilit
 
     @Override
     public String getTitle() {
-        return "Separation is critical!";
+        return "Separation is Critical!";
     }
 }

@@ -12,11 +12,11 @@ public strictfp class HelmOfHadesInvisibleAbility extends Ability<Tower> {
 
     @Override
     public String getTitle() {
-        return "Invisibiliy";
+        return "Invisibility";
     }
 
     @Override
-    public String getDescription() {
-        return "Whoever wears the Helm of Hades, becomes invisible.";
+    public String getLevelBonus() {
+        return "The carrier becomes invisible.";
     }
 }

@@ -25,7 +25,7 @@ public strictfp class PaintingOfSolea extends Item {
 
     @Override
     public String getDescription() {
-        return "This painting shows an unnatural\npretty girl.";
+        return "This painting shows an unnaturally pretty girl.";
     }
 
     @Override

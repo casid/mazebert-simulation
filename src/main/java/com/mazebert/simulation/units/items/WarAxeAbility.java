@@ -9,6 +9,6 @@ public strictfp class WarAxeAbility extends DamageWithLevelBonusAbility {
 
     @Override
     public String getTitle() {
-        return "Axetinction";
+        return "Axtinction";
     }
 }

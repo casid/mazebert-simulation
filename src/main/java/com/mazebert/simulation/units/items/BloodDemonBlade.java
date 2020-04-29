@@ -8,7 +8,7 @@ import com.mazebert.simulation.changelog.ChangelogEntry;
 
 public strictfp class BloodDemonBlade extends Item {
 
-    private BloodDemonBladeAbility ability;
+    private final BloodDemonBladeAbility ability;
 
     public BloodDemonBlade() {
         super(new BloodDemonBladeAbility());
@@ -29,7 +29,7 @@ public strictfp class BloodDemonBlade extends Item {
 
     @Override
     public String getDescription() {
-        return "Paid with blood,\nit better be sharp!\n(Only obtainable by summoning)";
+        return "Paid for with blood,\nit better be sharp!\n(Obtainable only by summoning)";
     }
 
     @Override

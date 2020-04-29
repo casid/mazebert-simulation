@@ -7,4 +7,9 @@ public strictfp class VikingHelmetDamageAbility extends DamageWithLevelBonusAbil
     public VikingHelmetDamageAbility() {
         super(0.5f, 0.01f);
     }
+
+    @Override
+    public String getTitle() {
+        return "Viking's Strength";
+    }
 }

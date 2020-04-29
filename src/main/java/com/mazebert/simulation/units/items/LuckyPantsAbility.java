@@ -10,6 +10,6 @@ public strictfp class LuckyPantsAbility extends LuckWithLevelBonusAbility {
 
     @Override
     public String getTitle() {
-        return "Get lucky";
+        return "Fortune Favors the Fashionable";
     }
 }
