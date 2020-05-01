@@ -33,6 +33,6 @@ public strictfp class FrozenSetAbility extends ItemSetAbility {
 
     @Override
     public String getDescription() {
-        return "Slow target by 10% (2 set items)\nKill a creep after wearing the set for at least 1 minute, to sacrifice the set for " + format.card(TowerType.Gib) + ". (4 set items)";
+        return "Slow target for 5s by 10% (2 set items)\nKill a creep after wearing the set for at least 1 minute, to sacrifice the set for " + format.card(TowerType.Gib) + ". (4 set items)";
     }
 }
