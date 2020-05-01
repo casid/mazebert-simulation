@@ -15,6 +15,6 @@ public strictfp class MjoelnirCullingStrikeAbility extends CullingStrikeAbility 
 
     @Override
     public String getDescription() {
-        return "Damaged creeps are killed instantly at " + format.percent(HEALTH_THRESHOLD) + "% of maximum life or less.";
+        return "If Mjoelnir leaves a damaged creep with less than " + format.percent(HEALTH_THRESHOLD) + "% health, it is killed.";
     }
 }
