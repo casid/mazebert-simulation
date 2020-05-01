@@ -16,16 +16,6 @@ public strictfp class CardDustLevelAbility extends PermanentLevelUpAbility {
 
     @Override
     public String getTitle() {
-        return "Experienced Dust";
-    }
-
-    @Override
-    public String getDescription() {
-        return "+" + getLevels() + " level up";
-    }
-
-    @Override
-    public String getLevelBonus() {
-        return null;
+        return "The Essence of Wisdom";
     }
 }

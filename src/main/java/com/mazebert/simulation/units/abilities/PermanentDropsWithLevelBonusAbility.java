@@ -3,8 +3,8 @@ package com.mazebert.simulation.units.abilities;
 import com.mazebert.simulation.units.towers.Tower;
 
 public abstract strictfp class PermanentDropsWithLevelBonusAbility extends StackableAbility<Tower> {
-    private ItemChanceWithLevelBonusAbility chance;
-    private ItemQualityWithLevelBonusAbility quality;
+    private final ItemChanceWithLevelBonusAbility chance;
+    private final ItemQualityWithLevelBonusAbility quality;
 
     public PermanentDropsWithLevelBonusAbility(float chanceBonus, float chanceBonusPerLevel, float qualityBonus, float qualityBonusPerLevel) {
         chance = new ItemChanceWithLevelBonusAbility(chanceBonus, chanceBonusPerLevel);
@@ -43,16 +43,14 @@ public abstract strictfp class PermanentDropsWithLevelBonusAbility extends Stack
 
     @Override
     public String getTitle() {
-        return "Come to me!";
-    }
-
-    @Override
-    public String getDescription() {
-        return "The item chance and item quality of the carrier are permanently increased by " + format.percent(chance.bonus) + "%.";
+        return "Tales of Treasure";
     }
 
     @Override
     public String getLevelBonus() {
-        return chance.getLevelBonus() + "\n" + quality.getLevelBonus();
+        return format.percentWithSignAndUnit(chance.bonus) + " " + chance.getAttributeName() + ".\n" +
+                format.percentWithSignAndUnit(quality.bonus) + " " + quality.getAttributeName() + ".\n" +
+                format.percentWithSignAndUnit(chance.bonusPerLevel) + " " + chance.getAttributeName() + " per level.\n" +
+                format.percentWithSignAndUnit(quality.bonusPerLevel) + " " + quality.getAttributeName() + " per level.";
     }
 }

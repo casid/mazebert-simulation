@@ -29,7 +29,7 @@ public strictfp class WhiteRussian extends Potion {
 
     @Override
     public String getDescription() {
-        return "Vodka, Kahlua, and Cream.";
+        return "Vodka, Kahlua, and cream.";
     }
 
     @Override

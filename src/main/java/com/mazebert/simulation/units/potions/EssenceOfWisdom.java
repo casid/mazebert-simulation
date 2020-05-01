@@ -29,7 +29,7 @@ public strictfp class EssenceOfWisdom extends Potion {
 
     @Override
     public String getDescription() {
-        return "The tears of a famous elephant deity are captured in this flask.";
+        return "This flask is rumored to contain Ganesha's tears.";
     }
 
     @Override

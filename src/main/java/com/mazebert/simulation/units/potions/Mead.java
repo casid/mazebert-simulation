@@ -30,7 +30,7 @@ public strictfp class Mead extends Potion {
 
     @Override
     public String getDescription() {
-        return "A bottle of mead! It's said this is the drink for a true Viking!";
+        return "A hearty drink, made just for Vikings.";
     }
 
     @Override

@@ -29,7 +29,7 @@ public strictfp class Tears extends Potion {
 
     @Override
     public String getDescription() {
-        return "There is no stronger force in the universe.\nUse it wisely.";
+        return "There is no stronger force in the universe.\nUse them wisely.";
     }
 
     @Override

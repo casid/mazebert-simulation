@@ -29,7 +29,7 @@ public strictfp class UncommonDrops extends Potion {
 
     @Override
     public String getDescription() {
-        return "This water is pure gold. Taste it, and it will tell you stories about long forgotten legends!";
+        return "Whoever tastes this water hears stories of long-forgotten treasure.";
     }
 
     @Override

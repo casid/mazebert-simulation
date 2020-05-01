@@ -27,7 +27,7 @@ public strictfp class ResearchLight extends Research {
 
     @Override
     public String getDescription() {
-        return "There is a bright light shining in this elixir.";
+        return "A bright light shines in this elixir.";
     }
 
     @Override

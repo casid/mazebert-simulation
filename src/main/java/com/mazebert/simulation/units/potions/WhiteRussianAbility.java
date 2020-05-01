@@ -21,11 +21,11 @@ public strictfp class WhiteRussianAbility extends Ability<Tower> {
 
     @Override
     public String getTitle() {
-        return "Delicious sipping";
+        return "Delicious Sips";
     }
 
     @Override
     public String getDescription() {
-        return "Level ups have the color of sweet cream.";
+        return "The drinker's level-ups will become sweet cream colored.";
     }
 }

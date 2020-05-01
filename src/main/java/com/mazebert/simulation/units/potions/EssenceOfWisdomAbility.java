@@ -15,11 +15,11 @@ public strictfp class EssenceOfWisdomAbility extends PermanentLevelUpAbility {
 
     @Override
     public String getTitle() {
-        return "Drink and learn.";
+        return "Drink and Learn";
     }
 
     @Override
     public String getDescription() {
-        return "Increases the wisdom of a tower, no matter how dumb the tower might be.";
+        return "The drinker grows much wiser (no matter how dumb they started out).";
     }
 }

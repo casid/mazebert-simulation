@@ -28,7 +28,7 @@ public strictfp class ResearchMetropolis extends Research {
 
     @Override
     public String getDescription() {
-        return "Technology, data and money is buzzing in this bottle.";
+        return "Technology, data, and money are buzzing inside this bottle.";
     }
 
     @Override

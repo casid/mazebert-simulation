@@ -29,7 +29,7 @@ public strictfp class Sacrifice extends Potion {
 
     @Override
     public String getDescription() {
-        return "Sometimes it's necessary to sacrifice an individual for the bigger picture.";
+        return "The needs of the many outweigh the needs of the few. Or the one.";
     }
 
     @Override

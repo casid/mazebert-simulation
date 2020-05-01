@@ -74,10 +74,10 @@ public strictfp class TearsAbility extends Ability<Tower> implements OnPotionEff
     }
 
     @Override
-    public String getDescription() {
-        return "+ " + format.percent(damage) + "% damage\n" +
-                "+ " + format.percent(critDamage) + "% crit damage\n" +
-                "+ " + format.percent(critChance) + "% crit chance\n" +
-                "+ " + multicrit + " multicrit";
+    public String getLevelBonus() {
+        return format.percentWithSignAndUnit(damage) + " damage.\n" +
+                format.percentWithSignAndUnit(critDamage) + " crit damage.\n" +
+                format.percentWithSignAndUnit(critChance) + " crit chance.\n" +
+                "+" + multicrit + " multicrit.";
     }
 }

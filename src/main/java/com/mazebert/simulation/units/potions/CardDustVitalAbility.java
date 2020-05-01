@@ -32,11 +32,11 @@ public strictfp class CardDustVitalAbility extends StackableAbility<Tower> {
 
     @Override
     public String getTitle() {
-        return "Vital Dust";
+        return "The Essence of Vitality";
     }
 
     @Override
-    public String getDescription() {
-        return "+ " + format.percent(health) + "% player health";
+    public String getLevelBonus() {
+        return format.percentWithSignAndUnit(health) + " player health.";
     }
 }

@@ -50,11 +50,11 @@ public strictfp class CardDustCritAbility extends StackableAbility<Tower> {
 
     @Override
     public String getTitle() {
-        return "Critical Dust";
+        return "The Essence of Crit";
     }
 
     @Override
-    public String getDescription() {
-        return "+ 1 multicrit";
+    public String getLevelBonus() {
+        return "+1 multicrit.";
     }
 }

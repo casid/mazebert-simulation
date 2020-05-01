@@ -6,4 +6,9 @@ public strictfp class CommonSpeedAbility extends PermanentSpeedWithLevelBonusAbi
     public CommonSpeedAbility() {
         super(0.04f, 0.0002f);
     }
+
+    @Override
+    public String getTitle() {
+        return "A Bit More Speed";
+    }
 }

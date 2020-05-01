@@ -16,4 +16,9 @@ public strictfp class CardDustCrit extends CardDust {
                 new ChangelogEntry(Sim.v10, false, 2015)
         );
     }
+
+    @Override
+    public String getName() {
+        return "Critical Dust";
+    }
 }

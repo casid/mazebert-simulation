@@ -35,7 +35,7 @@ public strictfp class ResearchAbility extends Ability<Tower> {
 
     @Override
     public String getTitle() {
-        return "Expand your horizon!";
+        return "Expand Your Horizons!";
     }
 
     @Override

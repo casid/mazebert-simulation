@@ -11,7 +11,7 @@ public abstract strictfp class DamageWithLevelBonusAbility extends AttributeWith
     }
 
     public String getTitle() {
-        return "More damage!";
+        return "More Damage";
     }
 
     @Override

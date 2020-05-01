@@ -29,7 +29,7 @@ public strictfp class UncommonSpeed extends Potion {
 
     @Override
     public String getDescription() {
-        return "If you fall behind, run faster.";
+        return "When you fall behind, run faster.";
     }
 
     @Override

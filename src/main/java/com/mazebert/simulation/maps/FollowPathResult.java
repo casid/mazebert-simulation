@@ -1,6 +1,6 @@
 package com.mazebert.simulation.maps;
 
-public class FollowPathResult {
+public strictfp class FollowPathResult {
     public int pathIndex;
     public float px;
     public float py;

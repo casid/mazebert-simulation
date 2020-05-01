@@ -29,7 +29,7 @@ public strictfp class EssenceOfLuck extends Potion {
 
     @Override
     public String getDescription() {
-        return "Distilled by a master alchemist, this potion will turn your luck around.";
+        return "Distilled by a master alchemist, this potion will turn a tower's luck around.";
     }
 
     @Override

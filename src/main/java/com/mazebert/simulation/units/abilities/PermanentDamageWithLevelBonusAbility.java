@@ -5,10 +5,6 @@ public strictfp class PermanentDamageWithLevelBonusAbility extends DamageWithLev
         super(bonus, bonusPerLevel);
     }
 
-    public String getDescription() {
-        return "The carrier's damage is permanently increased by " + format.percent(bonus) + "%.";
-    }
-
     @Override
     public boolean isPermanent() {
         return true;

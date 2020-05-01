@@ -11,9 +11,4 @@ public strictfp class EssenceOfLuckAbility extends PermanentLuckWithLevelBonusAb
     public String getTitle() {
         return "Serendipity";
     }
-
-    @Override
-    public String getDescription() {
-        return "+ " + format.percent(bonus) + "% luck";
-    }
 }

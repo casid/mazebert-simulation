@@ -6,4 +6,9 @@ public strictfp class RareDropsAbility extends PermanentDropsWithLevelBonusAbili
     public RareDropsAbility() {
         super(0.4f, 0.0016f, 0.4f, 0.0016f);
     }
+
+    @Override
+    public String getTitle() {
+        return "Grand Tales of Treasure!";
+    }
 }

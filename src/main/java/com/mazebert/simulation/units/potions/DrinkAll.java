@@ -8,7 +8,7 @@ import com.mazebert.simulation.changelog.ChangelogEntry;
 public strictfp class DrinkAll extends TutorialPotion {
     @Override
     public String getDescription() {
-        return "You can drink an entire stack of potions. Press and hold the drink button.\n\nTry it with these drinks!";
+        return "You can drink an entire stack of potions at once. To do so, press and hold the Drink button.\n\nTry it with these potions!";
     }
 
     @Override

@@ -35,16 +35,19 @@ public strictfp class UnicornTearsAbility extends Ability<Tower> {
 
     @Override
     public String getTitle() {
-        return "Pepperidge farm remembers.";
+        return "Pepperidge Farm Remembers";
     }
 
     @Override
     public String getDescription() {
-        return "Close your eyes as you taste all colors of the rainbow.";
+        return "Close your eyes, as you taste all the colors of the rainbow.";
     }
 
     @Override
     public String getLevelBonus() {
-        return "+ " + levels + " levels up";
+        if (levels == 1) {
+            return "+" + levels + " level.";
+        }
+        return "+" + levels + " levels.";
     }
 }

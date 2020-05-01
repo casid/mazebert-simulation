@@ -3,8 +3,8 @@ package com.mazebert.simulation.units.abilities;
 import com.mazebert.simulation.units.towers.Tower;
 
 public abstract strictfp class PermanentCritWithLevelBonusAbility extends StackableAbility<Tower> {
-    private CritChanceWithLevelBonusAbility chance;
-    private CritDamageWithLevelBonusAbility damage;
+    private final CritChanceWithLevelBonusAbility chance;
+    private final CritDamageWithLevelBonusAbility damage;
 
     public PermanentCritWithLevelBonusAbility(float chanceBonus, float chanceBonusPerLevel, float damageBonus, float damageBonusPerLevel) {
         chance = new CritChanceWithLevelBonusAbility(chanceBonus, chanceBonusPerLevel);
@@ -43,16 +43,14 @@ public abstract strictfp class PermanentCritWithLevelBonusAbility extends Stacka
 
     @Override
     public String getTitle() {
-        return "Be more critical!";
-    }
-
-    @Override
-    public String getDescription() {
-        return "The crit damage of the carrier is permanently increased by " + format.percent(damage.bonus) + "%. The crit chance is permanently increased by " + format.percent(chance.bonus) + "%";
+        return "More Critical";
     }
 
     @Override
     public String getLevelBonus() {
-        return damage.getLevelBonus() + "\n" + chance.getLevelBonus();
+        return format.percentWithSignAndUnit(chance.bonus) + " " + chance.getAttributeName() + ".\n" +
+                format.percentWithSignAndUnit(damage.bonus) + " " + damage.getAttributeName() + ".\n" +
+                format.percentWithSignAndUnit(chance.bonusPerLevel) + " " + chance.getAttributeName() + " per level.\n" +
+                format.percentWithSignAndUnit(damage.bonusPerLevel) + " " + damage.getAttributeName() + " per level.";
     }
 }

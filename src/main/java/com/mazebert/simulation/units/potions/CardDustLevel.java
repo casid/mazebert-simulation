@@ -11,6 +11,11 @@ public strictfp class CardDustLevel extends CardDust {
     }
 
     @Override
+    public String getName() {
+        return "Wise Dust";
+    }
+
+    @Override
     public Changelog getChangelog() {
         return new Changelog(
                 new ChangelogEntry(Sim.v10, false, 2015)

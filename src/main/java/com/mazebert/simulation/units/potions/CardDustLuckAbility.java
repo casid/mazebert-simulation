@@ -10,11 +10,6 @@ public strictfp class CardDustLuckAbility extends PermanentLuckWithLevelBonusAbi
 
     @Override
     public String getTitle() {
-        return "Lucky Dust";
-    }
-
-    @Override
-    public String getDescription() {
-        return "+ " + format.percent(bonus) + "% luck";
+        return "The Essence of Luck";
     }
 }

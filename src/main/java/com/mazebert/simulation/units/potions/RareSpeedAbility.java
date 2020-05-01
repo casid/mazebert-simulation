@@ -6,4 +6,9 @@ public strictfp class RareSpeedAbility extends PermanentSpeedWithLevelBonusAbili
     public RareSpeedAbility() {
         super(0.16f, 0.0008f);
     }
+
+    @Override
+    public String getTitle() {
+        return "A Lot More Speed!";
+    }
 }

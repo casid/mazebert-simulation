@@ -65,16 +65,16 @@ public strictfp class PainkillerAbility extends Ability<Tower> implements OnUpda
 
     @Override
     public String getTitle() {
-        return "Self destruction";
+        return "Self-destruction";
     }
 
     @Override
     public String getDescription() {
-        return "When your tower drinks this potion, it has " + (int)burndown + " more seconds to live. Then, your tower will explode in a big blast. Every creep in explosion range will die.";
+        return "After a tower drinks this potion, it lives " + (int)burndown + " more seconds. Then, it explodes in a fiery blast, killing every creep in explosion range.";
     }
 
     @Override
     public String getLevelBonus() {
-        return "+ 1 explosion range per tower level.";
+        return "+1 explosion range per level.";
     }
 }

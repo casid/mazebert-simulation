@@ -29,7 +29,7 @@ public strictfp class Painkiller extends Potion {
 
     @Override
     public String getDescription() {
-        return "If you can't stand the pain any longer, this potion will help. Promised.";
+        return "If a tower can't stand the pain any longer, this potion will help. Promise.";
     }
 
     @Override

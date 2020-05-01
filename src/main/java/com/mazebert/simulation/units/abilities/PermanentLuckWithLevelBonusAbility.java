@@ -5,10 +5,6 @@ public strictfp class PermanentLuckWithLevelBonusAbility extends LuckWithLevelBo
         super(bonus, bonusPerLevel);
     }
 
-    public String getDescription() {
-        return "The carrier's luck is permanently increased by " + format.percent(bonus) + "%.";
-    }
-
     @Override
     public boolean isPermanent() {
         return true;

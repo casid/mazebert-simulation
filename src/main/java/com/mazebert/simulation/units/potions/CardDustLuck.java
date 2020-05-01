@@ -11,6 +11,11 @@ public strictfp class CardDustLuck extends CardDust {
     }
 
     @Override
+    public String getName() {
+        return "Lucky Dust";
+    }
+
+    @Override
     public Changelog getChangelog() {
         return new Changelog(
                 new ChangelogEntry(Sim.v10, false, 2015)

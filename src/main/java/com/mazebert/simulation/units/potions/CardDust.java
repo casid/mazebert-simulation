@@ -9,11 +9,6 @@ public abstract strictfp class CardDust extends Potion {
     }
 
     @Override
-    public String getName() {
-        return "Card Dust";
-    }
-
-    @Override
     public String getDescription() {
         return "This magical dust was extracted from very powerful cards.";
     }

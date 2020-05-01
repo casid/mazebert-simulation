@@ -29,7 +29,7 @@ public strictfp class ChangeSex extends Potion {
 
     @Override
     public String getDescription() {
-        return "Explore the possibilities";
+        return "Why not explore the possibilities?";
     }
 
     @Override

@@ -82,12 +82,12 @@ public strictfp class MeadAbility extends StackableAbility<Tower> implements OnP
 
     @Override
     public String getTitle() {
-        return "Rage of the Viking!";
+        return "Another!";
     }
 
     @Override
     public String getDescription() {
-        return "Mead let's every Viking enrage! Be careful not to overdo it, though. Has no effect on other towers than Vikings.";
+        return "Just be careful not to overdo it. When a Viking drinks this potion, he becomes enraged and gains:";
     }
 
     @Override

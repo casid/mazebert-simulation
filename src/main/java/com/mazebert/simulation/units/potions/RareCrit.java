@@ -29,7 +29,7 @@ public strictfp class RareCrit extends Potion {
 
     @Override
     public String getDescription() {
-        return "Reaching the critical mass will leave a funny taste on your tounge!";
+        return "Reaching critical mass leaves a funny taste on your tongue ...";
     }
 
     @Override

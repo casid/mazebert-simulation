@@ -66,14 +66,14 @@ public strictfp class NillosAbility extends Ability<Tower> implements OnPotionEf
 
     @Override
     public String getTitle() {
-        return "Work smarter, not harder";
+        return "Work Smarter, Not Harder";
     }
 
     @Override
-    public String getDescription() {
-        return "+ " + format.percent(luckAdd) + "% luck\n" +
-                "+ " + format.percent(attackSpeedAdd) + "% attack speed\n" +
-                "+ " + format.percent(itemChance) + "% item chance\n" +
-                "+ " + format.percent(itemQuality) + "% item quality";
+    public String getLevelBonus() {
+        return format.percentWithSignAndUnit(luckAdd) + " luck.\n" +
+                format.percentWithSignAndUnit(attackSpeedAdd) + " attack speed.\n" +
+                format.percentWithSignAndUnit(itemChance) + " item chance.\n" +
+                format.percentWithSignAndUnit(itemQuality) + " item quality.";
     }
 }

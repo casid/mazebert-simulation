@@ -11,7 +11,7 @@ public abstract strictfp class SpeedWithLevelBonusAbility extends AttributeWithL
     }
 
     public String getTitle() {
-        return "More speed!";
+        return "More Speed";
     }
 
     @Override

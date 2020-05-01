@@ -27,16 +27,16 @@ public strictfp class SacrificeAbility extends Ability<Tower> {
 
     @Override
     public String getTitle() {
-        return "Sacrifice";
+        return "Self-sacrifice";
     }
 
     @Override
     public String getDescription() {
-        return "When your tower drinks this potion, it dies instantly. The dark powers of the flask tear down the tower's soul and restore some amount of your health.";
+        return "When a tower drinks this potion, it dies instantly. The flask's dark powers use the tower's soul to restore your health.";
     }
 
     @Override
     public String getLevelBonus() {
-        return "+ 1% health restored per tower level";
+        return "+1% health restored per level.";
     }
 }

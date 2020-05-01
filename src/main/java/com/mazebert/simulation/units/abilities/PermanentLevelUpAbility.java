@@ -38,6 +38,6 @@ public strictfp abstract class PermanentLevelUpAbility extends StackableAbility<
 
     @Override
     public String getLevelBonus() {
-        return "+ " + levels + " levels up";
+        return "+" + levels + " levels.";
     }
 }
