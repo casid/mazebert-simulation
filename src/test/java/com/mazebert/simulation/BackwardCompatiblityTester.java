@@ -33,12 +33,14 @@ public class BackwardCompatiblityTester {
             "ebdbea64-ab7f-4302-ab68-60ace587bd01-34707.mbg",
             "79a1e02f-3c7a-4d58-8f21-1f2ca049a1d5-6737.mbg",
             "8407598d-5540-4935-9485-41d28b594595-34164.mbg",
-            "0dd320b2-cbed-4533-b265-8eddea8dc005-35049.mbg"
+            "0dd320b2-cbed-4533-b265-8eddea8dc005-35049.mbg",
+            "08e5765a-b727-4adb-a749-c16aa5c41d28-27392.mbg",
+            "10b4c4d6-6c18-4cdb-8da5-c8967aca5438-13732.mbg"
     ));
 
     private static final Path gamesDirectory = Paths.get("games");
 
-    private ConcurrentMap<Path, Exception> errors = new ConcurrentHashMap<>();
+    private final ConcurrentMap<Path, Exception> errors = new ConcurrentHashMap<>();
 
     @AfterEach
     void tearDown() {
