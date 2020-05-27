@@ -38,9 +38,10 @@ public strictfp final class Simulation {
     private final GameGateway gameGateway = Sim.context().gameGateway;
     private final SimulationMonitor monitor = Sim.context().simulationMonitor;
 
-    private long turnTimeInNanos = TimeUnit.MILLISECONDS.toNanos(TURN_TIME_IN_MILLIS);
-    private float turnTimeInSeconds = TURN_TIME_IN_MILLIS / 1000.0f;
-    private float unmodifiedTurnTimeInSeconds = turnTimeInSeconds;
+    private final long turnTimeInNanos = TimeUnit.MILLISECONDS.toNanos(TURN_TIME_IN_MILLIS);
+    private final float unmodifiedTurnTimeInSeconds = TURN_TIME_IN_MILLIS / 1000.0f;
+
+    private float turnTimeInSeconds = unmodifiedTurnTimeInSeconds;
     private float timeModifier = 1;
     private float timeDilation;
     private float playTimeInSeconds;
@@ -96,7 +97,7 @@ public strictfp final class Simulation {
     }
 
     public boolean isRunning() {
-        return running && !gameGateway.getGame().isLost();
+        return running && !gameGateway.getGame().isOver();
     }
 
     public void stop() {
@@ -192,6 +193,14 @@ public strictfp final class Simulation {
                     throw new DsyncException("Oh shit, we have a dsync during loading. Expected: " + expected + ", actual: " + replayFrame.hash + "(My turn: " + replayFrame.turnNumber + ", theirs: " + replayFrame.turnNumber, lastValidTurnNumber);
                 }
             }
+        }
+    }
+
+    public void finishAfterLoading() {
+        this.pause = false;
+        while (isRunning()) {
+            simulateTurn(Collections.emptyList(), false);
+            turnGateway.incrementTurnNumber();
         }
     }
 

@@ -38,6 +38,7 @@ public strictfp class SimulationValidator {
             }
 
             simulation.load(replayReader, turnNumber, debugDsync);
+            simulation.finishAfterLoading();
 
             if (after != null) {
                 after.accept(context);

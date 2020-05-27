@@ -34,8 +34,8 @@ public strictfp final class WaveSpawner implements OnGameStartedListener, OnWave
 
     private final int version = Sim.context().version;
 
-    private Queue<Creep> creepQueue = new ArrayDeque<>();
-    private Queue<Creep> goblinQueue = new ArrayDeque<>();
+    private final Queue<Creep> creepQueue = new ArrayDeque<>();
+    private final Queue<Creep> goblinQueue = new ArrayDeque<>();
     private float countdownForNextCreepToSend;
     private float countdownForNextGoblinToSend;
     private boolean bonusRoundStarted;
@@ -378,7 +378,7 @@ public strictfp final class WaveSpawner implements OnGameStartedListener, OnWave
     @Override
     public void onUnitRemoved(Unit unit) {
         if (unit instanceof Creep) {
-            if (gameGateway.getGame().isLost()) {
+            if (gameGateway.getGame().isOver()) {
                 return;
             }
 

@@ -16,6 +16,7 @@ public strictfp class Game implements Hashable {
     public boolean bonusRound;
     public int bonusRoundSeconds;
     public boolean timeLord;
+    public boolean over;
 
     private boolean winter;
     private boolean winterCalculated;
@@ -28,6 +29,10 @@ public strictfp class Game implements Hashable {
         hash.add(health);
         hash.add(bonusRound);
         hash.add(bonusRoundSeconds);
+    }
+
+    public boolean isOver() {
+        return over || isLost();
     }
 
     public boolean isLost() {

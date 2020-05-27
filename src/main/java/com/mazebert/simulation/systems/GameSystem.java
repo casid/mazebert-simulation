@@ -69,7 +69,7 @@ public strictfp class GameSystem implements OnWizardHealthChangedListener, OnWav
 
     private void addGameHealth(float delta) {
         Game game = gameGateway.getGame();
-        if (game.isLost()) {
+        if (game.isOver()) {
             return;
         }
 
@@ -102,6 +102,8 @@ public strictfp class GameSystem implements OnWizardHealthChangedListener, OnWav
         }
 
         simulationListeners.onBonusRoundFinished.dispatch();
+
+        gameGateway.getGame().over = true;
     }
 
     private void showBonusRoundCompleteNotification(Wizard wizard) {
