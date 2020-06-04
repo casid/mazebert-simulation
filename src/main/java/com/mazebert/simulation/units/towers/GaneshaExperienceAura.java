@@ -6,7 +6,7 @@ import com.mazebert.simulation.units.abilities.AuraAbility;
 
 public strictfp class GaneshaExperienceAura extends AuraAbility<Tower, Tower> {
     public GaneshaExperienceAura() {
-        super(CardCategory.Tower, Tower.class, Sim.context().version >= Sim.vDoLEndBeta5 ? 0 : 3);
+        super(CardCategory.Tower, Tower.class, Sim.context().version >= Sim.vDoLEnd ? 0 : 3);
     }
 
     @Override

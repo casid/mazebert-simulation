@@ -24,7 +24,7 @@ public strictfp class TransmuteCardsCommandSerializer implements BitSerializer<T
         EnumSerializer.writeTowerPotionOrItemCardCategory(writer, object.cardCategory);
         EnumSerializer.writeCardType(writer, object.cardCategory, object.cardType);
         writer.writeBoolean(object.all);
-        if (object.all && version >= Sim.vDoLEndBeta2) {
+        if (object.all && version >= Sim.vDoLEnd) {
             writer.writeUnsignedInt8(object.amountToKeep);
         }
     }
@@ -34,7 +34,7 @@ public strictfp class TransmuteCardsCommandSerializer implements BitSerializer<T
         object.cardCategory = EnumSerializer.readTowerPotionOrItemCardCategory(reader);
         object.cardType = EnumSerializer.readCardType(reader, object.cardCategory);
         object.all = reader.readBoolean();
-        if (object.all && version >= Sim.vDoLEndBeta2) {
+        if (object.all && version >= Sim.vDoLEnd) {
             object.amountToKeep = reader.readUnsignedInt8();
         }
     }

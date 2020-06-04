@@ -191,7 +191,7 @@ class WaveGatewayTest extends SimTest {
 
     @Test
     void waveGeneration_modifiers_unionBoss_notPossibleForNewMultiPlayer() {
-        version = Sim.vDoLEndBeta2;
+        version = Sim.vDoLEnd;
         round = 101;
         randomPluginTrainer.givenFloatAbs(BOSS_ROLL, 0.0f, 0.0f, 0.31f, UNION_ROLL, 0.0f);
         playerGatewayTrainer.givenPlayerCount(2);

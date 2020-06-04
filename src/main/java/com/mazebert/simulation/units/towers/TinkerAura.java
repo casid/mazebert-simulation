@@ -18,7 +18,7 @@ public strictfp class TinkerAura extends AuraAbility<Tinker, Tower> implements O
     public TinkerAura() {
         super(CardCategory.Tower, Tower.class, 2);
 
-        if (Sim.context().version >= Sim.vDoLEndBeta3) {
+        if (Sim.context().version >= Sim.vDoLEnd) {
             bonus = 0.1f;
             bonusPerPotion[0] = 0.002f; // Common
             bonusPerPotion[1] = 0.004f; // Uncommon
@@ -102,7 +102,7 @@ public strictfp class TinkerAura extends AuraAbility<Tinker, Tower> implements O
             return false;
         }
 
-        if (potion instanceof TutorialPotion && Sim.context().version >= Sim.vDoLEndBeta3) {
+        if (potion instanceof TutorialPotion && Sim.context().version >= Sim.vDoLEnd) {
             return false;
         }
 

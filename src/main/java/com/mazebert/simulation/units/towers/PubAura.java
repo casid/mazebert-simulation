@@ -7,7 +7,7 @@ import com.mazebert.simulation.units.abilities.AuraAbility;
 public strictfp class PubAura extends AuraAbility<Tower, Tower> {
 
     public PubAura() {
-        super(CardCategory.Tower, Tower.class, Sim.context().version >= Sim.vDoLEndBeta5 ? 0 : 2);
+        super(CardCategory.Tower, Tower.class, Sim.context().version >= Sim.vDoLEnd ? 0 : 2);
     }
 
     @Override

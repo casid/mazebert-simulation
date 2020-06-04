@@ -49,7 +49,7 @@ public strictfp class WolfSystem implements OnUnitAddedListener, OnLevelChangedL
     }
 
     public void addPretender(Tower tower) {
-        if (version >= Sim.vDoLEndBeta5 && tower instanceof Wolf) {
+        if (version >= Sim.vDoLEnd && tower instanceof Wolf) {
             return;
         }
 

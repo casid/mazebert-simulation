@@ -59,7 +59,7 @@ public strictfp class UnicornImpaleAbility extends AuraAbility<Tower, Creep> {
             return false;
         }
 
-        if (Sim.context().version < Sim.vDoLEndBeta2 && getUnit().hasAbility(HelmOfHadesInvisibleAbility.class)) {
+        if (Sim.context().version < Sim.vDoLEnd && getUnit().hasAbility(HelmOfHadesInvisibleAbility.class)) {
             return false;
         }
 

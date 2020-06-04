@@ -8,7 +8,7 @@ public strictfp class ManitouAura extends AuraAbility<Tower, Tower> {
     private static final int BONUS = 2;
 
     public ManitouAura() {
-        super(CardCategory.Tower, Tower.class, Sim.context().version >= Sim.vDoLEndBeta5 ? 0 : 3);
+        super(CardCategory.Tower, Tower.class, Sim.context().version >= Sim.vDoLEnd ? 0 : 3);
     }
 
     @Override

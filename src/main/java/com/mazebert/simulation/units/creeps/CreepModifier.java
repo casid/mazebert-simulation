@@ -72,7 +72,7 @@ public strictfp enum CreepModifier {
                 break;
             case Loot:
                 creep.setDropChance(creep.getDropChance() * 1.2f);
-                if (Sim.context().version >= Sim.vDoLEndBeta3 && creep.getWave().creepCount == 1) {
+                if (Sim.context().version >= Sim.vDoLEnd && creep.getWave().creepCount == 1) {
                     creep.setMinDrops(creep.getMinDrops() + 1);
                     creep.setMaxDrops(creep.getMaxDrops() + 1);
                 }
@@ -108,7 +108,7 @@ public strictfp enum CreepModifier {
         }
 
         if (this == Union && wave.creepCount <= 1) {
-            if (Sim.context().version >= Sim.vDoLEndBeta2) {
+            if (Sim.context().version >= Sim.vDoLEnd) {
                 return false;
             } else {
                 return Sim.context().playerGateway.getPlayerCount() > 1;
