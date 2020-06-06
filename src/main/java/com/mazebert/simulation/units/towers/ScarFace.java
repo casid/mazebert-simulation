@@ -14,18 +14,24 @@ public strictfp class ScarFace extends Tower {
         setBaseCooldown(3.0f);
         setBaseRange(2.0f);
         setAttackType(AttackType.Ber);
-        setStrength(0.25f);
+        if (Sim.context().version >= Sim.vDoLEnd) {
+            setStrength(0.33f);
+        } else {
+            setStrength(0.25f);
+        }
         setDamageSpread(0.0f);
         setGender(Gender.Male);
         setElement(Element.Metropolis);
 
-        addAbility(new ScarFaceBurst());
-        addAbility(new ScarFaceAttack());
+        ScarFaceBurst burst = new ScarFaceBurst();
+        addAbility(burst);
+        addAbility(new ScarFaceAttack(burst));
     }
 
     @Override
     public Changelog getChangelog() {
         return new Changelog(
+                new ChangelogEntry(Sim.vDoLEnd, false, 2020, "Increased base damage by 32%.", "Reduced chance per level from 0.3% to 0.2%."),
                 new ChangelogEntry(Sim.v10, false, 2014)
         );
     }

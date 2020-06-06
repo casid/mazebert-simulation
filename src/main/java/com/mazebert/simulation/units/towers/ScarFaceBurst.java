@@ -24,6 +24,16 @@ public strictfp class ScarFaceBurst extends Ability<Tower> implements OnAttackLi
     private int currentShotCount;
     private Creep currentTarget;
 
+    private final float chance = 0.3f;
+    private final float chancePerLevel;
+
+    public ScarFaceBurst() {
+        if (Sim.context().version >= Sim.vDoLEnd) {
+            chancePerLevel = 0.002f;
+        } else {
+            chancePerLevel = 0.003f;
+        }
+    }
 
     @Override
     protected void initialize(Tower unit) {
@@ -109,7 +119,7 @@ public strictfp class ScarFaceBurst extends Ability<Tower> implements OnAttackLi
         Tower tower = getUnit();
 
         int shots = 1;
-        float chance = ScarFaceAttack.CHANCE + tower.getLevel() * ScarFaceAttack.CHANCE_PER_LEVEL;
+        float chance = this.chance + tower.getLevel() * chancePerLevel;
 
         for (int i = 0; i < ScarFaceAttack.MAX_SHOTS; ++i) {
             if (tower.isAbilityTriggered(chance)) {
@@ -140,6 +150,14 @@ public strictfp class ScarFaceBurst extends Ability<Tower> implements OnAttackLi
             return currentShotCount;
         }
         return 0;
+    }
+
+    public float getChance() {
+        return chance;
+    }
+
+    public float getChancePerLevel() {
+        return chancePerLevel;
     }
 
     @Override

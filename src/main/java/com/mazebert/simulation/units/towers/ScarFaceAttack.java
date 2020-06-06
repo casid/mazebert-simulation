@@ -9,9 +9,14 @@ import com.mazebert.simulation.units.abilities.AttackAbility;
  * The actual implementation is in the burst ability.
  */
 public strictfp class ScarFaceAttack extends AttackAbility {
-    public static final float CHANCE = 0.3f;
-    public static final float CHANCE_PER_LEVEL = 0.003f;
+
     public static final int MAX_SHOTS = 256;
+
+    private final ScarFaceBurst burst;
+
+    public ScarFaceAttack(ScarFaceBurst burst) {
+        this.burst = burst;
+    }
 
     @Override
     public boolean isVisibleToUser() {
@@ -25,12 +30,12 @@ public strictfp class ScarFaceAttack extends AttackAbility {
 
     @Override
     public String getDescription() {
-        return "After each attack, there is a " + format.percent(CHANCE) + "% chance to fire another shot.";
+        return "After each attack, there is a " + format.percent(burst.getChance()) + "% chance to fire another shot.";
     }
 
     @Override
     public String getLevelBonus() {
-        return "+" + format.percent(CHANCE_PER_LEVEL) + "% chance per level.";
+        return "+" + format.percent(burst.getChancePerLevel()) + "% chance per level.";
     }
 
     @Override
