@@ -33,6 +33,7 @@ public strictfp class Wolf extends Tower {
     @Override
     public Changelog getChangelog() {
         return new Changelog(
+                new ChangelogEntry(Sim.vDoLEnd, false, 2020, "Equipped WolfSkin item does not grant another alpha wolf bonus."),
                 new ChangelogEntry(Sim.v10, false, 2013)
         );
     }
