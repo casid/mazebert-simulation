@@ -17,6 +17,7 @@ public strictfp class LightbladeAcademySword extends Item {
     @Override
     public Changelog getChangelog() {
         return new Changelog(
+                new ChangelogEntry(Sim.vDoLEnd, false, 2020, "Item level reduced from 84 to 64, damage per level reduced from 15% to 10%."),
                 new ChangelogEntry(Sim.v10, false, 2015)
         );
     }
@@ -48,6 +49,10 @@ public strictfp class LightbladeAcademySword extends Item {
 
     @Override
     public int getItemLevel() {
-        return 84;
+        if (Sim.context().version >= Sim.vDoLEnd) {
+            return 64;
+        } else {
+            return 84;
+        }
     }
 }

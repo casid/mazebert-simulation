@@ -466,7 +466,7 @@ public class LootTest extends SimTest {
                 0.0f, // This is a drop
                 0.000005f, // The rarity of this drop is unique
                 0.0f, // This is an item drop
-                0.35f // It's a wedding ring!
+                0.45f // It's a wedding ring!
         );
         creep.setMaxDrops(1);
         creep.setMaxItemLevel(120);
@@ -484,7 +484,7 @@ public class LootTest extends SimTest {
                 0.0f, // This is a drop
                 0.000005f, // The rarity of this drop is unique
                 0.0f, // This is an item drop
-                0.45f // It's a wedding ring!
+                0.55f // It's a wedding ring!
         );
         creep.setMaxDrops(1);
         creep.setMaxItemLevel(120);

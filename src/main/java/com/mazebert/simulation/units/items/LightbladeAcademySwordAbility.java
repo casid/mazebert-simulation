@@ -10,11 +10,19 @@ import com.mazebert.simulation.units.towers.Tower;
 
 public strictfp class LightbladeAcademySwordAbility extends Ability<Tower> implements OnLevelChangedListener {
     private static final int REQUIRED_LEVEL = 50;
-    private static final float DAMAGE_LEVEL_BONUS = 0.15f;
+    private final float damageLevelBonus;
 
     private final SimulationListeners simulationListeners = Sim.context().simulationListeners;
 
     private float damageBonus;
+
+    public LightbladeAcademySwordAbility() {
+        if (Sim.context().version >= Sim.vDoLEnd) {
+            damageLevelBonus = 0.1f;
+        } else {
+            damageLevelBonus = 0.15f;
+        }
+    }
 
     @Override
     protected void initialize(Tower unit) {
@@ -55,7 +63,7 @@ public strictfp class LightbladeAcademySwordAbility extends Ability<Tower> imple
 
     private void addBonus() {
         if (getUnit().getLevel() >= REQUIRED_LEVEL) {
-            damageBonus = getUnit().getLevel() * DAMAGE_LEVEL_BONUS;
+            damageBonus = getUnit().getLevel() * damageLevelBonus;
             getUnit().addAddedRelativeBaseDamage(damageBonus);
         } else {
             damageBonus = 0.0f;
@@ -74,7 +82,7 @@ public strictfp class LightbladeAcademySwordAbility extends Ability<Tower> imple
 
     @Override
     public String getLevelBonus() {
-        return format.percentWithSignAndUnit(DAMAGE_LEVEL_BONUS) + " damage per level.\n(Requires level " + REQUIRED_LEVEL + ")";
+        return format.percentWithSignAndUnit(damageLevelBonus) + " damage per level.\n(Requires level " + REQUIRED_LEVEL + ")";
     }
 
     public String getBladeIcon() {
