@@ -18,6 +18,9 @@ import com.mazebert.simulation.units.potions.PotionType;
 import com.mazebert.simulation.units.towers.Tower;
 import com.mazebert.simulation.units.wizards.Wizard;
 
+import java.util.Collections;
+import java.util.EnumSet;
+
 public strictfp class ItemTest extends SimTest {
     protected RandomPluginTrainer randomPluginTrainer;
     protected DamageSystemTrainer damageSystemTrainer;
@@ -53,6 +56,17 @@ public strictfp class ItemTest extends SimTest {
 
     protected Tower createTower() {
         return new TestTower();
+    }
+
+    protected void givenAllUniqueItemsAlreadyDroppedExcept(ItemType ... exceptItemTypes) {
+        EnumSet<ItemType> excludeSet = EnumSet.noneOf(ItemType.class);
+        Collections.addAll(excludeSet, exceptItemTypes);
+
+        for (ItemType itemType : ItemType.values()) {
+            if (!excludeSet.contains(itemType)) {
+                wizard.itemStash.setUnique(itemType, itemType.instance());
+            }
+        }
     }
 
     protected void whenItemIsEquipped(ItemType itemType) {

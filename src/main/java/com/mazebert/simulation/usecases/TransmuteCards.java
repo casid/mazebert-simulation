@@ -16,6 +16,7 @@ import com.mazebert.simulation.units.wizards.Wizard;
 import java.util.ArrayList;
 import java.util.List;
 
+@SuppressWarnings("rawtypes")
 public strictfp class TransmuteCards extends Usecase<TransmuteCardsCommand> {
 
     private static final int requiredUniqueAmount = 2;
@@ -83,6 +84,7 @@ public strictfp class TransmuteCards extends Usecase<TransmuteCardsCommand> {
 
     @SuppressWarnings("unchecked")
     private void transmuteToiletPaper(Wizard wizard, Stash stash, CardType cardType) {
+        int version = Sim.context().version;
         int index = stash.getIndex(cardType);
         stash.remove(cardType);
 
@@ -92,17 +94,31 @@ public strictfp class TransmuteCards extends Usecase<TransmuteCardsCommand> {
         stash.addPossibleDropsExcludingSupporterCards(wizard, Rarity.Unique, possibleItems);
         stash.addPossibleDropsExcludingSupporterCards(wizard, Rarity.Legendary, possibleItems);
 
-        if (Sim.context().version >= Sim.vDoLEnd) {
-            possibleItems.remove(ItemType.WeddingRing1);
-            possibleItems.remove(ItemType.WeddingRing2);
-        }
-
-        for (int i = 0; i < ToiletPaperTransmuteAbility.AMOUNT && !possibleItems.isEmpty(); ++i) {
+        int amount;
+        for (amount = 0; amount < ToiletPaperTransmuteAbility.AMOUNT && !possibleItems.isEmpty(); ++amount) {
             CardType item = randomPlugin.get(possibleItems);
             possibleItems.remove(item);
 
             insertDrop(wizard, stash, cardType, index, item, false);
             result.add(item);
+
+            if (version >= Sim.vDoLEnd) {
+                if (item == ItemType.WeddingRing1) {
+                    insertDrop(wizard, stash, cardType, index, ItemType.WeddingRing2, false);
+                    result.add(ItemType.WeddingRing2);
+                } else if (item == ItemType.WeddingRing2) {
+                    insertDrop(wizard, stash, cardType, index, ItemType.WeddingRing1, false);
+                    result.add(ItemType.WeddingRing1);
+                }
+            }
+        }
+
+        if (version >= Sim.vDoLEnd) {
+            for (; amount < ToiletPaperTransmuteAbility.AMOUNT; ++amount) {
+                PotionType dust = randomPlugin.get(cardDusts);
+                wizard.potionStash.add(dust);
+                result.add(dust);
+            }
         }
 
         wizard.onCardsTransmuted.dispatch(Rarity.Legendary, result, 1);

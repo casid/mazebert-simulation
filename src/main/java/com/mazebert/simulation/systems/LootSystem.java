@@ -12,6 +12,7 @@ import com.mazebert.simulation.units.items.ItemType;
 import com.mazebert.simulation.units.towers.Tower;
 import com.mazebert.simulation.units.wizards.Wizard;
 
+@SuppressWarnings("rawtypes")
 public strictfp class LootSystem {
     private final RandomPlugin randomPlugin = Sim.context().randomPlugin;
     private final SimulationListeners simulationListeners = Sim.context().simulationListeners;
@@ -136,8 +137,7 @@ public strictfp class LootSystem {
             }
             if (drop == ItemType.WeddingRing1) {
                 addToStash(wizard, creep, stash, ItemType.WeddingRing2);
-            }
-            if (drop == ItemType.WeddingRing2) {
+            } else if (drop == ItemType.WeddingRing2) {
                 addToStash(wizard, creep, stash, ItemType.WeddingRing1);
             }
         }

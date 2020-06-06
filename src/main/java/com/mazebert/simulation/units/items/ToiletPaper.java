@@ -15,6 +15,7 @@ public strictfp class ToiletPaper extends Item {
     @Override
     public Changelog getChangelog() {
         return new Changelog(
+                new ChangelogEntry(Sim.vDoLEnd, false, 2020, "Wedding rings obtained by Toilet Paper drop in pairs.", "Gain card dusts if no more unique items are available to drop."),
                 new ChangelogEntry(Sim.vCorona, false, 2020)
         );
     }
