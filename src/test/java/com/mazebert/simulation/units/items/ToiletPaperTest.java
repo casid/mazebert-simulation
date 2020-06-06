@@ -72,8 +72,12 @@ class ToiletPaperTest extends ItemTest {
         whenCardIsTransmuted(ItemType.ToiletPaper);
 
         assertThat(wizard.itemStash.size()).isEqualTo(2);
-        assertThat(wizard.itemStash.get(0).cardType).isEqualTo(ItemType.WeddingRing1);
-        assertThat(wizard.itemStash.get(1).cardType).isEqualTo(ItemType.WeddingRing2);
+        assertThat(wizard.itemStash.get(0).cardType).isEqualTo(ItemType.WeddingRing2);
+        assertThat(wizard.itemStash.get(0).amount).isEqualTo(1);
+        assertThat(wizard.itemStash.get(1).cardType).isEqualTo(ItemType.WeddingRing1);
+        assertThat(wizard.itemStash.get(1).amount).isEqualTo(1);
+        assertThat(wizard.potionStash.size()).isEqualTo(1);
+        assertThat(wizard.potionStash.get(0).amount).isEqualTo(2);
     }
 
     @Test
@@ -83,10 +87,15 @@ class ToiletPaperTest extends ItemTest {
 
         whenCardIsTransmuted(ItemType.ToiletPaper);
 
-        assertThat(wizard.itemStash.size()).isEqualTo(3);
-        assertThat(wizard.itemStash.get(0).cardType).isEqualTo(ItemType.WeddingRing1);
+        assertThat(wizard.itemStash.size()).isEqualTo(4);
+        assertThat(wizard.itemStash.get(0).cardType).isEqualTo(ItemType.Excalibur);
+        assertThat(wizard.itemStash.get(0).amount).isEqualTo(1);
         assertThat(wizard.itemStash.get(1).cardType).isEqualTo(ItemType.WeddingRing2);
-        assertThat(wizard.itemStash.get(2).cardType).isEqualTo(ItemType.DungeonDoor);
+        assertThat(wizard.itemStash.get(1).amount).isEqualTo(1);
+        assertThat(wizard.itemStash.get(2).cardType).isEqualTo(ItemType.WeddingRing1);
+        assertThat(wizard.itemStash.get(2).amount).isEqualTo(1);
+        assertThat(wizard.itemStash.get(3).cardType).isEqualTo(ItemType.DungeonDoor);
+        assertThat(wizard.itemStash.get(3).amount).isEqualTo(1);
     }
 
     @Test

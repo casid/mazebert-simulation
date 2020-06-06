@@ -97,18 +97,14 @@ public strictfp class TransmuteCards extends Usecase<TransmuteCardsCommand> {
         int amount;
         for (amount = 0; amount < ToiletPaperTransmuteAbility.AMOUNT && !possibleItems.isEmpty(); ++amount) {
             CardType item = randomPlugin.get(possibleItems);
-            possibleItems.remove(item);
 
-            insertDrop(wizard, stash, cardType, index, item, false);
-            result.add(item);
+            addToiletPaperRewardCard(wizard, stash, cardType, index, result, possibleItems, item);
 
             if (version >= Sim.vDoLEnd) {
                 if (item == ItemType.WeddingRing1) {
-                    insertDrop(wizard, stash, cardType, index, ItemType.WeddingRing2, false);
-                    result.add(ItemType.WeddingRing2);
+                    addToiletPaperRewardCard(wizard, stash, cardType, index, result, possibleItems, ItemType.WeddingRing2);
                 } else if (item == ItemType.WeddingRing2) {
-                    insertDrop(wizard, stash, cardType, index, ItemType.WeddingRing1, false);
-                    result.add(ItemType.WeddingRing1);
+                    addToiletPaperRewardCard(wizard, stash, cardType, index, result, possibleItems, ItemType.WeddingRing1);
                 }
             }
         }
@@ -122,6 +118,12 @@ public strictfp class TransmuteCards extends Usecase<TransmuteCardsCommand> {
         }
 
         wizard.onCardsTransmuted.dispatch(Rarity.Legendary, result, 1);
+    }
+
+    private void addToiletPaperRewardCard(Wizard wizard, Stash stash, CardType cardType, int index, List<CardType> result, List<CardType> possibleItems, CardType item) {
+        possibleItems.remove(item);
+        insertDrop(wizard, stash, cardType, index, item, false);
+        result.add(item);
     }
 
     @SuppressWarnings("unchecked")
