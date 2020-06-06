@@ -14,6 +14,7 @@ public strictfp class MonsterTeeth extends Item {
     @Override
     public Changelog getChangelog() {
         return new Changelog(
+                new ChangelogEntry(Sim.vDoLEnd, false, 2020, "Crit chance increased from 15% to 20%."),
                 new ChangelogEntry(Sim.v10, false, 2013)
         );
     }
