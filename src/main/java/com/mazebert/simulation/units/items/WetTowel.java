@@ -14,6 +14,7 @@ public strictfp class WetTowel extends Item {
     @Override
     public Changelog getChangelog() {
         return new Changelog(
+                new ChangelogEntry(Sim.vDoLEnd, false, 2020, "Crit chance increased from 5% to 8%."),
                 new ChangelogEntry(Sim.v10, false, 2013)
         );
     }
