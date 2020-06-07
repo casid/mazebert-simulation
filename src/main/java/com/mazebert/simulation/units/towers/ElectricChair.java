@@ -20,11 +20,10 @@ public strictfp class ElectricChair extends Tower {
         setAttackType(AttackType.Vex);
         if (version >= Sim.vDoLEnd) {
             setStrength(0.66f);
-            setDamageSpread(1.0f);
         } else {
             setStrength(0.55f);
-            setDamageSpread(0.5f);
         }
+        setDamageSpread(0.5f);
         setGender(Gender.Unknown);
         setElement(Element.Metropolis);
 
@@ -36,7 +35,7 @@ public strictfp class ElectricChair extends Tower {
     @Override
     public Changelog getChangelog() {
         return new Changelog(
-                new ChangelogEntry(Sim.vDoLEnd, false, 2020, "Initial chains increased from 1 to 2.", "Base damage increased by 20%.", "Damage spreads from 1-x."),
+                new ChangelogEntry(Sim.vDoLEnd, false, 2020, "Initial chains increased from 1 to 2.", "Base damage increased by 20%."),
                 new ChangelogEntry(Sim.v10, false, 2013)
         );
     }
