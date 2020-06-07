@@ -29,6 +29,7 @@ public strictfp class MrIron extends Tower {
     @Override
     public Changelog getChangelog() {
         return new Changelog(
+                new ChangelogEntry(Sim.vDoLEnd, false, 2020, "Dark Forge items cannot steal more experience than gained. In particular, Mr. Iron cannot loose experience through dark items anymore."),
                 new ChangelogEntry(Sim.v10, false, 2014)
         );
     }

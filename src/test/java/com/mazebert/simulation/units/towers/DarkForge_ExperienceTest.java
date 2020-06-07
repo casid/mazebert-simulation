@@ -53,4 +53,26 @@ strictfp class DarkForge_ExperienceTest extends SimTest {
         assertThat(darkForge.getExperience()).isEqualTo(3.0f);
         assertThat(tower.getExperience()).isEqualTo(7.0f);
     }
+
+    @Test
+    void mrIronDoesNotLooseXp() {
+        MrIron mrIron = new MrIron();
+        mrIron.setExperience(10000);
+        unitGateway.addUnit(mrIron);
+        givenDarkItemsAreIntegrated(mrIron);
+        givenDarkItemsAreIntegrated(mrIron);
+        givenDarkItemsAreIntegrated(mrIron);
+
+        experienceSystem.grantExperience(mrIron, 10);
+        assertThat(mrIron.getExperience()).isEqualTo(10000);
+        assertThat(darkForge.getExperience()).isEqualTo(10);
+    }
+
+    private void givenDarkItemsAreIntegrated(MrIron mrIron) {
+        mrIron.setItem(0, new DarkBabySword());
+        mrIron.setItem(1, new DarkBabySword());
+        mrIron.setItem(2, new DarkBabySword());
+        mrIron.setItem(3, new DarkBabySword());
+        mrIron.getAbility(MrIronConstruct.class).activate();
+    }
 }

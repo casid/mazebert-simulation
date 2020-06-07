@@ -13,6 +13,7 @@ public strictfp class DarkItemAbility extends StackableAbility<Tower> implements
 
     public static final float TRIBUTE = 0.15f;
 
+    private final int version = Sim.context().version;
     private final UnitGateway unitGateway = Sim.context().unitGateway;
     private final ExperienceSystem experienceSystem = Sim.context().experienceSystem;
 
@@ -35,10 +36,21 @@ public strictfp class DarkItemAbility extends StackableAbility<Tower> implements
     @Override
     public void onExperienceChanged(Unit unit, float oldExperience, float newExperience) {
         if (newExperience > oldExperience) {
-            tribute = getStackCount() * TRIBUTE * (newExperience - oldExperience);
+            tribute = calculateTribute(oldExperience, newExperience);
             experienceSystem.grantExperience(getUnit(), -tribute);
 
             unitGateway.forEachTower(DarkForge.class, this);
+        }
+    }
+
+    private float calculateTribute(float oldExperience, float newExperience) {
+        float experienceGained = newExperience - oldExperience;
+        float tribute = getStackCount() * TRIBUTE * experienceGained;
+
+        if (version >= Sim.vDoLEnd && tribute > experienceGained) {
+            return experienceGained;
+        } else {
+            return tribute;
         }
     }
 
