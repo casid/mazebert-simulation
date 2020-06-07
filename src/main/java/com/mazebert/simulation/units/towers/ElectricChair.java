@@ -13,23 +13,30 @@ import com.mazebert.simulation.units.abilities.InstantDamageAbility;
 public strictfp class ElectricChair extends Tower {
 
     public ElectricChair() {
+        int version = Sim.context().version;
+
         setBaseCooldown(2.5f);
         setBaseRange(1);
         setAttackType(AttackType.Vex);
-        setStrength(0.55f);
-        setDamageSpread(0.5f);
+        if (version >= Sim.vDoLEnd) {
+            setStrength(0.66f);
+            setDamageSpread(1.0f);
+        } else {
+            setStrength(0.55f);
+            setDamageSpread(0.5f);
+        }
         setGender(Gender.Unknown);
         setElement(Element.Metropolis);
 
         addAbility(new AttackAbility());
         addAbility(new InstantDamageAbility());
-        addAbility(new ElectricChairLightning());
+        addAbility(new ElectricChairLightning(version >= Sim.vDoLEnd ? 2 : 1));
     }
 
     @Override
     public Changelog getChangelog() {
         return new Changelog(
-                new ChangelogEntry(Sim.vDoLEnd, false, 2020, "+1 chain every 7 instead of 14 levels"),
+                new ChangelogEntry(Sim.vDoLEnd, false, 2020, "Initial chains increased from 1 to 2.", "Base damage increased by 20%.", "Damage spreads from 1-x."),
                 new ChangelogEntry(Sim.v10, false, 2013)
         );
     }
@@ -77,6 +84,6 @@ public strictfp class ElectricChair extends Tower {
     @Override
     public void populateCustomTowerBonus(CustomTowerBonus bonus) {
         bonus.title = "Chains:";
-        bonus.value = "+" + getAbility(ElectricChairLightning.class).getMaxChains();
+        bonus.value = "" + getAbility(ElectricChairLightning.class).getMaxChains();
     }
 }

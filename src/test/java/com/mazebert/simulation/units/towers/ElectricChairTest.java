@@ -99,23 +99,26 @@ class ElectricChairTest extends SimTest implements OnChainListener {
     }
 
     @Test
-    void attack_three() {
+    void attack_four() {
         Creep creep1 = a(creep());
         unitGateway.addUnit(creep1);
         Creep creep2 = a(creep());
         unitGateway.addUnit(creep2);
         Creep creep3 = a(creep());
         unitGateway.addUnit(creep3);
+        Creep creep4 = a(creep());
+        unitGateway.addUnit(creep4);
 
         whenTowerAttacks();
 
         assertThat(creep1.getHealth()).isEqualTo(90);
         assertThat(creep2.getHealth()).isEqualTo(90);
-        assertThat(creep3.getHealth()).isEqualTo(100);
+        assertThat(creep3.getHealth()).isEqualTo(90);
+        assertThat(creep4.getHealth()).isEqualTo(100);
     }
 
     @Test
-    void attack_three_oneDead() {
+    void attack_four_oneDead() {
         Creep creep1 = a(creep());
         unitGateway.addUnit(creep1);
         Creep creep2 = a(creep());
@@ -123,22 +126,27 @@ class ElectricChairTest extends SimTest implements OnChainListener {
         unitGateway.addUnit(creep2);
         Creep creep3 = a(creep());
         unitGateway.addUnit(creep3);
+        Creep creep4 = a(creep());
+        unitGateway.addUnit(creep4);
 
         whenTowerAttacks();
 
         assertThat(creep1.getHealth()).isEqualTo(90);
         assertThat(creep2.getHealth()).isEqualTo(0);
         assertThat(creep3.getHealth()).isEqualTo(90);
+        assertThat(creep4.getHealth()).isEqualTo(90);
     }
 
     @Test
-    void attack_three_afterLevelUp() {
+    void attack_four_afterLevelUp() {
         Creep creep1 = a(creep());
         unitGateway.addUnit(creep1);
         Creep creep2 = a(creep());
         unitGateway.addUnit(creep2);
         Creep creep3 = a(creep());
         unitGateway.addUnit(creep3);
+        Creep creep4 = a(creep());
+        unitGateway.addUnit(creep4);
 
         electricChair.setLevel(14);
         whenTowerAttacks();
@@ -146,6 +154,7 @@ class ElectricChairTest extends SimTest implements OnChainListener {
         assertThat(creep1.getHealth()).isEqualTo(90);
         assertThat(creep2.getHealth()).isEqualTo(90);
         assertThat(creep3.getHealth()).isEqualTo(90);
+        assertThat(creep4.getHealth()).isEqualTo(90);
     }
 
     @Test
@@ -173,7 +182,7 @@ class ElectricChairTest extends SimTest implements OnChainListener {
         CustomTowerBonus bonus = new CustomTowerBonus();
         electricChair.populateCustomTowerBonus(bonus);
         assertThat(bonus.title).isEqualTo("Chains:");
-        assertThat(bonus.value).isEqualTo("+1");
+        assertThat(bonus.value).isEqualTo("2");
     }
 
     @Test
@@ -184,7 +193,7 @@ class ElectricChairTest extends SimTest implements OnChainListener {
         electricChair.populateCustomTowerBonus(bonus);
 
         assertThat(bonus.title).isEqualTo("Chains:");
-        assertThat(bonus.value).isEqualTo("+3");
+        assertThat(bonus.value).isEqualTo("3");
     }
 
     private void whenTowerAttacks() {
