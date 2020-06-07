@@ -11,7 +11,11 @@ public strictfp class MoneyBin extends Tower {
 
     public MoneyBin() {
         setBaseCooldown(3.5f);
-        setBaseRange(2.0f);
+        if (Sim.context().version >= Sim.vDoLEnd) {
+            setBaseRange(3.0f);
+        } else {
+            setBaseRange(2.0f);
+        }
         setAttackType(AttackType.Fal);
         setStrength(0.4f);
         setDamageSpread(0.4f);
@@ -27,7 +31,7 @@ public strictfp class MoneyBin extends Tower {
     @Override
     public Changelog getChangelog() {
         return new Changelog(
-                new ChangelogEntry(Sim.vDoLEnd, false, 2020, "Aura range is always the same as Money Bin's range."),
+                new ChangelogEntry(Sim.vDoLEnd, false, 2020, "Aura range is always the same as Money Bin's range.", "Increased range from 2 to 3."),
                 new ChangelogEntry(Sim.v10, false, 2013)
         );
     }
