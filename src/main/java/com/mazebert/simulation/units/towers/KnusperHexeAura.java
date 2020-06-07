@@ -1,6 +1,7 @@
 package com.mazebert.simulation.units.towers;
 
 import com.mazebert.simulation.CardCategory;
+import com.mazebert.simulation.Sim;
 import com.mazebert.simulation.units.abilities.AuraAbility;
 import com.mazebert.simulation.units.creeps.Creep;
 
@@ -9,7 +10,7 @@ public strictfp class KnusperHexeAura extends AuraAbility<KnusperHexe, Creep> {
     private static final int baseReduction = 10;
 
     public KnusperHexeAura() {
-        super(CardCategory.Tower, Creep.class, 3);
+        super(CardCategory.Tower, Creep.class, Sim.context().version >= Sim.vDoLEnd ? 0 : 3);
     }
 
     @Override
@@ -35,7 +36,7 @@ public strictfp class KnusperHexeAura extends AuraAbility<KnusperHexe, Creep> {
 
     @Override
     public String getDescription() {
-        return "The armor of creeps in 3 range is reduced by " + baseReduction + ".";
+        return "Armor of creeps in range is reduced by " + baseReduction + ".";
     }
 
     @Override
