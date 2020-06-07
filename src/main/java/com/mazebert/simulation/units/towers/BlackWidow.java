@@ -31,6 +31,8 @@ public strictfp class BlackWidow extends Tower {
     @Override
     public Changelog getChangelog() {
         return new Changelog(
+                new ChangelogEntry(Sim.v14, false, 2019, "Rarity changed from rare to unique."),
+                new ChangelogEntry(Sim.v13, false, 2019, "Rarity changed from unique to rare."),
                 new ChangelogEntry(Sim.v10, false, 2013)
         );
     }
