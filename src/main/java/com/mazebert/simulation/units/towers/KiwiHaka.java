@@ -60,7 +60,12 @@ public strictfp class KiwiHaka extends CooldownActiveAbility {
 
     private void end() {
         remainingDuration = 0;
-        getUnit().removeAbility(aura);
+
+        Tower kiwi = getUnit();
+        if (kiwi != null) {
+            kiwi.removeAbility(aura);
+        }
+
         aura = null;
     }
 

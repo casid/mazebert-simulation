@@ -66,4 +66,12 @@ class KiwiTest extends SimTest {
 
         assertThat(creep.getState()).isEqualTo(CreepState.Running);
     }
+
+    @Test
+    void haka_towerSold() {
+        kiwi.getAbility(KiwiHaka.class).activate();
+        simulationListeners.onUpdate.dispatch(0.1f);
+        unitGateway.removeUnit(kiwi);
+        simulationListeners.onUpdate.dispatch(1000.0f);
+    }
 }
