@@ -71,7 +71,7 @@ public strictfp enum QuestType {
         }
     }
 
-    private static QuestType[] LOOKUP;
+    private static final QuestType[] LOOKUP;
 
     static {
         int maxId = 0;
