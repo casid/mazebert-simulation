@@ -29,7 +29,7 @@ public strictfp class WitheredSetAbility extends ItemSetAbility implements OnDam
                 target.warpInTime(-1.0f);
             }
 
-            if (getAmount() >= 3) {
+            if (getAmount() >= 3 && !target.isDisposed()) {
                 WitheredSetEffect effect = target.addAbilityStack(WitheredSetEffect.class);
                 effect.setDuration(6.0f);
             }
