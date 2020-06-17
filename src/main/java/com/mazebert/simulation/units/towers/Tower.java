@@ -584,6 +584,10 @@ public strictfp abstract class Tower extends Unit implements CooldownUnit, Card,
         for (int i = getInventorySize() - 1; i >= 0; --i) {
             if (items[i] != null && items[i].getType() == type) {
                 setItem(i, null);
+
+                if (version >= Sim.v22) {
+                    return;
+                }
             }
         }
     }
