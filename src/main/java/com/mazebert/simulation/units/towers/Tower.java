@@ -82,7 +82,7 @@ public strictfp abstract class Tower extends Unit implements CooldownUnit, Card,
     private int inventorySize = MIN_INVENTORY_SIZE;
 
     private transient TowerType type;
-    private transient Item[] items = new Item[MAX_INVENTORY_SIZE];
+    private transient final Item[] items = new Item[MAX_INVENTORY_SIZE];
 
     public Tower() {
         onKill.add(this);
