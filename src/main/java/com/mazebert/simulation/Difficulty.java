@@ -5,7 +5,7 @@ public strictfp enum Difficulty {
     Normal(2, 1.5, 0.0006, 1.0),
     Hard(3, 1.75, 0.0009, 1.25);
 
-    private static Difficulty[] LOOKUP;
+    private static final Difficulty[] LOOKUP;
 
     static {
         int maxId = 0;
