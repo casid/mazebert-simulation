@@ -1,11 +1,9 @@
 package com.mazebert.simulation.units.items;
 
-import com.mazebert.simulation.Sim;
 import com.mazebert.simulation.projectiles.ProjectileGateway;
 import com.mazebert.simulation.units.abilities.AttackAbility;
 import com.mazebert.simulation.units.abilities.InstantDamageAbility;
 import com.mazebert.simulation.units.creeps.Creep;
-import com.mazebert.simulation.units.towers.Tower;
 import com.mazebert.simulation.units.towers.TowerType;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -22,12 +20,6 @@ strictfp class FrozenTest extends ItemTest {
 
         tower.addAbility(new AttackAbility());
         tower.addAbility(new InstantDamageAbility());
-    }
-
-    @Override
-    protected Tower createTower() {
-        version = Sim.v22; // Can be removed after we past that version
-        return super.createTower();
     }
 
     @Test
