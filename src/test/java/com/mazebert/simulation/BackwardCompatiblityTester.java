@@ -106,6 +106,11 @@ public class BackwardCompatiblityTester {
         checkGames(Sim.vCorona);
     }
 
+    @Test
+    void check_21() throws IOException {
+        checkGames(Sim.vDoLEnd);
+    }
+
     @Disabled
     @Test
     void checkOne() {
@@ -114,7 +119,7 @@ public class BackwardCompatiblityTester {
     }
 
     private void checkGames(int version) throws IOException {
-        List<Path> files = Files.walk(gamesDirectory.resolve("" + version), 1).collect(Collectors.toList());
+        List<Path> files = Files.walk(gamesDirectory.resolve("" + version), 1).filter(p -> p.toString().endsWith(".mbg")).collect(Collectors.toList());
         int total = files.size();
         System.out.println("Validating " + total + " games (version " + version + ")");
         LongAdder counter = new LongAdder();
