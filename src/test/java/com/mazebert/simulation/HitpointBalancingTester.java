@@ -46,7 +46,7 @@ public class HitpointBalancingTester {
 
     @Test
     void multiplayer2_reference() {
-        addHitpointsReference(20, 2);
+        addHitpointsReference(22, 2);
         storeData("hitpoint-balancing-mp2-reference.csv");
     }
 

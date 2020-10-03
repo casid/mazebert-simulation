@@ -71,11 +71,15 @@ public strictfp class Balancing {
     public static double getTotalCreepHitpoints(int version, int round, Difficulty difficulty, int playerCount) {
         double x = round - 1;
 
-        double midGameFactor = difficulty.midGameFactor;
         double earlyGameFactor = difficulty.earlyGameFactor;
+        double midGameFactor = difficulty.midGameFactor;
         double endGameFactor = difficulty.endGameFactor;
         if (playerCount > 1 && version >= Sim.vDoL) {
-            if (version >= Sim.vDoLEnd) {
+            if (version >= Sim.vCoC) {
+                earlyGameFactor = cocMultiplayerGameFactor(earlyGameFactor, playerCount);
+                midGameFactor = cocMultiplayerGameFactor(midGameFactor, playerCount);
+                endGameFactor = cocMultiplayerGameFactor(endGameFactor, playerCount);
+            } else if (version >= Sim.vDoLEnd) {
                 earlyGameFactor *= playerCount;
                 midGameFactor *= playerCount;
                 endGameFactor *= playerCount;
@@ -110,6 +114,12 @@ public strictfp class Balancing {
         } else {
             return StrictMath.round(hp);
         }
+    }
+
+    private static double cocMultiplayerGameFactor(double factor, int playerCount) {
+        // Previous version multiplied the factor by player count, which was too much.
+        // Here, we're applying half of that boost.
+        return factor + 0.5 * ((playerCount - 1) * factor);
     }
 
     public static float getExperienceForRound(int version, int round, WaveType waveType, int playerCount) {
