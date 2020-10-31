@@ -75,10 +75,10 @@ public strictfp class Balancing {
         double midGameFactor = difficulty.midGameFactor;
         double endGameFactor = difficulty.endGameFactor;
         if (playerCount > 1 && version >= Sim.vDoL) {
-            if (version >= Sim.vCoC) {
-                earlyGameFactor = cocMultiplayerGameFactor(earlyGameFactor, playerCount);
-                midGameFactor = cocMultiplayerGameFactor(midGameFactor, playerCount);
-                endGameFactor = cocMultiplayerGameFactor(endGameFactor, playerCount);
+            if (version >= Sim.vRoC) {
+                earlyGameFactor = rocMultiplayerGameFactor(earlyGameFactor, playerCount);
+                midGameFactor = rocMultiplayerGameFactor(midGameFactor, playerCount);
+                endGameFactor = rocMultiplayerGameFactor(endGameFactor, playerCount);
             } else if (version >= Sim.vDoLEnd) {
                 earlyGameFactor *= playerCount;
                 midGameFactor *= playerCount;
@@ -116,7 +116,7 @@ public strictfp class Balancing {
         }
     }
 
-    private static double cocMultiplayerGameFactor(double factor, int playerCount) {
+    private static double rocMultiplayerGameFactor(double factor, int playerCount) {
         // Previous version multiplied the factor by player count, which was too much.
         // Here, we're applying half of that boost.
         return factor + 0.5 * ((playerCount - 1) * factor);
