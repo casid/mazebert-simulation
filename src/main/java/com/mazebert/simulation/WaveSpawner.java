@@ -512,7 +512,14 @@ public strictfp final class WaveSpawner implements OnGameStartedListener, OnWave
     }
 
     private boolean isWaveSuitableForBonusRound(WaveType type) {
-        return type != WaveType.Horseman && type != WaveType.Challenge && type != WaveType.MassChallenge;
+        switch (type) {
+            case Normal:
+            case Mass:
+            case Boss:
+            case Air:
+                return true;
+        }
+        return false;
     }
 
     public void spawnTimeLordUnderlingsWave(Creep timeLord) {
