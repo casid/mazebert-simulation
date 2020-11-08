@@ -1,5 +1,6 @@
 package com.mazebert.simulation;
 
+import com.mazebert.java8.Predicate;
 import com.mazebert.simulation.countdown.BonusRoundCountDown;
 import com.mazebert.simulation.countdown.EarlyCallCountDown;
 import com.mazebert.simulation.countdown.TimeLordCountDown;
@@ -7,6 +8,7 @@ import com.mazebert.simulation.countdown.WaveCountDown;
 import com.mazebert.simulation.gateways.*;
 import com.mazebert.simulation.listeners.*;
 import com.mazebert.simulation.maps.MapGrid;
+import com.mazebert.simulation.maps.Tile;
 import com.mazebert.simulation.plugins.random.RandomPlugin;
 import com.mazebert.simulation.systems.ExperienceSystem;
 import com.mazebert.simulation.systems.LootSystem;
@@ -353,7 +355,7 @@ public strictfp final class WaveSpawner implements OnGameStartedListener, OnWave
     }
 
     private void spawnCreep(Creep creep, int pathIndex) {
-        if (creep.getWave().type == WaveType.Air) {
+        if (creep.isAir()) {
             spawnCreep(creep, gameGateway.getMap().getAirPath(), pathIndex);
         } else {
             spawnCreep(creep, gameGateway.getMap().getGroundPath(), pathIndex);
@@ -540,7 +542,8 @@ public strictfp final class WaveSpawner implements OnGameStartedListener, OnWave
             Wave wave = generateTimeLordUnderlingsWave();
             ++currentBonusRound;
 
-            Path path = gameGateway.getMap().getGrid().findPath((int) timeLord.getX(), (int) timeLord.getY(), (int) timeLord.getTargetX(), (int) timeLord.getTargetY(), MapGrid.getPredicate(wave.type));
+            Predicate<Tile> predicate = wave.type == WaveType.Air ? MapGrid.FLYABLE : MapGrid.WALKABLE;
+            Path path = gameGateway.getMap().getGrid().findPath((int) timeLord.getX(), (int) timeLord.getY(), (int) timeLord.getTargetX(), (int) timeLord.getTargetY(), predicate);
 
             int round = wave.round;
             int playerCount = playerGateway.getPlayerCount();

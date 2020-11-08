@@ -9,7 +9,7 @@ public strictfp enum WaveType {
     MassChallenge(20),
     Horseman(1),
     TimeLord(1),
-    AcolyteOfAzathoth(5), // TODO Air. Refactor type == Air to type.isFlying()
+    AcolyteOfAzathoth(7),
     AcolyteOfCthulhu(13),
     AcolyteOfYig(21),
     AcolyteOfDagon(13),
@@ -30,6 +30,8 @@ public strictfp enum WaveType {
                 return 1.6f;
             case AcolyteOfYig:
                 return 0.4f;
+            case AcolyteOfAzathoth:
+                return 1.2f;
         }
         return 1.0f;
     }
@@ -41,17 +43,24 @@ public strictfp enum WaveType {
                 return 0.6f;
             case Air:
                 return 3.2f;
+            case AcolyteOfYig:
+                return 0.8f;
+            case AcolyteOfAzathoth:
+                return 2.8f;
         }
         return 1.6f;
     }
 
+    @SuppressWarnings("DuplicateBranchesInSwitch")
     public double getHealthMultiplier() {
         switch (this) {
             case Normal:
                 return 1.0;
             case Air:
+            case AcolyteOfAzathoth:
                 return 0.8;
             case Mass:
+            case AcolyteOfYig:
                 return 0.6;
             case Boss:
                 return 0.8;

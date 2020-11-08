@@ -130,7 +130,7 @@ public strictfp class DamageSystem {
         Wave wave = creep.getWave();
 
         double damageFactor = calculateArmorDamageFactor(tower.getAttackType(), wave.armorType);
-        if (wave.type == WaveType.Air) {
+        if (creep.isAir()) {
             damageFactor *= tower.getDamageAgainstAir();
         } else if (creep.isBoss()) {
             damageFactor *= tower.getDamageAgainstBosses();

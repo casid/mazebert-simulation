@@ -24,7 +24,7 @@ public strictfp class CandleAttractionAura extends AuraAbility<Candle, Creep> {
 
     @Override
     protected boolean isQualifiedForAura(Creep unit) {
-        return unit.getWave().type == WaveType.Air;
+        return unit.isAir();
     }
 
     @Override

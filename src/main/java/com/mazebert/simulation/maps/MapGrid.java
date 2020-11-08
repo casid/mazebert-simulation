@@ -14,13 +14,6 @@ public strictfp class MapGrid {
     public static final Predicate<Tile> WALKABLE = t -> t.type.walkable;
     public static final Predicate<Tile> FLYABLE = t -> t.type.flyable;
 
-    public static Predicate<Tile> getPredicate(WaveType waveType) {
-        if (waveType == WaveType.Air) {
-            return FLYABLE;
-        }
-        return WALKABLE;
-    }
-
     private final int width;
     private final int height;
     private final Tile[] tiles;
@@ -53,6 +46,7 @@ public strictfp class MapGrid {
         }
     }
 
+    @SuppressWarnings("unused")
     public void setTiles(int x, int y, int w, int h, Tile tile) {
         for (int iy = y; iy < y + h; ++iy) {
             for (int ix = x; ix < x + w; ++ix) {

@@ -27,8 +27,11 @@ public strictfp class UnicornImpaleAbility extends AuraAbility<Tower, Creep> {
 
     @Override
     protected void onAuraEntered(Creep creep) {
-        WaveType waveType = creep.getWave().type;
-        if (waveType == WaveType.Air || waveType == WaveType.TimeLord) {
+        if (creep.isAir()) {
+            return;
+        }
+
+        if (creep.getWave().type == WaveType.TimeLord) {
             return;
         }
 
