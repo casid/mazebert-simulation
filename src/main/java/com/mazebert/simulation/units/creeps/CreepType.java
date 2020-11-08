@@ -11,6 +11,10 @@ public strictfp enum CreepType {
     Horseman("horsemen"),
     Challenge("challenge"),
     TimeLord("timelord"),
+    Skull("skull"),
+    Zombie("zombie"),
+    Worm("worm"),
+    SwampThing("swampthing"),
     ;
 
     public final String modelId;

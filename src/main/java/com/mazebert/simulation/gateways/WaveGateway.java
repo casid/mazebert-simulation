@@ -16,7 +16,7 @@ public strictfp class WaveGateway implements ReadonlyWaveGateway {
     private static final CreepType[] RANDOM_GROUND_CREEP_TYPES = {CreepType.Orc, CreepType.Rat, CreepType.Spider};
     private static final ArmorType[] RANDOM_ARMOR_TYPES = {ArmorType.Ber, ArmorType.Fal, ArmorType.Vex};
 
-    private Queue<Wave> waves = new ArrayDeque<>(WAVES_IN_ADVANCE);
+    private final Queue<Wave> waves = new ArrayDeque<>(WAVES_IN_ADVANCE);
     private int totalWaves;
     private int generatedWaves;
     private int currentRound;
@@ -115,7 +115,40 @@ public strictfp class WaveGateway implements ReadonlyWaveGateway {
         if (round > 0 && round % 7 == 0) {
             return WaveType.Challenge;
         }
+
+        if (Sim.isRoCSeasonContent()) {
+            WaveType acolyte = calculateRocAcolyte(randomPlugin, round);
+            if (acolyte != null) {
+                return acolyte;
+            }
+        }
+
         return randomPlugin.get(RANDOM_WAVE_TYPES);
+    }
+
+    private WaveType calculateRocAcolyte(RandomPlugin randomPlugin, int round) {
+        if (round < 8) {
+            return null;
+        }
+
+        if (randomPlugin.getFloatAbs() > 0.13f) {
+            return null;
+        }
+
+        float roll = randomPlugin.getFloatAbs();
+        if (roll < 0.05f) {
+            return WaveType.AcolyteOfAzathoth;
+        }
+
+        if (roll < 0.15f) {
+            return WaveType.AcolyteOfCthulhu;
+        }
+
+        if (roll < 0.55f) {
+            return WaveType.AcolyteOfYig;
+        }
+
+        return WaveType.AcolyteOfDagon;
     }
 
     private CreepType rollCreepType(Wave wave, RandomPlugin randomPlugin) {
@@ -130,6 +163,14 @@ public strictfp class WaveGateway implements ReadonlyWaveGateway {
                     return CreepType.Challenge;
                 }
                 break;
+            case AcolyteOfAzathoth:
+                return CreepType.Skull;
+            case AcolyteOfCthulhu:
+                return CreepType.Zombie;
+            case AcolyteOfYig:
+                return CreepType.Worm;
+            case AcolyteOfDagon:
+                return CreepType.SwampThing;
         }
         return randomPlugin.get(RANDOM_GROUND_CREEP_TYPES);
     }

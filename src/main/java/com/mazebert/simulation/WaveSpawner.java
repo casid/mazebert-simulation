@@ -500,15 +500,24 @@ public strictfp final class WaveSpawner implements OnGameStartedListener, OnWave
             return generateBonusRoundWave();
         }
 
-        if (wave.type == WaveType.Air) {
-            wave.creepType = CreepType.Bat;
-        } else {
-            wave.creepType = CreepType.Troll;
-        }
-
+        wave.creepType = getBonusRoundCreepType(wave);
         wave.origin = WaveOrigin.BonusRound;
 
         return wave;
+    }
+
+    private CreepType getBonusRoundCreepType(Wave wave) {
+        switch (wave.type) {
+            case Air:
+                return CreepType.Bat;
+            case AcolyteOfAzathoth:
+            case AcolyteOfCthulhu:
+            case AcolyteOfYig:
+            case AcolyteOfDagon:
+                return wave.creepType;
+        }
+
+        return CreepType.Troll;
     }
 
     private boolean isWaveSuitableForBonusRound(WaveType type) {
@@ -517,6 +526,10 @@ public strictfp final class WaveSpawner implements OnGameStartedListener, OnWave
             case Mass:
             case Boss:
             case Air:
+            case AcolyteOfAzathoth:
+            case AcolyteOfCthulhu:
+            case AcolyteOfYig:
+            case AcolyteOfDagon:
                 return true;
         }
         return false;

@@ -4,6 +4,7 @@ import com.mazebert.simulation.*;
 import com.mazebert.simulation.plugins.random.RandomPluginTrainer;
 import com.mazebert.simulation.systems.GameSystem;
 import com.mazebert.simulation.units.creeps.CreepModifier;
+import com.mazebert.simulation.units.creeps.CreepType;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -16,6 +17,12 @@ class WaveGatewayTest extends SimTest {
     static final float UNION_ROLL = 0.75f;
 
     static final float BOSS_ROLL = 0.6f;
+
+    static final float ACOLYTES_ROLL = 0.01f;
+    static final float ACOLYTES_OF_AZATHOTH_ROLL = 0.0f;
+    static final float ACOLYTES_OF_CTHULHU_ROLL = 0.14f;
+    static final float ACOLYTES_OF_YIG_ROLL = 0.4f;
+    static final float ACOLYTES_OF_DAGON_ROLL = 0.96f;
 
     RandomPluginTrainer randomPluginTrainer = new RandomPluginTrainer();
     PlayerGatewayTrainer playerGatewayTrainer = new PlayerGatewayTrainer();
@@ -165,6 +172,7 @@ class WaveGatewayTest extends SimTest {
 
     @Test
     void waveGeneration_modifiers_unionBoss_notPossible() {
+        season = false;
         round = 101;
         randomPluginTrainer.givenFloatAbs(BOSS_ROLL, 0.0f, 0.0f, 0.31f, UNION_ROLL, 0.0f);
 
@@ -233,6 +241,65 @@ class WaveGatewayTest extends SimTest {
         assertThat(wave.type).isEqualTo(WaveType.Horseman);
         assertThat(wave.creepCount).isEqualTo(1);
         assertThat(wave.armorType).isEqualTo(ArmorType.Zod);
+    }
+
+    @Test
+    void waveGeneration_acolytes_roundTooLow() {
+        version = Sim.vRoC;
+        round = 6;
+        randomPluginTrainer.givenFloatAbs(ACOLYTES_ROLL, ACOLYTES_OF_YIG_ROLL);
+
+        whenWaveIsGenerated();
+
+        assertThat(wave.type).isEqualTo(WaveType.Normal);
+    }
+
+    @Test
+    void waveGeneration_acolytesOfAzathoth() {
+        version = Sim.vRoC;
+        round = 8;
+        randomPluginTrainer.givenFloatAbs(ACOLYTES_ROLL, ACOLYTES_OF_AZATHOTH_ROLL);
+
+        whenWaveIsGenerated();
+
+        assertThat(wave.type).isEqualTo(WaveType.AcolyteOfAzathoth);
+        assertThat(wave.creepType).isEqualTo(CreepType.Skull);
+    }
+
+    @Test
+    void waveGeneration_acolytesOfCthulhu() {
+        version = Sim.vRoC;
+        round = 8;
+        randomPluginTrainer.givenFloatAbs(ACOLYTES_ROLL, ACOLYTES_OF_CTHULHU_ROLL);
+
+        whenWaveIsGenerated();
+
+        assertThat(wave.type).isEqualTo(WaveType.AcolyteOfCthulhu);
+        assertThat(wave.creepType).isEqualTo(CreepType.Zombie);
+    }
+
+    @Test
+    void waveGeneration_acolytesOfYig() {
+        version = Sim.vRoC;
+        round = 8;
+        randomPluginTrainer.givenFloatAbs(ACOLYTES_ROLL, ACOLYTES_OF_YIG_ROLL);
+
+        whenWaveIsGenerated();
+
+        assertThat(wave.type).isEqualTo(WaveType.AcolyteOfYig);
+        assertThat(wave.creepType).isEqualTo(CreepType.Worm);
+    }
+
+    @Test
+    void waveGeneration_acolytesOfDagon() {
+        version = Sim.vRoC;
+        round = 8;
+        randomPluginTrainer.givenFloatAbs(ACOLYTES_ROLL, ACOLYTES_OF_DAGON_ROLL);
+
+        whenWaveIsGenerated();
+
+        assertThat(wave.type).isEqualTo(WaveType.AcolyteOfDagon);
+        assertThat(wave.creepType).isEqualTo(CreepType.SwampThing);
     }
 
     private void whenWaveIsGenerated() {

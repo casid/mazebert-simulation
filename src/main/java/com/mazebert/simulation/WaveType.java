@@ -9,6 +9,10 @@ public strictfp enum WaveType {
     MassChallenge(20),
     Horseman(1),
     TimeLord(1),
+    AcolyteOfAzathoth(5), // TODO Air. Refactor type == Air to type.isFlying()
+    AcolyteOfCthulhu(13),
+    AcolyteOfYig(21),
+    AcolyteOfDagon(13),
     ;
 
     public final int creepCount;
@@ -24,6 +28,8 @@ public strictfp enum WaveType {
                 return 0.2f;
             case Air:
                 return 1.6f;
+            case AcolyteOfYig:
+                return 0.4f;
         }
         return 1.0f;
     }
@@ -61,5 +67,9 @@ public strictfp enum WaveType {
 
     public boolean isBoss() {
         return this == Boss || this == Challenge || this == Horseman || this == TimeLord;
+    }
+
+    public boolean isAcolyte() {
+        return this == AcolyteOfAzathoth || this == AcolyteOfCthulhu || this == AcolyteOfYig || this == AcolyteOfDagon;
     }
 }
