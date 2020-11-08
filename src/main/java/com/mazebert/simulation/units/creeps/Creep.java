@@ -3,7 +3,6 @@ package com.mazebert.simulation.units.creeps;
 import com.mazebert.simulation.Path;
 import com.mazebert.simulation.Sim;
 import com.mazebert.simulation.Wave;
-import com.mazebert.simulation.WaveType;
 import com.mazebert.simulation.hash.Hash;
 import com.mazebert.simulation.listeners.*;
 import com.mazebert.simulation.maps.FollowPathResult;
