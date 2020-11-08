@@ -33,7 +33,7 @@ public strictfp class SeelenreisserAbility extends Ability<Tower> implements OnK
 
     @Override
     public void onKill(Creep target) {
-        if (target.getWave().type.isBoss()) {
+        if (target.isBoss()) {
             increaseTotalDamage(damagePerBossKill);
         } else {
             increaseTotalDamage(damagePerKill);

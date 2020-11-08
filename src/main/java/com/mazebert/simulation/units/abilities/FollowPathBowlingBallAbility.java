@@ -95,7 +95,7 @@ public strictfp class FollowPathBowlingBallAbility extends FollowPathAbility<Bow
         }
 
         WaveType waveType = creep.getWave().type;
-        if (waveType.isBoss()) {
+        if (creep.isBoss()) {
             onTargetReached();
         } else if (waveType != WaveType.Air && !creepsHit.contains(creep)) {
             creepsHit.add(creep);

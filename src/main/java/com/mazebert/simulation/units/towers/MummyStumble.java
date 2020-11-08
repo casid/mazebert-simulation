@@ -29,7 +29,7 @@ public strictfp class MummyStumble extends Ability<Tower> implements OnAttackLis
 
     @Override
     public void onAttack(Creep target) {
-        if (target.getWave().type.isBoss()) {
+        if (target.isBoss()) {
             if (!target.isSteady() && getUnit().isImmobilizeAbilityTriggered(getCurrentChance(), target)) {
                 StunEffect stunEffect = target.addAbilityStack(StunEffect.class);
                 stunEffect.setDuration(bossStunDuration);

@@ -97,7 +97,7 @@ public strictfp class DamageSystem {
     }
 
     private double modifyDamage(Tower tower, Creep creep, double damage) {
-        damage *= calculateWaveDamageFactor(tower, creep.getWave());
+        damage *= calculateWaveDamageFactor(tower, creep);
         damage *= creep.getDamageModifier();
         damage *= getArmorDamageFactor(tower, creep);
         if (damage < 0) {
@@ -126,11 +126,13 @@ public strictfp class DamageSystem {
         }
     }
 
-    private double calculateWaveDamageFactor(Tower tower, Wave wave) {
+    private double calculateWaveDamageFactor(Tower tower, Creep creep) {
+        Wave wave = creep.getWave();
+
         double damageFactor = calculateArmorDamageFactor(tower.getAttackType(), wave.armorType);
         if (wave.type == WaveType.Air) {
             damageFactor *= tower.getDamageAgainstAir();
-        } else if (wave.type.isBoss()) {
+        } else if (creep.isBoss()) {
             damageFactor *= tower.getDamageAgainstBosses();
         }
 

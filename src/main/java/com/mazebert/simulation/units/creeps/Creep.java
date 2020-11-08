@@ -399,4 +399,16 @@ public strictfp class Creep extends Unit {
     public DamageMap getDamageMap() {
         return damageMap;
     }
+
+    public boolean isBoss() {
+        switch (wave.type) {
+            case Boss:
+            case Challenge:
+            case Horseman:
+            case TimeLord:
+                return true;
+        }
+
+        return false;
+    }
 }

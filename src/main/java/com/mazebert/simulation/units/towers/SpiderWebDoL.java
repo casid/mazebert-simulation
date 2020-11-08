@@ -17,7 +17,7 @@ public strictfp class SpiderWebDoL extends ImmobilizeAbility {
 
     @Override
     protected float getChance(Creep creep) {
-        if (creep.getWave().type.isBoss()) {
+        if (creep.isBoss()) {
             return chanceAgainstBoss;
         } else {
             return chance;

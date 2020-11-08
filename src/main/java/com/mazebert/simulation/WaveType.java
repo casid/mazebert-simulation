@@ -64,12 +64,4 @@ public strictfp enum WaveType {
         }
         return 1.0;
     }
-
-    public boolean isBoss() {
-        return this == Boss || this == Challenge || this == Horseman || this == TimeLord;
-    }
-
-    public boolean isAcolyte() {
-        return this == AcolyteOfAzathoth || this == AcolyteOfCthulhu || this == AcolyteOfYig || this == AcolyteOfDagon;
-    }
 }

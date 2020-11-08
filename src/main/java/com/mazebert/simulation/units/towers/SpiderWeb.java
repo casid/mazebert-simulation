@@ -40,7 +40,7 @@ public strictfp class SpiderWeb extends Ability<Tower> implements OnDamageListen
     }
 
     private float calculateChanceToSlowTarget(Creep target) {
-        if (target.getWave().type.isBoss()) {
+        if (target.isBoss()) {
             return chanceAgainstBoss;
         } else {
             return chance;
