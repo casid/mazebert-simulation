@@ -6,6 +6,7 @@ public strictfp class ChangelogEntry {
     private static final String[] INITIAL_CHANGES = {"Added to the game"};
 
     public static final ChangelogEntry DAWN_OF_LIGHT = new ChangelogEntry(Sim.vDoL, true, 2019);
+    public static final ChangelogEntry RISE_OF_CTHULHU = new ChangelogEntry(Sim.vRoC, true, 2020);
 
     private final int simVersion;
     private final boolean season;
