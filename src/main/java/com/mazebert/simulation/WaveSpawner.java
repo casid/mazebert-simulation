@@ -528,10 +528,6 @@ public strictfp final class WaveSpawner implements OnGameStartedListener, OnWave
             case Mass:
             case Boss:
             case Air:
-            case AcolyteOfAzathoth:
-            case AcolyteOfCthulhu:
-            case AcolyteOfYig:
-            case AcolyteOfDagon:
                 return true;
         }
         return false;
