@@ -1,14 +1,12 @@
 package com.mazebert.simulation.units.heroes;
 
-import com.mazebert.simulation.Element;
 import com.mazebert.simulation.Rarity;
 import com.mazebert.simulation.changelog.Changelog;
 import com.mazebert.simulation.changelog.ChangelogEntry;
 
-public strictfp class Cthulhu extends Hero {
-
-    public Cthulhu() {
-        addAbility(new CthulhuAbility());
+public strictfp class Dagon extends Hero {
+    public Dagon() {
+        addAbility(new DagonAbility());
     }
 
     @Override
@@ -20,17 +18,17 @@ public strictfp class Cthulhu extends Hero {
 
     @Override
     public String getIcon() {
-        return "cthulhu_512";
+        return "dagon_512"; // TODO
     }
 
     @Override
     public String getName() {
-        return "Cthulhu";
+        return "Dagon";
     }
 
     @Override
     public String getDescription() {
-        return "In his house at R'lyeh\ndead Cthulhu waits dreaming.\n" + getWizardLevelRequirementText();
+        return "One day the land shall sink,\nand the dark ocean floor shall ascend.\n" + getWizardLevelRequirementText();
     }
 
     @Override

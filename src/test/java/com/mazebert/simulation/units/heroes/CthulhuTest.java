@@ -104,4 +104,9 @@ strictfp class CthulhuTest extends SimTest {
         assertThat(tower.getAddedRelativeBaseDamage()).isEqualTo(reducedDamagePotionEffect);
         assertThat(tower2.getAddedRelativeBaseDamage()).isEqualTo(0);
     }
+
+    @Test
+    void eldritch() {
+        assertThat(cthulhu.isEldritch()).isTrue();
+    }
 }

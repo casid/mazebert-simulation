@@ -33,6 +33,10 @@ public interface Card {
         return getElement() == Element.Light;
     }
 
+    default boolean isEldritch() {
+        return false;
+    }
+
     default boolean isForgeable() {
         return !isBlackMarketOffer();
     }
