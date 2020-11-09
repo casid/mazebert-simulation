@@ -9,10 +9,10 @@ public strictfp enum WaveType {
     MassChallenge(20),
     Horseman(1),
     TimeLord(1),
-    AcolyteOfAzathoth(7),
-    AcolyteOfCthulhu(13),
-    AcolyteOfYig(21),
-    AcolyteOfDagon(13),
+    CultistOfAzathoth(7),
+    CultistOfCthulhu(13),
+    CultistOfYig(21),
+    CultistOfDagon(13),
     ;
 
     public final int creepCount;
@@ -28,9 +28,9 @@ public strictfp enum WaveType {
                 return 0.2f;
             case Air:
                 return 1.6f;
-            case AcolyteOfYig:
+            case CultistOfYig:
                 return 0.4f;
-            case AcolyteOfAzathoth:
+            case CultistOfAzathoth:
                 return 1.2f;
         }
         return 1.0f;
@@ -43,9 +43,9 @@ public strictfp enum WaveType {
                 return 0.6f;
             case Air:
                 return 3.2f;
-            case AcolyteOfYig:
+            case CultistOfYig:
                 return 0.8f;
-            case AcolyteOfAzathoth:
+            case CultistOfAzathoth:
                 return 2.8f;
         }
         return 1.6f;
@@ -57,10 +57,10 @@ public strictfp enum WaveType {
             case Normal:
                 return 1.0;
             case Air:
-            case AcolyteOfAzathoth:
+            case CultistOfAzathoth:
                 return 0.8;
             case Mass:
-            case AcolyteOfYig:
+            case CultistOfYig:
                 return 0.6;
             case Boss:
                 return 0.8;

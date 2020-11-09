@@ -117,16 +117,16 @@ public strictfp class WaveGateway implements ReadonlyWaveGateway {
         }
 
         if (Sim.isRoCSeasonContent()) {
-            WaveType acolyte = calculateRocAcolyte(randomPlugin, round);
-            if (acolyte != null) {
-                return acolyte;
+            WaveType cultist = calculateRocCultist(randomPlugin, round);
+            if (cultist != null) {
+                return cultist;
             }
         }
 
         return randomPlugin.get(RANDOM_WAVE_TYPES);
     }
 
-    private WaveType calculateRocAcolyte(RandomPlugin randomPlugin, int round) {
+    private WaveType calculateRocCultist(RandomPlugin randomPlugin, int round) {
         if (round < 8) {
             return null;
         }
@@ -137,18 +137,18 @@ public strictfp class WaveGateway implements ReadonlyWaveGateway {
 
         float roll = randomPlugin.getFloatAbs();
         if (roll < 0.05f) {
-            return WaveType.AcolyteOfAzathoth;
+            return WaveType.CultistOfAzathoth;
         }
 
         if (roll < 0.15f) {
-            return WaveType.AcolyteOfCthulhu;
+            return WaveType.CultistOfCthulhu;
         }
 
         if (roll < 0.55f) {
-            return WaveType.AcolyteOfYig;
+            return WaveType.CultistOfYig;
         }
 
-        return WaveType.AcolyteOfDagon;
+        return WaveType.CultistOfDagon;
     }
 
     private CreepType rollCreepType(Wave wave, RandomPlugin randomPlugin) {
@@ -163,13 +163,13 @@ public strictfp class WaveGateway implements ReadonlyWaveGateway {
                     return CreepType.Challenge;
                 }
                 break;
-            case AcolyteOfAzathoth:
+            case CultistOfAzathoth:
                 return CreepType.Skull;
-            case AcolyteOfCthulhu:
+            case CultistOfCthulhu:
                 return CreepType.Zombie;
-            case AcolyteOfYig:
+            case CultistOfYig:
                 return CreepType.Worm;
-            case AcolyteOfDagon:
+            case CultistOfDagon:
                 return CreepType.SwampThing;
         }
         return randomPlugin.get(RANDOM_GROUND_CREEP_TYPES);

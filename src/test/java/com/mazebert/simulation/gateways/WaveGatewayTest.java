@@ -18,11 +18,11 @@ class WaveGatewayTest extends SimTest {
 
     static final float BOSS_ROLL = 0.6f;
 
-    static final float ACOLYTES_ROLL = 0.01f;
-    static final float ACOLYTES_OF_AZATHOTH_ROLL = 0.0f;
-    static final float ACOLYTES_OF_CTHULHU_ROLL = 0.14f;
-    static final float ACOLYTES_OF_YIG_ROLL = 0.4f;
-    static final float ACOLYTES_OF_DAGON_ROLL = 0.96f;
+    static final float CULTISTS_ROLL = 0.01f;
+    static final float CULTISTS_OF_AZATHOTH_ROLL = 0.0f;
+    static final float CULTISTS_OF_CTHULHU_ROLL = 0.14f;
+    static final float CULTISTS_OF_YIG_ROLL = 0.4f;
+    static final float CULTISTS_OF_DAGON_ROLL = 0.96f;
 
     RandomPluginTrainer randomPluginTrainer = new RandomPluginTrainer();
     PlayerGatewayTrainer playerGatewayTrainer = new PlayerGatewayTrainer();
@@ -244,10 +244,10 @@ class WaveGatewayTest extends SimTest {
     }
 
     @Test
-    void waveGeneration_acolytes_roundTooLow() {
+    void waveGeneration_cultists_roundTooLow() {
         version = Sim.vRoC;
         round = 6;
-        randomPluginTrainer.givenFloatAbs(ACOLYTES_ROLL, ACOLYTES_OF_YIG_ROLL);
+        randomPluginTrainer.givenFloatAbs(CULTISTS_ROLL, CULTISTS_OF_YIG_ROLL);
 
         whenWaveIsGenerated();
 
@@ -255,50 +255,50 @@ class WaveGatewayTest extends SimTest {
     }
 
     @Test
-    void waveGeneration_acolytesOfAzathoth() {
+    void waveGeneration_cultistsOfAzathoth() {
         version = Sim.vRoC;
         round = 8;
-        randomPluginTrainer.givenFloatAbs(ACOLYTES_ROLL, ACOLYTES_OF_AZATHOTH_ROLL);
+        randomPluginTrainer.givenFloatAbs(CULTISTS_ROLL, CULTISTS_OF_AZATHOTH_ROLL);
 
         whenWaveIsGenerated();
 
-        assertThat(wave.type).isEqualTo(WaveType.AcolyteOfAzathoth);
+        assertThat(wave.type).isEqualTo(WaveType.CultistOfAzathoth);
         assertThat(wave.creepType).isEqualTo(CreepType.Skull);
     }
 
     @Test
-    void waveGeneration_acolytesOfCthulhu() {
+    void waveGeneration_cultistsOfCthulhu() {
         version = Sim.vRoC;
         round = 8;
-        randomPluginTrainer.givenFloatAbs(ACOLYTES_ROLL, ACOLYTES_OF_CTHULHU_ROLL);
+        randomPluginTrainer.givenFloatAbs(CULTISTS_ROLL, CULTISTS_OF_CTHULHU_ROLL);
 
         whenWaveIsGenerated();
 
-        assertThat(wave.type).isEqualTo(WaveType.AcolyteOfCthulhu);
+        assertThat(wave.type).isEqualTo(WaveType.CultistOfCthulhu);
         assertThat(wave.creepType).isEqualTo(CreepType.Zombie);
     }
 
     @Test
-    void waveGeneration_acolytesOfYig() {
+    void waveGeneration_cultistsOfYig() {
         version = Sim.vRoC;
         round = 8;
-        randomPluginTrainer.givenFloatAbs(ACOLYTES_ROLL, ACOLYTES_OF_YIG_ROLL);
+        randomPluginTrainer.givenFloatAbs(CULTISTS_ROLL, CULTISTS_OF_YIG_ROLL);
 
         whenWaveIsGenerated();
 
-        assertThat(wave.type).isEqualTo(WaveType.AcolyteOfYig);
+        assertThat(wave.type).isEqualTo(WaveType.CultistOfYig);
         assertThat(wave.creepType).isEqualTo(CreepType.Worm);
     }
 
     @Test
-    void waveGeneration_acolytesOfDagon() {
+    void waveGeneration_cultistsOfDagon() {
         version = Sim.vRoC;
         round = 8;
-        randomPluginTrainer.givenFloatAbs(ACOLYTES_ROLL, ACOLYTES_OF_DAGON_ROLL);
+        randomPluginTrainer.givenFloatAbs(CULTISTS_ROLL, CULTISTS_OF_DAGON_ROLL);
 
         whenWaveIsGenerated();
 
-        assertThat(wave.type).isEqualTo(WaveType.AcolyteOfDagon);
+        assertThat(wave.type).isEqualTo(WaveType.CultistOfDagon);
         assertThat(wave.creepType).isEqualTo(CreepType.SwampThing);
     }
 

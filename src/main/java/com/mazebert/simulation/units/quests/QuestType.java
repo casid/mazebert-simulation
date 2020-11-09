@@ -51,6 +51,8 @@ public strictfp enum QuestType {
     FaceTimeLord(39, FaceTimeLordQuest.class),
     PlayRoCSeasonGameQuest(40, PlayRoCSeasonGameQuest.class),
     WinRoCSeasonGameQuest(41, WinRoCSeasonGameQuest.class),
+    KillCultistsOfDagonQuest(42, KillCultistsOfDagonQuest.class),
+    // TODO allow hidden quests with progress
     ;
 
     private static final QuestType[] STANDARD        = {KillChallengesQuest, OnlyDarknessAndNatureQuest, OnlyNatureAndMetropolisQuest, Map1VictoryQuest, Map2VictoryQuest, WatchCreditsQuest, OnlyDarknessAndMetropolisQuest, OnlyDarknessQuest, OnlyNatureQuest, OnlyMetropolisQuest, Map3VictoryQuest, Map4VictoryQuest, BonusSurvivalQuest, CollectGoldQuest, TowerLevelsQuest, VisitBlackMarketQuest, VisitDevelopersInnQuest, BuyBlackMarketOfferQuest, BowlPerfectGameQuest, BowlStrikesQuest, TransmuteUniquesQuest, TransmuteStackQuest, DrinkAllPotionsQuest, TransmuteCardsQuest, KnusperHexeQuest, BaluQuest, MuliQuest, Map4VictoryUnlockReginnQuest, CoopQuest, HardVictoryQuest};

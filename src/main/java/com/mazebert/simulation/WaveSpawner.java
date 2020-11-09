@@ -512,10 +512,10 @@ public strictfp final class WaveSpawner implements OnGameStartedListener, OnWave
         switch (wave.type) {
             case Air:
                 return CreepType.Bat;
-            case AcolyteOfAzathoth:
-            case AcolyteOfCthulhu:
-            case AcolyteOfYig:
-            case AcolyteOfDagon:
+            case CultistOfAzathoth:
+            case CultistOfCthulhu:
+            case CultistOfYig:
+            case CultistOfDagon:
                 return wave.creepType;
         }
 

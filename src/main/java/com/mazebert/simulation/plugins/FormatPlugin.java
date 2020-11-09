@@ -229,6 +229,20 @@ public strictfp class FormatPlugin {
         return colored(content, armorType.color);
     }
 
+    public String waveTypePlural(WaveType waveType) {
+        switch (waveType) {
+            case CultistOfDagon:
+                return "Cultists of Dagon";
+            case CultistOfYig:
+                return "Cultists of Yig";
+            case CultistOfCthulhu:
+                return "Cultists of Cthulhu";
+            case CultistOfAzathoth:
+                return "Cultists of Azathoth";
+        }
+        return waveType.name();
+    }
+
     public String norseWorld(Element element) {
         return colored(element.norseWorld, element.color);
     }

@@ -415,7 +415,7 @@ public strictfp class Creep extends Unit {
     public boolean isAir() {
         switch (wave.type) {
             case Air:
-            case AcolyteOfAzathoth:
+            case CultistOfAzathoth:
                 return true;
         }
 
