@@ -18,7 +18,6 @@ public strictfp class EnumSerializer {
     public static final int TOWER_BITS = 6;
     public static final int POTION_BITS = 5;
     public static final int ITEM_BITS = 7;
-    public static final int HERO_BITS = 4;
     public static final int ELEMENT_BITS = 3;
     public static final int DIFFICULTY_BITS = 3;
     public static final int MAP_BITS = 3;
@@ -49,11 +48,11 @@ public strictfp class EnumSerializer {
     }
 
     public static HeroType readHeroType(BitReader reader) {
-        return HeroType.forId(reader.readUnsignedInt(HERO_BITS));
+        return HeroType.forId(reader.readUnsignedInt(getHeroBits()));
     }
 
     public static void writeHeroType(BitWriter writer, HeroType type) {
-        writer.writeUnsignedInt(HERO_BITS, getCardTypeId(type));
+        writer.writeUnsignedInt(getHeroBits(), getCardTypeId(type));
     }
 
     public static Element readElement(BitReader reader) {
@@ -204,7 +203,7 @@ public strictfp class EnumSerializer {
 
     public static EnumSet<HeroType> readHeroTypes(BitReader reader) {
         EnumSet<HeroType> result = EnumSet.noneOf(HeroType.class);
-        int size = reader.readUnsignedInt(HERO_BITS);
+        int size = reader.readUnsignedInt(getHeroBits());
         for (int i = 0; i < size; ++i) {
             result.add(readHeroType(reader));
         }
@@ -213,9 +212,9 @@ public strictfp class EnumSerializer {
 
     public static void writeHeroTypes(BitWriter writer, EnumSet<HeroType> types) {
         if (types == null) {
-            writer.writeUnsignedInt(HERO_BITS, 0);
+            writer.writeUnsignedInt(getHeroBits(), 0);
         } else {
-            writer.writeUnsignedInt(HERO_BITS, types.size());
+            writer.writeUnsignedInt(getHeroBits(), types.size());
             for (HeroType type : types) {
                 writeHeroType(writer, type);
             }
@@ -263,6 +262,14 @@ public strictfp class EnumSerializer {
             return 6;
         } else {
             return 5;
+        }
+    }
+
+    public static int getHeroBits() {
+        if (Sim.context().version >= Sim.vRoC) {
+            return 5;
+        } else {
+            return 4;
         }
     }
 }
