@@ -42,7 +42,7 @@ class WaveGatewayTest extends SimTest {
 
     @Test
     void waveGeneration_normal() {
-        randomPluginTrainer.givenFloatAbs(0.0f);
+        randomPluginTrainer.givenFloatAbs(0.15f);
 
         whenWaveIsGenerated();
 
@@ -241,17 +241,6 @@ class WaveGatewayTest extends SimTest {
         assertThat(wave.type).isEqualTo(WaveType.Horseman);
         assertThat(wave.creepCount).isEqualTo(1);
         assertThat(wave.armorType).isEqualTo(ArmorType.Zod);
-    }
-
-    @Test
-    void waveGeneration_cultists_roundTooLow() {
-        version = Sim.vRoC;
-        round = 6;
-        randomPluginTrainer.givenFloatAbs(CULTISTS_ROLL, CULTISTS_OF_YIG_ROLL);
-
-        whenWaveIsGenerated();
-
-        assertThat(wave.type).isEqualTo(WaveType.Normal);
     }
 
     @Test

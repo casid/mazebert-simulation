@@ -127,11 +127,7 @@ public strictfp class WaveGateway implements ReadonlyWaveGateway {
     }
 
     private WaveType calculateRocCultist(RandomPlugin randomPlugin, int round) {
-        if (round < 8) {
-            return null;
-        }
-
-        if (randomPlugin.getFloatAbs() > 0.13f) {
+        if (randomPlugin.getFloatAbs() > 0.1f) {
             return null;
         }
 
