@@ -117,7 +117,7 @@ public strictfp class WaveGateway implements ReadonlyWaveGateway {
         }
 
         if (Sim.isRoCSeasonContent()) {
-            WaveType cultist = calculateRocCultist(randomPlugin, round);
+            WaveType cultist = calculateRocCultist(randomPlugin);
             if (cultist != null) {
                 return cultist;
             }
@@ -126,7 +126,7 @@ public strictfp class WaveGateway implements ReadonlyWaveGateway {
         return randomPlugin.get(RANDOM_WAVE_TYPES);
     }
 
-    private WaveType calculateRocCultist(RandomPlugin randomPlugin, int round) {
+    private WaveType calculateRocCultist(RandomPlugin randomPlugin) {
         if (randomPlugin.getFloatAbs() > 0.1f) {
             return null;
         }
