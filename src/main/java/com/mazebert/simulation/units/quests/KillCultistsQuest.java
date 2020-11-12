@@ -2,14 +2,16 @@ package com.mazebert.simulation.units.quests;
 
 import com.mazebert.simulation.Sim;
 import com.mazebert.simulation.SimulationListeners;
+import com.mazebert.simulation.Wave;
 import com.mazebert.simulation.WaveType;
 import com.mazebert.simulation.listeners.OnUnitRemovedListener;
+import com.mazebert.simulation.listeners.OnWaveFinishedListener;
 import com.mazebert.simulation.units.Unit;
 import com.mazebert.simulation.units.creeps.Creep;
 import com.mazebert.simulation.units.heroes.HeroType;
 import com.mazebert.simulation.units.wizards.Wizard;
 
-public abstract strictfp class KillCultistsQuest extends Quest implements OnUnitRemovedListener {
+public abstract strictfp class KillCultistsQuest extends Quest implements OnUnitRemovedListener, OnWaveFinishedListener {
 
     private final SimulationListeners simulationListeners = Sim.context().simulationListeners;
 
@@ -24,10 +26,12 @@ public abstract strictfp class KillCultistsQuest extends Quest implements OnUnit
     protected void initialize(Wizard unit) {
         super.initialize(unit);
         simulationListeners.onUnitRemoved.add(this);
+        simulationListeners.onWaveFinished.add(this);
     }
 
     @Override
     protected void dispose(Wizard unit) {
+        simulationListeners.onWaveFinished.remove(this);
         simulationListeners.onUnitRemoved.remove(this);
         super.dispose(unit);
     }
@@ -47,6 +51,16 @@ public abstract strictfp class KillCultistsQuest extends Quest implements OnUnit
     }
 
     @Override
+    public void onWaveFinished(Wave wave) {
+        if (wave.type == type) {
+            if (Sim.context().simulationListeners.areNotificationsEnabled()) {
+                Sim.context().simulationListeners.showNotification(getUnit(), format.card(getHeroToUnlock()) + format.colored(" is rising...", 0x038174));
+                Sim.context().simulationListeners.showNotification(getUnit(), format.colored(getCurrentAmount() + "/" + getRequiredAmount() + " cultists slain.", 0x038174));
+            }
+        }
+    }
+
+    @Override
     public boolean isHidden() {
         return true;
     }
@@ -60,11 +74,11 @@ public abstract strictfp class KillCultistsQuest extends Quest implements OnUnit
 
     @Override
     public String getTitle() {
-        return "Offerings for " + format.card(getHeroToUnlock());
+        return "Sacrifice for " + format.card(getHeroToUnlock());
     }
 
     @Override
     public String getDescription() {
-        return "Kill " + requiredAmount + " " + format.waveTypePlural(type);
+        return "Slay " + requiredAmount + " " + format.waveTypePlural(type);
     }
 }
