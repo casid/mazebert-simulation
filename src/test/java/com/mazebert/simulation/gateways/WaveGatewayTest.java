@@ -42,7 +42,7 @@ class WaveGatewayTest extends SimTest {
 
     @Test
     void waveGeneration_normal() {
-        randomPluginTrainer.givenFloatAbs(0.15f);
+        randomPluginTrainer.givenFloatAbs(0.25f, 0.0f);
 
         whenWaveIsGenerated();
 
