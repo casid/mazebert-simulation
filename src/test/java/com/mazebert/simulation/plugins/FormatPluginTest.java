@@ -117,6 +117,7 @@ class FormatPluginTest {
     void colored() {
         assertThat(format.colored("text", 0x123456)).isEqualTo("<c=#123456>text</c>");
         assertThat(format.colored("text", 0xfac301)).isEqualTo("<c=#fac301>text</c>");
+        assertThat(format.colored("text", 0x038174)).isEqualTo("<c=#038174>text</c>");
     }
 
     @Test

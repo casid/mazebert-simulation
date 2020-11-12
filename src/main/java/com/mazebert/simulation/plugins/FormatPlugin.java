@@ -191,8 +191,21 @@ public strictfp class FormatPlugin {
     }
 
     public String colored(String string, int color) {
-        String c = Integer.toString(color, 16);
-        return "<c=#" + c + ">" + string + "</c>";
+        return "<c=#" + toHex(color) + ">" + string + "</c>";
+    }
+
+    private String toHex(int color) {
+        String str = Integer.toString(color, 16);
+
+        if (str.length() < 6) {
+            StringBuilder hex = new StringBuilder(str);
+            while (hex.length() < 6) {
+                hex.insert(0, "0");
+            }
+            return hex.toString();
+        }
+
+        return str;
     }
 
     public String rarity(Rarity rarity) {
