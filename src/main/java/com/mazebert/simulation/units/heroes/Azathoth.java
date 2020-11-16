@@ -44,7 +44,7 @@ public strictfp class Azathoth extends Hero {
 
     @Override
     public String getSinceVersion() {
-        return "2.1";
+        return "2.2";
     }
 
     @Override
