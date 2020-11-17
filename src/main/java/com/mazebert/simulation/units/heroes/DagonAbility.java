@@ -5,7 +5,7 @@ import com.mazebert.simulation.units.towers.Tower;
 
 public strictfp class DagonAbility extends HeroTowerBuffAbility {
 
-    public static final float itemChance = 0.15f;
+    public static final float itemChance = 0.1f;
     public static final float cultistChance = 0.05f;
     public static final float eldritchCardModifier = 1.0f;
 
@@ -29,7 +29,7 @@ public strictfp class DagonAbility extends HeroTowerBuffAbility {
     @Override
     public String getDescription() {
         return format.percentWithSignAndUnit(itemChance) + " item chance.\n" +
-                format.percentWithSignAndUnit(cultistChance) + " item chance.\n" +
+                format.percentWithSignAndUnit(cultistChance) + " chance to spawn eldritch cultists..\n" +
                 "Eldritch card effects are doubled.";
     }
 }

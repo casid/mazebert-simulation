@@ -15,20 +15,20 @@ public strictfp class EldritchArmsAbility extends Ability<Tower> {
         super.initialize(unit);
         AttackAbility attackAbility = unit.getAbility(AttackAbility.class);
         if (attackAbility != null) {
-            attackAbility.setTargets(attackAbility.getTargets() + targets);
+            attackAbility.setTargets(attackAbility.getTargets() + StrictMath.round(targets * unit.getEldritchCardModifier()));
         }
-        unit.addAttackSpeed(attackSpeed);
-        unit.addLuck(luck);
+        unit.addAttackSpeed(attackSpeed * unit.getEldritchCardModifier());
+        unit.addLuck(luck * unit.getEldritchCardModifier());
     }
 
     @Override
     protected void dispose(Tower unit) {
         AttackAbility attackAbility = unit.getAbility(AttackAbility.class);
         if (attackAbility != null) {
-            attackAbility.setTargets(attackAbility.getTargets() - targets);
+            attackAbility.setTargets(attackAbility.getTargets() - StrictMath.round(targets * unit.getEldritchCardModifier()));
         }
-        unit.addAttackSpeed(-attackSpeed);
-        unit.addLuck(-luck);
+        unit.addAttackSpeed(-attackSpeed * unit.getEldritchCardModifier());
+        unit.addLuck(-luck * unit.getEldritchCardModifier());
         super.dispose(unit);
     }
 

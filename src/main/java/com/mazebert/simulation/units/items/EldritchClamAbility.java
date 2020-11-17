@@ -19,13 +19,18 @@ public strictfp class EldritchClamAbility extends StackableAbility<Tower> {
         getUnit().addGoldModifer(-gold);
         getUnit().addLuck(-luck);
 
-        item = getStackCount() * itemBonus;
-        gold = getStackCount() * goldBonus;
-        luck = getStackCount() * luckBonus;
+        float multiplier = getMultiplier();
+        item = multiplier * itemBonus;
+        gold = multiplier * goldBonus;
+        luck = multiplier * luckBonus;
 
         getUnit().addItemChance(item);
         getUnit().addGoldModifer(gold);
         getUnit().addLuck(luck);
+    }
+
+    private float getMultiplier() {
+        return getStackCount() * getUnit().getEldritchCardModifier();
     }
 
     @Override
