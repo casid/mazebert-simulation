@@ -24,7 +24,7 @@ public strictfp class EldritchMarshNecklace extends Item {
 
     @Override
     public String getDescription() {
-        return "Gift of the Old Ones";
+        return "Gift of the Old Ones.";
     }
 
     @Override

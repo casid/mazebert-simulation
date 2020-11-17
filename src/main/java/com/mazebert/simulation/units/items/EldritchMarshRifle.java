@@ -24,7 +24,7 @@ public strictfp class EldritchMarshRifle extends Item {
 
     @Override
     public String getDescription() {
-        return "Gift of the Old Ones";
+        return "The Terror of Devil Reef.";
     }
 
     @Override
