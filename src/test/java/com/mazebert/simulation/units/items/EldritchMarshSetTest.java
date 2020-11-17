@@ -35,6 +35,6 @@ class EldritchMarshSetTest extends ItemTest {
         whenItemIsEquipped(ItemType.EldritchMarshNecklace);
 
         assertThat(tower.getItemChance()).isEqualTo(0.6f);
-        assertThat(tower.getItemQuality()).isEqualTo(1.2f);
+        assertThat(tower.getItemQuality()).isEqualTo(1.1f);
     }
 }
