@@ -11,6 +11,8 @@ import java.util.Queue;
 
 public strictfp class WaveGateway implements ReadonlyWaveGateway {
     public static final int WAVES_IN_ADVANCE = 3;
+    public static final float MAX_CULTIST_CHANCE = 0.5f;
+
     private static final WaveType[] RANDOM_WAVE_TYPES = {WaveType.Normal, WaveType.Mass, WaveType.Boss, WaveType.Air};
     private static final CreepType[] RANDOM_AIR_CREEP_TYPES = {CreepType.AirDragon};
     private static final CreepType[] RANDOM_GROUND_CREEP_TYPES = {CreepType.Orc, CreepType.Rat, CreepType.Spider};
@@ -128,7 +130,7 @@ public strictfp class WaveGateway implements ReadonlyWaveGateway {
     }
 
     private WaveType calculateRocCultist(RandomPlugin randomPlugin) {
-        if (randomPlugin.getFloatAbs() > 0.14f * cultistChance) {
+        if (randomPlugin.getFloatAbs() > getCurrentCultistChance()) {
             return null;
         }
 
@@ -146,6 +148,14 @@ public strictfp class WaveGateway implements ReadonlyWaveGateway {
         }
 
         return WaveType.CultistOfDagon;
+    }
+
+    private float getCurrentCultistChance() {
+        float chance = 0.14f * cultistChance;
+        if (chance > MAX_CULTIST_CHANCE) {
+            return MAX_CULTIST_CHANCE;
+        }
+        return chance;
     }
 
     private CreepType rollCreepType(Wave wave, RandomPlugin randomPlugin) {
