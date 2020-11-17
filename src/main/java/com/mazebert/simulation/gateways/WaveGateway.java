@@ -21,6 +21,7 @@ public strictfp class WaveGateway implements ReadonlyWaveGateway {
     private int generatedWaves;
     private int currentRound;
     private Wave currentWave;
+    private float cultistChance = 1.0f;
 
     public void addWave(Wave wave) {
         waves.add(wave);
@@ -127,7 +128,7 @@ public strictfp class WaveGateway implements ReadonlyWaveGateway {
     }
 
     private WaveType calculateRocCultist(RandomPlugin randomPlugin) {
-        if (randomPlugin.getFloatAbs() > 0.14f) {
+        if (randomPlugin.getFloatAbs() > 0.14f * cultistChance) {
             return null;
         }
 
@@ -244,5 +245,13 @@ public strictfp class WaveGateway implements ReadonlyWaveGateway {
     @Override
     public Wave getCurrentWave() {
         return currentWave;
+    }
+
+    public void addCultistChance(float cultistChance) {
+        this.cultistChance += cultistChance;
+    }
+
+    public float getCultistChance() {
+        return cultistChance;
     }
 }

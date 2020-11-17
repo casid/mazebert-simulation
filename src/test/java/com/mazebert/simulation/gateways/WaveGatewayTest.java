@@ -291,6 +291,18 @@ class WaveGatewayTest extends SimTest {
         assertThat(wave.creepType).isEqualTo(CreepType.SwampThing);
     }
 
+    @Test
+    void waveGeneration_cultistsChance() {
+        version = Sim.vRoC;
+        round = 8;
+        randomPluginTrainer.givenFloatAbs(0.2f, CULTISTS_OF_DAGON_ROLL);
+        waveGateway.addCultistChance(100.0f);
+
+        whenWaveIsGenerated();
+
+        assertThat(wave.type).isEqualTo(WaveType.CultistOfDagon);
+    }
+
     private void whenWaveIsGenerated() {
         wave = waveGateway.generateWave(randomPlugin, round);
     }

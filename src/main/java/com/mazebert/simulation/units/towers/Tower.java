@@ -76,6 +76,7 @@ public strictfp abstract class Tower extends Unit implements CooldownUnit, Card,
     private AttackType attackType;
     private float experienceModifier = 1.0f; // factor 1 is regular experience gain
     private float goldModifier = 1.0f; // factor 1 is regular gold gain
+    private float eldritchCardModifier = 1.0f; // factor 1 is regular effect
     private double bestHit;
     private double totalDamage;
     private int kills;
@@ -780,5 +781,13 @@ public strictfp abstract class Tower extends Unit implements CooldownUnit, Card,
 
     public void addMultiluck(int amount) {
         multiluck += amount;
+    }
+
+    public void addEldritchCardModifier(float amount) {
+        eldritchCardModifier += amount;
+    }
+
+    public float getEldritchCardModifier() {
+        return eldritchCardModifier;
     }
 }

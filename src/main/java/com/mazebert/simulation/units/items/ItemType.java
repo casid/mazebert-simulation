@@ -92,10 +92,11 @@ public strictfp enum ItemType implements CardType<Item> {
     BranchOfYggdrasilDarkness(77, BranchOfYggdrasilDarkness.class),
     BranchOfYggdrasilLight(78, BranchOfYggdrasilLight.class),
     ToiletPaper(79, ToiletPaper.class),
+    EldritchClam(80, EldritchClam.class),
     ;
 
     private static int maxId;
-    private static ItemType[] LOOKUP;
+    private static final ItemType[] LOOKUP;
 
     static {
         maxId = 0;
