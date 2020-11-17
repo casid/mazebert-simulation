@@ -26,6 +26,7 @@ public class LootTest extends SimTest {
 
     private static final float BABY_SWORD_ROLL = 0.2f;
     private static final float WOODEN_STAFF_ROLL = 0.0f;
+    private static final float ELDRITCH_CLAM_ROLL = 0.53f;
 
     RandomPluginTrainer randomPluginTrainer = new RandomPluginTrainer();
     DamageSystemTrainer damageSystemTrainer;
@@ -38,7 +39,7 @@ public class LootTest extends SimTest {
     @BeforeEach
     void setUp() {
         season = true;
-        version = Sim.vDoLEnd;
+        version = Sim.vRoC;
 
         simulationListeners = new SimulationListeners();
         unitGateway = new UnitGateway();
@@ -399,6 +400,23 @@ public class LootTest extends SimTest {
         whenTowerAttacks();
 
         assertThat(wizard1.itemStash.size()).isEqualTo(0);
+    }
+
+    @Test
+    void loot_eldritch() {
+        randomPluginTrainer.givenFloatAbs(
+                0.0f, // This is a drop
+                0.99f, // The rarity of this drop is common
+                0.0f, // This is an item drop
+                ELDRITCH_CLAM_ROLL // It's a clam!
+        );
+        creep.getWave().type = WaveType.CultistOfYig;
+        creep.setMaxDrops(1);
+
+        whenTowerAttacks();
+
+        assertThat(wizard1.itemStash.get(0).amount).isEqualTo(1);
+        assertThat(wizard1.itemStash.get(0).cardType).isEqualTo(ItemType.EldritchClam);
     }
 
     @Test

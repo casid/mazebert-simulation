@@ -296,12 +296,15 @@ public strictfp final class WaveSpawner implements OnGameStartedListener, OnWave
         } else {
             switch (wave.type) {
                 case Normal:
+                case CultistOfCthulhu:
+                case CultistOfDagon:
                     creep.setDropChance(1.0f); // Normal drop chance.
                     creep.setMinDrops(0); // No guaranteed drops.
                     creep.setMaxDrops(2); // Maximum are two drops.
                     creep.setMaxItemLevel(wave.round); // Item level is round.
                     break;
                 case Mass:
+                case CultistOfYig:
                     creep.setDropChance(0.6f); // Reduced drop chance.
                     creep.setMinDrops(0); // No guaranteed drops.
                     creep.setMaxDrops(1); // Maximum is one drop.
@@ -314,6 +317,7 @@ public strictfp final class WaveSpawner implements OnGameStartedListener, OnWave
                     creep.setMaxItemLevel(wave.round + 2); // Item level is round + 2.
                     break;
                 case Air:
+                case CultistOfAzathoth:
                     creep.setDropChance(2.0f); // Slightly increased drop chance, as there are half as many air creeps than normal creeps to kill.
                     creep.setMinDrops(0); // No guaranteed drops.
                     creep.setMaxDrops(2); // Maximum are two drops.
@@ -509,14 +513,8 @@ public strictfp final class WaveSpawner implements OnGameStartedListener, OnWave
     }
 
     private CreepType getBonusRoundCreepType(Wave wave) {
-        switch (wave.type) {
-            case Air:
-                return CreepType.Bat;
-            case CultistOfAzathoth:
-            case CultistOfCthulhu:
-            case CultistOfYig:
-            case CultistOfDagon:
-                return wave.creepType;
+        if (wave.type == WaveType.Air) {
+            return CreepType.Bat;
         }
 
         return CreepType.Troll;

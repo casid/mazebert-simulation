@@ -1,6 +1,7 @@
 package com.mazebert.simulation.units.items;
 
 import com.mazebert.simulation.gateways.WaveGateway;
+import com.mazebert.simulation.units.abilities.EldritchItemAbility;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -40,5 +41,17 @@ class EldritchItemTest extends ItemTest {
         tower.addEldritchCardModifier(1.0f);
         whenItemIsEquipped(ItemType.EldritchClam);
         assertThat(waveGateway.getCultistChance()).isEqualTo(1.02f);
+    }
+
+    @Test
+    void eldritchItemsCannotDrop() {
+        season = true;
+        for (ItemType type : ItemType.getValues()) {
+            Item item = type.instance();
+            if (item.getAbility(EldritchItemAbility.class) != null) {
+                assertThat(item.isEldritch()).isTrue();
+                assertThat(item.isDropable()).isFalse();
+            }
+        }
     }
 }

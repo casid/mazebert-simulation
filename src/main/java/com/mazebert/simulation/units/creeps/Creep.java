@@ -421,4 +421,16 @@ public strictfp class Creep extends Unit {
 
         return false;
     }
+
+    public boolean isEldritch() {
+        switch (wave.type) {
+            case CultistOfAzathoth:
+            case CultistOfCthulhu:
+            case CultistOfYig:
+            case CultistOfDagon:
+                return true;
+        }
+
+        return false;
+    }
 }

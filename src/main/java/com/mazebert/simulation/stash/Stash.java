@@ -1,5 +1,6 @@
 package com.mazebert.simulation.stash;
 
+import com.mazebert.java8.Predicate;
 import com.mazebert.simulation.Card;
 import com.mazebert.simulation.CardType;
 import com.mazebert.simulation.Rarity;
@@ -20,6 +21,7 @@ public abstract strictfp class Stash<T extends Card> implements ReadonlyStash<T>
     private final Map<Object, T> droppedUniques;
     private final Map<Object, Integer> autoTransmutes;
     private EnumMap<Rarity, CardType<T>[]> cardByDropRarity;
+    private EnumMap<Rarity, CardType<T>[]> cardByDropRarityIncludingEldritchCards;
     private EnumMap<Rarity, CardType<T>[]> cardByDropRarityExcludingSupporterCards;
 
     private final OnCardAdded onCardAdded = new OnCardAdded();
@@ -39,12 +41,13 @@ public abstract strictfp class Stash<T extends Card> implements ReadonlyStash<T>
     }
 
     protected void updateCardByDropRarity() {
-        this.cardByDropRarity = populateCardByDropRarity();
-        this.cardByDropRarityExcludingSupporterCards = populateCardByDropRarityExcludingSupporterCards();
+        cardByDropRarity = populateCardByDropRarity(this::isDropable);
+        cardByDropRarityIncludingEldritchCards = populateCardByDropRarity(c -> isDropable(c) || c.isEldritch());
+        cardByDropRarityExcludingSupporterCards = populateCardByDropRarity(c -> isDropable(c) && !c.isSupporterReward());
     }
 
     @SuppressWarnings("unchecked")
-    private EnumMap<Rarity, CardType<T>[]> populateCardByDropRarity() {
+    private EnumMap<Rarity, CardType<T>[]> populateCardByDropRarity(Predicate<T> predicate) {
         EnumMap<Rarity, List<CardType<T>>> temp = new EnumMap<>(Rarity.class);
 
         for (Rarity rarity : Rarity.VALUES) {
@@ -53,7 +56,7 @@ public abstract strictfp class Stash<T extends Card> implements ReadonlyStash<T>
 
         for (CardType<T> possibleDrop : getPossibleDrops()) {
             T card = possibleDrop.instance();
-            if (isDropable(card)) {
+            if (predicate.test(card)) {
                 temp.get(card.getDropRarity()).add(possibleDrop);
             }
         }
@@ -65,52 +68,6 @@ public abstract strictfp class Stash<T extends Card> implements ReadonlyStash<T>
             Collections.sort(drops, ITEM_LEVEL_COMPARATOR);
             result.put(rarity, drops.toArray(new CardType[0]));
         }
-        return result;
-    }
-
-    private EnumMap<Rarity, CardType<T>[]> populateCardByDropRarityExcludingSupporterCards() {
-        Set<CardType<T>> supporterCards = new HashSet<>();
-
-        for (CardType<T> possibleDrop : getPossibleDrops()) {
-            T card = possibleDrop.instance();
-            if (card.isSupporterReward()) {
-                supporterCards.add(possibleDrop);
-            }
-        }
-
-        if (supporterCards.isEmpty()) {
-            return cardByDropRarity;
-        }
-
-        EnumMap<Rarity, CardType<T>[]> result = new EnumMap<>(Rarity.class);
-        for (Rarity rarity : Rarity.VALUES) {
-            CardType<T>[] cardTypes = cardByDropRarity.get(rarity);
-            result.put(rarity, remove(cardTypes, supporterCards));
-        }
-        return result;
-    }
-
-    @SuppressWarnings("unchecked")
-    private CardType<T>[] remove(CardType<T>[] array, Set<CardType<T>> values) {
-        int changes = 0;
-        for (CardType<T> cardType : array) {
-            if (values.contains(cardType)) {
-                ++changes;
-            }
-        }
-
-        if (changes == 0) {
-            return array;
-        }
-
-        CardType<T>[] result = new CardType[array.length - changes];
-        int i = 0;
-        for (CardType<T> cardType : array) {
-            if (!values.contains(cardType)) {
-                result[i++] = cardType;
-            }
-        }
-
         return result;
     }
 
@@ -262,6 +219,23 @@ public abstract strictfp class Stash<T extends Card> implements ReadonlyStash<T>
         return cardByDropRarity.get(rarity);
     }
 
+    private CardType<T>[] getPossibleDrops(StashLookup lookup, Rarity rarity) {
+        return getCardByDropRarity(lookup).get(rarity);
+    }
+
+    private EnumMap<Rarity, CardType<T>[]> getCardByDropRarity(StashLookup lookup) {
+        switch (lookup) {
+            case Dropable:
+                return cardByDropRarity;
+            case DropableIncludingEldritchCards:
+                return cardByDropRarityIncludingEldritchCards;
+            case DropableExcludingSupporterCards:
+                return cardByDropRarityExcludingSupporterCards;
+        }
+
+        throw new IllegalArgumentException("Unsupported stash lookup " + lookup);
+    }
+
     public void addPossibleDropsExcludingSupporterCards(Wizard wizard, Rarity rarity, Collection<CardType<T>> result) {
         CardType<T>[] possibleDrops = cardByDropRarityExcludingSupporterCards.get(rarity);
 
@@ -277,8 +251,8 @@ public abstract strictfp class Stash<T extends Card> implements ReadonlyStash<T>
         }
     }
 
-    public CardType<T> getRandomDrop(Rarity rarity, RandomPlugin randomPlugin, int maxItemLevel, boolean excludeSupporterCards) {
-        CardType<T>[] possibleDrops = excludeSupporterCards ? cardByDropRarityExcludingSupporterCards.get(rarity) : getPossibleDrops(rarity);
+    public CardType<T> getRandomDrop(Rarity rarity, RandomPlugin randomPlugin, int maxItemLevel, StashLookup lookup) {
+        CardType<T>[] possibleDrops = getPossibleDrops(lookup, rarity);
         if (possibleDrops.length <= 0) {
             return null;
         }

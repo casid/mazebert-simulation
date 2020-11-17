@@ -51,4 +51,9 @@ public strictfp class EldritchClam extends Item {
     public boolean isEldritch() {
         return true;
     }
+
+    @Override
+    public boolean isDropable() {
+        return false;
+    }
 }

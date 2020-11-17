@@ -6,6 +6,7 @@ import com.mazebert.simulation.gateways.UnitGateway;
 import com.mazebert.simulation.plugins.FormatPlugin;
 import com.mazebert.simulation.plugins.random.RandomPlugin;
 import com.mazebert.simulation.stash.Stash;
+import com.mazebert.simulation.stash.StashLookup;
 import com.mazebert.simulation.units.Unit;
 import com.mazebert.simulation.units.creeps.Creep;
 import com.mazebert.simulation.units.items.ItemType;
@@ -130,7 +131,7 @@ public strictfp class LootSystem {
         if (version >= Sim.v13) {
             if (drop.instance().isSupporterReward()) {
                 if (version >= Sim.vDoL) {
-                    rollCardDrop(wizard, creep, maxItemLevel, Rarity.Legendary, stash, true);
+                    rollCardDrop(wizard, creep, maxItemLevel, Rarity.Legendary, stash, StashLookup.DropableExcludingSupporterCards);
                 } else {
                     rollCardDrop(wizard, creep, maxItemLevel, Rarity.Unique, stash);
                 }
@@ -162,15 +163,22 @@ public strictfp class LootSystem {
         }
     }
 
-    private void rollCardDrop(Wizard wizard, Creep creep, int maxItemLevel, Rarity rarity, Stash stash) {
-        rollCardDrop(wizard, creep, maxItemLevel, rarity, stash, false);
+    private StashLookup getStashLookup(Creep creep) {
+        if (creep != null && creep.isEldritch()) {
+            return StashLookup.DropableIncludingEldritchCards;
+        }
+        return StashLookup.Dropable;
     }
 
-    private void rollCardDrop(Wizard wizard, Creep creep, int maxItemLevel, Rarity rarity, Stash stash, boolean excludeSupporterCards) {
+    private void rollCardDrop(Wizard wizard, Creep creep, int maxItemLevel, Rarity rarity, Stash stash) {
+        rollCardDrop(wizard, creep, maxItemLevel, rarity, stash, getStashLookup(creep));
+    }
+
+    private void rollCardDrop(Wizard wizard, Creep creep, int maxItemLevel, Rarity rarity, Stash stash, StashLookup lookup) {
         while (rarity.ordinal() >= Rarity.Common.ordinal()) {
             CardType drop;
             if (version > Sim.v10) {
-                drop = stash.getRandomDrop(rarity, randomPlugin, maxItemLevel, excludeSupporterCards);
+                drop = stash.getRandomDrop(rarity, randomPlugin, maxItemLevel, lookup);
             } else {
                 drop = stash.getRandomDrop(rarity, randomPlugin);
             }
