@@ -129,4 +129,24 @@ public strictfp abstract class Map {
     public int getId() {
         return type.id;
     }
+
+    public int countWaterTiles(float x, float y, float range) {
+        int amount = 0;
+
+        int startX = StrictMath.round(x - range);
+        int endX = StrictMath.round(x + range);
+        int startY = StrictMath.round(y - range);
+        int endY = StrictMath.round(y + range);
+
+        for (int my = startY; my <= endY; ++my) {
+            for (int mx = startX; mx <= endX; ++mx) {
+                Tile tile = getGrid().getTile(mx, my);
+                if(tile != null && tile.type.water) {
+                    ++amount;
+                }
+            }
+        }
+
+        return amount;
+    }
 }

@@ -9,6 +9,7 @@ public strictfp class TileType {
     public boolean walkable;
     public boolean flyable;
     public boolean buildable;
+    public boolean water;
 
     public TileType(String name, float pivotX, float pivotY) {
         this.name = name;
@@ -42,6 +43,7 @@ public strictfp class TileType {
     }
 
     public TileType water() {
+        water = true;
         return flyable();
     }
 
@@ -50,7 +52,7 @@ public strictfp class TileType {
     }
 
     public TileType transparentWater() {
-        return blendMode("Screen").flyable();
+        return blendMode("Screen").water();
     }
 
     public TileType base() {
