@@ -20,7 +20,7 @@ public strictfp class Cthulhu extends Hero {
 
     @Override
     public String getIcon() {
-        return "cthulhu_512";
+        return "cthulhu";
     }
 
     @Override
@@ -56,5 +56,10 @@ public strictfp class Cthulhu extends Hero {
     @Override
     public boolean isEldritch() {
         return true;
+    }
+
+    @Override
+    public String getAuthor() {
+        return "Ser Takatschun";
     }
 }

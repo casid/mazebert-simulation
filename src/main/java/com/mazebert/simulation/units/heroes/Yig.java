@@ -19,7 +19,7 @@ public strictfp class Yig extends Hero {
 
     @Override
     public String getIcon() {
-        return "yig_512"; // TODO
+        return "yig";
     }
 
     @Override

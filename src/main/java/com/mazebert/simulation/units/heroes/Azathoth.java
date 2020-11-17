@@ -19,7 +19,7 @@ public strictfp class Azathoth extends Hero {
 
     @Override
     public String getIcon() {
-        return "azathoth_512"; // TODO
+        return "azathoth";
     }
 
     @Override

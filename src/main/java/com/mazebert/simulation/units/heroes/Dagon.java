@@ -18,7 +18,7 @@ public strictfp class Dagon extends Hero {
 
     @Override
     public String getIcon() {
-        return "dagon_512"; // TODO
+        return "dagon";
     }
 
     @Override
