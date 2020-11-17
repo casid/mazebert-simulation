@@ -7,7 +7,7 @@ import com.mazebert.simulation.units.abilities.EldritchItemAbility;
 
 public strictfp class EldritchClam extends Item {
     public EldritchClam() {
-        super(new EldritchItemAbility());
+        super(new EldritchClamAbility(), new EldritchItemAbility());
     }
 
     @Override
@@ -24,7 +24,7 @@ public strictfp class EldritchClam extends Item {
 
     @Override
     public String getDescription() {
-        return "...";
+        return "Taken from the deep ocean, it whispers stories from unseen horror.";
     }
 
     @Override
@@ -39,7 +39,7 @@ public strictfp class EldritchClam extends Item {
 
     @Override
     public String getIcon() {
-        return "0032_ring_512"; // TODO
+        return "eldritch_clam";
     }
 
     @Override

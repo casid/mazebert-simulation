@@ -23,7 +23,7 @@ public strictfp class EldritchItemAbility extends StackableAbility<Tower> {
 
     @Override
     public String getTitle() {
-        return format.colored("Attraction of Insanity", 0x038174);
+        return format.colored("Rising Horror", 0x038174);
     }
 
     @Override
