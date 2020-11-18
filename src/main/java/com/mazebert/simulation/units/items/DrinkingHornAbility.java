@@ -1,14 +1,22 @@
 package com.mazebert.simulation.units.items;
 
+import com.mazebert.simulation.Sim;
 import com.mazebert.simulation.listeners.OnAbilityRemovedListener;
 import com.mazebert.simulation.units.abilities.Ability;
 import com.mazebert.simulation.units.towers.Tower;
 
 public strictfp class DrinkingHornAbility extends Ability<Tower> implements OnAbilityRemovedListener {
-    private static final float potionBonus = 0.1f;
-    private static final float luckBonus = 0.1f;
-    private static final float missChance = 0.05f;
+    private final float potionBonus;
+    private final float luckBonus = 0.1f;
+    private final float missChance = 0.05f;
 
+    public DrinkingHornAbility() {
+        if (Sim.context().version >= Sim.vRoC) {
+            potionBonus = 0.2f;
+        } else {
+            potionBonus = 0.1f;
+        }
+    }
 
     @Override
     protected void initialize(Tower unit) {

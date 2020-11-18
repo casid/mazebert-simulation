@@ -14,6 +14,7 @@ public strictfp class DrinkingHorn extends Item {
     @Override
     public Changelog getChangelog() {
         return new Changelog(
+                new ChangelogEntry(Sim.vRoC, false, 2020, "Potion effect increased from 10% to 20%."),
                 ChangelogEntry.DAWN_OF_LIGHT
         );
     }
