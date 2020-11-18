@@ -68,4 +68,9 @@ public class CreepBuilder implements Builder<Creep> {
         creep.getWave().type = WaveType.TimeLord;
         return this;
     }
+
+    public CreepBuilder dead() {
+        creep.setHealth(0);
+        return this;
+    }
 }

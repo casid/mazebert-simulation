@@ -10,12 +10,15 @@ import com.mazebert.simulation.maps.TestMap;
 import com.mazebert.simulation.units.TestTower;
 import com.mazebert.simulation.units.abilities.AttackAbility;
 import com.mazebert.simulation.units.items.ItemType;
+import com.mazebert.simulation.units.items.NecronomiconSummonAbility;
 import com.mazebert.simulation.units.towers.Tower;
 import com.mazebert.simulation.units.wizards.Wizard;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import static com.mazebert.simulation.units.creeps.CreepBuilder.creep;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.jusecase.Builders.a;
 
 class DagonTest extends SimTest {
     Wizard wizard;
@@ -70,5 +73,35 @@ class DagonTest extends SimTest {
         assertThat(attackAbility.getTargets()).isEqualTo(17);
         assertThat(tower.getAttackSpeedAdd()).isEqualTo(-16.0f);
         assertThat(tower.getLuck()).isEqualTo(-1.0f);
+    }
+
+    @Test
+    void itemStatsAreDoubled_Necklace() {
+        gameGateway.getGame().map.getTiles().get(0).type.water = true;
+
+        whenItemIsEquipped(tower, ItemType.EldritchMarshNecklace);
+
+        assertThat(tower.getItemChance()).isEqualTo(0.6f); // 120% - 2 * 30%
+        assertThat(tower.getItemQuality()).isEqualTo(1.1f);
+    }
+
+    @Test
+    void itemStatsAreDoubled_Rifle() {
+        gameGateway.getGame().map.getTiles().get(0).type.water = true;
+
+        whenItemIsEquipped(tower, ItemType.EldritchMarshRifle);
+
+        assertThat(tower.getAddedRelativeBaseDamage()).isEqualTo(0.6f);
+        assertThat(tower.getAttackSpeedAdd()).isEqualTo(-0.8f);
+    }
+
+    @Test
+    void itemStatsAreDoubled_Necronomicon() {
+        whenItemIsEquipped(tower, ItemType.Necronomicon);
+
+        simulationListeners.onUnitRemoved.dispatch(a(creep().cultist().dead()));
+
+        NecronomiconSummonAbility ability = tower.getItem(0).getAbility(NecronomiconSummonAbility.class);
+        assertThat(ability.getDescription()).isEqualTo("Sacrifice 50 souls to summon an extra wave of eldritch cultists. Souls: 52.");
     }
 }

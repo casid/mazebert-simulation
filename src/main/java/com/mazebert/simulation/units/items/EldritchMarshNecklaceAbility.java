@@ -8,7 +8,7 @@ import com.mazebert.simulation.units.towers.Tower;
 public strictfp class EldritchMarshNecklaceAbility extends StackableAbility<Tower> implements OnRangeChangedListener {
 
     public static final float itemQualityBonus = 0.05f;
-    public static final float itemChanceBonus = -0.4f;
+    public static final float itemChanceBonus = -0.3f;
 
     private float itemQuality;
     private float itemChance;

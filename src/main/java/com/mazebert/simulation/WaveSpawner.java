@@ -37,9 +37,9 @@ public strictfp final class WaveSpawner implements OnGameStartedListener, OnWave
     private final int version = Sim.context().version;
 
     private final Queue<Creep> creepQueue = new ArrayDeque<>();
-    private final Queue<Creep> goblinQueue = new ArrayDeque<>();
+    private final Queue<Creep> extraCreepQueue = new ArrayDeque<>();
     private float countdownForNextCreepToSend;
-    private float countdownForNextGoblinToSend;
+    private float countdownForNextExtraCreepToSend;
     private boolean bonusRoundStarted;
     private double bonusRoundSeconds;
     private int lastBonusRoundSeconds;
@@ -77,13 +77,13 @@ public strictfp final class WaveSpawner implements OnGameStartedListener, OnWave
             }
         }
 
-        if (!goblinQueue.isEmpty()) {
-            countdownForNextGoblinToSend -= dt;
-            if (countdownForNextGoblinToSend <= 0.0f) {
-                Creep creep = goblinQueue.remove();
+        if (!extraCreepQueue.isEmpty()) {
+            countdownForNextExtraCreepToSend -= dt;
+            if (countdownForNextExtraCreepToSend <= 0.0f) {
+                Creep creep = extraCreepQueue.remove();
                 spawnCreep(creep);
 
-                countdownForNextGoblinToSend = calculateCountdownForNextCreepToSend(creep.getWave());
+                countdownForNextExtraCreepToSend = calculateCountdownForNextCreepToSend(creep.getWave());
             }
         }
 
@@ -128,8 +128,13 @@ public strictfp final class WaveSpawner implements OnGameStartedListener, OnWave
 
         for (int i = 0; i < amount; ++i) {
             Creep goblin = createGoblin(wizard, wave);
-            goblinQueue.add(goblin);
+            extraCreepQueue.add(goblin);
         }
+    }
+
+    public void spawnExtraCultistsWave() {
+        Wave wave = generateExtraCultistWave();
+        spawnWaveNew(wave);
     }
 
     private Wave generateGoblinWave() {
@@ -139,6 +144,11 @@ public strictfp final class WaveSpawner implements OnGameStartedListener, OnWave
         }
 
         return waveGateway.generateGoblinWave(round);
+    }
+
+    private Wave generateExtraCultistWave() {
+        int round = waveGateway.getCurrentRound() + currentBonusRound;
+        return waveGateway.generateExtraCultistWave(randomPlugin, round);
     }
 
     @SuppressWarnings("Duplicates")
@@ -235,12 +245,18 @@ public strictfp final class WaveSpawner implements OnGameStartedListener, OnWave
             creep.setExperience(experienceOfOneCreep);
             applyWaveAttributes(creep, wave);
 
-            creepQueue.add(creep);
+            if (wave.origin != WaveOrigin.ExtraWave) {
+                creepQueue.add(creep);
+            } else {
+                extraCreepQueue.add(creep);
+            }
         }
 
         wave.remainingCreepCount = spawnCount;
 
-        simulationListeners.onRoundStarted.dispatch(wave);
+        if (wave.origin != WaveOrigin.ExtraWave) {
+            simulationListeners.onRoundStarted.dispatch(wave);
+        }
     }
 
     @SuppressWarnings("Duplicates")

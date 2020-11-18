@@ -96,6 +96,21 @@ public strictfp class WaveGateway implements ReadonlyWaveGateway {
         return wave;
     }
 
+    public Wave generateExtraCultistWave(RandomPlugin randomPlugin, int round) {
+        Wave wave = new Wave();
+        wave.origin = WaveOrigin.ExtraWave;
+        wave.round = round;
+        wave.type = calculateRocCultistType(randomPlugin);
+        wave.creepCount = wave.type.creepCount;
+        wave.minSecondsToNextCreep = wave.type.getMinSecondsToNextCreep();
+        wave.maxSecondsToNextCreep = wave.type.getMaxSecondsToNextCreep();
+        wave.creepType = rollCreepType(wave, randomPlugin);
+        wave.armorType = rollArmorType(wave, randomPlugin);
+        wave.creepModifier1 = rollCreepModifier1(wave, randomPlugin);
+        wave.creepModifier2 = rollCreepModifier2(wave, randomPlugin);
+        return wave;
+    }
+
     public WaveType calculateWaveType(RandomPlugin randomPlugin, int round) {
         if (round < 5 && Sim.context().gameSystem.isTutorial()) {
             switch (round) {
@@ -134,6 +149,10 @@ public strictfp class WaveGateway implements ReadonlyWaveGateway {
             return null;
         }
 
+        return calculateRocCultistType(randomPlugin);
+    }
+
+    private WaveType calculateRocCultistType(RandomPlugin randomPlugin) {
         float roll = randomPlugin.getFloatAbs();
         if (roll < 0.05f) {
             return WaveType.CultistOfAzathoth;

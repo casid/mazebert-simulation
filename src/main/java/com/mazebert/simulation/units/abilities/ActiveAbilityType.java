@@ -2,6 +2,7 @@ package com.mazebert.simulation.units.abilities;
 
 import com.mazebert.simulation.Sim;
 import com.mazebert.simulation.units.items.BowlingBallRollAbility;
+import com.mazebert.simulation.units.items.NecronomiconSummonAbility;
 import com.mazebert.simulation.units.items.ScepterOfTimeAbility;
 import com.mazebert.simulation.units.towers.*;
 
@@ -12,12 +13,13 @@ public strictfp enum ActiveAbilityType {
     BowlingBallRollAbility(4, BowlingBallRollAbility.class),
     PhoenixRebirth(5, PhoenixRebirth.class),
     ScepterOfTimeToggle(6, ScepterOfTimeAbility.class),
+    NecronomiconSummon(7, NecronomiconSummonAbility.class),
     ;
 
     public final int id;
     public final Class<? extends ActiveAbility>[] abilityClasses;
 
-    private static ActiveAbilityType[] LOOKUP;
+    private static final ActiveAbilityType[] LOOKUP;
 
     static {
         int maxId = 0;
