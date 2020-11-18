@@ -108,7 +108,6 @@ public strictfp class Wizard extends Unit {
         onHealthChanged.dispatch(this, health - amount, health);
     }
 
-    @SuppressWarnings("SuspiciousMethodCalls")
     public boolean ownsFoilCard(CardType type) {
         Class<? extends CardType> typeClass = type.getClass();
         if (typeClass == ItemType.class) {

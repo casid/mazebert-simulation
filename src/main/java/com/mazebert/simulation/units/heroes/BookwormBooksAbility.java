@@ -4,6 +4,7 @@ import com.mazebert.simulation.listeners.OnUnitAddedListener;
 import com.mazebert.simulation.units.Unit;
 import com.mazebert.simulation.units.abilities.Ability;
 import com.mazebert.simulation.units.items.ItemType;
+import com.mazebert.simulation.units.wizards.Wizard;
 
 public strictfp class BookwormBooksAbility extends Ability<Hero> implements OnUnitAddedListener {
 
@@ -23,8 +24,12 @@ public strictfp class BookwormBooksAbility extends Ability<Hero> implements OnUn
     public void onUnitAdded(Unit unit) {
         unit.onUnitAdded.remove(this);
 
-        unit.getWizard().itemStash.add(ItemType.SchoolBook);
-        unit.getWizard().itemStash.add(ItemType.FrozenBook);
+        Wizard wizard = unit.getWizard();
+        wizard.itemStash.add(ItemType.SchoolBook);
+        wizard.itemStash.add(ItemType.FrozenBook);
+        if (wizard.ownsFoilCard(ItemType.Necronomicon)) {
+            wizard.itemStash.add(ItemType.Necronomicon);
+        }
     }
 
     @Override

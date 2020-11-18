@@ -4,7 +4,7 @@ import com.mazebert.simulation.units.abilities.Ability;
 import com.mazebert.simulation.units.towers.Tower;
 
 public strictfp class NecronomiconAbility extends Ability<Tower> {
-    private static final float experience = 0.3f;
+    private static final float experience = 0.5f;
 
     @Override
     protected void initialize(Tower unit) {
