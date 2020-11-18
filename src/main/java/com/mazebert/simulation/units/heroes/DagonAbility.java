@@ -29,7 +29,7 @@ public strictfp class DagonAbility extends HeroTowerBuffAbility {
     @Override
     public String getDescription() {
         return format.percentWithSignAndUnit(itemChance) + " item chance.\n" +
-                format.percentWithSignAndUnit(cultistChance) + " chance to spawn eldritch cultists..\n" +
+                format.percentWithSignAndUnit(cultistChance) + " chance to spawn eldritch cultists.\n" +
                 "Eldritch card effects are doubled.";
     }
 }

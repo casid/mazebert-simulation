@@ -24,6 +24,7 @@ public strictfp class WaveGateway implements ReadonlyWaveGateway {
     private int currentRound;
     private Wave currentWave;
     private float cultistChance = 1.0f;
+    private float cultistOfYigHealthMultiplier = 1.0f;
 
     public void addWave(Wave wave) {
         waves.add(wave);
@@ -282,5 +283,13 @@ public strictfp class WaveGateway implements ReadonlyWaveGateway {
 
     public float getCultistChance() {
         return cultistChance;
+    }
+
+    public void addCultistOfYigHealthMultiplier(float cultistOfYigHealthMultiplier) {
+        this.cultistOfYigHealthMultiplier += cultistOfYigHealthMultiplier;
+    }
+
+    public float getCultistOfYigHealthMultiplier() {
+        return cultistOfYigHealthMultiplier;
     }
 }

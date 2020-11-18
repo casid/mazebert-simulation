@@ -7,7 +7,7 @@ import com.mazebert.simulation.changelog.ChangelogEntry;
 public strictfp class Yig extends Hero {
 
     public Yig() {
-        // TODO
+        addAbility(new YigAbility());
     }
 
     @Override
@@ -29,7 +29,7 @@ public strictfp class Yig extends Hero {
 
     @Override
     public String getDescription() {
-        return "TODO.\n" + getWizardLevelRequirementText();
+        return "Father of Serpents.\n" + getWizardLevelRequirementText();
     }
 
     @Override

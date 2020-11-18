@@ -720,6 +720,25 @@ public strictfp class WaveSpawnerTest extends SimTest {
     }
 
     @Test
+    void yig() {
+        givenWave(WaveType.CultistOfYig);
+
+        whenGameIsStarted();
+
+        assertThat(getCreep(0).getHealth()).isEqualTo(7.314285714285714);
+    }
+
+    @Test
+    void yig_multiplier() {
+        givenWave(WaveType.CultistOfYig);
+        waveGateway.addCultistOfYigHealthMultiplier(1.0f);
+
+        whenGameIsStarted();
+
+        assertThat(getCreep(0).getHealth()).isEqualTo(14.628571428571428);
+    }
+
+    @Test
     void roundCompleted_allKilled() {
         givenBossWave();
 

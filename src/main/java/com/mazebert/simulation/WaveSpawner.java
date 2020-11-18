@@ -220,7 +220,7 @@ public strictfp final class WaveSpawner implements OnGameStartedListener, OnWave
         int round = wave.round;
         int playerCount = playerGateway.getPlayerCount();
 
-        double healthOfAllCreeps = Balancing.getTotalCreepHitpoints(version, round, difficultyGateway.getDifficulty(), playerCount);
+        double healthOfAllCreeps = getHealthOfAllCreeps(round, playerCount, wave);
         double healthOfOneCreep = getHealthOfOneCreep(wave, healthOfAllCreeps);
 
         int goldOfAllCreeps = Balancing.getGoldForRound(round, version);
@@ -257,6 +257,14 @@ public strictfp final class WaveSpawner implements OnGameStartedListener, OnWave
         if (wave.origin != WaveOrigin.ExtraWave) {
             simulationListeners.onRoundStarted.dispatch(wave);
         }
+    }
+
+    private double getHealthOfAllCreeps(int round, int playerCount, Wave wave) {
+        double result = Balancing.getTotalCreepHitpoints(version, round, difficultyGateway.getDifficulty(), playerCount);
+        if (wave.type == WaveType.CultistOfYig) {
+            result *= waveGateway.getCultistOfYigHealthMultiplier();
+        }
+        return result;
     }
 
     @SuppressWarnings("Duplicates")

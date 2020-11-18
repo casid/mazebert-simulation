@@ -44,6 +44,11 @@ public class CreepBuilder implements Builder<Creep> {
         return this;
     }
 
+    public CreepBuilder cultistOfYig() {
+        creep.getWave().type = WaveType.CultistOfYig;
+        return this;
+    }
+
     public CreepBuilder horseman() {
         creep.getWave().type = WaveType.Horseman;
         return this;
