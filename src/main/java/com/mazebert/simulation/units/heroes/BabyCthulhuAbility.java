@@ -16,6 +16,6 @@ public strictfp class BabyCthulhuAbility extends Ability<Hero> {
 
     @Override
     public String getDescription() {
-        return "Maps look otherwordly.";
+        return "Maps look otherworldly.";
     }
 }
