@@ -121,4 +121,12 @@ class DagonTest extends SimTest {
         NecronomiconSummonAbility ability = tower.getItem(0).getAbility(NecronomiconSummonAbility.class);
         assertThat(ability.getDescription()).isEqualTo("Sacrifice 50 souls to summon an extra wave of eldritch cultists. Souls: 52.");
     }
+
+    @Test
+    void itemStatsAreDoubled_Soup() {
+        whenItemIsEquipped(tower, ItemType.EldritchSoup);
+
+        assertThat(tower.getLuck()).isEqualTo(0.8f);
+        assertThat(tower.getPotionEffectiveness()).isEqualTo(1.2f);
+    }
 }
