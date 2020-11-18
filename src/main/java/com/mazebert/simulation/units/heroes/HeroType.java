@@ -30,6 +30,7 @@ public strictfp enum HeroType implements CardType<Hero> {
     Cthulhu(15, Cthulhu.class),
     Yig(16, Yig.class),
     Dagon(17, Dagon.class),
+    BabyCthulhu(18, BabyCthulhu.class),
     ;
 
     public final int id;
@@ -67,7 +68,7 @@ public strictfp enum HeroType implements CardType<Hero> {
     private static final HeroType[] LOOKUP;
     private static final HeroType[] STANDARD =        {LittleFinger, ShadowMane, Lycaon, Roderic, CookieMonster, InnKeeper, HoradricMage, JesterKing, Kvothe, LoanShark, JackInTheBox, Bookworm};
     private static final HeroType[] DAWN_OF_LIGHT =   {LittleFinger, ShadowMane, Lycaon, Roderic, CookieMonster, InnKeeper, HoradricMage, JesterKing, Kvothe, LoanShark, JackInTheBox, Bookworm, ProphetLucien};
-    private static final HeroType[] RISE_OF_CTHULHU = {LittleFinger, ShadowMane, Lycaon, Roderic, CookieMonster, InnKeeper, HoradricMage, JesterKing, Kvothe, LoanShark, JackInTheBox, Bookworm, ProphetLucien, Azathoth, Cthulhu, Yig, Dagon};
+    private static final HeroType[] RISE_OF_CTHULHU = {LittleFinger, ShadowMane, Lycaon, Roderic, CookieMonster, InnKeeper, HoradricMage, JesterKing, Kvothe, LoanShark, JackInTheBox, Bookworm, ProphetLucien, Azathoth, Cthulhu, Yig, Dagon, BabyCthulhu};
 
     static {
         int maxId = 0;
