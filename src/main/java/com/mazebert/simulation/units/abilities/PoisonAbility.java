@@ -31,7 +31,9 @@ public abstract strictfp class PoisonAbility extends Ability<Tower> implements O
         }
 
         PoisonEffect poisonEffect = target.addAbilityStack(getUnit(), PoisonEffect.class);
-        poisonEffect.addPoison(duration, calculatePoisonDamage(target, damage, multicrits));
+        if (poisonEffect != null) {
+            poisonEffect.addPoison(duration, calculatePoisonDamage(target, damage, multicrits));
+        }
     }
 
     public float getDuration() {

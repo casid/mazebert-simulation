@@ -33,7 +33,7 @@ public strictfp class SpiderWeb extends Ability<Tower> implements OnDamageListen
         if (getUnit().isAbilityTriggered(calculateChanceToSlowTarget(target))) {
             float slowMultiplier = 1.0f - (slow + slowPerLevel * getUnit().getLevel());
             SpiderWebEffect effect = target.addAbilityStack(getUnit(), SpiderWebEffect.class);
-            if (effect.addStack(slowMultiplier, slowDuration, maxStackCount) && simulationListeners.areNotificationsEnabled()) {
+            if (effect != null && effect.addStack(slowMultiplier, slowDuration, maxStackCount) && simulationListeners.areNotificationsEnabled()) {
                 simulationListeners.showNotification(target, "Webbed!", 0xaaaaaa);
             }
         }

@@ -98,6 +98,10 @@ public abstract strictfp class Unit implements Hashable {
 
     @SuppressWarnings("unchecked")
     public <T extends StackableByOriginAbility> T addAbilityStack(Object origin, Class<T> abilityClass) {
+        if (isDisposed()) {
+            return null;
+        }
+
         T result = (T)abilities.find(a -> a.getClass() == abilityClass && a.getOrigin() == origin);
 
         if (result == null) {
@@ -110,6 +114,10 @@ public abstract strictfp class Unit implements Hashable {
 
     @SuppressWarnings("unchecked")
     public <T extends StackableByOriginAbility> T addAbilityStack(Object origin, Class<T> abilityClass, Supplier<T> supplier) {
+        if (isDisposed()) {
+            return null;
+        }
+
         T result = (T)abilities.find(a -> a.getClass() == abilityClass && a.getOrigin() == origin);
 
         if (result == null) {

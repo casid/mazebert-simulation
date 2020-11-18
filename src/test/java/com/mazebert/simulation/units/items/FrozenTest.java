@@ -122,6 +122,23 @@ strictfp class FrozenTest extends ItemTest {
         assertThat(wizard.towerStash.get(TowerType.Gib).getAmount()).isEqualTo(1);
     }
 
+    @Test
+    void slowCreepDiesBeforeSlow_noException() {
+        Creep creep = a(creep());
+        tower.onDamage.add((origin, target, damage, multicrits) -> {
+            target.setHealth(0);
+            unitGateway.removeUnit(target);
+        });
+        unitGateway.addUnit(creep);
+
+        whenItemIsEquipped(ItemType.FrozenWater, 0);
+        whenItemIsEquipped(ItemType.FrozenHeart, 1);
+
+        whenTowerAttacks();
+
+        assertThat(creep.isDisposed()).isTrue();
+    }
+
     private void whenTowerAttacksAfter60Seconds() {
         tower.simulate(60.0f);
 

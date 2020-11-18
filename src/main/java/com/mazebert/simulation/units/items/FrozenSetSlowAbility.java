@@ -21,6 +21,8 @@ public strictfp class FrozenSetSlowAbility extends Ability<Tower> implements OnD
     @Override
     public void onDamage(Object origin, Creep target, double damage, int multicrits) {
         FrozenSetSlowEffect effect = target.addAbilityStack(getUnit(), FrozenSetSlowEffect.class);
-        effect.addStack(0.9f, 5.0f, 1);
+        if (effect != null) {
+            effect.addStack(0.9f, 5.0f, 1);
+        }
     }
 }

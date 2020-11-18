@@ -16,7 +16,9 @@ public strictfp class KnusperHexeAura extends AuraAbility<KnusperHexe, Creep> {
     @Override
     protected void onAuraEntered(Creep unit) {
         KnusperHexeAuraEffect effect = unit.addAbilityStack(getUnit(), KnusperHexeAuraEffect.class);
-        effect.setReduction(baseReduction + getUnit().getCreepsEaten());
+        if (effect != null) {
+            effect.setReduction(baseReduction + getUnit().getCreepsEaten());
+        }
     }
 
     @Override

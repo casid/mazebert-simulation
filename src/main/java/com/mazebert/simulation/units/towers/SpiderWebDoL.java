@@ -28,7 +28,7 @@ public strictfp class SpiderWebDoL extends ImmobilizeAbility {
     protected void immobilize(Creep target) {
         float slowMultiplier = 1.0f - (slow + slowPerLevel * getUnit().getLevel());
         SpiderWebEffect effect = target.addAbilityStack(getUnit(), SpiderWebEffect.class);
-        if (effect.addStack(slowMultiplier, slowDuration, maxStackCount) && simulationListeners.areNotificationsEnabled()) {
+        if (effect != null && effect.addStack(slowMultiplier, slowDuration, maxStackCount) && simulationListeners.areNotificationsEnabled()) {
             simulationListeners.showNotification(target, "Webbed!", 0xaaaaaa);
         }
     }

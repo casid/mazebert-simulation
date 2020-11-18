@@ -24,7 +24,7 @@ public strictfp class EldritchArms extends Item {
 
     @Override
     public String getDescription() {
-        return "The ultimate sacrifice - adopt the grotesque appearance of Ancient Horror.";
+        return "The ultimate sacrifice - adopt the old ones' grotesque appearance.";
     }
 
     @Override
