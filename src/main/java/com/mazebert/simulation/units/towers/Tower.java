@@ -783,6 +783,9 @@ public strictfp abstract class Tower extends Unit implements CooldownUnit, Card,
         multiluck += amount;
     }
 
+    /**
+     * Careful! Whenever this becomes dynamic (aka changes within a game), all cards must first be prepared for it!
+     */
     public void addEldritchCardModifier(float amount) {
         eldritchCardModifier += amount;
     }
