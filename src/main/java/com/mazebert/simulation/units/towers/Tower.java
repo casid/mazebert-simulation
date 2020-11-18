@@ -790,4 +790,18 @@ public strictfp abstract class Tower extends Unit implements CooldownUnit, Card,
     public float getEldritchCardModifier() {
         return eldritchCardModifier;
     }
+
+    public int getNumberOfEldritchItems() {
+        int result = 0;
+
+        for (Item item : items) {
+            if (item != null) {
+                if (item.isEldritch()) {
+                    ++result;
+                }
+            }
+        }
+
+        return result;
+    }
 }

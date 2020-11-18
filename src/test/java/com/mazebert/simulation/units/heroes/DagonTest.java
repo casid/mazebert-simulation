@@ -64,18 +64,6 @@ class DagonTest extends SimTest {
     }
 
     @Test
-    void itemStatsAreDoubled_Arms() {
-        AttackAbility attackAbility = new AttackAbility();
-        tower.addAbility(attackAbility);
-
-        whenItemIsEquipped(tower, ItemType.EldritchArms);
-
-        assertThat(attackAbility.getTargets()).isEqualTo(17);
-        assertThat(tower.getAttackSpeedAdd()).isEqualTo(-16.0f);
-        assertThat(tower.getLuck()).isEqualTo(-1.0f);
-    }
-
-    @Test
     void itemStatsAreDoubled_Necklace() {
         gameGateway.getGame().map.getTiles().get(0).type.water = true;
 
@@ -93,6 +81,35 @@ class DagonTest extends SimTest {
 
         assertThat(tower.getAddedRelativeBaseDamage()).isEqualTo(0.6f);
         assertThat(tower.getAttackSpeedAdd()).isEqualTo(-0.8f);
+    }
+
+    @Test
+    void itemStatsAreDoubled_Pearl() {
+        whenItemIsEquipped(tower, ItemType.EldritchPearl);
+
+        assertThat(tower.getLuck()).isEqualTo(1.4f);
+        assertThat(tower.getMulticrit()).isEqualTo(3);
+    }
+
+    @Test
+    void itemStatsAreDoubled_Pearl2() {
+        whenItemIsEquipped(tower, ItemType.EldritchPearl, 0);
+        whenItemIsEquipped(tower, ItemType.EldritchClam, 1);
+
+        assertThat(tower.getLuck()).isEqualTo(1.0f);
+        assertThat(tower.getMulticrit()).isEqualTo(5);
+    }
+
+    @Test
+    void itemStatsAreDoubled_Arms() {
+        AttackAbility attackAbility = new AttackAbility();
+        tower.addAbility(attackAbility);
+
+        whenItemIsEquipped(tower, ItemType.EldritchArms);
+
+        assertThat(attackAbility.getTargets()).isEqualTo(17);
+        assertThat(tower.getAttackSpeedAdd()).isEqualTo(-16.0f);
+        assertThat(tower.getLuck()).isEqualTo(-1.0f);
     }
 
     @Test
