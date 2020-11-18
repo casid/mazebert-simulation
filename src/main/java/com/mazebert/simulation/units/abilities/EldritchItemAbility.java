@@ -3,16 +3,19 @@ package com.mazebert.simulation.units.abilities;
 import com.mazebert.simulation.Sim;
 import com.mazebert.simulation.units.towers.Tower;
 
-public strictfp class EldritchItemAbility extends StackableAbility<Tower> {
+public strictfp abstract class EldritchItemAbility extends StackableAbility<Tower> {
 
-    private static final float CHANCE = 0.01f;
-
+    private final float chance;
     private float currentBonus = 0.0f;
+
+    public EldritchItemAbility(float chance) {
+        this.chance = chance;
+    }
 
     @Override
     protected void updateStacks() {
         Sim.context().waveGateway.addCultistChance(-currentBonus);
-        currentBonus = CHANCE * getStackCount() * getUnit().getEldritchCardModifier();
+        currentBonus = chance * getStackCount() * getUnit().getEldritchCardModifier();
         Sim.context().waveGateway.addCultistChance(currentBonus);
     }
 
@@ -28,6 +31,6 @@ public strictfp class EldritchItemAbility extends StackableAbility<Tower> {
 
     @Override
     public String getDescription() {
-        return format.colored(format.percentWithSignAndUnit(CHANCE) + " chance to spawn eldritch cultists.", 0x038174);
+        return format.colored(format.percentWithSignAndUnit(chance) + " chance to spawn eldritch cultists.", 0x038174);
     }
 }

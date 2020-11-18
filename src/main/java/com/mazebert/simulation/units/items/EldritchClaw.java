@@ -3,11 +3,11 @@ package com.mazebert.simulation.units.items;
 import com.mazebert.simulation.Rarity;
 import com.mazebert.simulation.changelog.Changelog;
 import com.mazebert.simulation.changelog.ChangelogEntry;
-import com.mazebert.simulation.units.abilities.EldritchItemAbility;
+import com.mazebert.simulation.units.abilities.EldritchItemUncommonAbility;
 
 public strictfp class EldritchClaw extends Item {
     public EldritchClaw() {
-        super(new EldritchClawAbility(), new EldritchItemAbility());
+        super(new EldritchClawAbility(), new EldritchItemUncommonAbility());
     }
 
     @Override

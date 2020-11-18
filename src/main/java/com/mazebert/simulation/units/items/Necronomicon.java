@@ -3,11 +3,11 @@ package com.mazebert.simulation.units.items;
 import com.mazebert.simulation.Rarity;
 import com.mazebert.simulation.changelog.Changelog;
 import com.mazebert.simulation.changelog.ChangelogEntry;
-import com.mazebert.simulation.units.abilities.EldritchItemAbility;
+import com.mazebert.simulation.units.abilities.EldritchItemLegendaryAbility;
 
 public strictfp class Necronomicon extends Item {
     public Necronomicon() {
-        super(new NecronomiconAbility(), new NecronomiconSummonAbility(), new EldritchItemAbility());
+        super(new NecronomiconAbility(), new NecronomiconSummonAbility(), new EldritchItemLegendaryAbility());
     }
 
     @Override
