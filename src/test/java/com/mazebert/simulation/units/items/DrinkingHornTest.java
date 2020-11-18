@@ -1,5 +1,6 @@
 package com.mazebert.simulation.units.items;
 
+import com.mazebert.simulation.Sim;
 import com.mazebert.simulation.units.abilities.VikingAbility;
 import com.mazebert.simulation.units.potions.PotionType;
 import org.junit.jupiter.api.BeforeEach;
@@ -10,6 +11,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 strictfp class DrinkingHornTest extends ItemTest {
     @BeforeEach
     void setUp() {
+        version = Sim.vCorona;
         tower.addAbility(new VikingAbility());
     }
 
