@@ -24,7 +24,7 @@ public strictfp class Necronomicon extends Item {
 
     @Override
     public String getDescription() {
-        return "That is not dead which can eternal lie, and with strange aeons even death may die.";
+        return "Klaatu... verata... n... Necktie.\nNectar! Nickel! Noodle!";
     }
 
     @Override

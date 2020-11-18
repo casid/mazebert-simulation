@@ -54,7 +54,7 @@ public strictfp class NecronomiconSummonAbility extends ActiveAbility implements
 
     @Override
     public String getTitle() {
-        return "Klaatu Barada Nikto (Active ability)";
+        return "Summon (Active ability)";
     }
 
     @Override
