@@ -102,7 +102,7 @@ public strictfp final class WaveSpawner implements OnGameStartedListener, OnWave
                         unitGateway.forEach(Wizard.class, wizard -> experienceSystem.grantBonusRoundExperience(wizard, game.bonusRoundSeconds, true));
                     }
 
-                    if (game.bonusRoundSeconds >= Balancing.TIME_LORD_ENCOUNTER_SECONDS && Sim.isDoLSeasonContent()) {
+                    if (game.isTimeLordAllowed() && game.bonusRoundSeconds >= Balancing.TIME_LORD_ENCOUNTER_SECONDS) {
                         startTimeLordCountDown();
                     }
 

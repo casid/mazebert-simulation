@@ -110,6 +110,20 @@ public strictfp final class UnitGateway {
         return towers.find(unit -> unit.getPlayerId() == playerId && unit.getX() == x && unit.getY() == y);
     }
 
+    public <U extends Unit> boolean containsUnit(Class<U> unitClass) {
+        return findUnit(unitClass) != null;
+    }
+
+    @SuppressWarnings("unchecked")
+    public <U extends Unit> U findUnit(Class<U> unitClass) {
+        return (U) units.find(unit -> unitClass.isAssignableFrom(unit.getClass()));
+    }
+
+    @SuppressWarnings("unchecked")
+    public <U extends Unit> U findUnitAtIndex(Class<U> unitClass, int index) {
+        return (U) units.find(new UnitAtIndexPredicate(unitClass, index));
+    }
+
     @SuppressWarnings("unchecked")
     public <U extends Unit> U findUnit(Class<U> unitClass, int playerId) {
         return (U) units.find(unit -> unitClass.isAssignableFrom(unit.getClass()) && unit.getPlayerId() == playerId);
@@ -278,6 +292,29 @@ public strictfp final class UnitGateway {
             if (creep.isInRange(x, y, range)) {
                 unitConsumer.accept(creep);
             }
+        }
+    }
+
+    private static final class UnitAtIndexPredicate<U extends Unit> implements Predicate<U> {
+
+        private final Class<U> unitClass;
+        private final int index;
+        private int currentIndex;
+
+        private UnitAtIndexPredicate(Class<U> unitClass, int index) {
+            this.unitClass = unitClass;
+            this.index = index;
+        }
+
+        @Override
+        public boolean test(U unit) {
+            if (unitClass.isAssignableFrom(unit.getClass())) {
+                if (currentIndex++ == index) {
+                    return true;
+                }
+            }
+
+            return false;
         }
     }
 }

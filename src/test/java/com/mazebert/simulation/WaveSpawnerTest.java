@@ -15,6 +15,7 @@ import com.mazebert.simulation.units.creeps.CreepModifier;
 import com.mazebert.simulation.units.creeps.CreepState;
 import com.mazebert.simulation.units.creeps.CreepType;
 import com.mazebert.simulation.units.creeps.effects.*;
+import com.mazebert.simulation.units.heroes.Azathoth;
 import com.mazebert.simulation.units.towers.Spider;
 import com.mazebert.simulation.units.towers.TowerType;
 import com.mazebert.simulation.units.towers.TrainingHologram;
@@ -991,6 +992,16 @@ public strictfp class WaveSpawnerTest extends SimTest {
     }
 
     @Test
+    void bonusRound_timeLordEncounter_countDown_notWithAzathoth() {
+        unitGateway.addUnit(new Azathoth());
+
+        whenTimeLordEncounterIsReached();
+
+        assertThat(timeLordCountDown).isNull();
+        assertThat(gameGateway.getGame().timeLord).isFalse();
+    }
+
+    @Test
     void bonusRound_timeLordEncounter_start() {
         whenTimeLordEncounterIsReached();
         for (int i = 0; i < 200; ++i) {
@@ -1112,7 +1123,7 @@ public strictfp class WaveSpawnerTest extends SimTest {
     }
 
     private Creep getCreep(int index) {
-        return (Creep) unitGateway.getUnit(1 + index); // first unit is our wizard
+        return unitGateway.findUnitAtIndex(Creep.class, index);
     }
 
     private void givenBossWave() {

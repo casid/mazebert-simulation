@@ -7,7 +7,7 @@ import com.mazebert.simulation.changelog.ChangelogEntry;
 public strictfp class Azathoth extends Hero {
 
     public Azathoth() {
-        // TODO
+        addAbility(new AzathothAbility());
     }
 
     @Override
@@ -29,7 +29,7 @@ public strictfp class Azathoth extends Hero {
 
     @Override
     public String getDescription() {
-        return "TODO.\n" + getWizardLevelRequirementText();
+        return "The World Eater.\n" + getWizardLevelRequirementText();
     }
 
     @Override
@@ -39,7 +39,7 @@ public strictfp class Azathoth extends Hero {
 
     @Override
     public int getItemLevel() {
-        return 60;
+        return 80;
     }
 
     @Override

@@ -3,6 +3,7 @@ package com.mazebert.simulation;
 import com.mazebert.simulation.hash.Hash;
 import com.mazebert.simulation.hash.Hashable;
 import com.mazebert.simulation.maps.Map;
+import com.mazebert.simulation.units.heroes.Azathoth;
 
 import java.util.Calendar;
 import java.util.TimeZone;
@@ -20,6 +21,8 @@ public strictfp class Game implements Hashable {
 
     private boolean winter;
     private boolean winterCalculated;
+    private boolean timeLordAllowed;
+    private boolean timeLordAllowedCalculated;
 
     @Override
     public void hash(Hash hash) {
@@ -37,6 +40,14 @@ public strictfp class Game implements Hashable {
 
     public boolean isLost() {
         return health <= 0.0f;
+    }
+
+    public boolean isTimeLordAllowed() {
+        if (!timeLordAllowedCalculated) {
+            timeLordAllowed = Sim.isDoLSeasonContent() && !Sim.context().unitGateway.containsUnit(Azathoth.class);
+            timeLordAllowedCalculated = true;
+        }
+        return timeLordAllowed;
     }
 
     public boolean isWinter() {
