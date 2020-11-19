@@ -1,5 +1,7 @@
 package com.mazebert.simulation.units.wizards;
 
+import com.mazebert.simulation.Sim;
+
 public strictfp enum WizardPowerType {
     BerserkPower(1, BerserkPower.class),
     ButcherPower(2, ButcherPower.class),
@@ -18,9 +20,12 @@ public strictfp enum WizardPowerType {
     FalPower(15, FalPower.class),
     VexPower(16, VexPower.class),
     WizardExperiencePower(17, WizardExperiencePower.class),
+    CultistPower(18, CultistPower.class),
     ;
 
-    private static WizardPowerType[] LOOKUP;
+    private static final WizardPowerType[] LOOKUP;
+    private static final WizardPowerType[] STANDARD     = {BerserkPower, ButcherPower, ChallengePower, CollectorPower, DeckMasterPower, ElderPower, GiantPower, NinjaPower, ProtectorPower, SeekerPower, StashMasterPower, TimeMasterPower, TricksterPower, BerPower, FalPower, VexPower, WizardExperiencePower};
+    private static final WizardPowerType[] ROC_SEASON   = {BerserkPower, ButcherPower, ChallengePower, CollectorPower, DeckMasterPower, ElderPower, GiantPower, NinjaPower, ProtectorPower, SeekerPower, StashMasterPower, TimeMasterPower, TricksterPower, BerPower, FalPower, VexPower, WizardExperiencePower, CultistPower};
 
     static {
         int maxId = 0;
@@ -35,9 +40,18 @@ public strictfp enum WizardPowerType {
 
     public final int id;
     public final Class<? extends WizardPower> powerClass;
+
     WizardPowerType(int id, Class<? extends WizardPower> powerClass) {
         this.id = id;
         this.powerClass = powerClass;
+    }
+
+    public static WizardPowerType[] getValues() {
+        if (Sim.isRoCSeasonContent()) {
+            return ROC_SEASON;
+        }
+
+        return STANDARD;
     }
 
     public static WizardPowerType forId(int id) {
