@@ -1,6 +1,7 @@
 package com.mazebert.simulation.units.heroes;
 
 import com.mazebert.simulation.Sim;
+import com.mazebert.simulation.units.Unit;
 import com.mazebert.simulation.units.towers.Tower;
 
 public strictfp class DagonAbility extends HeroTowerBuffAbility {
@@ -13,7 +14,14 @@ public strictfp class DagonAbility extends HeroTowerBuffAbility {
     protected void buffTower(Tower tower) {
         tower.addItemChance((1.0f + eldritchCardModifier) * itemChance);
         tower.addEldritchCardModifier(eldritchCardModifier);
-        Sim.context().waveGateway.addCultistChance((1.0f + eldritchCardModifier) * cultistChance);
+    }
+
+    @Override
+    public void onUnitAdded(Unit unit) {
+        if (unit == getUnit()) {
+            Sim.context().waveGateway.addCultistChance((1.0f + eldritchCardModifier) * cultistChance);
+        }
+        super.onUnitAdded(unit);
     }
 
     @Override
