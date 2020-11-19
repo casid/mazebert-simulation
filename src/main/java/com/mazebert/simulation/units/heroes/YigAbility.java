@@ -20,18 +20,18 @@ public strictfp class YigAbility extends Ability<Hero> implements OnUnitRemovedL
     @Override
     protected void initialize(Hero unit) {
         super.initialize(unit);
+        unit.onUnitAdded.add(u -> buffPlayerAndStartListening());
+    }
 
+    private void buffPlayerAndStartListening() {
+        // No need to clean up, as the hero lasts the entire game
         simulationListeners.onUnitRemoved.add(this);
         simulationListeners.onUnitAdded.add(this);
+
+        getUnit().getWizard().addHealth(1.0f);
+        waveGateway.addCultistOfYigHealthMultiplier(1.0f);
     }
 
-    @Override
-    protected void dispose(Hero unit) {
-        simulationListeners.onUnitAdded.remove(this);
-        simulationListeners.onUnitRemoved.remove(this);
-
-        super.dispose(unit);
-    }
 
     @Override
     public void onUnitRemoved(Unit unit) {
@@ -45,10 +45,7 @@ public strictfp class YigAbility extends Ability<Hero> implements OnUnitRemovedL
 
     @Override
     public void onUnitAdded(Unit unit) {
-        if (unit == getUnit()) {
-            unit.getWizard().addHealth(1.0f);
-            waveGateway.addCultistOfYigHealthMultiplier(1.0f);
-        } else if (unit instanceof Creep) {
+        if (unit instanceof Creep) {
             Creep creep = (Creep)unit;
             creep.addArmor(-kills);
         }
