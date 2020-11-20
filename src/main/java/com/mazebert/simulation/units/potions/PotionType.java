@@ -47,7 +47,7 @@ public strictfp enum PotionType implements CardType<Potion> {
     ;
 
     private static int maxId;
-    private static PotionType[] LOOKUP;
+    private static final PotionType[] LOOKUP;
 
     private static final PotionType[] STANDARD =      {CommonDamage, CommonSpeed, CommonCrit, Mead, UncommonDamage, UncommonSpeed, UncommonCrit, UncommonDrops, RareDamage, RareSpeed, RareCrit, RareDrops, Tears, Nillos, Painkiller, Sacrifice, EssenceOfWisdom, EssenceOfLuck, AngelicElixir, CardDustCrit, CardDustLuck, CardDustLevel, CardDustVital, DrinkAll, ChangeSex, ResearchNature, ResearchMetropolis, ResearchDarkness};
     private static final PotionType[] STANDARD_DOL =  {CommonDamage, CommonSpeed, CommonCrit, Mead, UncommonDamage, UncommonSpeed, UncommonCrit, UncommonDrops, RareDamage, RareSpeed, RareCrit, RareDrops, Tears, Nillos, Painkiller, Sacrifice, EssenceOfWisdom, EssenceOfLuck, AngelicElixir, CardDustCrit, CardDustLuck, CardDustLevel, CardDustVital, DrinkAll, ChangeSex, ResearchNature, ResearchMetropolis, ResearchDarkness, WhiteRussian};
