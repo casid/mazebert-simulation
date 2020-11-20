@@ -1,5 +1,6 @@
 package com.mazebert.simulation.stash;
 
+import com.mazebert.java8.Consumer;
 import com.mazebert.java8.Predicate;
 import com.mazebert.simulation.Card;
 import com.mazebert.simulation.CardType;
@@ -42,12 +43,16 @@ public abstract strictfp class Stash<T extends Card> implements ReadonlyStash<T>
 
     protected void updateCardByDropRarity() {
         cardByDropRarity = populateCardByDropRarity(this::isDropable);
-        cardByDropRarityIncludingEldritchCards = populateCardByDropRarity(c -> isDropable(c) || c.isEldritch());
+        cardByDropRarityIncludingEldritchCards = populateCardByDropRarity(c -> isDropable(c) || c.isEldritch(), this::increaseEldritchDropChance);
         cardByDropRarityExcludingSupporterCards = populateCardByDropRarity(c -> isDropable(c) && !c.isSupporterReward());
     }
 
-    @SuppressWarnings("unchecked")
     private EnumMap<Rarity, CardType<T>[]> populateCardByDropRarity(Predicate<T> predicate) {
+        return populateCardByDropRarity(predicate, null);
+    }
+
+    @SuppressWarnings("unchecked")
+    private EnumMap<Rarity, CardType<T>[]> populateCardByDropRarity(Predicate<T> predicate, Consumer<List<CardType<T>>> postProcessor) {
         EnumMap<Rarity, List<CardType<T>>> temp = new EnumMap<>(Rarity.class);
 
         for (Rarity rarity : Rarity.VALUES) {
@@ -61,6 +66,12 @@ public abstract strictfp class Stash<T extends Card> implements ReadonlyStash<T>
             }
         }
 
+        if (postProcessor != null) {
+            for (Rarity rarity : Rarity.VALUES) {
+                postProcessor.accept(temp.get(rarity));
+            }
+        }
+
         EnumMap<Rarity, CardType<T>[]> result = new EnumMap<>(Rarity.class);
         for (Rarity rarity : Rarity.VALUES) {
             List<CardType<T>> drops = temp.get(rarity);
@@ -69,6 +80,34 @@ public abstract strictfp class Stash<T extends Card> implements ReadonlyStash<T>
             result.put(rarity, drops.toArray(new CardType[0]));
         }
         return result;
+    }
+
+    private void increaseEldritchDropChance(List<CardType<T>> drops) {
+        List<CardType<T>> eldritchCards = new ArrayList<>();
+
+        for (CardType<T> drop : drops) {
+            if (drop.instance().isEldritch()) {
+                eldritchCards.add(drop);
+            }
+        }
+
+        if (eldritchCards.isEmpty()) {
+            return;
+        }
+
+        int regularCardCount = drops.size() - eldritchCards.size();
+        int eldritchCardCount = eldritchCards.size();
+
+        if (eldritchCardCount >= regularCardCount) {
+            return;
+        }
+
+        int extraEldritchCards = (regularCardCount - eldritchCardCount) / eldritchCardCount;
+        for (CardType<T> eldritchCard : eldritchCards) {
+            for (int i = 0; i < extraEldritchCards; ++i) {
+                drops.add(eldritchCard);
+            }
+        }
     }
 
     protected boolean isDropable(T card) {

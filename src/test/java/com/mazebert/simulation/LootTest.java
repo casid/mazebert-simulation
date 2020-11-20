@@ -26,7 +26,7 @@ public class LootTest extends SimTest {
 
     private static final float BABY_SWORD_ROLL = 0.2f;
     private static final float WOODEN_STAFF_ROLL = 0.0f;
-    private static final float ELDRITCH_CLAM_ROLL = 0.53f;
+    private static final float ELDRITCH_CLAM_ROLL = 0.33f;
 
     RandomPluginTrainer randomPluginTrainer = new RandomPluginTrainer();
     DamageSystemTrainer damageSystemTrainer;
@@ -417,6 +417,40 @@ public class LootTest extends SimTest {
 
         assertThat(wizard1.itemStash.get(0).amount).isEqualTo(1);
         assertThat(wizard1.itemStash.get(0).cardType).isEqualTo(ItemType.EldritchClam);
+    }
+
+    @Test
+    void loot_eldritch_increasedProbability() {
+        randomPluginTrainer.givenFloatAbs(
+                0.0f, // This is a drop
+                0.99f, // The rarity of this drop is common
+                0.0f, // This is an item drop
+                ELDRITCH_CLAM_ROLL + 0.25f // It's still a clam!
+        );
+        creep.getWave().type = WaveType.CultistOfYig;
+        creep.setMaxDrops(1);
+
+        whenTowerAttacks();
+
+        assertThat(wizard1.itemStash.get(0).amount).isEqualTo(1);
+        assertThat(wizard1.itemStash.get(0).cardType).isEqualTo(ItemType.EldritchClam);
+    }
+
+    @Test
+    void loot_eldritch_regularItemsCanStillDrop() {
+        randomPluginTrainer.givenFloatAbs(
+                0.0f, // This is a drop
+                0.99f, // The rarity of this drop is common
+                0.0f, // This is an item drop
+                0.0f // It's a Wooden Staff!
+        );
+        creep.getWave().type = WaveType.CultistOfYig;
+        creep.setMaxDrops(1);
+
+        whenTowerAttacks();
+
+        assertThat(wizard1.itemStash.get(0).amount).isEqualTo(1);
+        assertThat(wizard1.itemStash.get(0).cardType).isEqualTo(ItemType.WoodenStaff);
     }
 
     @Test
