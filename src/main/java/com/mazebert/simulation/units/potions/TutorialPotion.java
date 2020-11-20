@@ -25,4 +25,9 @@ public abstract strictfp class TutorialPotion extends Potion {
     public int getItemLevel() {
         return 1;
     }
+
+    @Override
+    public boolean isInternal() {
+        return true;
+    }
 }
