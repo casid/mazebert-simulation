@@ -31,11 +31,6 @@ public strictfp class InitPlayer extends Usecase<InitPlayerCommand> {
         addPowers(wizard, command.powers);
         addQuests(wizard, command.quests);
 
-        wizard.foilHeroes = command.foilHeroes;
-        wizard.foilTowers = command.foilTowers;
-        wizard.foilPotions = command.foilPotions;
-        wizard.foilItems = command.foilItems;
-
         wizard.towerStash.setElements(command.elements);
         if (Sim.context().version > 10) {
             wizard.maxElementResearchPoints = Element.getValues().length - command.elements.size();
@@ -62,6 +57,11 @@ public strictfp class InitPlayer extends Usecase<InitPlayerCommand> {
             wizard.experience = command.experience;
             wizard.level = experienceSystem.calculateLevel(wizard);
         }
+
+        wizard.foilHeroes = command.foilHeroes;
+        wizard.foilTowers = command.foilTowers;
+        wizard.foilPotions = command.foilPotions;
+        wizard.foilItems = command.foilItems;
     }
 
     private void addHero(Wizard wizard, InitPlayerCommand command) {
