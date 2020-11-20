@@ -24,7 +24,7 @@ public strictfp class CultistPower extends WizardPower {
 
     @Override
     public String getDescription() {
-        return format.percentWithSignAndUnit(getBonus()) + " chance to spawn eldritch cultists.";
+        return format.percentWithSignAndUnit(getBonus()) + " chance to spawn\neldritch cultists.";
     }
 
     @Override
