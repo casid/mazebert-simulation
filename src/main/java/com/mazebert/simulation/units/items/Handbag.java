@@ -14,6 +14,7 @@ public strictfp class Handbag extends Item {
     @Override
     public Changelog getChangelog() {
         return new Changelog(
+                new ChangelogEntry(Sim.vRoC, false, 2020, "Chance per level increased from 0.1% to 0.3%."),
                 new ChangelogEntry(Sim.v10, false, 2013)
         );
     }
