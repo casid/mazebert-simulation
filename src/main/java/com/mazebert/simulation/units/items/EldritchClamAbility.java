@@ -5,8 +5,8 @@ import com.mazebert.simulation.units.towers.Tower;
 
 public strictfp class EldritchClamAbility extends StackableAbility<Tower> {
 
-    public static final float itemBonus = 0.2f;
-    public static final float goldBonus = 0.2f;
+    public static final float itemBonus = 0.5f;
+    public static final float goldBonus = 0.25f;
     public static final float luckBonus = -0.2f;
 
     private float item;
