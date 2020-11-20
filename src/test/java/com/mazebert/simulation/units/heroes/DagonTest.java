@@ -58,8 +58,8 @@ class DagonTest extends SimTest {
     @Test
     void itemStatsAreDoubled_Clam() {
         whenItemIsEquipped(tower, ItemType.EldritchClam);
-        assertThat(tower.getItemChance()).isEqualTo(1.6f);
-        assertThat(tower.getGoldModifier()).isEqualTo(1.4f);
+        assertThat(tower.getItemChance()).isEqualTo(2.2f);
+        assertThat(tower.getGoldModifier()).isEqualTo(1.5f);
         assertThat(tower.getLuck()).isEqualTo(0.6f);
     }
 
