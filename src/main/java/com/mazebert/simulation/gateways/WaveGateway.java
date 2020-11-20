@@ -171,7 +171,7 @@ public strictfp class WaveGateway implements ReadonlyWaveGateway {
     }
 
     private float getCurrentCultistChance() {
-        float chance = 0.14f * cultistChance;
+        float chance = 0.16f * cultistChance;
         if (chance > MAX_CULTIST_CHANCE) {
             return MAX_CULTIST_CHANCE;
         }
