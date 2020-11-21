@@ -50,6 +50,6 @@ public strictfp class Trident extends Item {
 
     @Override
     public boolean isBlackMarketOffer() {
-        return true;
+        return Sim.context().version < Sim.vRoC;
     }
 }

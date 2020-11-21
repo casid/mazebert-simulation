@@ -55,6 +55,6 @@ public strictfp class PoisonArrow extends Item {
 
     @Override
     public boolean isBlackMarketOffer() {
-        return true;
+        return Sim.context().version < Sim.vRoC;
     }
 }
