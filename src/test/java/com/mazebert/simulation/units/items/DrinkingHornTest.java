@@ -1,6 +1,5 @@
 package com.mazebert.simulation.units.items;
 
-import com.mazebert.simulation.Sim;
 import com.mazebert.simulation.units.abilities.VikingAbility;
 import com.mazebert.simulation.units.potions.PotionType;
 import org.junit.jupiter.api.BeforeEach;
@@ -11,7 +10,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 strictfp class DrinkingHornTest extends ItemTest {
     @BeforeEach
     void setUp() {
-        version = Sim.vCorona;
         tower.addAbility(new VikingAbility());
     }
 
@@ -19,7 +17,7 @@ strictfp class DrinkingHornTest extends ItemTest {
     void stats() {
         whenItemIsEquipped(ItemType.DrinkingHorn);
 
-        assertThat(tower.getPotionEffectiveness()).isEqualTo(1.1f);
+        assertThat(tower.getPotionEffectiveness()).isEqualTo(1.2f);
         assertThat(tower.getLuck()).isEqualTo(1.1f);
         assertThat(tower.getChanceToMiss()).isEqualTo(0.05f);
     }
@@ -39,7 +37,7 @@ strictfp class DrinkingHornTest extends ItemTest {
         whenItemIsEquipped(ItemType.DrinkingHorn);
         whenPotionIsConsumed(PotionType.CommonDamage);
 
-        assertThat(tower.getAddedRelativeBaseDamage()).isEqualTo(0.055000003f);
+        assertThat(tower.getAddedRelativeBaseDamage()).isEqualTo(0.060000002f);
     }
 
     @Test
@@ -47,7 +45,7 @@ strictfp class DrinkingHornTest extends ItemTest {
         whenPotionIsConsumed(PotionType.CommonDamage);
         whenItemIsEquipped(ItemType.DrinkingHorn);
 
-        assertThat(tower.getAddedRelativeBaseDamage()).isEqualTo(0.055000003f);
+        assertThat(tower.getAddedRelativeBaseDamage()).isEqualTo(0.060000002f);
     }
 
     @Test
@@ -57,6 +55,7 @@ strictfp class DrinkingHornTest extends ItemTest {
         
         assertThat(tower.getPotionEffectiveness()).isEqualTo(1.0f);
         assertThat(tower.getItem(0)).isNull();
+        assertThat(wizard.itemStash.get(ItemType.DrinkingHorn).amount).isEqualTo(1);
     }
 
     @Test
@@ -64,7 +63,7 @@ strictfp class DrinkingHornTest extends ItemTest {
         whenItemIsEquipped(ItemType.DrinkingHorn);
         whenPotionIsConsumed(PotionType.CardDustVital);
 
-        assertThat(wizard.health).isEqualTo(1.22f);
+        assertThat(wizard.health).isEqualTo(1.24f);
     }
 
     @Test
@@ -72,7 +71,7 @@ strictfp class DrinkingHornTest extends ItemTest {
         whenItemIsEquipped(ItemType.DrinkingHorn);
         whenPotionIsConsumed(PotionType.EssenceOfWisdom);
 
-        assertThat(tower.getLevel()).isEqualTo(11);
+        assertThat(tower.getLevel()).isEqualTo(12);
     }
 
     @Test
@@ -80,14 +79,14 @@ strictfp class DrinkingHornTest extends ItemTest {
         whenItemIsEquipped(ItemType.DrinkingHorn);
         whenPotionIsConsumed(PotionType.Mead);
 
-        assertThat(tower.getCritDamage()).isEqualTo(0.47000003f);
+        assertThat(tower.getCritDamage()).isEqualTo(0.49f);
     }
 
     @Test
     void nillos() {
         whenItemIsEquipped(ItemType.DrinkingHorn);
         whenPotionIsConsumed(PotionType.Nillos);
-        assertThat(tower.getAttackSpeedAdd()).isEqualTo(0.44000003f);
+        assertThat(tower.getAttackSpeedAdd()).isEqualTo(0.48000002f);
     }
 
     @Test
@@ -96,15 +95,15 @@ strictfp class DrinkingHornTest extends ItemTest {
         tower.setLevel(10);
         whenPotionIsConsumed(PotionType.Sacrifice);
 
-        assertThat(wizard.health).isEqualTo(1.11f);
+        assertThat(wizard.health).isEqualTo(1.12f);
     }
 
     @Test
     void tears() {
         whenPotionIsConsumed(PotionType.Tears);
         whenItemIsEquipped(ItemType.DrinkingHorn);
-        assertThat(tower.getCritDamage()).isEqualTo(0.8f);
-        assertThat(tower.getCritChance()).isEqualTo(0.105000004f);
-        assertThat(tower.getAddedRelativeBaseDamage()).isEqualTo(0.275f);
+        assertThat(tower.getCritDamage()).isEqualTo(0.85f);
+        assertThat(tower.getCritChance()).isEqualTo(0.11f);
+        assertThat(tower.getAddedRelativeBaseDamage()).isEqualTo(0.3f);
     }
 }

@@ -40,8 +40,12 @@ public strictfp class DrinkingHornAbility extends Ability<Tower> implements OnAb
 
     @Override
     public void onAbilityRemoved(Ability ability) {
-        if (!getUnit().isViking()) {
-            getUnit().removeItem(ItemType.DrinkingHorn);
+        Tower tower = getUnit();
+        if (!tower.isViking()) {
+            tower.removeItem(ItemType.DrinkingHorn);
+            if (Sim.context().version >= Sim.vRoC) {
+                tower.getWizard().itemStash.add(ItemType.DrinkingHorn);
+            }
         }
     }
 
