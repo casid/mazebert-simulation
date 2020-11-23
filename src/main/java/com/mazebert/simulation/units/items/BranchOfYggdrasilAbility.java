@@ -14,6 +14,8 @@ public strictfp class BranchOfYggdrasilAbility extends Ability<Tower> implements
     private final Element element;
     private final UnitGateway unitGateway = Sim.context().unitGateway;
 
+    Tower carrier;
+
     public BranchOfYggdrasilAbility(Element element) {
         this.element = element;
     }
@@ -24,6 +26,7 @@ public strictfp class BranchOfYggdrasilAbility extends Ability<Tower> implements
 
         Yggdrasil yggdrasil = getYggdrasil(unit);
         if (yggdrasil != null) {
+            carrier = unit;
             yggdrasil.onPotionConsumed.add(this);
         }
     }
@@ -32,6 +35,7 @@ public strictfp class BranchOfYggdrasilAbility extends Ability<Tower> implements
     protected void dispose(Tower unit) {
         Yggdrasil yggdrasil = getYggdrasil(unit);
         if (yggdrasil != null) {
+            // Let carrier leak for usability reasons with the Sacrifice potion, see FatKnightArmorTest::doesNotCrashWithYggdrasil.
             yggdrasil.onPotionConsumed.remove(this);
         }
 
@@ -44,8 +48,8 @@ public strictfp class BranchOfYggdrasilAbility extends Ability<Tower> implements
 
     @Override
     public void onPotionConsumed(Tower yggdrasil, Potion potion) {
-        if (getUnit().getElement() == element) {
-            potion.applyTo(getUnit());
+        if (carrier != null && carrier.getElement() == element) {
+            potion.applyTo(carrier);
         }
     }
 
