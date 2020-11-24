@@ -315,20 +315,39 @@ public strictfp final class WaveSpawner implements OnGameStartedListener, OnWave
     }
 
     private void applyWaveAttributes(Creep creep, Wave wave) {
-        if (gameGateway.getGame().bonusRound) {
+        if (wave.type.isEldritch()) {
+            switch (wave.type) {
+                case CultistOfCthulhu:
+                case CultistOfDagon:
+                    creep.setDropChance(1.0f); // Normal drop chance.
+                    creep.setMinDrops(0); // No guaranteed drops.
+                    creep.setMaxDrops(3); // Maximum are three drops.
+                    creep.setMaxItemLevel(wave.round + 1); // Item level is round + 1.
+                    break;
+                case CultistOfYig:
+                    creep.setDropChance(0.75f); // Reduced drop chance.
+                    creep.setMinDrops(0); // No guaranteed drops.
+                    creep.setMaxDrops(1); // Maximum is one drop.
+                    creep.setMaxItemLevel(wave.round); // Item level is round.
+                    break;
+                case CultistOfAzathoth:
+                    creep.setDropChance(2.2f); // Slightly increased drop chance, as there are half as many air creeps than normal creeps to kill.
+                    creep.setMinDrops(0); // No guaranteed drops.
+                    creep.setMaxDrops(3); // Maximum are three drops.
+                    creep.setMaxItemLevel(wave.round + 1); // Item level is round + 1.
+                    break;
+            }
+        } else if (gameGateway.getGame().bonusRound) {
             creep.setGold(0);
         } else {
             switch (wave.type) {
                 case Normal:
-                case CultistOfCthulhu:
-                case CultistOfDagon:
                     creep.setDropChance(1.0f); // Normal drop chance.
                     creep.setMinDrops(0); // No guaranteed drops.
                     creep.setMaxDrops(2); // Maximum are two drops.
                     creep.setMaxItemLevel(wave.round); // Item level is round.
                     break;
                 case Mass:
-                case CultistOfYig:
                     creep.setDropChance(0.6f); // Reduced drop chance.
                     creep.setMinDrops(0); // No guaranteed drops.
                     creep.setMaxDrops(1); // Maximum is one drop.
@@ -341,7 +360,6 @@ public strictfp final class WaveSpawner implements OnGameStartedListener, OnWave
                     creep.setMaxItemLevel(wave.round + 2); // Item level is round + 2.
                     break;
                 case Air:
-                case CultistOfAzathoth:
                     creep.setDropChance(2.0f); // Slightly increased drop chance, as there are half as many air creeps than normal creeps to kill.
                     creep.setMinDrops(0); // No guaranteed drops.
                     creep.setMaxDrops(2); // Maximum are two drops.

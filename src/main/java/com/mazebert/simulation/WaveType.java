@@ -73,4 +73,16 @@ public strictfp enum WaveType {
         }
         return 1.0;
     }
+
+    public boolean isEldritch() {
+        switch (this) {
+            case CultistOfAzathoth:
+            case CultistOfCthulhu:
+            case CultistOfYig:
+            case CultistOfDagon:
+                return true;
+        }
+
+        return false;
+    }
 }
