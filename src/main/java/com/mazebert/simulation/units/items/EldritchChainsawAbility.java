@@ -30,7 +30,8 @@ public strictfp class EldritchChainsawAbility extends AuraAbility<Tower, Creep> 
 
     @Override
     protected void onAuraEntered(Creep unit) {
-        unit.addAbility(new EldritchChainsawEffect(getUnit(), damageFactor, damageFactorPerLevel));
+        Tower tower = getUnit();
+        unit.addAbility(new EldritchChainsawEffect(tower, damageFactor * tower.getEldritchCardModifier(), damageFactorPerLevel * tower.getEldritchCardModifier()));
     }
 
     @Override
