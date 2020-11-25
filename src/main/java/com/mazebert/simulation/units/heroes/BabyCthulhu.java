@@ -45,7 +45,7 @@ public strictfp class BabyCthulhu extends Hero {
 
     @Override
     public String getSinceVersion() {
-        return "1.0";
+        return "2.2";
     }
 
     @Override
