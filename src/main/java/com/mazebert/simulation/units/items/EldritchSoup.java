@@ -25,7 +25,7 @@ public strictfp class EldritchSoup extends Item {
 
     @Override
     public String getDescription() {
-        return "Where you insane before or after drinking this? Probably before.";
+        return "Were you insane before or after drinking this? Probably before.";
     }
 
     @Override
