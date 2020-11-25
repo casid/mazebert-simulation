@@ -28,6 +28,8 @@ public strictfp class InstantDamageAbilityTest extends SimTest {
 
     @BeforeEach
     void setUp() {
+        version = Sim.vCorona;
+
         simulationListeners = new SimulationListeners();
         unitGateway = new UnitGateway();
         randomPlugin = randomPluginTrainer;

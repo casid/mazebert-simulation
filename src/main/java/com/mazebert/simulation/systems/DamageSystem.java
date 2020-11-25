@@ -12,6 +12,7 @@ import java.util.Arrays;
 public strictfp class DamageSystem {
     private static final double ARMOR_INCREASE_DAMAGE_CONST = 0.992;
     private static final double ARMOR_DECREASE_DAMAGE_CONST = 0.005;
+    private static final double ARMOR_ROC_DAMAGE_CONST = 0.992;
     private static final double damageWeak = 0.7;
     private static final double damageStrong = 1.3;
 
@@ -20,6 +21,7 @@ public strictfp class DamageSystem {
     private final FormatPlugin formatPlugin = Sim.context().formatPlugin;
     private final DamageInfo damageInfo = Sim.context().damageInfo;
     private final int version = Sim.context().version;
+    private final double[] armorLookup = new double[1001];
 
     public double dealDamage(Object origin, Tower tower, Creep creep) {
         if (!creep.isPartOfGame()) {
@@ -118,7 +120,36 @@ public strictfp class DamageSystem {
         return factor;
     }
 
-    private double getArmorDamageFactor(int armor) {
+    double getArmorDamageFactor(int armor) {
+        if (version < Sim.vRoC) {
+            return calculateLegacyArmorDamageFactor(armor);
+        }
+
+        if (armor < -500) {
+            return getArmorDamageFactor(-500);
+        } else if (armor > 500) {
+            return getArmorDamageFactor(500);
+        }
+
+        int index = armor + 500;
+        double damageFactor = armorLookup[index];
+        if (damageFactor == 0.0) {
+            damageFactor = calculateArmorDamageFactor(armor);
+            armorLookup[index] = damageFactor;
+        }
+
+        return damageFactor;
+    }
+
+    private double calculateArmorDamageFactor(int armor) {
+        if (armor < 0) {
+            return 2.0 - StrictMath.pow(ARMOR_INCREASE_DAMAGE_CONST, -armor);
+        } else {
+            return 0.5 * (StrictMath.pow(ARMOR_ROC_DAMAGE_CONST, armor) + 1.0);
+        }
+    }
+
+    private double calculateLegacyArmorDamageFactor(int armor) {
         if (armor < 0) {
             return 2.0 - StrictMath.pow(ARMOR_INCREASE_DAMAGE_CONST, -armor);
         } else {
