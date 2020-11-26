@@ -3,6 +3,7 @@ package com.mazebert.simulation.plugins;
 import com.mazebert.java8.Function;
 import com.mazebert.simulation.*;
 import com.mazebert.simulation.units.Currency;
+import com.mazebert.simulation.units.wizards.Wizard;
 
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
@@ -268,6 +269,25 @@ public strictfp class FormatPlugin {
             return "1 tile";
         }
         return noFractionFormat.format(distance) + " tiles";
+    }
+
+    public String playerName(Wizard wizard) {
+        return colored(wizard.name, getPlayerNameColor(wizard.playerId));
+    }
+
+    public int getPlayerNameColor(int playerId) {
+        switch (playerId) {
+            case 1:
+                return 0xff0000;
+            case 2:
+                return 0x0000ff;
+            case 3:
+                return 0x00ff00;
+            case 4:
+                return 0xff00ff;
+        }
+
+        return 0xffffff;
     }
 
     public <T> String listing(String prefix, Collection<T> data, Function<T, String> mapper, String suffix) {

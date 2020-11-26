@@ -42,7 +42,13 @@ public strictfp class SeelenreisserAbility extends Ability<Tower> implements OnK
 
     private void increaseTotalDamage(float amount) {
         totalDamage += amount;
-        getUnit().addAddedRelativeBaseDamage(amount);
+        if (getUnit() != null) {
+            getUnit().addAddedRelativeBaseDamage(amount);
+        }
+    }
+
+    public float getTotalDamage() {
+        return totalDamage;
     }
 
     @Override

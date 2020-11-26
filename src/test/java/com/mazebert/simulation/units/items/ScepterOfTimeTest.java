@@ -3,6 +3,7 @@ package com.mazebert.simulation.units.items;
 import com.mazebert.simulation.Sim;
 import com.mazebert.simulation.Simulation;
 import com.mazebert.simulation.SimulationListenersTrainer;
+import com.mazebert.simulation.plugins.FormatPlugin;
 import com.mazebert.simulation.units.abilities.ActiveAbilityType;
 import com.mazebert.simulation.units.wizards.Wizard;
 import org.junit.jupiter.api.BeforeEach;
@@ -15,6 +16,7 @@ public strictfp class ScepterOfTimeTest extends ItemTest {
 
     @BeforeEach
     void setUp() {
+        formatPlugin = new FormatPlugin();
         version = Sim.vDoLEnd;
         simulation = new Simulation(false);
     }
@@ -84,7 +86,7 @@ public strictfp class ScepterOfTimeTest extends ItemTest {
             whenItemIsEquipped(ItemType.ScepterOfTime);
             whenAbilityIsActivated(tower, ActiveAbilityType.ScepterOfTimeToggle);
 
-            simulationListenersTrainer.thenNotificationsAre(wizard, "Wizard1 made time pass 2x faster.");
+            simulationListenersTrainer.thenNotificationsAre(wizard, "<c=#ff0000>Wizard1</c> made time pass 2x faster.");
         }
 
         @Test
@@ -96,8 +98,8 @@ public strictfp class ScepterOfTimeTest extends ItemTest {
             whenItemIsEquipped(ItemType.ScepterOfTime);
             whenAbilityIsActivated(tower, ActiveAbilityType.ScepterOfTimeToggle);
 
-            simulationListenersTrainer.thenNotificationsAre(wizard, "Wizard1 made time pass 2x faster.");
-            simulationListenersTrainer.thenNotificationsAre(wizard2, "Wizard1 made time pass 2x faster.");
+            simulationListenersTrainer.thenNotificationsAre(wizard, "<c=#ff0000>Wizard1</c> made time pass 2x faster.");
+            simulationListenersTrainer.thenNotificationsAre(wizard2, "<c=#ff0000>Wizard1</c> made time pass 2x faster.");
         }
 
         @Test
@@ -106,7 +108,7 @@ public strictfp class ScepterOfTimeTest extends ItemTest {
             whenItemIsEquipped(ItemType.ScepterOfTime);
             whenAbilityIsActivated(tower, ActiveAbilityType.ScepterOfTimeToggle);
 
-            simulationListenersTrainer.thenNotificationsAre(wizard, "Wizard1 changed time back to normal.");
+            simulationListenersTrainer.thenNotificationsAre(wizard, "<c=#ff0000>Wizard1</c> changed time back to normal.");
         }
     }
 }

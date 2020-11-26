@@ -48,9 +48,9 @@ public strictfp class ScepterOfTimeAbility extends ActiveAbility {
 
     private String createNotification(int timeModifier) {
         if (timeModifier == 1) {
-            return getUnit().getWizard().name + " changed time back to normal.";
+            return format.playerName(getUnit().getWizard()) + " changed time back to normal.";
         }
-        return getUnit().getWizard().name + " made time pass " + timeModifier + "x faster.";
+        return format.playerName(getUnit().getWizard()) + " made time pass " + timeModifier + "x faster.";
     }
 
     @Override

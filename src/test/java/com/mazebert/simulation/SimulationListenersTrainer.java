@@ -10,7 +10,7 @@ import java.util.Map;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class SimulationListenersTrainer extends SimulationListeners {
-    private Map<Unit, List<String>> notifications = new HashMap<>();
+    private final Map<Unit, List<String>> notifications = new HashMap<>();
 
     @Override
     public boolean areNotificationsEnabled() {
@@ -24,5 +24,9 @@ public class SimulationListenersTrainer extends SimulationListeners {
 
     public void thenNotificationsAre(Unit unit, String... notifications) {
         assertThat(this.notifications.get(unit)).containsExactly(notifications);
+    }
+
+    public void thenNoNotificationsWereShown(Unit unit) {
+        assertThat(this.notifications.get(unit)).isNull();
     }
 }
