@@ -118,8 +118,8 @@ public strictfp class Balancing {
 
     private static double rocMultiplayerGameFactor(double factor, int playerCount) {
         // Previous version multiplied the factor by player count, which was too much.
-        // Here, we're applying half of that boost.
-        return factor + 0.5 * ((playerCount - 1) * factor);
+        // Here, we're applying 40% of that boost.
+        return factor + 0.4 * ((playerCount - 1) * factor);
     }
 
     public static float getExperienceForRound(int version, int round, WaveType waveType, int playerCount) {
