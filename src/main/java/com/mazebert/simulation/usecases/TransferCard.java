@@ -10,6 +10,7 @@ import com.mazebert.simulation.plugins.FormatPlugin;
 import com.mazebert.simulation.stash.Stash;
 import com.mazebert.simulation.units.items.BranchOfYggdrasil;
 import com.mazebert.simulation.units.items.WeddingRing;
+import com.mazebert.simulation.units.quests.TransferCardQuest;
 import com.mazebert.simulation.units.wizards.Wizard;
 
 @SuppressWarnings({"rawtypes", "unchecked"})
@@ -70,6 +71,8 @@ public strictfp class TransferCard extends Usecase<TransferCardCommand> {
         if (card == null) {
             return;
         }
+
+        fromWizard.addQuestProgress(TransferCardQuest.class);
 
         if (simulationListeners.areNotificationsEnabled()) {
             String notification = formatPlugin.playerName(fromWizard) + " transferred " + formatPlugin.card(command.cardType) + " to " + formatPlugin.playerName(toWizard) + ".";

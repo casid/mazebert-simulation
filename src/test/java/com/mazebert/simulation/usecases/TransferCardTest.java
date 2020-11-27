@@ -9,6 +9,7 @@ import com.mazebert.simulation.units.items.BloodDemonBladeAbility;
 import com.mazebert.simulation.units.items.Item;
 import com.mazebert.simulation.units.items.ItemType;
 import com.mazebert.simulation.units.items.SeelenreisserAbility;
+import com.mazebert.simulation.units.quests.TransferCardQuest;
 import com.mazebert.simulation.units.wizards.Wizard;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -180,6 +181,16 @@ class TransferCardTest extends UsecaseTest<TransferCardCommand> {
 
         assertThat(wizard1.itemStash.get(ItemType.BabySword)).isNotNull();
         simulationListenersTrainer.thenNoNotificationsWereShown(wizard1);
+    }
+
+    @Test
+    void questProgress() {
+        TransferCardQuest quest = new TransferCardQuest();
+        wizard1.addAbility(quest);
+
+        whenRequestIsExecuted();
+
+        assertThat(quest.isComplete()).isTrue();
     }
 
     private void assertItemCannotBeTransferred(ItemType itemType) {
