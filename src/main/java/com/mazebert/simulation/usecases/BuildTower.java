@@ -12,6 +12,7 @@ import com.mazebert.simulation.systems.LootSystem;
 import com.mazebert.simulation.units.abilities.Ability;
 import com.mazebert.simulation.units.abilities.StackableAbility;
 import com.mazebert.simulation.units.items.Item;
+import com.mazebert.simulation.units.items.ItemType;
 import com.mazebert.simulation.units.towers.Tower;
 import com.mazebert.simulation.units.towers.TowerType;
 import com.mazebert.simulation.units.wizards.Wizard;
@@ -51,6 +52,10 @@ public strictfp class BuildTower extends Usecase<BuildTowerCommand> {
             if (oldTower == null || oldTower.getRarity() != Rarity.Common) {
                 return;
             }
+        }
+
+        if (command.towerType == TowerType.BloodDemon && wizard.itemStash.isUniqueAlreadyDropped(ItemType.BloodDemonBlade)) {
+            return;
         }
 
         Tower tower = wizard.towerStash.remove(command.towerType);

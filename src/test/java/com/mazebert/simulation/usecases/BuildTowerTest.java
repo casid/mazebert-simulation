@@ -275,6 +275,16 @@ class BuildTowerTest extends UsecaseTest<BuildTowerCommand> {
         assertThat(builtTower).isNotNull();
     }
 
+    @Test
+    void bloodDemon_bladeAlreadyGivenFromOtherPlayer() {
+        wizard.gold = 100000;
+        wizard.itemStash.setUnique(ItemType.BloodDemonBlade, new BloodDemonBlade());
+
+        whenTowerIsBuilt(TowerType.BloodDemon);
+
+        assertThat(builtTower).isNull();
+    }
+
     private void givenTowerIsAlreadyBuilt() {
         whenRequestIsExecuted();
     }
