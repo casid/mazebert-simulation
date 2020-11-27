@@ -194,7 +194,7 @@ public abstract strictfp class Stash<T extends Card> implements ReadonlyStash<T>
             if (droppedUniques.remove(cardType) != null) {
                 other.setUnique(cardType, card);
             }
-            other.add(cardType, false);
+            other.add(cardType, true);
         }
 
         return card;
