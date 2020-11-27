@@ -143,16 +143,6 @@ class TransferCardTest extends UsecaseTest<TransferCardCommand> {
     }
 
     @Test
-    void bloodDemonBlade_tower() {
-        // TODO
-    }
-
-    @Test
-    void darkForgeItems() {
-        // TODO
-    }
-
-    @Test
     void weddingRing1_cannotBeTransferred() {
         assertItemCannotBeTransferred(ItemType.WeddingRing1);
     }
@@ -191,13 +181,6 @@ class TransferCardTest extends UsecaseTest<TransferCardCommand> {
         assertThat(wizard1.itemStash.get(ItemType.BabySword)).isNotNull();
         simulationListenersTrainer.thenNoNotificationsWereShown(wizard1);
     }
-
-    @Test
-    void name() {
-        // TODO test potions
-        // TODO test weird uniques / legendaries
-    }
-
 
     private void assertItemCannotBeTransferred(ItemType itemType) {
         wizard1.itemStash.add(itemType);
