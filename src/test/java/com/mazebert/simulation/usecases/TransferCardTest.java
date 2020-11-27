@@ -125,24 +125,20 @@ class TransferCardTest extends UsecaseTest<TransferCardCommand> {
 
     @Test
     void weddingRing1_cannotBeTransferred() {
-        wizard1.itemStash.add(ItemType.WeddingRing1);
-        request.cardType = ItemType.WeddingRing1;
-
-        whenRequestIsExecuted();
-
-        assertThat(wizard1.itemStash.get(ItemType.WeddingRing1)).isNotNull();
-        assertThat(wizard2.itemStash.get(ItemType.WeddingRing1)).isNull();
+        assertItemCannotBeTransferred(ItemType.WeddingRing1);
     }
 
     @Test
     void weddingRing2_cannotBeTransferred() {
-        wizard1.itemStash.add(ItemType.WeddingRing2);
-        request.cardType = ItemType.WeddingRing2;
+        assertItemCannotBeTransferred(ItemType.WeddingRing2);
+    }
 
-        whenRequestIsExecuted();
-
-        assertThat(wizard1.itemStash.get(ItemType.WeddingRing2)).isNotNull();
-        assertThat(wizard2.itemStash.get(ItemType.WeddingRing2)).isNull();
+    @Test
+    void branchesOfYggdrasil_cannotBeTransferred() {
+        assertItemCannotBeTransferred(ItemType.BranchOfYggdrasilNature);
+        assertItemCannotBeTransferred(ItemType.BranchOfYggdrasilMetropolis);
+        assertItemCannotBeTransferred(ItemType.BranchOfYggdrasilDarkness);
+        assertItemCannotBeTransferred(ItemType.BranchOfYggdrasilLight);
     }
 
     @Test
@@ -172,5 +168,16 @@ class TransferCardTest extends UsecaseTest<TransferCardCommand> {
         // TODO test towers
         // TODO test potions
         // TODO test weird uniques / legendaries
+    }
+
+
+    private void assertItemCannotBeTransferred(ItemType itemType) {
+        wizard1.itemStash.add(itemType);
+        request.cardType = itemType;
+
+        whenRequestIsExecuted();
+
+        assertThat(wizard1.itemStash.get(itemType)).isNotNull();
+        assertThat(wizard2.itemStash.get(itemType)).isNull();
     }
 }
