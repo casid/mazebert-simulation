@@ -10,6 +10,7 @@ import com.mazebert.simulation.units.items.Item;
 import com.mazebert.simulation.units.items.ItemType;
 import com.mazebert.simulation.units.items.SeelenreisserAbility;
 import com.mazebert.simulation.units.quests.TransferCardQuest;
+import com.mazebert.simulation.units.quests.TransferUniqueCardQuest;
 import com.mazebert.simulation.units.wizards.Wizard;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -187,6 +188,28 @@ class TransferCardTest extends UsecaseTest<TransferCardCommand> {
     void questProgress() {
         TransferCardQuest quest = new TransferCardQuest();
         wizard1.addAbility(quest);
+
+        whenRequestIsExecuted();
+
+        assertThat(quest.isComplete()).isTrue();
+    }
+
+    @Test
+    void uniqueQuestProgress_regularItem() {
+        TransferUniqueCardQuest quest = new TransferUniqueCardQuest();
+        wizard1.addAbility(quest);
+
+        whenRequestIsExecuted();
+
+        assertThat(quest.isComplete()).isFalse();
+    }
+
+    @Test
+    void uniqueQuestProgress_uniqueItem() {
+        TransferUniqueCardQuest quest = new TransferUniqueCardQuest();
+        wizard1.addAbility(quest);
+        wizard1.itemStash.add(ItemType.Excalibur);
+        request.cardType = ItemType.Excalibur;
 
         whenRequestIsExecuted();
 
