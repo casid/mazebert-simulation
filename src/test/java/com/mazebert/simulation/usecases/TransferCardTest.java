@@ -5,6 +5,7 @@ import com.mazebert.simulation.SimulationListenersTrainer;
 import com.mazebert.simulation.commands.TransferCardCommand;
 import com.mazebert.simulation.gateways.UnitGateway;
 import com.mazebert.simulation.plugins.FormatPlugin;
+import com.mazebert.simulation.units.items.BloodDemonBladeAbility;
 import com.mazebert.simulation.units.items.Item;
 import com.mazebert.simulation.units.items.ItemType;
 import com.mazebert.simulation.units.items.SeelenreisserAbility;
@@ -124,6 +125,34 @@ class TransferCardTest extends UsecaseTest<TransferCardCommand> {
     }
 
     @Test
+    void bloodDemonBlade() {
+        wizard1.itemStash.add(ItemType.BloodDemonBlade);
+        Item blade = wizard1.itemStash.get(ItemType.BloodDemonBlade).card;
+        BloodDemonBladeAbility bladeAbility1 = blade.getAbility(BloodDemonBladeAbility.class);
+        bladeAbility1.setDamage(1000);
+
+        request.cardType = ItemType.BloodDemonBlade;
+
+        whenRequestIsExecuted();
+
+        assertThat(wizard1.itemStash.get(ItemType.BloodDemonBlade)).isNull();
+        assertThat(wizard2.itemStash.get(ItemType.BloodDemonBlade).amount).isEqualTo(1);
+        Item blade2 = wizard2.itemStash.get(ItemType.BloodDemonBlade).card;
+        BloodDemonBladeAbility bladeAbility2 = blade2.getAbility(BloodDemonBladeAbility.class);
+        assertThat(bladeAbility2.getDamage()).isEqualTo(1000);
+    }
+
+    @Test
+    void bloodDemonBlade_tower() {
+        // TODO
+    }
+
+    @Test
+    void darkForgeItems() {
+        // TODO
+    }
+
+    @Test
     void weddingRing1_cannotBeTransferred() {
         assertItemCannotBeTransferred(ItemType.WeddingRing1);
     }
@@ -165,7 +194,6 @@ class TransferCardTest extends UsecaseTest<TransferCardCommand> {
 
     @Test
     void name() {
-        // TODO test towers
         // TODO test potions
         // TODO test weird uniques / legendaries
     }

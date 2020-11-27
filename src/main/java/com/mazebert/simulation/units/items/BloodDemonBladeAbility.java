@@ -23,6 +23,10 @@ public strictfp class BloodDemonBladeAbility extends Ability<Tower> {
         this.damage = damage;
     }
 
+    public float getDamage() {
+        return damage;
+    }
+
     @Override
     public boolean isVisibleToUser() {
         return true;
