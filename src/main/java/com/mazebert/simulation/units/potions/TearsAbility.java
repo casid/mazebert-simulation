@@ -32,7 +32,7 @@ public strictfp class TearsAbility extends Ability<Tower> implements OnPotionEff
         addedDamage = damage * getUnit().getPotionEffectiveness();
         addedCritChance = critChance * getUnit().getPotionEffectiveness();
         addedCritDamage = critDamage * getUnit().getPotionEffectiveness();
-        addedMulticrit = StrictMath.round(multicrit * getUnit().getPotionEffectiveness());
+        addedMulticrit = StrictMath.max(1, StrictMath.round(multicrit * getUnit().getPotionEffectiveness()));
 
         getUnit().addAddedRelativeBaseDamage(addedDamage);
         getUnit().addCritChance(addedCritChance);
