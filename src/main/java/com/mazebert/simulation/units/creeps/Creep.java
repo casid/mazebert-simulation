@@ -422,6 +422,16 @@ public strictfp class Creep extends Unit {
         return false;
     }
 
+    public boolean isMass() {
+        switch (wave.type) {
+            case Mass:
+            case CultistOfYig:
+                return true;
+        }
+
+        return false;
+    }
+
     public boolean isEldritch() {
         return wave.type.isEldritch();
     }

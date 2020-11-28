@@ -30,7 +30,7 @@ public strictfp class KnusperHexeEat extends Ability<KnusperHexe> implements OnA
 
     @Override
     public void onAttack(Creep target) {
-        if (target.getWave().type == WaveType.Mass && getUnit().isAbilityTriggered(chance + getUnit().getLevel() * chancePerLevel)) {
+        if (target.isMass() && getUnit().isAbilityTriggered(chance + getUnit().getLevel() * chancePerLevel)) {
             getUnit().kill(target);
 
             ++creepsEaten;
