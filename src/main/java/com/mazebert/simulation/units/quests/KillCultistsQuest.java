@@ -18,7 +18,7 @@ public abstract strictfp class KillCultistsQuest extends Quest implements OnUnit
     private final WaveType type;
 
     public KillCultistsQuest(WaveType type) {
-        super(QuestReward.Huge, 5000);
+        super(QuestReward.Huge, 1000);
         this.type = type;
     }
 
