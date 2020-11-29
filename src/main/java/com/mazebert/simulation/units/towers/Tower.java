@@ -36,6 +36,7 @@ public strictfp abstract class Tower extends Unit implements CooldownUnit, Card,
     public final OnAbilityActivated onAbilityActivated = new OnAbilityActivated();
     public final OnAbilityReady onAbilityReady = new OnAbilityReady();
     public final OnTowerReplaced onTowerReplaced = new OnTowerReplaced();
+    public final OnTowerSold onTowerSold = new OnTowerSold();
 
     protected final FormatPlugin format = Sim.context().formatPlugin;
     protected final int version = Sim.context().version;

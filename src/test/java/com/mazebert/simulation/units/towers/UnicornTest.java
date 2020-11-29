@@ -207,6 +207,14 @@ strictfp class UnicornTest extends SimTest {
     }
 
     @Test
+    void creepEntersRange_hologram() {
+        randomPluginTrainer.givenFloatAbs(0.9f);
+        unitGateway.addUnit(a(creep().trainingHologramDummy()));
+
+        assertThat(unitGateway.hasUnit(unicorn)).isTrue();
+    }
+
+    @Test
     void interest() {
         assertThat(wizard.interestBonus).isEqualTo(0.02f);
     }

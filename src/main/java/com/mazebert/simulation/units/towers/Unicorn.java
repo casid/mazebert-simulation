@@ -26,6 +26,7 @@ public strictfp class Unicorn extends Tower {
     @Override
     public Changelog getChangelog() {
         return new Changelog(
+                new ChangelogEntry(Sim.vRoC, false, 2020, "Unicorn can be sold for Unicorn Tears. Training Hologram creeps cannot kill Unicorn."),
                 ChangelogEntry.DAWN_OF_LIGHT
         );
     }

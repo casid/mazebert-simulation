@@ -1,6 +1,7 @@
 package com.mazebert.simulation.units.creeps;
 
 import com.mazebert.simulation.Wave;
+import com.mazebert.simulation.WaveOrigin;
 import com.mazebert.simulation.WaveType;
 import com.mazebert.simulation.units.wizards.Wizard;
 import org.jusecase.builders.Builder;
@@ -76,6 +77,11 @@ public class CreepBuilder implements Builder<Creep> {
 
     public CreepBuilder dead() {
         creep.setHealth(0);
+        return this;
+    }
+
+    public CreepBuilder trainingHologramDummy() {
+        creep.getWave().origin = WaveOrigin.TrainingDummy;
         return this;
     }
 }

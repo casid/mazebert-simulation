@@ -3,12 +3,16 @@ package com.mazebert.simulation.usecases;
 import com.mazebert.simulation.SimulationListeners;
 import com.mazebert.simulation.commands.SellTowerCommand;
 import com.mazebert.simulation.gateways.UnitGateway;
+import com.mazebert.simulation.stash.StashEntry;
 import com.mazebert.simulation.systems.LootSystem;
 import com.mazebert.simulation.units.TestTower;
 import com.mazebert.simulation.units.items.BabySword;
 import com.mazebert.simulation.units.items.ItemType;
 import com.mazebert.simulation.units.items.WoodenStaff;
+import com.mazebert.simulation.units.potions.Potion;
+import com.mazebert.simulation.units.potions.PotionType;
 import com.mazebert.simulation.units.towers.Tower;
+import com.mazebert.simulation.units.towers.Unicorn;
 import com.mazebert.simulation.units.wizards.Wizard;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -73,5 +77,22 @@ strictfp class SellTowerTest extends UsecaseTest<SellTowerCommand> {
 
         assertThat(wizard.itemStash.get(ItemType.BabySword).amount).isEqualTo(2);
         assertThat(wizard.itemStash.get(ItemType.WoodenStaff).amount).isEqualTo(1);
+    }
+
+    @Test
+    void unicornGivesTears() {
+        unitGateway.removeUnit(tower);
+        tower = new Unicorn();
+        tower.setX(request.x);
+        tower.setY(request.y);
+        tower.setWizard(wizard);
+        tower.setLevel(60);
+        unitGateway.addUnit(tower);
+
+        whenRequestIsExecuted();
+
+        StashEntry<Potion> tears = wizard.potionStash.get(PotionType.UnicornTears);
+        assertThat(tears).isNotNull();
+        assertThat(tears.amount).isEqualTo(1);
     }
 }

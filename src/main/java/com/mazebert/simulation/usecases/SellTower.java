@@ -33,6 +33,7 @@ public strictfp class SellTower extends Usecase<SellTowerCommand> {
 
         lootSystem.addGold(wizard, tower, getGoldForSelling(tower));
 
+        tower.onTowerSold.dispatch();
         unitGateway.removeUnit(tower);
     }
 
