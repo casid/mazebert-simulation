@@ -48,4 +48,13 @@ public strictfp class ReplayTurn {
         return true;
     }
 
+    public boolean isValid() {
+        for (Command command : commands) {
+            if (!command.isValid()) {
+                return false;
+            }
+        }
+
+        return true;
+    }
 }

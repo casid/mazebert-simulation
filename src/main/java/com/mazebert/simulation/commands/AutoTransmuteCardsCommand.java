@@ -8,4 +8,9 @@ public strictfp class AutoTransmuteCardsCommand extends Command {
     public CardType cardType;
     public boolean remove;
     public int amountToKeep;
+
+    @Override
+    public boolean isValid() {
+        return cardCategory != null && cardType != null;
+    }
 }

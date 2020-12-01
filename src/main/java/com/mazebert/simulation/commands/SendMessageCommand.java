@@ -6,4 +6,9 @@ public strictfp class SendMessageCommand extends Command {
     }
 
     public String message;
+
+    @Override
+    public boolean isValid() {
+        return true;
+    }
 }

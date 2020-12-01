@@ -18,12 +18,27 @@ public strictfp class ReplayFrame {
 
         List<Turn> result = new ArrayList<>(playerTurns.length);
         for (int i = 0; i < playerTurns.length; ++i) {
-            if (playerTurns[i] == null) {
-                break; // turn array is invalid at this point, try to resume with what we got.
-            }
             result.add(ReplayTurn.toTurn(playerTurns[i], i + 1, turnNumber, hash));
         }
 
         return result;
+    }
+
+    public boolean isValid() {
+        if (playerTurns == null) {
+            return true;
+        }
+
+        for (ReplayTurn playerTurn : playerTurns) {
+            if (playerTurn == null) {
+                return false;
+            }
+
+            if (!playerTurn.isValid()) {
+                return false;
+            }
+        }
+
+        return true;
     }
 }

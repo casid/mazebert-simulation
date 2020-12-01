@@ -4,4 +4,9 @@ import com.mazebert.simulation.units.potions.PotionType;
 
 public strictfp class TakeElementCardCommand extends Command {
     public PotionType card;
+
+    @Override
+    public boolean isValid() {
+        return card != null;
+    }
 }

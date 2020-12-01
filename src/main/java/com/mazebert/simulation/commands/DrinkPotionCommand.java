@@ -7,4 +7,9 @@ public strictfp class DrinkPotionCommand extends Command {
     public int towerX;
     public int towerY;
     public boolean all;
+
+    @Override
+    public boolean isValid() {
+        return potionType != null;
+    }
 }

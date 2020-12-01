@@ -14,4 +14,9 @@ public strictfp class InitGameCommand extends Command {
     public Difficulty difficulty = Difficulty.Easy;
     public MapType map;
     public boolean tutorial;
+
+    @Override
+    public boolean isValid() {
+        return true;
+    }
 }

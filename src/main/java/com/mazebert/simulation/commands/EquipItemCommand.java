@@ -7,4 +7,9 @@ public strictfp class EquipItemCommand extends Command {
     public int towerX;
     public int towerY;
     public int inventoryIndex;
+
+    @Override
+    public boolean isValid() {
+        return itemType != null;
+    }
 }

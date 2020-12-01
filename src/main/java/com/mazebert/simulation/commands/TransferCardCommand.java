@@ -7,4 +7,9 @@ public strictfp class TransferCardCommand extends Command {
     public int toPlayerId;
     public CardCategory cardCategory;
     public CardType cardType;
+
+    @Override
+    public boolean isValid() {
+        return cardCategory != null && cardType != null;
+    }
 }

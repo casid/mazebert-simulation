@@ -29,4 +29,9 @@ public strictfp class InitPlayerCommand extends Command {
     public EnumSet<Element> elements = EnumSet.noneOf(Element.class);
 
     public List<QuestData> quests = new ArrayList<>();
+
+    @Override
+    public boolean isValid() {
+        return true;
+    }
 }
