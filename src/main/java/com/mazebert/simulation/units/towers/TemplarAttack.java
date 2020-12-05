@@ -42,7 +42,7 @@ public strictfp class TemplarAttack extends AttackAbility {
 
     @Override
     public String getDescription() {
-        return "Every third hit has " + format.percentWithSignAndUnit(CRIT_CHANCE) + " crit chance.";
+        return "Every third attack has " + format.percentWithSignAndUnit(CRIT_CHANCE) + " crit chance.";
     }
 
     @Override
