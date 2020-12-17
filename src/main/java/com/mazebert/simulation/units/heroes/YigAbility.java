@@ -63,8 +63,14 @@ public strictfp class YigAbility extends Ability<Hero> implements OnUnitRemovedL
 
     @Override
     public String getDescription() {
-        return "+100% player health.\n" +
+        String description = "+100% player health.\n" +
                 format.waveTypePlural(WaveType.CultistOfYig) + " have 100% more health.\n" +
                 "-1 creep armor per slain Cultist of Yig.";
+
+        if (kills > 0) {
+            description += "\nCultists slain: " + kills;
+        }
+
+        return description;
     }
 }
