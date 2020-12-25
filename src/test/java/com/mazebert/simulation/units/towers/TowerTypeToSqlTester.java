@@ -15,6 +15,7 @@ public class TowerTypeToSqlTester extends SimTest {
             if ("Lucifer".equals(name)) {
                 name += " (" + towerType.instance().getElement() + ")";
             }
+            name = name.replace("'", "");
             System.out.println("insert into Tower(id, name) values(" + towerType.id + ", '" + name + "');");
         }
     }
