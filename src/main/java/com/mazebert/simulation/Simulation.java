@@ -43,6 +43,7 @@ public strictfp final class Simulation {
 
     private float turnTimeInSeconds = unmodifiedTurnTimeInSeconds;
     private float timeModifier = 1;
+    private int ticksPerFrame = 1;
     private float timeDilation;
     private float playTimeInSeconds;
     private boolean pause;
@@ -227,7 +228,12 @@ public strictfp final class Simulation {
 
     public void setTimeModifier(float timeModifier) {
         this.timeModifier = timeModifier;
-        turnTimeInSeconds = unmodifiedTurnTimeInSeconds * timeModifier;
+
+        if (Sim.context().version < Sim.vRoCEnd) {
+            turnTimeInSeconds = unmodifiedTurnTimeInSeconds * timeModifier;
+        } else {
+            ticksPerFrame = (int)timeModifier;
+        }
     }
 
     @SuppressWarnings("unused") // use by client
@@ -307,19 +313,22 @@ public strictfp final class Simulation {
     public void simulateTurn(List<Turn> playerTurns, boolean hash) {
         simulatePlayerTurns(playerTurns);
         if (!pause) {
-            simulateUnits();
+            for (int tick = 0; tick < ticksPerFrame; ++tick) {
+                simulateTick();
+            }
+
             if (hash) {
                 hashGameState();
             }
-
-            playTimeInSeconds += turnTimeInSeconds;
         }
     }
 
-    private void simulateUnits() {
+    private void simulateTick() {
         unitGateway.forEach(this::simulateUnit);
         projectileGateway.simulate(turnTimeInSeconds);
         simulationListeners.onUpdate.dispatch(turnTimeInSeconds);
+
+        playTimeInSeconds += turnTimeInSeconds;
     }
 
     private void simulateUnit(Unit unit) {
