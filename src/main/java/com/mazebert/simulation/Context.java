@@ -81,7 +81,6 @@ public strictfp class Context {
     public DamageInfo damageInfo = new DamageInfo();
     public FollowPathResult followPathResult = new FollowPathResult();
     public boolean newBalancing;
-    public int creepIdAutoIncrement;
 
     public void init(Simulation simulation) {
         damageSystem = new DamageSystem();
