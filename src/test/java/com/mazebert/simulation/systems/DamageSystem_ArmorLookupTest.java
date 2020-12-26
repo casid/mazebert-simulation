@@ -4,7 +4,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class DamageSystem_ArmorLookupTest {
+public strictfp class DamageSystem_ArmorLookupTest {
     DamageSystem damageSystem = new DamageSystem();
 
     @Test
