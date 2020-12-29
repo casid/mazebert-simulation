@@ -10,6 +10,6 @@ public strictfp class EquipItemCommand extends Command {
 
     @Override
     public boolean isValid() {
-        return itemType != null;
+        return true;
     }
 }
