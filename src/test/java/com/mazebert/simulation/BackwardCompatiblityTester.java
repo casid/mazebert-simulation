@@ -1,23 +1,24 @@
 package com.mazebert.simulation;
 
+import com.mazebert.simulation.errors.DsyncException;
 import com.mazebert.simulation.replay.StreamReplayReader;
+import com.mazebert.simulation.units.wizards.Wizard;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.parallel.Execution;
 import org.junit.jupiter.api.parallel.ExecutionMode;
 
-import java.io.BufferedInputStream;
-import java.io.IOException;
+import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.util.List;
 import java.util.Map;
+import java.util.Properties;
 import java.util.Set;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.ConcurrentMap;
+import java.util.concurrent.*;
 import java.util.concurrent.atomic.LongAdder;
 import java.util.stream.Collectors;
 
@@ -114,51 +115,134 @@ public class BackwardCompatiblityTester {
     @Test
     void corruptEndOfFile() {
         int version = Sim.vDoLEnd;
-        checkGame(gamesDirectory.resolve("corrupt-eof.mbg"), version);
+        checkGame(gamesDirectory.resolve("corrupt-eof.mbg"), version, null);
     }
 
     @Disabled
     @Test
     void checkOne() {
         int version = Sim.v10;
-        checkGame(gamesDirectory.resolve(version + "/0dd320b2-cbed-4533-b265-8eddea8dc005-35049.mbg"), version);
+        checkGame(gamesDirectory.resolve(version + "/0dd320b2-cbed-4533-b265-8eddea8dc005-35049.mbg"), version, null);
     }
 
     private void checkGames(int version) throws IOException {
-        List<Path> files = Files.walk(gamesDirectory.resolve("" + version), 1).filter(p -> p.toString().endsWith(".mbg")).collect(Collectors.toList());
+        Path directory = gamesDirectory.resolve("" + version);
+
+        List<Path> files = Files.walk(directory, 1).filter(p -> p.toString().endsWith(".mbg")).collect(Collectors.toList());
         int total = files.size();
         System.out.println("Validating " + total + " games (version " + version + ")");
         LongAdder counter = new LongAdder();
 
-        files.parallelStream().forEach(file -> {
-            try {
-                if (Files.isDirectory(file)) {
-                    return;
-                }
+        GameValidationGateway gameValidationGateway = new GameValidationGateway(directory);
 
-                String fileName = file.getFileName().toString();
-                if (fileName.startsWith(".")) {
-                    return;
-                }
+        ExecutorService executorService = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
 
-                if (acknowledgedDsyncs.contains(fileName)) {
-                    return;
-                }
+        for (Path file : files) {
+            executorService.submit(() -> {
+                try {
+                    if (Files.isDirectory(file)) {
+                        return;
+                    }
 
-                checkGame(file, version);
-            } finally {
-                counter.add(1);
-                System.out.println(counter + "/" + total + "");
-            }
-        });
+                    String fileName = file.getFileName().toString();
+                    if (fileName.startsWith(".")) {
+                        return;
+                    }
+
+                    if (acknowledgedDsyncs.contains(fileName)) {
+                        return;
+                    }
+
+                    checkGame(file, version, gameValidationGateway);
+                } finally {
+                    counter.add(1);
+                    System.out.println(counter + "/" + total + "");
+                }
+            });
+        }
+
+        try {
+            executorService.shutdown();
+            executorService.awaitTermination(1, TimeUnit.HOURS);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+            return;
+        }
+
+        if (gameValidationGateway.needsToBePopulated) {
+            gameValidationGateway.writeToDisk();
+        }
     }
 
-    private void checkGame(Path file, int version) {
+    private void checkGame(Path file, int version, GameValidationGateway gameValidationGateway) {
         try (StreamReplayReader replayReader = new StreamReplayReader(new BufferedInputStream(Files.newInputStream(file, StandardOpenOption.READ)), version)) {
-            new SimulationValidator().validate(version, replayReader, null, null);
+            new SimulationValidator().validate(version, replayReader, null, context -> {
+                String game = file.getFileName().toString();
+
+                Wizard wizard = context.unitGateway.getWizard(1);
+                String experience = "" + wizard.experience;
+
+                if (gameValidationGateway.needsToBePopulated) {
+                    gameValidationGateway.setExperience(game, experience);
+                } else {
+                    String expectedExperience = gameValidationGateway.getExperience(game);
+                    if (!expectedExperience.equals(experience)) {
+                        throw new DsyncException("XP after validation is different! Expected " + expectedExperience + ", got " + experience, context.turnGateway.getCurrentTurnNumber());
+                    }
+                }
+            });
+
         } catch (Exception e) {
             System.err.println("Arghs! " + e.getMessage());
             errors.put(file, e);
+        }
+    }
+
+    private static class GameValidationGateway {
+        private final Path propertyFile;
+        private final Properties properties = new Properties();
+        private final boolean needsToBePopulated;
+
+        public GameValidationGateway(Path directory) {
+            propertyFile = directory.resolve("xp.properties");
+
+            if (Files.exists(propertyFile)) {
+                try (Reader reader = Files.newBufferedReader(propertyFile)) {
+                    properties.load(reader);
+                } catch (IOException e) {
+                    throw new UncheckedIOException(propertyFile + " could not be read!", e);
+                }
+                needsToBePopulated = false;
+            } else {
+                System.out.println(propertyFile + " does not exist, will create it with this run.");
+                needsToBePopulated = true;
+            }
+        }
+
+        public String getExperience(String game) {
+            String value = (String)properties.get(game);
+            if (value == null) {
+                throw new IllegalStateException("No xp stored for game " + game);
+            }
+
+            return value;
+        }
+
+        public void setExperience(String game, String experience) {
+            synchronized (properties) {
+                properties.setProperty(game, experience);
+            }
+        }
+
+        public void writeToDisk() {
+            System.out.print("Writing " + propertyFile + " ... ");
+
+            try (Writer writer = Files.newBufferedWriter(propertyFile)) {
+                properties.store(writer, null);
+                System.out.println("done.");
+            } catch (IOException e) {
+                throw new UncheckedIOException(propertyFile + " could not be written!", e);
+            }
         }
     }
 }
