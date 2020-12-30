@@ -177,6 +177,10 @@ public class BackwardCompatiblityTester {
     private void checkGame(Path file, int version, GameValidationGateway gameValidationGateway) {
         try (StreamReplayReader replayReader = new StreamReplayReader(new BufferedInputStream(Files.newInputStream(file, StandardOpenOption.READ)), version)) {
             new SimulationValidator().validate(version, replayReader, null, context -> {
+                if (gameValidationGateway == null) {
+                    return;
+                }
+
                 String game = file.getFileName().toString();
 
                 Wizard wizard = context.unitGateway.getWizard(1);
