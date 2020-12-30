@@ -97,7 +97,9 @@ public strictfp class UnicornImpaleAbility extends AuraAbility<Tower, Creep> imp
 
     @Override
     public void onTowerSold() {
-        dropUnicornTears(null);
+        if (Sim.context().version >= Sim.vRoC) {
+            dropUnicornTears(null);
+        }
     }
 
     @Override
