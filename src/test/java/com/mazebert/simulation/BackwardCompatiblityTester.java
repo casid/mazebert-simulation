@@ -118,6 +118,12 @@ public class BackwardCompatiblityTester {
         checkGame(gamesDirectory.resolve("corrupt-eof.mbg"), version, null);
     }
 
+    @Test
+    void noOutOfMemoryIfNoPathCouldBeFound() {
+        int version = 22;
+        checkGame(gamesDirectory.resolve("no-oom-pathfinding.mbg"), version, null);
+    }
+
     @Disabled
     @Test
     void checkOne() {

@@ -2,7 +2,6 @@ package com.mazebert.simulation.maps;
 
 import com.mazebert.java8.Predicate;
 import com.mazebert.simulation.Path;
-import com.mazebert.simulation.WaveType;
 import com.mazebert.simulation.math.Point;
 
 import java.util.ArrayList;
@@ -244,7 +243,12 @@ public strictfp class MapGrid {
                     index = bestStraightIndex;
                 }
 
-                result.add(new Point(index % width, index / width));
+                Point point = new Point(index % width, index / width);
+                if (result.contains(point)) {
+                    return false; // We returned to a place we've been before, this means no path could be found!
+                }
+
+                result.add(point);
 
             } while (index != srcIndex);
 
