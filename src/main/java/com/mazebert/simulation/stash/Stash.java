@@ -129,7 +129,7 @@ public abstract strictfp class Stash<T extends Card> implements ReadonlyStash<T>
         }
 
         if (notify) {
-            dispatchCardAdded(cardType);
+            dispatchCardAdded(entry);
         }
     }
 
@@ -155,14 +155,16 @@ public abstract strictfp class Stash<T extends Card> implements ReadonlyStash<T>
         }
 
         if (notify) {
-            dispatchCardAdded(cardType);
+            dispatchCardAdded(entry);
         }
     }
 
-    private void dispatchCardAdded(CardType<T> cardType) {
+    private void dispatchCardAdded(StashEntry<T> entry) {
+        CardType<T> cardType = entry.cardType;
+
         // Auto transmute cards are instantly removed afterwards anyways!
         if (!isAutoTransmute(cardType)) {
-            onCardAdded.dispatch(cardType);
+            onCardAdded.dispatch(cardType, entry.amount == 1);
         }
     }
 
@@ -358,8 +360,6 @@ public abstract strictfp class Stash<T extends Card> implements ReadonlyStash<T>
         }
         return result;
     }
-
-    protected abstract CardType<T>[] getPossibleDrops();
 
     @Override
     public int getTransmutedCommons() {

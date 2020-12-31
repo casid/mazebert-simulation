@@ -35,4 +35,6 @@ public interface ReadonlyStash<T extends Card> {
 
     @SuppressWarnings("unused") // transient value for client
     void setLastViewedIndex(int index);
+
+    CardType<T>[] getPossibleDrops();
 }

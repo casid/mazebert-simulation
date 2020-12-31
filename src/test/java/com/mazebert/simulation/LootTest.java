@@ -193,7 +193,7 @@ public class LootTest extends SimTest {
         wizard1.itemStash.addAutoTransmute(ItemType.WoodenStaff);
         wizard1.itemStash.transmutedCommons = 3;
         AtomicBoolean notfied = new AtomicBoolean(false);
-        wizard1.itemStash.onCardAdded().add(cardType -> notfied.set(true));
+        wizard1.itemStash.onCardAdded().add((cardType, firstEntry) -> notfied.set(true));
 
         whenTowerAttacks();
 
