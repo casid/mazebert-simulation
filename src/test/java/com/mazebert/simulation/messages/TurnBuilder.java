@@ -1,12 +1,13 @@
 package com.mazebert.simulation.messages;
 
 import com.mazebert.simulation.commands.Command;
+import org.jusecase.builders.Builder;
 
 import java.util.Collections;
 
-public class TurnBuilder implements TurnBuilderMethods<Turn, TurnBuilder> {
+public class TurnBuilder implements Builder<Turn> {
 
-    private Turn turn;
+    private final Turn turn;
 
     public TurnBuilder() {
         turn = new Turn();
@@ -18,13 +19,18 @@ public class TurnBuilder implements TurnBuilderMethods<Turn, TurnBuilder> {
         return new TurnBuilder();
     }
 
-    @Override
-    public Turn getEntity() {
-        return turn;
-    }
-
     public TurnBuilder withCommand(Command command) {
         turn.commands = Collections.singletonList(command);
         return this;
+    }
+
+    public TurnBuilder withTurnNumber(int value) {
+        turn.turnNumber = value;
+        return this;
+    }
+
+    @Override
+    public Turn build() {
+        return turn;
     }
 }

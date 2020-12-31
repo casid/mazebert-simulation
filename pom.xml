@@ -119,40 +119,6 @@
                 </dependencies>
             </plugin>
 
-            <!-- Custom builders generator -->
-            <plugin>
-                <groupId>org.jusecase</groupId>
-                <artifactId>builders-generator</artifactId>
-                <version>0.3.0</version>
-                <configuration>
-                    <targetDirectory>src/test/generated-builders</targetDirectory>
-                    <packages>
-                        <param>com.mazebert.simulation.messages</param>
-                    </packages>
-                </configuration>
-            </plugin>
-
-            <!-- Add generated test source directories -->
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>build-helper-maven-plugin</artifactId>
-                <version>1.12</version>
-                <executions>
-                    <execution>
-                        <id>add-source</id>
-                        <phase>generate-sources</phase>
-                        <goals>
-                            <goal>add-test-source</goal>
-                        </goals>
-                        <configuration>
-                            <sources>
-                                <source>src/test/generated-builders</source>
-                            </sources>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-
         </plugins>
 
     </build>

@@ -9,6 +9,7 @@ import com.mazebert.simulation.units.wizards.Wizard;
 public strictfp class AutoTransmuteCards extends Usecase<AutoTransmuteCardsCommand> {
     private final UnitGateway unitGateway = Sim.context().unitGateway;
 
+    @SuppressWarnings("unchecked")
     @Override
     public void execute(AutoTransmuteCardsCommand command) {
         Wizard wizard = unitGateway.getWizard(command.playerId);
@@ -22,10 +23,8 @@ public strictfp class AutoTransmuteCards extends Usecase<AutoTransmuteCardsComma
         }
 
         if (command.remove) {
-            //noinspection unchecked
             stash.removeAutoTransmute(command.cardType);
         } else {
-            //noinspection unchecked
             stash.addAutoTransmute(command.cardType, command.amountToKeep);
         }
 
