@@ -229,7 +229,7 @@ public strictfp final class Simulation {
     public void setTimeModifier(float timeModifier) {
         this.timeModifier = timeModifier;
 
-        if (Sim.context().version < Sim.vRoCEnd) {
+        if (Sim.context().version < Sim.v23) {
             turnTimeInSeconds = unmodifiedTurnTimeInSeconds * timeModifier;
         } else {
             ticksPerFrame = (int)timeModifier;

@@ -20,7 +20,8 @@ public strictfp class Sim {
     public static final int vCorona = 20;
     public static final int vDoLEnd = 21; // Dawn of Light season end merge
     public static final int vRoC = 22; // Rise of Cthulhu release
-    public static final int vRoCEnd = 23; // Rise of Cthulhu season end merge
+    public static final int v23 = 23; // Small bugfix/qol release
+    public static final int vRoCEnd = 24; // Rise of Cthulhu season end merge
 
     // For android 19 compatibility
     private static final ThreadLocal<Context> context = new ThreadLocal<Context>() {
