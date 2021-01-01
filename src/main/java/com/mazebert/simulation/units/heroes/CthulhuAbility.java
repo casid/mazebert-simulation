@@ -8,7 +8,11 @@ import com.mazebert.simulation.units.towers.Tower;
 public strictfp class CthulhuAbility extends HeroTowerBuffAbility implements OnPotionConsumedListener {
 
     private static final int range = 1;
-    private static final float potionEffectivenessMalus = -0.6f;
+    private final float potionEffectivenessMalus;
+
+    public CthulhuAbility() {
+        potionEffectivenessMalus = Sim.context().version >= Sim.v23 ? -0.3f : -0.6f;
+    }
 
     @Override
     protected void buffTower(Tower tower) {

@@ -17,7 +17,7 @@ import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.Assertions.assertThat;
 
 strictfp class CthulhuTest extends SimTest {
-    static final float reducedDamagePotionEffect = 0.08f; // Less than usual
+    static final float reducedDamagePotionEffect = 0.14f; // Less than usual
 
     Wizard wizard;
     Cthulhu cthulhu;

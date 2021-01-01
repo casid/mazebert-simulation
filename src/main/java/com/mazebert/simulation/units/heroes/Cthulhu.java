@@ -1,6 +1,7 @@
 package com.mazebert.simulation.units.heroes;
 
 import com.mazebert.simulation.Rarity;
+import com.mazebert.simulation.Sim;
 import com.mazebert.simulation.changelog.Changelog;
 import com.mazebert.simulation.changelog.ChangelogEntry;
 
@@ -13,6 +14,7 @@ public strictfp class Cthulhu extends Hero {
     @Override
     public Changelog getChangelog() {
         return new Changelog(
+                new ChangelogEntry(Sim.v23, true, 2021, "Effect of consumed potions adjusted from -60% to -30%."),
                 ChangelogEntry.RISE_OF_CTHULHU
         );
     }
