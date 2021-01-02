@@ -18,6 +18,7 @@ public strictfp class Game implements Hashable {
     public int bonusRoundSeconds;
     public boolean timeLord;
     public boolean over;
+    public boolean autoNextWave;
 
     private boolean winter;
     private boolean winterCalculated;

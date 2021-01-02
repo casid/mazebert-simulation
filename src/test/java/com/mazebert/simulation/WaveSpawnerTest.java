@@ -247,6 +247,20 @@ public strictfp class WaveSpawnerTest extends SimTest {
     }
 
     @Test
+    void allCreepsOfWaveAreKilled_autoNextWave() {
+        givenAutoNextWave();
+        givenBossWave();
+
+        whenGameIsStarted();
+        whenCreepIsKilled(getCreep(0));
+        //whenGameIsUpdated(Balancing.WAVE_COUNTDOWN_SECONDS);
+        whenGameIsUpdated();
+
+        assertThat(waveFinished).isTrue();
+        assertThat(unitGateway.getAmount(Creep.class)).isGreaterThan(0); // Another wave was spawned automatically
+    }
+
+    @Test
     void creepReachesTarget() {
         givenBossWave();
         whenGameIsStarted();
@@ -1140,6 +1154,10 @@ public strictfp class WaveSpawnerTest extends SimTest {
         wave.type = waveType;
         wave.round = waveGateway.getWaves().size() + 1;
         waveGateway.addWave(wave);
+    }
+
+    private void givenAutoNextWave() {
+        gameGateway.getGame().autoNextWave = true;
     }
 
     private void whenGameIsStarted() {

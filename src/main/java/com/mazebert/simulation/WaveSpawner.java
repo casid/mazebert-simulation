@@ -20,6 +20,7 @@ import com.mazebert.simulation.units.creeps.effects.TimeLordEffect;
 import com.mazebert.simulation.units.creeps.effects.TimeLordSpawnEffect;
 import com.mazebert.simulation.units.items.ItemType;
 import com.mazebert.simulation.units.wizards.Wizard;
+import com.mazebert.simulation.usecases.NextWave;
 
 import java.util.*;
 
@@ -448,6 +449,10 @@ public strictfp final class WaveSpawner implements OnGameStartedListener, OnWave
             if (waveGateway.hasNextWave()) {
                 Sim.context().waveCountDown = new WaveCountDown();
                 Sim.context().waveCountDown.start();
+
+                if (gameGateway.getGame().autoNextWave) {
+                    NextWave.skipCountDown(Sim.context(), Sim.context().waveCountDown);
+                }
             } else if (isGameWon()) {
                 gameGateway.getGame().bonusRound = true;
                 simulationListeners.onGameWon.dispatch();

@@ -52,7 +52,7 @@ public strictfp class NextWave extends Usecase<NextWaveCommand> {
         }
     }
 
-    private void skipCountDown(Context context, CountDown countDown) {
+    public static void skipCountDown(Context context, CountDown countDown) {
         context.skippedSeconds += countDown.getRemainingSeconds();
         countDown.stop();
         context.simulationListeners.onSecondsSkipped.dispatch();

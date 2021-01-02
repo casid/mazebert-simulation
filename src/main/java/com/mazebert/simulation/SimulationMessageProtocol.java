@@ -47,5 +47,8 @@ public strictfp class SimulationMessageProtocol extends BitMessageProtocol {
         if (version >= Sim.vRoC) {
             protocol.register(new TransferCardCommandSerializer());
         }
+        if (version >= Sim.v23) {
+            protocol.register(new AutoNextWaveCommandSerializer());
+        }
     }
 }
