@@ -31,6 +31,7 @@ public strictfp class SimulationListeners {
 
     public final OnUpdate onUpdate = new OnUpdate();
     public final OnPause onPause = new OnPause();
+    public final OnAutoNextWave onAutoNextWave = new OnAutoNextWave();
     public final OnError onError = new OnError();
 
     public final OnUnitAdded onUnitAdded = new OnUnitAdded();

@@ -32,5 +32,7 @@ public strictfp class AutoNextWave extends Usecase<AutoNextWaveCommand> {
             String on = command.autoNextWave ? "on" : "off";
             simulationListeners.showNotification(wizard, format.playerName(wizard) + " turned " + on + " auto next wave.");
         }
+
+        simulationListeners.onAutoNextWave.dispatch(command.playerId, command.autoNextWave);
     }
 }
