@@ -8,9 +8,6 @@ import com.mazebert.simulation.commands.TransferCardCommand;
 import com.mazebert.simulation.gateways.UnitGateway;
 import com.mazebert.simulation.plugins.FormatPlugin;
 import com.mazebert.simulation.stash.Stash;
-import com.mazebert.simulation.units.items.BranchOfYggdrasil;
-import com.mazebert.simulation.units.items.WeddingRing;
-import com.mazebert.simulation.units.potions.UnicornTears;
 import com.mazebert.simulation.units.quests.TransferCardQuest;
 import com.mazebert.simulation.units.quests.TransferUniqueCardQuest;
 import com.mazebert.simulation.units.wizards.Wizard;
@@ -24,19 +21,7 @@ public strictfp class TransferCard extends Usecase<TransferCardCommand> {
 
     public static boolean canTransfer(CardType<?> cardType) {
         Card card = cardType.instance();
-        if (card instanceof WeddingRing || card instanceof BranchOfYggdrasil) {
-            return false;
-        }
-
-        if (Sim.context().version >= Sim.v23 && card instanceof UnicornTears) {
-            return false;
-        }
-
-        if (card.isInternal()) {
-            return false;
-        }
-
-        return true;
+        return card.isTransferable();
     }
 
     @Override

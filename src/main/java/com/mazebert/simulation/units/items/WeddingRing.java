@@ -19,6 +19,11 @@ public strictfp abstract class WeddingRing extends Item {
     }
 
     @Override
+    public boolean isTransferable() {
+        return false;
+    }
+
+    @Override
     public String getName() {
         return "Wedding Ring";
     }

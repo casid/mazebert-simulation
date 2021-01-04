@@ -18,8 +18,17 @@ public strictfp class UnicornTears extends Potion {
     @Override
     public Changelog getChangelog() {
         return new Changelog(
+                new ChangelogEntry(Sim.v23, false, 2021, "Cannot be transferred to other players anymore."),
                 new ChangelogEntry(Sim.v10, false, 2013)
         );
+    }
+
+    @Override
+    public boolean isTransferable() {
+        if (Sim.context().version >= Sim.v23) {
+            return false;
+        }
+        return super.isTransferable();
     }
 
     @Override

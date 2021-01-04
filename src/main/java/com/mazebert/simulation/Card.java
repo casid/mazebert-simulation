@@ -78,4 +78,8 @@ public interface Card {
     default boolean isUniqueInstance() {
         return isUniqueDrop();
     }
+
+    default boolean isTransferable() {
+        return !isInternal();
+    }
 }

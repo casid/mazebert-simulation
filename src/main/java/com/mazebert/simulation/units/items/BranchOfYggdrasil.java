@@ -66,4 +66,9 @@ public abstract strictfp class BranchOfYggdrasil extends Item {
         }
         return tower.getElement() != element;
     }
+
+    @Override
+    public boolean isTransferable() {
+        return false;
+    }
 }
