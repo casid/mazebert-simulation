@@ -1,7 +1,6 @@
 package com.mazebert.simulation.usecases;
 
 import com.mazebert.simulation.Card;
-import com.mazebert.simulation.CardType;
 import com.mazebert.simulation.Sim;
 import com.mazebert.simulation.SimulationListeners;
 import com.mazebert.simulation.commands.TransferCardCommand;
@@ -18,11 +17,6 @@ public strictfp class TransferCard extends Usecase<TransferCardCommand> {
     private final SimulationListeners simulationListeners = Sim.context().simulationListeners;
     private final UnitGateway unitGateway = Sim.context().unitGateway;
     private final FormatPlugin formatPlugin = Sim.context().formatPlugin;
-
-    public static boolean canTransfer(CardType<?> cardType) {
-        Card card = cardType.instance();
-        return card.isTransferable();
-    }
 
     @Override
     public void execute(TransferCardCommand command) {
@@ -50,7 +44,7 @@ public strictfp class TransferCard extends Usecase<TransferCardCommand> {
             return;
         }
 
-        if (!canTransfer(command.cardType)) {
+        if (!command.cardType.instance().isTransferable()) {
             return;
         }
 
