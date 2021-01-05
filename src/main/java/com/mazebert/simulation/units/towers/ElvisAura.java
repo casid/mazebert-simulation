@@ -49,7 +49,7 @@ public strictfp class ElvisAura extends AuraAbility<Tower, Creep> {
 
     @Override
     public String getLevelBonus() {
-        return "+0.1 seconds per level.";
+        return "+0.01 seconds per level.";
     }
 
     public float getCurrentSlowDuration() {
