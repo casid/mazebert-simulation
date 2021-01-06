@@ -6,8 +6,18 @@ import com.mazebert.simulation.units.abilities.AuraAbility;
 import com.mazebert.simulation.units.creeps.Creep;
 
 public strictfp class ElvisAura extends AuraAbility<Tower, Creep> {
+
+    private final float duration = 2.0f;
+    private final float durationPerLevel;
+
     public ElvisAura() {
         super(CardCategory.Tower, Creep.class, Sim.context().version >= Sim.vDoLEnd ? 0 : 1);
+
+        if (Sim.context().version >= Sim.vRoCEnd) {
+            durationPerLevel = 0.03f;
+        } else {
+            durationPerLevel = 0.01f;
+        }
     }
 
     @Override
@@ -39,7 +49,7 @@ public strictfp class ElvisAura extends AuraAbility<Tower, Creep> {
 
     @Override
     public String getDescription() {
-        return "Creeps entering his range are shocked and slowed by 50% for 2 seconds. After that, their speed increases by 25% until they escape his horrible show.";
+        return "Creeps entering his range are shocked and slowed by 50% for " + format.seconds(duration) + ". After that, their speed increases by 25% until they escape his horrible show.";
     }
 
     @Override
@@ -49,10 +59,10 @@ public strictfp class ElvisAura extends AuraAbility<Tower, Creep> {
 
     @Override
     public String getLevelBonus() {
-        return "+0.01 seconds per level.";
+        return "+" + format.seconds(durationPerLevel) + " per level.";
     }
 
     public float getCurrentSlowDuration() {
-        return 2.0f + getUnit().getLevel() * 0.01f;
+        return duration + getUnit().getLevel() * durationPerLevel;
     }
 }
