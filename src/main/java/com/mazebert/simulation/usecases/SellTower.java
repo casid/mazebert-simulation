@@ -29,6 +29,8 @@ public strictfp class SellTower extends Usecase<SellTowerCommand> {
     }
 
     public void execute(Wizard wizard, Tower tower) {
+        tower.markForDisposal();
+
         unitGateway.returnAllItemsToInventory(wizard, tower);
 
         lootSystem.addGold(wizard, tower, getGoldForSelling(tower));

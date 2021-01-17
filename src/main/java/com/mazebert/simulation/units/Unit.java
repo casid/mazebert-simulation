@@ -29,6 +29,9 @@ public abstract strictfp class Unit implements Hashable {
     // Fast lookup, if this unit has consumed a permanent ability
     private transient boolean permanentAbility;
 
+    // If this unit is about to be disposed
+    private transient boolean markedForDisposal;
+
     private Wizard wizard; // The wizard this unit belongs to
     private float x;
     private float y;
@@ -266,5 +269,13 @@ public abstract strictfp class Unit implements Hashable {
 
     public boolean hasPermanentAbility() {
         return permanentAbility;
+    }
+
+    public void markForDisposal() {
+        markedForDisposal = true;
+    }
+
+    public boolean isMarkedForDisposal() {
+        return markedForDisposal;
     }
 }

@@ -41,6 +41,12 @@ public strictfp class DrinkingHornAbility extends Ability<Tower> implements OnAb
     @Override
     public void onAbilityRemoved(Ability ability) {
         Tower tower = getUnit();
+        if (Sim.context().version >= Sim.v23 && tower.isMarkedForDisposal()) {
+            // This tower is about to be disposed, items will be transferred automatically later on.
+            // This fixes a dupe exploit of Viking Horn: https://mazebert.com/forum/bugs/roordahuizum-duplicate--id1431
+            return;
+        }
+
         if (!tower.isViking()) {
             tower.removeItem(ItemType.DrinkingHorn);
             if (Sim.context().version >= Sim.vRoC) {

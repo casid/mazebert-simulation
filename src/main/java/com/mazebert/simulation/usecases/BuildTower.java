@@ -101,6 +101,8 @@ public strictfp class BuildTower extends Usecase<BuildTowerCommand> {
     }
 
     private Item[] replace(Tower oldTower, Tower newTower) {
+        oldTower.markForDisposal();
+
         List<Ability> permanentAbilities = new ArrayList<>();
         oldTower.forEachAbility(ability -> {
             if (ability.isPermanent()) {

@@ -2,6 +2,8 @@ package com.mazebert.simulation.units.items;
 
 import com.mazebert.simulation.units.abilities.VikingAbility;
 import com.mazebert.simulation.units.potions.PotionType;
+import com.mazebert.simulation.units.towers.Tower;
+import com.mazebert.simulation.units.towers.TowerType;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -52,9 +54,47 @@ strictfp class DrinkingHornTest extends ItemTest {
     void noVikingAnymore() {
         whenItemIsEquipped(ItemType.DrinkingHorn);
         tower.removeAbility(VikingAbility.class);
-        
+
         assertThat(tower.getPotionEffectiveness()).isEqualTo(1.0f);
         assertThat(tower.getItem(0)).isNull();
+        assertThat(wizard.itemStash.get(ItemType.DrinkingHorn).amount).isEqualTo(1);
+    }
+
+    @Test
+    void towerReplaced() {
+        tower.removeAbility(VikingAbility.class); // Reset
+
+        whenItemIsEquipped(ItemType.VikingHelmet, 3);
+        whenItemIsEquipped(ItemType.DrinkingHorn, 2);
+
+        Tower rabbit = whenTowerIsReplaced(tower, TowerType.Rabbit);
+
+        assertThat(rabbit.getItem(2)).isNull();
+        assertThat(wizard.itemStash.get(ItemType.DrinkingHorn).amount).isEqualTo(1);
+    }
+
+    @Test
+    void holgarReplaced() {
+        tower = whenTowerIsReplaced(tower, TowerType.Viking);
+
+        whenItemIsEquipped(ItemType.BabySword, 3);
+        whenItemIsEquipped(ItemType.DrinkingHorn, 2);
+
+        Tower rabbit = whenTowerIsReplaced(tower, TowerType.Rabbit);
+
+        assertThat(rabbit.getItem(2)).isNull();
+        assertThat(wizard.itemStash.get(ItemType.DrinkingHorn).amount).isEqualTo(1); // Returns to inventory
+    }
+
+    @Test
+    void towerSold() {
+        tower.removeAbility(VikingAbility.class); // Reset
+
+        whenItemIsEquipped(ItemType.VikingHelmet, 3);
+        whenItemIsEquipped(ItemType.DrinkingHorn, 2);
+
+        whenTowerIsSold(tower);
+
         assertThat(wizard.itemStash.get(ItemType.DrinkingHorn).amount).isEqualTo(1);
     }
 
