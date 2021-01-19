@@ -151,6 +151,21 @@ public strictfp class TimeLordEffectTest extends SimTest {
     }
 
     @Test
+    void damageConvertedToBonusRoundSeconds_noOverflow() {
+        game.bonusRoundSeconds = 5000;
+        timeLordEffect.onDamage(null, null, 100000000000000.0, 1);
+        timeLordEffect.onUpdate(1.0f);
+        timeLordEffect.onDamage(null, null, 110000000000000000000000.0, 1);
+        timeLordEffect.onUpdate(1.0f);
+        timeLordEffect.onDamage(null, null, 100000000000000.0, 1);
+        timeLordEffect.onUpdate(1.0f);
+
+        assertThat(gameGateway.getGame().bonusRoundSeconds).isEqualTo(2000004980);
+        assertThat(wizard1.experience).isEqualTo(14999893194L);
+        assertThat(wizard2.experience).isEqualTo(14999893194L);
+    }
+
+    @Test
     void spawnsCreeps() {
         creep.onUpdate.dispatch(TimeLordSpawnEffect.TOGGLE_INTERVAL - TimeLordSpawnEffect.INITIAL_INTERVAL_PASSED - 0.1f);
         creep.onUpdate.dispatch(0.1f);

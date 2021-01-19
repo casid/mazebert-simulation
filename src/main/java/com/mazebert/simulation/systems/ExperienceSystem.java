@@ -66,14 +66,23 @@ public strictfp class ExperienceSystem {
     }
 
     public void grantBonusRoundExperience(Wizard wizard, int bonusRoundSeconds, boolean notify) {
-        double rounds = (double) bonusRoundSeconds / BONUS_ROUND_REWARD_INTERVAL;
-        long experience = StrictMath.round(getExperienceModifier(wizard) * 100 * (1 + 2 * rounds / (20 + rounds)));
+        long experience = calculateBonusRoundExperienceIncrement(wizard, bonusRoundSeconds);
         grantExperience(wizard, experience);
 
         if (notify && simulationListeners.areNotificationsEnabled()) {
             FormatPlugin format = Sim.context().formatPlugin;
             simulationListeners.showNotification(wizard, format.experienceWithSignAndUnit(experience) + " survival bonus.");
         }
+    }
+
+    public void grantTimeLordExperience(Wizard wizard, int bonusRoundSeconds, int amount) {
+        long experience = amount * calculateBonusRoundExperienceIncrement(wizard, bonusRoundSeconds);
+        grantExperience(wizard, experience);
+    }
+
+    private long calculateBonusRoundExperienceIncrement(Wizard wizard, int bonusRoundSeconds) {
+        double rounds = (double) bonusRoundSeconds / BONUS_ROUND_REWARD_INTERVAL;
+        return StrictMath.round(getExperienceModifier(wizard) * 100 * (1 + 2 * rounds / (20 + rounds)));
     }
 
     public boolean isTimeToGrantBonusRoundExperience(int bonusRoundSeconds) {

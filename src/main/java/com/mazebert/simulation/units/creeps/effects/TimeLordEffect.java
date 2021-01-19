@@ -65,18 +65,15 @@ public strictfp class TimeLordEffect extends Ability<Creep> implements OnDamageL
         Game game = gameGateway.getGame();
 
         int timeLordSeconds = (int) StrictMath.round(0.02 * StrictMath.sqrt(totalDamage));
-        int totalSeconds = timeLordSeconds - lastTimeLordSeconds + game.bonusRoundSeconds;
-
-        int deltaSeconds = totalSeconds - lastGrantedSeconds;
-        int grantedSeconds = 0;
-        while (deltaSeconds >= ExperienceSystem.BONUS_ROUND_REWARD_INTERVAL) {
-            deltaSeconds -= ExperienceSystem.BONUS_ROUND_REWARD_INTERVAL;
-            grantedSeconds += ExperienceSystem.BONUS_ROUND_REWARD_INTERVAL;
-
-            int bonusRoundSeconds = game.bonusRoundSeconds + grantedSeconds;
-            unitGateway.forEach(Wizard.class, wizard -> experienceSystem.grantBonusRoundExperience(wizard, bonusRoundSeconds, false));
+        if (timeLordSeconds > 2_000_000_000 || timeLordSeconds < 0) {
+            // Integer caps at 2.147.483.647, that's an insane amount for bonus round time!!!
+            // We stop time lord bonus round seconds increment if 2 billions are exceeded.
+            timeLordSeconds = 2_000_000_000;
         }
 
+        int totalSeconds = timeLordSeconds - lastTimeLordSeconds + game.bonusRoundSeconds;
+
+        int grantedSeconds = grantExperience(game, totalSeconds);
         if (grantedSeconds > 0) {
             game.bonusRoundSeconds += grantedSeconds;
             simulationListeners.onBonusRoundSurvived.dispatch(game.bonusRoundSeconds);
@@ -88,5 +85,29 @@ public strictfp class TimeLordEffect extends Ability<Creep> implements OnDamageL
                 simulationListeners.showNotification(getUnit(), "+" + format.seconds(grantedSeconds), 0xffff00);
             }
         }
+    }
+
+    private int grantExperience(Game game, int totalSeconds) {
+        int deltaSeconds = totalSeconds - lastGrantedSeconds;
+        int grantedSeconds = 0;
+
+        if (Sim.context().version >= Sim.v23) {
+            int amount = deltaSeconds / ExperienceSystem.BONUS_ROUND_REWARD_INTERVAL;
+            if (amount > 0) {
+                unitGateway.forEach(Wizard.class, wizard -> experienceSystem.grantTimeLordExperience(wizard, game.bonusRoundSeconds, amount));
+                grantedSeconds = amount * ExperienceSystem.BONUS_ROUND_REWARD_INTERVAL;
+            }
+        } else {
+            // This has a huge performance impact for very high scores.
+            while (deltaSeconds >= ExperienceSystem.BONUS_ROUND_REWARD_INTERVAL) {
+                deltaSeconds -= ExperienceSystem.BONUS_ROUND_REWARD_INTERVAL;
+                grantedSeconds += ExperienceSystem.BONUS_ROUND_REWARD_INTERVAL;
+
+                int bonusRoundSeconds = game.bonusRoundSeconds + grantedSeconds;
+                unitGateway.forEach(Wizard.class, wizard -> experienceSystem.grantBonusRoundExperience(wizard, bonusRoundSeconds, false));
+            }
+        }
+
+        return grantedSeconds;
     }
 }
