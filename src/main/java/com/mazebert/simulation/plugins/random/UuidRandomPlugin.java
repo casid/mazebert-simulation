@@ -4,7 +4,7 @@ import java.util.UUID;
 
 public strictfp class UuidRandomPlugin extends RandomPlugin {
 
-    private FastRandomPlugin[] fastRandom = new FastRandomPlugin[4];
+    private final FastRandomPlugin[] fastRandom = new FastRandomPlugin[4];
     private int nextIndex;
 
     public void setSeed(UUID seed) {
