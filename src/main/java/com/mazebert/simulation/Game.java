@@ -24,6 +24,8 @@ public strictfp class Game implements Hashable {
     private boolean winterCalculated;
     private boolean timeLordAllowed;
     private boolean timeLordAllowedCalculated;
+    private boolean april1st;
+    private boolean april1stCalculated;
 
     @Override
     public void hash(Hash hash) {
@@ -68,5 +70,25 @@ public strictfp class Game implements Hashable {
         calendar.setTimeInMillis(timestamp);
         int month = calendar.get(Calendar.MONTH);
         return month == 11 || month == 0 || month == 1;
+    }
+
+    public boolean isApril1st() {
+        if (!april1stCalculated) {
+            april1st = calculateIfApril1st();
+            april1stCalculated = true;
+        }
+        return april1st;
+    }
+
+    private boolean calculateIfApril1st() {
+        if (timestamp == 0) {
+            return false;
+        }
+
+        Calendar calendar = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
+        calendar.setTimeInMillis(timestamp);
+        int day = calendar.get(Calendar.DAY_OF_MONTH);
+        int month = calendar.get(Calendar.MONTH);
+        return month == 3 && day == 1;
     }
 }
