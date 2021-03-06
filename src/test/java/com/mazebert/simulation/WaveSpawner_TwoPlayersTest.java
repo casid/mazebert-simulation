@@ -37,6 +37,7 @@ public class WaveSpawner_TwoPlayersTest extends SimTest {
 
         unitGateway = new UnitGateway();
         playerGateway = playerGatewayTrainer;
+        gameGateway = new GameGateway();
         waveGateway = new WaveGateway();
         randomPlugin = randomPluginTrainer;
         difficultyGateway = new DifficultyGateway();

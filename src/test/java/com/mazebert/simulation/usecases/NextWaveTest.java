@@ -25,6 +25,7 @@ class NextWaveTest extends UsecaseTest<NextWaveCommand> {
         unitGateway = new UnitGateway();
         randomPlugin = new RandomPluginTrainer();
         difficultyGateway = new DifficultyGateway();
+        gameGateway = new GameGateway();
         waveGateway = new WaveGateway();
         gameGateway = new GameGateway();
         playerGateway = new PlayerGatewayTrainer();

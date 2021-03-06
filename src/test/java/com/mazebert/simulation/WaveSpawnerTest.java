@@ -52,6 +52,7 @@ public strictfp class WaveSpawnerTest extends SimTest {
         formatPlugin = new FormatPlugin();
 
         unitGateway = new UnitGateway();
+        gameGateway = new GameGateway();
         waveGateway = new WaveGateway();
         playerGateway = new PlayerGatewayTrainer();
         projectileGateway = new ProjectileGateway();

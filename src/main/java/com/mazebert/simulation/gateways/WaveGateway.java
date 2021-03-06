@@ -18,6 +18,8 @@ public strictfp class WaveGateway implements ReadonlyWaveGateway {
     private static final CreepType[] RANDOM_GROUND_CREEP_TYPES = {CreepType.Orc, CreepType.Rat, CreepType.Spider};
     private static final ArmorType[] RANDOM_ARMOR_TYPES = {ArmorType.Ber, ArmorType.Fal, ArmorType.Vex};
 
+    private final GameGateway gameGateway = Sim.context().gameGateway;
+
     private final Queue<Wave> waves = new ArrayDeque<>(WAVES_IN_ADVANCE);
     private int totalWaves;
     private int generatedWaves;
@@ -140,6 +142,10 @@ public strictfp class WaveGateway implements ReadonlyWaveGateway {
             if (cultist != null) {
                 return cultist;
             }
+        }
+
+        if (gameGateway.getGame().isAprilFoolsGame()) {
+            return WaveType.Boss;
         }
 
         return randomPlugin.get(RANDOM_WAVE_TYPES);

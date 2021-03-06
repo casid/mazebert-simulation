@@ -24,8 +24,8 @@ public strictfp class Game implements Hashable {
     private boolean winterCalculated;
     private boolean timeLordAllowed;
     private boolean timeLordAllowedCalculated;
-    private boolean april1st;
-    private boolean april1stCalculated;
+    private boolean aprilFoolsGame;
+    private boolean aprilFoolsGameCalculated;
 
     @Override
     public void hash(Hash hash) {
@@ -72,16 +72,20 @@ public strictfp class Game implements Hashable {
         return month == 11 || month == 0 || month == 1;
     }
 
-    public boolean isApril1st() {
-        if (!april1stCalculated) {
-            april1st = calculateIfApril1st();
-            april1stCalculated = true;
+    public boolean isAprilFoolsGame() {
+        if (!aprilFoolsGameCalculated) {
+            aprilFoolsGame = calculateIfAprilFoolsGame();
+            aprilFoolsGameCalculated = true;
         }
-        return april1st;
+        return aprilFoolsGame;
     }
 
-    private boolean calculateIfApril1st() {
+    private boolean calculateIfAprilFoolsGame() {
         if (timestamp == 0) {
+            return false;
+        }
+
+        if (Sim.context().version < Sim.v24) {
             return false;
         }
 

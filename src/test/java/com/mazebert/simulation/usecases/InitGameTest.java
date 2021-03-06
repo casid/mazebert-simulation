@@ -34,6 +34,7 @@ class InitGameTest extends UsecaseTest<InitGameCommand> {
         randomPlugin = randomPluginTrainer;
         simulationListeners = new SimulationListeners();
         playerGateway = playerGatewayTrainer;
+        gameGateway = new GameGateway();
         waveGateway = new WaveGateway();
         gameGateway = new GameGateway();
         unitGateway = new UnitGateway();

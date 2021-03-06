@@ -35,6 +35,7 @@ class WaveGatewayTest extends SimTest {
     void setUp() {
         randomPlugin = randomPluginTrainer;
         playerGateway = playerGatewayTrainer;
+        gameGateway = new GameGateway();
         waveGateway = new WaveGateway();
         gameSystem = new GameSystem();
         season = true;
@@ -84,6 +85,16 @@ class WaveGatewayTest extends SimTest {
         assertThat(wave.creepCount).isEqualTo(5);
         assertThat(wave.minSecondsToNextCreep).isEqualTo(1.6f);
         assertThat(wave.maxSecondsToNextCreep).isEqualTo(3.2f);
+    }
+
+    @Test
+    void waveGeneration_april1st_allWavesAreBosses() {
+        gameGateway.getGame().timestamp = 1617271237000L;
+        randomPluginTrainer.givenFloatAbs(0.76f); // Would usually be an air wave, but is a boss instead ;-)
+
+        whenWaveIsGenerated();
+
+        assertThat(wave.type).isEqualTo(WaveType.Boss);
     }
 
     @Test

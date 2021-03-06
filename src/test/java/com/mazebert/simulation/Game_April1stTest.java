@@ -12,24 +12,24 @@ class Game_April1stTest {
     @Test
     void noTimestamp() {
         game.timestamp = 0;
-        assertThat(game.isApril1st()).isFalse();
+        assertThat(game.isAprilFoolsGame()).isFalse();
     }
 
     @Test
     void april1st() {
         game.timestamp = a(date("2020-04-01").withTimezone("UTC")).getTime();
-        assertThat(game.isApril1st()).isTrue();
+        assertThat(game.isAprilFoolsGame()).isTrue();
     }
 
     @Test
     void april2nd() {
         game.timestamp = a(date("2020-04-02").withTimezone("UTC")).getTime();
-        assertThat(game.isApril1st()).isFalse();
+        assertThat(game.isAprilFoolsGame()).isFalse();
     }
 
     @Test
     void march1st() {
         game.timestamp = a(date("2020-03-01").withTimezone("UTC")).getTime();
-        assertThat(game.isApril1st()).isFalse();
+        assertThat(game.isAprilFoolsGame()).isFalse();
     }
 }
