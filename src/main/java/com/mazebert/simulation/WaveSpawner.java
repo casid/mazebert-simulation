@@ -57,6 +57,10 @@ public strictfp final class WaveSpawner implements OnGameStartedListener, OnWave
 
     @Override
     public void onGameStarted() {
+        if (simulationListeners.areNotificationsEnabled() && gameGateway.getGame().isAprilFoolsGame()) {
+            unitGateway.forEachWizard(wizard -> simulationListeners.showNotification(wizard, "All bosses that usually haunt TheMarine are after you now!"));
+        }
+
         startNextWave();
     }
 
