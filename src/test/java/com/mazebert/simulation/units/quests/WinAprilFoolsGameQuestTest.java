@@ -13,7 +13,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class WinDoLSeasonGameQuestTest extends SimTest implements OnQuestCompletedListener {
+public class WinAprilFoolsGameQuestTest extends SimTest implements OnQuestCompletedListener {
 
     TestMap map;
     Wizard wizard;
@@ -37,7 +37,18 @@ public class WinDoLSeasonGameQuestTest extends SimTest implements OnQuestComplet
 
     @Test
     void gameWon() {
-        wizard.addAbility(new WinDoLSeasonGameQuest());
+        gameGateway.getGame().timestamp = 1617200237000L;
+        wizard.addAbility(new WinAprilFoolsGameQuest());
+
+        simulationListeners.onGameWon.dispatch();
+
+        assertThat(completedQuest).isNull();
+    }
+
+    @Test
+    void gameWon_april1st() {
+        gameGateway.getGame().timestamp = 1617271237000L;
+        wizard.addAbility(new WinAprilFoolsGameQuest());
 
         simulationListeners.onGameWon.dispatch();
 
@@ -46,7 +57,7 @@ public class WinDoLSeasonGameQuestTest extends SimTest implements OnQuestComplet
 
     @Test
     void hidden() {
-        assertThat(new WinDoLSeasonGameQuest().isHidden()).isTrue();
+        assertThat(new WinAprilFoolsGameQuest().isHidden()).isTrue();
     }
 
     @Override
