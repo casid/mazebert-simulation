@@ -4,7 +4,7 @@ import com.mazebert.simulation.units.Unit;
 import com.mazebert.simulation.util.ObjectPool;
 
 public strictfp final class ProjectileGateway {
-    private ObjectPool<Projectile> pool = new ObjectPool<>(Projectile::new, Projectile.class, 10);
+    private final ObjectPool<Projectile> pool = new ObjectPool<>(Projectile::new, Projectile.class, 10);
 
     public int getSize() {
         return pool.getActiveSize();
