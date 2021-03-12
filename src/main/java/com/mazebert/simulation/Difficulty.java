@@ -19,6 +19,9 @@ public strictfp enum Difficulty {
     }
 
     public static Difficulty forId(int id) {
+        if (id <= 0 || id >= LOOKUP.length) {
+            return null;
+        }
         return LOOKUP[id];
     }
 
