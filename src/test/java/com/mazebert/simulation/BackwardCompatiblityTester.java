@@ -174,7 +174,8 @@ public class BackwardCompatiblityTester {
 
         try {
             executorService.shutdown();
-            executorService.awaitTermination(1, TimeUnit.HOURS);
+            boolean success = executorService.awaitTermination(1, TimeUnit.HOURS);
+            assertThat(success).isTrue();
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
             return;
