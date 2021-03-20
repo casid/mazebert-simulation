@@ -44,7 +44,15 @@ public strictfp class NoviceWizardSpell extends Ability<Tower> implements OnDama
     }
 
     private boolean isSpellCastPossible(Object origin) {
-        return origin instanceof ProjectileDamageAbility && getUnit().isAbilityTriggered(spellChance + getUnit().getLevel() * spellChanceLevelBonus);
+        return isSpellCastPossibleForOrigin(origin) && getUnit().isAbilityTriggered(spellChance + getUnit().getLevel() * spellChanceLevelBonus);
+    }
+
+    private boolean isSpellCastPossibleForOrigin(Object origin) {
+        if (Sim.context().version >= Sim.vRoCEnd) {
+            return isOriginalDamage(origin);
+        } else {
+            return origin instanceof ProjectileDamageAbility;
+        }
     }
 
     private void castWarpSpell(Creep target) {
