@@ -118,6 +118,11 @@ public class BackwardCompatiblityTester {
     }
 
     @Test
+    void check_23() throws IOException {
+        checkGames(Sim.v23);
+    }
+
+    @Test
     void corruptEndOfFile() {
         int version = Sim.vDoLEnd;
         checkGame(gamesDirectory.resolve("corrupt-eof.mbg"), version, null);
