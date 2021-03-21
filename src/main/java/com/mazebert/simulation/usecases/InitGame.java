@@ -40,6 +40,7 @@ public strictfp class InitGame extends Usecase<InitGameCommand> {
 
         gameGateway.getGame().map = command.map.create();
         gameGateway.getGame().health = 1.0f;
+        gameGateway.getGame().tutorial = command.tutorial;
 
         if (command.tutorial) {
             gameSystem.initTutorial();

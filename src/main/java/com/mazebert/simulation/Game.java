@@ -16,6 +16,7 @@ public strictfp class Game implements Hashable {
     public float health = 1.0f;
     public boolean bonusRound;
     public int bonusRoundSeconds;
+    public boolean tutorial;
     public boolean timeLord;
     public boolean over;
     public boolean autoNextWave;
@@ -86,6 +87,10 @@ public strictfp class Game implements Hashable {
         }
 
         if (Sim.context().version < Sim.v24) {
+            return false;
+        }
+
+        if (tutorial) {
             return false;
         }
 
