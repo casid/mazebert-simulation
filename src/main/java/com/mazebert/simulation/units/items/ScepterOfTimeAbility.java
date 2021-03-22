@@ -31,6 +31,12 @@ public strictfp class ScepterOfTimeAbility extends ActiveAbility {
             case 3:
                 setTimeModifier(simulation, 4);
                 break;
+            case 4:
+                if (Sim.context().version >= Sim.v24) {
+                    setTimeModifier(simulation, 5);
+                    break;
+                }
+                // Fall through :-/
             default:
                 setTimeModifier(simulation, 1);
                 break;
@@ -65,6 +71,10 @@ public strictfp class ScepterOfTimeAbility extends ActiveAbility {
 
     @Override
     public String getLevelBonus() {
-        return "Make time pass 2, 3 or 4 times faster.";
+        if (Sim.context().version >= Sim.v24) {
+            return "Make time pass 2, 3, 4 or 5 times faster.";
+        } else {
+            return "Make time pass 2, 3 or 4 times faster.";
+        }
     }
 }

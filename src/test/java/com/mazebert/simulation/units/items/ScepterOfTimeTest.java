@@ -63,6 +63,26 @@ public strictfp class ScepterOfTimeTest extends ItemTest {
     }
 
     @Test
+    void toggled_5x() {
+        version = Sim.v24;
+        whenItemIsEquipped(ItemType.ScepterOfTime);
+        simulation.setTimeModifier(4);
+        whenAbilityIsActivated(tower, ActiveAbilityType.ScepterOfTimeToggle);
+
+        assertThat(simulation.getRawTimeModifier()).isEqualTo(5);
+    }
+
+    @Test
+    void toggled_5x_1x() {
+        version = Sim.v24;
+        whenItemIsEquipped(ItemType.ScepterOfTime);
+        simulation.setTimeModifier(5);
+        whenAbilityIsActivated(tower, ActiveAbilityType.ScepterOfTimeToggle);
+
+        assertThat(simulation.getRawTimeModifier()).isEqualTo(1);
+    }
+
+    @Test
     void toggled_whenPaused() {
         simulation.setPause(1, true);
         whenItemIsEquipped(ItemType.ScepterOfTime);

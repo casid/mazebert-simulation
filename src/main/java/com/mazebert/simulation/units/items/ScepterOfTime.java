@@ -14,6 +14,7 @@ public strictfp class ScepterOfTime extends Item {
     @Override
     public Changelog getChangelog() {
         return new Changelog(
+                new ChangelogEntry(Sim.v24, false, 2021, "Scepter of Time can make time pass 5x faster."),
                 new ChangelogEntry(Sim.vDoLEnd, false, 2020, "Scepter of Time now has an active ability that is shared by all players."),
                 new ChangelogEntry(Sim.v13, false, 2019, "Scepter of Time can no longer be transmuted."),
                 new ChangelogEntry(Sim.v10, false, 2014)
