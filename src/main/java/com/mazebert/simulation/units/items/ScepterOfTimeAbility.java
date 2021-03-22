@@ -72,7 +72,7 @@ public strictfp class ScepterOfTimeAbility extends ActiveAbility {
     @Override
     public String getLevelBonus() {
         if (Sim.context().version >= Sim.v24) {
-            return "Make time pass 2, 3, 4 or 5 times faster.";
+            return "Make time pass faster.";
         } else {
             return "Make time pass 2, 3 or 4 times faster.";
         }
