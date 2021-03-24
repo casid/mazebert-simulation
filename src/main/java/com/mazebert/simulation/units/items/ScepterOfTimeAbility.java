@@ -19,28 +19,19 @@ public strictfp class ScepterOfTimeAbility extends ActiveAbility {
     @Override
     public void activate() {
         Simulation simulation = Sim.context().simulation;
-        int timeModifier = (int) simulation.getRawTimeModifier();
-
-        switch (timeModifier) {
-            case 1:
-                setTimeModifier(simulation, 2);
-                break;
-            case 2:
-                setTimeModifier(simulation, 3);
-                break;
-            case 3:
-                setTimeModifier(simulation, 4);
-                break;
-            case 4:
-                if (Sim.context().version >= Sim.v24) {
-                    setTimeModifier(simulation, 5);
-                    break;
-                }
-                // Fall through :-/
-            default:
-                setTimeModifier(simulation, 1);
-                break;
+        int timeModifier = (int) simulation.getRawTimeModifier() + 1;
+        if (timeModifier > getMaxTimeModifier()) {
+            timeModifier = 1;
         }
+
+        setTimeModifier(simulation, timeModifier);
+    }
+
+    private int getMaxTimeModifier() {
+        if (Sim.context().version >= Sim.v24) {
+            return 5;
+        }
+        return 4;
     }
 
     void setTimeModifier(Simulation simulation, int timeModifier) {
