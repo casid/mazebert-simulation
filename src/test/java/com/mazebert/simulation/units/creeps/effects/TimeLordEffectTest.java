@@ -14,6 +14,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.jusecase.Builders.a;
+import static org.jusecase.Builders.date;
 
 public strictfp class TimeLordEffectTest extends SimTest {
 
@@ -172,5 +174,15 @@ public strictfp class TimeLordEffectTest extends SimTest {
 
         assertThat(creep.getState()).isEqualTo(CreepState.Hit);
         assertThat(unitGateway.getAmount(Creep.class)).isEqualTo(3); // Time lord + two underlings
+    }
+
+    @Test
+    void spawnsCreeps_aprilFoolGame() {
+        game.timestamp = a(date("2020-04-01").withTimezone("UTC")).getTime();
+        creep.onUpdate.dispatch(TimeLordSpawnEffect.TOGGLE_INTERVAL - TimeLordSpawnEffect.INITIAL_INTERVAL_PASSED - 0.1f);
+        creep.onUpdate.dispatch(0.1f);
+
+        assertThat(creep.getState()).isEqualTo(CreepState.Hit);
+        assertThat(unitGateway.getAmount(Creep.class)).isEqualTo(2); // Time lord + one boss underling
     }
 }

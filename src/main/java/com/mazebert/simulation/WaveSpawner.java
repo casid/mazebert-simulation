@@ -630,11 +630,17 @@ public strictfp final class WaveSpawner implements OnGameStartedListener, OnWave
 
         wave.origin = WaveOrigin.BonusRound;
         wave.creepCount /= 5;
+        if (wave.creepCount < 1) {
+            wave.creepCount = 1;
+        }
 
         return wave;
     }
 
     private boolean isWaveSuitableForTimeLordUnderling(WaveType type) {
+        if (gameGateway.getGame().isAprilFoolsGame()) {
+            return true;
+        }
         return type == WaveType.Air || type == WaveType.Mass || type == WaveType.Normal;
     }
 
