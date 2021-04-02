@@ -4,6 +4,7 @@ import com.mazebert.simulation.Sim;
 import com.mazebert.simulation.systems.WeddingRingSystem;
 import com.mazebert.simulation.units.abilities.Ability;
 import com.mazebert.simulation.units.towers.Tower;
+import com.mazebert.simulation.units.towers.Yggdrasil;
 
 public strictfp class WeddingRingAbility extends Ability<Tower> {
     private final WeddingRingSystem system = Sim.context().weddingRingSystem;
@@ -17,6 +18,11 @@ public strictfp class WeddingRingAbility extends Ability<Tower> {
     @Override
     protected void initialize(Tower unit) {
         super.initialize(unit);
+
+        if (unit instanceof Yggdrasil) {
+            return;
+        }
+
         system.setTower(unit.getPlayerId(), index, unit);
     }
 

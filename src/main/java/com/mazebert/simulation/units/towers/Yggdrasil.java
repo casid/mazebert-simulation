@@ -31,6 +31,7 @@ public strictfp class Yggdrasil extends Tower {
     @Override
     public Changelog getChangelog() {
         return new Changelog(
+                new ChangelogEntry(Sim.vRoCEnd, false, 2021, "Yggdrasil cannot be married"),
                 new ChangelogEntry(Sim.vDoLEnd, false, 2020, "Element changed from Nature to Unknown", "Yggdrasil can drop no matter what elements you choose", "There is one branch per element, connecting the norse worlds Jotunheim (Nature), Midgard (Metro), Helheim (Darkness) and Asgard (Light)", "Yggdrasil is not affected by branches in its inventory"),
                 new ChangelogEntry(Sim.v10, false, 2019)
         );
@@ -48,7 +49,11 @@ public strictfp class Yggdrasil extends Tower {
 
     @Override
     public String getDescription() {
-        return "The Great Tree of Life.\n(does not attack)";
+        if (Sim.context().version >= Sim.vRoCEnd) {
+            return "The Great Tree of Life.\n(cannot be married)";
+        } else {
+            return "The Great Tree of Life.\n(does not attack)";
+        }
     }
 
     @Override
