@@ -151,6 +151,10 @@ public strictfp class LootSystem {
         stash.add(drop, true);
 
         if (stash.isAutoTransmute(drop, true)) {
+            if (simulationListeners.areNotificationsEnabled() && drop.category() == CardCategory.Tower) {
+                simulationListeners.showNotification(wizard, "Auto transmute: " + formatPlugin.card(drop));
+            }
+
             TransmuteCardsCommand command = new TransmuteCardsCommand();
             command.cardCategory = drop.category();
             command.cardType = drop;

@@ -26,6 +26,10 @@ public class SimulationListenersTrainer extends SimulationListeners {
         assertThat(this.notifications.get(unit)).containsExactly(notifications);
     }
 
+    public void thenNotificationsContain(Unit unit, String... notifications) {
+        assertThat(this.notifications.get(unit)).contains(notifications);
+    }
+
     public void thenNoNotificationsWereShown(Unit unit) {
         assertThat(this.notifications.get(unit)).isNull();
     }

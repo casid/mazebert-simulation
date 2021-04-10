@@ -34,6 +34,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 public strictfp class WaveSpawnerTest extends SimTest {
 
     RandomPluginTrainer randomPluginTrainer = new RandomPluginTrainer();
+    SimulationListenersTrainer simulationListenersTrainer = new SimulationListenersTrainer();
 
     WaveSpawner waveSpawner;
     Wave wave;
@@ -45,7 +46,7 @@ public strictfp class WaveSpawnerTest extends SimTest {
 
     @BeforeEach
     void setUp() {
-        simulationListeners = new SimulationListeners();
+        simulationListeners = simulationListenersTrainer;
         simulationListeners.onWaveFinished.add(wave -> waveFinished = true);
         simulationListeners.onRoundStarted.add(wave -> roundStarted = wave.round);
 
@@ -847,6 +848,7 @@ public strictfp class WaveSpawnerTest extends SimTest {
         assertThat(waveFinished).isTrue();
         assertThat(wizard.towerStash.size()).isEqualTo(0);
         assertThat(wizard.towerStash.transmutedUncommons).isEqualTo(1);
+        simulationListenersTrainer.thenNotificationsContain(wizard, "Auto transmute: <c=#1f64ff>Poisonous Frog</c>");
     }
 
     @Test
