@@ -19,7 +19,7 @@ public strictfp class WeddingRingAbility extends Ability<Tower> {
     protected void initialize(Tower unit) {
         super.initialize(unit);
 
-        if (unit instanceof Yggdrasil) {
+        if (Sim.context().version >= Sim.vRoCEnd && unit instanceof Yggdrasil) {
             return;
         }
 

@@ -29,16 +29,12 @@ class Yggdrasil_WeddingRingsTest extends ItemTest {
         otherTower.setX(1);
         otherTower.setWizard(wizard);
         unitGateway.addUnit(otherTower);
-
-        whenItemIsEquipped(otherTower, ItemType.WeddingRing1);
-        whenItemIsEquipped(yggdrasil, ItemType.WeddingRing2);
-
-        simulationListeners.onUpdate.dispatch(WeddingRingSystem.SECONDS_FOR_MARRIAGE);
     }
 
     @Test
     void v24() {
         version = Sim.v24;
+        givenTowersAreMarried();
 
         whenPotionIsConsumed(yggdrasil, PotionType.EssenceOfWisdom);
 
@@ -49,10 +45,18 @@ class Yggdrasil_WeddingRingsTest extends ItemTest {
     @Test
     void v25() {
         version = Sim.vRoCEnd;
+        givenTowersAreMarried();
 
         whenPotionIsConsumed(yggdrasil, PotionType.EssenceOfWisdom);
 
         assertThat(yggdrasil.getLevel()).isEqualTo(10);
         assertThat(otherTower.getLevel()).isEqualTo(0);
+    }
+
+    void givenTowersAreMarried() {
+        whenItemIsEquipped(otherTower, ItemType.WeddingRing1);
+        whenItemIsEquipped(yggdrasil, ItemType.WeddingRing2);
+
+        simulationListeners.onUpdate.dispatch(WeddingRingSystem.SECONDS_FOR_MARRIAGE);
     }
 }
