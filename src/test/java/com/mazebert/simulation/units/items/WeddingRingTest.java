@@ -1,6 +1,7 @@
 package com.mazebert.simulation.units.items;
 
 import com.mazebert.simulation.Element;
+import com.mazebert.simulation.Sim;
 import com.mazebert.simulation.SimulationListenersTrainer;
 import com.mazebert.simulation.gateways.PlayerGatewayTrainer;
 import com.mazebert.simulation.systems.WeddingRingSystem;
@@ -150,6 +151,8 @@ strictfp class WeddingRingTest extends ItemTest {
 
     @Test
     void yggdrasil_1() {
+        version = Sim.v24; // Yggdrasil marriage is no longer possible after this version
+
         tower.setElement(Element.Nature);
         Yggdrasil yggdrasil = new Yggdrasil();
         yggdrasil.setWizard(wizard);
@@ -169,6 +172,8 @@ strictfp class WeddingRingTest extends ItemTest {
 
     @Test
     void yggdrasil_2() {
+        version = Sim.v24; // Yggdrasil marriage is no longer possible after this version
+
         tower.setElement(Element.Nature);
         Yggdrasil yggdrasil = new Yggdrasil();
         yggdrasil.setWizard(wizard);
@@ -188,6 +193,8 @@ strictfp class WeddingRingTest extends ItemTest {
 
     @Test
     void yggdrasil_3() {
+        version = Sim.v24; // Yggdrasil marriage is no longer possible after this version
+
         tower.setElement(Element.Nature);
         Yggdrasil yggdrasil = new Yggdrasil();
         yggdrasil.setWizard(wizard);
@@ -211,6 +218,8 @@ strictfp class WeddingRingTest extends ItemTest {
 
     @Test
     void yggdrasil_tears() {
+        version = Sim.v24; // Yggdrasil marriage is no longer possible after this version
+
         tower.setElement(Element.Nature);
         Yggdrasil yggdrasil = new Yggdrasil();
         yggdrasil.setWizard(wizard);
