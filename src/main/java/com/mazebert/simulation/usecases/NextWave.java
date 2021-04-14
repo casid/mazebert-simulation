@@ -44,7 +44,7 @@ public strictfp class NextWave extends Usecase<NextWaveCommand> {
                 context.skippedSeconds += Balancing.WAVE_COUNTDOWN_SECONDS;
                 context.simulationListeners.onSecondsSkipped.dispatch();
             }
-            simulationListeners.onWaveStarted.dispatch();
+            simulationListeners.onWaveStarted.dispatch(Balancing.WAVE_COUNTDOWN_SECONDS_INT);
         }
 
         if (Sim.context().version >= Sim.vDoL) {

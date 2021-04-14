@@ -1135,7 +1135,7 @@ public strictfp class WaveSpawnerTest extends SimTest {
     }
 
     private void whenPlayerCallsNextWave() {
-        waveSpawner.onWaveStarted();
+        waveSpawner.onWaveStarted(0);
         whenGameIsUpdated();
     }
 
@@ -1169,7 +1169,7 @@ public strictfp class WaveSpawnerTest extends SimTest {
     }
 
     private void whenNextWaveIsCalled() {
-        simulationListeners.onWaveStarted.dispatch();
+        simulationListeners.onWaveStarted.dispatch(0);
     }
 
     private void whenAllCreepsAreSpawned() {

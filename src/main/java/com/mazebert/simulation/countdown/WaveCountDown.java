@@ -12,7 +12,7 @@ public strictfp class WaveCountDown extends CountDown {
 
     @Override
     protected void onCountDownReached(SimulationListeners simulationListeners) {
-        simulationListeners.onWaveStarted.dispatch();
+        simulationListeners.onWaveStarted.dispatch(0);
         Sim.context().waveCountDown = null;
     }
 

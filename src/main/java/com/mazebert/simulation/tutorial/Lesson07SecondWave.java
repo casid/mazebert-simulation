@@ -2,7 +2,6 @@ package com.mazebert.simulation.tutorial;
 
 import com.mazebert.simulation.Sim;
 import com.mazebert.simulation.SimulationListeners;
-import com.mazebert.simulation.listeners.OnGameStartedListener;
 import com.mazebert.simulation.listeners.OnWaveStartedListener;
 import com.mazebert.simulation.units.wizards.Wizard;
 
@@ -22,7 +21,7 @@ public strictfp class Lesson07SecondWave extends Lesson implements OnWaveStarted
     }
 
     @Override
-    public void onWaveStarted() {
+    public void onWaveStarted(int skippedSeconds) {
         finish();
     }
 }

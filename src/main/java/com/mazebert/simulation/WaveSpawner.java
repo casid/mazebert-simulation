@@ -61,12 +61,12 @@ public strictfp final class WaveSpawner implements OnGameStartedListener, OnWave
             unitGateway.forEachWizard(wizard -> simulationListeners.showNotification(wizard, "All bosses that usually haunt TheMarine are after you now!"));
         }
 
-        startNextWave();
+        startNextWave(0);
     }
 
     @Override
-    public void onWaveStarted() {
-        startNextWave();
+    public void onWaveStarted(int skippedSeconds) {
+        startNextWave(skippedSeconds);
     }
 
     @SuppressWarnings("Duplicates")
@@ -190,7 +190,7 @@ public strictfp final class WaveSpawner implements OnGameStartedListener, OnWave
         return countdown;
     }
 
-    private void startNextWave() {
+    private void startNextWave(int skippedSeconds) {
         if (Sim.context().earlyCallCountDown == null) {
             Sim.context().earlyCallCountDown = new EarlyCallCountDown();
             Sim.context().earlyCallCountDown.start();
@@ -202,7 +202,12 @@ public strictfp final class WaveSpawner implements OnGameStartedListener, OnWave
             return;
         }
 
-        if (version >= Sim.v16) {
+        if (version >= Sim.vRoCEnd) {
+            if (skippedSeconds > 0) {
+                Sim.context().skippedSeconds += skippedSeconds;
+                Sim.context().simulationListeners.onSecondsSkipped.dispatch();
+            }
+        } else if (version >= Sim.v16) {
             Sim.context().skippedSeconds += Balancing.WAVE_COUNTDOWN_SECONDS;
             Sim.context().simulationListeners.onSecondsSkipped.dispatch();
         }

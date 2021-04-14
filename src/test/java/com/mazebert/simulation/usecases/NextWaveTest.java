@@ -37,7 +37,7 @@ class NextWaveTest extends UsecaseTest<NextWaveCommand> {
 
         usecase = new NextWave();
 
-        simulationListeners.onWaveStarted.add(() -> ++waveStarted);
+        simulationListeners.onWaveStarted.add(skippedSeconds -> ++waveStarted);
         simulationListeners.onBonusRoundStarted.add(() -> ++bonusRoundStarted);
         simulationListeners.onTimeLordStarted.add(() -> ++timeLordStarted);
     }
@@ -73,6 +73,24 @@ class NextWaveTest extends UsecaseTest<NextWaveCommand> {
         whenRequestIsExecuted();
 
         assertThat(skippedSeconds).isEqualTo(5);
+    }
+
+    /**
+     * See https://mazebert.com/forum/bugs/impatience-giving-more-speed--id1248/
+     */
+    @Test
+    void skippedSeconds_countOnlyOnce() {
+        waveCountDown = new WaveCountDown();
+        waveCountDown.onUpdate(3);
+
+        Wave wave = new Wave();
+        wave.creepCount = 1;
+        wave.type = WaveType.Boss;
+        waveGateway.addWave(wave);
+
+        whenRequestIsExecuted();
+
+        assertThat(skippedSeconds).isEqualTo(2);
     }
 
     @Test

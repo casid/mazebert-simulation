@@ -4,7 +4,8 @@ import com.mazebert.simulation.units.towers.Tower;
 
 public strictfp class Balancing {
     public static final float GAME_COUNTDOWN_SECONDS = 30.0f;
-    public static final float WAVE_COUNTDOWN_SECONDS = 5.0f;
+    public static final float WAVE_COUNTDOWN_SECONDS = 5.0f; // Keep in sync
+    public static final int WAVE_COUNTDOWN_SECONDS_INT = 5; // Keep in sync
     public static final float BONUS_COUNTDOWN_SECONDS = 60.0f;
     public static final float TIME_LORD_COUNTDOWN_SECONDS = 60.0f;
     public static final int TIME_LORD_ENCOUNTER_SECONDS = 5000;

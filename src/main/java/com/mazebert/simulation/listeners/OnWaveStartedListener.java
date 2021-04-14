@@ -1,5 +1,5 @@
 package com.mazebert.simulation.listeners;
 
 public interface OnWaveStartedListener {
-    void onWaveStarted();
+    void onWaveStarted(int skippedSeconds);
 }
