@@ -120,6 +120,11 @@ public strictfp final class UnitGateway {
     }
 
     @SuppressWarnings("unchecked")
+    public <U extends Unit> U findUnit(Class<U> unitClass, Predicate<U> predicate) {
+        return (U) units.find(unit -> unitClass.isAssignableFrom(unit.getClass()) && predicate.test((U)unit));
+    }
+
+    @SuppressWarnings("unchecked")
     public <U extends Unit> U findUnitAtIndex(Class<U> unitClass, int index) {
         return (U) units.find(new UnitAtIndexPredicate(unitClass, index));
     }

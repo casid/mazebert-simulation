@@ -71,6 +71,7 @@ public strictfp class Context {
     public BonusRoundCountDown bonusRoundCountDown;
     public TimeLordCountDown timeLordCountDown;
     public EarlyCallCountDown earlyCallCountDown;
+    public StallingPreventionCountDown stallingPreventionCountDown;
     public WaveSpawner waveSpawner;
     public final float[] tempChancesForRarity = new float[Rarity.VALUES.length];
     public int skippedSeconds;

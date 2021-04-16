@@ -67,7 +67,7 @@ public strictfp class WaveSpawnerTest extends SimTest {
 
         gameGateway.getGame().map = new BloodMoor();
 
-        waveSpawner = new WaveSpawner();
+        waveSpawner = super.waveSpawner = new WaveSpawner();
         waveGateway.setTotalWaves(250);
 
         commandExecutor = new CommandExecutor();
@@ -1134,6 +1134,81 @@ public strictfp class WaveSpawnerTest extends SimTest {
         projectileGateway.simulate(1000);
     }
 
+    @Test
+    void stallingPreventionCountDown_createdOnNextWave() {
+        wizard.gold = 250;
+        givenBossWave();
+
+        whenGameIsStarted();
+        whenGameIsUpdated(1);
+
+        assertThat(stallingPreventionCountDown.getRemainingSeconds()).isEqualTo(119);
+        assertThat(wizard.gold).isEqualTo(250);
+        assertThat(wizard.towerStash.size()).isEqualTo(0);
+    }
+
+    @Test
+    void stallingPreventionCountDown_triggersNextWaveCountDownWhenFinished() {
+        wizard.gold = 250;
+        givenBossWave();
+
+        whenGameIsStarted();
+        Creep boss = getCreep(0);
+        boss.setSpeedModifier(0);
+
+        whenGameIsUpdated(1.0f, (int)Balancing.STALLING_PREVENTION_COUNTDOWN_SECONDS);
+
+        assertThat(stallingPreventionCountDown).isNull();
+        assertThat(waveCountDown).isNotNull(); // Count down for next wave is started
+        assertThat(wizard.gold).isEqualTo(255); // Interest calculation happens
+        assertThat(wizard.towerStash.size()).isEqualTo(1); // Tower research happens
+    }
+
+    @Test
+    void stallingPreventionCountDown_triggersNextWaveCountDownWhenFinished_onlyOnce() {
+        wizard.gold = 250;
+        givenBossWave();
+
+        whenGameIsStarted();
+        Creep boss = getCreep(0);
+        boss.setSpeedModifier(0);
+
+        whenGameIsUpdated(1.0f, (int)Balancing.STALLING_PREVENTION_COUNTDOWN_SECONDS);
+        whenCreepIsKilled(boss);
+
+        assertThat(wizard.gold).isEqualTo(255); // Interest calculation happens only once
+        assertThat(wizard.towerStash.size()).isEqualTo(1); // Tower research happens only once
+    }
+
+    @Test
+    void stallingPreventionCountDown_challengeExperience() {
+        givenWave(WaveType.Challenge);
+
+        whenGameIsStarted();
+        Creep challenge = getCreep(0);
+        challenge.setSpeedModifier(0);
+        challenge.setHealth(challenge.getMaxHealth() * 0.5);
+
+        whenGameIsUpdated(1.0f, (int)Balancing.STALLING_PREVENTION_COUNTDOWN_SECONDS);
+
+        assertThat(wizard.experience).isEqualTo(43); // Challenge experience is granted
+    }
+
+    @Test
+    void stallingPreventionCountDown_noCountDownConflicts() {
+        // TODO
+    }
+
+    @Test
+    void stallingPreventionCountDown_notInBounusRound() {
+        // TODO
+    }
+
+    @Test
+    void stallingPreventionCountDown_notWithTimeLord() {
+        // TODO
+    }
+
     private void whenPlayerCallsNextWave() {
         waveSpawner.onWaveStarted(0);
         whenGameIsUpdated();
@@ -1181,6 +1256,12 @@ public strictfp class WaveSpawnerTest extends SimTest {
 
     private void whenGameIsUpdated(float dt) {
         simulationListeners.onUpdate.dispatch(dt);
+    }
+
+    private void whenGameIsUpdated(float dt, int steps) {
+        for (int i = 0; i < steps; i++) {
+            simulationListeners.onUpdate.dispatch(dt);
+        }
     }
 
     private void whenGameIsUpdated() {

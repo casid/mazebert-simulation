@@ -17,6 +17,7 @@ public strictfp class Wave implements Hashable {
     public transient int remainingCreepCount;
     public float minSecondsToNextCreep;
     public float maxSecondsToNextCreep;
+    public transient boolean forcedCompletion;
 
 
     @SuppressWarnings("Duplicates")

@@ -1,10 +1,7 @@
 package com.mazebert.simulation;
 
 import com.mazebert.java8.Predicate;
-import com.mazebert.simulation.countdown.BonusRoundCountDown;
-import com.mazebert.simulation.countdown.EarlyCallCountDown;
-import com.mazebert.simulation.countdown.TimeLordCountDown;
-import com.mazebert.simulation.countdown.WaveCountDown;
+import com.mazebert.simulation.countdown.*;
 import com.mazebert.simulation.gateways.*;
 import com.mazebert.simulation.listeners.*;
 import com.mazebert.simulation.maps.MapGrid;
@@ -191,9 +188,11 @@ public strictfp final class WaveSpawner implements OnGameStartedListener, OnWave
     }
 
     private void startNextWave(int skippedSeconds) {
-        if (Sim.context().earlyCallCountDown == null) {
-            Sim.context().earlyCallCountDown = new EarlyCallCountDown();
-            Sim.context().earlyCallCountDown.start();
+        Context context = Sim.context();
+
+        if (context.earlyCallCountDown == null) {
+            context.earlyCallCountDown = new EarlyCallCountDown();
+            context.earlyCallCountDown.start();
             simulationListeners.onEarlyCallImpossible.dispatch();
         }
 
@@ -203,13 +202,18 @@ public strictfp final class WaveSpawner implements OnGameStartedListener, OnWave
         }
 
         if (version >= Sim.vRoCEnd) {
+            context.stallingPreventionCountDown = new StallingPreventionCountDown(wave);
+            context.stallingPreventionCountDown.start();
+        }
+
+        if (version >= Sim.vRoCEnd) {
             if (skippedSeconds > 0) {
-                Sim.context().skippedSeconds += skippedSeconds;
-                Sim.context().simulationListeners.onSecondsSkipped.dispatch();
+                context.skippedSeconds += skippedSeconds;
+                context.simulationListeners.onSecondsSkipped.dispatch();
             }
         } else if (version >= Sim.v16) {
-            Sim.context().skippedSeconds += Balancing.WAVE_COUNTDOWN_SECONDS;
-            Sim.context().simulationListeners.onSecondsSkipped.dispatch();
+            context.skippedSeconds += Balancing.WAVE_COUNTDOWN_SECONDS;
+            context.simulationListeners.onSecondsSkipped.dispatch();
         }
 
         spawnWave(wave);
@@ -443,13 +447,13 @@ public strictfp final class WaveSpawner implements OnGameStartedListener, OnWave
             Creep creep = (Creep) unit;
             Wave wave = creep.getWave();
 
-            if (wave.origin == WaveOrigin.Game && --wave.remainingCreepCount <= 0) {
+            if (wave.origin == WaveOrigin.Game && --wave.remainingCreepCount <= 0 && !wave.forcedCompletion) {
                 completeWave(wave, creep);
             }
         }
     }
 
-    private void completeWave(Wave wave, Creep lastCreep) {
+    public void completeWave(Wave wave, Creep lastCreep) {
         unitGateway.forEach(Wizard.class, wizard -> completeWave(wizard, wave, lastCreep));
 
         simulationListeners.onWaveFinished.dispatch(wave);
@@ -462,13 +466,21 @@ public strictfp final class WaveSpawner implements OnGameStartedListener, OnWave
                 if (gameGateway.getGame().autoNextWave) {
                     NextWave.skipCountDown(Sim.context(), Sim.context().waveCountDown);
                 }
-            } else if (isGameWon()) {
+            } else if (isBonusRoundStartAfterWaveCompletion()) {
                 gameGateway.getGame().bonusRound = true;
                 simulationListeners.onGameWon.dispatch();
                 Sim.context().bonusRoundCountDown = new BonusRoundCountDown();
                 Sim.context().bonusRoundCountDown.start();
             }
         }
+    }
+
+    private boolean isBonusRoundStartAfterWaveCompletion() {
+        if (version >= Sim.vRoCEnd && gameGateway.getGame().bonusRound) {
+            return false; // TODO write test
+        }
+
+        return isGameWon();
     }
 
     private boolean isGameWon() {
@@ -481,6 +493,10 @@ public strictfp final class WaveSpawner implements OnGameStartedListener, OnWave
     }
 
     private boolean isCurrentWaveComplete(Wave wave) {
+        if (wave.forcedCompletion) {
+            return true;
+        }
+
         if (version > Sim.v10) {
             return Sim.context().waveCountDown == null && (wave.round == waveGateway.getCurrentRound() || !waveGateway.hasNextWave()) && creepQueue.isEmpty();
         } else {

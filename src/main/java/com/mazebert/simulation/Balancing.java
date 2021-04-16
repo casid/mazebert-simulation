@@ -8,6 +8,7 @@ public strictfp class Balancing {
     public static final int WAVE_COUNTDOWN_SECONDS_INT = 5; // Keep in sync
     public static final float BONUS_COUNTDOWN_SECONDS = 60.0f;
     public static final float TIME_LORD_COUNTDOWN_SECONDS = 60.0f;
+    public static final float STALLING_PREVENTION_COUNTDOWN_SECONDS = 120.0f;
     public static final int TIME_LORD_ENCOUNTER_SECONDS = 5000;
     public static final int BONUS_SPAWN_COUNTDOWN_SECONDS = 5;
     public static final float EARLY_CALL_COUNTDOWN_SECONDS = 5.0f;
