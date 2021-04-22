@@ -59,7 +59,9 @@ public strictfp abstract class Potion implements Card {
     }
 
     public void applyTo(Tower tower) {
-        Potion potion = copy();
-        potion.forEachAbility(tower::addAbility);
+        if (!tower.isDisposed()) {
+            Potion potion = copy();
+            potion.forEachAbility(tower::addAbility);
+        }
     }
 }

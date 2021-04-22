@@ -6,6 +6,7 @@ import com.mazebert.simulation.gateways.UnitGateway;
 import com.mazebert.simulation.maps.TestMap;
 import com.mazebert.simulation.systems.LootSystemTrainer;
 import com.mazebert.simulation.units.TestTower;
+import com.mazebert.simulation.units.heroes.Cthulhu;
 import com.mazebert.simulation.units.items.*;
 import com.mazebert.simulation.units.potions.PotionType;
 import com.mazebert.simulation.units.wizards.Wizard;
@@ -154,6 +155,26 @@ public strictfp class Yggdrasil_v20Test extends SimTest {
         Hitman hitman = unitGateway.findUnit(Hitman.class, wizard.playerId);
         assertThat(hitman.getItem(0)).isNull();
         assertThat(wizard.itemStash.get(ItemType.BranchOfYggdrasilNature).amount).isEqualTo(1);
+    }
+
+    @Test
+    void otherBranchCarrier_andCthulhuHero_noDuplicateDisposal() {
+        unitGateway.addUnit(new Cthulhu());
+
+        Tower tower = new TestTower();
+        tower.setX(1);
+        tower.setElement(Element.Nature);
+        tower.setWizard(wizard);
+        unitGateway.addUnit(tower);
+
+        whenYggdrasilIsBuilt();
+        unitGateway.returnAllItemsToInventory(yggdrasil);
+        whenItemIsEquipped(tower, ItemType.BranchOfYggdrasilNature, 0);
+
+        whenYggdrasilDrinksPotion(PotionType.Sacrifice);
+
+        assertThat(tower.isDisposed()).isTrue();
+        assertThat(yggdrasil.isDisposed()).isTrue();
     }
 
     private void whenYggdrasilIsBuilt() {
