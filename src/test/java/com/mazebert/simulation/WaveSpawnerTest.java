@@ -1195,11 +1195,6 @@ public strictfp class WaveSpawnerTest extends SimTest {
     }
 
     @Test
-    void stallingPreventionCountDown_noCountDownConflicts() {
-        // TODO
-    }
-
-    @Test
     void stallingPreventionCountDown_canTriggerBonusRound() {
         waveGateway.setTotalWaves(10);
         waveGateway.setCurrentRound(9);
@@ -1215,14 +1210,9 @@ public strictfp class WaveSpawnerTest extends SimTest {
     }
 
     @Test
-    void stallingPreventionCountDown_notInBounusRound() {
+    void stallingPreventionCountDown_notInBonusRound() {
         whenBonusRoundIsReached();
-        // TODO
-    }
-
-    @Test
-    void stallingPreventionCountDown_notWithTimeLord() {
-        // TODO
+        assertThat(stallingPreventionCountDown).isNull();
     }
 
     private void whenPlayerCallsNextWave() {
@@ -1274,6 +1264,7 @@ public strictfp class WaveSpawnerTest extends SimTest {
         simulationListeners.onUpdate.dispatch(dt);
     }
 
+    @SuppressWarnings("SameParameterValue")
     private void whenGameIsUpdated(float dt, int steps) {
         for (int i = 0; i < steps; i++) {
             simulationListeners.onUpdate.dispatch(dt);

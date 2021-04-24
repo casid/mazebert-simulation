@@ -471,6 +471,11 @@ public strictfp final class WaveSpawner implements OnGameStartedListener, OnWave
                 simulationListeners.onGameWon.dispatch();
                 Sim.context().bonusRoundCountDown = new BonusRoundCountDown();
                 Sim.context().bonusRoundCountDown.start();
+
+                if (Sim.context().stallingPreventionCountDown != null) {
+                    Sim.context().stallingPreventionCountDown.cancel();
+                    Sim.context().stallingPreventionCountDown = null;
+                }
             }
         }
     }
