@@ -9,14 +9,20 @@ import com.mazebert.simulation.units.towers.Tower;
 
 public strictfp class EldritchChainsawAbility extends AuraAbility<Tower, Creep> {
 
-    public static float damageFactor = 0.4f;
-    public static float damageFactorPerLevel = 0.04f;
+    private static final float damageFactor = 0.4f;
+    private final float damageFactorPerLevel;
 
     private final SimulationListeners simulationListeners = Sim.context().simulationListeners;
 
     public EldritchChainsawAbility(EldritchChainsaw chainsaw) {
         super(CardCategory.Tower, Creep.class, 1);
         setOrigin(chainsaw);
+
+        if (Sim.context().version >= Sim.vRoCEnd) {
+            damageFactorPerLevel = 0.006f;
+        } else {
+            damageFactorPerLevel = 0.04f;
+        }
     }
 
     @Override

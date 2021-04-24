@@ -1,6 +1,7 @@
 package com.mazebert.simulation.units.items;
 
 import com.mazebert.simulation.Rarity;
+import com.mazebert.simulation.Sim;
 import com.mazebert.simulation.changelog.Changelog;
 import com.mazebert.simulation.changelog.ChangelogEntry;
 import com.mazebert.simulation.units.abilities.EldritchItemUniqueAbility;
@@ -13,6 +14,7 @@ public strictfp class EldritchChainsaw extends Item {
     @Override
     public Changelog getChangelog() {
         return new Changelog(
+                new ChangelogEntry(Sim.vRoCEnd, false, 2021, "Damage per level reduced from 4% to 0.6%"),
                 ChangelogEntry.RISE_OF_CTHULHU
         );
     }
