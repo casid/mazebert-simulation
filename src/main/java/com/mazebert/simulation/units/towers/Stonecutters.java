@@ -32,6 +32,7 @@ public strictfp class Stonecutters extends Tower {
     @Override
     public Changelog getChangelog() {
         return new Changelog(
+                new ChangelogEntry(Sim.vRoCEnd, false, 2021, "Reduce damage bonus from 1% to 0.8%"),
                 new ChangelogEntry(Sim.v10, false, 2015)
         );
     }
