@@ -110,6 +110,10 @@ public strictfp class ExperienceSystem {
             return 0;
         }
 
+        if (lastCreep == null) {
+            return 0;
+        }
+
         double progress = 1.0 - lastCreep.getHealth() / lastCreep.getMaxHealth();
         long experience = calculateExperience(wizard, progress * 111.0);
 

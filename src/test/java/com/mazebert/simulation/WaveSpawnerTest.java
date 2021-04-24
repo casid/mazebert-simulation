@@ -1200,7 +1200,23 @@ public strictfp class WaveSpawnerTest extends SimTest {
     }
 
     @Test
+    void stallingPreventionCountDown_canTriggerBonusRound() {
+        waveGateway.setTotalWaves(10);
+        waveGateway.setCurrentRound(9);
+        givenBossWave();
+
+        whenAllCreepsAreSpawned();
+        Creep boss = getCreep(0);
+        boss.setSpeedModifier(0);
+
+        whenGameIsUpdated(1.0f, (int)Balancing.STALLING_PREVENTION_COUNTDOWN_SECONDS);
+
+        assertThat(bonusRoundCountDown).isNotNull();
+    }
+
+    @Test
     void stallingPreventionCountDown_notInBounusRound() {
+        whenBonusRoundIsReached();
         // TODO
     }
 
