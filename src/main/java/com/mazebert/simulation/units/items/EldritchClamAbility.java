@@ -1,17 +1,26 @@
 package com.mazebert.simulation.units.items;
 
+import com.mazebert.simulation.Sim;
 import com.mazebert.simulation.units.abilities.StackableAbility;
 import com.mazebert.simulation.units.towers.Tower;
 
 public strictfp class EldritchClamAbility extends StackableAbility<Tower> {
 
-    public static final float itemBonus = 0.5f;
+    private final float itemBonus;
     public static final float goldBonus = 0.25f;
     public static final float luckBonus = -0.2f;
 
     private float item;
     private float gold;
     private float luck;
+
+    public EldritchClamAbility() {
+        if (Sim.context().version >= Sim.vRoCEnd) {
+            itemBonus = 0.25f;
+        } else {
+            itemBonus = 0.5f;
+        }
+    }
 
     @Override
     protected void updateStacks() {
