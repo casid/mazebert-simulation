@@ -1,6 +1,7 @@
 package com.mazebert.simulation.units.towers;
 
 import com.mazebert.simulation.Element;
+import com.mazebert.simulation.Sim;
 import com.mazebert.simulation.SimTest;
 import com.mazebert.simulation.SimulationListeners;
 import com.mazebert.simulation.gateways.UnitGateway;
@@ -20,6 +21,8 @@ strictfp class StonecuttersTest extends SimTest {
 
         stonecutters = new Stonecutters();
         unitGateway.addUnit(stonecutters);
+
+        version = Sim.v24;
     }
 
     @Test

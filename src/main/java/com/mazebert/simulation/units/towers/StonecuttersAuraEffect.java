@@ -9,10 +9,15 @@ public strictfp class StonecuttersAuraEffect extends StackableByOriginAbility<To
     private float damageBonusVex = 0.0f;
 
     public static float getDamageBonus() {
-        if (Sim.context().version < Sim.v13) {
-            return 0.03f;
+        int version = Sim.context().version;
+        if (version >= Sim.vRoCEnd) {
+            return 0.008f;
         }
-        return 0.01f;
+        if (version >= Sim.v13) {
+            return 0.01f;
+        }
+        return 0.03f;
+
     }
 
     @Override
