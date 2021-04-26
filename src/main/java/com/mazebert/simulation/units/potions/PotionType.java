@@ -44,7 +44,7 @@ public strictfp enum PotionType implements CardType<Potion> {
     ResearchLight(29, ResearchLight.class),
     WhiteRussian(30, WhiteRussian.class),
     UnicornTears(31, UnicornTears.class),
-    LeuchtFeuer(32, LeuchtFeuer.class),
+    LeuchtFeuer(32, Leuchtfeuer.class),
     ;
 
     private static int maxId;

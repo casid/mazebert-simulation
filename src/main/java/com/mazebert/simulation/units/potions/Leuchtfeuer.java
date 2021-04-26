@@ -5,9 +5,9 @@ import com.mazebert.simulation.Sim;
 import com.mazebert.simulation.changelog.Changelog;
 import com.mazebert.simulation.changelog.ChangelogEntry;
 
-public strictfp class LeuchtFeuer extends Potion {
-    public LeuchtFeuer() {
-        super(new LeuchtFeuerAbility());
+public strictfp class Leuchtfeuer extends Potion {
+    public Leuchtfeuer() {
+        super(new LeuchtfeuerAbility());
     }
 
     @Override

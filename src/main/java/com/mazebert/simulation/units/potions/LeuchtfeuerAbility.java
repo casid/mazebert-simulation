@@ -1,11 +1,21 @@
 package com.mazebert.simulation.units.potions;
 
 import com.mazebert.simulation.Element;
+import com.mazebert.simulation.Sim;
+import com.mazebert.simulation.SimulationListeners;
+import com.mazebert.simulation.gateways.UnitGateway;
 import com.mazebert.simulation.listeners.OnPotionEffectivenessChangedListener;
+import com.mazebert.simulation.listeners.OnUnitRemovedListener;
+import com.mazebert.simulation.units.Unit;
 import com.mazebert.simulation.units.abilities.StackableAbility;
+import com.mazebert.simulation.units.towers.BeaconOfHope;
 import com.mazebert.simulation.units.towers.Tower;
 
-public strictfp class LeuchtFeuerAbility extends StackableAbility<Tower> implements OnPotionEffectivenessChangedListener {
+public strictfp class LeuchtfeuerAbility extends StackableAbility<Tower> implements OnPotionEffectivenessChangedListener, OnUnitRemovedListener {
+
+    private final UnitGateway unitGateway = Sim.context().unitGateway;
+    private final SimulationListeners simulationListeners = Sim.context().simulationListeners;
+
     private int maxLevels;
 
     @Override
@@ -13,11 +23,13 @@ public strictfp class LeuchtFeuerAbility extends StackableAbility<Tower> impleme
         super.initialize(unit);
 
         unit.onPotionEffectivenessChanged.add(this);
+        simulationListeners.onUnitRemoved.add(this);
     }
 
     @Override
     protected void dispose(Tower unit) {
         unit.onPotionEffectivenessChanged.remove(this);
+        simulationListeners.onUnitRemoved.remove(this);
 
         super.dispose(unit);
     }
@@ -34,8 +46,7 @@ public strictfp class LeuchtFeuerAbility extends StackableAbility<Tower> impleme
     }
 
     private void addStacks() {
-        // TODO ensure that Beacon of Hope is still on the map
-        if (getUnit().getElement() == Element.Light) {
+        if (getUnit().getElement() == Element.Light && unitGateway.hasUnits(BeaconOfHope.class, u -> u.getPlayerId() == getUnit().getPlayerId())) {
             maxLevels = StrictMath.round(getStackCount() * getUnit().getPotionEffectiveness());
             getUnit().addMaxLevel(maxLevels);
         }
@@ -49,5 +60,12 @@ public strictfp class LeuchtFeuerAbility extends StackableAbility<Tower> impleme
     @Override
     public void onPotionEffectivenessChanged(Tower tower) {
         updateStacks();
+    }
+
+    @Override
+    public void onUnitRemoved(Unit unit) {
+        if (unit instanceof BeaconOfHope) {
+            updateStacks();
+        }
     }
 }

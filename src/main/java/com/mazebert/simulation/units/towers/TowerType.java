@@ -68,7 +68,7 @@ public strictfp enum TowerType implements CardType<Tower> {
     SnowGlobe(53, SnowGlobe.class),
     Lucifer(54, Lucifer.class),
     LuciferFallen(55, LuciferFallen.class),
-    // legendary 1
+    BeaconOfHope(56, BeaconOfHope.class),
     ;
 
     public final int id;
@@ -110,6 +110,7 @@ public strictfp enum TowerType implements CardType<Tower> {
 
     private static final TowerType[] STANDARD      = {Beaver, Dandelion, Rabbit, Frog, HerbWitch, Wolf, Huli, BearHunter, Viking, Ganesha, Balu, Manitou, Hitman, Scientist, PocketThief, ElectricChair, Elvis, Pub, MoneyBin, MrIron, ScarFace, Muli, Satellite, BlackWidow, Mummy, ScareCrow, Shadow, Gib, KnusperHexe, DarkForge, AcolyteOfGreed, NoviceWizard, Spider, BloodDemon, Solara, AbyssKing, TheRipper, KiwiEgg, Kiwi, Stonecutters, Yggdrasil};
     private static final TowerType[] DAWN_OF_LIGHT = {Beaver, Dandelion, Rabbit, Frog, HerbWitch, Wolf, Huli, BearHunter, Viking, Ganesha, Balu, Manitou, Hitman, Scientist, PocketThief, ElectricChair, Elvis, Pub, MoneyBin, MrIron, ScarFace, Muli, Satellite, BlackWidow, Mummy, ScareCrow, Shadow, Gib, KnusperHexe, DarkForge, AcolyteOfGreed, NoviceWizard, Spider, BloodDemon, Solara, AbyssKing, TheRipper, KiwiEgg, Kiwi, Stonecutters, Yggdrasil, Adventurer, Gargoyle, Guard, TrainingHologram, Tinker, Templar, Phoenix, Candle, KingArthur, Unicorn, SnowGlobe, Lucifer, LuciferFallen};
+    private static final TowerType[] STANDARD_ROC  = {Beaver, Dandelion, Rabbit, Frog, HerbWitch, Wolf, Huli, BearHunter, Viking, Ganesha, Balu, Manitou, Hitman, Scientist, PocketThief, ElectricChair, Elvis, Pub, MoneyBin, MrIron, ScarFace, Muli, Satellite, BlackWidow, Mummy, ScareCrow, Shadow, Gib, KnusperHexe, DarkForge, AcolyteOfGreed, NoviceWizard, Spider, BloodDemon, Solara, AbyssKing, TheRipper, KiwiEgg, Kiwi, Stonecutters, Yggdrasil, Adventurer, Gargoyle, Guard, TrainingHologram, Tinker, Templar, Phoenix, Candle, KingArthur, Unicorn, SnowGlobe, Lucifer, LuciferFallen, BeaconOfHope};
 
     static {
         maxId = 0;
@@ -123,6 +124,9 @@ public strictfp enum TowerType implements CardType<Tower> {
     }
 
     public static TowerType[] getValues() {
+        if (Sim.context().version >= Sim.vRoCEnd) {
+            return STANDARD_ROC;
+        }
         if (Sim.isDoLSeasonContent()) {
             return DAWN_OF_LIGHT;
         }
