@@ -50,7 +50,7 @@ public class TowerTypeTest extends SimTest {
 
     @Test
     void allCardsAreAvailable_afterSeason() {
-        version = Sim.vDoLEnd;
+        version = Sim.vRoCEnd;
         season = false;
         assertThat(TowerType.getValues()).containsExactly(TowerType.values());
     }

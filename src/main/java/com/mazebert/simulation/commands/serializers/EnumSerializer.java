@@ -16,7 +16,6 @@ import java.util.EnumSet;
 
 public strictfp class EnumSerializer {
     public static final int TOWER_BITS = 6;
-    public static final int POTION_BITS = 5;
     public static final int ITEM_BITS = 7;
     public static final int ELEMENT_BITS = 3;
     public static final int DIFFICULTY_BITS = 3;
@@ -32,11 +31,11 @@ public strictfp class EnumSerializer {
     }
 
     public static PotionType readPotionType(BitReader reader) {
-        return PotionType.forId(reader.readUnsignedInt(POTION_BITS));
+        return PotionType.forId(reader.readUnsignedInt(getPotionBits()));
     }
 
     public static void writePotionType(BitWriter writer, PotionType type) {
-        writer.writeUnsignedInt(POTION_BITS, getCardTypeId(type));
+        writer.writeUnsignedInt(getPotionBits(), getCardTypeId(type));
     }
 
     public static ItemType readItemType(BitReader reader) {
@@ -163,7 +162,7 @@ public strictfp class EnumSerializer {
 
     public static EnumSet<PotionType> readPotionTypes(BitReader reader) {
         EnumSet<PotionType> result = EnumSet.noneOf(PotionType.class);
-        int size = reader.readUnsignedInt(POTION_BITS);
+        int size = reader.readUnsignedInt(getPotionBits());
         for (int i = 0; i < size; ++i) {
             result.add(readPotionType(reader));
         }
@@ -172,9 +171,9 @@ public strictfp class EnumSerializer {
 
     public static void writePotionTypes(BitWriter writer, EnumSet<PotionType> types) {
         if (types == null) {
-            writer.writeUnsignedInt(POTION_BITS, 0);
+            writer.writeUnsignedInt(getPotionBits(), 0);
         } else {
-            writer.writeUnsignedInt(POTION_BITS, types.size());
+            writer.writeUnsignedInt(getPotionBits(), types.size());
             for (PotionType type : types) {
                 writePotionType(writer, type);
             }
@@ -270,6 +269,14 @@ public strictfp class EnumSerializer {
             return 5;
         } else {
             return 4;
+        }
+    }
+
+    public static int getPotionBits() {
+        if (Sim.context().version >= Sim.vRoCEnd) {
+            return 6;
+        } else {
+            return 5;
         }
     }
 }
