@@ -42,6 +42,7 @@ public strictfp abstract class Tower extends Unit implements CooldownUnit, Card,
     protected final int version = Sim.context().version;
 
     private int level;
+    private int maxLevel = Balancing.MAX_TOWER_LEVEL;
     private float experience;
     private float strength = 1.0f;
     private float baseCooldown = Float.MAX_VALUE;
@@ -245,6 +246,17 @@ public strictfp abstract class Tower extends Unit implements CooldownUnit, Card,
         }
     }
 
+    public int getMaxLevel() {
+        return maxLevel;
+    }
+
+    public void addMaxLevel(int amount) {
+        maxLevel += amount;
+
+        int actualLevel = Balancing.getTowerLevelForExperience(experience, maxLevel);
+        setLevel(actualLevel);
+    }
+
     public float getStrength() {
         return strength;
     }
@@ -442,7 +454,7 @@ public strictfp abstract class Tower extends Unit implements CooldownUnit, Card,
 
     public void setExperience(float experience) {
         this.experience = experience;
-        setLevel(Balancing.getTowerLevelForExperience(experience));
+        setLevel(Balancing.getTowerLevelForExperience(experience, maxLevel));
     }
 
     public float getExperienceModifier() {

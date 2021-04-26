@@ -158,7 +158,7 @@ class BuildTowerTest extends UsecaseTest<BuildTowerCommand> {
 
         assertThat(builtTower.getKills()).isEqualTo(50);
         assertThat(builtTower.getExperience()).isEqualTo(300);
-        assertThat(builtTower.getLevel()).isEqualTo(Balancing.getTowerLevelForExperience(300));
+        assertThat(builtTower.getLevel()).isEqualTo(Balancing.getTowerLevelForExperience(300, Balancing.MAX_TOWER_LEVEL_CAP));
         assertThat(builtTower.getBestHit()).isEqualTo(0); // best hit is reset
         assertThat(builtTower.getTotalDamage()).isEqualTo(56000);
     }

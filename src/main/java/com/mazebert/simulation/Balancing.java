@@ -19,6 +19,7 @@ public strictfp class Balancing {
     public static final float STARTING_CRIT_CHANCE = 0.05f;
     public static final float STARTING_CRIT_DAMAGE = 0.25f;
     public static final int MAX_TOWER_LEVEL = 99;
+    public static final int MAX_TOWER_LEVEL_CAP = 999;
     public static final float DEFAULT_DROP_CHANCE = 0.03f;
     public static final float DROP_CHANCE_CONST = 0.5f;
     public static final float DROP_QUALITY_CONST = 0.4f;
@@ -29,10 +30,10 @@ public strictfp class Balancing {
     public static final float PENALTY_FOR_LEAKING_ENTIRE_ROUND = 0.5f;
     public static final int MAX_ELEMENTS = 2;
 
-    private static final float[] towerExperienceForLevel = new float[MAX_TOWER_LEVEL];
+    private static final float[] towerExperienceForLevel = new float[MAX_TOWER_LEVEL_CAP];
 
     static {
-        for (int i = 0; i < MAX_TOWER_LEVEL; ++i) {
+        for (int i = 0; i < MAX_TOWER_LEVEL_CAP; ++i) {
             towerExperienceForLevel[i] = getTowerExperienceForLevel(i + 1);
         }
     }
@@ -154,13 +155,17 @@ public strictfp class Balancing {
         return experience;
     }
 
-    public static int getTowerLevelForExperience(float experience) {
-        for (int i = 0; i < towerExperienceForLevel.length; ++i) {
+    public static int getTowerLevelForExperience(float experience, int maxLevel) {
+        if (maxLevel > MAX_TOWER_LEVEL_CAP) {
+            maxLevel = MAX_TOWER_LEVEL_CAP;
+        }
+
+        for (int i = 0; i < maxLevel; ++i) {
             if (experience < towerExperienceForLevel[i]) {
                 return i;
             }
         }
-        return MAX_TOWER_LEVEL;
+        return maxLevel;
     }
 
     public static float getTowerExperienceForLevel(int level) {
