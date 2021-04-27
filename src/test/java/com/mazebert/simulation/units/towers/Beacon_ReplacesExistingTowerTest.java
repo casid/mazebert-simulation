@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class Beacon_ReplacesExistingTower extends ItemTest {
+public class Beacon_ReplacesExistingTowerTest extends ItemTest {
     @BeforeEach
     void setUp() {
         wizard.addGold(10000); // enough to afford beacon
@@ -32,5 +32,14 @@ public class Beacon_ReplacesExistingTower extends ItemTest {
 
         assertThat(beacon.getLevel()).isEqualTo(90);
         assertThat(wizard.potionStash.get(PotionType.LeuchtFeuer)).isNull();
+    }
+
+    @Test
+    void replaceBeacon() {
+        tower.setExperience(Balancing.getTowerExperienceForLevel(110));
+        tower = whenTowerIsReplaced(tower, TowerType.Beacon);
+        tower = whenTowerIsReplaced(tower, TowerType.Guard);
+
+        assertThat(tower.getLevel()).isEqualTo(99);
     }
 }
