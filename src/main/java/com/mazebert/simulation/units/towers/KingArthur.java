@@ -26,12 +26,18 @@ public strictfp class KingArthur extends Tower {
         addAbility(new AttackSoundAbility("sounds/abyss_king_attack.mp3"));
         addAbility(new InstantDamageAbility());
         addAbility(new KingArthurExcalibur());
-        addAbility(new GuardAura(getBaseRange(), Sim.context().version >= Sim.vDoLEnd ? 12 : 6));
+        if (Sim.context().version >= Sim.vRoCEnd) {
+            addAbility(new KingArthurGuardAura(getBaseRange()));
+            addAbility(new KingArthurDamagePerLevel());
+        } else {
+            addAbility(new GuardAura(getBaseRange(), Sim.context().version >= Sim.vDoLEnd ? 12 : 6));
+        }
     }
 
     @Override
     public Changelog getChangelog() {
         return new Changelog(
+                new ChangelogEntry(Sim.vRoCEnd, false, 2021, "Now gains 1% damage per level."),
                 new ChangelogEntry(Sim.vDoLEnd, false, 2020, "Base damage for every other guard in range increased from 6 to 12."),
                 ChangelogEntry.DAWN_OF_LIGHT
         );
