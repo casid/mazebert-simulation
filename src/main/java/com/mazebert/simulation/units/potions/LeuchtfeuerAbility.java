@@ -10,6 +10,7 @@ import com.mazebert.simulation.units.Unit;
 import com.mazebert.simulation.units.abilities.StackableAbility;
 import com.mazebert.simulation.units.towers.BeaconOfHope;
 import com.mazebert.simulation.units.towers.Tower;
+import com.mazebert.simulation.units.towers.TowerType;
 
 public strictfp class LeuchtfeuerAbility extends StackableAbility<Tower> implements OnPotionEffectivenessChangedListener, OnUnitRemovedListener {
 
@@ -67,5 +68,20 @@ public strictfp class LeuchtfeuerAbility extends StackableAbility<Tower> impleme
         if (unit instanceof BeaconOfHope) {
             updateStacks();
         }
+    }
+
+    @Override
+    public boolean isVisibleToUser() {
+        return true;
+    }
+
+    @Override
+    public String getDescription() {
+        return "Works for any " + format.element(Element.Light) + " tower, only as long as " + format.card(TowerType.BeaconOfHope) + " is still on the map.";
+    }
+
+    @Override
+    public String getLevelBonus() {
+        return "+1 to max tower level";
     }
 }

@@ -1,5 +1,6 @@
 package com.mazebert.simulation.units.potions;
 
+import com.mazebert.simulation.Element;
 import com.mazebert.simulation.Rarity;
 import com.mazebert.simulation.Sim;
 import com.mazebert.simulation.changelog.Changelog;
@@ -19,7 +20,7 @@ public strictfp class Leuchtfeuer extends Potion {
 
     @Override
     public String getIcon() {
-        return "9009_WisdomPotion";
+        return "leuchtfeuer_512";
     }
 
     @Override
@@ -29,7 +30,7 @@ public strictfp class Leuchtfeuer extends Potion {
 
     @Override
     public String getDescription() {
-        return "todo.";
+        return "The fluid flame of hope.";
     }
 
     @Override
@@ -65,5 +66,10 @@ public strictfp class Leuchtfeuer extends Potion {
     @Override
     public String getSinceVersion() {
         return "2.3";
+    }
+
+    @Override
+    public Element getElement() {
+        return Element.Light;
     }
 }
