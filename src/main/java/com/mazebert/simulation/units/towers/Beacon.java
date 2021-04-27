@@ -11,21 +11,21 @@ import com.mazebert.simulation.units.Gender;
 import com.mazebert.simulation.units.abilities.AttackAbility;
 import com.mazebert.simulation.units.abilities.ProjectileDamageAbility;
 
-public strictfp class BeaconOfHope extends Tower {
+public strictfp class Beacon extends Tower {
 
-    public BeaconOfHope() {
+    public Beacon() {
         setBaseCooldown(3.4f);
         setBaseRange(1.0f);
         setAttackType(AttackType.All);
-        setStrength(1.1f);
+        setStrength(0.7f);
         setDamageSpread(0.32f);
         setGender(Gender.Unknown);
         setElement(Element.Light);
 
         addAbility(new AttackAbility());
-        //addAbility(new AttackSoundAbility("sounds/abyss_king_attack.mp3")); // TODO
-        addAbility(new ProjectileDamageAbility(ProjectileViewType.BlueSpell, 12));
-
+        addAbility(new ProjectileDamageAbility(ProjectileViewType.Fireball, 12));
+        addAbility(new BeaconLevel());
+        addAbility(new BeaconAura());
     }
 
     @Override
@@ -37,7 +37,7 @@ public strictfp class BeaconOfHope extends Tower {
 
     @Override
     protected float getGoldCostFactor() {
-        return 1.53f;
+        return 0.87f;
     }
 
     @Override
@@ -52,7 +52,7 @@ public strictfp class BeaconOfHope extends Tower {
 
     @Override
     public Rarity getRarity() {
-        return Rarity.Unique;
+        return Rarity.Legendary;
     }
 
     @Override
@@ -72,6 +72,6 @@ public strictfp class BeaconOfHope extends Tower {
 
     @Override
     public String getModelId() {
-        return "abyss_king"; // TODO
+        return "beacon";
     }
 }

@@ -3,7 +3,7 @@ package com.mazebert.simulation.units.potions;
 import com.mazebert.simulation.Balancing;
 import com.mazebert.simulation.Element;
 import com.mazebert.simulation.units.items.ItemTest;
-import com.mazebert.simulation.units.towers.BeaconOfHope;
+import com.mazebert.simulation.units.towers.Beacon;
 import com.mazebert.simulation.units.towers.TowerType;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
@@ -13,12 +13,12 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 class LeuchtfeuerTest extends ItemTest {
 
-    BeaconOfHope beaconOfHope;
+    Beacon beacon;
 
     @BeforeEach
     void setUp() {
         wizard.addGold(10000);
-        beaconOfHope = (BeaconOfHope)whenTowerNeighbourIsBuilt(tower, TowerType.BeaconOfHope, 1, 0);
+        beacon = (Beacon)whenTowerNeighbourIsBuilt(tower, TowerType.Beacon, 1, 0);
         tower.setElement(Element.Light);
     }
 
@@ -87,7 +87,7 @@ class LeuchtfeuerTest extends ItemTest {
 
     @Test
     void beaconOfHopeSold_beforeDrinking() {
-        whenTowerIsSold(beaconOfHope);
+        whenTowerIsSold(beacon);
 
         whenPotionIsConsumed(PotionType.LeuchtFeuer);
 
@@ -98,7 +98,7 @@ class LeuchtfeuerTest extends ItemTest {
     void beaconOfHopeSold_afterDrinking() {
         whenPotionIsConsumed(PotionType.LeuchtFeuer);
 
-        whenTowerIsSold(beaconOfHope);
+        whenTowerIsSold(beacon);
 
         assertThat(tower.getMaxLevel()).isEqualTo(99);
     }

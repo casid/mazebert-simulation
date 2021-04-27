@@ -8,7 +8,7 @@ import com.mazebert.simulation.listeners.OnPotionEffectivenessChangedListener;
 import com.mazebert.simulation.listeners.OnUnitRemovedListener;
 import com.mazebert.simulation.units.Unit;
 import com.mazebert.simulation.units.abilities.StackableAbility;
-import com.mazebert.simulation.units.towers.BeaconOfHope;
+import com.mazebert.simulation.units.towers.Beacon;
 import com.mazebert.simulation.units.towers.Tower;
 import com.mazebert.simulation.units.towers.TowerType;
 
@@ -47,7 +47,7 @@ public strictfp class LeuchtfeuerAbility extends StackableAbility<Tower> impleme
     }
 
     private void addStacks() {
-        if (getUnit().getElement() == Element.Light && unitGateway.hasUnits(BeaconOfHope.class, u -> u.getPlayerId() == getUnit().getPlayerId())) {
+        if (getUnit().getElement() == Element.Light && unitGateway.hasUnits(Beacon.class, u -> u.getPlayerId() == getUnit().getPlayerId())) {
             maxLevels = StrictMath.round(getStackCount() * getUnit().getPotionEffectiveness());
             getUnit().addMaxLevel(maxLevels);
         }
@@ -65,7 +65,7 @@ public strictfp class LeuchtfeuerAbility extends StackableAbility<Tower> impleme
 
     @Override
     public void onUnitRemoved(Unit unit) {
-        if (unit instanceof BeaconOfHope) {
+        if (unit instanceof Beacon) {
             updateStacks();
         }
     }
@@ -77,7 +77,7 @@ public strictfp class LeuchtfeuerAbility extends StackableAbility<Tower> impleme
 
     @Override
     public String getDescription() {
-        return "Works for any " + format.element(Element.Light) + " tower, only as long as " + format.card(TowerType.BeaconOfHope) + " is still on the map.";
+        return "Works for any " + format.element(Element.Light) + " tower, only as long as " + format.card(TowerType.Beacon) + " is still on the map.";
     }
 
     @Override
