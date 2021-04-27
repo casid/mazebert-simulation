@@ -1,5 +1,7 @@
 package com.mazebert.simulation.units.towers;
 
+import com.mazebert.simulation.Sim;
+
 public strictfp class KingArthurGuardAura extends GuardAura {
     public KingArthurGuardAura(float range) {
         super(range, 12);
@@ -17,6 +19,10 @@ public strictfp class KingArthurGuardAura extends GuardAura {
 
     @Override
     public String getLevelBonus() {
-        return format.percentWithSignAndUnit(KingArthurDamagePerLevel.DAMAGE_LEVEL_BONUS) + " damage per level.";
+        if (Sim.context().version >= Sim.vRoCEnd) {
+            return format.percentWithSignAndUnit(KingArthurDamagePerLevel.DAMAGE_LEVEL_BONUS) + " damage per level.";
+        } else {
+            return null;
+        }
     }
 }
