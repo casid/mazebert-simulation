@@ -9,6 +9,7 @@ import com.mazebert.simulation.changelog.ChangelogEntry;
 import com.mazebert.simulation.projectiles.ProjectileViewType;
 import com.mazebert.simulation.units.Gender;
 import com.mazebert.simulation.units.abilities.AttackAbility;
+import com.mazebert.simulation.units.abilities.AttackSoundAbility;
 import com.mazebert.simulation.units.abilities.ProjectileDamageAbility;
 
 public strictfp class Beacon extends Tower {
@@ -23,6 +24,7 @@ public strictfp class Beacon extends Tower {
         setElement(Element.Light);
 
         addAbility(new AttackAbility());
+        addAbility(new AttackSoundAbility("sounds/fireball.mp3"));
         addAbility(new ProjectileDamageAbility(ProjectileViewType.Fireball, 12));
         addAbility(new BeaconLevel());
         addAbility(new BeaconAura());
