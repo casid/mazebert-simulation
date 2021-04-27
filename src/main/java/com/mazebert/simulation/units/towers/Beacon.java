@@ -37,7 +37,7 @@ public strictfp class Beacon extends Tower {
 
     @Override
     protected float getGoldCostFactor() {
-        return 0.87f;
+        return 1.27f;
     }
 
     @Override
@@ -52,7 +52,7 @@ public strictfp class Beacon extends Tower {
 
     @Override
     public Rarity getRarity() {
-        return Rarity.Legendary;
+        return Rarity.Unique;
     }
 
     @Override

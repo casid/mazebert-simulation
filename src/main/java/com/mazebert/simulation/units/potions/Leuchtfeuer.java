@@ -35,7 +35,7 @@ public strictfp class Leuchtfeuer extends Potion {
 
     @Override
     public Rarity getRarity() {
-        return Rarity.Legendary;
+        return Rarity.Unique;
     }
 
     @Override
