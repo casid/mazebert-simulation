@@ -17,7 +17,7 @@ class ExperienceSystemTest extends SimTest {
     @BeforeEach
     void setUp() {
         difficultyGateway = new DifficultyGateway();
-        difficultyGateway.setDifficulty(Difficulty.Normal);
+        difficultyGateway.setDifficulty(Difficulty.Nightmare);
         simulationListeners = new SimulationListeners();
         experienceSystem = new ExperienceSystem();
 
@@ -72,7 +72,7 @@ class ExperienceSystemTest extends SimTest {
     @Test
     void round10000_normal() {
         wave.round = 10000;
-        difficultyGateway.setDifficulty(Difficulty.Easy);
+        difficultyGateway.setDifficulty(Difficulty.Normal);
         whenExperienceIsGranted();
         assertThat(wizard.experience).isEqualTo(74); // capped
     }

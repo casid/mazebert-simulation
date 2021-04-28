@@ -649,7 +649,7 @@ public strictfp class WaveSpawnerTest extends SimTest {
 
     @Test
     void health_boss_difficulty_easy() {
-        difficultyGateway.setDifficulty(Difficulty.Easy);
+        difficultyGateway.setDifficulty(Difficulty.Normal);
         givenBossWave();
         wave.round = 6;
 
@@ -660,7 +660,7 @@ public strictfp class WaveSpawnerTest extends SimTest {
 
     @Test
     void health_boss_difficulty_hard() {
-        difficultyGateway.setDifficulty(Difficulty.Hard);
+        difficultyGateway.setDifficulty(Difficulty.Hell);
         givenBossWave();
         wave.round = 6;
 
@@ -671,7 +671,7 @@ public strictfp class WaveSpawnerTest extends SimTest {
 
     @Test
     void health_boss_canIncreaseBeyondLongMaxValue() {
-        difficultyGateway.setDifficulty(Difficulty.Hard);
+        difficultyGateway.setDifficulty(Difficulty.Hell);
         givenBossWave();
         wave.round = 200000;
 

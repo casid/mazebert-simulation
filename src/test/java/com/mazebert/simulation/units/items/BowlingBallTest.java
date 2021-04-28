@@ -1,7 +1,6 @@
 package com.mazebert.simulation.units.items;
 
 import com.mazebert.simulation.Difficulty;
-import com.mazebert.simulation.commands.ActivateAbilityCommand;
 import com.mazebert.simulation.maps.BloodMoor;
 import com.mazebert.simulation.maps.Map;
 import com.mazebert.simulation.minigames.BowlingGameTrainer;
@@ -169,7 +168,7 @@ class BowlingBallTest extends ItemTest {
 
     @Test
     void perfectGame() {
-        difficultyGateway.setDifficulty(Difficulty.Normal);
+        difficultyGateway.setDifficulty(Difficulty.Nightmare);
         BowlingGameTrainer trainer = new BowlingGameTrainer(item.getGame());
         trainer.givenSamePinsAreRolled(10, 11);
         for (int i = 0; i < 10; ++i) {

@@ -1,9 +1,9 @@
 package com.mazebert.simulation;
 
 public strictfp enum Difficulty {
-    Easy(1, 1.25, 0.0003, 0.75),
-    Normal(2, 1.5, 0.0006, 1.0),
-    Hard(3, 1.75, 0.0009, 1.25);
+    Normal(1, 1.25, 0.0003, 0.75),
+    Nightmare(2, 1.5, 0.0006, 1.0),
+    Hell(3, 1.75, 0.0009, 1.25);
 
     private static final Difficulty[] LOOKUP;
 
@@ -30,6 +30,11 @@ public strictfp enum Difficulty {
         this.earlyGameFactor = earlyGameFactor;
         this.midGameFactor = midGameFactor;
         this.experienceModifier = experienceModifier;
+    }
+
+    @SuppressWarnings("unused") // By client
+    public double getExperienceModifierForDisplay() {
+        return experienceModifier + 0.25;
     }
 
     public final int id;

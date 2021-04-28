@@ -46,7 +46,7 @@ class InitGameTest extends UsecaseTest<InitGameCommand> {
 
         request.playerId = 1;
         request.rounds = 1;
-        request.difficulty = Difficulty.Easy;
+        request.difficulty = Difficulty.Normal;
         request.map = MapType.BloodMoor;
     }
 
@@ -206,9 +206,9 @@ class InitGameTest extends UsecaseTest<InitGameCommand> {
 
     @Test
     void difficulty() {
-        request.difficulty = Difficulty.Hard;
+        request.difficulty = Difficulty.Hell;
         whenRequestIsExecuted();
-        assertThat(difficultyGateway.getDifficulty()).isEqualTo(Difficulty.Hard);
+        assertThat(difficultyGateway.getDifficulty()).isEqualTo(Difficulty.Hell);
     }
 
     @Test

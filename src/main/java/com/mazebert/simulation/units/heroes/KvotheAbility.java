@@ -25,7 +25,7 @@ public strictfp class KvotheAbility extends Ability<Hero> implements OnUnitAdded
     @Override
     public void onUnitAdded(Unit unit) {
         unit.onUnitAdded.remove(this);
-        if (Sim.context().difficultyGateway.getDifficulty() == Difficulty.Hard) {
+        if (Sim.context().difficultyGateway.getDifficulty() == Difficulty.Hell) {
             getUnit().getWizard().experienceModifier += experienceBonus;
         }
     }
@@ -42,6 +42,6 @@ public strictfp class KvotheAbility extends Ability<Hero> implements OnUnitAdded
 
     @Override
     public String getDescription() {
-        return format.percentWithSignAndUnit((float)experienceBonus) + " wizard experience when playing on hard difficulty.";
+        return format.percentWithSignAndUnit((float)experienceBonus) + " wizard experience when playing on Hell difficulty.";
     }
 }

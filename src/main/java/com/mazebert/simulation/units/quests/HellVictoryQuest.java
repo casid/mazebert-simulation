@@ -7,12 +7,12 @@ import com.mazebert.simulation.gateways.DifficultyGateway;
 import com.mazebert.simulation.listeners.OnGameWonListener;
 import com.mazebert.simulation.units.wizards.Wizard;
 
-public strictfp class HardVictoryQuest extends Quest implements OnGameWonListener {
+public strictfp class HellVictoryQuest extends Quest implements OnGameWonListener {
 
     private final SimulationListeners simulationListeners = Sim.context().simulationListeners;
     private final DifficultyGateway difficultyGateway = Sim.context().difficultyGateway;
 
-    public HardVictoryQuest() {
+    public HellVictoryQuest() {
         super(QuestReward.Bigger, 1);
     }
 
@@ -30,7 +30,7 @@ public strictfp class HardVictoryQuest extends Quest implements OnGameWonListene
 
     @Override
     public void onGameWon() {
-        if (difficultyGateway.getDifficulty() == Difficulty.Hard) {
+        if (difficultyGateway.getDifficulty() == Difficulty.Hell) {
             addAmount(1);
         }
     }
@@ -47,7 +47,7 @@ public strictfp class HardVictoryQuest extends Quest implements OnGameWonListene
 
     @Override
     public String getDescription() {
-        return "Win a game on hard difficulty!";
+        return "Win a game on Hell difficulty!";
     }
 
 }

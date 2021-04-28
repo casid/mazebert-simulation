@@ -11,7 +11,7 @@ public strictfp class InitGameCommand extends Command {
     public UUID gameId;
     public long timestamp;
     public int rounds;
-    public Difficulty difficulty = Difficulty.Easy;
+    public Difficulty difficulty = Difficulty.Normal;
     public MapType map;
     public boolean tutorial;
 

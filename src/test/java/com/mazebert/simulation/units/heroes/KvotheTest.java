@@ -31,14 +31,14 @@ public strictfp class KvotheTest extends SimTest {
 
     @Test
     void hard() {
-        difficultyGateway.setDifficulty(Difficulty.Hard);
+        difficultyGateway.setDifficulty(Difficulty.Hell);
         unitGateway.addUnit(kvothe);
         assertThat(wizard.experienceModifier).isEqualTo(2.0);
     }
 
     @Test
     void notHard() {
-        difficultyGateway.setDifficulty(Difficulty.Normal);
+        difficultyGateway.setDifficulty(Difficulty.Nightmare);
         unitGateway.addUnit(kvothe);
         assertThat(wizard.experienceModifier).isEqualTo(1.0);
     }

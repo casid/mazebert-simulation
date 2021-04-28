@@ -7,16 +7,16 @@ import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-class HardVictoryQuestTest extends ItemTest {
+class HellVictoryQuestTest extends ItemTest {
 
-    private HardVictoryQuest quest;
+    private HellVictoryQuest quest;
 
     @BeforeEach
     void setUp() {
-        quest = new HardVictoryQuest();
+        quest = new HellVictoryQuest();
         wizard.addAbility(quest);
 
-        difficultyGateway.setDifficulty(Difficulty.Hard);
+        difficultyGateway.setDifficulty(Difficulty.Hell);
     }
 
     @Test
@@ -27,7 +27,7 @@ class HardVictoryQuestTest extends ItemTest {
 
     @Test
     void won_normal() {
-        difficultyGateway.setDifficulty(Difficulty.Normal);
+        difficultyGateway.setDifficulty(Difficulty.Nightmare);
         simulationListeners.onGameWon.dispatch();
         assertThat(quest.isComplete()).isFalse();
     }
