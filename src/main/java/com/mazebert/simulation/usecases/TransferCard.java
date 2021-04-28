@@ -29,6 +29,10 @@ public strictfp class TransferCard extends Usecase<TransferCardCommand> {
             return;
         }
 
+        if (fromWizard.remainingCardTransfers <= 0) {
+            return;
+        }
+
         Wizard toWizard = unitGateway.getWizard(command.toPlayerId);
         if (toWizard == null) {
             return;
@@ -55,6 +59,10 @@ public strictfp class TransferCard extends Usecase<TransferCardCommand> {
         Card card = fromStash.transferTo(toStash, command.cardType);
         if (card == null) {
             return;
+        }
+
+        if (Sim.context().version >= Sim.vRoCEnd) {
+            fromWizard.removeRemainingCardTransfer();
         }
 
         if (card.isUniqueDrop()) {

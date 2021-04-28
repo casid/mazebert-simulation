@@ -216,6 +216,25 @@ class TransferCardTest extends UsecaseTest<TransferCardCommand> {
         assertThat(quest.isComplete()).isTrue();
     }
 
+    @Test
+    void noTransfersLeft() {
+        wizard1.remainingCardTransfers = 0;
+
+        whenRequestIsExecuted();
+
+        assertThat(wizard1.itemStash.get(ItemType.BabySword).amount).isEqualTo(1);
+        assertThat(wizard2.itemStash.get(ItemType.BabySword)).isNull();
+    }
+
+    @Test
+    void transfersAreUsed() {
+        wizard1.remainingCardTransfers = 7;
+
+        whenRequestIsExecuted();
+
+        assertThat(wizard1.remainingCardTransfers).isEqualTo(6);
+    }
+
     private void assertItemCannotBeTransferred(ItemType itemType) {
         wizard1.itemStash.add(itemType);
         request.cardType = itemType;

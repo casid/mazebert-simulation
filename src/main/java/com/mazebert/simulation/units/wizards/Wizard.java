@@ -23,10 +23,11 @@ public strictfp class Wizard extends Unit {
     public final OnWizardHealthChanged onHealthChanged = new OnWizardHealthChanged();
     public final OnLevelChanged onLevelChanged = new OnLevelChanged();
     public final OnGoldChanged onGoldChanged = new OnGoldChanged();
+    public final OnKill onKill = new OnKill();
     public final OnCardsTransmuted onCardsTransmuted = new OnCardsTransmuted();
     public final OnQuestCompleted onQuestCompleted = new OnQuestCompleted();
     public final OnElementResearchPointsChanged onElementResearchPointsChanged = new OnElementResearchPointsChanged();
-    public final OnKill onKill = new OnKill();
+    public final OnRemainingCardTransfersChanged onRemainingCardTransfersChanged = new OnRemainingCardTransfersChanged();
 
     public final TowerStash towerStash = new TowerStash();
     public final ItemStash itemStash = new ItemStash();
@@ -62,6 +63,7 @@ public strictfp class Wizard extends Unit {
 
     public transient int elementResearchPoints;
     public transient int maxElementResearchPoints;
+    public transient int remainingCardTransfers = 7;
 
     public Wizard() {
         setWizard(this);
@@ -107,6 +109,11 @@ public strictfp class Wizard extends Unit {
     public void addHealth(float amount) {
         health += amount;
         onHealthChanged.dispatch(this, health - amount, health);
+    }
+
+    public void removeRemainingCardTransfer() {
+        --remainingCardTransfers;
+        onRemainingCardTransfersChanged.dispatch(this);
     }
 
     public boolean ownsFoilCard(CardType type) {
