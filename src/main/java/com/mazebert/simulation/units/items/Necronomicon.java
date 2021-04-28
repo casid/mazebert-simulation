@@ -1,6 +1,7 @@
 package com.mazebert.simulation.units.items;
 
 import com.mazebert.simulation.Rarity;
+import com.mazebert.simulation.Sim;
 import com.mazebert.simulation.changelog.Changelog;
 import com.mazebert.simulation.changelog.ChangelogEntry;
 import com.mazebert.simulation.units.abilities.EldritchItemLegendaryAbility;
@@ -13,6 +14,7 @@ public strictfp class Necronomicon extends Item {
     @Override
     public Changelog getChangelog() {
         return new Changelog(
+                new ChangelogEntry(Sim.vRoCEnd, false, 2021, "Only gains souls from Cultists slain by your towers."),
                 ChangelogEntry.RISE_OF_CTHULHU
         );
     }

@@ -438,6 +438,7 @@ public strictfp abstract class Tower extends Unit implements CooldownUnit, Card,
                 wizard.mostKills = kills;
                 wizard.mostKillsTower = getType();
             }
+            wizard.onKill.dispatch(target);
         }
         Sim.context().lootSystem.loot(this, target);
     }

@@ -1,35 +1,53 @@
 package com.mazebert.simulation.units.items;
 
 import com.mazebert.simulation.Sim;
+import com.mazebert.simulation.listeners.OnKillListener;
 import com.mazebert.simulation.listeners.OnUnitRemovedListener;
 import com.mazebert.simulation.units.Unit;
 import com.mazebert.simulation.units.abilities.ActiveAbility;
 import com.mazebert.simulation.units.creeps.Creep;
 import com.mazebert.simulation.units.towers.Tower;
 
-public strictfp class NecronomiconSummonAbility extends ActiveAbility implements OnUnitRemovedListener {
+public strictfp class NecronomiconSummonAbility extends ActiveAbility implements OnUnitRemovedListener, OnKillListener {
     private static final int requiredSouls = 50;
     private int souls = 50;
 
     @Override
     protected void initialize(Tower unit) {
         super.initialize(unit);
-        Sim.context().simulationListeners.onUnitRemoved.add(this);
+        if (Sim.context().version >= Sim.vRoCEnd) {
+            unit.getWizard().onKill.add(this);
+        } else {
+            Sim.context().simulationListeners.onUnitRemoved.add(this);
+        }
     }
 
     @Override
     protected void dispose(Tower unit) {
-        Sim.context().simulationListeners.onUnitRemoved.remove(this);
+        if (Sim.context().version >= Sim.vRoCEnd) {
+            unit.getWizard().onKill.remove(this);
+        } else {
+            Sim.context().simulationListeners.onUnitRemoved.remove(this);
+        }
         super.dispose(unit);
     }
 
     @Override
     public void onUnitRemoved(Unit unit) {
         if (unit instanceof Creep) {
-            Creep creep = (Creep)unit;
-            if (creep.isEldritch() && creep.isDead()) {
-                souls += StrictMath.round(1.0f * getUnit().getEldritchCardModifier());
-            }
+            addSoul((Creep)unit);
+        }
+    }
+
+    @Override
+    public void onKill(Creep creep) {
+        addSoul(creep);
+    }
+
+    private void addSoul(Creep creep) {
+        if (creep.isEldritch() && creep.isDead()) {
+            //noinspection PointlessArithmeticExpression
+            souls += StrictMath.round(1.0f * getUnit().getEldritchCardModifier());
         }
     }
 
@@ -45,6 +63,10 @@ public strictfp class NecronomiconSummonAbility extends ActiveAbility implements
     public void activate() {
         souls -= requiredSouls;
         Sim.context().waveSpawner.spawnExtraCultistsWave();
+    }
+
+    public int getSouls() {
+        return souls;
     }
 
     @Override
@@ -64,6 +86,9 @@ public strictfp class NecronomiconSummonAbility extends ActiveAbility implements
 
     @Override
     public String getLevelBonus() {
+        if (Sim.context().version >= Sim.vRoCEnd) {
+            return "+1 soul whenever you kill a cultist.";
+        }
         return "+1 soul whenever a cultist dies.";
     }
 }

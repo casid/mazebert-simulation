@@ -116,7 +116,7 @@ class DagonTest extends SimTest {
     void itemStatsAreDoubled_Necronomicon() {
         whenItemIsEquipped(tower, ItemType.Necronomicon);
 
-        simulationListeners.onUnitRemoved.dispatch(a(creep().cultist().dead()));
+        wizard.onKill.dispatch(a(creep().cultist().dead()));
 
         NecronomiconSummonAbility ability = tower.getItem(0).getAbility(NecronomiconSummonAbility.class);
         assertThat(ability.getDescription()).isEqualTo("Sacrifice 50 souls to summon an extra wave of eldritch cultists. Souls: 52.");
