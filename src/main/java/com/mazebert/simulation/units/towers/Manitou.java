@@ -25,6 +25,7 @@ public strictfp class Manitou extends Tower {
     @Override
     public Changelog getChangelog() {
         return new Changelog(
+                new ChangelogEntry(Sim.vRoCEnd, false, 2021, "Aura buff is doubled for Nature towers."),
                 new ChangelogEntry(Sim.vDoLEnd, false, 2020, "Aura range is always the same as Manitous' range."),
                 new ChangelogEntry(Sim.v10, false, 2013)
         );

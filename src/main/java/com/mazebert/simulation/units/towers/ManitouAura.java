@@ -1,6 +1,7 @@
 package com.mazebert.simulation.units.towers;
 
 import com.mazebert.simulation.CardCategory;
+import com.mazebert.simulation.Element;
 import com.mazebert.simulation.Sim;
 import com.mazebert.simulation.units.abilities.AuraAbility;
 
@@ -13,12 +14,19 @@ public strictfp class ManitouAura extends AuraAbility<Tower, Tower> {
 
     @Override
     protected void onAuraEntered(Tower unit) {
-        unit.addMulticrit(+BONUS);
+        unit.addMulticrit(+calculateBonus(unit));
     }
 
     @Override
     protected void onAuraLeft(Tower unit) {
-        unit.addMulticrit(-BONUS);
+        unit.addMulticrit(-calculateBonus(unit));
+    }
+
+    private int calculateBonus(Tower tower) {
+        if (Sim.context().version >= Sim.vRoCEnd && tower.getElement() == Element.Nature) {
+            return 2 * BONUS;
+        }
+        return BONUS;
     }
 
     @Override
@@ -43,6 +51,10 @@ public strictfp class ManitouAura extends AuraAbility<Tower, Tower> {
 
     @Override
     public String getLevelBonus() {
-        return "+" + BONUS + " multicrit for all towers within range.";
+        if (Sim.context().version == Sim.vRoCEnd) {
+            return "+" + BONUS + " multicrit for towers in range. Buff is doubled for " + format.element(Element.Nature) + " towers.";
+        } else {
+            return "+" + BONUS + " multicrit for towers in range.";
+        }
     }
 }
