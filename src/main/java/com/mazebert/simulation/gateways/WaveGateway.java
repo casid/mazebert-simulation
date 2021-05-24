@@ -51,16 +51,16 @@ public strictfp class WaveGateway implements ReadonlyWaveGateway {
     public void generateMissingWaves(RandomPlugin randomPlugin) {
         int missingWaves = StrictMath.min(totalWaves - currentRound, WaveGateway.WAVES_IN_ADVANCE) - waves.size();
         for (int i = 0; i < missingWaves; ++i) {
-            Wave wave = generateWave(randomPlugin, ++generatedWaves);
+            Wave wave = generateWave(randomPlugin, ++generatedWaves, false);
             addWave(wave);
         }
     }
 
-    public Wave generateWave(RandomPlugin randomPlugin, int round) {
+    public Wave generateWave(RandomPlugin randomPlugin, int round, boolean bonusRound) {
         Wave wave = new Wave();
         wave.origin = WaveOrigin.Game;
         wave.round = round;
-        wave.type = calculateWaveType(randomPlugin, round);
+        wave.type = calculateWaveType(randomPlugin, round, bonusRound);
         wave.creepCount = wave.type.creepCount;
         wave.minSecondsToNextCreep = wave.type.getMinSecondsToNextCreep();
         wave.maxSecondsToNextCreep = wave.type.getMaxSecondsToNextCreep();
@@ -112,33 +112,35 @@ public strictfp class WaveGateway implements ReadonlyWaveGateway {
         return wave;
     }
 
-    public WaveType calculateWaveType(RandomPlugin randomPlugin, int round) {
-        if (round < 5 && Sim.context().gameSystem.isTutorial()) {
-            switch (round) {
-                case 1:
-                    return WaveType.Mass;
-                case 2:
-                    return WaveType.Normal;
-                case 3:
-                    return WaveType.Air;
-                case 4:
-                    return WaveType.Boss;
+    public WaveType calculateWaveType(RandomPlugin randomPlugin, int round, boolean bonusRound) {
+        if (!bonusRound || Sim.context().version < Sim.vRoCEnd) {
+            if (round < 5 && Sim.context().gameSystem.isTutorial()) {
+                switch (round) {
+                    case 1:
+                        return WaveType.Mass;
+                    case 2:
+                        return WaveType.Normal;
+                    case 3:
+                        return WaveType.Air;
+                    case 4:
+                        return WaveType.Boss;
+                }
             }
-        }
-        if (round > 0 && round % 50 == 0) {
-            return WaveType.Horseman;
-        }
-        if (round > 0 && round % 14 == 0) {
-            return WaveType.MassChallenge;
-        }
-        if (round > 0 && round % 7 == 0) {
-            return WaveType.Challenge;
-        }
+            if (round > 0 && round % 50 == 0) {
+                return WaveType.Horseman;
+            }
+            if (round > 0 && round % 14 == 0) {
+                return WaveType.MassChallenge;
+            }
+            if (round > 0 && round % 7 == 0) {
+                return WaveType.Challenge;
+            }
 
-        if (Sim.isRoCSeasonContent()) {
-            WaveType cultist = calculateRocCultist(randomPlugin);
-            if (cultist != null) {
-                return cultist;
+            if (Sim.isRoCSeasonContent()) {
+                WaveType cultist = calculateRocCultist(randomPlugin);
+                if (cultist != null) {
+                    return cultist;
+                }
             }
         }
 

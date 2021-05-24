@@ -577,7 +577,7 @@ public strictfp final class WaveSpawner implements OnGameStartedListener, OnWave
     }
 
     private Wave generateBonusRoundWave() {
-        Wave wave = waveGateway.generateWave(randomPlugin, waveGateway.getTotalWaves() + currentBonusRound);
+        Wave wave = waveGateway.generateWave(randomPlugin, waveGateway.getTotalWaves() + currentBonusRound, true);
         if (!isWaveSuitableForBonusRound(wave.type)) {
             ++currentBonusRound;
             return generateBonusRoundWave();
@@ -642,7 +642,7 @@ public strictfp final class WaveSpawner implements OnGameStartedListener, OnWave
     }
 
     private Wave generateTimeLordUnderlingsWave() {
-        Wave wave = waveGateway.generateWave(randomPlugin, waveGateway.getTotalWaves() + currentBonusRound);
+        Wave wave = waveGateway.generateWave(randomPlugin, waveGateway.getTotalWaves() + currentBonusRound, true);
         if (!isWaveSuitableForTimeLordUnderling(wave.type)) {
             ++currentBonusRound;
             return generateTimeLordUnderlingsWave();

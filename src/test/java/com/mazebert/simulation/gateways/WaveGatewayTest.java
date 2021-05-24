@@ -185,7 +185,7 @@ class WaveGatewayTest extends SimTest {
     void waveGeneration_modifiers_unionBoss_notPossible() {
         season = false;
         round = 101;
-        randomPluginTrainer.givenFloatAbs(BOSS_ROLL, 0.0f, 0.0f, 0.31f, UNION_ROLL, 0.0f);
+        randomPluginTrainer.givenFloatAbs(0.9f, BOSS_ROLL, 0.0f, 0.0f, 0.31f, UNION_ROLL, 0.0f);
 
         whenWaveIsGenerated();
 
@@ -315,6 +315,6 @@ class WaveGatewayTest extends SimTest {
     }
 
     private void whenWaveIsGenerated() {
-        wave = waveGateway.generateWave(randomPlugin, round);
+        wave = waveGateway.generateWave(randomPlugin, round, false);
     }
 }
