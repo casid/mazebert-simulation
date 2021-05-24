@@ -51,6 +51,6 @@ public strictfp class Sim {
 
     public static boolean isRoCSeasonContent() {
         int version = context().version;
-        return version >= vRoC && context().season;
+        return version >= vRoCEnd || (version >= vRoC && context().season);
     }
 }
