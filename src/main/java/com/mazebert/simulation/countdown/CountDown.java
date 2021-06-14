@@ -42,6 +42,10 @@ public strictfp abstract class CountDown implements OnUpdateListener {
         simulationListeners.onUpdate.remove(this);
     }
 
+    public void reset() {
+        secondsPassed = lastUpdate = 0;
+    }
+
     public int getRemainingSeconds() {
         return StrictMath.round(seconds - secondsPassed);
     }

@@ -1148,6 +1148,24 @@ public strictfp class WaveSpawnerTest extends SimTest {
     }
 
     @Test
+    void stallingPreventionCountDown_creepReachesBase() {
+        wizard.gold = 250;
+        givenBossWave();
+        givenBossWave();
+
+        whenGameIsStarted();
+        whenGameIsUpdated(1);
+
+        Creep boss = getCreep(0);
+        boss.simulate(1000);
+
+        whenGameIsUpdated(Balancing.WAVE_COUNTDOWN_SECONDS);
+        whenGameIsUpdated();
+
+        assertThat(stallingPreventionCountDown.getRemainingSeconds()).isEqualTo(119);
+    }
+
+    @Test
     void stallingPreventionCountDown_triggersNextWaveCountDownWhenFinished() {
         wizard.gold = 250;
         givenBossWave();

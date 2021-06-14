@@ -22,6 +22,10 @@ public strictfp class StallingPreventionCountDown extends CountDown {
 
         Sim.context().waveSpawner.completeWave(wave, lastCreep);
         Sim.context().stallingPreventionCountDown = null;
+
+        if (simulationListeners.areNotificationsEnabled()) {
+            Sim.context().unitGateway.forEachWizard(w -> simulationListeners.showNotification(w, "Forcing next wave after " + Sim.context().formatPlugin.seconds(Balancing.STALLING_PREVENTION_COUNTDOWN_SECONDS) + "!"));
+        }
     }
 
     @Override
