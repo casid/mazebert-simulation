@@ -22,95 +22,101 @@ public strictfp class EnumSerializer {
     public static final int MAP_BITS = 3;
     public static final int ACTIVE_ABILITY_BITS = 3;
 
-    public static TowerType readTowerType(BitReader reader) {
+    private final int version;
+
+    public EnumSerializer(int version) {
+        this.version = version;
+    }
+
+    public TowerType readTowerType(BitReader reader) {
         return TowerType.forId(reader.readUnsignedInt(TOWER_BITS));
     }
 
-    public static void writeTowerType(BitWriter writer, TowerType type) {
+    public void writeTowerType(BitWriter writer, TowerType type) {
         writer.writeUnsignedInt(TOWER_BITS, getCardTypeId(type));
     }
 
-    public static PotionType readPotionType(BitReader reader) {
+    public PotionType readPotionType(BitReader reader) {
         return PotionType.forId(reader.readUnsignedInt(getPotionBits()));
     }
 
-    public static void writePotionType(BitWriter writer, PotionType type) {
+    public void writePotionType(BitWriter writer, PotionType type) {
         writer.writeUnsignedInt(getPotionBits(), getCardTypeId(type));
     }
 
-    public static ItemType readItemType(BitReader reader) {
+    public ItemType readItemType(BitReader reader) {
         return ItemType.forId(reader.readUnsignedInt(ITEM_BITS));
     }
 
-    public static void writeItemType(BitWriter writer, ItemType type) {
+    public void writeItemType(BitWriter writer, ItemType type) {
         writer.writeUnsignedInt(ITEM_BITS, getCardTypeId(type));
     }
 
-    public static HeroType readHeroType(BitReader reader) {
+    public HeroType readHeroType(BitReader reader) {
         return HeroType.forId(reader.readUnsignedInt(getHeroBits()));
     }
 
-    public static void writeHeroType(BitWriter writer, HeroType type) {
+    public void writeHeroType(BitWriter writer, HeroType type) {
         writer.writeUnsignedInt(getHeroBits(), getCardTypeId(type));
     }
 
-    public static Element readElement(BitReader reader) {
+    public Element readElement(BitReader reader) {
         return Element.forId(reader.readUnsignedInt(ELEMENT_BITS));
     }
 
-    public static void writeElement(BitWriter writer, Element element) {
+    public void writeElement(BitWriter writer, Element element) {
         writer.writeUnsignedInt(ELEMENT_BITS, element.id);
     }
 
-    public static Difficulty readDifficulty(BitReader reader) {
+    public Difficulty readDifficulty(BitReader reader) {
         return Difficulty.forId(reader.readUnsignedInt(DIFFICULTY_BITS));
     }
 
-    public static void writeDifficulty(BitWriter writer, Difficulty difficulty) {
+    public void writeDifficulty(BitWriter writer, Difficulty difficulty) {
         writer.writeUnsignedInt(DIFFICULTY_BITS, difficulty.id);
     }
 
-    public static MapType readMapType(BitReader reader) {
+    public MapType readMapType(BitReader reader) {
         return MapType.forId(reader.readUnsignedInt(MAP_BITS));
     }
 
-    public static void writeMapType(BitWriter writer, MapType difficulty) {
+    public void writeMapType(BitWriter writer, MapType difficulty) {
         writer.writeUnsignedInt(MAP_BITS, difficulty.id);
     }
 
-    public static ActiveAbilityType readActiveAbilityType(BitReader reader) {
+    public ActiveAbilityType readActiveAbilityType(BitReader reader) {
         return ActiveAbilityType.forId(reader.readUnsignedInt(ACTIVE_ABILITY_BITS));
     }
 
-    public static void writeActiveAbilityType(BitWriter writer, ActiveAbilityType type) {
+    public void writeActiveAbilityType(BitWriter writer, ActiveAbilityType type) {
         writer.writeUnsignedInt(ACTIVE_ABILITY_BITS, type.id);
     }
 
-    public static CardCategory readTowerPotionOrItemCardCategory(BitReader reader) {
+    public CardCategory readTowerPotionOrItemCardCategory(BitReader reader) {
         return CardCategory.forId(reader.readUnsignedInt2());
     }
 
-    public static void writeTowerPotionOrItemCardCategory(BitWriter writer, CardCategory category) {
+    public void writeTowerPotionOrItemCardCategory(BitWriter writer, CardCategory category) {
         writer.writeUnsignedInt2(category.id);
     }
 
-    public static WizardPowerType readWizardPowerType(BitReader reader) {
+    public WizardPowerType readWizardPowerType(BitReader reader) {
         return WizardPowerType.forId(reader.readUnsignedInt(getWizardPowerBits()));
     }
 
-    public static void writeWizardPowerType(BitWriter writer, WizardPowerType type) {
+    public void writeWizardPowerType(BitWriter writer, WizardPowerType type) {
         writer.writeUnsignedInt(getWizardPowerBits(), type.id);
     }
 
-    public static QuestType readQuestType(BitReader reader) {
+    public QuestType readQuestType(BitReader reader) {
         return QuestType.forId(reader.readUnsignedInt(getQuestBits()));
     }
 
-    public static void writeQuestType(BitWriter writer, QuestType type) {
+    public void writeQuestType(BitWriter writer, QuestType type) {
         writer.writeUnsignedInt(getQuestBits(), type.id);
     }
 
-    public static CardType readCardType(BitReader reader, CardCategory category) {
+    public CardType readCardType(BitReader reader, CardCategory category) {
         if (category == CardCategory.Tower) {
             return readTowerType(reader);
         }
@@ -126,7 +132,7 @@ public strictfp class EnumSerializer {
         return null;
     }
 
-    public static void writeCardType(BitWriter writer, CardCategory category, CardType type) {
+    public void writeCardType(BitWriter writer, CardCategory category, CardType type) {
         if (category == CardCategory.Tower) {
             writeTowerType(writer, (TowerType) type);
         }
@@ -140,7 +146,7 @@ public strictfp class EnumSerializer {
         }
     }
 
-    public static EnumSet<TowerType> readTowerTypes(BitReader reader) {
+    public EnumSet<TowerType> readTowerTypes(BitReader reader) {
         EnumSet<TowerType> result = EnumSet.noneOf(TowerType.class);
         int size = reader.readUnsignedInt(TOWER_BITS);
         for (int i = 0; i < size; ++i) {
@@ -149,7 +155,7 @@ public strictfp class EnumSerializer {
         return result;
     }
 
-    public static void writeTowerTypes(BitWriter writer, EnumSet<TowerType> types) {
+    public void writeTowerTypes(BitWriter writer, EnumSet<TowerType> types) {
         if (types == null) {
             writer.writeUnsignedInt(TOWER_BITS, 0);
         } else {
@@ -160,7 +166,7 @@ public strictfp class EnumSerializer {
         }
     }
 
-    public static EnumSet<PotionType> readPotionTypes(BitReader reader) {
+    public EnumSet<PotionType> readPotionTypes(BitReader reader) {
         EnumSet<PotionType> result = EnumSet.noneOf(PotionType.class);
         int size = reader.readUnsignedInt(getPotionBits());
         for (int i = 0; i < size; ++i) {
@@ -169,7 +175,7 @@ public strictfp class EnumSerializer {
         return result;
     }
 
-    public static void writePotionTypes(BitWriter writer, EnumSet<PotionType> types) {
+    public void writePotionTypes(BitWriter writer, EnumSet<PotionType> types) {
         if (types == null) {
             writer.writeUnsignedInt(getPotionBits(), 0);
         } else {
@@ -180,7 +186,7 @@ public strictfp class EnumSerializer {
         }
     }
 
-    public static EnumSet<ItemType> readItemTypes(BitReader reader) {
+    public EnumSet<ItemType> readItemTypes(BitReader reader) {
         EnumSet<ItemType> result = EnumSet.noneOf(ItemType.class);
         int size = reader.readUnsignedInt(ITEM_BITS);
         for (int i = 0; i < size; ++i) {
@@ -189,7 +195,7 @@ public strictfp class EnumSerializer {
         return result;
     }
 
-    public static void writeItemTypes(BitWriter writer, EnumSet<ItemType> types) {
+    public void writeItemTypes(BitWriter writer, EnumSet<ItemType> types) {
         if (types == null) {
             writer.writeUnsignedInt(ITEM_BITS, 0);
         } else {
@@ -200,7 +206,7 @@ public strictfp class EnumSerializer {
         }
     }
 
-    public static EnumSet<HeroType> readHeroTypes(BitReader reader) {
+    public EnumSet<HeroType> readHeroTypes(BitReader reader) {
         EnumSet<HeroType> result = EnumSet.noneOf(HeroType.class);
         int size = reader.readUnsignedInt(getHeroBits());
         for (int i = 0; i < size; ++i) {
@@ -209,7 +215,7 @@ public strictfp class EnumSerializer {
         return result;
     }
 
-    public static void writeHeroTypes(BitWriter writer, EnumSet<HeroType> types) {
+    public void writeHeroTypes(BitWriter writer, EnumSet<HeroType> types) {
         if (types == null) {
             writer.writeUnsignedInt(getHeroBits(), 0);
         } else {
@@ -220,7 +226,7 @@ public strictfp class EnumSerializer {
         }
     }
 
-    public static EnumSet<Element> readElements(BitReader reader) {
+    public EnumSet<Element> readElements(BitReader reader) {
         EnumSet<Element> result = EnumSet.noneOf(Element.class);
         int size = reader.readUnsignedInt(ELEMENT_BITS);
         for (int i = 0; i < size; ++i) {
@@ -229,7 +235,7 @@ public strictfp class EnumSerializer {
         return result;
     }
 
-    public static void writeElements(BitWriter writer, EnumSet<Element> elements) {
+    public void writeElements(BitWriter writer, EnumSet<Element> elements) {
         if (elements == null) {
             writer.writeUnsignedInt(ELEMENT_BITS, 0);
         } else {
@@ -240,7 +246,7 @@ public strictfp class EnumSerializer {
         }
     }
 
-    private static int getCardTypeId(CardType type) {
+    private int getCardTypeId(CardType type) {
         if (type == null) {
             return 0;
         } else {
@@ -248,32 +254,32 @@ public strictfp class EnumSerializer {
         }
     }
 
-    public static int getWizardPowerBits() {
-        if (Sim.context().version > Sim.v11) {
+    public int getWizardPowerBits() {
+        if (version > Sim.v11) {
             return 5;
         } else {
             return 4;
         }
     }
 
-    public static int getQuestBits() {
-        if (Sim.context().version >= Sim.vDoL) {
+    public int getQuestBits() {
+        if (version >= Sim.vDoL) {
             return 6;
         } else {
             return 5;
         }
     }
 
-    public static int getHeroBits() {
-        if (Sim.context().version >= Sim.vRoC) {
+    public int getHeroBits() {
+        if (version >= Sim.vRoC) {
             return 5;
         } else {
             return 4;
         }
     }
 
-    public static int getPotionBits() {
-        if (Sim.context().version >= Sim.vRoCEnd) {
+    public int getPotionBits() {
+        if (version >= Sim.vRoCEnd) {
             return 6;
         } else {
             return 5;

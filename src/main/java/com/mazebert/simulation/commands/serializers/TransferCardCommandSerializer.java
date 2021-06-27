@@ -7,6 +7,12 @@ import org.jusecase.bitpack.BitWriter;
 
 public strictfp class TransferCardCommandSerializer implements BitSerializer<TransferCardCommand> {
 
+    private final EnumSerializer enumSerializer;
+
+    public TransferCardCommandSerializer(EnumSerializer enumSerializer) {
+        this.enumSerializer = enumSerializer;
+    }
+
     @Override
     public TransferCardCommand createObject() {
         return new TransferCardCommand();
@@ -15,14 +21,14 @@ public strictfp class TransferCardCommandSerializer implements BitSerializer<Tra
     @Override
     public void serialize(BitWriter writer, TransferCardCommand object) {
         writer.writeInt8(object.toPlayerId);
-        EnumSerializer.writeTowerPotionOrItemCardCategory(writer, object.cardCategory);
-        EnumSerializer.writeCardType(writer, object.cardCategory, object.cardType);
+        enumSerializer.writeTowerPotionOrItemCardCategory(writer, object.cardCategory);
+        enumSerializer.writeCardType(writer, object.cardCategory, object.cardType);
     }
 
     @Override
     public void deserialize(BitReader reader, TransferCardCommand object) {
         object.toPlayerId = reader.readInt8();
-        object.cardCategory = EnumSerializer.readTowerPotionOrItemCardCategory(reader);
-        object.cardType = EnumSerializer.readCardType(reader, object.cardCategory);
+        object.cardCategory = enumSerializer.readTowerPotionOrItemCardCategory(reader);
+        object.cardType = enumSerializer.readCardType(reader, object.cardCategory);
     }
 }

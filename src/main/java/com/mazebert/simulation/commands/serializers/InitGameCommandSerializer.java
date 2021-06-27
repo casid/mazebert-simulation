@@ -8,6 +8,12 @@ import org.jusecase.bitpack.BitWriter;
 
 public strictfp class InitGameCommandSerializer implements BitSerializer<InitGameCommand> {
 
+    private final EnumSerializer enumSerializer;
+
+    public InitGameCommandSerializer(EnumSerializer enumSerializer) {
+        this.enumSerializer = enumSerializer;
+    }
+
     @Override
     public InitGameCommand createObject() {
         return new InitGameCommand();
@@ -21,8 +27,8 @@ public strictfp class InitGameCommandSerializer implements BitSerializer<InitGam
             writer.writeLong(object.timestamp);
         }
         writer.writeUnsignedInt12(object.rounds);
-        EnumSerializer.writeDifficulty(writer, object.difficulty);
-        EnumSerializer.writeMapType(writer, object.map);
+        enumSerializer.writeDifficulty(writer, object.difficulty);
+        enumSerializer.writeMapType(writer, object.map);
         writer.writeBoolean(object.tutorial);
     }
 
@@ -34,8 +40,8 @@ public strictfp class InitGameCommandSerializer implements BitSerializer<InitGam
             object.timestamp = reader.readLong();
         }
         object.rounds = reader.readUnsignedInt12();
-        object.difficulty = EnumSerializer.readDifficulty(reader);
-        object.map = EnumSerializer.readMapType(reader);
+        object.difficulty = enumSerializer.readDifficulty(reader);
+        object.map = enumSerializer.readMapType(reader);
         object.tutorial = reader.readBoolean();
     }
 }

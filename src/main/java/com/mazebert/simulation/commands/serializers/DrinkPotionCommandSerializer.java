@@ -7,6 +7,12 @@ import org.jusecase.bitpack.BitWriter;
 
 public strictfp class DrinkPotionCommandSerializer implements BitSerializer<DrinkPotionCommand> {
 
+    private final EnumSerializer enumSerializer;
+
+    public DrinkPotionCommandSerializer(EnumSerializer enumSerializer) {
+        this.enumSerializer = enumSerializer;
+    }
+
     @Override
     public DrinkPotionCommand createObject() {
         return new DrinkPotionCommand();
@@ -14,7 +20,7 @@ public strictfp class DrinkPotionCommandSerializer implements BitSerializer<Drin
 
     @Override
     public void serialize(BitWriter writer, DrinkPotionCommand object) {
-        EnumSerializer.writePotionType(writer, object.potionType);
+        enumSerializer.writePotionType(writer, object.potionType);
         writer.writeInt8(object.towerX);
         writer.writeInt8(object.towerY);
         writer.writeBoolean(object.all);
@@ -22,7 +28,7 @@ public strictfp class DrinkPotionCommandSerializer implements BitSerializer<Drin
 
     @Override
     public void deserialize(BitReader reader, DrinkPotionCommand object) {
-        object.potionType = EnumSerializer.readPotionType(reader);
+        object.potionType = enumSerializer.readPotionType(reader);
         object.towerX = reader.readInt8();
         object.towerY = reader.readInt8();
         object.all = reader.readBoolean();

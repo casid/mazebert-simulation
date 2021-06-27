@@ -3,6 +3,7 @@ package com.mazebert.simulation.commands.serializers;
 import com.mazebert.simulation.CardCategory;
 import com.mazebert.simulation.Difficulty;
 import com.mazebert.simulation.Element;
+import com.mazebert.simulation.Sim;
 import com.mazebert.simulation.maps.MapType;
 import com.mazebert.simulation.units.abilities.ActiveAbilityType;
 import com.mazebert.simulation.units.heroes.HeroType;
@@ -27,235 +28,237 @@ public class EnumSerializerTest {
     BufferBitWriter writer = new BufferBitWriter(protocol, ByteBuffer.allocateDirect(256));
     BufferBitReader reader;
 
+    EnumSerializer enumSerializer = new EnumSerializer(Sim.version);
+
     @Test
     void towers() {
         for (TowerType value : TowerType.values()) {
-            EnumSerializer.writeTowerType(writer, value);
+            enumSerializer.writeTowerType(writer, value);
         }
 
         whenBufferIsFlushedAndRead();
 
         for (TowerType value : TowerType.values()) {
-            assertThat(EnumSerializer.readTowerType(reader)).isEqualTo(value);
+            assertThat(enumSerializer.readTowerType(reader)).isEqualTo(value);
         }
     }
 
     @Test
     void potions() {
         for (PotionType value : PotionType.values()) {
-            EnumSerializer.writePotionType(writer, value);
+            enumSerializer.writePotionType(writer, value);
         }
 
         whenBufferIsFlushedAndRead();
 
         for (PotionType value : PotionType.values()) {
-            assertThat(EnumSerializer.readPotionType(reader)).isEqualTo(value);
+            assertThat(enumSerializer.readPotionType(reader)).isEqualTo(value);
         }
     }
 
     @Test
     void items() {
         for (ItemType value : ItemType.values()) {
-            EnumSerializer.writeItemType(writer, value);
+            enumSerializer.writeItemType(writer, value);
         }
 
         whenBufferIsFlushedAndRead();
 
         for (ItemType value : ItemType.values()) {
-            assertThat(EnumSerializer.readItemType(reader)).isEqualTo(value);
+            assertThat(enumSerializer.readItemType(reader)).isEqualTo(value);
         }
     }
 
     @Test
     void heroes() {
         for (HeroType value : HeroType.values()) {
-            EnumSerializer.writeHeroType(writer, value);
+            enumSerializer.writeHeroType(writer, value);
         }
 
         whenBufferIsFlushedAndRead();
 
         for (HeroType value : HeroType.values()) {
-            assertThat(EnumSerializer.readHeroType(reader)).isEqualTo(value);
+            assertThat(enumSerializer.readHeroType(reader)).isEqualTo(value);
         }
     }
 
     @Test
     void difficulty() {
         for (Difficulty value : Difficulty.values()) {
-            EnumSerializer.writeDifficulty(writer, value);
+            enumSerializer.writeDifficulty(writer, value);
         }
 
         whenBufferIsFlushedAndRead();
 
         for (Difficulty value : Difficulty.values()) {
-            assertThat(EnumSerializer.readDifficulty(reader)).isEqualTo(value);
+            assertThat(enumSerializer.readDifficulty(reader)).isEqualTo(value);
         }
     }
 
     @Test
     void map() {
         for (MapType value : MapType.values()) {
-            EnumSerializer.writeMapType(writer, value);
+            enumSerializer.writeMapType(writer, value);
         }
 
         whenBufferIsFlushedAndRead();
 
         for (MapType value : MapType.values()) {
-            assertThat(EnumSerializer.readMapType(reader)).isEqualTo(value);
+            assertThat(enumSerializer.readMapType(reader)).isEqualTo(value);
         }
     }
 
     @Test
     void activeAbility() {
         for (ActiveAbilityType value : ActiveAbilityType.values()) {
-            EnumSerializer.writeActiveAbilityType(writer, value);
+            enumSerializer.writeActiveAbilityType(writer, value);
         }
 
         whenBufferIsFlushedAndRead();
 
         for (ActiveAbilityType value : ActiveAbilityType.values()) {
-            assertThat(EnumSerializer.readActiveAbilityType(reader)).isEqualTo(value);
+            assertThat(enumSerializer.readActiveAbilityType(reader)).isEqualTo(value);
         }
     }
 
     @Test
     void cardCategory() {
-        EnumSerializer.writeTowerPotionOrItemCardCategory(writer, CardCategory.Tower);
-        EnumSerializer.writeTowerPotionOrItemCardCategory(writer, CardCategory.Potion);
-        EnumSerializer.writeTowerPotionOrItemCardCategory(writer, CardCategory.Item);
+        enumSerializer.writeTowerPotionOrItemCardCategory(writer, CardCategory.Tower);
+        enumSerializer.writeTowerPotionOrItemCardCategory(writer, CardCategory.Potion);
+        enumSerializer.writeTowerPotionOrItemCardCategory(writer, CardCategory.Item);
 
 
         whenBufferIsFlushedAndRead();
 
-        assertThat(EnumSerializer.readTowerPotionOrItemCardCategory(reader)).isEqualTo(CardCategory.Tower);
-        assertThat(EnumSerializer.readTowerPotionOrItemCardCategory(reader)).isEqualTo(CardCategory.Potion);
-        assertThat(EnumSerializer.readTowerPotionOrItemCardCategory(reader)).isEqualTo(CardCategory.Item);
+        assertThat(enumSerializer.readTowerPotionOrItemCardCategory(reader)).isEqualTo(CardCategory.Tower);
+        assertThat(enumSerializer.readTowerPotionOrItemCardCategory(reader)).isEqualTo(CardCategory.Potion);
+        assertThat(enumSerializer.readTowerPotionOrItemCardCategory(reader)).isEqualTo(CardCategory.Item);
     }
 
     @Test
     void wizardPowers() {
         for (WizardPowerType value : WizardPowerType.values()) {
-            EnumSerializer.writeWizardPowerType(writer, value);
+            enumSerializer.writeWizardPowerType(writer, value);
         }
 
         whenBufferIsFlushedAndRead();
 
         for (WizardPowerType value : WizardPowerType.values()) {
-            assertThat(EnumSerializer.readWizardPowerType(reader)).isEqualTo(value);
+            assertThat(enumSerializer.readWizardPowerType(reader)).isEqualTo(value);
         }
     }
 
     @Test
     void quests() {
         for (QuestType value : QuestType.values()) {
-            EnumSerializer.writeQuestType(writer, value);
+            enumSerializer.writeQuestType(writer, value);
         }
 
         whenBufferIsFlushedAndRead();
 
         for (QuestType value : QuestType.values()) {
-            assertThat(EnumSerializer.readQuestType(reader)).isEqualTo(value);
+            assertThat(enumSerializer.readQuestType(reader)).isEqualTo(value);
         }
     }
 
     @Test
     void towerSet_all() {
         EnumSet<TowerType> all = EnumSet.allOf(TowerType.class);
-        EnumSerializer.writeTowerTypes(writer, all);
+        enumSerializer.writeTowerTypes(writer, all);
 
         whenBufferIsFlushedAndRead();
 
-        assertThat(EnumSerializer.readTowerTypes(reader)).containsExactlyElementsOf(all);
+        assertThat(enumSerializer.readTowerTypes(reader)).containsExactlyElementsOf(all);
     }
 
     @Test
     void towerSet_none() {
         EnumSet<TowerType> none = EnumSet.noneOf(TowerType.class);
-        EnumSerializer.writeTowerTypes(writer, none);
+        enumSerializer.writeTowerTypes(writer, none);
 
         whenBufferIsFlushedAndRead();
 
-        assertThat(EnumSerializer.readTowerTypes(reader)).containsExactlyElementsOf(none);
+        assertThat(enumSerializer.readTowerTypes(reader)).containsExactlyElementsOf(none);
     }
 
     @Test
     void potionSet_all() {
         EnumSet<PotionType> all = EnumSet.allOf(PotionType.class);
-        EnumSerializer.writePotionTypes(writer, all);
+        enumSerializer.writePotionTypes(writer, all);
 
         whenBufferIsFlushedAndRead();
 
-        assertThat(EnumSerializer.readPotionTypes(reader)).containsExactlyElementsOf(all);
+        assertThat(enumSerializer.readPotionTypes(reader)).containsExactlyElementsOf(all);
     }
 
     @Test
     void potionSet_none() {
         EnumSet<PotionType> none = EnumSet.noneOf(PotionType.class);
-        EnumSerializer.writePotionTypes(writer, none);
+        enumSerializer.writePotionTypes(writer, none);
 
         whenBufferIsFlushedAndRead();
 
-        assertThat(EnumSerializer.readPotionTypes(reader)).containsExactlyElementsOf(none);
+        assertThat(enumSerializer.readPotionTypes(reader)).containsExactlyElementsOf(none);
     }
 
     @Test
     void itemSet_all() {
         EnumSet<ItemType> all = EnumSet.allOf(ItemType.class);
-        EnumSerializer.writeItemTypes(writer, all);
+        enumSerializer.writeItemTypes(writer, all);
 
         whenBufferIsFlushedAndRead();
 
-        assertThat(EnumSerializer.readItemTypes(reader)).containsExactlyElementsOf(all);
+        assertThat(enumSerializer.readItemTypes(reader)).containsExactlyElementsOf(all);
     }
 
     @Test
     void itemSet_none() {
         EnumSet<ItemType> none = EnumSet.noneOf(ItemType.class);
-        EnumSerializer.writeItemTypes(writer, none);
+        enumSerializer.writeItemTypes(writer, none);
 
         whenBufferIsFlushedAndRead();
 
-        assertThat(EnumSerializer.readItemTypes(reader)).containsExactlyElementsOf(none);
+        assertThat(enumSerializer.readItemTypes(reader)).containsExactlyElementsOf(none);
     }
 
     @Test
     void heroSet_all() {
         EnumSet<HeroType> all = EnumSet.allOf(HeroType.class);
-        EnumSerializer.writeHeroTypes(writer, all);
+        enumSerializer.writeHeroTypes(writer, all);
 
         whenBufferIsFlushedAndRead();
 
-        assertThat(EnumSerializer.readHeroTypes(reader)).containsExactlyElementsOf(all);
+        assertThat(enumSerializer.readHeroTypes(reader)).containsExactlyElementsOf(all);
     }
 
     @Test
     void heroSet_none() {
         EnumSet<HeroType> none = EnumSet.noneOf(HeroType.class);
-        EnumSerializer.writeHeroTypes(writer, none);
+        enumSerializer.writeHeroTypes(writer, none);
 
         whenBufferIsFlushedAndRead();
 
-        assertThat(EnumSerializer.readHeroTypes(reader)).containsExactlyElementsOf(none);
+        assertThat(enumSerializer.readHeroTypes(reader)).containsExactlyElementsOf(none);
     }
 
     @Test
     void elementSet_all() {
         EnumSet<Element> all = EnumSet.allOf(Element.class);
-        EnumSerializer.writeElements(writer, all);
+        enumSerializer.writeElements(writer, all);
 
         whenBufferIsFlushedAndRead();
 
-        assertThat(EnumSerializer.readElements(reader)).containsExactlyElementsOf(all);
+        assertThat(enumSerializer.readElements(reader)).containsExactlyElementsOf(all);
     }
 
     @Test
     void elementSet_none() {
         EnumSet<Element> none = EnumSet.noneOf(Element.class);
-        EnumSerializer.writeElements(writer, none);
+        enumSerializer.writeElements(writer, none);
 
         whenBufferIsFlushedAndRead();
 
-        assertThat(EnumSerializer.readElements(reader)).containsExactlyElementsOf(none);
+        assertThat(enumSerializer.readElements(reader)).containsExactlyElementsOf(none);
     }
 
     private void whenBufferIsFlushedAndRead() {

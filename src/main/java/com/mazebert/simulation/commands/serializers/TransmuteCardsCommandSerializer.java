@@ -8,9 +8,11 @@ import org.jusecase.bitpack.BitWriter;
 
 public strictfp class TransmuteCardsCommandSerializer implements BitSerializer<TransmuteCardsCommand> {
 
+    private final EnumSerializer enumSerializer;
     private final int version;
 
-    public TransmuteCardsCommandSerializer(int version) {
+    public TransmuteCardsCommandSerializer(EnumSerializer enumSerializer, int version) {
+        this.enumSerializer = enumSerializer;
         this.version = version;
     }
 
@@ -21,8 +23,8 @@ public strictfp class TransmuteCardsCommandSerializer implements BitSerializer<T
 
     @Override
     public void serialize(BitWriter writer, TransmuteCardsCommand object) {
-        EnumSerializer.writeTowerPotionOrItemCardCategory(writer, object.cardCategory);
-        EnumSerializer.writeCardType(writer, object.cardCategory, object.cardType);
+        enumSerializer.writeTowerPotionOrItemCardCategory(writer, object.cardCategory);
+        enumSerializer.writeCardType(writer, object.cardCategory, object.cardType);
         writer.writeBoolean(object.all);
         if (object.all && version >= Sim.vDoLEnd) {
             writer.writeUnsignedInt8(object.amountToKeep);
@@ -31,8 +33,8 @@ public strictfp class TransmuteCardsCommandSerializer implements BitSerializer<T
 
     @Override
     public void deserialize(BitReader reader, TransmuteCardsCommand object) {
-        object.cardCategory = EnumSerializer.readTowerPotionOrItemCardCategory(reader);
-        object.cardType = EnumSerializer.readCardType(reader, object.cardCategory);
+        object.cardCategory = enumSerializer.readTowerPotionOrItemCardCategory(reader);
+        object.cardType = enumSerializer.readCardType(reader, object.cardCategory);
         object.all = reader.readBoolean();
         if (object.all && version >= Sim.vDoLEnd) {
             object.amountToKeep = reader.readUnsignedInt8();

@@ -7,6 +7,12 @@ import org.jusecase.bitpack.BitWriter;
 
 public strictfp class TakeElementCardCommandSerializer implements BitSerializer<TakeElementCardCommand> {
 
+    private final EnumSerializer enumSerializer;
+
+    public TakeElementCardCommandSerializer(EnumSerializer enumSerializer) {
+        this.enumSerializer = enumSerializer;
+    }
+
     @Override
     public TakeElementCardCommand createObject() {
         return new TakeElementCardCommand();
@@ -14,11 +20,11 @@ public strictfp class TakeElementCardCommandSerializer implements BitSerializer<
 
     @Override
     public void serialize(BitWriter writer, TakeElementCardCommand object) {
-        EnumSerializer.writePotionType(writer, object.card);
+        enumSerializer.writePotionType(writer, object.card);
     }
 
     @Override
     public void deserialize(BitReader reader, TakeElementCardCommand object) {
-        object.card = EnumSerializer.readPotionType(reader);
+        object.card = enumSerializer.readPotionType(reader);
     }
 }

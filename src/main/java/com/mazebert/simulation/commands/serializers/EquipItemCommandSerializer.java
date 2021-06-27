@@ -7,6 +7,12 @@ import org.jusecase.bitpack.BitWriter;
 
 public strictfp class EquipItemCommandSerializer implements BitSerializer<EquipItemCommand> {
 
+    private final EnumSerializer enumSerializer;
+
+    public EquipItemCommandSerializer(EnumSerializer enumSerializer) {
+        this.enumSerializer = enumSerializer;
+    }
+
     @Override
     public EquipItemCommand createObject() {
         return new EquipItemCommand();
@@ -14,7 +20,7 @@ public strictfp class EquipItemCommandSerializer implements BitSerializer<EquipI
 
     @Override
     public void serialize(BitWriter writer, EquipItemCommand object) {
-        EnumSerializer.writeItemType(writer, object.itemType);
+        enumSerializer.writeItemType(writer, object.itemType);
         writer.writeInt8(object.towerX);
         writer.writeInt8(object.towerY);
         writer.writeUnsignedInt3(object.inventoryIndex);
@@ -22,7 +28,7 @@ public strictfp class EquipItemCommandSerializer implements BitSerializer<EquipI
 
     @Override
     public void deserialize(BitReader reader, EquipItemCommand object) {
-        object.itemType = EnumSerializer.readItemType(reader);
+        object.itemType = enumSerializer.readItemType(reader);
         object.towerX = reader.readInt8();
         object.towerY = reader.readInt8();
         object.inventoryIndex = reader.readUnsignedInt3();

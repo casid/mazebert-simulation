@@ -8,23 +8,30 @@ import org.jusecase.bitpack.BitSerializer;
 import org.jusecase.bitpack.BitWriter;
 
 public strictfp class WizardPowerSerializer implements BitSerializer<WizardPower> {
+
+    private final EnumSerializer enumSerializer;
+
+    public WizardPowerSerializer(EnumSerializer enumSerializer) {
+        this.enumSerializer = enumSerializer;
+    }
+
     @Override
     public void serialize(BitWriter writer, WizardPower object) {
-        EnumSerializer.writeWizardPowerType(writer, object.getType());
+        enumSerializer.writeWizardPowerType(writer, object.getType());
         writer.writeUnsignedInt5(object.getSkillLevel());
         if (object instanceof DeckMasterPower) {
-            EnumSerializer.writeTowerType(writer, ((DeckMasterPower)object).getSelectedTower());
+            enumSerializer.writeTowerType(writer, ((DeckMasterPower)object).getSelectedTower());
         }
     }
 
     @Override
     public WizardPower deserialize(BitReader reader) {
-        WizardPowerType type = EnumSerializer.readWizardPowerType(reader);
+        WizardPowerType type = enumSerializer.readWizardPowerType(reader);
         WizardPower power = type.create();
         power.setSkillLevel(reader.readUnsignedInt5());
 
         if (power instanceof DeckMasterPower) {
-            ((DeckMasterPower)power).setSelectedTower(EnumSerializer.readTowerType(reader));
+            ((DeckMasterPower)power).setSelectedTower(enumSerializer.readTowerType(reader));
         }
 
         return power;

@@ -1,5 +1,6 @@
 package com.mazebert.simulation.commands.serializers;
 
+import com.mazebert.simulation.Sim;
 import com.mazebert.simulation.commands.InitPlayerCommand;
 import com.mazebert.simulation.units.quests.QuestData;
 import com.mazebert.simulation.units.quests.QuestType;
@@ -23,11 +24,13 @@ public class InitPlayerCommandSerializerTest {
     BufferBitWriter writer = new BufferBitWriter(protocol, ByteBuffer.allocateDirect(256));
     BufferBitReader reader;
 
+    EnumSerializer enumSerializer = new EnumSerializer(Sim.version);
+
     @BeforeEach
     void setUp() {
-        protocol.register(new InitPlayerCommandSerializer());
-        protocol.register(new WizardPowerSerializer());
-        protocol.register(new QuestDataSerializer());
+        protocol.register(new InitPlayerCommandSerializer(enumSerializer));
+        protocol.register(new WizardPowerSerializer(enumSerializer));
+        protocol.register(new QuestDataSerializer(enumSerializer));
     }
 
     @Test

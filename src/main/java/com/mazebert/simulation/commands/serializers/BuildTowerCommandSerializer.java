@@ -7,6 +7,12 @@ import org.jusecase.bitpack.BitWriter;
 
 public strictfp class BuildTowerCommandSerializer implements BitSerializer<BuildTowerCommand> {
 
+    private final EnumSerializer enumSerializer;
+
+    public BuildTowerCommandSerializer(EnumSerializer enumSerializer) {
+        this.enumSerializer = enumSerializer;
+    }
+
     @Override
     public BuildTowerCommand createObject() {
         return new BuildTowerCommand();
@@ -14,14 +20,14 @@ public strictfp class BuildTowerCommandSerializer implements BitSerializer<Build
 
     @Override
     public void serialize(BitWriter writer, BuildTowerCommand object) {
-        EnumSerializer.writeTowerType(writer, object.towerType);
+        enumSerializer.writeTowerType(writer, object.towerType);
         writer.writeInt8(object.x);
         writer.writeInt8(object.y);
     }
 
     @Override
     public void deserialize(BitReader reader, BuildTowerCommand object) {
-        object.towerType = EnumSerializer.readTowerType(reader);
+        object.towerType = enumSerializer.readTowerType(reader);
         object.x = reader.readInt8();
         object.y = reader.readInt8();
     }

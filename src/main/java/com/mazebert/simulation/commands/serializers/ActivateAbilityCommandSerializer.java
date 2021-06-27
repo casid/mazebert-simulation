@@ -7,6 +7,12 @@ import org.jusecase.bitpack.BitWriter;
 
 public strictfp class ActivateAbilityCommandSerializer implements BitSerializer<ActivateAbilityCommand> {
 
+    private final EnumSerializer enumSerializer;
+
+    public ActivateAbilityCommandSerializer(EnumSerializer enumSerializer) {
+        this.enumSerializer = enumSerializer;
+    }
+
     @Override
     public ActivateAbilityCommand createObject() {
         return new ActivateAbilityCommand();
@@ -14,14 +20,14 @@ public strictfp class ActivateAbilityCommandSerializer implements BitSerializer<
 
     @Override
     public void serialize(BitWriter writer, ActivateAbilityCommand object) {
-        EnumSerializer.writeActiveAbilityType(writer, object.abilityType);
+        enumSerializer.writeActiveAbilityType(writer, object.abilityType);
         writer.writeInt8(object.towerX);
         writer.writeInt8(object.towerY);
     }
 
     @Override
     public void deserialize(BitReader reader, ActivateAbilityCommand object) {
-        object.abilityType = EnumSerializer.readActiveAbilityType(reader);
+        object.abilityType = enumSerializer.readActiveAbilityType(reader);
         object.towerX = reader.readInt8();
         object.towerY = reader.readInt8();
     }
