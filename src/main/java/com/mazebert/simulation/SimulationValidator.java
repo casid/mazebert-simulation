@@ -32,11 +32,11 @@ public strictfp class SimulationValidator {
 
         Sim.setContext(context);
         try {
-            Simulation simulation = new Simulation();
             if (before != null) {
                 before.accept(context);
             }
 
+            Simulation simulation = new Simulation();
             simulation.load(replayReader, turnNumber, debugDsync);
             simulation.finishAfterLoading();
 

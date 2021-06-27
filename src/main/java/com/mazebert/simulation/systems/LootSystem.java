@@ -161,6 +161,7 @@ public strictfp class LootSystem {
             command.all = false;
             command.playerId = wizard.playerId;
             command.automatic = true;
+            command.internal = true;
 
             Sim.context().commandExecutor.executeVoid(command);
         } else {
