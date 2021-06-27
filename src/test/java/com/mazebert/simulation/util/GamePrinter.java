@@ -21,7 +21,14 @@ public class GamePrinter {
         //printGame(version, "C:\\Users\\casid\\Downloads\\Android-crash-simplay-6f95118c-9a51-490b-bcef-d6467af42335-1624762871056\\6f95118c-9a51-490b-bcef-d6467af42335.mbg");
 
         //printGame(version, "C:\\Users\\casid\\Downloads\\Android-crash-simplay-56898a5f-5759-4cd9-8214-6f96658d0222-1624680254568\\56898a5f-5759-4cd9-8214-6f96658d0222.mbg");
-        printGame(version, "C:\\Users\\casid\\Downloads\\Android-crash-simplay-56898a5f-5759-4cd9-8214-6f96658d0222-1624680254580\\56898a5f-5759-4cd9-8214-6f96658d0222.mbg");
+        //printGame(version, "C:\\Users\\casid\\Downloads\\Android-crash-simplay-56898a5f-5759-4cd9-8214-6f96658d0222-1624680254580\\56898a5f-5759-4cd9-8214-6f96658d0222.mbg");
+
+        // No, old games do not have this!
+        //printGame(version, "C:\\Users\\casid\\Downloads\\Android-crash-simplay-173fa4e6-8cff-4ad2-af34-2eccc3f48118-1609505656455\\173fa4e6-8cff-4ad2-af34-2eccc3f48118.mbg");
+        //printGame(version, "C:\\Users\\casid\\Downloads\\Android-crash-simplay-173fa4e6-8cff-4ad2-af34-2eccc3f48118-1609071882364\\173fa4e6-8cff-4ad2-af34-2eccc3f48118.mbg");
+
+        //printGame(version, "C:\\Users\\casid\\Downloads\\Android-crash-simplay-8766b453-1d73-46d7-b485-405f8f365e16-1624775197167\\8766b453-1d73-46d7-b485-405f8f365e16.mbg");
+        printGame(version, "C:\\Users\\casid\\Downloads\\Android-crash-simplay-8766b453-1d73-46d7-b485-405f8f365e16-1624775197197\\8766b453-1d73-46d7-b485-405f8f365e16.mbg");
     }
 
     private void printGame(int version, String file) throws IOException {
