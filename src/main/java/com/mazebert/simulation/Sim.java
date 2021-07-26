@@ -5,7 +5,7 @@ public strictfp class Sim {
      * If there are breaking changes, increment this number and the version in pom.xml
      * If there are no breaking changes, there is no need for a new version
      */
-    public static final int version = 25;
+    public static final int version = 26;
 
     public static final int v10 = 10;
     public static final int v11 = 11;
@@ -23,6 +23,7 @@ public strictfp class Sim {
     public static final int v23 = 23; // Small bugfix/qol release
     public static final int v24 = 24; // April fools release
     public static final int vRoCEnd = 25; // Rise of Cthulhu season end merge
+    public static final int v26 = 26; // Small bugfix/qol release
 
     // For android 19 compatibility
     private static final ThreadLocal<Context> context = new ThreadLocal<Context>() {
