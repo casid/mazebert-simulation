@@ -1,5 +1,6 @@
 package com.mazebert.simulation.units.abilities;
 
+import com.mazebert.simulation.Sim;
 import com.mazebert.simulation.units.towers.Tower;
 
 public abstract strictfp class PermanentCritWithLevelBonusAbility extends StackableAbility<Tower> {
@@ -7,8 +8,13 @@ public abstract strictfp class PermanentCritWithLevelBonusAbility extends Stacka
     private final CritDamageWithLevelBonusAbility damage;
 
     public PermanentCritWithLevelBonusAbility(float chanceBonus, float chanceBonusPerLevel, float damageBonus, float damageBonusPerLevel) {
-        chance = new CritChanceWithLevelBonusAbility(chanceBonus, chanceBonusPerLevel);
-        damage = new CritDamageWithLevelBonusAbility(damageBonus, damageBonusPerLevel);
+        if (Sim.context().version >= Sim.v26) {
+            chance = new PermanentCritChanceWithLevelBonusAbility(chanceBonus, chanceBonusPerLevel);
+            damage = new PermanentCritDamageWithLevelBonusAbility(damageBonus, damageBonusPerLevel);
+        } else {
+            chance = new CritChanceWithLevelBonusAbility(chanceBonus, chanceBonusPerLevel);
+            damage = new CritDamageWithLevelBonusAbility(damageBonus, damageBonusPerLevel);
+        }
     }
 
     @Override

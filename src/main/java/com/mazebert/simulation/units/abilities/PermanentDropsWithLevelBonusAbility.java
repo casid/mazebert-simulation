@@ -1,5 +1,6 @@
 package com.mazebert.simulation.units.abilities;
 
+import com.mazebert.simulation.Sim;
 import com.mazebert.simulation.units.towers.Tower;
 
 public abstract strictfp class PermanentDropsWithLevelBonusAbility extends StackableAbility<Tower> {
@@ -7,8 +8,13 @@ public abstract strictfp class PermanentDropsWithLevelBonusAbility extends Stack
     private final ItemQualityWithLevelBonusAbility quality;
 
     public PermanentDropsWithLevelBonusAbility(float chanceBonus, float chanceBonusPerLevel, float qualityBonus, float qualityBonusPerLevel) {
-        chance = new ItemChanceWithLevelBonusAbility(chanceBonus, chanceBonusPerLevel);
-        quality = new ItemQualityWithLevelBonusAbility(qualityBonus, qualityBonusPerLevel);
+        if (Sim.context().version >= Sim.v26) {
+            chance = new PermanentItemChanceWithLevelBonusAbility(chanceBonus, chanceBonusPerLevel);
+            quality = new PermanentItemQualityWithLevelBonusAbility(qualityBonus, qualityBonusPerLevel);
+        } else {
+            chance = new ItemChanceWithLevelBonusAbility(chanceBonus, chanceBonusPerLevel);
+            quality = new ItemQualityWithLevelBonusAbility(qualityBonus, qualityBonusPerLevel);
+        }
     }
 
     @Override

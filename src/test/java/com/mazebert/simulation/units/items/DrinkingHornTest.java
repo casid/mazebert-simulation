@@ -51,6 +51,42 @@ strictfp class DrinkingHornTest extends ItemTest {
     }
 
     @Test
+    void potionEffect_crit() {
+        whenItemIsEquipped(ItemType.DrinkingHorn);
+        whenPotionIsConsumed(PotionType.CommonCrit);
+
+        assertThat(tower.getCritChance()).isEqualTo(0.059600003f);
+        assertThat(tower.getCritDamage()).isEqualTo(0.37f);
+    }
+
+    @Test
+    void potionEffect_crit_potionDrankBeforeEquipping() {
+        whenPotionIsConsumed(PotionType.CommonCrit);
+        whenItemIsEquipped(ItemType.DrinkingHorn);
+
+        assertThat(tower.getCritChance()).isEqualTo(0.059600003f);
+        assertThat(tower.getCritDamage()).isEqualTo(0.37f);
+    }
+
+    @Test
+    void potionEffect_drops() {
+        whenItemIsEquipped(ItemType.DrinkingHorn);
+        whenPotionIsConsumed(PotionType.UncommonDrops);
+
+        assertThat(tower.getItemChance()).isEqualTo(1.24f);
+        assertThat(tower.getItemQuality()).isEqualTo(1.24f);
+    }
+
+    @Test
+    void potionEffect_drops_potionDrankBeforeEquipping() {
+        whenPotionIsConsumed(PotionType.UncommonDrops);
+        whenItemIsEquipped(ItemType.DrinkingHorn);
+
+        assertThat(tower.getItemChance()).isEqualTo(1.24f);
+        assertThat(tower.getItemQuality()).isEqualTo(1.24f);
+    }
+
+    @Test
     void noVikingAnymore() {
         whenItemIsEquipped(ItemType.DrinkingHorn);
         tower.removeAbility(VikingAbility.class);
