@@ -1,21 +1,30 @@
 package com.mazebert.simulation.units.towers;
 
+import com.mazebert.simulation.Balancing;
 import com.mazebert.simulation.Rarity;
+import com.mazebert.simulation.Sim;
 import com.mazebert.simulation.units.abilities.CooldownActiveAbility;
 import com.mazebert.simulation.units.items.Item;
 
 public strictfp class MrIronConstruct extends CooldownActiveAbility {
 
     public static final float COOLDOWN = 90;
+    public static final float MAX_COOLDOWN = 900;
+
+    private final int version = Sim.context().version;
 
     @Override
     public float getCooldown() {
-        float attackSpeedModifier = getUnit().getAttackSpeedModifier();
-        if (attackSpeedModifier <= 0.0) {
-            return COOLDOWN;
-        }
+        if (version >= Sim.v26) {
+            return Balancing.calculateCooldown(COOLDOWN, getUnit().getAttackSpeedModifier(), Balancing.MIN_COOLDOWN, MAX_COOLDOWN);
+        } else {
+            float attackSpeedModifier = getUnit().getAttackSpeedModifier();
+            if (attackSpeedModifier <= 0.0) {
+                return COOLDOWN;
+            }
 
-        return COOLDOWN / attackSpeedModifier;
+            return COOLDOWN / attackSpeedModifier;
+        }
     }
 
     @Override

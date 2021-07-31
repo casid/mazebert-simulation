@@ -7,6 +7,7 @@ import com.mazebert.simulation.SimulationListeners;
 import com.mazebert.simulation.gateways.GameGateway;
 import com.mazebert.simulation.gateways.PlayerGatewayTrainer;
 import com.mazebert.simulation.gateways.UnitGateway;
+import com.mazebert.simulation.gateways.WaveGateway;
 import com.mazebert.simulation.maps.TestMap;
 import com.mazebert.simulation.systems.DamageSystemTrainer;
 import com.mazebert.simulation.units.abilities.ActiveAbilityType;
@@ -31,6 +32,7 @@ class MrIronTest extends SimTest {
         gameGateway = new GameGateway();
         damageSystem = new DamageSystemTrainer();
         playerGateway = new PlayerGatewayTrainer();
+        waveGateway = new WaveGateway();
 
         gameGateway.getGame().map = new TestMap(1);
 
@@ -116,6 +118,32 @@ class MrIronTest extends SimTest {
 
         mrIron.simulate(mrIron.getBaseCooldown());
         assertThat(creep.getHealth()).isEqualTo(80);
+    }
+
+    @Test
+    void construct_cooldown_faster() {
+        whenItemIsEquipped(mrIron, ItemType.SevenLeaguesBoots, 0);
+        whenItemIsEquipped(mrIron, ItemType.SevenLeaguesBoots, 1);
+
+        assertThat(mrIron.getAbility(MrIronConstruct.class).getCooldown()).isEqualTo(45.0f);
+    }
+
+    @Test
+    void construct_cooldown_slower() {
+        whenItemIsEquipped(mrIron, ItemType.EldritchClaw, 0);
+        whenItemIsEquipped(mrIron, ItemType.EldritchClaw, 1);
+
+        assertThat(mrIron.getAbility(MrIronConstruct.class).getCooldown()).isEqualTo(264.7059f);
+    }
+
+    @Test
+    void construct_cooldown_slowest() {
+        whenItemIsEquipped(mrIron, ItemType.EldritchClaw, 0);
+        whenItemIsEquipped(mrIron, ItemType.EldritchClaw, 1);
+        whenItemIsEquipped(mrIron, ItemType.EldritchClaw, 2);
+        whenItemIsEquipped(mrIron, ItemType.EldritchClaw, 3);
+
+        assertThat(mrIron.getAbility(MrIronConstruct.class).getCooldown()).isEqualTo(MrIronConstruct.MAX_COOLDOWN);
     }
 
     @Test

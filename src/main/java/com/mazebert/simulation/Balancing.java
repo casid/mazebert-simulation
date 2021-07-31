@@ -182,4 +182,19 @@ public strictfp class Balancing {
 
         return totalResult;
     }
+
+    public static float calculateCooldown(float baseCooldown, float attackSpeedModifier, float minCooldown, float maxCooldown) {
+        if (attackSpeedModifier <= 0) {
+            return maxCooldown;
+        }
+
+        float cooldown = baseCooldown / attackSpeedModifier;
+        if (cooldown > maxCooldown) {
+            return maxCooldown;
+        }
+        if (cooldown < minCooldown) {
+            return minCooldown;
+        }
+        return cooldown;
+    }
 }
