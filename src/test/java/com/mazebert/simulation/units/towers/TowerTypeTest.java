@@ -44,13 +44,14 @@ public class TowerTypeTest extends SimTest {
 
     @Test
     void allCardsAreAvailable() {
+        version = Sim.vRnR;
         season = true;
         assertThat(TowerType.getValues()).containsExactly(TowerType.values());
     }
 
     @Test
     void allCardsAreAvailable_afterSeason() {
-        version = Sim.vRoCEnd;
+        version = Sim.vRnREnd;
         season = false;
         assertThat(TowerType.getValues()).containsExactly(TowerType.values());
     }

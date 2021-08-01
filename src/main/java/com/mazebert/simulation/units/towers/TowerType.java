@@ -69,6 +69,7 @@ public strictfp enum TowerType implements CardType<Tower> {
     Lucifer(54, Lucifer.class),
     LuciferFallen(55, LuciferFallen.class),
     Beacon(56, Beacon.class),
+    Fox(57, Fox.class),
     ;
 
     public final int id;
@@ -109,8 +110,9 @@ public strictfp enum TowerType implements CardType<Tower> {
     private static final TowerType[] LOOKUP;
 
     private static final TowerType[] STANDARD      = {Beaver, Dandelion, Rabbit, Frog, HerbWitch, Wolf, Huli, BearHunter, Viking, Ganesha, Balu, Manitou, Hitman, Scientist, PocketThief, ElectricChair, Elvis, Pub, MoneyBin, MrIron, ScarFace, Muli, Satellite, BlackWidow, Mummy, ScareCrow, Shadow, Gib, KnusperHexe, DarkForge, AcolyteOfGreed, NoviceWizard, Spider, BloodDemon, Solara, AbyssKing, TheRipper, KiwiEgg, Kiwi, Stonecutters, Yggdrasil};
-    private static final TowerType[] DAWN_OF_LIGHT = {Beaver, Dandelion, Rabbit, Frog, HerbWitch, Wolf, Huli, BearHunter, Viking, Ganesha, Balu, Manitou, Hitman, Scientist, PocketThief, ElectricChair, Elvis, Pub, MoneyBin, MrIron, ScarFace, Muli, Satellite, BlackWidow, Mummy, ScareCrow, Shadow, Gib, KnusperHexe, DarkForge, AcolyteOfGreed, NoviceWizard, Spider, BloodDemon, Solara, AbyssKing, TheRipper, KiwiEgg, Kiwi, Stonecutters, Yggdrasil, Adventurer, Gargoyle, Guard, TrainingHologram, Tinker, Templar, Phoenix, Candle, KingArthur, Unicorn, SnowGlobe, Lucifer, LuciferFallen};
+    private static final TowerType[] DOL           = {Beaver, Dandelion, Rabbit, Frog, HerbWitch, Wolf, Huli, BearHunter, Viking, Ganesha, Balu, Manitou, Hitman, Scientist, PocketThief, ElectricChair, Elvis, Pub, MoneyBin, MrIron, ScarFace, Muli, Satellite, BlackWidow, Mummy, ScareCrow, Shadow, Gib, KnusperHexe, DarkForge, AcolyteOfGreed, NoviceWizard, Spider, BloodDemon, Solara, AbyssKing, TheRipper, KiwiEgg, Kiwi, Stonecutters, Yggdrasil, Adventurer, Gargoyle, Guard, TrainingHologram, Tinker, Templar, Phoenix, Candle, KingArthur, Unicorn, SnowGlobe, Lucifer, LuciferFallen};
     private static final TowerType[] STANDARD_ROC  = {Beaver, Dandelion, Rabbit, Frog, HerbWitch, Wolf, Huli, BearHunter, Viking, Ganesha, Balu, Manitou, Hitman, Scientist, PocketThief, ElectricChair, Elvis, Pub, MoneyBin, MrIron, ScarFace, Muli, Satellite, BlackWidow, Mummy, ScareCrow, Shadow, Gib, KnusperHexe, DarkForge, AcolyteOfGreed, NoviceWizard, Spider, BloodDemon, Solara, AbyssKing, TheRipper, KiwiEgg, Kiwi, Stonecutters, Yggdrasil, Adventurer, Gargoyle, Guard, TrainingHologram, Tinker, Templar, Phoenix, Candle, KingArthur, Unicorn, SnowGlobe, Lucifer, LuciferFallen, Beacon};
+    private static final TowerType[] RNR           = {Beaver, Dandelion, Rabbit, Frog, HerbWitch, Wolf, Huli, BearHunter, Viking, Ganesha, Balu, Manitou, Hitman, Scientist, PocketThief, ElectricChair, Elvis, Pub, MoneyBin, MrIron, ScarFace, Muli, Satellite, BlackWidow, Mummy, ScareCrow, Shadow, Gib, KnusperHexe, DarkForge, AcolyteOfGreed, NoviceWizard, Spider, BloodDemon, Solara, AbyssKing, TheRipper, KiwiEgg, Kiwi, Stonecutters, Yggdrasil, Adventurer, Gargoyle, Guard, TrainingHologram, Tinker, Templar, Phoenix, Candle, KingArthur, Unicorn, SnowGlobe, Lucifer, LuciferFallen, Beacon, Fox};
 
     static {
         maxId = 0;
@@ -124,11 +126,14 @@ public strictfp enum TowerType implements CardType<Tower> {
     }
 
     public static TowerType[] getValues() {
+        if (Sim.isRnRSeasonContent()) {
+            return RNR;
+        }
         if (Sim.context().version >= Sim.vRoCEnd) {
             return STANDARD_ROC;
         }
         if (Sim.isDoLSeasonContent()) {
-            return DAWN_OF_LIGHT;
+            return DOL;
         }
         return STANDARD;
     }

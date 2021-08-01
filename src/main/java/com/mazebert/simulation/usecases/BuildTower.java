@@ -9,16 +9,12 @@ import com.mazebert.simulation.maps.MapAura;
 import com.mazebert.simulation.maps.MapType;
 import com.mazebert.simulation.maps.Tile;
 import com.mazebert.simulation.systems.LootSystem;
-import com.mazebert.simulation.units.abilities.Ability;
-import com.mazebert.simulation.units.abilities.StackableAbility;
+import com.mazebert.simulation.systems.PermanentAbilitySystem;
 import com.mazebert.simulation.units.items.Item;
 import com.mazebert.simulation.units.items.ItemType;
 import com.mazebert.simulation.units.towers.Tower;
 import com.mazebert.simulation.units.towers.TowerType;
 import com.mazebert.simulation.units.wizards.Wizard;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public strictfp class BuildTower extends Usecase<BuildTowerCommand> {
 
@@ -103,22 +99,7 @@ public strictfp class BuildTower extends Usecase<BuildTowerCommand> {
     private Item[] replace(Tower oldTower, Tower newTower) {
         oldTower.markForDisposal();
 
-        List<Ability> permanentAbilities = new ArrayList<>();
-        oldTower.forEachAbility(ability -> {
-            if (ability.isPermanent()) {
-                permanentAbilities.add(ability);
-            }
-        });
-
-        for (Ability permanentAbility : permanentAbilities) {
-            if (permanentAbility instanceof StackableAbility) {
-                do {
-                    transferPermanentAbility(oldTower, newTower, permanentAbility);
-                } while (permanentAbility.getUnit() != null);
-            } else {
-                transferPermanentAbility(oldTower, newTower, permanentAbility);
-            }
-        }
+        PermanentAbilitySystem.transferAll(oldTower, newTower);
 
         Item[] items = oldTower.removeAllItems();
 
@@ -129,11 +110,6 @@ public strictfp class BuildTower extends Usecase<BuildTowerCommand> {
         unitGateway.removeUnit(oldTower);
 
         return items;
-    }
-
-    private void transferPermanentAbility(Tower oldTower, Tower newTower, Ability permanentAbility) {
-        oldTower.removeAbility(permanentAbility);
-        newTower.addAbility(permanentAbility);
     }
 
     private void transferItems(Wizard wizard, Tower tower, Item[] items) {
