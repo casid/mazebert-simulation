@@ -91,7 +91,7 @@ public strictfp class FoxHunt extends Ability<Tower> implements OnUnitAddedListe
 
     @Override
     public String getDescription() {
-        return "Each round there is a " + format.percent(CHANCE) + "% chance Snore Fox eats a " + format.card(TowerType.Rabbit) + " on the field, consuming potions and experience.";
+        return "Each round there is a " + format.percent(CHANCE) + "% chance " + format.card(TowerType.Fox) + " eats a " + format.card(TowerType.Rabbit) + " on the field, carrying over the Rabbit’s experience and potions.";
     }
 
     @Override
@@ -101,6 +101,6 @@ public strictfp class FoxHunt extends Ability<Tower> implements OnUnitAddedListe
 
     @Override
     public String getLevelBonus() {
-        return format.percentWithSignAndUnit(CRIT_CHANCE_PER_RABBIT) + " per " + format.card(TowerType.Rabbit) + " eaten";
+        return format.percentWithSignAndUnit(CRIT_CHANCE_PER_RABBIT) + " crit chance per " + format.card(TowerType.Rabbit) + " eaten";
     }
 }

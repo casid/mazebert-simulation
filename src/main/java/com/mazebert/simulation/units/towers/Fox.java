@@ -71,7 +71,7 @@ public strictfp class Fox extends Tower {
 
     @Override
     public String getModelId() {
-        return "wolf"; // TODO
+        return "fox";
     }
 
     @Override
