@@ -15,7 +15,7 @@ import com.mazebert.simulation.units.abilities.Ability;
 public strictfp class FoxHunt extends Ability<Tower> implements OnUnitAddedListener, OnUnitRemovedListener, OnRoundStartedListener {
 
     private static final float CHANCE = 0.1f;
-    private static final float CRIT_CHANCE_PER_RABBIT = 0.02f;
+    private static final float CRIT_CHANCE_PER_RABBIT = 0.04f;
 
     private final SimulationListeners simulationListeners = Sim.context().simulationListeners;
     private final UnitGateway unitGateway = Sim.context().unitGateway;
