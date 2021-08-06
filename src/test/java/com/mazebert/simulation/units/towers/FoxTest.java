@@ -33,7 +33,7 @@ class FoxTest extends ItemTest {
 
         assertThat(rabbit.isDisposed()).isTrue();
         assertThat(fox.getExperience()).isEqualTo(6000);
-        assertThat(fox.getCritChance()).isEqualTo(0.07f);
+        assertThat(fox.getCritChance()).isEqualTo(0.09f);
 
         CustomTowerBonus bonus = new CustomTowerBonus();
         fox.populateCustomTowerBonus(bonus);
