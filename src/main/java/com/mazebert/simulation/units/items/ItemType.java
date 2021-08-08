@@ -4,6 +4,8 @@ import com.mazebert.simulation.CardCategory;
 import com.mazebert.simulation.CardType;
 import com.mazebert.simulation.Sim;
 import com.mazebert.simulation.hash.Hash;
+import com.mazebert.simulation.units.items.prophecies.HungoverChallengeProphecy;
+import com.mazebert.simulation.units.items.prophecies.WealthyBossProphecy;
 
 public strictfp enum ItemType implements CardType<Item> {
 
@@ -101,6 +103,8 @@ public strictfp enum ItemType implements CardType<Item> {
     Necronomicon(86, Necronomicon.class),
     EldritchSoup(87, EldritchSoup.class),
     EldritchChainsaw(88, EldritchChainsaw.class),
+    WealthyBossProphecy(89, WealthyBossProphecy.class),
+    HungoverChallengeProphecy(90, HungoverChallengeProphecy.class),
     ;
 
     private static int maxId;
@@ -126,6 +130,7 @@ public strictfp enum ItemType implements CardType<Item> {
     private static final ItemType[] DOL_CORONA      = {WoodenStaff, LeatherBoots, WoodAxe, BabySword, SchoolBook, WetTowel, Pumpkin, WarAxe, Handbag, GoldCoins, RingOfGreed, LongBow, MonsterTeeth, MagicMushroom, LuckyPants, PaintingOfSolea, MeatMallet, Beheader, SevenLeaguesBoots, FistfulOfSteel, Cauldron, KeyOfWisdom, VikingHelmet, Barrel, Excalibur, HelmOfHades, MesserschmidtsReaver, DungeonDoor, ScepterOfTime, WeddingRing1, WeddingRing2, NorlsFurySword, NorlsFuryAmulet, FrozenWater, FrozenHeart, FrozenCandle, FrozenBook, WitheredCactus, WitheredToadstool, WitheredBandages, ImpatienceWrathWatch, ImpatienceWrathTrain, ImpatienceWrathForce, DarkBabySword, DarkGoldCoins, DarkRingOfGreed, DarkMeatMallet, DarkCauldron, DarkFistfulOfSteel, DarkBlade, Wolfskin, BloodDemonBlade, Seelenreisser, UnluckyPants, SkullOfDarkness, SpectralDaggers, SpectralCape, BowlingBall, LightbladeAcademySword, LightbladeAcademyDrone, TransmuteUniques, TransmuteStack, Mjoelnir, PoisonArrow, Trident, BranchOfYggdrasilLegacy, DrinkingHorn, UselessMachine, Lightbringer, FatKnightArmor, SnowGlobe, GuardLance, HeroicCape, HeroicMask, ToiletPaper};
     private static final ItemType[] DOL_END         = {WoodenStaff, LeatherBoots, WoodAxe, BabySword, SchoolBook, WetTowel, Pumpkin, WarAxe, Handbag, GoldCoins, RingOfGreed, LongBow, MonsterTeeth, MagicMushroom, LuckyPants, PaintingOfSolea, MeatMallet, Beheader, SevenLeaguesBoots, FistfulOfSteel, Cauldron, KeyOfWisdom, VikingHelmet, Barrel, Excalibur, HelmOfHades, MesserschmidtsReaver, DungeonDoor, ScepterOfTime, WeddingRing1, WeddingRing2, NorlsFurySword, NorlsFuryAmulet, FrozenWater, FrozenHeart, FrozenCandle, FrozenBook, WitheredCactus, WitheredToadstool, WitheredBandages, ImpatienceWrathWatch, ImpatienceWrathTrain, ImpatienceWrathForce, DarkBabySword, DarkGoldCoins, DarkRingOfGreed, DarkMeatMallet, DarkCauldron, DarkFistfulOfSteel, DarkBlade, Wolfskin, BloodDemonBlade, Seelenreisser, UnluckyPants, SkullOfDarkness, SpectralDaggers, SpectralCape, BowlingBall, LightbladeAcademySword, LightbladeAcademyDrone, TransmuteUniques, TransmuteStack, Mjoelnir, PoisonArrow, Trident, /*                     */DrinkingHorn, UselessMachine, Lightbringer, FatKnightArmor, SnowGlobe, GuardLance, HeroicCape, HeroicMask, BranchOfYggdrasilNature, BranchOfYggdrasilMetropolis, BranchOfYggdrasilDarkness, BranchOfYggdrasilLight, ToiletPaper};
     private static final ItemType[] ROC             = {WoodenStaff, LeatherBoots, WoodAxe, BabySword, SchoolBook, WetTowel, Pumpkin, WarAxe, Handbag, GoldCoins, RingOfGreed, LongBow, MonsterTeeth, MagicMushroom, LuckyPants, PaintingOfSolea, MeatMallet, Beheader, SevenLeaguesBoots, FistfulOfSteel, Cauldron, KeyOfWisdom, VikingHelmet, Barrel, Excalibur, HelmOfHades, MesserschmidtsReaver, DungeonDoor, ScepterOfTime, WeddingRing1, WeddingRing2, NorlsFurySword, NorlsFuryAmulet, FrozenWater, FrozenHeart, FrozenCandle, FrozenBook, WitheredCactus, WitheredToadstool, WitheredBandages, ImpatienceWrathWatch, ImpatienceWrathTrain, ImpatienceWrathForce, DarkBabySword, DarkGoldCoins, DarkRingOfGreed, DarkMeatMallet, DarkCauldron, DarkFistfulOfSteel, DarkBlade, Wolfskin, BloodDemonBlade, Seelenreisser, UnluckyPants, SkullOfDarkness, SpectralDaggers, SpectralCape, BowlingBall, LightbladeAcademySword, LightbladeAcademyDrone, TransmuteUniques, TransmuteStack, Mjoelnir, PoisonArrow, Trident, /*                     */DrinkingHorn, UselessMachine, Lightbringer, FatKnightArmor, SnowGlobe, GuardLance, HeroicCape, HeroicMask, BranchOfYggdrasilNature, BranchOfYggdrasilMetropolis, BranchOfYggdrasilDarkness, BranchOfYggdrasilLight, ToiletPaper, EldritchClam, EldritchClaw, EldritchMarshNecklace, EldritchMarshRifle, EldritchPearl, EldritchArms, Necronomicon, EldritchSoup, EldritchChainsaw};
+    private static final ItemType[] RNR             = {WoodenStaff, LeatherBoots, WoodAxe, BabySword, SchoolBook, WetTowel, Pumpkin, WarAxe, Handbag, GoldCoins, RingOfGreed, LongBow, MonsterTeeth, MagicMushroom, LuckyPants, PaintingOfSolea, MeatMallet, Beheader, SevenLeaguesBoots, FistfulOfSteel, Cauldron, KeyOfWisdom, VikingHelmet, Barrel, Excalibur, HelmOfHades, MesserschmidtsReaver, DungeonDoor, ScepterOfTime, WeddingRing1, WeddingRing2, NorlsFurySword, NorlsFuryAmulet, FrozenWater, FrozenHeart, FrozenCandle, FrozenBook, WitheredCactus, WitheredToadstool, WitheredBandages, ImpatienceWrathWatch, ImpatienceWrathTrain, ImpatienceWrathForce, DarkBabySword, DarkGoldCoins, DarkRingOfGreed, DarkMeatMallet, DarkCauldron, DarkFistfulOfSteel, DarkBlade, Wolfskin, BloodDemonBlade, Seelenreisser, UnluckyPants, SkullOfDarkness, SpectralDaggers, SpectralCape, BowlingBall, LightbladeAcademySword, LightbladeAcademyDrone, TransmuteUniques, TransmuteStack, Mjoelnir, PoisonArrow, Trident, /*                     */DrinkingHorn, UselessMachine, Lightbringer, FatKnightArmor, SnowGlobe, GuardLance, HeroicCape, HeroicMask, BranchOfYggdrasilNature, BranchOfYggdrasilMetropolis, BranchOfYggdrasilDarkness, BranchOfYggdrasilLight, ToiletPaper, EldritchClam, EldritchClaw, EldritchMarshNecklace, EldritchMarshRifle, EldritchPearl, EldritchArms, Necronomicon, EldritchSoup, EldritchChainsaw, WealthyBossProphecy, HungoverChallengeProphecy};
 
     ItemType(int id, Class<? extends Item> itemClass) {
         this.id = id;
@@ -133,6 +138,9 @@ public strictfp enum ItemType implements CardType<Item> {
     }
 
     public static ItemType[] getValues() {
+        if (Sim.isRnRSeasonContent()) {
+            return RNR;
+        }
         if (Sim.isRoCSeasonContent()) {
             return ROC;
         }

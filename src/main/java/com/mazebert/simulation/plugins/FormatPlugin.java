@@ -195,6 +195,14 @@ public strictfp class FormatPlugin {
         return "<c=#" + toHex(color) + ">" + string + "</c>";
     }
 
+    public String prophecyTitle(String string) {
+        return colored(string, 0xe86ef7);
+    }
+
+    public String prophecyDescription(String string) {
+        return colored(string, 0xca26f9);
+    }
+
     private String toHex(int color) {
         String str = Integer.toString(color, 16);
 

@@ -37,6 +37,10 @@ public interface Card {
         return false;
     }
 
+    default boolean isProphecy() {
+        return false;
+    }
+
     default boolean isForgeable() {
         return !isBlackMarketOffer();
     }
