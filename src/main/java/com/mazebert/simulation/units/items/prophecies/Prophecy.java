@@ -6,7 +6,6 @@ import com.mazebert.simulation.changelog.ChangelogEntry;
 import com.mazebert.simulation.units.abilities.Ability;
 import com.mazebert.simulation.units.items.Item;
 import com.mazebert.simulation.units.towers.Tower;
-import com.mazebert.simulation.units.towers.TowerType;
 import com.mazebert.simulation.units.towers.Veleda;
 
 public strictfp abstract class Prophecy extends Item {
@@ -17,7 +16,7 @@ public strictfp abstract class Prophecy extends Item {
 
     @Override
     public String getDescription() {
-        return format.prophecyDescription("Equip " + format.card(TowerType.Veleda) + " to fulfil this prophecy.\nFulfilled prophecies are deleted.");
+        return format.prophecyDescription("Equip to fulfil this prophecy.\nFulfilled prophecies are destroyed.");
     }
 
     @Override

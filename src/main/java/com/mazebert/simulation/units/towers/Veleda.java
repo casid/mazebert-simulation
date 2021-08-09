@@ -43,7 +43,7 @@ public strictfp class Veleda extends Tower {
 
     @Override
     public String getDescription() {
-        return format.prophecyDescription("Weaver of Fate.");
+        return format.prophecyDescription("Weaver of Fate.\nCan equip prophecy items.");
     }
 
     @Override
