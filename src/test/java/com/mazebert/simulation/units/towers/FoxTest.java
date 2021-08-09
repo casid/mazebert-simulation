@@ -1,10 +1,13 @@
 package com.mazebert.simulation.units.towers;
 
 import com.mazebert.simulation.Wave;
+import com.mazebert.simulation.systems.WeddingRingSystem;
 import com.mazebert.simulation.units.items.ItemTest;
+import com.mazebert.simulation.units.items.ItemType;
 import com.mazebert.simulation.units.potions.PotionType;
 import com.mazebert.simulation.units.wizards.Wizard;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -95,6 +98,85 @@ class FoxTest extends ItemTest {
         assertThat(rabbit.isDisposed()).isTrue();
         assertThat(fox.getAddedRelativeBaseDamage()).isEqualTo(0.2016f);
         assertThat(fox.getAttackSpeedAdd()).isEqualTo(0.1608f);
+    }
+
+    @Test
+    void rabbitPotionsHalvedWhenReplaced_noRabbitEaten() {
+        whenPotionIsConsumed(fox, PotionType.CommonDamage);
+        whenPotionIsConsumed(fox, PotionType.CommonDamage);
+
+        Tower adventurer = whenTowerIsReplaced(fox, TowerType.Adventurer);
+
+        assertThat(adventurer.getAddedRelativeBaseDamage()).isEqualTo(0.1008f);
+    }
+
+    @Test
+    void rabbitPotionsHalvedWhenReplaced() {
+        Tower rabbit = whenTowerIsBuilt(wizard, TowerType.Rabbit, 1, 0);
+        whenPotionIsConsumed(rabbit, PotionType.CommonDamage);
+        whenPotionIsConsumed(rabbit, PotionType.CommonDamage);
+        whenPotionIsConsumed(rabbit, PotionType.CommonDamage);
+        whenPotionIsConsumed(rabbit, PotionType.CommonDamage);
+        whenNextRoundIsStarted();
+
+        Tower adventurer = whenTowerIsReplaced(fox, TowerType.Adventurer);
+
+        assertThat(adventurer.getAddedRelativeBaseDamage()).isEqualTo(0.1008f);
+    }
+
+    @Test
+    void rabbitPotionsHalvedWhenReplaced_foxPotionsKept() {
+        Tower rabbit = whenTowerIsBuilt(wizard, TowerType.Rabbit, 1, 0);
+        whenPotionIsConsumed(fox, PotionType.CommonDamage);
+        whenPotionIsConsumed(fox, PotionType.CommonDamage);
+        whenPotionIsConsumed(rabbit, PotionType.CommonDamage);
+        whenPotionIsConsumed(rabbit, PotionType.CommonDamage);
+        whenNextRoundIsStarted();
+
+        Tower adventurer = whenTowerIsReplaced(fox, TowerType.Adventurer);
+
+        assertThat(adventurer.getAddedRelativeBaseDamage()).isEqualTo(0.1512f);
+    }
+
+    @Nested
+    class WeddingRings {
+        Tower rabbit;
+
+        @BeforeEach
+        void setUp() {
+            weddingRingSystem = new WeddingRingSystem();
+
+            rabbit = whenTowerIsBuilt(wizard, TowerType.Rabbit, 1, 0);
+
+            whenItemIsEquipped(fox, ItemType.WeddingRing1);
+            whenItemIsEquipped(rabbit, ItemType.WeddingRing2);
+
+            simulationListeners.onUpdate.dispatch(WeddingRingSystem.SECONDS_FOR_MARRIAGE);
+        }
+
+        @Test
+        void rabbitPotionsHalvedWhenReplaced_notForUniquePotions() {
+            whenPotionIsConsumed(fox, PotionType.Tears);
+            whenNextRoundIsStarted();
+
+            Tower adventurer = whenTowerIsReplaced(fox, TowerType.Adventurer);
+
+            assertThat(adventurer.getMulticrit()).isEqualTo(3); // Tears give +1 each, +1 initial mc
+        }
+
+        @Test
+        void rabbitPotionsHalvedWhenReplaced_cardDust() {
+            whenPotionIsConsumed(fox, PotionType.CardDustCrit);
+            whenPotionIsConsumed(fox, PotionType.CardDustCrit);
+            whenPotionIsConsumed(fox, PotionType.CardDustCrit);
+            whenPotionIsConsumed(fox, PotionType.CardDustCrit);
+            whenNextRoundIsStarted(); // Rabbit is eaten here
+            assertThat(fox.getMulticrit()).isEqualTo(9);
+
+            Tower adventurer = whenTowerIsReplaced(fox, TowerType.Adventurer);
+
+            assertThat(adventurer.getMulticrit()).isEqualTo(7); // +4 from drinking itself, +2 from married & eaten rabbit, +1 initial mc
+        }
     }
 
     void whenNextRoundIsStarted() {

@@ -12,6 +12,8 @@ import com.mazebert.simulation.systems.LootSystem;
 import com.mazebert.simulation.systems.PermanentAbilitySystem;
 import com.mazebert.simulation.units.items.Item;
 import com.mazebert.simulation.units.items.ItemType;
+import com.mazebert.simulation.units.towers.Fox;
+import com.mazebert.simulation.units.towers.FoxHunt;
 import com.mazebert.simulation.units.towers.Tower;
 import com.mazebert.simulation.units.towers.TowerType;
 import com.mazebert.simulation.units.wizards.Wizard;
@@ -97,6 +99,11 @@ public strictfp class BuildTower extends Usecase<BuildTowerCommand> {
     }
 
     private Item[] replace(Tower oldTower, Tower newTower) {
+        if (oldTower instanceof Fox) {
+            FoxHunt foxHunt = oldTower.getAbility(FoxHunt.class);
+            foxHunt.onFoxReplaced();
+        }
+
         oldTower.markForDisposal();
 
         PermanentAbilitySystem.transferAll(oldTower, newTower);

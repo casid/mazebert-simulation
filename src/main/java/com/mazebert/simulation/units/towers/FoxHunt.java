@@ -11,6 +11,11 @@ import com.mazebert.simulation.systems.ExperienceSystem;
 import com.mazebert.simulation.systems.PermanentAbilitySystem;
 import com.mazebert.simulation.units.Unit;
 import com.mazebert.simulation.units.abilities.Ability;
+import com.mazebert.simulation.units.abilities.StackableAbility;
+import com.mazebert.simulation.util.IntegerReference;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public strictfp class FoxHunt extends Ability<Tower> implements OnUnitAddedListener, OnUnitRemovedListener, OnRoundStartedListener {
 
@@ -22,6 +27,7 @@ public strictfp class FoxHunt extends Ability<Tower> implements OnUnitAddedListe
     private final ExperienceSystem experienceSystem = Sim.context().experienceSystem;
 
     private int rabbitsEaten;
+    private final Map<Class, IntegerReference> rabbitPotions = new HashMap<>();
 
     @Override
     protected void initialize(Tower unit) {
@@ -65,6 +71,8 @@ public strictfp class FoxHunt extends Ability<Tower> implements OnUnitAddedListe
         getUnit().addCritChance(CRIT_CHANCE_PER_RABBIT);
         experienceSystem.grantExperience(getUnit(), rabbit.getExperience(), true);
 
+        rememberRabbitPotions(rabbit);
+
         rabbit.markForDisposal();
         PermanentAbilitySystem.transferAll(rabbit, getUnit());
         unitGateway.destroyTower(rabbit);
@@ -75,8 +83,69 @@ public strictfp class FoxHunt extends Ability<Tower> implements OnUnitAddedListe
         }
     }
 
+    private void rememberRabbitPotions(Rabbit rabbit) {
+        rabbit.forEachAbility(ability -> {
+            if (ability.isPermanent()) {
+                if (ability instanceof StackableAbility) {
+                    rememberRabbitPotion(ability, ((StackableAbility)ability).getStackCount());
+                } else {
+                    rememberRabbitPotion(ability, 1);
+                }
+            }
+        });
+    }
+
+    private void rememberRabbitPotion(Ability ability, int count) {
+        IntegerReference amount = rabbitPotions.get(ability.getClass());
+        if (amount == null) {
+            amount = new IntegerReference(count);
+            rabbitPotions.put(ability.getClass(), amount);
+        } else {
+            amount.value += count;
+        }
+    }
+
     public int getRabbitsEaten() {
         return rabbitsEaten;
+    }
+
+    public void onFoxReplaced() {
+        Map<Class, IntegerReference> rabbitPotionsToRemove = calculateRabbitPotionsToRemove();
+        if (rabbitPotionsToRemove.isEmpty()) {
+            return;
+        }
+
+        removePotions(rabbitPotionsToRemove);
+    }
+
+    private Map<Class, IntegerReference> calculateRabbitPotionsToRemove() {
+        Map<Class, IntegerReference> potionsToRemove = new HashMap<>();
+        for (Map.Entry<Class, IntegerReference> entry : rabbitPotions.entrySet()) {
+            int amountToRemove = entry.getValue().value / 2;
+            if (amountToRemove > 0) {
+                potionsToRemove.put(entry.getKey(), new IntegerReference(amountToRemove));
+            }
+        }
+        return potionsToRemove;
+    }
+
+    private void removePotions(Map<Class, IntegerReference> potionsToRemove) {
+        getUnit().forEachAbility(ability -> {
+            if (ability.isPermanent()) {
+                IntegerReference amountToRemove = potionsToRemove.get(ability.getClass());
+                if (amountToRemove != null && amountToRemove.value > 0) {
+                    if (ability instanceof StackableAbility) {
+                        do {
+                            getUnit().removeAbility(ability);
+                            --amountToRemove.value;
+                        } while (amountToRemove.value > 0);
+                    } else {
+                        getUnit().removeAbility(ability);
+                        --amountToRemove.value;
+                    }
+                }
+            }
+        });
     }
 
     @Override
@@ -91,7 +160,7 @@ public strictfp class FoxHunt extends Ability<Tower> implements OnUnitAddedListe
 
     @Override
     public String getDescription() {
-        return "Each round there is a " + format.percent(CHANCE) + "% chance " + format.card(TowerType.Fox) + " eats a " + format.card(TowerType.Rabbit) + " on the field, carrying over the Rabbit’s experience and potions.";
+        return "Each round there is a " + format.percent(CHANCE) + "% chance " + format.card(TowerType.Fox) + " eats a " + format.card(TowerType.Rabbit) + " on the field, carrying over the Rabbit’s experience and potions. Lose 50% of eaten rabbit potions when fox is replaced.";
     }
 
     @Override
