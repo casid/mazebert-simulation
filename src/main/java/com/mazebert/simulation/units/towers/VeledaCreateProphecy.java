@@ -32,10 +32,12 @@ public strictfp class VeledaCreateProphecy extends Ability<Tower> implements OnU
     @Override
     public void onUnitAdded(Unit unit) {
         simulationListeners.onRoundStarted.add(this);
+        Sim.context().prophecySystem.setProphecyTower(unit.getPlayerId(), (Tower) unit);
     }
 
     @Override
     public void onUnitRemoved(Unit unit) {
+        Sim.context().prophecySystem.setProphecyTower(unit.getPlayerId(), null);
         simulationListeners.onRoundStarted.remove(this);
     }
 

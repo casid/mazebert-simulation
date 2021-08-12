@@ -583,16 +583,21 @@ public strictfp abstract class Tower extends Unit implements CooldownUnit, Card,
         return items;
     }
 
-    public void removeItem(ItemType type) {
+    public Item removeItem(ItemType type) {
+        Item item = null;
+
         for (int i = getInventorySize() - 1; i >= 0; --i) {
-            if (items[i] != null && items[i].getType() == type) {
+            item = items[i];
+            if (item != null && item.getType() == type) {
                 setItem(i, null);
 
                 if (version >= Sim.vRoC) {
-                    return;
+                    return item;
                 }
             }
         }
+
+        return item;
     }
 
     public void addAttackSpeed(float amount) {

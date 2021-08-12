@@ -2,10 +2,12 @@ package com.mazebert.simulation.usecases;
 
 import com.mazebert.simulation.*;
 import com.mazebert.simulation.commands.TransmuteCardsCommand;
+import com.mazebert.simulation.gateways.PlayerGatewayTrainer;
 import com.mazebert.simulation.gateways.UnitGateway;
 import com.mazebert.simulation.listeners.OnCardsTransmutedListener;
 import com.mazebert.simulation.plugins.ClientPluginTrainer;
 import com.mazebert.simulation.plugins.random.RandomPluginTrainer;
+import com.mazebert.simulation.systems.ProphecySystem;
 import com.mazebert.simulation.units.items.ItemType;
 import com.mazebert.simulation.units.potions.PotionType;
 import com.mazebert.simulation.units.towers.TowerType;
@@ -32,6 +34,8 @@ public class TransmuteCardsTest extends UsecaseTest<TransmuteCardsCommand> imple
         simulationListeners = new SimulationListeners();
         unitGateway = new UnitGateway();
         randomPlugin = randomPluginTrainer;
+        playerGateway = new PlayerGatewayTrainer();
+        prophecySystem = new ProphecySystem();
         clientPlugin = new ClientPluginTrainer();
 
         wizard = new Wizard();

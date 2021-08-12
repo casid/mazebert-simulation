@@ -8,6 +8,7 @@ import com.mazebert.simulation.stash.PotionStash;
 import com.mazebert.simulation.stash.ReadonlyStash;
 import com.mazebert.simulation.stash.Stash;
 import com.mazebert.simulation.stash.TowerStash;
+import com.mazebert.simulation.systems.ProphecySystem;
 import com.mazebert.simulation.units.items.ItemType;
 import com.mazebert.simulation.units.items.ToiletPaperTransmuteAbility;
 import com.mazebert.simulation.units.potions.PotionType;
@@ -50,6 +51,7 @@ public strictfp class TransmuteCards extends Usecase<TransmuteCardsCommand> {
 
     private final UnitGateway unitGateway = Sim.context().unitGateway;
     private final RandomPlugin randomPlugin = Sim.context().randomPlugin;
+    private final ProphecySystem prophecySystem = Sim.context().prophecySystem;
 
     @Override
     public void execute(TransmuteCardsCommand command) {
@@ -111,7 +113,7 @@ public strictfp class TransmuteCards extends Usecase<TransmuteCardsCommand> {
 
         if (version >= Sim.vDoLEnd) {
             for (; amount < ToiletPaperTransmuteAbility.AMOUNT; ++amount) {
-                PotionType dust = randomPlugin.get(cardDusts);
+                PotionType dust = getRandomCardDust(wizard);
                 wizard.potionStash.add(dust);
                 result.add(dust);
             }
@@ -186,7 +188,7 @@ public strictfp class TransmuteCards extends Usecase<TransmuteCardsCommand> {
         if (wizard.transmutedUniques >= requiredUniqueAmount) {
             wizard.transmutedUniques -= requiredUniqueAmount;
 
-            PotionType drop = randomPlugin.get(cardDusts);
+            PotionType drop = getRandomCardDust(wizard);
             if (stash == wizard.potionStash) {
                 insertDrop(wizard, stash, cardType, index, drop, automatic);
             } else {
@@ -195,6 +197,13 @@ public strictfp class TransmuteCards extends Usecase<TransmuteCardsCommand> {
             return drop;
         }
         return null;
+    }
+
+    private PotionType getRandomCardDust(Wizard wizard) {
+        if (prophecySystem.isProphecyFulfilled(wizard, ItemType.CardDustProphecy)) {
+            return PotionType.CardDustCrit;
+        }
+        return randomPlugin.get(cardDusts);
     }
 
     private CardType transmuteRare(Wizard wizard, Stash stash, boolean automatic) {

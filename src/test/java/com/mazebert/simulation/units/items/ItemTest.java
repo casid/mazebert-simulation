@@ -9,10 +9,7 @@ import com.mazebert.simulation.gateways.PlayerGatewayTrainer;
 import com.mazebert.simulation.gateways.UnitGateway;
 import com.mazebert.simulation.maps.TestMap;
 import com.mazebert.simulation.plugins.random.RandomPluginTrainer;
-import com.mazebert.simulation.systems.DamageSystemTrainer;
-import com.mazebert.simulation.systems.ExperienceSystem;
-import com.mazebert.simulation.systems.GameSystem;
-import com.mazebert.simulation.systems.LootSystemTrainer;
+import com.mazebert.simulation.systems.*;
 import com.mazebert.simulation.units.TestTower;
 import com.mazebert.simulation.units.potions.PotionType;
 import com.mazebert.simulation.units.towers.Tower;
@@ -39,6 +36,7 @@ public strictfp class ItemTest extends SimTest {
         lootSystem = new LootSystemTrainer();
         experienceSystem = new ExperienceSystem();
         gameSystem = new GameSystem();
+        prophecySystem = new ProphecySystem();
 
         gameGateway.getGame().map = new TestMap(2);
 

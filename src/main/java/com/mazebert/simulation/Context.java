@@ -62,6 +62,7 @@ public strictfp class Context {
     public WolfSystem wolfSystem;
     public PubSystem pubSystem;
     public WeddingRingSystem weddingRingSystem;
+    public ProphecySystem prophecySystem;
     public CommandExecutor commandExecutor;
     public Simulation simulation;
 
@@ -90,6 +91,7 @@ public strictfp class Context {
         wolfSystem = new WolfSystem();
         pubSystem = new PubSystem();
         weddingRingSystem = new WeddingRingSystem();
+        prophecySystem = new ProphecySystem();
         gameSystem = new GameSystem();
 
         this.simulation = simulation;
