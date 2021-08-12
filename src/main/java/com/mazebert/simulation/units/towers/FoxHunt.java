@@ -2,69 +2,46 @@ package com.mazebert.simulation.units.towers;
 
 import com.mazebert.simulation.Sim;
 import com.mazebert.simulation.SimulationListeners;
-import com.mazebert.simulation.Wave;
 import com.mazebert.simulation.gateways.UnitGateway;
-import com.mazebert.simulation.listeners.OnRoundStartedListener;
-import com.mazebert.simulation.listeners.OnUnitAddedListener;
-import com.mazebert.simulation.listeners.OnUnitRemovedListener;
 import com.mazebert.simulation.systems.ExperienceSystem;
 import com.mazebert.simulation.systems.PermanentAbilitySystem;
-import com.mazebert.simulation.units.Unit;
 import com.mazebert.simulation.units.abilities.Ability;
+import com.mazebert.simulation.units.abilities.ActiveAbility;
 import com.mazebert.simulation.units.abilities.StackableAbility;
 import com.mazebert.simulation.util.IntegerReference;
 
 import java.util.HashMap;
 import java.util.Map;
 
-public strictfp class FoxHunt extends Ability<Tower> implements OnUnitAddedListener, OnUnitRemovedListener, OnRoundStartedListener {
+public strictfp class FoxHunt extends ActiveAbility {
 
-    private static final float CHANCE = 0.1f;
     private static final float CRIT_CHANCE_PER_RABBIT = 0.04f;
 
     private final SimulationListeners simulationListeners = Sim.context().simulationListeners;
     private final UnitGateway unitGateway = Sim.context().unitGateway;
     private final ExperienceSystem experienceSystem = Sim.context().experienceSystem;
-
-    private int rabbitsEaten;
     private final Map<Class, IntegerReference> rabbitPotions = new HashMap<>();
+    private int rabbitsEaten;
 
     @Override
-    protected void initialize(Tower unit) {
-        super.initialize(unit);
-        unit.onUnitAdded.add(this);
-        unit.onUnitRemoved.add(this);
+    public float getReadyProgress() {
+        return findRabbitOnField() != null ? 1.0f : 0.0f;
     }
 
     @Override
-    protected void dispose(Tower unit) {
-        unit.onUnitAdded.remove(this);
-        unit.onUnitRemoved.remove(this);
-        super.dispose(unit);
-    }
-
-    @Override
-    public void onUnitAdded(Unit unit) {
-        simulationListeners.onRoundStarted.add(this);
-    }
-
-    @Override
-    public void onUnitRemoved(Unit unit) {
-        simulationListeners.onRoundStarted.remove(this);
-    }
-
-    @Override
-    public void onRoundStarted(Wave wave) {
-        if (getUnit().isAbilityTriggered(CHANCE)) {
-            huntRabbit();
-        }
+    public void activate() {
+        huntRabbit();
     }
 
     private void huntRabbit() {
-        Rabbit rabbit = unitGateway.findUnit(Rabbit.class, r -> r.getWizard() == getUnit().getWizard());
+        Rabbit rabbit = findRabbitOnField();
         if (rabbit != null) {
             eatRabbit(rabbit);
         }
+    }
+
+    private Rabbit findRabbitOnField() {
+        return unitGateway.findUnit(Rabbit.class, r -> r.getWizard() == getUnit().getWizard());
     }
 
     private void eatRabbit(Rabbit rabbit) {
@@ -87,7 +64,7 @@ public strictfp class FoxHunt extends Ability<Tower> implements OnUnitAddedListe
         rabbit.forEachAbility(ability -> {
             if (ability.isPermanent()) {
                 if (ability instanceof StackableAbility) {
-                    rememberRabbitPotion(ability, ((StackableAbility)ability).getStackCount());
+                    rememberRabbitPotion(ability, ((StackableAbility) ability).getStackCount());
                 } else {
                     rememberRabbitPotion(ability, 1);
                 }
@@ -160,7 +137,7 @@ public strictfp class FoxHunt extends Ability<Tower> implements OnUnitAddedListe
 
     @Override
     public String getDescription() {
-        return "Each round there is a " + format.percent(CHANCE) + "% chance " + format.card(TowerType.Fox) + " eats a " + format.card(TowerType.Rabbit) + " on the field, carrying over the Rabbit’s experience and potions. Lose 50% of eaten rabbit potions when " + format.card(TowerType.Fox) + " is replaced.";
+        return format.card(TowerType.Fox) + " eats a " + format.card(TowerType.Rabbit) + " on the field, carrying over the Rabbit’s experience and potions. Lose 50% of eaten rabbit potions when " + format.card(TowerType.Fox) + " is replaced.";
     }
 
     @Override

@@ -14,6 +14,7 @@ public strictfp enum ActiveAbilityType {
     PhoenixRebirth(5, PhoenixRebirth.class),
     ScepterOfTimeToggle(6, ScepterOfTimeAbility.class),
     NecronomiconSummon(7, NecronomiconSummonAbility.class),
+    FoxHunt(8, FoxHunt.class),
     ;
 
     public final int id;

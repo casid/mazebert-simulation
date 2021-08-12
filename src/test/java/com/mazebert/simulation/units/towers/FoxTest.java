@@ -1,7 +1,7 @@
 package com.mazebert.simulation.units.towers;
 
-import com.mazebert.simulation.Wave;
 import com.mazebert.simulation.systems.WeddingRingSystem;
+import com.mazebert.simulation.units.abilities.ActiveAbilityType;
 import com.mazebert.simulation.units.items.ItemTest;
 import com.mazebert.simulation.units.items.ItemType;
 import com.mazebert.simulation.units.potions.PotionType;
@@ -32,7 +32,7 @@ class FoxTest extends ItemTest {
         Tower rabbit = whenTowerIsBuilt(wizard, TowerType.Rabbit, 1, 0);
         rabbit.setExperience(5000);
 
-        whenNextRoundIsStarted();
+        whenAbilityIsActivated();
 
         assertThat(rabbit.isDisposed()).isTrue();
         assertThat(fox.getExperience()).isEqualTo(6000);
@@ -45,22 +45,12 @@ class FoxTest extends ItemTest {
     }
 
     @Test
-    void foxEatsRabbit_chanceNotMet() {
-        Tower rabbit = whenTowerIsBuilt(wizard, TowerType.Rabbit, 1, 0);
-        randomPluginTrainer.givenFloatAbs(0.2f);
-
-        whenNextRoundIsStarted();
-
-        assertThat(rabbit.isDisposed()).isFalse();
-    }
-
-    @Test
     void rabbitCannotBeEatenTwice() {
         Tower otherFox = whenTowerIsBuilt(wizard, TowerType.Fox, 1, 1);
         Tower rabbit = whenTowerIsBuilt(wizard, TowerType.Rabbit, 1, 0);
         rabbit.setExperience(5000);
 
-        whenNextRoundIsStarted();
+        whenAbilityIsActivated();
 
         assertThat(rabbit.isDisposed()).isTrue();
         assertThat(fox.getExperience()).isEqualTo(5000);
@@ -76,7 +66,7 @@ class FoxTest extends ItemTest {
 
         Tower rabbit = whenTowerIsBuilt(otherWizard, TowerType.Rabbit, 1, 0);
 
-        whenNextRoundIsStarted();
+        whenAbilityIsActivated();
 
         assertThat(rabbit.isDisposed()).isFalse();
     }
@@ -93,7 +83,7 @@ class FoxTest extends ItemTest {
         whenPotionIsConsumed(rabbit, PotionType.CommonSpeed);
         whenPotionIsConsumed(rabbit, PotionType.CommonSpeed);
 
-        whenNextRoundIsStarted();
+        whenAbilityIsActivated();
 
         assertThat(rabbit.isDisposed()).isTrue();
         assertThat(fox.getAddedRelativeBaseDamage()).isEqualTo(0.2016f);
@@ -117,7 +107,7 @@ class FoxTest extends ItemTest {
         whenPotionIsConsumed(rabbit, PotionType.CommonDamage);
         whenPotionIsConsumed(rabbit, PotionType.CommonDamage);
         whenPotionIsConsumed(rabbit, PotionType.CommonDamage);
-        whenNextRoundIsStarted();
+        whenAbilityIsActivated();
 
         Tower adventurer = whenTowerIsReplaced(fox, TowerType.Adventurer);
 
@@ -131,11 +121,15 @@ class FoxTest extends ItemTest {
         whenPotionIsConsumed(fox, PotionType.CommonDamage);
         whenPotionIsConsumed(rabbit, PotionType.CommonDamage);
         whenPotionIsConsumed(rabbit, PotionType.CommonDamage);
-        whenNextRoundIsStarted();
+        whenAbilityIsActivated();
 
         Tower adventurer = whenTowerIsReplaced(fox, TowerType.Adventurer);
 
         assertThat(adventurer.getAddedRelativeBaseDamage()).isEqualTo(0.1512f);
+    }
+
+    void whenAbilityIsActivated() {
+        whenAbilityIsActivated(fox, ActiveAbilityType.FoxHunt);
     }
 
     @Nested
@@ -157,7 +151,7 @@ class FoxTest extends ItemTest {
         @Test
         void rabbitPotionsHalvedWhenReplaced_notForUniquePotions() {
             whenPotionIsConsumed(fox, PotionType.Tears);
-            whenNextRoundIsStarted();
+            whenAbilityIsActivated();
 
             Tower adventurer = whenTowerIsReplaced(fox, TowerType.Adventurer);
 
@@ -170,16 +164,12 @@ class FoxTest extends ItemTest {
             whenPotionIsConsumed(fox, PotionType.CardDustCrit);
             whenPotionIsConsumed(fox, PotionType.CardDustCrit);
             whenPotionIsConsumed(fox, PotionType.CardDustCrit);
-            whenNextRoundIsStarted(); // Rabbit is eaten here
+            whenAbilityIsActivated(); // Rabbit is eaten here
             assertThat(fox.getMulticrit()).isEqualTo(9);
 
             Tower adventurer = whenTowerIsReplaced(fox, TowerType.Adventurer);
 
             assertThat(adventurer.getMulticrit()).isEqualTo(7); // +4 from drinking itself, +2 from married & eaten rabbit, +1 initial mc
         }
-    }
-
-    void whenNextRoundIsStarted() {
-        simulationListeners.onRoundStarted.dispatch(new Wave());
     }
 }
