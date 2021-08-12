@@ -15,8 +15,6 @@ import java.util.Map;
 
 public strictfp class FoxHunt extends ActiveAbility {
 
-    private static final float CRIT_CHANCE_PER_RABBIT = 0.04f;
-
     private final SimulationListeners simulationListeners = Sim.context().simulationListeners;
     private final UnitGateway unitGateway = Sim.context().unitGateway;
     private final ExperienceSystem experienceSystem = Sim.context().experienceSystem;
@@ -45,7 +43,6 @@ public strictfp class FoxHunt extends ActiveAbility {
     }
 
     private void eatRabbit(Rabbit rabbit) {
-        getUnit().addCritChance(CRIT_CHANCE_PER_RABBIT);
         experienceSystem.grantExperience(getUnit(), rabbit.getExperience(), true);
 
         rememberRabbitPotions(rabbit);
@@ -143,10 +140,5 @@ public strictfp class FoxHunt extends ActiveAbility {
     @Override
     public String getIconFile() {
         return "fox";
-    }
-
-    @Override
-    public String getLevelBonus() {
-        return format.percentWithSignAndUnit(CRIT_CHANCE_PER_RABBIT) + " crit chance per " + format.card(TowerType.Rabbit) + " eaten";
     }
 }

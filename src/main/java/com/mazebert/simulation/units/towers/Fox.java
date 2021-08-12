@@ -16,7 +16,7 @@ public strictfp class Fox extends Tower {
         setBaseCooldown(1.5f);
         setBaseRange(2.0f);
         setAttackType(AttackType.All);
-        setStrength(0.75f);
+        setStrength(0.6f);
         setDamageSpread(0.2f);
         setGender(Gender.Male);
         setElement(Element.Nature);
@@ -35,7 +35,7 @@ public strictfp class Fox extends Tower {
 
     @Override
     protected float getGoldCostFactor() {
-        return 1.37f;
+        return 1.17f;
     }
 
     @Override
@@ -56,12 +56,12 @@ public strictfp class Fox extends Tower {
 
     @Override
     public Rarity getRarity() {
-        return Rarity.Uncommon;
+        return Rarity.Unique;
     }
 
     @Override
     public int getItemLevel() {
-        return 1;
+        return 60;
     }
 
     @Override
