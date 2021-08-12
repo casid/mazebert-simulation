@@ -20,7 +20,6 @@ public strictfp class EnumSerializer {
     public static final int ELEMENT_BITS = 3;
     public static final int DIFFICULTY_BITS = 3;
     public static final int MAP_BITS = 3;
-    public static final int ACTIVE_ABILITY_BITS = 3;
 
     private final int version;
 
@@ -85,11 +84,11 @@ public strictfp class EnumSerializer {
     }
 
     public ActiveAbilityType readActiveAbilityType(BitReader reader) {
-        return ActiveAbilityType.forId(reader.readUnsignedInt(ACTIVE_ABILITY_BITS));
+        return ActiveAbilityType.forId(reader.readUnsignedInt(getActiveAbilityBits()));
     }
 
     public void writeActiveAbilityType(BitWriter writer, ActiveAbilityType type) {
-        writer.writeUnsignedInt(ACTIVE_ABILITY_BITS, type.id);
+        writer.writeUnsignedInt(getActiveAbilityBits(), type.id);
     }
 
     public CardCategory readTowerPotionOrItemCardCategory(BitReader reader) {
@@ -283,6 +282,14 @@ public strictfp class EnumSerializer {
             return 6;
         } else {
             return 5;
+        }
+    }
+
+    public int getActiveAbilityBits() {
+        if (version >= Sim.vRnR) {
+            return 4;
+        } else {
+            return 3;
         }
     }
 }
