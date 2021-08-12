@@ -134,7 +134,7 @@ public strictfp class FoxHunt extends ActiveAbility {
 
     @Override
     public String getDescription() {
-        return format.card(TowerType.Fox) + " eats a " + format.card(TowerType.Rabbit) + " on the field, carrying over the Rabbit’s experience and potions. Lose 50% of eaten rabbit potions when " + format.card(TowerType.Fox) + " is replaced.";
+        return format.card(TowerType.Fox) + " eats a " + format.card(TowerType.Rabbit) + " on the field, carrying over the rabbits experience and potions. Lose 50% of eaten rabbit potions when " + format.card(TowerType.Fox) + " is replaced.";
     }
 
     @Override
