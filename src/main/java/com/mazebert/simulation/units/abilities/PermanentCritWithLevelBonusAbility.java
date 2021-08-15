@@ -8,7 +8,7 @@ public abstract strictfp class PermanentCritWithLevelBonusAbility extends Stacka
     private final CritDamageWithLevelBonusAbility damage;
 
     public PermanentCritWithLevelBonusAbility(float chanceBonus, float chanceBonusPerLevel, float damageBonus, float damageBonusPerLevel) {
-        if (Sim.context().version >= Sim.v26) {
+        if (Sim.context().version >= Sim.vRnR) {
             chance = new PermanentCritChanceWithLevelBonusAbility(chanceBonus, chanceBonusPerLevel);
             damage = new PermanentCritDamageWithLevelBonusAbility(damageBonus, damageBonusPerLevel);
         } else {

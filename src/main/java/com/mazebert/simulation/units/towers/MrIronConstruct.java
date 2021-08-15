@@ -15,7 +15,7 @@ public strictfp class MrIronConstruct extends CooldownActiveAbility {
 
     @Override
     public float getCooldown() {
-        if (version >= Sim.v26) {
+        if (version >= Sim.vRnR) {
             return Balancing.calculateCooldown(COOLDOWN, getUnit().getAttackSpeedModifier(), Balancing.MIN_COOLDOWN, MAX_COOLDOWN);
         } else {
             float attackSpeedModifier = getUnit().getAttackSpeedModifier();
