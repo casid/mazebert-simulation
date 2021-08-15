@@ -1,11 +1,18 @@
 package com.mazebert.simulation.systems;
 
+import com.mazebert.simulation.Sim;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 public strictfp class DamageSystem_ArmorLookupTest {
     DamageSystem damageSystem = new DamageSystem();
+
+    @BeforeEach
+    void setUp() {
+        Sim.context().version = Sim.version;
+    }
 
     @Test
     void bounds() {
