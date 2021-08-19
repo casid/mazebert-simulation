@@ -9,6 +9,7 @@ import com.mazebert.simulation.maps.Tile;
 import com.mazebert.simulation.plugins.random.RandomPlugin;
 import com.mazebert.simulation.systems.ExperienceSystem;
 import com.mazebert.simulation.systems.LootSystem;
+import com.mazebert.simulation.systems.ProphecySystem;
 import com.mazebert.simulation.units.Unit;
 import com.mazebert.simulation.units.creeps.Creep;
 import com.mazebert.simulation.units.creeps.CreepType;
@@ -31,6 +32,7 @@ public strictfp final class WaveSpawner implements OnGameStartedListener, OnWave
     private final LootSystem lootSystem = Sim.context().lootSystem;
     private final ExperienceSystem experienceSystem = Sim.context().experienceSystem;
     private final PlayerGateway playerGateway = Sim.context().playerGateway;
+    private final ProphecySystem prophecySystem = Sim.context().prophecySystem;
 
     private final int version = Sim.context().version;
 
@@ -374,7 +376,7 @@ public strictfp final class WaveSpawner implements OnGameStartedListener, OnWave
                     break;
                 case Boss:
                     creep.setDropChance(5.0f); // Increased drop chance.
-                    if (Sim.context().prophecySystem.isProphecyFulfilled(ItemType.WealthyBossProphecy)) {
+                    if (prophecySystem.isProphecyFulfilled(ItemType.WealthyBossProphecy)) {
                         creep.setMinDrops(1); // One guaranteed drops.
                         creep.setMaxDrops(5); // Maximum are 5 drops.
                         creep.setGold(0);

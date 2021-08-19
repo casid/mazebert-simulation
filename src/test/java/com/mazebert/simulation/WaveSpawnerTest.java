@@ -5,10 +5,7 @@ import com.mazebert.simulation.maps.BloodMoor;
 import com.mazebert.simulation.plugins.FormatPlugin;
 import com.mazebert.simulation.plugins.random.RandomPluginTrainer;
 import com.mazebert.simulation.projectiles.ProjectileGateway;
-import com.mazebert.simulation.systems.DamageSystemTrainer;
-import com.mazebert.simulation.systems.ExperienceSystem;
-import com.mazebert.simulation.systems.GameSystem;
-import com.mazebert.simulation.systems.LootSystem;
+import com.mazebert.simulation.systems.*;
 import com.mazebert.simulation.units.Unit;
 import com.mazebert.simulation.units.creeps.Creep;
 import com.mazebert.simulation.units.creeps.CreepModifier;
@@ -64,6 +61,7 @@ public strictfp class WaveSpawnerTest extends SimTest {
         gameSystem = new GameSystem();
         experienceSystem = new ExperienceSystem();
         damageSystem = new DamageSystemTrainer();
+        prophecySystem = new ProphecySystem();
 
         gameGateway.getGame().map = new BloodMoor();
 

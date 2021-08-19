@@ -7,6 +7,7 @@ import com.mazebert.simulation.plugins.FormatPlugin;
 import com.mazebert.simulation.plugins.random.RandomPluginTrainer;
 import com.mazebert.simulation.systems.ExperienceSystem;
 import com.mazebert.simulation.systems.GameSystem;
+import com.mazebert.simulation.systems.ProphecySystem;
 import com.mazebert.simulation.units.creeps.Creep;
 import com.mazebert.simulation.units.creeps.CreepState;
 import com.mazebert.simulation.units.wizards.Wizard;
@@ -39,8 +40,9 @@ public strictfp class TimeLordEffectTest extends SimTest {
         difficultyGateway = new DifficultyGateway();
         experienceSystem = new ExperienceSystem();
         waveGateway = new WaveGateway();
-        waveSpawner = new WaveSpawner();
         gameSystem = new GameSystem();
+        prophecySystem = new ProphecySystem();
+        waveSpawner = new WaveSpawner();
 
         unitGateway.addUnit(wizard1 = new Wizard());
         unitGateway.addUnit(wizard2 = new Wizard());

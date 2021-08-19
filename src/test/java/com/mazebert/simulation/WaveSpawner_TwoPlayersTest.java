@@ -7,6 +7,7 @@ import com.mazebert.simulation.plugins.random.RandomPluginTrainer;
 import com.mazebert.simulation.systems.ExperienceSystem;
 import com.mazebert.simulation.systems.GameSystem;
 import com.mazebert.simulation.systems.LootSystem;
+import com.mazebert.simulation.systems.ProphecySystem;
 import com.mazebert.simulation.units.creeps.Creep;
 import com.mazebert.simulation.units.creeps.CreepModifier;
 import com.mazebert.simulation.units.creeps.CreepType;
@@ -45,6 +46,7 @@ public class WaveSpawner_TwoPlayersTest extends SimTest {
         lootSystem = new LootSystem();
         experienceSystem = new ExperienceSystem();
         gameSystem = new GameSystem();
+        prophecySystem = new ProphecySystem();
 
         gameGateway.getGame().map = new BloodMoor();
 

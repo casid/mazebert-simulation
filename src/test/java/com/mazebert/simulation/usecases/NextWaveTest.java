@@ -9,6 +9,7 @@ import com.mazebert.simulation.gateways.*;
 import com.mazebert.simulation.maps.BloodMoor;
 import com.mazebert.simulation.plugins.random.RandomPluginTrainer;
 import com.mazebert.simulation.systems.GameSystem;
+import com.mazebert.simulation.systems.ProphecySystem;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -30,6 +31,7 @@ class NextWaveTest extends UsecaseTest<NextWaveCommand> {
         gameGateway = new GameGateway();
         playerGateway = new PlayerGatewayTrainer();
         gameSystem = new GameSystem();
+        prophecySystem = new ProphecySystem();
         waveSpawner = new WaveSpawner();
         simulation = new Simulation(false);
 
