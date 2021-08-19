@@ -49,6 +49,7 @@ public strictfp class Creep extends Unit {
     private transient boolean steady;
     private transient boolean immortal;
     private transient boolean restsInPiece;
+    private transient boolean dealsDamage = true;
 
     public Creep() {
         this(new FollowPathCreepAbility());
@@ -434,5 +435,13 @@ public strictfp class Creep extends Unit {
 
     public boolean isEldritch() {
         return wave.type.isEldritch();
+    }
+
+    public void setDealsDamage(boolean dealsDamage) {
+        this.dealsDamage = dealsDamage;
+    }
+
+    public boolean isDealsDamage() {
+        return dealsDamage;
     }
 }

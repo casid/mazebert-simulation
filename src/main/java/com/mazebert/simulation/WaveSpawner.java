@@ -397,12 +397,14 @@ public strictfp final class WaveSpawner implements OnGameStartedListener, OnWave
                     creep.setMinDrops(2); // Two guaranteed drops.
                     creep.setMaxDrops(6); // Maximum are 6 drops.
                     creep.setMaxItemLevel(wave.round + 5); // Item level is round + 5.
+                    creep.setDealsDamage(false);
                     break;
                 case MassChallenge:
                     creep.setDropChance(1.0f); // Normal drop chance.
                     creep.setMinDrops(0); // No guaranteed drops.
                     creep.setMaxDrops(2); // Maximum are two drops.
                     creep.setMaxItemLevel(wave.round + 3); // Max Item level is round + 3.
+                    creep.setDealsDamage(false);
                     break;
                 case Horseman:
                     creep.setDropChance(5.0f); // Increased drop chance.
@@ -549,7 +551,7 @@ public strictfp final class WaveSpawner implements OnGameStartedListener, OnWave
         Wave wave = creep.getWave();
         if (wave.type == WaveType.TimeLord) {
             Sim.context().gameSystem.finishBonusRound();
-        } else if (wave.type != WaveType.Challenge && wave.type != WaveType.MassChallenge) {
+        } else if (creep.isDealsDamage()) {
             float leaked = calculateLeaked(creep, wave);
             Wizard wizard = creep.getWizard();
             if (wizard == null) {
