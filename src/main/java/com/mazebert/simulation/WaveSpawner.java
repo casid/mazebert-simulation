@@ -397,7 +397,12 @@ public strictfp final class WaveSpawner implements OnGameStartedListener, OnWave
                     creep.setMinDrops(2); // Two guaranteed drops.
                     creep.setMaxDrops(6); // Maximum are 6 drops.
                     creep.setMaxItemLevel(wave.round + 5); // Item level is round + 5.
-                    creep.setDealsDamage(false);
+                    if (prophecySystem.isProphecyFulfilled(ItemType.HungoverChallengeProphecy)) {
+                        creep.setDealsDamage(true);
+                        creep.setHealth(0.5 * creep.getMaxHealth());
+                    } else {
+                        creep.setDealsDamage(false);
+                    }
                     break;
                 case MassChallenge:
                     creep.setDropChance(1.0f); // Normal drop chance.
