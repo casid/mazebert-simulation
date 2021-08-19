@@ -16,6 +16,26 @@ public strictfp class ProphecySystem {
         prophecyTowers = new Tower[Sim.context().playerGateway.getPlayerCount()];
     }
 
+    public boolean isProphecyFulfilled(ItemType prophecy) {
+        for (Tower prophecyTower : prophecyTowers) {
+            if (prophecyTower == null) {
+                continue;
+            }
+
+            Wizard wizard = prophecyTower.getWizard();
+            if (wizard == null) {
+                continue;
+            }
+
+            boolean prophecyFulfilled = isProphecyFulfilled(wizard, prophecy);
+            if (prophecyFulfilled) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
     public boolean isProphecyFulfilled(Wizard wizard, ItemType prophecy) {
         int playerIndex = wizard.playerId - 1;
 

@@ -9,7 +9,7 @@ public strictfp class WealthyBossProphecyAbility extends ProphecyAbility {
 
     @Override
     public String getDescription() {
-        return format.prophecyDescription("The next Boss won the lottery and will drop twice as much gold and items.");
+        return format.prophecyDescription("The next Boss drops 2 additional cards but no gold.");
     }
 
 }
