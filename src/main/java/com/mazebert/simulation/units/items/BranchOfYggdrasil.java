@@ -60,6 +60,11 @@ public abstract strictfp class BranchOfYggdrasil extends Item {
     }
 
     @Override
+    public boolean isForgeable() {
+        return false;
+    }
+
+    @Override
     public boolean isForbiddenToEquip(Tower tower) {
         if (tower instanceof Yggdrasil) {
             return false;
