@@ -6,7 +6,7 @@ public strictfp class CardDustProphecyAbility extends ProphecyAbility {
 
     @Override
     public String getDescription() {
-        return format.prophecyDescription("The next card dust you create will be " + format.card(PotionType.CardDustCrit) + ".");
+        return format.prophecyDescription("You will create card dust and it will be " + format.card(PotionType.CardDustCrit) + ".");
     }
 
 }

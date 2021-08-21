@@ -4,7 +4,7 @@ public strictfp class WealthyBossProphecyAbility extends ProphecyAbility {
 
     @Override
     public String getDescription() {
-        return format.prophecyDescription("The next Boss drops 2 additional cards but no gold.");
+        return format.prophecyDescription("You will encounter a Boss that drops one additional card but no gold.");
     }
 
 }

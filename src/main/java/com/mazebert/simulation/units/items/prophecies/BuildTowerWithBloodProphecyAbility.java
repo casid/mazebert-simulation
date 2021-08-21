@@ -4,7 +4,7 @@ public strictfp class BuildTowerWithBloodProphecyAbility extends ProphecyAbility
 
     @Override
     public String getDescription() {
-        return format.prophecyDescription("The next tower you build costs no gold. Instead, sacrifice 20% health. This sacrifice can end the game.");
+        return format.prophecyDescription("You will build a tower that costs no gold. You will sacrifice 20% health instead.");
     }
 
 }
