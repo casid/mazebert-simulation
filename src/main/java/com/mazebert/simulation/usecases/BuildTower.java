@@ -10,6 +10,7 @@ import com.mazebert.simulation.maps.MapType;
 import com.mazebert.simulation.maps.Tile;
 import com.mazebert.simulation.systems.LootSystem;
 import com.mazebert.simulation.systems.PermanentAbilitySystem;
+import com.mazebert.simulation.systems.ProphecySystem;
 import com.mazebert.simulation.units.items.Item;
 import com.mazebert.simulation.units.items.ItemType;
 import com.mazebert.simulation.units.towers.Fox;
@@ -23,6 +24,7 @@ public strictfp class BuildTower extends Usecase<BuildTowerCommand> {
     private final UnitGateway unitGateway = Sim.context().unitGateway;
     private final GameGateway gameGateway = Sim.context().gameGateway;
     private final LootSystem lootSystem = Sim.context().lootSystem;
+    private final ProphecySystem prophecySystem = Sim.context().prophecySystem;
 
     @Override
     public void execute(BuildTowerCommand command) {
@@ -31,8 +33,9 @@ public strictfp class BuildTower extends Usecase<BuildTowerCommand> {
             return;
         }
 
+        boolean payWithBlood = prophecySystem.isProphecyAvailable(wizard, ItemType.BuildTowerWithBloodProphecy);
         int goldCost = command.towerType.instance().getGoldCost();
-        if (wizard.gold < goldCost) {
+        if (wizard.gold < goldCost && !payWithBlood) {
             return;
         }
 
@@ -61,9 +64,17 @@ public strictfp class BuildTower extends Usecase<BuildTowerCommand> {
             return;
         }
 
+        if (payWithBlood) {
+            prophecySystem.fulfillProphecy(wizard, ItemType.BuildTowerWithBloodProphecy);
+        }
+
         Tower oldTower = summonTower(tower, wizard, command.x, command.y);
 
-        lootSystem.addGold(wizard, tower, -goldCost);
+        if (payWithBlood) {
+            wizard.addHealth(-0.2f);
+        } else {
+            lootSystem.addGold(wizard, tower, -goldCost);
+        }
         if (oldTower != null) {
             lootSystem.addGold(wizard, tower, SellTower.getGoldForSelling(oldTower));
         }

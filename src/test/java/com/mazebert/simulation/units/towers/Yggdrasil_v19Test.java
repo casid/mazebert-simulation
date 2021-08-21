@@ -2,9 +2,11 @@ package com.mazebert.simulation.units.towers;
 
 import com.mazebert.simulation.*;
 import com.mazebert.simulation.gateways.GameGateway;
+import com.mazebert.simulation.gateways.PlayerGatewayTrainer;
 import com.mazebert.simulation.gateways.UnitGateway;
 import com.mazebert.simulation.maps.TestMap;
 import com.mazebert.simulation.systems.LootSystemTrainer;
+import com.mazebert.simulation.systems.ProphecySystem;
 import com.mazebert.simulation.units.TestTower;
 import com.mazebert.simulation.units.items.BranchOfYggdrasilLegacy;
 import com.mazebert.simulation.units.items.ItemType;
@@ -29,6 +31,8 @@ public strictfp class Yggdrasil_v19Test extends SimTest {
         unitGateway = new UnitGateway();
         gameGateway = new GameGateway();
         lootSystem = new LootSystemTrainer();
+        playerGateway = new PlayerGatewayTrainer();
+        prophecySystem = new ProphecySystem();
         commandExecutor = new CommandExecutor();
         commandExecutor.init();
 

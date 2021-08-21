@@ -5,11 +5,13 @@ import com.mazebert.simulation.Sim;
 import com.mazebert.simulation.SimTest;
 import com.mazebert.simulation.SimulationListeners;
 import com.mazebert.simulation.gateways.GameGateway;
+import com.mazebert.simulation.gateways.PlayerGatewayTrainer;
 import com.mazebert.simulation.gateways.UnitGateway;
 import com.mazebert.simulation.maps.TestMap;
 import com.mazebert.simulation.plugins.FormatPlugin;
 import com.mazebert.simulation.plugins.random.RandomPluginTrainer;
 import com.mazebert.simulation.systems.LootSystemTrainer;
+import com.mazebert.simulation.systems.ProphecySystem;
 import com.mazebert.simulation.units.abilities.AttackSoundAbility;
 import com.mazebert.simulation.units.items.Item;
 import com.mazebert.simulation.units.items.ItemType;
@@ -37,10 +39,13 @@ strictfp class SnowGlobeTest extends SimTest {
         formatPlugin = new FormatPlugin();
         gameGateway = new GameGateway();
         gameGateway.getGame().map = new TestMap(4);
+        playerGateway = new PlayerGatewayTrainer();
+        prophecySystem = new ProphecySystem();
         commandExecutor = new CommandExecutor();
         commandExecutor.init();
 
         wizard = new Wizard();
+        wizard.playerId = 1;
         wizard.addGold(100_000);
         unitGateway.addUnit(wizard);
     }

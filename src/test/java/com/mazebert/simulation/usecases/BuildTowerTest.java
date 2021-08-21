@@ -6,12 +6,14 @@ import com.mazebert.simulation.SimulationListeners;
 import com.mazebert.simulation.commands.BuildTowerCommand;
 import com.mazebert.simulation.gateways.GameGateway;
 import com.mazebert.simulation.gateways.GameTurnGateway;
+import com.mazebert.simulation.gateways.PlayerGatewayTrainer;
 import com.mazebert.simulation.gateways.UnitGateway;
 import com.mazebert.simulation.maps.MapAura;
 import com.mazebert.simulation.maps.MapType;
 import com.mazebert.simulation.maps.TestMap;
 import com.mazebert.simulation.plugins.random.RandomPluginTrainer;
 import com.mazebert.simulation.systems.LootSystem;
+import com.mazebert.simulation.systems.ProphecySystem;
 import com.mazebert.simulation.units.items.*;
 import com.mazebert.simulation.units.potions.PotionType;
 import com.mazebert.simulation.units.towers.Dandelion;
@@ -36,7 +38,9 @@ class BuildTowerTest extends UsecaseTest<BuildTowerCommand> {
         simulationListeners = new SimulationListeners();
         unitGateway = new UnitGateway();
         gameGateway = new GameGateway();
+        playerGateway = new PlayerGatewayTrainer();
         lootSystem = new LootSystem();
+        prophecySystem = new ProphecySystem();
         commandExecutor = new CommandExecutor();
         commandExecutor.init();
 

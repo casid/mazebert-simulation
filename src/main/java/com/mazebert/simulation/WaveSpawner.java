@@ -376,7 +376,7 @@ public strictfp final class WaveSpawner implements OnGameStartedListener, OnWave
                     break;
                 case Boss:
                     creep.setDropChance(5.0f); // Increased drop chance.
-                    if (prophecySystem.isProphecyFulfilled(ItemType.WealthyBossProphecy)) {
+                    if (prophecySystem.fulfillProphecy(ItemType.WealthyBossProphecy)) {
                         creep.setMinDrops(1); // One guaranteed drops.
                         creep.setMaxDrops(5); // Maximum are 5 drops.
                         creep.setGold(0);
@@ -397,7 +397,7 @@ public strictfp final class WaveSpawner implements OnGameStartedListener, OnWave
                     creep.setMinDrops(2); // Two guaranteed drops.
                     creep.setMaxDrops(6); // Maximum are 6 drops.
                     creep.setMaxItemLevel(wave.round + 5); // Item level is round + 5.
-                    if (prophecySystem.isProphecyFulfilled(ItemType.HungoverChallengeProphecy)) {
+                    if (prophecySystem.fulfillProphecy(ItemType.HungoverChallengeProphecy)) {
                         creep.setDealsDamage(true);
                         creep.setHealth(0.5 * creep.getMaxHealth());
                     } else {

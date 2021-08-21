@@ -1,11 +1,11 @@
 package com.mazebert.simulation.units.towers;
 
 import com.mazebert.simulation.*;
-import com.mazebert.simulation.commands.BuildTowerCommand;
 import com.mazebert.simulation.gateways.*;
 import com.mazebert.simulation.maps.BloodMoor;
 import com.mazebert.simulation.plugins.random.RandomPluginTrainer;
 import com.mazebert.simulation.systems.LootSystem;
+import com.mazebert.simulation.systems.ProphecySystem;
 import com.mazebert.simulation.units.TestTower;
 import com.mazebert.simulation.units.creeps.Creep;
 import com.mazebert.simulation.units.creeps.CreepType;
@@ -34,12 +34,14 @@ strictfp class AcolyteOfGreedTest extends SimTest {
 
         difficultyGateway = new DifficultyGateway();
         lootSystem = new LootSystem();
+        prophecySystem = new ProphecySystem();
         waveSpawner = new WaveSpawner();
 
         commandExecutor = new CommandExecutor();
         commandExecutor.init();
 
         wizard = new Wizard();
+        wizard.playerId = 1;
         wizard.gold = 100000;
         unitGateway.addUnit(wizard);
 
@@ -57,7 +59,7 @@ strictfp class AcolyteOfGreedTest extends SimTest {
         whenAcolyteIsBuilt(20, 15);
         waveSpawner.onUpdate(1.0f);
 
-        Creep goblin = unitGateway.findUnit(Creep.class, wizard.getPlayerId());
+        Creep goblin = unitGateway.findUnit(Creep.class);
         assertThat(goblin).isNotNull();
 
         Wave wave = goblin.getWave();

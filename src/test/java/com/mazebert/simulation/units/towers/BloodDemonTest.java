@@ -3,12 +3,12 @@ package com.mazebert.simulation.units.towers;
 import com.mazebert.simulation.CommandExecutor;
 import com.mazebert.simulation.SimTest;
 import com.mazebert.simulation.SimulationListeners;
-import com.mazebert.simulation.commands.BuildTowerCommand;
-import com.mazebert.simulation.commands.EquipItemCommand;
 import com.mazebert.simulation.gateways.GameGateway;
+import com.mazebert.simulation.gateways.PlayerGatewayTrainer;
 import com.mazebert.simulation.gateways.UnitGateway;
 import com.mazebert.simulation.maps.TestMap;
 import com.mazebert.simulation.systems.LootSystem;
+import com.mazebert.simulation.systems.ProphecySystem;
 import com.mazebert.simulation.units.TestTower;
 import com.mazebert.simulation.units.items.BabySword;
 import com.mazebert.simulation.units.items.BloodDemonBlade;
@@ -29,10 +29,13 @@ strictfp class BloodDemonTest extends SimTest {
         unitGateway = new UnitGateway();
         gameGateway = new GameGateway();
         lootSystem = new LootSystem();
+        playerGateway = new PlayerGatewayTrainer();
+        prophecySystem = new ProphecySystem();
 
         gameGateway.getGame().map = new TestMap(1);
 
         wizard = new Wizard();
+        wizard.playerId = 1;
         wizard.gold = 100000;
         unitGateway.addUnit(wizard);
 
@@ -50,6 +53,7 @@ strictfp class BloodDemonTest extends SimTest {
     void itemIsObtained_existingItemReturnsToStash() {
         Tower tower = new TestTower();
         tower.setItem(0, new BabySword());
+        tower.setWizard(wizard);
         unitGateway.addUnit(tower);
 
         whenBloodDemonIsBuilt();

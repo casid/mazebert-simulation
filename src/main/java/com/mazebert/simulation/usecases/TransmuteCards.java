@@ -200,7 +200,7 @@ public strictfp class TransmuteCards extends Usecase<TransmuteCardsCommand> {
     }
 
     private PotionType getRandomCardDust(Wizard wizard) {
-        if (prophecySystem.isProphecyFulfilled(wizard, ItemType.CardDustProphecy)) {
+        if (prophecySystem.fulfillProphecy(wizard, ItemType.CardDustProphecy)) {
             return PotionType.CardDustCrit;
         }
         return randomPlugin.get(cardDusts);

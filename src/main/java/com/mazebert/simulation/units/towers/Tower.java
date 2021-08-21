@@ -468,6 +468,15 @@ public strictfp abstract class Tower extends Unit implements CooldownUnit, Card,
         return count;
     }
 
+    public boolean hasItem(ItemType type) {
+        for (Item item : items) {
+            if (item != null && item.getType() == type) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public void setItem(int index, Item item) {
         setItem(index, item, false);
     }
