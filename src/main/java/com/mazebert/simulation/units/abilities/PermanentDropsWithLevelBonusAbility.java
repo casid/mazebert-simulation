@@ -8,7 +8,7 @@ public abstract strictfp class PermanentDropsWithLevelBonusAbility extends Stack
     private final ItemQualityWithLevelBonusAbility quality;
 
     public PermanentDropsWithLevelBonusAbility(float chanceBonus, float chanceBonusPerLevel, float qualityBonus, float qualityBonusPerLevel) {
-        if (Sim.context().version >= Sim.vRnR) {
+        if (Sim.context().version >= Sim.v26) {
             chance = new PermanentItemChanceWithLevelBonusAbility(chanceBonus, chanceBonusPerLevel);
             quality = new PermanentItemQualityWithLevelBonusAbility(qualityBonus, qualityBonusPerLevel);
         } else {
