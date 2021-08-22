@@ -923,6 +923,24 @@ public strictfp class WaveSpawnerTest extends SimTest {
     }
 
     @Test
+    void gameWon_bonusRound_withForcedCompletion() {
+        waveGateway.setTotalWaves(10);
+        waveGateway.setCurrentRound(8);
+        givenBossWave();
+        givenBossWave();
+
+        whenAllCreepsAreSpawned();
+        whenGameIsUpdated(1.0f, (int)Balancing.STALLING_PREVENTION_COUNTDOWN_SECONDS); // Next wave is forced
+
+        simulationListeners.onUpdate.dispatch(1.0f);
+
+
+        whenCreepIsKilled(getCreep(1));
+
+        assertThat(gameGateway.getGame().bonusRound).isTrue();
+    }
+
+    @Test
     void bonusRound_creepsAreSpawned() {
         whenBonusRoundIsReached();
         bonusRoundCountDown.onUpdate(bonusRoundCountDown.getRemainingSeconds());
@@ -952,9 +970,9 @@ public strictfp class WaveSpawnerTest extends SimTest {
         whenBonusRoundIsReached();
         bonusRoundCountDown.onUpdate(bonusRoundCountDown.getRemainingSeconds());
 
-        assertThat(wizard.experience).isEqualTo(1);
+        assertThat(wizard.experience).isEqualTo(2);
         simulationListeners.onUpdate.dispatch(30);
-        assertThat(wizard.experience).isEqualTo(83);
+        assertThat(wizard.experience).isEqualTo(84);
     }
 
     @Test
@@ -1252,7 +1270,7 @@ public strictfp class WaveSpawnerTest extends SimTest {
         wave = new Wave();
         wave.creepCount = waveType.creepCount;
         wave.type = waveType;
-        wave.round = waveGateway.getWaves().size() + 1;
+        wave.round = waveGateway.getCurrentRound() + waveGateway.getWaves().size() + 1;
         waveGateway.addWave(wave);
     }
 

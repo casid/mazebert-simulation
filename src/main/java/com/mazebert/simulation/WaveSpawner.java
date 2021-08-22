@@ -513,7 +513,7 @@ public strictfp final class WaveSpawner implements OnGameStartedListener, OnWave
             return true;
         }
 
-        boolean livingGameCreeps = unitGateway.hasUnits(Creep.class, c -> c.getWave().origin == WaveOrigin.Game && !c.isDead());
+        boolean livingGameCreeps = unitGateway.hasUnits(Creep.class, c -> c.getWave().origin == WaveOrigin.Game && !c.isDead() && (version < Sim.v26 || !c.getWave().forcedCompletion));
         return !livingGameCreeps;
     }
 
