@@ -502,7 +502,7 @@ public strictfp final class WaveSpawner implements OnGameStartedListener, OnWave
 
     private boolean isBonusRoundStartAfterLastWave(Wave wave) {
         if (version >= Sim.vRoCEnd && gameGateway.getGame().bonusRound) {
-            return false; // TODO write test
+            return false;
         }
 
         if (version < Sim.v13) {
