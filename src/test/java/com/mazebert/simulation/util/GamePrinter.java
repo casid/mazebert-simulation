@@ -15,7 +15,7 @@ import java.nio.file.Paths;
 public class GamePrinter {
     @Test
     void print() throws Exception {
-        int version = Sim.v24;
+        int version = 22;
 
         //printGame(version, "C:\\Users\\casid\\Downloads\\Android-crash-simplay-6f95118c-9a51-490b-bcef-d6467af42335-1624762869870\\6f95118c-9a51-490b-bcef-d6467af42335.mbg");
         //printGame(version, "C:\\Users\\casid\\Downloads\\Android-crash-simplay-6f95118c-9a51-490b-bcef-d6467af42335-1624762871056\\6f95118c-9a51-490b-bcef-d6467af42335.mbg");
@@ -35,6 +35,9 @@ public class GamePrinter {
         try (InputStream is = Files.newInputStream(Paths.get(file))) {
             try (StreamReplayReader replayReader = new StreamReplayReader(is, version)) {
                 new SimulationValidator().validate(version, replayReader, context -> {
+                    System.out.println("Season: " + context.season);
+                    System.out.println("Sim Player ID: " + context.playerGateway.getSimulationPlayerId());
+                    System.out.println("Player count: " + context.playerGateway.getPlayerCount());
                     context.commandExecutor = new CommandExecutorWrapper(context.commandExecutor);
                 }, null);
             }
