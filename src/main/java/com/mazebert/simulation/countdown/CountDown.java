@@ -4,7 +4,6 @@ import com.mazebert.simulation.Sim;
 import com.mazebert.simulation.SimulationListeners;
 import com.mazebert.simulation.listeners.OnUpdateListener;
 
-// TODO adjust class to use StrictMath instead of int casts!
 public strictfp abstract class CountDown implements OnUpdateListener {
 
     protected final SimulationListeners simulationListeners = Sim.context().simulationListeners;
@@ -23,6 +22,7 @@ public strictfp abstract class CountDown implements OnUpdateListener {
         if (secondsPassed >= seconds) {
             stop();
         } else if((int)secondsPassed > lastUpdate) {
+            // Only used for UI, so we can get away with the (int) cast.
             onCountDownUpdated((int)seconds - (int)secondsPassed);
             lastUpdate = (int)secondsPassed;
         }
