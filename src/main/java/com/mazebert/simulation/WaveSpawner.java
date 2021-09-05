@@ -238,10 +238,12 @@ public strictfp final class WaveSpawner implements OnGameStartedListener, OnWave
 
     @SuppressWarnings("Duplicates")
     private void spawnWaveNew(Wave wave) {
+        double healthMultiplier = applyWaveProphecies(wave);
+
         int round = wave.round;
         int playerCount = playerGateway.getPlayerCount();
 
-        double healthOfAllCreeps = getHealthOfAllCreeps(round, playerCount, wave);
+        double healthOfAllCreeps = getHealthOfAllCreeps(round, playerCount, wave) * healthMultiplier;
         double healthOfOneCreep = getHealthOfOneCreep(wave, healthOfAllCreeps);
 
         int goldOfAllCreeps = Balancing.getGoldForRound(round, version);
@@ -278,6 +280,26 @@ public strictfp final class WaveSpawner implements OnGameStartedListener, OnWave
         if (wave.origin != WaveOrigin.ExtraWave) {
             simulationListeners.onRoundStarted.dispatch(wave);
         }
+    }
+
+    private double applyWaveProphecies(Wave wave) {
+        if (wave.type == WaveType.Boss && prophecySystem.fulfillProphecy(ItemType.BossToMassProphecy)) {
+            wave.type = WaveType.Mass;
+            wave.creepCount = wave.type.creepCount;
+            wave.minSecondsToNextCreep = wave.type.getMinSecondsToNextCreep();
+            wave.maxSecondsToNextCreep = wave.type.getMaxSecondsToNextCreep();
+
+            return 1.2;
+        } else if (wave.type == WaveType.Mass && prophecySystem.fulfillProphecy(ItemType.MassToBossProphecy)) {
+            wave.type = WaveType.Boss;
+            wave.creepCount = wave.type.creepCount;
+            wave.minSecondsToNextCreep = wave.type.getMinSecondsToNextCreep();
+            wave.maxSecondsToNextCreep = wave.type.getMaxSecondsToNextCreep();
+
+            return 1.2;
+        }
+
+        return 1.0;
     }
 
     private double getHealthOfAllCreeps(int round, int playerCount, Wave wave) {

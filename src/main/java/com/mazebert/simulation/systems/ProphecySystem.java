@@ -38,7 +38,9 @@ public strictfp class ProphecySystem {
 
     public boolean fulfillProphecy(Wizard wizard, ItemType prophecy) {
         Tower prophecyTower = getProphecyTower(wizard);
-        if (prophecyTower == null) return false;
+        if (prophecyTower == null) {
+            return false;
+        }
 
         Item item = prophecyTower.removeItem(prophecy);
         if (item == null) {
