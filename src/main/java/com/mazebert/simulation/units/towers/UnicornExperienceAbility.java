@@ -41,10 +41,17 @@ public strictfp class UnicornExperienceAbility extends Ability<Tower> implements
 
     @Override
     public void onRoundStarted(Wave wave) {
-        if (getUnit().getLevel() < Balancing.MAX_TOWER_LEVEL) {
+        if (getUnit().getLevel() < getMaxLevel()) {
             float xp = Balancing.getTowerExperienceForLevel(getUnit().getLevel() + 1);
             getUnit().setExperience(xp + 1.0f);
         }
+    }
+
+    private int getMaxLevel() {
+        if (Sim.context().version >= Sim.vRnR) {
+            return getUnit().getMaxLevel();
+        }
+        return Balancing.MAX_TOWER_LEVEL;
     }
 
     @Override
