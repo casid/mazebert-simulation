@@ -9,7 +9,7 @@ import com.mazebert.simulation.units.items.Item;
 import com.mazebert.simulation.units.towers.Tower;
 import com.mazebert.simulation.units.wizards.Wizard;
 
-public strictfp class EquipItem extends Usecase<EquipItemCommand> {
+public strictfp class EquipItem implements Usecase<EquipItemCommand> {
 
     private final UnitGateway unitGateway = Sim.context().unitGateway;
     private final GameGateway gameGateway = Sim.context().gameGateway;

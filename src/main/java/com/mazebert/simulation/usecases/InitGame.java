@@ -14,7 +14,7 @@ import com.mazebert.simulation.plugins.random.UuidRandomPlugin;
 import com.mazebert.simulation.systems.GameSystem;
 import com.mazebert.simulation.units.Currency;
 
-public strictfp class InitGame extends Usecase<InitGameCommand> {
+public strictfp class InitGame implements Usecase<InitGameCommand> {
 
     private final UuidRandomPlugin randomPlugin = Sim.context().randomPlugin;
     private final WaveGateway waveGateway = Sim.context().waveGateway;

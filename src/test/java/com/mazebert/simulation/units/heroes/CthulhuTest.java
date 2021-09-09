@@ -10,7 +10,6 @@ import com.mazebert.simulation.units.TestTower;
 import com.mazebert.simulation.units.potions.PotionType;
 import com.mazebert.simulation.units.towers.Tower;
 import com.mazebert.simulation.units.wizards.Wizard;
-import com.mazebert.simulation.usecases.DrinkPotion;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -30,7 +29,7 @@ strictfp class CthulhuTest extends SimTest {
         gameGateway = new GameGateway();
         gameGateway.getGame().map = new TestMap(4);
         commandExecutor = new CommandExecutor();
-        commandExecutor.addUsecase(new DrinkPotion());
+        commandExecutor.init();
 
         wizard = new Wizard();
         wizard.playerId = 1;

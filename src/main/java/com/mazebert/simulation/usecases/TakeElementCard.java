@@ -7,7 +7,7 @@ import com.mazebert.simulation.units.potions.Potion;
 import com.mazebert.simulation.units.potions.Research;
 import com.mazebert.simulation.units.wizards.Wizard;
 
-public strictfp class TakeElementCard extends Usecase<TakeElementCardCommand> {
+public strictfp class TakeElementCard implements Usecase<TakeElementCardCommand> {
     private final UnitGateway unitGateway = Sim.context().unitGateway;
 
     @Override

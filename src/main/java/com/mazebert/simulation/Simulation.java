@@ -350,7 +350,7 @@ public strictfp final class Simulation {
             for (Command command : playerTurn.commands) {
                 command.playerId = playerTurn.playerId;
                 command.turnNumber = playerTurn.turnNumber;
-                commandExecutor.executeVoid(command);
+                commandExecutor.execute(command);
             }
         }
     }

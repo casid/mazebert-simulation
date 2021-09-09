@@ -24,13 +24,13 @@ public class AutoTransmuteCardsTest extends UsecaseTest<AutoTransmuteCardsComman
         unitGateway.addUnit(wizard);
 
         usecase = new AutoTransmuteCards();
-        request.playerId = 1;
+        command.playerId = 1;
     }
 
     @Test
     void tower() {
-        request.cardCategory = CardCategory.Tower;
-        request.cardType = TowerType.Rabbit;
+        command.cardCategory = CardCategory.Tower;
+        command.cardType = TowerType.Rabbit;
 
         whenRequestIsExecuted();
 
@@ -40,9 +40,9 @@ public class AutoTransmuteCardsTest extends UsecaseTest<AutoTransmuteCardsComman
     @Test
     void tower_remove() {
         wizard.towerStash.addAutoTransmute(TowerType.Rabbit);
-        request.cardCategory = CardCategory.Tower;
-        request.cardType = TowerType.Rabbit;
-        request.remove = true;
+        command.cardCategory = CardCategory.Tower;
+        command.cardType = TowerType.Rabbit;
+        command.remove = true;
 
         whenRequestIsExecuted();
 
@@ -51,14 +51,19 @@ public class AutoTransmuteCardsTest extends UsecaseTest<AutoTransmuteCardsComman
 
     @Test
     void tower_keepOne() {
-        request.cardCategory = CardCategory.Tower;
-        request.cardType = TowerType.Rabbit;
-        request.amountToKeep = 1;
+        command.cardCategory = CardCategory.Tower;
+        command.cardType = TowerType.Rabbit;
+        command.amountToKeep = 1;
 
         whenRequestIsExecuted();
 
         assertThat(wizard.towerStash.isAutoTransmute(TowerType.Rabbit)).isFalse();
         wizard.towerStash.add(TowerType.Rabbit);
         assertThat(wizard.towerStash.isAutoTransmute(TowerType.Rabbit)).isTrue();
+    }
+
+    @Override
+    protected AutoTransmuteCardsCommand createCommand() {
+        return new AutoTransmuteCardsCommand();
     }
 }

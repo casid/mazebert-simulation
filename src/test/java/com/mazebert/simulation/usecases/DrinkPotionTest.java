@@ -28,14 +28,14 @@ public strictfp class DrinkPotionTest extends UsecaseTest<DrinkPotionCommand> {
 
         usecase = new DrinkPotion();
 
-        request.playerId = 1;
-        request.potionType = PotionType.CommonDamage;
-        request.towerX = 4;
-        request.towerY = 6;
+        command.playerId = 1;
+        command.potionType = PotionType.CommonDamage;
+        command.towerX = 4;
+        command.towerY = 6;
 
         wizard = new Wizard();
         wizard.playerId = 1;
-        wizard.potionStash.add(request.potionType);
+        wizard.potionStash.add(command.potionType);
         unitGateway.addUnit(wizard);
 
         tower = new TestTower();
@@ -56,14 +56,14 @@ public strictfp class DrinkPotionTest extends UsecaseTest<DrinkPotionCommand> {
 
     @Test
     void potionNotInStash() {
-        wizard.potionStash.remove(request.potionType);
+        wizard.potionStash.remove(command.potionType);
         whenRequestIsExecuted();
         assertThat(tower.getAddedRelativeBaseDamage()).isEqualTo(0.0f);
     }
 
     @Test
     void drinkTwoPotions() {
-        wizard.potionStash.add(request.potionType);
+        wizard.potionStash.add(command.potionType);
 
         whenRequestIsExecuted();
         whenRequestIsExecuted();
@@ -73,8 +73,8 @@ public strictfp class DrinkPotionTest extends UsecaseTest<DrinkPotionCommand> {
 
     @Test
     void drinkAllAtOnce() {
-        wizard.potionStash.add(request.potionType);
-        request.all = true;
+        wizard.potionStash.add(command.potionType);
+        command.all = true;
 
         whenRequestIsExecuted();
 
@@ -83,7 +83,7 @@ public strictfp class DrinkPotionTest extends UsecaseTest<DrinkPotionCommand> {
 
     @Test
     void towerNotFound() {
-        request.towerX = 100;
+        command.towerX = 100;
         whenRequestIsExecuted();
         assertThat(tower.getAddedRelativeBaseDamage()).isEqualTo(0.0f);
     }
@@ -97,9 +97,14 @@ public strictfp class DrinkPotionTest extends UsecaseTest<DrinkPotionCommand> {
 
     @Test
     void goldenGrounds_potionOwned() {
-        wizard.foilPotions.add(request.potionType);
+        wizard.foilPotions.add(command.potionType);
         map.givenMapType(MapType.GoldenGrounds);
         whenRequestIsExecuted();
         assertThat(tower.getAddedRelativeBaseDamage()).isEqualTo(0.05f);
+    }
+
+    @Override
+    protected DrinkPotionCommand createCommand() {
+        return new DrinkPotionCommand();
     }
 }

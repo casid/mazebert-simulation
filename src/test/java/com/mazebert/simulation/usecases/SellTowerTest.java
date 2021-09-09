@@ -41,15 +41,15 @@ strictfp class SellTowerTest extends UsecaseTest<SellTowerCommand> {
 
         usecase = new SellTower();
 
-        request.playerId = wizard.getPlayerId();
-        request.x = 2;
-        request.y = 4;
+        command.playerId = wizard.getPlayerId();
+        command.x = 2;
+        command.y = 4;
     }
 
     @Test
     void towerDoesNotExist_nothingHappens() {
-        request.x = 10;
-        request.y = 13;
+        command.x = 10;
+        command.y = 13;
 
         whenRequestIsExecuted();
     }
@@ -83,8 +83,8 @@ strictfp class SellTowerTest extends UsecaseTest<SellTowerCommand> {
     void unicornGivesTears() {
         unitGateway.removeUnit(tower);
         tower = new Unicorn();
-        tower.setX(request.x);
-        tower.setY(request.y);
+        tower.setX(command.x);
+        tower.setY(command.y);
         tower.setWizard(wizard);
         tower.setLevel(60);
         unitGateway.addUnit(tower);
@@ -94,5 +94,10 @@ strictfp class SellTowerTest extends UsecaseTest<SellTowerCommand> {
         StashEntry<Potion> tears = wizard.potionStash.get(PotionType.UnicornTears);
         assertThat(tears).isNotNull();
         assertThat(tears.amount).isEqualTo(1);
+    }
+
+    @Override
+    protected SellTowerCommand createCommand() {
+        return new SellTowerCommand();
     }
 }

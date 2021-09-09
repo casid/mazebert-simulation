@@ -40,7 +40,7 @@ public class TransmuteCards_v12Test extends UsecaseTest<TransmuteCardsCommand> i
         unitGateway.addUnit(wizard);
 
         usecase = new TransmuteCards();
-        request.playerId = 1;
+        command.playerId = 1;
     }
 
     @Test
@@ -50,9 +50,9 @@ public class TransmuteCards_v12Test extends UsecaseTest<TransmuteCardsCommand> i
         wizard.foilPotions.add(PotionType.AngelicElixir);
         wizard.potionStash.add(PotionType.UncommonCrit);
         wizard.potionStash.add(PotionType.UncommonCrit);
-        request.cardCategory = CardCategory.Potion;
-        request.cardType = PotionType.UncommonCrit;
-        request.all = true;
+        command.cardCategory = CardCategory.Potion;
+        command.cardType = PotionType.UncommonCrit;
+        command.all = true;
 
         whenRequestIsExecuted();
 
@@ -67,9 +67,9 @@ public class TransmuteCards_v12Test extends UsecaseTest<TransmuteCardsCommand> i
         wizard.foilPotions.remove(PotionType.AngelicElixir);
         wizard.potionStash.add(PotionType.UncommonCrit);
         wizard.potionStash.add(PotionType.UncommonCrit);
-        request.cardCategory = CardCategory.Potion;
-        request.cardType = PotionType.UncommonCrit;
-        request.all = true;
+        command.cardCategory = CardCategory.Potion;
+        command.cardType = PotionType.UncommonCrit;
+        command.all = true;
 
         whenRequestIsExecuted();
 
@@ -83,8 +83,8 @@ public class TransmuteCards_v12Test extends UsecaseTest<TransmuteCardsCommand> i
         randomPluginTrainer.givenFloatAbs(0.0f);
         wizard.foilPotions.add(PotionType.AngelicElixir);
         wizard.potionStash.add(PotionType.AngelicElixir);
-        request.cardCategory = CardCategory.Potion;
-        request.cardType = PotionType.AngelicElixir;
+        command.cardCategory = CardCategory.Potion;
+        command.cardType = PotionType.AngelicElixir;
 
         whenRequestIsExecuted();
 
@@ -100,5 +100,10 @@ public class TransmuteCards_v12Test extends UsecaseTest<TransmuteCardsCommand> i
     @Override
     public void onCardsTransmuted(Rarity rarity, Collection<CardType> cardType, int transmutedCards) {
         results = cardType;
+    }
+
+    @Override
+    protected TransmuteCardsCommand createCommand() {
+        return new TransmuteCardsCommand();
     }
 }

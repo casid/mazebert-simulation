@@ -8,7 +8,7 @@ import com.mazebert.simulation.commands.NextWaveCommand;
 import com.mazebert.simulation.countdown.CountDown;
 import com.mazebert.simulation.gateways.GameGateway;
 
-public strictfp class NextWave extends Usecase<NextWaveCommand> {
+public strictfp class NextWave implements Usecase<NextWaveCommand> {
     private final SimulationListeners simulationListeners = Sim.context().simulationListeners;
     private final GameGateway gameGateway = Sim.context().gameGateway;
     private final int version = Sim.context().version;

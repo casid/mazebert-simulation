@@ -155,4 +155,9 @@ class NextWaveTest extends UsecaseTest<NextWaveCommand> {
 
         assertThat(gameGateway.getGame().bonusRoundSeconds).isEqualTo(5000 + (int)Balancing.TIME_LORD_COUNTDOWN_SECONDS - 10);
     }
+
+    @Override
+    protected NextWaveCommand createCommand() {
+        return new NextWaveCommand();
+    }
 }

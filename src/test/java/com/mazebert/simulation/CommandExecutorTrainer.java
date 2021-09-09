@@ -11,8 +11,8 @@ public class CommandExecutorTrainer extends CommandExecutor {
     }
 
     @Override
-    public <Request> void executeVoid(Request request) {
-        command = (Command)request;
+    public <C extends Command> void execute(C command) {
+        this.command = command;
     }
 
     public Command getLastCommand() {

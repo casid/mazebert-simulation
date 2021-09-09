@@ -1,30 +1,15 @@
 package com.mazebert.simulation.usecases;
 
 import com.mazebert.simulation.SimTest;
-import org.junit.jupiter.api.BeforeEach;
-import org.jusecase.VoidUsecase;
-import org.jusecase.util.GenericTypeResolver;
+import com.mazebert.simulation.commands.Command;
 
-public class UsecaseTest<Request> extends SimTest {
-    protected VoidUsecase<Request> usecase;
-    protected Request request;
+public abstract class UsecaseTest<C extends Command> extends SimTest {
+    protected Usecase<C> usecase;
+    protected C command = createCommand();
 
-    @BeforeEach
-    void initRequest() {
-        createRequest();
-    }
-
-    @SuppressWarnings({"unchecked"})
-    public void createRequest() {
-        try {
-            Class<?> requestClass = GenericTypeResolver.resolve(UsecaseTest.class, getClass(), 0);
-            request = (Request) requestClass.getConstructor().newInstance();
-        } catch (Exception e) {
-            throw new RuntimeException("Failed to instantiate request. You need to override createRequest() and do it manually.", e);
-        }
-    }
+    protected abstract C createCommand();
 
     protected void whenRequestIsExecuted() {
-        usecase.execute(request);
+        usecase.execute(command);
     }
 }

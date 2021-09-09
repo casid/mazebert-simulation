@@ -18,7 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @SuppressWarnings("rawtypes")
-public strictfp class TransmuteCards extends Usecase<TransmuteCardsCommand> {
+public strictfp class TransmuteCards implements Usecase<TransmuteCardsCommand> {
 
     private static final int requiredUniqueAmount = 2;
 

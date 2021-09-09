@@ -4,7 +4,7 @@ import com.mazebert.simulation.Sim;
 import com.mazebert.simulation.SimulationListeners;
 import com.mazebert.simulation.commands.SendMessageCommand;
 
-public strictfp class SendMessage extends Usecase<SendMessageCommand> {
+public strictfp class SendMessage implements Usecase<SendMessageCommand> {
     private final SimulationListeners simulationListeners = Sim.context().simulationListeners;
 
     @Override

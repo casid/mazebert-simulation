@@ -45,10 +45,10 @@ class TransferCardTest extends UsecaseTest<TransferCardCommand> {
         wizard2.playerId = 2;
         unitGateway.addUnit(wizard2);
 
-        request.playerId = 1;
-        request.toPlayerId = 2;
-        request.cardCategory = CardCategory.Item;
-        request.cardType = ItemType.BabySword;
+        command.playerId = 1;
+        command.toPlayerId = 2;
+        command.cardCategory = CardCategory.Item;
+        command.cardType = ItemType.BabySword;
 
         wizard1.itemStash.add(ItemType.BabySword);
     }
@@ -88,7 +88,7 @@ class TransferCardTest extends UsecaseTest<TransferCardCommand> {
     @Test
     void uniqueItem() {
         wizard1.itemStash.add(ItemType.Excalibur);
-        request.cardType = ItemType.Excalibur;
+        command.cardType = ItemType.Excalibur;
 
         whenRequestIsExecuted();
 
@@ -100,7 +100,7 @@ class TransferCardTest extends UsecaseTest<TransferCardCommand> {
     void uniqueItem_alreadyDropped() {
         wizard1.itemStash.add(ItemType.Excalibur);
         wizard2.itemStash.add(ItemType.Excalibur);
-        request.cardType = ItemType.Excalibur;
+        command.cardType = ItemType.Excalibur;
 
         whenRequestIsExecuted();
 
@@ -115,7 +115,7 @@ class TransferCardTest extends UsecaseTest<TransferCardCommand> {
         SeelenreisserAbility seelenreisserAbility1 = seelenreisser1.getAbility(SeelenreisserAbility.class);
         seelenreisserAbility1.onKill(a(creep()));
 
-        request.cardType = ItemType.Seelenreisser;
+        command.cardType = ItemType.Seelenreisser;
 
         whenRequestIsExecuted();
 
@@ -133,7 +133,7 @@ class TransferCardTest extends UsecaseTest<TransferCardCommand> {
         BloodDemonBladeAbility bladeAbility1 = blade.getAbility(BloodDemonBladeAbility.class);
         bladeAbility1.setDamage(1000);
 
-        request.cardType = ItemType.BloodDemonBlade;
+        command.cardType = ItemType.BloodDemonBlade;
 
         whenRequestIsExecuted();
 
@@ -165,7 +165,7 @@ class TransferCardTest extends UsecaseTest<TransferCardCommand> {
     @Test
     void tutorialCard_notAllowed() {
         wizard1.itemStash.add(ItemType.TransmuteStack);
-        request.cardType = ItemType.TransmuteStack;
+        command.cardType = ItemType.TransmuteStack;
 
         whenRequestIsExecuted();
 
@@ -175,8 +175,8 @@ class TransferCardTest extends UsecaseTest<TransferCardCommand> {
 
     @Test
     void sameWizard() {
-        request.playerId = 1;
-        request.toPlayerId = 1;
+        command.playerId = 1;
+        command.toPlayerId = 1;
 
         whenRequestIsExecuted();
 
@@ -209,7 +209,7 @@ class TransferCardTest extends UsecaseTest<TransferCardCommand> {
         TransferUniqueCardQuest quest = new TransferUniqueCardQuest();
         wizard1.addAbility(quest);
         wizard1.itemStash.add(ItemType.Excalibur);
-        request.cardType = ItemType.Excalibur;
+        command.cardType = ItemType.Excalibur;
 
         whenRequestIsExecuted();
 
@@ -237,11 +237,16 @@ class TransferCardTest extends UsecaseTest<TransferCardCommand> {
 
     private void assertItemCannotBeTransferred(ItemType itemType) {
         wizard1.itemStash.add(itemType);
-        request.cardType = itemType;
+        command.cardType = itemType;
 
         whenRequestIsExecuted();
 
         assertThat(wizard1.itemStash.get(itemType)).isNotNull();
         assertThat(wizard2.itemStash.get(itemType)).isNull();
+    }
+
+    @Override
+    protected TransferCardCommand createCommand() {
+        return new TransferCardCommand();
     }
 }

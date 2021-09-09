@@ -44,17 +44,17 @@ class InitGameTest extends UsecaseTest<InitGameCommand> {
 
         usecase = new InitGame();
 
-        request.playerId = 1;
-        request.rounds = 1;
-        request.difficulty = Difficulty.Normal;
-        request.map = MapType.BloodMoor;
+        command.playerId = 1;
+        command.rounds = 1;
+        command.difficulty = Difficulty.Normal;
+        command.map = MapType.BloodMoor;
     }
 
     @Test
     void seedIsSet() {
-        request.gameId = new UUID(1, 2);
+        command.gameId = new UUID(1, 2);
         whenRequestIsExecuted();
-        randomPluginTrainer.thenSeedIsSetTo(request.gameId);
+        randomPluginTrainer.thenSeedIsSetTo(command.gameId);
     }
 
     @Test
@@ -65,9 +65,9 @@ class InitGameTest extends UsecaseTest<InitGameCommand> {
 
     @Test
     void timestampIsSet() {
-        request.timestamp = 123413513513L;
+        command.timestamp = 123413513513L;
         whenRequestIsExecuted();
-        assertThat(gameGateway.getGame().timestamp).isEqualTo(request.timestamp);
+        assertThat(gameGateway.getGame().timestamp).isEqualTo(command.timestamp);
     }
 
     @Test
@@ -139,30 +139,30 @@ class InitGameTest extends UsecaseTest<InitGameCommand> {
 
     @Test
     void wavesAreGenerated() {
-        request.rounds = 250;
+        command.rounds = 250;
         whenRequestIsExecuted();
         assertThat(waveGateway.getWaves()).hasSize(WaveGateway.WAVES_IN_ADVANCE);
     }
 
     @Test
     void wavesAreGenerated_notMoreThanTotalWaveCount() {
-        request.rounds = 2;
+        command.rounds = 2;
         whenRequestIsExecuted();
-        assertThat(waveGateway.getWaves()).hasSize(request.rounds);
+        assertThat(waveGateway.getWaves()).hasSize(command.rounds);
     }
 
     @Test
     void gameId() {
-        request.gameId = UUID.fromString("86ce2065-ce3a-46a8-ab3f-ac3179b62002");
+        command.gameId = UUID.fromString("86ce2065-ce3a-46a8-ab3f-ac3179b62002");
 
         whenRequestIsExecuted();
 
-        assertThat(gameGateway.getGame().id).isEqualTo(request.gameId);
+        assertThat(gameGateway.getGame().id).isEqualTo(command.gameId);
     }
 
     @Test
     void noRounds_meansWizardTower() {
-        request.rounds = 0;
+        command.rounds = 0;
         whenRequestIsExecuted();
         assertThat(simulationListeners.onUpdate.size()).isEqualTo(0);
     }
@@ -170,7 +170,7 @@ class InitGameTest extends UsecaseTest<InitGameCommand> {
     @Test
     void gameEnd() {
         whenRequestIsExecuted();
-        Wizard wizard = unitGateway.getWizard(request.playerId);
+        Wizard wizard = unitGateway.getWizard(command.playerId);
         wizard.addHealth(-1.0f);
 
         assertThat(gameGateway.getGame().health).isEqualTo(0);
@@ -181,7 +181,7 @@ class InitGameTest extends UsecaseTest<InitGameCommand> {
         playerGatewayTrainer.givenPlayerCount(2);
 
         whenRequestIsExecuted();
-        Wizard wizard = unitGateway.getWizard(request.playerId);
+        Wizard wizard = unitGateway.getWizard(command.playerId);
         wizard.addHealth(-1.0f);
 
         assertThat(gameGateway.getGame().health).isEqualTo(0.5f);
@@ -193,7 +193,7 @@ class InitGameTest extends UsecaseTest<InitGameCommand> {
 
         whenRequestIsExecuted();
 
-        Wizard wizard = unitGateway.getWizard(request.playerId);
+        Wizard wizard = unitGateway.getWizard(command.playerId);
         assertThat(wizard).isNotNull();
         assertThat(wizard.gold).isEqualTo(STARTING_GOLD);
     }
@@ -206,22 +206,27 @@ class InitGameTest extends UsecaseTest<InitGameCommand> {
 
     @Test
     void difficulty() {
-        request.difficulty = Difficulty.Hell;
+        command.difficulty = Difficulty.Hell;
         whenRequestIsExecuted();
         assertThat(difficultyGateway.getDifficulty()).isEqualTo(Difficulty.Hell);
     }
 
     @Test
     void wrongVersion() {
-        request.version = 0;
+        command.version = 0;
         Throwable throwable = catchThrowable(this::whenRequestIsExecuted);
         assertThat(throwable).isInstanceOf(UnsupportedVersionException.class);
     }
 
     @Test
     void tutorial() {
-        request.tutorial = true;
+        command.tutorial = true;
         whenRequestIsExecuted();
         assertThat(gameSystem.isTutorial()).isTrue();
+    }
+
+    @Override
+    protected InitGameCommand createCommand() {
+        return new InitGameCommand();
     }
 }

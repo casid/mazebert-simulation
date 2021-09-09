@@ -61,8 +61,8 @@ class BuildTowerTest extends UsecaseTest<BuildTowerCommand> {
 
         usecase = new BuildTower();
 
-        request.playerId = 1;
-        request.towerType = TowerType.Hitman;
+        command.playerId = 1;
+        command.towerType = TowerType.Hitman;
     }
 
     @Test
@@ -106,14 +106,14 @@ class BuildTowerTest extends UsecaseTest<BuildTowerCommand> {
 
     @Test
     void wizardNotFound() {
-        request.playerId = 42;
+        command.playerId = 42;
         whenRequestIsExecuted();
         assertThat(builtTower).isNull();
     }
 
     @Test
     void towerNotFound() {
-        request.towerType = TowerType.Dandelion;
+        command.towerType = TowerType.Dandelion;
         whenRequestIsExecuted();
         assertThat(builtTower).isNull();
     }
@@ -256,8 +256,8 @@ class BuildTowerTest extends UsecaseTest<BuildTowerCommand> {
         map.givenAllTilesAreWalkable();
         map.givenAllTilesHaveAura(MapAura.DecreasedRange);
 
-        request.x = 5;
-        request.y = 5;
+        command.x = 5;
+        command.y = 5;
 
         whenTowerIsBuilt(TowerType.BearHunter);
 
@@ -274,7 +274,7 @@ class BuildTowerTest extends UsecaseTest<BuildTowerCommand> {
     @Test
     void goldenGrounds_cardOwned() {
         map.givenMapType(MapType.GoldenGrounds);
-        wizard.foilTowers.add(request.towerType);
+        wizard.foilTowers.add(command.towerType);
         whenRequestIsExecuted();
         assertThat(builtTower).isNotNull();
     }
@@ -302,14 +302,19 @@ class BuildTowerTest extends UsecaseTest<BuildTowerCommand> {
     }
 
     @Override
+    protected BuildTowerCommand createCommand() {
+        return new BuildTowerCommand();
+    }
+
+    @Override
     protected void whenRequestIsExecuted() {
         super.whenRequestIsExecuted();
-        builtTower = unitGateway.findUnit(Tower.class, request.playerId);
+        builtTower = unitGateway.findUnit(Tower.class, command.playerId);
     }
 
     private void whenTowerIsBuilt(TowerType towerType) {
         wizard.towerStash.add(towerType);
-        request.towerType = towerType;
+        command.towerType = towerType;
         whenRequestIsExecuted();
     }
 }

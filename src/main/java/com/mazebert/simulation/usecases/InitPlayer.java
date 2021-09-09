@@ -15,7 +15,7 @@ import com.mazebert.simulation.units.wizards.WizardPower;
 
 import java.util.List;
 
-public strictfp class InitPlayer extends Usecase<InitPlayerCommand> {
+public strictfp class InitPlayer implements Usecase<InitPlayerCommand> {
 
     private final SimulationListeners simulationListeners = Sim.context().simulationListeners;
     private final UnitGateway unitGateway = Sim.context().unitGateway;

@@ -6,7 +6,7 @@ import com.mazebert.simulation.gateways.UnitGateway;
 import com.mazebert.simulation.stash.Stash;
 import com.mazebert.simulation.units.wizards.Wizard;
 
-public strictfp class AutoTransmuteCards extends Usecase<AutoTransmuteCardsCommand> {
+public strictfp class AutoTransmuteCards implements Usecase<AutoTransmuteCardsCommand> {
     private final UnitGateway unitGateway = Sim.context().unitGateway;
 
     @SuppressWarnings("unchecked")

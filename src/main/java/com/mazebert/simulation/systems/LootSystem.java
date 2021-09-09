@@ -163,7 +163,7 @@ public strictfp class LootSystem {
             command.automatic = true;
             command.internal = true;
 
-            Sim.context().commandExecutor.executeVoid(command);
+            Sim.context().commandExecutor.execute(command);
         } else {
             simulationListeners.onCardDropped.dispatch(wizard, creep, drop.instance());
         }

@@ -29,7 +29,7 @@ public class SimTest extends Context {
         command.playerId = wizard.getPlayerId();
         command.towerX = (int)tower.getX();
         command.towerY = (int)tower.getY();
-        commandExecutor.executeVoid(command);
+        commandExecutor.execute(command);
     }
 
     protected void whenPotionIsConsumed(Tower tower, PotionType potionType) {
@@ -43,7 +43,7 @@ public class SimTest extends Context {
         command.playerId = wizard.getPlayerId();
         command.towerX = (int)tower.getX();
         command.towerY = (int)tower.getY();
-        commandExecutor.executeVoid(command);
+        commandExecutor.execute(command);
     }
 
     protected void whenAllPotionAreConsumed(Tower tower, PotionType potionType) {
@@ -55,7 +55,7 @@ public class SimTest extends Context {
         command.towerX = (int)tower.getX();
         command.towerY = (int)tower.getY();
         command.all = true;
-        commandExecutor.executeVoid(command);
+        commandExecutor.execute(command);
     }
 
     protected Tower whenTowerIsBuilt(Wizard wizard, TowerType towerType, int x, int y) {
@@ -68,7 +68,7 @@ public class SimTest extends Context {
         command.towerType = towerType;
         command.x = x;
         command.y = y;
-        commandExecutor.executeVoid(command);
+        commandExecutor.execute(command);
 
         return unitGateway.findTower(wizard.getPlayerId(), x, y);
     }
@@ -84,7 +84,7 @@ public class SimTest extends Context {
         command.playerId = wizard.getPlayerId();
         command.x = (int)tower.getX();
         command.y = (int)tower.getY();
-        commandExecutor.executeVoid(command);
+        commandExecutor.execute(command);
     }
 
     @SuppressWarnings("SameParameterValue")
@@ -98,7 +98,7 @@ public class SimTest extends Context {
         command.cardCategory = CardCategory.Item;
         command.cardType = itemType;
         command.all = true;
-        commandExecutor.executeVoid(command);
+        commandExecutor.execute(command);
     }
 
     protected void whenCardIsTransmuted(Wizard wizard, ItemType itemType) {
@@ -107,7 +107,7 @@ public class SimTest extends Context {
         command.cardCategory = CardCategory.Item;
         command.cardType = itemType;
         command.all = false;
-        commandExecutor.executeVoid(command);
+        commandExecutor.execute(command);
     }
 
     protected void whenTowerAttacks(Tower tower) {
@@ -122,6 +122,6 @@ public class SimTest extends Context {
         command.towerX = (int) tower.getX();
         command.towerY = (int) tower.getY();
         command.abilityType = abilityType;
-        commandExecutor.executeVoid(command);
+        commandExecutor.execute(command);
     }
 }

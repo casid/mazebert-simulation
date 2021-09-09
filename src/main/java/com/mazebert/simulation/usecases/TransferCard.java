@@ -12,7 +12,7 @@ import com.mazebert.simulation.units.quests.TransferUniqueCardQuest;
 import com.mazebert.simulation.units.wizards.Wizard;
 
 @SuppressWarnings({"rawtypes", "unchecked"})
-public strictfp class TransferCard extends Usecase<TransferCardCommand> {
+public strictfp class TransferCard implements Usecase<TransferCardCommand> {
 
     private final SimulationListeners simulationListeners = Sim.context().simulationListeners;
     private final UnitGateway unitGateway = Sim.context().unitGateway;

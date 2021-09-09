@@ -19,13 +19,6 @@
     </properties>
 
     <dependencies>
-        <!-- JUsecase -->
-        <dependency>
-            <groupId>org.jusecase</groupId>
-            <artifactId>jusecase</artifactId>
-            <version>1.2.0</version>
-        </dependency>
-
         <!-- Bit Protocol -->
         <dependency>
             <groupId>org.jusecase</groupId>

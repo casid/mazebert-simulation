@@ -50,8 +50,8 @@ strictfp class InitPlayerTest extends UsecaseTest<InitPlayerCommand> {
 
         usecase = new InitPlayer();
 
-        request.playerId = wizard.getPlayerId();
-        request.heroType = HeroType.Lycaon;
+        command.playerId = wizard.getPlayerId();
+        command.heroType = HeroType.Lycaon;
     }
 
     @Test
@@ -65,9 +65,9 @@ strictfp class InitPlayerTest extends UsecaseTest<InitPlayerCommand> {
 
     @Test
     void knownPlayer() {
-        request.ladderPlayerId = 115;
-        request.playerName = "Andy";
-        request.experience = 3000;
+        command.ladderPlayerId = 115;
+        command.playerName = "Andy";
+        command.experience = 3000;
 
         whenRequestIsExecuted();
 
@@ -79,8 +79,8 @@ strictfp class InitPlayerTest extends UsecaseTest<InitPlayerCommand> {
 
     @Test
     void knownPlayer_nullName() {
-        request.ladderPlayerId = 115;
-        request.playerName = null; // Something broken here
+        command.ladderPlayerId = 115;
+        command.playerName = null; // Something broken here
 
         whenRequestIsExecuted();
 
@@ -89,7 +89,7 @@ strictfp class InitPlayerTest extends UsecaseTest<InitPlayerCommand> {
 
     @Test
     void littlefinger() {
-        request.heroType = HeroType.LittleFinger;
+        command.heroType = HeroType.LittleFinger;
 
         whenRequestIsExecuted();
 
@@ -99,20 +99,20 @@ strictfp class InitPlayerTest extends UsecaseTest<InitPlayerCommand> {
 
     @Test
     void foilCards() {
-        request.foilHeroes = EnumSet.of(HeroType.InnKeeper, HeroType.LoanShark);
+        command.foilHeroes = EnumSet.of(HeroType.InnKeeper, HeroType.LoanShark);
 
         whenRequestIsExecuted();
 
-        assertThat(wizard.foilHeroes).isSameAs(request.foilHeroes);
+        assertThat(wizard.foilHeroes).isSameAs(command.foilHeroes);
     }
 
     @Test
     void deckMasterPower() {
-        request.experience = 1000000000L; // Enough xp to use the deck master
+        command.experience = 1000000000L; // Enough xp to use the deck master
         DeckMasterPower deckMasterPower = new DeckMasterPower();
         deckMasterPower.setSkillLevel(deckMasterPower.getMaxSkillLevel());
         deckMasterPower.setSelectedTower(TowerType.Huli);
-        request.powers.add(deckMasterPower);
+        command.powers.add(deckMasterPower);
 
         whenRequestIsExecuted();
 
@@ -122,11 +122,11 @@ strictfp class InitPlayerTest extends UsecaseTest<InitPlayerCommand> {
     @Test
     void startingTowers() {
         randomPluginTrainer.givenFloatAbs(0.0f);
-        request.elements = EnumSet.of(Element.Nature);
+        command.elements = EnumSet.of(Element.Nature);
 
         whenRequestIsExecuted();
 
-        Wizard wizard = unitGateway.getWizard(request.playerId);
+        Wizard wizard = unitGateway.getWizard(command.playerId);
         assertThat(wizard.towerStash.size()).isGreaterThan(0);
         assertThat(wizard.towerStash.get(0).getCardType()).isEqualTo(TowerType.Beaver);
         assertThat(wizard.towerStash.get(0).getAmount()).isEqualTo(3);
@@ -140,7 +140,7 @@ strictfp class InitPlayerTest extends UsecaseTest<InitPlayerCommand> {
 
         whenRequestIsExecuted();
 
-        Wizard wizard = unitGateway.getWizard(request.playerId);
+        Wizard wizard = unitGateway.getWizard(command.playerId);
         assertThat(wizard.towerStash.size()).isEqualTo(4);
         assertThat(wizard.towerStash.get(0).getCardType()).isEqualTo(TowerType.Beaver);
         assertThat(wizard.towerStash.get(1).getCardType()).isEqualTo(TowerType.Rabbit);
@@ -151,11 +151,11 @@ strictfp class InitPlayerTest extends UsecaseTest<InitPlayerCommand> {
     @Test
     void elements_darknessOnly() {
         randomPluginTrainer.givenFloatAbs(0.0f);
-        request.elements = EnumSet.of(Element.Darkness);
+        command.elements = EnumSet.of(Element.Darkness);
 
         whenRequestIsExecuted();
 
-        Wizard wizard = unitGateway.getWizard(request.playerId);
+        Wizard wizard = unitGateway.getWizard(command.playerId);
         assertThat(wizard.towerStash.size()).isGreaterThan(0);
         for (int i = 0; i < wizard.towerStash.size(); ++i) {
             assertThat(wizard.towerStash.get(i).card.getElement()).isEqualTo(Element.Darkness);
@@ -164,21 +164,21 @@ strictfp class InitPlayerTest extends UsecaseTest<InitPlayerCommand> {
 
     @Test
     void elements_research_oneElement() {
-        request.elements = EnumSet.of(Element.Darkness);
+        command.elements = EnumSet.of(Element.Darkness);
 
         whenRequestIsExecuted();
 
-        Wizard wizard = unitGateway.getWizard(request.playerId);
+        Wizard wizard = unitGateway.getWizard(command.playerId);
         assertThat(wizard.maxElementResearchPoints).isEqualTo(3);
     }
 
     @Test
     void elements_research_twoElements() {
-        request.elements = EnumSet.of(Element.Darkness, Element.Metropolis);
+        command.elements = EnumSet.of(Element.Darkness, Element.Metropolis);
 
         whenRequestIsExecuted();
 
-        Wizard wizard = unitGateway.getWizard(request.playerId);
+        Wizard wizard = unitGateway.getWizard(command.playerId);
         assertThat(wizard.maxElementResearchPoints).isEqualTo(2);
     }
 
@@ -187,13 +187,18 @@ strictfp class InitPlayerTest extends UsecaseTest<InitPlayerCommand> {
         QuestData questData = new QuestData();
         questData.type = QuestType.KillChallengesQuest;
         questData.currentAmount = 6;
-        request.quests.add(questData);
+        command.quests.add(questData);
 
         whenRequestIsExecuted();
 
-        Wizard wizard = unitGateway.getWizard(request.playerId);
+        Wizard wizard = unitGateway.getWizard(command.playerId);
         KillChallengesQuest quest = wizard.getAbility(KillChallengesQuest.class);
         assertThat(quest).isNotNull();
         assertThat(quest.getCurrentAmount()).isEqualTo(6);
+    }
+
+    @Override
+    protected InitPlayerCommand createCommand() {
+        return new InitPlayerCommand();
     }
 }

@@ -30,15 +30,15 @@ public class EquipItemTest extends UsecaseTest<EquipItemCommand> {
 
         usecase = new EquipItem();
 
-        request.playerId = 1;
-        request.itemType = ItemType.BabySword;
-        request.towerX = 4;
-        request.towerY = 6;
-        request.inventoryIndex = 0;
+        command.playerId = 1;
+        command.itemType = ItemType.BabySword;
+        command.towerX = 4;
+        command.towerY = 6;
+        command.inventoryIndex = 0;
 
         wizard = new Wizard();
         wizard.playerId = 1;
-        wizard.itemStash.add(request.itemType);
+        wizard.itemStash.add(command.itemType);
         unitGateway.addUnit(wizard);
 
         tower = new TestTower();
@@ -60,17 +60,17 @@ public class EquipItemTest extends UsecaseTest<EquipItemCommand> {
 
     @Test
     void itemNotInStash() {
-        wizard.itemStash.remove(request.itemType);
+        wizard.itemStash.remove(command.itemType);
         whenRequestIsExecuted();
         assertThat(tower.getItem(0)).isNull();
     }
 
     @Test
     void equipTwoItems() {
-        wizard.itemStash.add(request.itemType);
+        wizard.itemStash.add(command.itemType);
 
         whenRequestIsExecuted();
-        request.inventoryIndex = 1;
+        command.inventoryIndex = 1;
         whenRequestIsExecuted();
 
         assertThat(tower.getItem(0)).isInstanceOf(BabySword.class);
@@ -80,28 +80,28 @@ public class EquipItemTest extends UsecaseTest<EquipItemCommand> {
 
     @Test
     void indexTooSmall() {
-        request.inventoryIndex = -1;
+        command.inventoryIndex = -1;
         whenRequestIsExecuted();
         assertThat(tower.getItem(0)).isNull();
     }
 
     @Test
     void indexOneTooBig() {
-        request.inventoryIndex = tower.getInventorySize();
+        command.inventoryIndex = tower.getInventorySize();
         whenRequestIsExecuted();
         assertThat(tower.getItem(0)).isNull();
     }
 
     @Test
     void indexTooBig() {
-        request.inventoryIndex = 100;
+        command.inventoryIndex = 100;
         whenRequestIsExecuted();
         assertThat(tower.getItem(0)).isNull();
     }
 
     @Test
     void towerNotFound() {
-        request.towerX = 100;
+        command.towerX = 100;
         whenRequestIsExecuted();
         assertThat(tower.getItem(0)).isNull();
     }
@@ -109,7 +109,7 @@ public class EquipItemTest extends UsecaseTest<EquipItemCommand> {
     @Test
     void unequip() {
         whenRequestIsExecuted();
-        request.itemType = null;
+        command.itemType = null;
 
         whenRequestIsExecuted();
 
@@ -120,15 +120,15 @@ public class EquipItemTest extends UsecaseTest<EquipItemCommand> {
 
     @Test
     void unequip_twoItems() {
-        wizard.itemStash.add(request.itemType);
+        wizard.itemStash.add(command.itemType);
 
         whenRequestIsExecuted();
-        request.inventoryIndex = 1;
+        command.inventoryIndex = 1;
         whenRequestIsExecuted();
 
-        request.itemType = null;
+        command.itemType = null;
         whenRequestIsExecuted();
-        request.inventoryIndex = 0;
+        command.inventoryIndex = 0;
         whenRequestIsExecuted();
 
         assertThat(tower.getItem(0)).isNull();
@@ -139,7 +139,7 @@ public class EquipItemTest extends UsecaseTest<EquipItemCommand> {
 
     @Test
     void unequip_itemNotPresent() {
-        request.itemType = null;
+        command.itemType = null;
         whenRequestIsExecuted();
         assertThat(tower.getItem(0)).isNull();
     }
@@ -148,7 +148,7 @@ public class EquipItemTest extends UsecaseTest<EquipItemCommand> {
     void replace() {
         whenRequestIsExecuted();
         wizard.itemStash.add(ItemType.WoodenStaff);
-        request.itemType = ItemType.WoodenStaff;
+        command.itemType = ItemType.WoodenStaff;
 
         whenRequestIsExecuted();
 
@@ -167,7 +167,7 @@ public class EquipItemTest extends UsecaseTest<EquipItemCommand> {
 
     @Test
     void goldenGrounds_itemOwned() {
-        wizard.foilItems.add(request.itemType);
+        wizard.foilItems.add(command.itemType);
         map.givenMapType(MapType.GoldenGrounds);
         whenRequestIsExecuted();
         assertThat(tower.getItem(0)).isInstanceOf(BabySword.class);
@@ -175,11 +175,16 @@ public class EquipItemTest extends UsecaseTest<EquipItemCommand> {
 
     @Test
     void equip_TransmuteUniques() {
-        request.itemType = ItemType.TransmuteUniques;
-        wizard.itemStash.add(request.itemType);
+        command.itemType = ItemType.TransmuteUniques;
+        wizard.itemStash.add(command.itemType);
 
         whenRequestIsExecuted();
 
         assertThat(tower.getItem(0)).isNull();
+    }
+
+    @Override
+    protected EquipItemCommand createCommand() {
+        return new EquipItemCommand();
     }
 }

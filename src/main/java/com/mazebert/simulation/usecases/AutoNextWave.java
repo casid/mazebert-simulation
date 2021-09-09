@@ -8,7 +8,7 @@ import com.mazebert.simulation.gateways.UnitGateway;
 import com.mazebert.simulation.plugins.FormatPlugin;
 import com.mazebert.simulation.units.wizards.Wizard;
 
-public strictfp class AutoNextWave extends Usecase<AutoNextWaveCommand> {
+public strictfp class AutoNextWave implements Usecase<AutoNextWaveCommand> {
 
     private final UnitGateway unitGateway = Sim.context().unitGateway;
     private final GameGateway gameGateway = Sim.context().gameGateway;

@@ -44,20 +44,20 @@ public class TransmuteCardsTest extends UsecaseTest<TransmuteCardsCommand> imple
         unitGateway.addUnit(wizard);
 
         usecase = new TransmuteCards();
-        request.playerId = 1;
+        command.playerId = 1;
     }
 
     @Test
     void wizardNotFound() {
-        request.playerId = 42;
+        command.playerId = 42;
         whenRequestIsExecuted();
         assertThat(wizard.towerStash.transmutedCommons).isEqualTo(0);
     }
 
     @Test
     void cardNotOwned() {
-        request.cardCategory = CardCategory.Tower;
-        request.cardType = TowerType.Huli;
+        command.cardCategory = CardCategory.Tower;
+        command.cardType = TowerType.Huli;
 
         whenRequestIsExecuted();
 
@@ -67,8 +67,8 @@ public class TransmuteCardsTest extends UsecaseTest<TransmuteCardsCommand> imple
     @Test
     void tower_oneCard() {
         wizard.towerStash.add(TowerType.Dandelion);
-        request.cardCategory = CardCategory.Tower;
-        request.cardType = TowerType.Dandelion;
+        command.cardCategory = CardCategory.Tower;
+        command.cardType = TowerType.Dandelion;
 
         whenRequestIsExecuted();
 
@@ -81,9 +81,9 @@ public class TransmuteCardsTest extends UsecaseTest<TransmuteCardsCommand> imple
         wizard.towerStash.add(TowerType.Dandelion);
         wizard.towerStash.add(TowerType.Dandelion);
         wizard.towerStash.add(TowerType.Dandelion);
-        request.cardCategory = CardCategory.Tower;
-        request.cardType = TowerType.Dandelion;
-        request.all = true;
+        command.cardCategory = CardCategory.Tower;
+        command.cardType = TowerType.Dandelion;
+        command.all = true;
 
         whenRequestIsExecuted();
 
@@ -97,9 +97,9 @@ public class TransmuteCardsTest extends UsecaseTest<TransmuteCardsCommand> imple
         wizard.towerStash.add(TowerType.Dandelion);
         wizard.towerStash.add(TowerType.Dandelion);
         wizard.towerStash.add(TowerType.Dandelion);
-        request.cardCategory = CardCategory.Tower;
-        request.cardType = TowerType.Dandelion;
-        request.all = true;
+        command.cardCategory = CardCategory.Tower;
+        command.cardType = TowerType.Dandelion;
+        command.all = true;
 
         whenRequestIsExecuted();
 
@@ -114,9 +114,9 @@ public class TransmuteCardsTest extends UsecaseTest<TransmuteCardsCommand> imple
         wizard.towerStash.add(TowerType.Dandelion);
         wizard.towerStash.add(TowerType.Dandelion);
         wizard.towerStash.add(TowerType.Dandelion);
-        request.cardCategory = CardCategory.Tower;
-        request.cardType = TowerType.Dandelion;
-        request.all = true;
+        command.cardCategory = CardCategory.Tower;
+        command.cardType = TowerType.Dandelion;
+        command.all = true;
         wizard.towerStash.addAutoTransmute(TowerType.Frog);
 
         whenRequestIsExecuted();
@@ -133,9 +133,9 @@ public class TransmuteCardsTest extends UsecaseTest<TransmuteCardsCommand> imple
         wizard.towerStash.add(TowerType.Dandelion);
         wizard.towerStash.add(TowerType.Dandelion);
         // Frog was configured for auto-transmute, but manually transmuted afterwards
-        request.cardCategory = CardCategory.Tower;
-        request.cardType = TowerType.Dandelion;
-        request.all = true;
+        command.cardCategory = CardCategory.Tower;
+        command.cardType = TowerType.Dandelion;
+        command.all = true;
         wizard.towerStash.addAutoTransmute(TowerType.Frog, 1);
 
         whenRequestIsExecuted();
@@ -151,9 +151,9 @@ public class TransmuteCardsTest extends UsecaseTest<TransmuteCardsCommand> imple
         for (int i = 0; i < 16; ++i) {
             wizard.towerStash.add(TowerType.Dandelion);
         }
-        request.cardCategory = CardCategory.Tower;
-        request.cardType = TowerType.Dandelion;
-        request.all = true;
+        command.cardCategory = CardCategory.Tower;
+        command.cardType = TowerType.Dandelion;
+        command.all = true;
         wizard.towerStash.addAutoTransmute(TowerType.Frog);
 
         whenRequestIsExecuted();
@@ -170,9 +170,9 @@ public class TransmuteCardsTest extends UsecaseTest<TransmuteCardsCommand> imple
         for (int i = 0; i < 16; ++i) {
             wizard.towerStash.add(TowerType.Frog);
         }
-        request.cardCategory = CardCategory.Tower;
-        request.cardType = TowerType.Frog;
-        request.all = true;
+        command.cardCategory = CardCategory.Tower;
+        command.cardType = TowerType.Frog;
+        command.all = true;
         wizard.towerStash.addAutoTransmute(TowerType.BearHunter);
 
         whenRequestIsExecuted();
@@ -191,9 +191,9 @@ public class TransmuteCardsTest extends UsecaseTest<TransmuteCardsCommand> imple
         for (int i = 0; i < 16; ++i) {
             wizard.towerStash.add(TowerType.BearHunter);
         }
-        request.cardCategory = CardCategory.Tower;
-        request.cardType = TowerType.BearHunter;
-        request.all = true;
+        command.cardCategory = CardCategory.Tower;
+        command.cardType = TowerType.BearHunter;
+        command.all = true;
         wizard.itemStash.addAutoTransmute(ItemType.KeyOfWisdom);
 
         whenRequestIsExecuted();
@@ -210,9 +210,9 @@ public class TransmuteCardsTest extends UsecaseTest<TransmuteCardsCommand> imple
         wizard.itemStash.add(ItemType.BabySword);
         wizard.itemStash.add(ItemType.BabySword);
         wizard.itemStash.add(ItemType.BabySword);
-        request.cardCategory = CardCategory.Item;
-        request.cardType = ItemType.BabySword;
-        request.all = true;
+        command.cardCategory = CardCategory.Item;
+        command.cardType = ItemType.BabySword;
+        command.all = true;
 
         whenRequestIsExecuted();
 
@@ -228,9 +228,9 @@ public class TransmuteCardsTest extends UsecaseTest<TransmuteCardsCommand> imple
         wizard.itemStash.add(ItemType.Barrel);
         wizard.itemStash.add(ItemType.Barrel);
         wizard.itemStash.add(ItemType.Barrel);
-        request.cardCategory = CardCategory.Item;
-        request.cardType = ItemType.Barrel;
-        request.all = true;
+        command.cardCategory = CardCategory.Item;
+        command.cardType = ItemType.Barrel;
+        command.all = true;
 
         whenRequestIsExecuted();
 
@@ -244,9 +244,9 @@ public class TransmuteCardsTest extends UsecaseTest<TransmuteCardsCommand> imple
         for (int i = 0; i < 40; ++i) {
             wizard.itemStash.add(ItemType.BabySword);
         }
-        request.cardCategory = CardCategory.Item;
-        request.cardType = ItemType.BabySword;
-        request.all = true;
+        command.cardCategory = CardCategory.Item;
+        command.cardType = ItemType.BabySword;
+        command.all = true;
 
         whenRequestIsExecuted();
 
@@ -261,9 +261,9 @@ public class TransmuteCardsTest extends UsecaseTest<TransmuteCardsCommand> imple
         randomPluginTrainer.givenFloatAbs(0.5f);
         wizard.potionStash.add(PotionType.UncommonCrit);
         wizard.potionStash.add(PotionType.UncommonCrit);
-        request.cardCategory = CardCategory.Potion;
-        request.cardType = PotionType.UncommonCrit;
-        request.all = true;
+        command.cardCategory = CardCategory.Potion;
+        command.cardType = PotionType.UncommonCrit;
+        command.all = true;
 
         whenRequestIsExecuted();
 
@@ -281,9 +281,9 @@ public class TransmuteCardsTest extends UsecaseTest<TransmuteCardsCommand> imple
         wizard.foilPotions.add(PotionType.AngelicElixir);
         wizard.potionStash.add(PotionType.UncommonCrit);
         wizard.potionStash.add(PotionType.UncommonCrit);
-        request.cardCategory = CardCategory.Potion;
-        request.cardType = PotionType.UncommonCrit;
-        request.all = true;
+        command.cardCategory = CardCategory.Potion;
+        command.cardType = PotionType.UncommonCrit;
+        command.all = true;
 
         whenRequestIsExecuted();
 
@@ -297,8 +297,8 @@ public class TransmuteCardsTest extends UsecaseTest<TransmuteCardsCommand> imple
         randomPluginTrainer.givenFloatAbs(0.0f);
         wizard.foilPotions.add(PotionType.AngelicElixir);
         wizard.potionStash.add(PotionType.AngelicElixir);
-        request.cardCategory = CardCategory.Potion;
-        request.cardType = PotionType.AngelicElixir;
+        command.cardCategory = CardCategory.Potion;
+        command.cardType = PotionType.AngelicElixir;
 
         whenRequestIsExecuted();
 
@@ -310,8 +310,8 @@ public class TransmuteCardsTest extends UsecaseTest<TransmuteCardsCommand> imple
     void item_angelicElixir() {
         randomPluginTrainer.givenFloatAbs(0.0f);
         wizard.itemStash.add(ItemType.ScepterOfTime);
-        request.cardCategory = CardCategory.Item;
-        request.cardType = ItemType.ScepterOfTime;
+        command.cardCategory = CardCategory.Item;
+        command.cardType = ItemType.ScepterOfTime;
 
         whenRequestIsExecuted();
 
@@ -325,9 +325,9 @@ public class TransmuteCardsTest extends UsecaseTest<TransmuteCardsCommand> imple
         wizard.towerStash.add(TowerType.Huli);
         wizard.towerStash.add(TowerType.Huli);
         wizard.towerStash.add(TowerType.Huli);
-        request.cardCategory = CardCategory.Tower;
-        request.cardType = TowerType.Huli;
-        request.all = true;
+        command.cardCategory = CardCategory.Tower;
+        command.cardType = TowerType.Huli;
+        command.all = true;
 
         whenRequestIsExecuted();
 
@@ -343,9 +343,9 @@ public class TransmuteCardsTest extends UsecaseTest<TransmuteCardsCommand> imple
         wizard.towerStash.add(TowerType.Huli);
         wizard.towerStash.add(TowerType.Huli);
         wizard.towerStash.add(TowerType.Huli);
-        request.cardCategory = CardCategory.Tower;
-        request.cardType = TowerType.Huli;
-        request.all = true;
+        command.cardCategory = CardCategory.Tower;
+        command.cardType = TowerType.Huli;
+        command.all = true;
 
         whenRequestIsExecuted();
 
@@ -362,9 +362,9 @@ public class TransmuteCardsTest extends UsecaseTest<TransmuteCardsCommand> imple
         wizard.towerStash.add(TowerType.Huli);
         wizard.towerStash.add(TowerType.Huli);
         wizard.towerStash.add(TowerType.Huli);
-        request.cardCategory = CardCategory.Tower;
-        request.cardType = TowerType.Huli;
-        request.all = true;
+        command.cardCategory = CardCategory.Tower;
+        command.cardType = TowerType.Huli;
+        command.all = true;
 
         whenRequestIsExecuted();
 
@@ -376,8 +376,8 @@ public class TransmuteCardsTest extends UsecaseTest<TransmuteCardsCommand> imple
     @Test
     void tower_oneCard_unique() {
         wizard.towerStash.add(TowerType.KiwiEgg);
-        request.cardCategory = CardCategory.Tower;
-        request.cardType = TowerType.KiwiEgg;
+        command.cardCategory = CardCategory.Tower;
+        command.cardType = TowerType.KiwiEgg;
 
         whenRequestIsExecuted();
 
@@ -388,14 +388,14 @@ public class TransmuteCardsTest extends UsecaseTest<TransmuteCardsCommand> imple
     @Test
     void unique_oneTower_oneItem() {
         wizard.towerStash.add(TowerType.KiwiEgg);
-        request.cardCategory = CardCategory.Tower;
-        request.cardType = TowerType.KiwiEgg;
+        command.cardCategory = CardCategory.Tower;
+        command.cardType = TowerType.KiwiEgg;
 
         whenRequestIsExecuted();
 
         wizard.itemStash.add(ItemType.Excalibur);
-        request.cardCategory = CardCategory.Item;
-        request.cardType = ItemType.Excalibur;
+        command.cardCategory = CardCategory.Item;
+        command.cardType = ItemType.Excalibur;
 
         whenRequestIsExecuted();
 
@@ -411,9 +411,9 @@ public class TransmuteCardsTest extends UsecaseTest<TransmuteCardsCommand> imple
         wizard.towerStash.add(TowerType.Huli);
         wizard.towerStash.add(TowerType.Huli);
         wizard.towerStash.add(TowerType.Huli);
-        request.cardCategory = CardCategory.Tower;
-        request.cardType = TowerType.Huli;
-        request.all = true;
+        command.cardCategory = CardCategory.Tower;
+        command.cardType = TowerType.Huli;
+        command.all = true;
         wizard.requiredTransmuteAmount = 3;
 
         whenRequestIsExecuted();
@@ -431,9 +431,9 @@ public class TransmuteCardsTest extends UsecaseTest<TransmuteCardsCommand> imple
         wizard.itemStash.add(ItemType.BabySword);
         wizard.itemStash.add(ItemType.BabySword);
         wizard.itemStash.add(ItemType.BabySword);
-        request.cardCategory = CardCategory.Item;
-        request.cardType = ItemType.BabySword;
-        request.all = true;
+        command.cardCategory = CardCategory.Item;
+        command.cardType = ItemType.BabySword;
+        command.all = true;
 
         whenRequestIsExecuted();
 
@@ -449,9 +449,9 @@ public class TransmuteCardsTest extends UsecaseTest<TransmuteCardsCommand> imple
         wizard.potionStash.add(PotionType.DrinkAll);
         wizard.potionStash.add(PotionType.DrinkAll);
         wizard.potionStash.add(PotionType.DrinkAll);
-        request.cardCategory = CardCategory.Potion;
-        request.cardType = PotionType.DrinkAll;
-        request.all = true;
+        command.cardCategory = CardCategory.Potion;
+        command.cardType = PotionType.DrinkAll;
+        command.all = true;
 
         whenRequestIsExecuted();
 
@@ -465,8 +465,8 @@ public class TransmuteCardsTest extends UsecaseTest<TransmuteCardsCommand> imple
 
         wizard.itemStash.transmutedCommons = 3;
         wizard.itemStash.add(ItemType.BabySword);
-        request.cardCategory = CardCategory.Item;
-        request.cardType = ItemType.BabySword;
+        command.cardCategory = CardCategory.Item;
+        command.cardType = ItemType.BabySword;
 
         whenRequestIsExecuted();
 
@@ -480,8 +480,8 @@ public class TransmuteCardsTest extends UsecaseTest<TransmuteCardsCommand> imple
         wizard.towerStash.add(TowerType.Dandelion);
         wizard.towerStash.add(TowerType.Rabbit);
 
-        request.cardCategory = CardCategory.Tower;
-        request.cardType = TowerType.Dandelion;
+        command.cardCategory = CardCategory.Tower;
+        command.cardType = TowerType.Dandelion;
 
         whenRequestIsExecuted();
 
@@ -498,8 +498,8 @@ public class TransmuteCardsTest extends UsecaseTest<TransmuteCardsCommand> imple
         wizard.towerStash.add(TowerType.Dandelion);
         wizard.towerStash.add(TowerType.Rabbit);
 
-        request.cardCategory = CardCategory.Tower;
-        request.cardType = TowerType.Dandelion;
+        command.cardCategory = CardCategory.Tower;
+        command.cardType = TowerType.Dandelion;
 
         whenRequestIsExecuted();
 
@@ -516,8 +516,8 @@ public class TransmuteCardsTest extends UsecaseTest<TransmuteCardsCommand> imple
         wizard.potionStash.add(PotionType.Painkiller);
         wizard.potionStash.add(PotionType.RareCrit);
 
-        request.cardCategory = CardCategory.Potion;
-        request.cardType = PotionType.Painkiller;
+        command.cardCategory = CardCategory.Potion;
+        command.cardType = PotionType.Painkiller;
 
         whenRequestIsExecuted();
 
@@ -532,8 +532,8 @@ public class TransmuteCardsTest extends UsecaseTest<TransmuteCardsCommand> imple
         wizard.itemStash.add(ItemType.WoodenStaff);
         wizard.itemStash.add(ItemType.Handbag);
         wizard.itemStash.add(ItemType.RingOfGreed);
-        request.cardCategory = CardCategory.Item;
-        request.cardType = ItemType.RingOfGreed;
+        command.cardCategory = CardCategory.Item;
+        command.cardType = ItemType.RingOfGreed;
         wizard.itemStash.transmutedCommons = 3;
 
         whenRequestIsExecuted();
@@ -549,10 +549,10 @@ public class TransmuteCardsTest extends UsecaseTest<TransmuteCardsCommand> imple
         wizard.towerStash.add(TowerType.Dandelion);
         wizard.towerStash.add(TowerType.Dandelion);
         wizard.towerStash.add(TowerType.Dandelion);
-        request.cardCategory = CardCategory.Tower;
-        request.cardType = TowerType.Dandelion;
-        request.all = true;
-        request.amountToKeep = 1;
+        command.cardCategory = CardCategory.Tower;
+        command.cardType = TowerType.Dandelion;
+        command.all = true;
+        command.amountToKeep = 1;
 
         whenRequestIsExecuted();
 
@@ -569,5 +569,10 @@ public class TransmuteCardsTest extends UsecaseTest<TransmuteCardsCommand> imple
     @Override
     public void onCardsTransmuted(Rarity rarity, Collection<CardType> cardType, int transmutedCards) {
         results = cardType;
+    }
+
+    @Override
+    protected TransmuteCardsCommand createCommand() {
+        return new TransmuteCardsCommand();
     }
 }

@@ -25,19 +25,19 @@ class TakeElementCardTest extends UsecaseTest<TakeElementCardCommand> {
         wizard.elementResearchPoints = 1;
         unitGateway.addUnit(wizard);
 
-        request.card = PotionType.ResearchDarkness;
+        command.card = PotionType.ResearchDarkness;
     }
 
     @Test
     void noCard_nothingHappens() {
-        request.card = null;
+        command.card = null;
         whenRequestIsExecuted();
         thenNoCardIsAdded();
     }
 
     @Test
     void wrongCard_nothingHappens() {
-        request.card = PotionType.CommonSpeed;
+        command.card = PotionType.CommonSpeed;
         whenRequestIsExecuted();
         thenNoCardIsAdded();
     }
@@ -51,8 +51,8 @@ class TakeElementCardTest extends UsecaseTest<TakeElementCardCommand> {
 
     @Test
     void cardAlreadyDropped() {
-        wizard.potionStash.add(request.card);
-        wizard.potionStash.remove(request.card);
+        wizard.potionStash.add(command.card);
+        wizard.potionStash.remove(command.card);
 
         whenRequestIsExecuted();
 
@@ -63,11 +63,16 @@ class TakeElementCardTest extends UsecaseTest<TakeElementCardCommand> {
     void success() {
         whenRequestIsExecuted();
 
-        assertThat(wizard.potionStash.get(0).cardType).isEqualTo(request.card);
+        assertThat(wizard.potionStash.get(0).cardType).isEqualTo(command.card);
         assertThat(wizard.elementResearchPoints).isEqualTo(0);
     }
 
     private void thenNoCardIsAdded() {
         assertThat(wizard.potionStash.size()).isEqualTo(0);
+    }
+
+    @Override
+    protected TakeElementCardCommand createCommand() {
+        return new TakeElementCardCommand();
     }
 }

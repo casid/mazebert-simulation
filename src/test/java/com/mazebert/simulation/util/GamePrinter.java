@@ -90,20 +90,15 @@ public class GamePrinter {
         }
 
         @Override
-        public <Request> void executeVoid(Request request) {
-            commandExecutor.executeVoid(request);
+        public <C extends Command> void execute(C request) {
+            commandExecutor.execute(request);
 
-            printCommand((Command)request);
+            printCommand(request);
         }
 
         @Override
         public void init() {
             commandExecutor.init();
-        }
-
-        @Override
-        protected Object resolveUsecase(Object usecase) {
-            return usecase;
         }
     }
 }

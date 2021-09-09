@@ -9,7 +9,7 @@ import com.mazebert.simulation.units.potions.Potion;
 import com.mazebert.simulation.units.towers.Tower;
 import com.mazebert.simulation.units.wizards.Wizard;
 
-public strictfp class DrinkPotion extends Usecase<DrinkPotionCommand> {
+public strictfp class DrinkPotion implements Usecase<DrinkPotionCommand> {
 
     private final UnitGateway unitGateway = Sim.context().unitGateway;
     private final GameGateway gameGateway = Sim.context().gameGateway;

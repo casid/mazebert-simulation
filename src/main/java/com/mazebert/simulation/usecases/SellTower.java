@@ -8,7 +8,7 @@ import com.mazebert.simulation.systems.LootSystem;
 import com.mazebert.simulation.units.towers.Tower;
 import com.mazebert.simulation.units.wizards.Wizard;
 
-public strictfp class SellTower extends Usecase<SellTowerCommand> {
+public strictfp class SellTower implements Usecase<SellTowerCommand> {
 
     private final UnitGateway unitGateway = Sim.context().unitGateway;
     private final LootSystem lootSystem = Sim.context().lootSystem;

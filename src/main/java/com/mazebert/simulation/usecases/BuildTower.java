@@ -19,7 +19,7 @@ import com.mazebert.simulation.units.towers.Tower;
 import com.mazebert.simulation.units.towers.TowerType;
 import com.mazebert.simulation.units.wizards.Wizard;
 
-public strictfp class BuildTower extends Usecase<BuildTowerCommand> {
+public strictfp class BuildTower implements Usecase<BuildTowerCommand> {
 
     private final UnitGateway unitGateway = Sim.context().unitGateway;
     private final GameGateway gameGateway = Sim.context().gameGateway;

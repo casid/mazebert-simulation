@@ -34,7 +34,7 @@ class AutoNextWaveTest extends UsecaseTest<AutoNextWaveCommand> {
 
     @Test
     void activate() {
-        request.autoNextWave = true;
+        command.autoNextWave = true;
 
         whenRequestIsExecuted();
 
@@ -45,7 +45,7 @@ class AutoNextWaveTest extends UsecaseTest<AutoNextWaveCommand> {
     @Test
     void deactivate() {
         gameGateway.getGame().autoNextWave = true;
-        request.autoNextWave = false;
+        command.autoNextWave = false;
 
         whenRequestIsExecuted();
 
@@ -56,7 +56,7 @@ class AutoNextWaveTest extends UsecaseTest<AutoNextWaveCommand> {
     @Test
     void activate_alreadyActive() {
         gameGateway.getGame().autoNextWave = true;
-        request.autoNextWave = true;
+        command.autoNextWave = true;
 
         whenRequestIsExecuted();
 
@@ -67,11 +67,16 @@ class AutoNextWaveTest extends UsecaseTest<AutoNextWaveCommand> {
     @Test
     void deactivate_alreadyInactive() {
         gameGateway.getGame().autoNextWave = false;
-        request.autoNextWave = false;
+        command.autoNextWave = false;
 
         whenRequestIsExecuted();
 
         assertThat(gameGateway.getGame().autoNextWave).isFalse();
         simulationListenersTrainer.thenNoNotificationsWereShown(wizard);
+    }
+
+    @Override
+    protected AutoNextWaveCommand createCommand() {
+        return new AutoNextWaveCommand();
     }
 }
