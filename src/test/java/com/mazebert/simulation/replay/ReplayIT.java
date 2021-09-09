@@ -5,29 +5,27 @@ import com.mazebert.simulation.commands.NextWaveCommand;
 import com.mazebert.simulation.replay.data.ReplayFrame;
 import com.mazebert.simulation.replay.data.ReplayHeader;
 import com.mazebert.simulation.replay.data.ReplayTurn;
-import io.github.glytching.junit.extension.folder.TemporaryFolder;
-import io.github.glytching.junit.extension.folder.TemporaryFolderExtension;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.jupiter.api.io.TempDir;
 
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
 
 import static java.nio.file.StandardOpenOption.*;
 import static org.assertj.core.api.Assertions.assertThat;
 
-@ExtendWith(TemporaryFolderExtension.class)
 public class ReplayIT {
 
     File replay;
 
     @BeforeEach
-    void setUp(TemporaryFolder temporaryFolder) throws IOException {
-        replay = temporaryFolder.createFile("replay");
+    void setUp(@TempDir Path temporaryFolder) throws IOException {
+        replay = Files.createFile(temporaryFolder.resolve("replay")).toFile();
     }
 
     @Test
