@@ -14,7 +14,7 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
-        <junit.jupiter.version>5.4.2</junit.jupiter.version>
+        <junit.jupiter.version>5.7.2</junit.jupiter.version>
         <junit.platform.version>1.0.0</junit.platform.version>
     </properties>
 
@@ -49,13 +49,7 @@
         <dependency>
             <groupId>org.assertj</groupId>
             <artifactId>assertj-core</artifactId>
-            <version>3.5.2</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.jusecase</groupId>
-            <artifactId>jusecase-test-junit5</artifactId>
-            <version>1.0.0</version>
+            <version>3.20.2</version>
             <scope>test</scope>
         </dependency>
         <dependency>
