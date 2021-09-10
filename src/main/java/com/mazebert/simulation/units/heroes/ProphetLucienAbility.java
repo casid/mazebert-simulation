@@ -8,7 +8,7 @@ public strictfp class ProphetLucienAbility extends HeroTowerBuffAbility {
 
     @Override
     protected void buffTower(Tower tower) {
-        tower.addMultiluck(1);
+        tower.addMultiluck(multiluck);
         tower.addAddedRelativeBaseDamage(damageMalus);
     }
 
