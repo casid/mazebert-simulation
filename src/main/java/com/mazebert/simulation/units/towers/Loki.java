@@ -13,11 +13,11 @@ import com.mazebert.simulation.units.abilities.InstantDamageAbility;
 public strictfp class Loki extends Tower {
 
     public Loki() {
-        setBaseCooldown(4.5f);
+        setBaseCooldown(2.5f);
         setBaseRange(3.0f);
         setAttackType(AttackType.Fal);
-        setStrength(1.0f);
-        setDamageSpread(0.4f);
+        setStrength(0.4f);
+        setDamageSpread(1.0f);
         setGender(Gender.Male);
         setElement(Element.Metropolis);
 

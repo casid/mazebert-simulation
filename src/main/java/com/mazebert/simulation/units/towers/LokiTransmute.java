@@ -11,15 +11,20 @@ import com.mazebert.simulation.units.wizards.Wizard;
 import com.mazebert.simulation.usecases.TransmuteCards;
 
 public strictfp class LokiTransmute extends Ability<Tower> implements OnUnitAddedListener, OnUnitRemovedListener, OnProphecyFulfilledListener {
+
+    private static final int multiluck = 1;
+
     @Override
     protected void initialize(Tower unit) {
         super.initialize(unit);
         unit.onUnitAdded.add(this);
         unit.onUnitRemoved.add(this);
+        unit.addMultiluck(multiluck);
     }
 
     @Override
     protected void dispose(Tower unit) {
+        unit.addMultiluck(-multiluck);
         unit.onUnitAdded.remove(this);
         unit.onUnitRemoved.remove(this);
         super.dispose(unit);
@@ -48,12 +53,17 @@ public strictfp class LokiTransmute extends Ability<Tower> implements OnUnitAdde
 
     @Override
     public String getTitle() {
-        return "Trickster";
+        return "Tricks up his sleeve";
     }
 
     @Override
     public String getDescription() {
         return format.card(TowerType.Loki) + " transmutes fulfilled prophecies.";
+    }
+
+    @Override
+    public String getLevelBonus() {
+        return "+" + multiluck + " multiluck";
     }
 
     @Override
