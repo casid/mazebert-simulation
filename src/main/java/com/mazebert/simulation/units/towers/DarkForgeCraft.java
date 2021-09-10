@@ -67,10 +67,8 @@ public strictfp class DarkForgeCraft extends Ability<Tower> implements OnUnitAdd
             Wizard wizard = getUnit().getWizard();
             ItemType darkItem = lootSystem.addRandomDrop(wizard, wizard.itemStash.getDarkItems(), getUnit().getLevel());
 
-            if (darkItem != null) {
-                if (simulationListeners.areNotificationsEnabled()) {
-                    simulationListeners.showNotification(getUnit(), "Dark item forged", 0xa800ff);
-                }
+            if (darkItem != null && simulationListeners.areNotificationsEnabled()) {
+                simulationListeners.showNotification(getUnit(), "Dark item forged", 0xa800ff);
             }
         }
     }
