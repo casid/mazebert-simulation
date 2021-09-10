@@ -16,7 +16,7 @@ public strictfp class WitheredSetEffect extends DurationEffect {
 
     @Override
     public void addStack() {
-        if ((version >= Sim.vDoL || Sim.context().newBalancing) && getStackCount() >= MAX_STACKS) {
+        if (version >= Sim.vDoL && getStackCount() >= MAX_STACKS) {
             return;
         }
 

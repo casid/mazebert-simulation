@@ -380,14 +380,14 @@ public strictfp abstract class Tower extends Unit implements CooldownUnit, Card,
     }
 
     public boolean isImmobilizeAbilityTriggered(float chance, Creep target) {
-        if (version >= Sim.vDoL || Sim.context().newBalancing) {
+        if (version >= Sim.vDoL) {
             chance -= target.getImmobilizeResistance();
         }
         return isAbilityTriggered(chance);
     }
 
     public boolean isImmobilizeAbilityTriggeredIgnoringLuck(float chance, Creep target) {
-        if (version >= Sim.vDoL || Sim.context().newBalancing) {
+        if (version >= Sim.vDoL) {
             chance -= target.getImmobilizeResistance();
         }
         return Sim.context().randomPlugin.getFloatAbs() < chance;
