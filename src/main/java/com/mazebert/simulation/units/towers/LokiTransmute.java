@@ -68,7 +68,7 @@ public strictfp class LokiTransmute extends Ability<Tower> implements OnUnitAdde
 
     @Override
     public String getIconFile() {
-        return "hoard_512";
+        return "prophecy";
     }
 
 }

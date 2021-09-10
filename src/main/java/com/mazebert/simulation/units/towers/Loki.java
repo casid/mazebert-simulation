@@ -45,7 +45,7 @@ public strictfp class Loki extends Tower {
 
     @Override
     public String getDescription() {
-        return "The trickster god";
+        return "The Trickster God.";
     }
 
     @Override
@@ -66,5 +66,10 @@ public strictfp class Loki extends Tower {
     @Override
     public String getModelId() {
         return "loki";
+    }
+
+    @Override
+    public boolean isProphecy() {
+        return true;
     }
 }
