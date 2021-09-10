@@ -26,6 +26,7 @@ public strictfp class ItemTest extends SimTest {
     protected Tower tower;
 
     public ItemTest() {
+        season = true;
         simulationListeners = new SimulationListeners();
         randomPlugin = randomPluginTrainer = new RandomPluginTrainer();
         unitGateway = new UnitGateway();

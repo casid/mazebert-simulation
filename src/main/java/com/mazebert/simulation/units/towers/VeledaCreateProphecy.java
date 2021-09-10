@@ -6,14 +6,18 @@ import com.mazebert.simulation.Wave;
 import com.mazebert.simulation.listeners.OnRoundStartedListener;
 import com.mazebert.simulation.listeners.OnUnitAddedListener;
 import com.mazebert.simulation.listeners.OnUnitRemovedListener;
+import com.mazebert.simulation.systems.LootSystem;
 import com.mazebert.simulation.units.Unit;
 import com.mazebert.simulation.units.abilities.Ability;
+import com.mazebert.simulation.units.items.ItemType;
+import com.mazebert.simulation.units.wizards.Wizard;
 
 public strictfp class VeledaCreateProphecy extends Ability<Tower> implements OnUnitAddedListener, OnUnitRemovedListener, OnRoundStartedListener {
 
     public static final float CHANCE = 0.09f;
 
     private final SimulationListeners simulationListeners = Sim.context().simulationListeners;
+    private final LootSystem lootSystem = Sim.context().lootSystem;
 
     @Override
     protected void initialize(Tower unit) {
@@ -44,7 +48,12 @@ public strictfp class VeledaCreateProphecy extends Ability<Tower> implements OnU
     @Override
     public void onRoundStarted(Wave wave) {
         if (getUnit().isAbilityTriggered(CHANCE)) {
-            // TODO roll prophecy item :-)
+            Wizard wizard = getUnit().getWizard();
+            ItemType prophecyItem = lootSystem.addRandomDrop(wizard, wizard.itemStash.getProphecyItems(), getUnit().getLevel());
+
+            if (prophecyItem != null && simulationListeners.areNotificationsEnabled()) {
+                simulationListeners.showNotification(getUnit(), "Prophecy created", 0xe86ef7);
+            }
         }
     }
 
