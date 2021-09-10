@@ -33,6 +33,10 @@ public strictfp class CommandExecutor {
         usecase.execute(command);
     }
 
+    public TransmuteCards getTransmuteCards() {
+        return (TransmuteCards) usecases.get(TransmuteCardsCommand.class);
+    }
+
     private  <C extends Command> void addUsecase(Class<C> commandClass, Usecase<C> usecase) {
         usecases.put(commandClass, usecase);
     }

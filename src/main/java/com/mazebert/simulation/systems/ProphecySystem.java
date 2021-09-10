@@ -53,6 +53,8 @@ public strictfp class ProphecySystem {
             simulationListeners.showNotification(prophecyTower.getWizard(), formatPlugin.prophecyTitle("Prophecy fulfilled: ") + formatPlugin.card(item.getType()));
         }
 
+        wizard.onProphecyFulfilled.dispatch(wizard, item);
+
         return true;
     }
 

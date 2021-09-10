@@ -7,19 +7,23 @@ import com.mazebert.simulation.Sim;
 import com.mazebert.simulation.changelog.Changelog;
 import com.mazebert.simulation.changelog.ChangelogEntry;
 import com.mazebert.simulation.units.Gender;
+import com.mazebert.simulation.units.abilities.AttackAbility;
+import com.mazebert.simulation.units.abilities.InstantDamageAbility;
 
-public strictfp class Veleda extends Tower {
+public strictfp class Loki extends Tower {
 
-    public Veleda() {
-        setBaseCooldown(12.0f);
-        setBaseRange(1.0f);
-        setAttackType(AttackType.Vex);
+    public Loki() {
+        setBaseCooldown(4.5f);
+        setBaseRange(3.0f);
+        setAttackType(AttackType.Fal);
         setStrength(1.0f);
-        setDamageSpread(0.6f);
-        setGender(Gender.Female);
+        setDamageSpread(0.4f);
+        setGender(Gender.Male);
+        setElement(Element.Metropolis);
 
-        setElement(Element.Unknown);
-        addAbility(new VeledaCreateProphecy());
+        addAbility(new AttackAbility());
+        addAbility(new InstantDamageAbility());
+        addAbility(new LokiTransmute());
     }
 
     @Override
@@ -31,27 +35,27 @@ public strictfp class Veleda extends Tower {
 
     @Override
     protected float getGoldCostFactor() {
-        return 0.33f;
+        return 1.6f;
     }
 
     @Override
     public String getName() {
-        return "Veleda";
+        return "Loki";
     }
 
     @Override
     public String getDescription() {
-        return format.prophecyDescription("Weaver of Fate.\nCan equip prophecy items.");
-    }
-
-    @Override
-    public Rarity getRarity() {
-        return Rarity.Unique;
+        return "The trickster god";
     }
 
     @Override
     public int getItemLevel() {
-        return 7;
+        return 92;
+    }
+
+    @Override
+    public Rarity getRarity() {
+        return Rarity.Legendary;
     }
 
     @Override
@@ -61,11 +65,6 @@ public strictfp class Veleda extends Tower {
 
     @Override
     public String getModelId() {
-        return "veleda";
-    }
-
-    @Override
-    public boolean isProphecy() {
-        return true;
+        return "loki";
     }
 }

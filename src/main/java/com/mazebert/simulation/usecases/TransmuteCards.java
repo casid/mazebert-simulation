@@ -9,6 +9,7 @@ import com.mazebert.simulation.stash.ReadonlyStash;
 import com.mazebert.simulation.stash.Stash;
 import com.mazebert.simulation.stash.TowerStash;
 import com.mazebert.simulation.systems.ProphecySystem;
+import com.mazebert.simulation.units.items.Item;
 import com.mazebert.simulation.units.items.ItemType;
 import com.mazebert.simulation.units.items.ToiletPaperTransmuteAbility;
 import com.mazebert.simulation.units.potions.PotionType;
@@ -82,6 +83,11 @@ public strictfp class TransmuteCards implements Usecase<TransmuteCardsCommand> {
             }
             transmute(wizard, stash, command.cardType, command.automatic);
         }
+    }
+
+    public void impossibleLokiTransmute(Wizard wizard, Item prophecy) {
+        CardType drop = transmute(wizard, wizard.itemStash, prophecy, prophecy.getType(), -1, true);
+        wizard.onCardsTransmuted.dispatch(prophecy.getRarity(), drop, true);
     }
 
     @SuppressWarnings("unchecked")
