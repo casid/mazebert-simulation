@@ -5,8 +5,10 @@ import com.mazebert.simulation.SimTest;
 import com.mazebert.simulation.SimulationListeners;
 import com.mazebert.simulation.gateways.UnitGateway;
 import com.mazebert.simulation.units.potions.PotionType;
+import com.mazebert.simulation.units.quests.BeaconQuest;
 import com.mazebert.simulation.units.wizards.Wizard;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -56,5 +58,42 @@ class BeaconTest extends SimTest {
         assertThat(beacon.getLevel()).isEqualTo(110);
         assertThat(wizard.potionStash.get(PotionType.LeuchtFeuer).amount).isEqualTo(11);
     }
+
+    @Nested
+    class Quest {
+
+        private BeaconQuest quest;
+
+        @BeforeEach
+        void setUp() {
+            quest = new BeaconQuest();
+            wizard.addAbility(quest);
+        }
+
+        @Test
+        void levelNotReached() {
+            beacon.addExperience(Balancing.getTowerExperienceForLevel(299));
+
+            assertThat(quest.isComplete()).isFalse();
+        }
+
+        @Test
+        void levelReached() {
+            beacon.addExperience(Balancing.getTowerExperienceForLevel(300));
+
+            assertThat(quest.isComplete()).isTrue();
+        }
+
+        @Test
+        void levelReachedInSteps() {
+            beacon.addExperience(Balancing.getTowerExperienceForLevel(300) - 10000);
+            assertThat(quest.isComplete()).isFalse(); // Level 299
+
+            beacon.addExperience(20000);
+            assertThat(quest.isComplete()).isTrue(); // Level 300
+        }
+    }
+
+
 
 }

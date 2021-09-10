@@ -5,6 +5,7 @@ import com.mazebert.simulation.listeners.OnLevelChangedListener;
 import com.mazebert.simulation.units.Unit;
 import com.mazebert.simulation.units.abilities.Ability;
 import com.mazebert.simulation.units.potions.PotionType;
+import com.mazebert.simulation.units.quests.BeaconQuest;
 import com.mazebert.simulation.units.wizards.Wizard;
 
 public strictfp class BeaconLevel extends Ability<Tower> implements OnLevelChangedListener {
@@ -52,6 +53,10 @@ public strictfp class BeaconLevel extends Ability<Tower> implements OnLevelChang
         for (int level = oldLevel + 1; level <= newLevel; ++level) {
             if (level > 99) {
                 wizard.potionStash.add(PotionType.LeuchtFeuer);
+            }
+
+            if (level == BeaconQuest.requiredLevel) {
+                wizard.addQuestProgress(BeaconQuest.class);
             }
         }
     }
