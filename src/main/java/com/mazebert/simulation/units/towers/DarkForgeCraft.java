@@ -1,6 +1,5 @@
 package com.mazebert.simulation.units.towers;
 
-import com.mazebert.simulation.Rarity;
 import com.mazebert.simulation.Sim;
 import com.mazebert.simulation.SimulationListeners;
 import com.mazebert.simulation.Wave;
@@ -8,26 +7,18 @@ import com.mazebert.simulation.listeners.OnRoundStartedListener;
 import com.mazebert.simulation.listeners.OnUnitAddedListener;
 import com.mazebert.simulation.listeners.OnUnitRemovedListener;
 import com.mazebert.simulation.listeners.OnWaveFinishedListener;
-import com.mazebert.simulation.plugins.random.RandomPlugin;
-import com.mazebert.simulation.stash.ItemStash;
 import com.mazebert.simulation.systems.LootSystem;
 import com.mazebert.simulation.units.Unit;
 import com.mazebert.simulation.units.abilities.Ability;
 import com.mazebert.simulation.units.items.ItemType;
 import com.mazebert.simulation.units.wizards.Wizard;
 
-import java.util.ArrayList;
-import java.util.EnumSet;
-import java.util.List;
-
 public strictfp class DarkForgeCraft extends Ability<Tower> implements OnUnitAddedListener, OnUnitRemovedListener, OnWaveFinishedListener, OnRoundStartedListener {
 
     public static final float CHANCE = 0.1f;
 
     private final SimulationListeners simulationListeners = Sim.context().simulationListeners;
-    private final RandomPlugin randomPlugin = Sim.context().randomPlugin;
     private final LootSystem lootSystem = Sim.context().lootSystem;
-    private final int version = Sim.context().version;
 
     @Override
     protected void initialize(Tower unit) {
@@ -73,42 +64,15 @@ public strictfp class DarkForgeCraft extends Ability<Tower> implements OnUnitAdd
 
     private void craft() {
         if (getUnit().isAbilityTriggered(CHANCE)) {
-            List<ItemType> possibleItems = calculatePossibleItems();
+            Wizard wizard = getUnit().getWizard();
+            ItemType darkItem = lootSystem.addRandomDrop(wizard, wizard.itemStash.getDarkItems(), getUnit().getLevel());
 
-            if (!possibleItems.isEmpty()) {
-                ItemType itemDrop = randomPlugin.get(possibleItems);
-                Wizard wizard = getUnit().getWizard();
-
-                if (version >= Sim.v14) {
-                    lootSystem.addToStash(wizard, null, wizard.itemStash, itemDrop);
-                } else {
-                    wizard.itemStash.add(itemDrop, true);
-                }
-
+            if (darkItem != null) {
                 if (simulationListeners.areNotificationsEnabled()) {
                     simulationListeners.showNotification(getUnit(), "Dark item forged", 0xa800ff);
                 }
             }
         }
-    }
-
-    protected List<ItemType> calculatePossibleItems() {
-        int itemLevel = getUnit().getLevel();
-
-        Wizard wizard = getUnit().getWizard();
-        ItemStash itemStash = wizard.itemStash;
-        EnumSet<ItemType> darkItems = itemStash.getDarkItems();
-        List<ItemType> possibleItems = new ArrayList<>(darkItems.size());
-        for (ItemType darkItem : darkItems) {
-            if (darkItem.instance().getRarity() == Rarity.Legendary && !wizard.foilItems.contains(darkItem)) {
-                continue;
-            }
-            if (darkItem.instance().getItemLevel() <= itemLevel && !itemStash.isUniqueAlreadyDropped(darkItem)) {
-                possibleItems.add(darkItem);
-            }
-        }
-
-        return possibleItems;
     }
 
     @Override

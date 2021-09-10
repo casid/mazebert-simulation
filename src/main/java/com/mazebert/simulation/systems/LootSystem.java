@@ -5,6 +5,7 @@ import com.mazebert.simulation.commands.TransmuteCardsCommand;
 import com.mazebert.simulation.gateways.UnitGateway;
 import com.mazebert.simulation.plugins.FormatPlugin;
 import com.mazebert.simulation.plugins.random.RandomPlugin;
+import com.mazebert.simulation.stash.ItemStash;
 import com.mazebert.simulation.stash.Stash;
 import com.mazebert.simulation.stash.StashLookup;
 import com.mazebert.simulation.units.Unit;
@@ -12,6 +13,10 @@ import com.mazebert.simulation.units.creeps.Creep;
 import com.mazebert.simulation.units.items.ItemType;
 import com.mazebert.simulation.units.towers.Tower;
 import com.mazebert.simulation.units.wizards.Wizard;
+
+import java.util.ArrayList;
+import java.util.EnumSet;
+import java.util.List;
 
 @SuppressWarnings("rawtypes")
 public strictfp class LootSystem {
@@ -167,6 +172,39 @@ public strictfp class LootSystem {
         } else {
             simulationListeners.onCardDropped.dispatch(wizard, creep, drop.instance());
         }
+    }
+
+    public ItemType addRandomDrop(Wizard wizard, EnumSet<ItemType> itemSet, int itemLevel) {
+        List<ItemType> possibleItems = calculatePossibleItems(wizard, itemSet, itemLevel);
+
+        if (!possibleItems.isEmpty()) {
+            ItemType itemDrop = randomPlugin.get(possibleItems);
+
+            if (version >= Sim.v14) {
+                addToStash(wizard, null, wizard.itemStash, itemDrop);
+            } else {
+                wizard.itemStash.add(itemDrop, true);
+            }
+
+            return itemDrop;
+        }
+
+        return null;
+    }
+
+    private List<ItemType> calculatePossibleItems(Wizard wizard, EnumSet<ItemType> itemSet, int itemLevel) {
+        ItemStash itemStash = wizard.itemStash;
+        List<ItemType> possibleItems = new ArrayList<>(itemSet.size());
+        for (ItemType item : itemSet) {
+            if (item.instance().getRarity() == Rarity.Legendary && !wizard.foilItems.contains(item)) {
+                continue;
+            }
+            if (item.instance().getItemLevel() <= itemLevel && !itemStash.isUniqueAlreadyDropped(item)) {
+                possibleItems.add(item);
+            }
+        }
+
+        return possibleItems;
     }
 
     private StashLookup getStashLookup(Creep creep) {
