@@ -9,6 +9,11 @@ public abstract strictfp class ActiveAbility extends Ability<Tower> {
 
     public abstract float getReadyProgress();
 
+    @SuppressWarnings("unused") // Used by client
+    public float getReadyProgressForDisplay() {
+        return getReadyProgress();
+    }
+
     public abstract void activate();
 
     protected void onAbilityReady() {

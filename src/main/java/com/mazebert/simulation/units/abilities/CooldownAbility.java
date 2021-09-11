@@ -38,4 +38,8 @@ public abstract strictfp class CooldownAbility<U extends Unit> extends Ability<U
     protected abstract float getCooldown();
 
     protected abstract boolean onCooldownReached();
+
+    public float getProgress() {
+        return StrictMath.min(passedTime / getCooldown(), 1.0f);
+    }
 }

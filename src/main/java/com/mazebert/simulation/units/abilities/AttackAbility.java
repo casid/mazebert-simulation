@@ -13,7 +13,7 @@ public strictfp class AttackAbility extends CooldownUnitAbility<Tower> {
     private final int version = Sim.context().version;
 
     private Creep[] currentTargets;
-    private boolean canAttackSameTarget;
+    private final boolean canAttackSameTarget;
 
     public AttackAbility() {
         this(1);

@@ -15,6 +15,7 @@ public strictfp enum ActiveAbilityType {
     ScepterOfTimeToggle(6, ScepterOfTimeAbility.class),
     NecronomiconSummon(7, NecronomiconSummonAbility.class),
     FoxHunt(8, FoxHunt.class),
+    ThorHoldBack(9, ThorHoldBack.class),
     ;
 
     public final int id;
