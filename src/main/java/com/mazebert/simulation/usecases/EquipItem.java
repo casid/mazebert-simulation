@@ -6,6 +6,8 @@ import com.mazebert.simulation.gateways.GameGateway;
 import com.mazebert.simulation.gateways.UnitGateway;
 import com.mazebert.simulation.maps.MapType;
 import com.mazebert.simulation.units.items.Item;
+import com.mazebert.simulation.units.items.Mjoelnir;
+import com.mazebert.simulation.units.towers.Thor;
 import com.mazebert.simulation.units.towers.Tower;
 import com.mazebert.simulation.units.wizards.Wizard;
 
@@ -24,6 +26,10 @@ public strictfp class EquipItem implements Usecase<EquipItemCommand> {
         }
 
         if (command.inventoryIndex < 0 || command.inventoryIndex >= tower.getInventorySize()) {
+            return;
+        }
+
+        if (isForbiddenToChangeItem(tower, command.inventoryIndex)) {
             return;
         }
 
@@ -60,5 +66,13 @@ public strictfp class EquipItem implements Usecase<EquipItemCommand> {
         if (previousItem != null) {
             wizard.itemStash.add(previousItem.getType());
         }
+    }
+
+    private boolean isForbiddenToChangeItem(Tower tower, int inventoryIndex) {
+        if (tower instanceof Thor) {
+            return tower.getItem(inventoryIndex) instanceof Mjoelnir;
+        }
+
+        return false;
     }
 }

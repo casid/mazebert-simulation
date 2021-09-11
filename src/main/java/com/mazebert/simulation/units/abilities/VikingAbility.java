@@ -4,6 +4,17 @@ import com.mazebert.simulation.units.potions.MeadAbility;
 import com.mazebert.simulation.units.towers.Tower;
 
 public strictfp class VikingAbility extends Ability<Tower> {
+
+    private final boolean visible;
+
+    public VikingAbility() {
+        this(true);
+    }
+
+    public VikingAbility(boolean visible) {
+        this.visible = visible;
+    }
+
     @Override
     protected void initialize(Tower unit) {
         super.initialize(unit);
@@ -25,7 +36,7 @@ public strictfp class VikingAbility extends Ability<Tower> {
 
     @Override
     public boolean isVisibleToUser() {
-        return true;
+        return visible;
     }
 
     @Override

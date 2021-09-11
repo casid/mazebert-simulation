@@ -8,6 +8,7 @@ import com.mazebert.simulation.changelog.Changelog;
 import com.mazebert.simulation.changelog.ChangelogEntry;
 import com.mazebert.simulation.units.Gender;
 import com.mazebert.simulation.units.abilities.AttackAbility;
+import com.mazebert.simulation.units.abilities.VikingAbility;
 
 public strictfp class Loki extends Tower {
 
@@ -23,6 +24,7 @@ public strictfp class Loki extends Tower {
         addAbility(new AttackAbility());
         addAbility(new LokiDamage());
         addAbility(new LokiTransmute());
+        addAbility(new VikingAbility(false));
     }
 
     @Override

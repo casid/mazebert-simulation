@@ -1,5 +1,6 @@
 package com.mazebert.simulation.units.towers;
 
+import com.mazebert.simulation.units.items.DrinkingHorn;
 import com.mazebert.simulation.units.items.ItemTest;
 import com.mazebert.simulation.units.items.ItemType;
 import org.junit.jupiter.api.BeforeEach;
@@ -28,5 +29,12 @@ class LokiTest extends ItemTest {
         whenTowerIsBuilt(wizard, TowerType.Rabbit, 1, 0);
 
         assertThat(wizard.itemStash.transmutedRares).isEqualTo(1);
+    }
+
+    @Test
+    void countsAsViking() {
+        whenItemIsEquipped(tower, ItemType.DrinkingHorn, 1);
+
+        assertThat(tower.getItem(1)).isInstanceOf(DrinkingHorn.class);
     }
 }

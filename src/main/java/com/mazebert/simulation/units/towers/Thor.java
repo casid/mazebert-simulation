@@ -8,6 +8,7 @@ import com.mazebert.simulation.changelog.Changelog;
 import com.mazebert.simulation.changelog.ChangelogEntry;
 import com.mazebert.simulation.units.Gender;
 import com.mazebert.simulation.units.abilities.InstantDamageAbility;
+import com.mazebert.simulation.units.abilities.VikingAbility;
 
 public strictfp class Thor extends Tower {
 
@@ -26,6 +27,7 @@ public strictfp class Thor extends Tower {
         addAbility(new InstantDamageAbility());
         addAbility(new ThorMjoelnir());
         addAbility(new ThorHoldBack(thorAttack));
+        addAbility(new VikingAbility(false));
     }
 
     @Override

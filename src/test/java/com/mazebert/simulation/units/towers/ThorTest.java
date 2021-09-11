@@ -9,6 +9,7 @@ import com.mazebert.simulation.gateways.UnitGateway;
 import com.mazebert.simulation.maps.TestMap;
 import com.mazebert.simulation.systems.LootSystem;
 import com.mazebert.simulation.systems.ProphecySystem;
+import com.mazebert.simulation.units.items.DrinkingHorn;
 import com.mazebert.simulation.units.items.ItemType;
 import com.mazebert.simulation.units.items.Mjoelnir;
 import com.mazebert.simulation.units.wizards.Wizard;
@@ -98,5 +99,32 @@ public class ThorTest extends SimTest {
         assertThat(thor.getItem(0)).isInstanceOf(Mjoelnir.class);
         assertThat(wizard1.itemStash.size()).isEqualTo(0);
         assertThat(wizard2.itemStash.size()).isEqualTo(1);
+    }
+
+    @Test
+    void cannotReplaceMjoelnir() {
+        Tower thor = whenTowerIsBuilt(wizard1, TowerType.Thor, 0, 0);
+
+        whenItemIsEquipped(thor, ItemType.BabySword, 0);
+
+        assertThat(thor.getItem(0)).isInstanceOf(Mjoelnir.class);
+    }
+
+    @Test
+    void cannotDropMjoelnir() {
+        Tower thor = whenTowerIsBuilt(wizard1, TowerType.Thor, 0, 0);
+
+        whenItemIsEquipped(thor, null, 0);
+
+        assertThat(thor.getItem(0)).isInstanceOf(Mjoelnir.class);
+    }
+
+    @Test
+    void countsAsViking() {
+        Tower thor = whenTowerIsBuilt(wizard1, TowerType.Thor, 0, 0);
+
+        whenItemIsEquipped(thor, ItemType.DrinkingHorn, 1);
+
+        assertThat(thor.getItem(1)).isInstanceOf(DrinkingHorn.class);
     }
 }
