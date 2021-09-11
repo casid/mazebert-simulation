@@ -102,10 +102,7 @@ public strictfp class BuildTower implements Usecase<BuildTowerCommand> {
             transferItems(wizard, tower, items);
         }
 
-        if (oldTower != null) {
-            tower.onTowerReplaced.dispatch(oldTower);
-        }
-
+        tower.onTowerBuilt.dispatch(oldTower);
         return oldTower;
     }
 

@@ -23,7 +23,7 @@ public strictfp class Thor extends Tower {
         ThorAttack thorAttack = new ThorAttack();
 
         addAbility(thorAttack);
-        addAbility(new InstantDamageAbility()); // TODO lightning from the sky!
+        addAbility(new InstantDamageAbility());
         addAbility(new ThorMjoelnir());
         addAbility(new ThorHoldBack(thorAttack));
     }

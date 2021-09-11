@@ -110,6 +110,16 @@ public class SimTest extends Context {
         commandExecutor.execute(command);
     }
 
+    protected void whenCardIsTransferred(Wizard wizardFrom, Wizard wizardTo, CardType cardType) {
+        TransferCardCommand command = new TransferCardCommand();
+        command.playerId = wizardFrom.getPlayerId();
+        command.toPlayerId = wizardTo.getPlayerId();
+        command.cardCategory = cardType.category();
+        command.cardType = cardType;
+
+        commandExecutor.execute(command);
+    }
+
     protected void whenTowerAttacks(Tower tower) {
         tower.simulate(tower.getCooldown());
     }

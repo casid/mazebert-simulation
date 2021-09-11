@@ -22,8 +22,12 @@ public strictfp class CullingStrikeAbility extends Ability<Tower> implements OnD
     @Override
     public void onDamage(Object origin, Creep target, double damage, int multicrits) {
         double health = target.getHealth();
-        if (health > 0 && health <= HEALTH_THRESHOLD * target.getMaxHealth()) {
+        if (health > 0 && health <= getHealthThreshold() * target.getMaxHealth()) {
             getUnit().kill(target, true);
         }
+    }
+
+    protected float getHealthThreshold() {
+        return HEALTH_THRESHOLD;
     }
 }

@@ -5,6 +5,7 @@ import com.mazebert.simulation.Sim;
 import com.mazebert.simulation.changelog.Changelog;
 import com.mazebert.simulation.changelog.ChangelogEntry;
 import com.mazebert.simulation.units.abilities.Ability;
+import com.mazebert.simulation.units.towers.TowerType;
 
 public strictfp class Mjoelnir extends Item {
 
@@ -23,6 +24,8 @@ public strictfp class Mjoelnir extends Item {
     @Override
     public Changelog getChangelog() {
         return new Changelog(
+                new ChangelogEntry(Sim.vRnR, false, 2021, "Chain lightning triggers every 2nd creep (from 3rd).", "Chain lightning deals 16% damage (from 24%)."),
+                new ChangelogEntry(Sim.vDoL, false, 2019, "Instantly kills damaged creeps left behind with less than 10% health."),
                 new ChangelogEntry(Sim.v10, false, 2015)
         );
     }
@@ -34,7 +37,7 @@ public strictfp class Mjoelnir extends Item {
 
     @Override
     public String getDescription() {
-        return "Thor's mighty hammer.";
+        return format.card(TowerType.Thor) + "'s mighty hammer.";
     }
 
     @Override

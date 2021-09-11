@@ -2,7 +2,7 @@ package com.mazebert.simulation.units.towers;
 
 import com.mazebert.simulation.Rarity;
 import com.mazebert.simulation.Sim;
-import com.mazebert.simulation.listeners.OnTowerReplacedListener;
+import com.mazebert.simulation.listeners.OnTowerBuiltListener;
 import com.mazebert.simulation.stash.ItemStash;
 import com.mazebert.simulation.units.abilities.Ability;
 import com.mazebert.simulation.units.abilities.AttackAbility;
@@ -14,24 +14,26 @@ import com.mazebert.simulation.units.items.SnowGlobe;
 import java.util.ArrayList;
 import java.util.List;
 
-public strictfp class SnowGlobeCreateItem extends Ability<Tower> implements OnTowerReplacedListener {
+public strictfp class SnowGlobeCreateItem extends Ability<Tower> implements OnTowerBuiltListener {
     @Override
     protected void initialize(Tower unit) {
         super.initialize(unit);
-        unit.onTowerReplaced.add(this);
+        unit.onTowerBuilt.add(this);
     }
 
     @Override
     protected void dispose(Tower unit) {
-        unit.onTowerReplaced.remove(this);
+        unit.onTowerBuilt.remove(this);
         super.dispose(unit);
     }
 
     @Override
-    public void onTowerReplaced(Tower oldTower) {
-        createItem(oldTower.getType());
+    public void onTowerBuilt(Tower oldTower) {
+        if (oldTower != null) {
+            createItem(oldTower.getType());
 
-        Sim.context().unitGateway.destroyTower(getUnit());
+            Sim.context().unitGateway.destroyTower(getUnit());
+        }
     }
 
     private void createItem(TowerType towerType) {
