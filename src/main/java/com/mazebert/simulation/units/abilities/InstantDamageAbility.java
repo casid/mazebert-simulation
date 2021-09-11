@@ -7,7 +7,7 @@ import com.mazebert.simulation.units.creeps.Creep;
 import com.mazebert.simulation.units.towers.Tower;
 
 public strictfp class InstantDamageAbility extends Ability<Tower> implements DamageAbility, OnAttackListener {
-    private final DamageSystem damageSystem = Sim.context().damageSystem;
+    protected final DamageSystem damageSystem = Sim.context().damageSystem;
 
     @Override
     protected void initialize(Tower unit) {

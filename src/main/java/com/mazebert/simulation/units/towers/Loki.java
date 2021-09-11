@@ -8,21 +8,20 @@ import com.mazebert.simulation.changelog.Changelog;
 import com.mazebert.simulation.changelog.ChangelogEntry;
 import com.mazebert.simulation.units.Gender;
 import com.mazebert.simulation.units.abilities.AttackAbility;
-import com.mazebert.simulation.units.abilities.InstantDamageAbility;
 
 public strictfp class Loki extends Tower {
 
     public Loki() {
         setBaseCooldown(2.5f);
-        setBaseRange(3.0f);
+        setBaseRange(2.0f);
         setAttackType(AttackType.Fal);
-        setStrength(0.4f);
+        setStrength(0.5f);
         setDamageSpread(1.0f);
         setGender(Gender.Male);
         setElement(Element.Metropolis);
 
         addAbility(new AttackAbility());
-        addAbility(new InstantDamageAbility());
+        addAbility(new LokiDamage());
         addAbility(new LokiTransmute());
     }
 
