@@ -7,8 +7,11 @@ import com.mazebert.simulation.units.creeps.Creep;
 
 public strictfp class HelAuraEffect extends StackableByOriginAbility<Creep> implements OnDeathListener {
 
+    public static float SPEED_MODIFIER = 0.7f;
+    public static int CREEPS_PER_ARMOR = 10;
+
     private int totalReduction;
-    private float totalSlow = 1.0f;
+    private float totalSpeedModifier = 1.0f;
 
     @Override
     protected void initialize(Creep unit) {
@@ -21,7 +24,7 @@ public strictfp class HelAuraEffect extends StackableByOriginAbility<Creep> impl
         unit.onDeath.remove(this);
 
         unit.addArmor(totalReduction);
-        unit.setSpeedModifier(unit.getSpeedModifier() / totalSlow);
+        unit.setSpeedModifier(unit.getSpeedModifier() / totalSpeedModifier);
 
         super.dispose(unit);
     }
@@ -30,8 +33,8 @@ public strictfp class HelAuraEffect extends StackableByOriginAbility<Creep> impl
         totalReduction += baseReduction;
         getUnit().addArmor(-baseReduction);
 
-        totalSlow *= 0.5f;
-        getUnit().setSpeedModifier(0.5f * getUnit().getSpeedModifier());
+        totalSpeedModifier *= SPEED_MODIFIER;
+        getUnit().setSpeedModifier(SPEED_MODIFIER * getUnit().getSpeedModifier());
     }
 
     @Override

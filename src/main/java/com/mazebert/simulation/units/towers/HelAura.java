@@ -26,7 +26,7 @@ public strictfp class HelAura extends AuraAbility<Tower, Creep> {
     protected void onAuraEntered(Creep creep) {
         HelAuraEffect effect = creep.addAbilityStack(getUnit(), HelAuraEffect.class);
         if (effect != null) {
-            effect.applyEffect(helheimPopulation / 10);
+            effect.applyEffect(helheimPopulation / HelAuraEffect.CREEPS_PER_ARMOR);
         }
     }
 
@@ -56,12 +56,12 @@ public strictfp class HelAura extends AuraAbility<Tower, Creep> {
 
     @Override
     public String getDescription() {
-        return "Icy winds of Helheim slow creeps in range by 50% and reduce creep armor. Creeps that escape Helheim count as leaked.";
+        return "Icy winds of Helheim slow creeps in range by " + format.percent(1.0f - HelAuraEffect.SPEED_MODIFIER) + "% and reduce creep armor. Creeps that escape Helheim count as leaked.";
     }
 
     @Override
     public String getLevelBonus() {
-        return "-1 armor per 10 creeps that did not escape Helheim";
+        return "-1 armor per " + HelAuraEffect.CREEPS_PER_ARMOR + " creeps that did not escape Helheim";
     }
 
     @Override
