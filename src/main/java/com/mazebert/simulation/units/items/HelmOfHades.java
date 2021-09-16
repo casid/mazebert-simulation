@@ -4,11 +4,35 @@ import com.mazebert.simulation.Rarity;
 import com.mazebert.simulation.Sim;
 import com.mazebert.simulation.changelog.Changelog;
 import com.mazebert.simulation.changelog.ChangelogEntry;
+import com.mazebert.simulation.units.towers.Hel;
+import com.mazebert.simulation.units.towers.Tower;
+import com.mazebert.simulation.units.towers.TowerType;
 
 public strictfp class HelmOfHades extends Item {
 
+    private static final String originalName = "Helm of Hades";
+    private static final String originalDescription = "This helmet was once given to Hades, ruler of the underworld.";
+
+    private String name = originalName;
+    private String description = originalDescription;
+    private boolean dark;
+
     public HelmOfHades() {
-        super(new HelmOfHadesRangeAbility(), new HelmOfHadesInvisibleAbility());
+        setAbilities(new HelmOfHadesRangeAbility(), new HelmOfHadesInvisibleAbility(this));
+    }
+
+    public void changeName(Tower carrier) {
+        if (carrier instanceof Hel) {
+            name = "Helm of Helheim";
+            description = originalDescription + " But " + format.card(TowerType.Hel) + " rules now.";
+            this.dark = true;
+        }
+    }
+
+    public void resetName() {
+        name = originalName;
+        description = originalDescription;
+        dark = false;
     }
 
     @Override
@@ -20,12 +44,12 @@ public strictfp class HelmOfHades extends Item {
 
     @Override
     public String getName() {
-        return "Helm of Hades";
+        return name;
     }
 
     @Override
     public String getDescription() {
-        return "This helmet was once given to Hades, ruler of the underworld.";
+        return description;
     }
 
     @Override
@@ -46,5 +70,10 @@ public strictfp class HelmOfHades extends Item {
     @Override
     public int getItemLevel() {
         return 77;
+    }
+
+    @Override
+    public boolean isDark() {
+        return dark;
     }
 }
