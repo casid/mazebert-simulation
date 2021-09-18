@@ -87,7 +87,7 @@ public strictfp class MjoelnirChainAbility extends ChainAbility {
         }
 
         return "Every " + numberOfAttacksWording + " hit " +
-                "chain lightning jumps to " + CREEPS + " creeps and deals " +
-                format.percent(initialDamage) + "% of the carrier's damage.";
+                "chain lightning jumps to " + (getMaxChains() + 1) + " creeps and deals " +
+                format.percent(damage) + "% of the carrier's damage.";
     }
 }

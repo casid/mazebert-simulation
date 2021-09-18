@@ -25,6 +25,6 @@ public strictfp class MjoelnirCullingStrikeAbility extends CullingStrikeAbility 
 
     @Override
     public String getDescription() {
-        return "If Mjoelnir leaves a damaged creep with less than " + format.percent(HEALTH_THRESHOLD) + "% health, it is killed.";
+        return "If Mjoelnir leaves a damaged creep with less than " + format.percent(getHealthThreshold()) + "% health, it is killed.";
     }
 }

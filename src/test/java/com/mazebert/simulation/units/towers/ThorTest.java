@@ -1,15 +1,18 @@
 package com.mazebert.simulation.units.towers;
 
 import com.mazebert.simulation.CommandExecutor;
+import com.mazebert.simulation.Element;
 import com.mazebert.simulation.SimTest;
 import com.mazebert.simulation.SimulationListeners;
 import com.mazebert.simulation.gateways.GameGateway;
 import com.mazebert.simulation.gateways.PlayerGatewayTrainer;
 import com.mazebert.simulation.gateways.UnitGateway;
 import com.mazebert.simulation.maps.TestMap;
+import com.mazebert.simulation.plugins.FormatPlugin;
 import com.mazebert.simulation.systems.LootSystem;
 import com.mazebert.simulation.systems.ProphecySystem;
 import com.mazebert.simulation.units.items.DrinkingHorn;
+import com.mazebert.simulation.units.items.Item;
 import com.mazebert.simulation.units.items.ItemType;
 import com.mazebert.simulation.units.items.Mjoelnir;
 import com.mazebert.simulation.units.wizards.Wizard;
@@ -34,6 +37,7 @@ public class ThorTest extends SimTest {
         playerGateway = playerGatewayTrainer;
         gameGateway = new GameGateway();
         gameGateway.getGame().map = new TestMap(2);
+        formatPlugin = new FormatPlugin();
         prophecySystem = new ProphecySystem();
         lootSystem = new LootSystem();
 
@@ -123,8 +127,17 @@ public class ThorTest extends SimTest {
     void countsAsViking() {
         Tower thor = whenTowerIsBuilt(wizard1, TowerType.Thor, 0, 0);
 
-        whenItemIsEquipped(thor, ItemType.DrinkingHorn, 1);
+        whenItemIsEquipped(thor, ItemType.DrinkingHorn, 1); // Only Vikings can equip that horn
 
         assertThat(thor.getItem(1)).isInstanceOf(DrinkingHorn.class);
+    }
+
+    @Test
+    void mjoelnirFlavour() {
+        Tower thor = whenTowerIsBuilt(wizard1, TowerType.Thor, 0, 0);
+
+        Item mjoelnir = thor.getItem(0);
+        assertThat(mjoelnir.getDescription()).isEqualTo("My precious hammer.");
+        assertThat(mjoelnir.getElement()).isEqualTo(Element.Light);
     }
 }

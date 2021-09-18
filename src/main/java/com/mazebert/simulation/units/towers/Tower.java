@@ -485,12 +485,14 @@ public strictfp abstract class Tower extends Unit implements CooldownUnit, Card,
         Item previousItem = items[index];
         if (previousItem != null) {
             previousItem.forEachAbility(this::removeAbility);
+            previousItem.onDropped(this);
         }
 
         items[index] = item;
 
         if (item != null) {
             item.forEachAbility(this::addAbility);
+            item.onEquipped(this);
         }
 
         onItemEquipped.dispatch(this, index, previousItem, item, userAction);

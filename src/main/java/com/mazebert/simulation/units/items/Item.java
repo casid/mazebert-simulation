@@ -25,6 +25,14 @@ public strictfp abstract class Item implements Card {
         this.set = containsAbility(ItemSetAbility.class);
     }
 
+    public void onEquipped(Tower tower) {
+        // Hook for item subclasses for cosmetic changes
+    }
+
+    public void onDropped(Tower tower) {
+        // Hook for item subclasses for cosmetic changes
+    }
+
     @Override
     public Rarity getDropRarity() {
         return getRarity();

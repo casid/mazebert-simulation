@@ -1,11 +1,13 @@
 package com.mazebert.simulation.units.items;
 
+import com.mazebert.simulation.Element;
 import com.mazebert.simulation.Rarity;
 import com.mazebert.simulation.Sim;
 import com.mazebert.simulation.changelog.Changelog;
 import com.mazebert.simulation.changelog.ChangelogEntry;
 import com.mazebert.simulation.units.abilities.Ability;
-import com.mazebert.simulation.units.towers.TowerType;
+import com.mazebert.simulation.units.towers.Thor;
+import com.mazebert.simulation.units.towers.Tower;
 
 public strictfp class Mjoelnir extends Item {
 
@@ -17,8 +19,20 @@ public strictfp class Mjoelnir extends Item {
         }
     }
 
+    private final Element originalElement;
+    private Element element;
+
+    private final String originalDescription;
+    private String description;
+
     public Mjoelnir() {
         super(getAbilities());
+
+        originalElement = Element.Unknown;
+        element = originalElement;
+
+        originalDescription = "Thor's mighty hammer.";
+        description = originalDescription;
     }
 
     @Override
@@ -31,13 +45,29 @@ public strictfp class Mjoelnir extends Item {
     }
 
     @Override
+    public void onEquipped(Tower tower) {
+        if (tower instanceof Thor) {
+            element = Element.Light;
+            description = "My precious hammer.";
+        }
+    }
+
+    @Override
+    public void onDropped(Tower tower) {
+        if (tower instanceof Thor) {
+            element = originalElement;
+            description = originalDescription;
+        }
+    }
+
+    @Override
     public String getName() {
         return "Mjoelnir";
     }
 
     @Override
     public String getDescription() {
-        return format.card(TowerType.Thor) + "'s mighty hammer.";
+        return description;
     }
 
     @Override
@@ -68,5 +98,10 @@ public strictfp class Mjoelnir extends Item {
     @Override
     public boolean isBlackMarketOffer() {
         return Sim.context().version < Sim.vRoC;
+    }
+
+    @Override
+    public Element getElement() {
+        return element;
     }
 }

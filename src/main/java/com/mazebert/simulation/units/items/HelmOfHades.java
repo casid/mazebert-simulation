@@ -15,24 +15,28 @@ public strictfp class HelmOfHades extends Item {
 
     private String name = originalName;
     private String description = originalDescription;
-    private boolean dark;
+    private boolean dark; // We cannot use element, cause that is used by Dark Forge crafting...
 
     public HelmOfHades() {
-        setAbilities(new HelmOfHadesRangeAbility(), new HelmOfHadesInvisibleAbility(this));
+        super(new HelmOfHadesRangeAbility(), new HelmOfHadesInvisibleAbility());
     }
 
-    public void changeName(Tower carrier) {
-        if (carrier instanceof Hel) {
+    @Override
+    public void onEquipped(Tower tower) {
+        if (tower instanceof Hel) {
             name = "Helm of Helheim";
             description = originalDescription + " But " + format.card(TowerType.Hel) + " rules now.";
-            this.dark = true;
+            dark = true;
         }
     }
 
-    public void resetName() {
-        name = originalName;
-        description = originalDescription;
-        dark = false;
+    @Override
+    public void onDropped(Tower tower) {
+        if (tower instanceof Hel) {
+            name = originalName;
+            description = originalDescription;
+            dark = false;
+        }
     }
 
     @Override
