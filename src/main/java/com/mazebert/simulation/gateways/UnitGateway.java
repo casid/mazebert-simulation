@@ -54,6 +54,8 @@ public strictfp final class UnitGateway {
     }
 
     public void removeUnit(Unit unit) {
+        unit.markForDisposal();
+
         units.remove(unit);
         if (unit instanceof Creep) {
             creeps.remove((Creep) unit);

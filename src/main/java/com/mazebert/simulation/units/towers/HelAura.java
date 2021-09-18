@@ -33,7 +33,10 @@ public strictfp class HelAura extends AuraAbility<Tower, Creep> {
     @Override
     protected void onAuraLeft(Creep creep) {
         creep.removeAbilityStack(getUnit(), HelAuraEffect.class);
-        creep.onTargetReached.dispatch(creep);
+
+        if (!creep.isMarkedForDisposal()) {
+            creep.onTargetReached.dispatch(creep);
+        }
     }
 
     public void increaseHelheimPopulation() {
