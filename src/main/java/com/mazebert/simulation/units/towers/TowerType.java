@@ -74,6 +74,7 @@ public strictfp enum TowerType implements CardType<Tower> {
     Loki(59, Loki.class),
     Thor(60, Thor.class),
     Hel(61, Hel.class),
+    Idun(62, Idun.class),
     ;
 
     public final int id;
