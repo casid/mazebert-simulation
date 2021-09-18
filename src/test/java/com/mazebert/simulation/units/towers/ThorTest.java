@@ -140,4 +140,15 @@ public class ThorTest extends SimTest {
         assertThat(mjoelnir.getDescription()).isEqualTo("My precious hammer.");
         assertThat(mjoelnir.getElement()).isEqualTo(Element.Light);
     }
+
+    @Test
+    void mjoelnirFlavour_sold() {
+        Tower thor = whenTowerIsBuilt(wizard1, TowerType.Thor, 0, 0);
+
+        whenTowerIsSold(thor);
+
+        Item mjoelnir = wizard1.itemStash.get(0).getCard();
+        assertThat(mjoelnir.getDescription()).isEqualTo("Thor's mighty hammer.");
+        assertThat(mjoelnir.getElement()).isEqualTo(Element.Unknown);
+    }
 }
