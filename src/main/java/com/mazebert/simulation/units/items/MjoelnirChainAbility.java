@@ -80,14 +80,16 @@ public strictfp class MjoelnirChainAbility extends ChainAbility {
     @Override
     public String getDescription() {
         String numberOfAttacksWording;
-        if (initialNumberOfAttacks == 3) {
-            numberOfAttacksWording = "third";
+        if (numberOfAttacks == 3) {
+            numberOfAttacksWording = "third hit";
+        } else if (numberOfAttacks == 2) {
+            numberOfAttacksWording = "second hit";
         } else {
-            numberOfAttacksWording = "second";
+            numberOfAttacksWording = "hit";
         }
 
-        return "Every " + numberOfAttacksWording + " hit " +
-                "chain lightning jumps to " + (getMaxChains() + 1) + " creeps and deals " +
+        return "Every " + numberOfAttacksWording +
+                " chain lightning jumps to " + (getMaxChains() + 1) + " creeps and deals " +
                 format.percent(damage) + "% of the carrier's damage.";
     }
 }

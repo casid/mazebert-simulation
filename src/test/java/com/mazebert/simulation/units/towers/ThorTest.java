@@ -11,10 +11,7 @@ import com.mazebert.simulation.maps.TestMap;
 import com.mazebert.simulation.plugins.FormatPlugin;
 import com.mazebert.simulation.systems.LootSystem;
 import com.mazebert.simulation.systems.ProphecySystem;
-import com.mazebert.simulation.units.items.DrinkingHorn;
-import com.mazebert.simulation.units.items.Item;
-import com.mazebert.simulation.units.items.ItemType;
-import com.mazebert.simulation.units.items.Mjoelnir;
+import com.mazebert.simulation.units.items.*;
 import com.mazebert.simulation.units.wizards.Wizard;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -139,6 +136,7 @@ public class ThorTest extends SimTest {
         Item mjoelnir = thor.getItem(0);
         assertThat(mjoelnir.getDescription()).isEqualTo("My precious hammer.");
         assertThat(mjoelnir.getElement()).isEqualTo(Element.Light);
+        assertThat(mjoelnir.getAbility(MjoelnirChainAbility.class).getDescription()).isEqualTo("Every hit chain lightning jumps to 6 creeps and deals 32% of the carrier's damage.");
     }
 
     @Test
@@ -150,5 +148,6 @@ public class ThorTest extends SimTest {
         Item mjoelnir = wizard1.itemStash.get(0).getCard();
         assertThat(mjoelnir.getDescription()).isEqualTo("Thor's mighty hammer.");
         assertThat(mjoelnir.getElement()).isEqualTo(Element.Unknown);
+        assertThat(mjoelnir.getAbility(MjoelnirChainAbility.class).getDescription()).isEqualTo("Every second hit chain lightning jumps to 3 creeps and deals 16% of the carrier's damage.");
     }
 }
