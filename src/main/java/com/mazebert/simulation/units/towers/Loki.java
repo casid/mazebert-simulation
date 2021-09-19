@@ -70,7 +70,7 @@ public strictfp class Loki extends Tower {
     }
 
     @Override
-    public boolean isProphecy() {
-        return true;
+    public boolean isForgeable() {
+        return false;
     }
 }

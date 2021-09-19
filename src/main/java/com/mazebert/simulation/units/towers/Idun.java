@@ -66,4 +66,9 @@ public strictfp class Idun extends Tower {
     public String getModelId() {
         return "idun";
     }
+
+    @Override
+    public boolean isForgeable() {
+        return false;
+    }
 }

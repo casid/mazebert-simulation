@@ -74,4 +74,9 @@ public strictfp class Hel extends Tower {
         bonus.title = "Helheim:";
         bonus.value = "" + helAura.getHelheimPopulation();
     }
+
+    @Override
+    public boolean isForgeable() {
+        return false;
+    }
 }

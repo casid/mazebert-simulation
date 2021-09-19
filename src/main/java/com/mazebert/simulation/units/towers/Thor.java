@@ -76,4 +76,9 @@ public strictfp class Thor extends Tower {
     public String getAuthor() {
         return "FuzzyEuk";
     }
+
+    @Override
+    public boolean isForgeable() {
+        return false;
+    }
 }
