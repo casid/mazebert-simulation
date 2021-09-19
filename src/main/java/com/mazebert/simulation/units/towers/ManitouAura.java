@@ -51,7 +51,7 @@ public strictfp class ManitouAura extends AuraAbility<Tower, Tower> {
 
     @Override
     public String getLevelBonus() {
-        if (Sim.context().version == Sim.vRoCEnd) {
+        if (Sim.context().version >= Sim.vRoCEnd) {
             return "+" + BONUS + " multicrit for towers in range. Buff is doubled for " + format.element(Element.Nature) + " towers.";
         } else {
             return "+" + BONUS + " multicrit for towers in range.";
