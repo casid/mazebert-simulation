@@ -46,7 +46,7 @@ public strictfp class TowerStash extends Stash<Tower> {
     }
 
     public boolean isElementResearched(Element element) {
-        return elements.contains(element);
+        return elements != null && elements.contains(element);
     }
 
     public boolean researchElement(Element element) {
