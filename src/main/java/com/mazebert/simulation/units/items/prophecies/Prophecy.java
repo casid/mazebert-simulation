@@ -1,5 +1,6 @@
 package com.mazebert.simulation.units.items.prophecies;
 
+import com.mazebert.simulation.Element;
 import com.mazebert.simulation.Sim;
 import com.mazebert.simulation.changelog.Changelog;
 import com.mazebert.simulation.changelog.ChangelogEntry;
@@ -49,5 +50,9 @@ public strictfp abstract class Prophecy extends Item {
     @Override
     public boolean isProphecy() {
         return true;
+    }
+
+    public Element getRequiredElement() {
+        return Element.Unknown;
     }
 }

@@ -1,5 +1,6 @@
 package com.mazebert.simulation.units.items.prophecies;
 
+import com.mazebert.simulation.Element;
 import com.mazebert.simulation.Rarity;
 import com.mazebert.simulation.Sim;
 import com.mazebert.simulation.changelog.Changelog;
@@ -47,5 +48,10 @@ public strictfp abstract class UnlockGodProphecy extends Prophecy {
     @Override
     public Rarity getRarity() {
         return Rarity.Unique;
+    }
+
+    @Override
+    public Element getRequiredElement() {
+        return getGod().instance().getElement();
     }
 }
