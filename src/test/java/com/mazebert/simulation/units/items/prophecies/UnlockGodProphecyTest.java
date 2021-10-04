@@ -69,6 +69,28 @@ public class UnlockGodProphecyTest extends ProphecyTest {
         assertThat(wizard.itemStash.get(0).cardType).isEqualTo(ItemType.UnlockLokiProphecy);
     }
 
+    @Test
+    void helProphecyDrop() {
+        wizard.towerStash.setElements(EnumSet.of(Element.Darkness));
+        veleda.setLevel(13);
+        randomPluginTrainer.givenFloatAbs(0.0f, UNLOCK_GOD_PROPHECY_ROLL);
+
+        simulationListeners.onRoundStarted.dispatch(null);
+
+        assertThat(wizard.itemStash.get(0).cardType).isEqualTo(ItemType.UnlockHelProphecy);
+    }
+
+    @Test
+    void idunProphecyDrop() {
+        wizard.towerStash.setElements(EnumSet.of(Element.Nature));
+        veleda.setLevel(13);
+        randomPluginTrainer.givenFloatAbs(0.0f, UNLOCK_GOD_PROPHECY_ROLL);
+
+        simulationListeners.onRoundStarted.dispatch(null);
+
+        assertThat(wizard.itemStash.get(0).cardType).isEqualTo(ItemType.UnlockIdunProphecy);
+    }
+
     private void whenChallengeIsKilled() {
         Creep challenge = a(creep().challenge());
         unitGateway.addUnit(challenge);
