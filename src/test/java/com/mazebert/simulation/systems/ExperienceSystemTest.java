@@ -104,8 +104,8 @@ class ExperienceSystemTest extends SimTest {
 
     @Test
     void levelMax() {
-        experienceSystem.grantExperience(wizard, 100000000000L);
-        assertThat(wizard.level).isEqualTo(200);
+        experienceSystem.grantExperience(wizard, 10000000000000000L);
+        assertThat(wizard.level).isEqualTo(300);
     }
 
     @Test
