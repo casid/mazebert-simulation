@@ -1,9 +1,7 @@
 package com.mazebert.simulation.plugins;
 
-import com.mazebert.simulation.Sim;
-
 public strictfp class PlayerLevelPlugin {
-    private final int maxLevel = Sim.context().version >= Sim.vRnR ? 300: 200;
+    private final int maxLevel = 300;
     private final long[] playerLevelLookup = new long[maxLevel];
 
     public PlayerLevelPlugin() {
