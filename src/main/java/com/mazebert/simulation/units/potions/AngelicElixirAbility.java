@@ -5,11 +5,6 @@ import com.mazebert.simulation.units.towers.Tower;
 
 public strictfp class AngelicElixirAbility extends Ability<Tower> {
     @Override
-    protected void initialize(Tower unit) {
-        super.initialize(unit);
-    }
-
-    @Override
     public boolean isPermanent() {
         return true;
     }
