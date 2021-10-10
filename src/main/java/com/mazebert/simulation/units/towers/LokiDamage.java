@@ -64,7 +64,7 @@ public strictfp class LokiDamage extends InstantDamageAbility {
 
     @Override
     public String getDescription() {
-        return "Unseen strikes repeat until the creep notices. Sadly, there's a " + format.percent(NOTICE_CHANCE) + "% chance creeps notice being stabbed in the stomach.";
+        return "Unseen Strike repeats until the creep notices. Sadly, there's a " + format.percent(NOTICE_CHANCE) + "% chance creeps notice being stabbed in the stomach.";
     }
 
     @Override
