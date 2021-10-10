@@ -50,6 +50,7 @@ public strictfp class Creep extends Unit {
     private transient boolean immortal;
     private transient boolean restsInPiece;
     private transient boolean dealsDamage = true;
+    private transient boolean extraGore;
 
     public Creep() {
         this(new FollowPathCreepAbility());
@@ -443,5 +444,13 @@ public strictfp class Creep extends Unit {
 
     public boolean isDealsDamage() {
         return dealsDamage;
+    }
+
+    public void setExtraGore(boolean extraGore) {
+        this.extraGore = extraGore;
+    }
+
+    public boolean isExtraGore() {
+        return extraGore;
     }
 }

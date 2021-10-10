@@ -45,15 +45,17 @@ public strictfp enum PotionType implements CardType<Potion> {
     WhiteRussian(30, WhiteRussian.class),
     UnicornTears(31, UnicornTears.class),
     LeuchtFeuer(32, Leuchtfeuer.class),
+    VikingBlodMead(33, VikingBlodMead.class),
     ;
 
     private static int maxId;
     private static final PotionType[] LOOKUP;
 
-    private static final PotionType[] STANDARD =      {CommonDamage, CommonSpeed, CommonCrit, Mead, UncommonDamage, UncommonSpeed, UncommonCrit, UncommonDrops, RareDamage, RareSpeed, RareCrit, RareDrops, Tears, Nillos, Painkiller, Sacrifice, EssenceOfWisdom, EssenceOfLuck, AngelicElixir, CardDustCrit, CardDustLuck, CardDustLevel, CardDustVital, DrinkAll, ChangeSex, ResearchNature, ResearchMetropolis, ResearchDarkness};
-    private static final PotionType[] STANDARD_DOL =  {CommonDamage, CommonSpeed, CommonCrit, Mead, UncommonDamage, UncommonSpeed, UncommonCrit, UncommonDrops, RareDamage, RareSpeed, RareCrit, RareDrops, Tears, Nillos, Painkiller, Sacrifice, EssenceOfWisdom, EssenceOfLuck, AngelicElixir, CardDustCrit, CardDustLuck, CardDustLevel, CardDustVital, DrinkAll, ChangeSex, ResearchNature, ResearchMetropolis, ResearchDarkness, WhiteRussian};
+    private static final PotionType[] STANDARD      = {CommonDamage, CommonSpeed, CommonCrit, Mead, UncommonDamage, UncommonSpeed, UncommonCrit, UncommonDrops, RareDamage, RareSpeed, RareCrit, RareDrops, Tears, Nillos, Painkiller, Sacrifice, EssenceOfWisdom, EssenceOfLuck, AngelicElixir, CardDustCrit, CardDustLuck, CardDustLevel, CardDustVital, DrinkAll, ChangeSex, ResearchNature, ResearchMetropolis, ResearchDarkness};
+    private static final PotionType[] STANDARD_DOL  = {CommonDamage, CommonSpeed, CommonCrit, Mead, UncommonDamage, UncommonSpeed, UncommonCrit, UncommonDrops, RareDamage, RareSpeed, RareCrit, RareDrops, Tears, Nillos, Painkiller, Sacrifice, EssenceOfWisdom, EssenceOfLuck, AngelicElixir, CardDustCrit, CardDustLuck, CardDustLevel, CardDustVital, DrinkAll, ChangeSex, ResearchNature, ResearchMetropolis, ResearchDarkness, WhiteRussian};
     private static final PotionType[] DAWN_OF_LIGHT = {CommonDamage, CommonSpeed, CommonCrit, Mead, UncommonDamage, UncommonSpeed, UncommonCrit, UncommonDrops, RareDamage, RareSpeed, RareCrit, RareDrops, Tears, Nillos, Painkiller, Sacrifice, EssenceOfWisdom, EssenceOfLuck, AngelicElixir, CardDustCrit, CardDustLuck, CardDustLevel, CardDustVital, DrinkAll, ChangeSex, ResearchNature, ResearchMetropolis, ResearchDarkness, ResearchLight, WhiteRussian, UnicornTears};
-    private static final PotionType[] STANDARD_ROC =  {CommonDamage, CommonSpeed, CommonCrit, Mead, UncommonDamage, UncommonSpeed, UncommonCrit, UncommonDrops, RareDamage, RareSpeed, RareCrit, RareDrops, Tears, Nillos, Painkiller, Sacrifice, EssenceOfWisdom, EssenceOfLuck, AngelicElixir, CardDustCrit, CardDustLuck, CardDustLevel, CardDustVital, DrinkAll, ChangeSex, ResearchNature, ResearchMetropolis, ResearchDarkness, ResearchLight, WhiteRussian, UnicornTears, LeuchtFeuer};
+    private static final PotionType[] STANDARD_ROC  = {CommonDamage, CommonSpeed, CommonCrit, Mead, UncommonDamage, UncommonSpeed, UncommonCrit, UncommonDrops, RareDamage, RareSpeed, RareCrit, RareDrops, Tears, Nillos, Painkiller, Sacrifice, EssenceOfWisdom, EssenceOfLuck, AngelicElixir, CardDustCrit, CardDustLuck, CardDustLevel, CardDustVital, DrinkAll, ChangeSex, ResearchNature, ResearchMetropolis, ResearchDarkness, ResearchLight, WhiteRussian, UnicornTears, LeuchtFeuer};
+    private static final PotionType[] RNR           = {CommonDamage, CommonSpeed, CommonCrit, Mead, UncommonDamage, UncommonSpeed, UncommonCrit, UncommonDrops, RareDamage, RareSpeed, RareCrit, RareDrops, Tears, Nillos, Painkiller, Sacrifice, EssenceOfWisdom, EssenceOfLuck, AngelicElixir, CardDustCrit, CardDustLuck, CardDustLevel, CardDustVital, DrinkAll, ChangeSex, ResearchNature, ResearchMetropolis, ResearchDarkness, ResearchLight, WhiteRussian, UnicornTears, LeuchtFeuer, VikingBlodMead};
 
     static {
         maxId = 0;
@@ -75,7 +77,9 @@ public strictfp enum PotionType implements CardType<Potion> {
     }
 
     public static PotionType[] getValues() {
-        if (Sim.context().version >= Sim.vRoCEnd) {
+        if (Sim.isRnRSeasonContent()) {
+            return RNR;
+        } else if (Sim.context().version >= Sim.vRoCEnd) {
             return STANDARD_ROC;
         } else if (Sim.isDoLSeasonContent()) {
             return DAWN_OF_LIGHT;
