@@ -25,4 +25,9 @@ public strictfp class PlayerLevelPlugin {
         }
         return StrictMath.round(500.0 * StrictMath.pow(1.1, level - 2) + 250.0 * (level - 2));
     }
+
+    @SuppressWarnings("unused") // Used by client
+    public int getMaxLevel() {
+        return maxLevel;
+    }
 }
