@@ -7,7 +7,7 @@ import com.mazebert.simulation.changelog.ChangelogEntry;
 
 public strictfp class VikingBlodMead extends Potion {
     public VikingBlodMead() {
-        super(new VikingBlodMeadRiggedCardAbility(), new VikingBlodMeadAbility());
+        super(new VikingBlodMeadAbility(), new VikingBlodMeadRiggedCardAbility());
     }
 
     @Override
