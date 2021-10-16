@@ -77,7 +77,7 @@ public strictfp enum PotionType implements CardType<Potion> {
     }
 
     public static PotionType[] getValues() {
-        if (Sim.isRnRSeasonContent()) {
+        if (Sim.context().version >= Sim.vRnR) {
             return RNR;
         } else if (Sim.context().version >= Sim.vRoCEnd) {
             return STANDARD_ROC;
@@ -87,6 +87,15 @@ public strictfp enum PotionType implements CardType<Potion> {
             return STANDARD_DOL;
         }
         return STANDARD;
+    }
+
+    public static boolean isSupported(PotionType potionType) {
+        for (PotionType value : getValues()) {
+            if (value == potionType) {
+                return true;
+            }
+        }
+        return false;
     }
 
     @SuppressWarnings("unused") // By client

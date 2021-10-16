@@ -8,6 +8,7 @@ import com.mazebert.simulation.gateways.UnitGateway;
 import com.mazebert.simulation.systems.ExperienceSystem;
 import com.mazebert.simulation.systems.GameSystem;
 import com.mazebert.simulation.units.heroes.Hero;
+import com.mazebert.simulation.units.potions.PotionType;
 import com.mazebert.simulation.units.quests.Quest;
 import com.mazebert.simulation.units.quests.QuestData;
 import com.mazebert.simulation.units.wizards.Wizard;
@@ -40,6 +41,8 @@ public strictfp class InitPlayer implements Usecase<InitPlayerCommand> {
 
         if (gameSystem.getTutorial() != null) {
             gameSystem.getTutorial().start(wizard);
+        } else {
+            addRiggedCards(wizard);
         }
 
         simulationListeners.onPlayerInitialized.dispatch(wizard.playerId);
@@ -87,6 +90,18 @@ public strictfp class InitPlayer implements Usecase<InitPlayerCommand> {
 
             quest.setCurrentAmount(data.currentAmount);
             wizard.addAbility(quest);
+        }
+    }
+
+    private void addRiggedCards(Wizard wizard) {
+        addRiggedPotionCard(wizard, PotionType.VikingBlodMead);
+    }
+
+    private void addRiggedPotionCard(Wizard wizard, PotionType potionType) {
+        if (wizard.foilPotions.contains(potionType)) {
+            if (PotionType.isSupported(potionType)) {
+                wizard.potionStash.add(potionType);
+            }
         }
     }
 

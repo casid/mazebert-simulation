@@ -12,6 +12,7 @@ import com.mazebert.simulation.systems.GameSystem;
 import com.mazebert.simulation.systems.LootSystemTrainer;
 import com.mazebert.simulation.units.heroes.HeroType;
 import com.mazebert.simulation.units.heroes.LittleFinger;
+import com.mazebert.simulation.units.potions.PotionType;
 import com.mazebert.simulation.units.quests.KillChallengesQuest;
 import com.mazebert.simulation.units.quests.QuestData;
 import com.mazebert.simulation.units.quests.QuestType;
@@ -195,6 +196,26 @@ strictfp class InitPlayerTest extends UsecaseTest<InitPlayerCommand> {
         KillChallengesQuest quest = wizard.getAbility(KillChallengesQuest.class);
         assertThat(quest).isNotNull();
         assertThat(quest.getCurrentAmount()).isEqualTo(6);
+    }
+
+    @Test
+    void riggedCard() {
+        command.foilPotions = EnumSet.of(PotionType.VikingBlodMead);
+
+        whenRequestIsExecuted();
+
+        Wizard wizard = unitGateway.getWizard(command.playerId);
+        assertThat(wizard.potionStash.get(PotionType.VikingBlodMead).amount).isEqualTo(1);
+    }
+
+    @Test
+    void riggedCard_notOwned() {
+        command.foilPotions = EnumSet.of(PotionType.Mead);
+
+        whenRequestIsExecuted();
+
+        Wizard wizard = unitGateway.getWizard(command.playerId);
+        assertThat(wizard.potionStash.size()).isEqualTo(0);
     }
 
     @Override

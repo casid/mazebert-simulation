@@ -7,13 +7,13 @@ import com.mazebert.simulation.changelog.ChangelogEntry;
 
 public strictfp class VikingBlodMead extends Potion {
     public VikingBlodMead() {
-        super(new VikingBlodMeadAbility());
+        super(new VikingBlodMeadRiggedCardAbility(), new VikingBlodMeadAbility());
     }
 
     @Override
     public Changelog getChangelog() {
         return new Changelog(
-                new ChangelogEntry(Sim.vRnR, true, 2021)
+                new ChangelogEntry(Sim.vRnR, false, 2021)
         );
     }
 
@@ -60,5 +60,10 @@ public strictfp class VikingBlodMead extends Potion {
     @Override
     public boolean isTradingAllowed() {
         return false;
+    }
+
+    @Override
+    public boolean isProphecy() {
+        return true;
     }
 }
