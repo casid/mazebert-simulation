@@ -44,7 +44,7 @@ public strictfp class VikingBlodMead extends Potion {
 
     @Override
     public String getSinceVersion() {
-        return "2.3";
+        return "2.4";
     }
 
     @Override
