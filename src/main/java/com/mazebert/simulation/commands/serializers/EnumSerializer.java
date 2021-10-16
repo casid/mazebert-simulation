@@ -286,7 +286,7 @@ public strictfp class EnumSerializer {
     }
 
     public int getActiveAbilityBits() {
-        if (version >= Sim.vRnR) {
+        if (version >= Sim.vHalloween) {
             return 4;
         } else {
             return 3;

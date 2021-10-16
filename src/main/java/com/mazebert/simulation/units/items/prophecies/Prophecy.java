@@ -22,7 +22,7 @@ public strictfp abstract class Prophecy extends Item {
 
     @Override
     public String getSinceVersion() {
-        return "2.4";
+        return "2.5";
     }
 
     @Override

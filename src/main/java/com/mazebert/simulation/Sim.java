@@ -24,7 +24,8 @@ public strictfp class Sim {
     public static final int v24 = 24; // April fools release
     public static final int vRoCEnd = 25; // Rise of Cthulhu season end merge
     public static final int v26 = 26; // Small bugfix/qol release
-    public static final int vRnR = 27; // Rag nar Rog release
+    public static final int vHalloween = 27; // Halloween release
+    public static final int vRnR = 28; // Rag nar Rog release
     public static final int vRnREnd = 1000; // TODO Rag nar Rog season end merge
 
     // For android 19 compatibility

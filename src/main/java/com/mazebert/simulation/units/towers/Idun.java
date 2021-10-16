@@ -59,7 +59,7 @@ public strictfp class Idun extends Tower {
 
     @Override
     public String getSinceVersion() {
-        return "2.4";
+        return "2.5";
     }
 
     @Override

@@ -11,6 +11,11 @@ import com.mazebert.simulation.units.wizards.Wizard;
 public class SimTest extends Context {
     public SimTest() {
         Sim.setContext(this);
+        initVersion();
+    }
+
+    protected void initVersion() {
+        // Override if required
     }
 
     protected void whenItemIsEquipped(Tower tower, ItemType itemType) {

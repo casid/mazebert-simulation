@@ -1,9 +1,6 @@
 package com.mazebert.simulation.units.towers;
 
-import com.mazebert.simulation.CommandExecutor;
-import com.mazebert.simulation.Element;
-import com.mazebert.simulation.SimTest;
-import com.mazebert.simulation.SimulationListeners;
+import com.mazebert.simulation.*;
 import com.mazebert.simulation.gateways.GameGateway;
 import com.mazebert.simulation.gateways.PlayerGatewayTrainer;
 import com.mazebert.simulation.gateways.UnitGateway;
@@ -24,6 +21,11 @@ public class ThorTest extends SimTest {
     Wizard wizard2;
 
     PlayerGatewayTrainer playerGatewayTrainer;
+
+    @Override
+    protected void initVersion() {
+        version = Sim.vRnR;
+    }
 
     @BeforeEach
     void setUp() {

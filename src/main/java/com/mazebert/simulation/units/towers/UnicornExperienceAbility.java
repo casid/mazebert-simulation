@@ -48,7 +48,7 @@ public strictfp class UnicornExperienceAbility extends Ability<Tower> implements
     }
 
     private int getMaxLevel() {
-        if (Sim.context().version >= Sim.vRnR) {
+        if (Sim.context().version >= Sim.vHalloween) {
             return getUnit().getMaxLevel();
         }
         return Balancing.MAX_TOWER_LEVEL;

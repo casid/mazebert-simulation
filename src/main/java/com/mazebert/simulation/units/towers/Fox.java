@@ -29,7 +29,7 @@ public strictfp class Fox extends Tower {
     @Override
     public Changelog getChangelog() {
         return new Changelog(
-                new ChangelogEntry(Sim.vRnR, false, 2021)
+                new ChangelogEntry(Sim.vHalloween, false, 2021)
         );
     }
 

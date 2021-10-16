@@ -1,5 +1,6 @@
 package com.mazebert.simulation.units.towers;
 
+import com.mazebert.simulation.Sim;
 import com.mazebert.simulation.Wave;
 import com.mazebert.simulation.units.items.ItemTest;
 import com.mazebert.simulation.units.items.ItemType;
@@ -9,6 +10,11 @@ import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.Assertions.assertThat;
 
 class VeledaTest extends ItemTest {
+
+    @Override
+    protected void initVersion() {
+        version = Sim.vRnR;
+    }
 
     @Override
     protected Tower createTower() {
