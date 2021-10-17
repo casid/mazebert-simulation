@@ -35,11 +35,11 @@ public strictfp class VikingBlodMeadAbility extends Ability<Tower> implements On
 
     @Override
     public String getTitle() {
-        return "Bloodlust";
+        return format.prophecyTitle("Bloodlust");
     }
 
     @Override
     public String getLevelBonus() {
-        return "Extra Gore";
+        return format.prophecyDescription("Extra Gore");
     }
 }

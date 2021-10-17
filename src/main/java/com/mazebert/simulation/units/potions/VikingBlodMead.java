@@ -29,7 +29,7 @@ public strictfp class VikingBlodMead extends Potion {
 
     @Override
     public String getDescription() {
-        return "Don't spill the mead,\nspill the blood of your enemies.";
+        return Sim.context().formatPlugin.prophecyDescription("Don't spill the mead,\nspill the blood of your enemies.");
     }
 
     @Override
