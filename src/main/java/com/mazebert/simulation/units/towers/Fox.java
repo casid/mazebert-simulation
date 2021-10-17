@@ -16,7 +16,7 @@ public strictfp class Fox extends Tower {
         setBaseCooldown(1.5f);
         setBaseRange(2.0f);
         setAttackType(AttackType.All);
-        setStrength(0.6f);
+        setStrength(0.2f);
         setDamageSpread(0.2f);
         setGender(Gender.Male);
         setElement(Element.Nature);
