@@ -23,6 +23,8 @@ public strictfp class Game implements Hashable {
 
     private boolean winter;
     private boolean winterCalculated;
+    private boolean halloween;
+    private boolean halloweenCalculated;
     private boolean timeLordAllowed;
     private boolean timeLordAllowedCalculated;
     private boolean aprilFoolsGame;
@@ -70,7 +72,34 @@ public strictfp class Game implements Hashable {
         Calendar calendar = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
         calendar.setTimeInMillis(timestamp);
         int month = calendar.get(Calendar.MONTH);
-        return month == 11 || month == 0 || month == 1;
+        return month == 10 || month == 11 || month == 0 || month == 1;
+    }
+
+    public boolean isHalloween() {
+        if (!halloweenCalculated) {
+            halloween = calculateIfHalloween();
+            halloweenCalculated = true;
+        }
+        return halloween;
+    }
+
+    private boolean calculateIfHalloween() {
+        if (timestamp == 0) {
+            return false;
+        }
+
+        if (Sim.context().version < Sim.vHalloween) {
+            return false;
+        }
+
+        if (tutorial) {
+            return false;
+        }
+
+        Calendar calendar = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
+        calendar.setTimeInMillis(timestamp);
+        int month = calendar.get(Calendar.MONTH);
+        return month == 9;
     }
 
     public boolean isAprilFoolsGame() {

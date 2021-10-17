@@ -37,6 +37,11 @@ public strictfp class TileType {
         return this;
     }
 
+    public TileType alpha(float alpha) {
+        this.alpha = alpha;
+        return this;
+    }
+
     public TileType blendMode(String blendMode) {
         this.blendMode = blendMode;
         return this;
@@ -52,7 +57,7 @@ public strictfp class TileType {
     }
 
     public TileType transparentWater() {
-        return blendMode("Screen").water();
+        return blendMode("Screen").alpha(0.8f).water();
     }
 
     public TileType base() {
@@ -79,10 +84,10 @@ public strictfp class TileType {
     @Override
     public int hashCode() {
         int result = name.hashCode();
-        result = 31 * result + (pivotX != +0.0f ? Float.floatToIntBits(pivotX) : 0);
-        result = 31 * result + (pivotY != +0.0f ? Float.floatToIntBits(pivotY) : 0);
+        result = 31 * result + (pivotX != 0.0f ? Float.floatToIntBits(pivotX) : 0);
+        result = 31 * result + (pivotY != 0.0f ? Float.floatToIntBits(pivotY) : 0);
         result = 31 * result + (blendMode != null ? blendMode.hashCode() : 0);
-        result = 31 * result + (alpha != +0.0f ? Float.floatToIntBits(alpha) : 0);
+        result = 31 * result + (alpha != 0.0f ? Float.floatToIntBits(alpha) : 0);
         result = 31 * result + (walkable ? 1 : 0);
         result = 31 * result + (flyable ? 1 : 0);
         result = 31 * result + (buildable ? 1 : 0);

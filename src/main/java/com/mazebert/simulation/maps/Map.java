@@ -59,6 +59,9 @@ public strictfp abstract class Map {
         if (game.isWinter()) {
             return "maps/tiles-winter.xml";
         }
+        if (game.isHalloween()) {
+            return "maps/tiles-halloween.xml";
+        }
         return "maps/tiles.xml";
     }
 

@@ -16,9 +16,17 @@ class Game_WinterTest {
     }
 
     @Test
+    void october() {
+        game.timestamp = a(date("2020-10-01").withTimezone("UTC")).getTime();
+        assertThat(game.isWinter()).isFalse();
+        assertThat(game.isHalloween()).isTrue();
+    }
+
+    @Test
     void november() {
         game.timestamp = a(date("2020-11-01").withTimezone("UTC")).getTime();
-        assertThat(game.isWinter()).isFalse();
+        assertThat(game.isWinter()).isTrue();
+        assertThat(game.isHalloween()).isFalse();
     }
 
     @Test
