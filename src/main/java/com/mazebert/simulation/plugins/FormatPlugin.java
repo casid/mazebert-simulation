@@ -196,11 +196,11 @@ public strictfp class FormatPlugin {
     }
 
     public String prophecyTitle(String string) {
-        return colored(string, 0xb00000);
+        return colored(string, 0xff0000);
     }
 
     public String prophecyDescription(String string) {
-        return colored(string, 0x900000);
+        return colored(string, 0xb00000);
     }
 
     private String toHex(int color) {
