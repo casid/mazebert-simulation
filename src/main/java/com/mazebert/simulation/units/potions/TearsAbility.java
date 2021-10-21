@@ -24,6 +24,7 @@ public strictfp class TearsAbility extends Ability<Tower> implements OnPotionEff
 
     @Override
     protected void dispose(Tower unit) {
+        unit.onPotionEffectivenessChanged.remove(this);
         removeEffect();
         super.dispose(unit);
     }
