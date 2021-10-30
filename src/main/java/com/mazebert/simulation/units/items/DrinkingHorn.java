@@ -56,7 +56,7 @@ public strictfp class DrinkingHorn extends Item {
 
     @Override
     public boolean isBlackMarketOffer() {
-        return true;
+        return Sim.context().version < Sim.vRnR;
     }
 
     @Override
