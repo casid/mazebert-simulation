@@ -13,6 +13,7 @@ public strictfp class ChangeSex extends Potion {
     @Override
     public Changelog getChangelog() {
         return new Changelog(
+                new ChangelogEntry(Sim.vRnR, false, 2021, "Removed from black market."),
                 new ChangelogEntry(Sim.v10, false, 2019)
         );
     }
@@ -53,12 +54,7 @@ public strictfp class ChangeSex extends Potion {
     }
 
     @Override
-    public boolean isForgeable() {
-        return false;
-    }
-
-    @Override
     public boolean isBlackMarketOffer() {
-        return true;
+        return Sim.context().version < Sim.vRnR;
     }
 }
