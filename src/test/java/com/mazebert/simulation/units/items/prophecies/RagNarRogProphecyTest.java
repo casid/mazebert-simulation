@@ -9,10 +9,13 @@ import com.mazebert.simulation.maps.BloodMoor;
 import com.mazebert.simulation.units.creeps.Creep;
 import com.mazebert.simulation.units.creeps.CreepType;
 import com.mazebert.simulation.units.items.ItemType;
+import com.mazebert.simulation.units.quests.DefeatNaglfarFailureQuest;
 import com.mazebert.simulation.units.towers.Tower;
 import com.mazebert.simulation.units.towers.TowerType;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import java.util.concurrent.atomic.AtomicBoolean;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -136,9 +139,27 @@ public class RagNarRogProphecyTest extends ProphecyTest {
     }
 
     @Test
-    void naglfarLeaked() {
-        // TODO end game
-        // TODO add quest (even gods failed to kill Naglfar)
+    void naglfarLeaked_gameOver() {
+        AtomicBoolean gameLost = new AtomicBoolean();
+        simulationListeners.onGameLost.add(() -> gameLost.set(true));
+
+        whenWaveIsSpawned();
+
+        Creep naglfar = getCreep(0);
+        naglfar.simulate(100000);
+        assertThat(gameLost.get()).isTrue();
+    }
+
+    @Test
+    void naglfarLeaked_quest() {
+        DefeatNaglfarFailureQuest quest = new DefeatNaglfarFailureQuest();
+        wizard.addAbility(quest);
+
+        whenWaveIsSpawned();
+
+        Creep naglfar = getCreep(0);
+        naglfar.simulate(100000);
+        assertThat(quest.isComplete()).isTrue();
     }
 
     @Test

@@ -5,10 +5,25 @@ import com.mazebert.simulation.Wave;
 import com.mazebert.simulation.WaveType;
 import com.mazebert.simulation.gateways.UnitGateway;
 import com.mazebert.simulation.units.items.ItemType;
+import com.mazebert.simulation.units.quests.DefeatNaglfarFailureQuest;
 import com.mazebert.simulation.units.towers.*;
 import com.mazebert.simulation.units.wizards.Wizard;
 
 public strictfp class RagNarRogSystem {
+
+    public static void onProphecyFailed() {
+        Sim.context().unitGateway.forEachWizard(w -> {
+            if (w.health > 0) {
+                w.addHealth(-2 * w.health);
+            }
+
+            DefeatNaglfarFailureQuest quest = w.getAbility(DefeatNaglfarFailureQuest.class);
+            if (quest != null) {
+                quest.addAmount(1);
+            }
+        });
+    }
+
     public static boolean fulfilProphecy(Wave wave) {
         if (wave.type != WaveType.Challenge) {
             return false;

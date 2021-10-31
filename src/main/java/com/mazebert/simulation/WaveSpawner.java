@@ -590,6 +590,8 @@ public strictfp final class WaveSpawner implements OnGameStartedListener, OnWave
         Wave wave = creep.getWave();
         if (wave.type == WaveType.TimeLord) {
             Sim.context().gameSystem.finishBonusRound();
+        } else if (wave.type == WaveType.Naglfar) {
+            RagNarRogSystem.onProphecyFailed();
         } else if (creep.isDealsDamage()) {
             float leaked = calculateLeaked(creep, wave);
             Wizard wizard = creep.getWizard();
