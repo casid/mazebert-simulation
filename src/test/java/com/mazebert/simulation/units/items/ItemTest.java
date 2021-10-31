@@ -81,7 +81,11 @@ public strictfp class ItemTest extends SimTest {
     }
 
     protected void whenItemIsUnequipped(int inventoryIndex) {
-        whenItemIsEquipped(null, inventoryIndex);
+        whenItemIsUnequipped(tower, inventoryIndex);
+    }
+
+    protected void whenItemIsUnequipped(Tower tower, int inventoryIndex) {
+        whenItemIsEquipped(tower, null, inventoryIndex);
     }
 
     protected void whenPotionIsConsumed(PotionType potionType) {

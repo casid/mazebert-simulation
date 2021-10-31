@@ -67,6 +67,20 @@ public strictfp class ProphecySystem {
         return prophecyTower.hasItem(prophecy);
     }
 
+    public Wizard getProphecyWizard(ItemType prophecy) {
+        for (Tower prophecyTower : prophecyTowers) {
+            if (prophecyTower == null) {
+                continue;
+            }
+
+            if (prophecyTower.hasItem(prophecy)) {
+                return prophecyTower.getWizard();
+            }
+        }
+
+        return null;
+    }
+
     public void setProphecyTower(int playerId, Tower prophecyTower) {
         prophecyTowers[playerId - 1] = prophecyTower;
     }

@@ -10,6 +10,7 @@ import com.mazebert.simulation.plugins.random.RandomPlugin;
 import com.mazebert.simulation.systems.ExperienceSystem;
 import com.mazebert.simulation.systems.LootSystem;
 import com.mazebert.simulation.systems.ProphecySystem;
+import com.mazebert.simulation.systems.RagNarRogSystem;
 import com.mazebert.simulation.units.Unit;
 import com.mazebert.simulation.units.creeps.Creep;
 import com.mazebert.simulation.units.creeps.CreepType;
@@ -297,6 +298,11 @@ public strictfp final class WaveSpawner implements OnGameStartedListener, OnWave
             wave.maxSecondsToNextCreep = wave.type.getMaxSecondsToNextCreep();
 
             return 1.2;
+        } else if (RagNarRogSystem.fulfilProphecy(wave)) {
+            wave.type = WaveType.Naglfar;
+            wave.creepType = CreepType.Naglfar;
+            wave.armorType = ArmorType.Zod;
+            return 1.0;
         }
 
         return 1.0;
@@ -438,6 +444,12 @@ public strictfp final class WaveSpawner implements OnGameStartedListener, OnWave
                     creep.setMinDrops(2); // Two guaranteed drops.
                     creep.setMaxDrops(4); // Maximum are 4 drops.
                     creep.setMaxItemLevel(wave.round + 3); // Max Item level is round + 3
+                    break;
+                case Naglfar:
+                    creep.setDropChance(8.0f);
+                    creep.setMinDrops(7);
+                    creep.setMaxDrops(14);
+                    creep.setMaxItemLevel(wave.round + 10);
                     break;
             }
         }

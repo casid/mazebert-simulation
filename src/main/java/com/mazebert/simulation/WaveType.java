@@ -13,6 +13,7 @@ public strictfp enum WaveType {
     CultistOfCthulhu(13),
     CultistOfYig(21),
     CultistOfDagon(13),
+    Naglfar(14),
     ;
 
     public final int creepCount;
@@ -70,6 +71,8 @@ public strictfp enum WaveType {
                 return 2.0;
             case MassChallenge:
                 return 2.0;
+            case Naglfar:
+                return 4.0;
         }
         return 1.0;
     }

@@ -15,6 +15,7 @@ public strictfp enum CreepType {
     Zombie("zombie"),
     Worm("worm"),
     SwampThing("swampthing"),
+    Naglfar("naglfar"),
     ;
 
     public final String modelId;

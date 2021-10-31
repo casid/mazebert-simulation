@@ -408,6 +408,7 @@ public strictfp class Creep extends Unit {
             case Challenge:
             case Horseman:
             case TimeLord:
+            case Naglfar:
                 return true;
         }
 

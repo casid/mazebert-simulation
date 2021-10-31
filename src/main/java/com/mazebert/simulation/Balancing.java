@@ -139,6 +139,8 @@ public strictfp class Balancing {
                 return 0;
             case MassChallenge:
                 return 1.2f * experience;
+            case Naglfar:
+                return 4.0f * experience;
             default:
                 return experience;
         }
