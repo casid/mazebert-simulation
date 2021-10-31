@@ -171,13 +171,22 @@ public class RagNarRogProphecyTest extends ProphecyTest {
 
     @Test
     void helSoldWhenNaglfarInHelheim() {
-        // TODO what happens with Helheim area?
+        damageSystemTrainer.givenConstantDamage(0);
+
+        whenWaveIsSpawned();
+        whenGameUnitsAreSimulated(10);
+
+        assertThat(gameGateway.getGame().isLost()).isFalse();
+        whenTowerIsSold(hel); // Selling Hel lets Naglfar escape Helheim!
+        assertThat(gameGateway.getGame().isLost()).isTrue();
     }
 
+    @SuppressWarnings("SameParameterValue")
     private Creep getCreep(int index) {
         return unitGateway.findUnitAtIndex(Creep.class, index);
     }
 
+    @SuppressWarnings("SameParameterValue")
     private void givenWave(WaveType waveType) {
         wave = new Wave();
         wave.creepCount = waveType.creepCount;
