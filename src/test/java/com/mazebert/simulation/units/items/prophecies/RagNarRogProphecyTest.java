@@ -9,7 +9,8 @@ import com.mazebert.simulation.maps.BloodMoor;
 import com.mazebert.simulation.units.creeps.Creep;
 import com.mazebert.simulation.units.creeps.CreepType;
 import com.mazebert.simulation.units.items.ItemType;
-import com.mazebert.simulation.units.quests.DefeatNaglfarFailureQuest;
+import com.mazebert.simulation.units.quests.NaglfarFailureQuest;
+import com.mazebert.simulation.units.quests.NaglfarSuccessQuest;
 import com.mazebert.simulation.units.towers.Tower;
 import com.mazebert.simulation.units.towers.TowerType;
 import org.junit.jupiter.api.BeforeEach;
@@ -139,32 +140,33 @@ public class RagNarRogProphecyTest extends ProphecyTest {
     }
 
     @Test
-    void naglfarLeaked_gameOver() {
+    void naglfarLeaked() {
+        NaglfarFailureQuest quest = new NaglfarFailureQuest();
+        wizard.addAbility(quest);
         AtomicBoolean gameLost = new AtomicBoolean();
         simulationListeners.onGameLost.add(() -> gameLost.set(true));
 
         whenWaveIsSpawned();
-
         Creep naglfar = getCreep(0);
-        naglfar.simulate(100000);
+        naglfar.simulate(1000);
+
         assertThat(gameLost.get()).isTrue();
-    }
-
-    @Test
-    void naglfarLeaked_quest() {
-        DefeatNaglfarFailureQuest quest = new DefeatNaglfarFailureQuest();
-        wizard.addAbility(quest);
-
-        whenWaveIsSpawned();
-
-        Creep naglfar = getCreep(0);
-        naglfar.simulate(100000);
         assertThat(quest.isComplete()).isTrue();
     }
 
     @Test
     void naglfarKilled() {
-        // TODO add quest (quite big reward!)
+        NaglfarSuccessQuest quest = new NaglfarSuccessQuest();
+        wizard.addAbility(quest);
+        damageSystemTrainer.givenConstantDamage(10000);
+        whenWaveIsSpawned();
+        Creep naglfar = getCreep(0);
+
+        whenGameUnitsAreSimulated(20);
+
+        assertThat(gameGateway.getGame().isLost()).isFalse();
+        assertThat(naglfar.isDead()).isTrue();
+        assertThat(quest.isComplete()).isTrue();
     }
 
     @Test

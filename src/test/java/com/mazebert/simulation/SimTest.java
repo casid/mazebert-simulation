@@ -139,4 +139,10 @@ public class SimTest extends Context {
         command.abilityType = abilityType;
         commandExecutor.execute(command);
     }
+
+    protected void whenGameUnitsAreSimulated(int ticks) {
+        for (int i = 0; i < ticks; i++) {
+            unitGateway.forEach(u -> u.simulate(1.0f));
+        }
+    }
 }

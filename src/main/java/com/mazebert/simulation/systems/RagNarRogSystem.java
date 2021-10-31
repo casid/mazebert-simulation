@@ -5,11 +5,19 @@ import com.mazebert.simulation.Wave;
 import com.mazebert.simulation.WaveType;
 import com.mazebert.simulation.gateways.UnitGateway;
 import com.mazebert.simulation.units.items.ItemType;
-import com.mazebert.simulation.units.quests.DefeatNaglfarFailureQuest;
+import com.mazebert.simulation.units.quests.NaglfarFailureQuest;
+import com.mazebert.simulation.units.quests.NaglfarSuccessQuest;
 import com.mazebert.simulation.units.towers.*;
 import com.mazebert.simulation.units.wizards.Wizard;
 
 public strictfp class RagNarRogSystem {
+
+    public static void onProphecySucceeded(Wizard wizard) {
+        NaglfarSuccessQuest quest = wizard.getAbility(NaglfarSuccessQuest.class);
+        if (quest != null) {
+            quest.addAmount(1);
+        }
+    }
 
     public static void onProphecyFailed() {
         Sim.context().unitGateway.forEachWizard(w -> {
@@ -17,7 +25,7 @@ public strictfp class RagNarRogSystem {
                 w.addHealth(-2 * w.health);
             }
 
-            DefeatNaglfarFailureQuest quest = w.getAbility(DefeatNaglfarFailureQuest.class);
+            NaglfarFailureQuest quest = w.getAbility(NaglfarFailureQuest.class);
             if (quest != null) {
                 quest.addAmount(1);
             }

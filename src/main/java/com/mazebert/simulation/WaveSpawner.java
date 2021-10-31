@@ -583,6 +583,10 @@ public strictfp final class WaveSpawner implements OnGameStartedListener, OnWave
                 }
             }
         }
+
+        if (wave.type == WaveType.Naglfar) {
+            RagNarRogSystem.onProphecySucceeded(wizard);
+        }
     }
 
     @Override

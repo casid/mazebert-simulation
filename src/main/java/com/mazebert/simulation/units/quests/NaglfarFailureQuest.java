@@ -1,7 +1,7 @@
 package com.mazebert.simulation.units.quests;
 
-public strictfp class DefeatNaglfarFailureQuest extends Quest {
-    public DefeatNaglfarFailureQuest() {
+public strictfp class NaglfarFailureQuest extends Quest {
+    public NaglfarFailureQuest() {
         super(QuestReward.Big, 1);
     }
 

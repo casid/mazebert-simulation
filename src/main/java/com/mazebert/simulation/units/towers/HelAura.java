@@ -34,7 +34,7 @@ public strictfp class HelAura extends AuraAbility<Tower, Creep> {
     protected void onAuraLeft(Creep creep) {
         creep.removeAbilityStack(getUnit(), HelAuraEffect.class);
 
-        if (!creep.isMarkedForDisposal()) {
+        if (creep.isPartOfGame() && !creep.isMarkedForDisposal()) {
             creep.onTargetReached.dispatch(creep);
         }
     }
