@@ -16,7 +16,7 @@ public strictfp class Thor extends Tower {
         setBaseCooldown(60.0f);
         setBaseRange(4.0f);
         setAttackType(AttackType.Vex);
-        setStrength(0.8f);
+        setStrength(0.65f);
         setDamageSpread(0.2f);
         setGender(Gender.Male);
         setElement(Element.Light);
