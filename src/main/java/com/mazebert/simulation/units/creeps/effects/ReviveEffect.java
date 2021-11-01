@@ -13,7 +13,7 @@ public strictfp class ReviveEffect extends Ability<Creep> implements OnDeadListe
     @Override
     protected void initialize(Creep unit) {
         super.initialize(unit);
-        unit.onDead.add(this);
+        unit.onDead.addFirst(this);
     }
 
     @Override

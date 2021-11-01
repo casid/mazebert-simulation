@@ -21,7 +21,9 @@ public strictfp class IdunReviveAura extends AuraAbility<Tower, Creep> {
 
     @Override
     protected void onAuraLeft(Creep creep) {
-        creep.removeAbility(IdunReviveAuraEffect.class);
+        if (creep.isPartOfGame()) {
+            creep.removeAbility(IdunReviveAuraEffect.class);
+        }
     }
 
     @Override
