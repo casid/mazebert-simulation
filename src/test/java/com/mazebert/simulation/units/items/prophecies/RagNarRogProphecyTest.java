@@ -162,7 +162,7 @@ public class RagNarRogProphecyTest extends ProphecyTest {
         whenWaveIsSpawned();
         Creep naglfar = getCreep(0);
 
-        whenGameUnitsAreSimulated(20);
+        whenGameUnitsAreSimulated(50);
 
         assertThat(gameGateway.getGame().isLost()).isFalse();
         assertThat(naglfar.isDead()).isTrue();
