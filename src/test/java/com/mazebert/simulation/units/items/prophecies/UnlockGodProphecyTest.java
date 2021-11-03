@@ -1,6 +1,7 @@
 package com.mazebert.simulation.units.items.prophecies;
 
 import com.mazebert.simulation.Element;
+import com.mazebert.simulation.Wave;
 import com.mazebert.simulation.units.creeps.Creep;
 import com.mazebert.simulation.units.items.ItemType;
 import com.mazebert.simulation.units.quests.UnlockThorQuest;
@@ -53,7 +54,7 @@ public class UnlockGodProphecyTest extends ProphecyTest {
         veleda.setLevel(13);
         randomPluginTrainer.givenFloatAbs(0.0f, UNLOCK_GOD_PROPHECY_ROLL);
 
-        simulationListeners.onRoundStarted.dispatch(null);
+        simulationListeners.onRoundStarted.dispatch(requiredWave());
 
         assertThat(wizard.itemStash.get(0).cardType).isEqualTo(ItemType.UnlockThorProphecy);
     }
@@ -64,7 +65,7 @@ public class UnlockGodProphecyTest extends ProphecyTest {
         veleda.setLevel(13);
         randomPluginTrainer.givenFloatAbs(0.0f, UNLOCK_GOD_PROPHECY_ROLL);
 
-        simulationListeners.onRoundStarted.dispatch(null);
+        simulationListeners.onRoundStarted.dispatch(requiredWave());
 
         assertThat(wizard.itemStash.get(0).cardType).isEqualTo(ItemType.UnlockLokiProphecy);
     }
@@ -75,7 +76,7 @@ public class UnlockGodProphecyTest extends ProphecyTest {
         veleda.setLevel(13);
         randomPluginTrainer.givenFloatAbs(0.0f, UNLOCK_GOD_PROPHECY_ROLL);
 
-        simulationListeners.onRoundStarted.dispatch(null);
+        simulationListeners.onRoundStarted.dispatch(requiredWave());
 
         assertThat(wizard.itemStash.get(0).cardType).isEqualTo(ItemType.UnlockHelProphecy);
     }
@@ -86,7 +87,7 @@ public class UnlockGodProphecyTest extends ProphecyTest {
         veleda.setLevel(13);
         randomPluginTrainer.givenFloatAbs(0.0f, UNLOCK_GOD_PROPHECY_ROLL);
 
-        simulationListeners.onRoundStarted.dispatch(null);
+        simulationListeners.onRoundStarted.dispatch(requiredWave());
 
         assertThat(wizard.itemStash.get(0).cardType).isEqualTo(ItemType.UnlockIdunProphecy);
     }
@@ -96,5 +97,11 @@ public class UnlockGodProphecyTest extends ProphecyTest {
         unitGateway.addUnit(challenge);
         veleda.kill(challenge);
         unitGateway.removeUnit(challenge);
+    }
+
+    private Wave requiredWave() {
+        Wave wave = new Wave();
+        wave.round = 13;
+        return wave;
     }
 }
