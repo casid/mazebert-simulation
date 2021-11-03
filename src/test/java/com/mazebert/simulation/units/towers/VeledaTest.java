@@ -45,6 +45,8 @@ class VeledaTest extends ItemTest {
     }
 
     private void whenRoundIsStarted() {
-        simulationListeners.onRoundStarted.dispatch(new Wave());
+        Wave wave = new Wave();
+        wave.round = 1;
+        simulationListeners.onRoundStarted.dispatch(wave);
     }
 }
