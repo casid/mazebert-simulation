@@ -53,7 +53,7 @@ public strictfp class VeledaCreateProphecy extends Ability<Tower> implements OnU
     public void onRoundStarted(Wave wave) {
         if (getUnit().isAbilityTriggered(CHANCE)) {
             Wizard wizard = getUnit().getWizard();
-            ItemType prophecyItem = lootSystem.addRandomDrop(wizard, getPossibleDrops(wizard), getUnit().getLevel());
+            ItemType prophecyItem = lootSystem.addRandomDrop(wizard, getPossibleDrops(wizard), wave.round);
 
             if (prophecyItem != null && simulationListeners.areNotificationsEnabled()) {
                 simulationListeners.showNotification(getUnit(), "Prophecy created", 0xe86ef7);
