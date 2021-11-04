@@ -4,7 +4,7 @@ import com.mazebert.simulation.units.towers.TowerType;
 
 public abstract strictfp class UnlockGodQuest extends Quest {
 
-    public static int REQUIRED_AMOUNT = 100;
+    public static int REQUIRED_AMOUNT = 40;
 
     public UnlockGodQuest() {
         super(QuestReward.Huge, REQUIRED_AMOUNT);
