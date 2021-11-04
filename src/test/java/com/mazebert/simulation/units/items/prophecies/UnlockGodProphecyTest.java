@@ -2,6 +2,7 @@ package com.mazebert.simulation.units.items.prophecies;
 
 import com.mazebert.simulation.Element;
 import com.mazebert.simulation.Wave;
+import com.mazebert.simulation.WaveOrigin;
 import com.mazebert.simulation.units.creeps.Creep;
 import com.mazebert.simulation.units.items.ItemType;
 import com.mazebert.simulation.units.quests.UnlockThorQuest;
@@ -31,9 +32,21 @@ public class UnlockGodProphecyTest extends ProphecyTest {
     }
 
     @Test
+    void hologramChallengeKilled() {
+        UnlockThorQuest quest = new UnlockThorQuest();
+        wizard.addAbility(quest);
+
+        whenItemIsEquipped(ItemType.UnlockThorProphecy);
+
+        whenHologramChallengeIsKilled();
+
+        assertThat(quest.getCurrentAmount()).isEqualTo(0);
+    }
+
+    @Test
     void challengeKilledToCompleteQuest() {
         UnlockThorQuest quest = new UnlockThorQuest();
-        quest.setCurrentAmount(99);
+        quest.setCurrentAmount(39);
         wizard.addAbility(quest);
 
         whenItemIsEquipped(ItemType.UnlockThorProphecy);
@@ -41,7 +54,7 @@ public class UnlockGodProphecyTest extends ProphecyTest {
         whenChallengeIsKilled();
 
         assertThat(quest.isComplete()).isTrue();
-        assertThat(quest.getCurrentAmount()).isEqualTo(100);
+        assertThat(quest.getCurrentAmount()).isEqualTo(40);
         assertThat(wizard.towerStash.get(0).cardType).isEqualTo(TowerType.Thor);
         assertThat(wizard.towerStash.get(0).amount).isEqualTo(1);
         assertThat(wizard.ownsFoilCard(TowerType.Thor)).isTrue();
@@ -94,6 +107,14 @@ public class UnlockGodProphecyTest extends ProphecyTest {
 
     private void whenChallengeIsKilled() {
         Creep challenge = a(creep().challenge());
+        unitGateway.addUnit(challenge);
+        veleda.kill(challenge);
+        unitGateway.removeUnit(challenge);
+    }
+
+    private void whenHologramChallengeIsKilled() {
+        Creep challenge = a(creep().challenge());
+        challenge.getWave().origin = WaveOrigin.TrainingDummy;
         unitGateway.addUnit(challenge);
         veleda.kill(challenge);
         unitGateway.removeUnit(challenge);

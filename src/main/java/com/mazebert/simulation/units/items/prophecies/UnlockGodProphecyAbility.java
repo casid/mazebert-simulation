@@ -2,6 +2,7 @@ package com.mazebert.simulation.units.items.prophecies;
 
 import com.mazebert.simulation.Sim;
 import com.mazebert.simulation.SimulationListeners;
+import com.mazebert.simulation.WaveOrigin;
 import com.mazebert.simulation.WaveType;
 import com.mazebert.simulation.listeners.OnUnitRemovedListener;
 import com.mazebert.simulation.systems.LootSystem;
@@ -53,6 +54,10 @@ public strictfp class UnlockGodProphecyAbility extends ProphecyAbility implement
             }
 
             if (creep.getWave().type != WaveType.Challenge) {
+                return;
+            }
+
+            if (creep.getWave().origin != WaveOrigin.Game) {
                 return;
             }
 
