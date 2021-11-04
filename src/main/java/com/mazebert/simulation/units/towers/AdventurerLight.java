@@ -14,11 +14,6 @@ public strictfp class AdventurerLight extends ItemChanceWithLevelBonusAbility {
     }
 
     @Override
-    public String getDescription() {
-        return format.percentWithSignAndUnit(bonus) + " item chance.";
-    }
-
-    @Override
     public String getIconFile() {
         return "08_map_512";
     }
