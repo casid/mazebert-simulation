@@ -11,6 +11,7 @@ import com.mazebert.simulation.units.items.ItemType;
 import com.mazebert.simulation.units.items.SeelenreisserAbility;
 import com.mazebert.simulation.units.quests.TransferCardQuest;
 import com.mazebert.simulation.units.quests.TransferUniqueCardQuest;
+import com.mazebert.simulation.units.towers.TowerType;
 import com.mazebert.simulation.units.wizards.Wizard;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -233,6 +234,29 @@ class TransferCardTest extends UsecaseTest<TransferCardCommand> {
         whenRequestIsExecuted();
 
         assertThat(wizard1.remainingCardTransfers).isEqualTo(6);
+    }
+
+    @Test
+    void preventSnowGlobeDupeExploit_tower() {
+        wizard1.towerStash.add(TowerType.SnowGlobe);
+        command.cardCategory = CardCategory.Tower;
+        command.cardType = TowerType.SnowGlobe;
+        wizard2.itemStash.add(ItemType.SnowGlobe);
+
+        whenRequestIsExecuted();
+
+        assertThat(wizard2.towerStash.get(TowerType.SnowGlobe)).isNull();
+    }
+
+    @Test
+    void preventSnowGlobeDupeExploit_item() {
+        wizard1.itemStash.add(ItemType.SnowGlobe);
+        command.cardCategory = CardCategory.Item;
+        command.cardType = ItemType.SnowGlobe;
+
+        whenRequestIsExecuted();
+
+        assertThat(wizard2.itemStash.get(ItemType.SnowGlobe)).isNull();
     }
 
     private void assertItemCannotBeTransferred(ItemType itemType) {

@@ -1,7 +1,7 @@
 package com.mazebert.simulation.util;
 
 import com.mazebert.simulation.CommandExecutor;
-import com.mazebert.simulation.Sim;
+import com.mazebert.simulation.Simulation;
 import com.mazebert.simulation.SimulationValidator;
 import com.mazebert.simulation.commands.*;
 import com.mazebert.simulation.replay.StreamReplayReader;
@@ -15,7 +15,7 @@ import java.nio.file.Paths;
 public class GamePrinter {
     @Test
     void print() throws Exception {
-        int version = 22;
+        int version = 27;
 
         //printGame(version, "C:\\Users\\casid\\Downloads\\Android-crash-simplay-6f95118c-9a51-490b-bcef-d6467af42335-1624762869870\\6f95118c-9a51-490b-bcef-d6467af42335.mbg");
         //printGame(version, "C:\\Users\\casid\\Downloads\\Android-crash-simplay-6f95118c-9a51-490b-bcef-d6467af42335-1624762871056\\6f95118c-9a51-490b-bcef-d6467af42335.mbg");
@@ -28,7 +28,7 @@ public class GamePrinter {
         //printGame(version, "C:\\Users\\casid\\Downloads\\Android-crash-simplay-173fa4e6-8cff-4ad2-af34-2eccc3f48118-1609071882364\\173fa4e6-8cff-4ad2-af34-2eccc3f48118.mbg");
 
         //printGame(version, "C:\\Users\\casid\\Downloads\\Android-crash-simplay-8766b453-1d73-46d7-b485-405f8f365e16-1624775197167\\8766b453-1d73-46d7-b485-405f8f365e16.mbg");
-        printGame(version, "C:\\Users\\casid\\Downloads\\Android-crash-simplay-8766b453-1d73-46d7-b485-405f8f365e16-1624775197197\\8766b453-1d73-46d7-b485-405f8f365e16.mbg");
+        printGame(version, "C:\\Users\\casid\\Downloads\\iOS-crash-simplay-d8f1812a-02c6-40c4-b8b6-195c0895a67c-1635803653608\\d8f1812a-02c6-40c4-b8b6-195c0895a67c.mbg");
     }
 
     private void printGame(int version, String file) throws IOException {
@@ -39,7 +39,10 @@ public class GamePrinter {
                     System.out.println("Sim Player ID: " + context.playerGateway.getSimulationPlayerId());
                     System.out.println("Player count: " + context.playerGateway.getPlayerCount());
                     context.commandExecutor = new CommandExecutorWrapper(context.commandExecutor);
-                }, null);
+                }, context -> {
+                    Simulation simulation = context.simulation;
+                    System.out.println("Validation complete, play time: " + simulation.getPlayTimeInSeconds() + "s");
+                });
             }
         }
     }
@@ -75,6 +78,11 @@ public class GamePrinter {
         if (request instanceof TransmuteCardsCommand) {
             TransmuteCardsCommand c = (TransmuteCardsCommand) request;
             result.append(c.cardCategory).append(", ").append(c.cardType).append(", all=").append(c.all).append(", auto=").append(c.automatic).append(", keep=").append(c.amountToKeep);
+        }
+
+        if (request instanceof TransferCardCommand) {
+            TransferCardCommand c = (TransferCardCommand) request;
+            result.append(c.cardCategory).append(", ").append(c.cardType).append(", toPlayerId=").append(c.toPlayerId);
         }
 
         result.append(')');

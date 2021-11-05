@@ -68,4 +68,9 @@ public strictfp class SnowGlobe extends Item {
         }
         return towerType.instance().getElement();
     }
+
+    @Override
+    public boolean isTransferable() {
+        return Sim.context().version < Sim.vRnR;
+    }
 }

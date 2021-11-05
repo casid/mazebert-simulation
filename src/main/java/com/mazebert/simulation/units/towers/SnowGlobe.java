@@ -68,4 +68,9 @@ public strictfp class SnowGlobe extends Tower {
     public boolean isHarmful() {
         return true;
     }
+
+    @Override
+    public boolean isTransferable() {
+        return Sim.context().version < Sim.vRnR;
+    }
 }
