@@ -9,6 +9,7 @@ import com.mazebert.simulation.changelog.ChangelogEntry;
 import com.mazebert.simulation.units.Gender;
 import com.mazebert.simulation.units.abilities.AttackAbility;
 import com.mazebert.simulation.units.abilities.InstantDamageAbility;
+import com.mazebert.simulation.units.abilities.VikingAbility;
 
 public strictfp class Veleda extends Tower {
 
@@ -25,6 +26,7 @@ public strictfp class Veleda extends Tower {
         if (Sim.context().version >= Sim.v29) {
             addAbility(new AttackAbility());
             addAbility(new InstantDamageAbility());
+            addAbility(new VikingAbility(false));
         }
     }
 
