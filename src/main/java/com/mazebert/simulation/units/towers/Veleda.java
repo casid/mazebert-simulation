@@ -7,6 +7,8 @@ import com.mazebert.simulation.Sim;
 import com.mazebert.simulation.changelog.Changelog;
 import com.mazebert.simulation.changelog.ChangelogEntry;
 import com.mazebert.simulation.units.Gender;
+import com.mazebert.simulation.units.abilities.AttackAbility;
+import com.mazebert.simulation.units.abilities.InstantDamageAbility;
 
 public strictfp class Veleda extends Tower {
 
@@ -20,11 +22,16 @@ public strictfp class Veleda extends Tower {
 
         setElement(Element.Unknown);
         addAbility(new VeledaCreateProphecy());
+        if (Sim.context().version >= Sim.v29) {
+            addAbility(new AttackAbility());
+            addAbility(new InstantDamageAbility());
+        }
     }
 
     @Override
     public Changelog getChangelog() {
         return new Changelog(
+                new ChangelogEntry(Sim.v29, true, 2021, "Veleda now attacks and damages creeps."),
                 new ChangelogEntry(Sim.vRnR, true, 2021)
         );
     }
