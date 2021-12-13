@@ -59,6 +59,7 @@ public strictfp class TrainingHologramSpawn extends Ability<Tower> implements On
         dummy.setArmor(1);
         dummy.setExperience(XP + getUnit().getLevel() * xpPerLevel);
         dummy.setType(dummyWave.creepType);
+        dummy.setDealsDamage(false);
         dummy.onDeath.add(this);
 
         Sim.context().waveSpawner.spawnCreep(dummy, null, 0);
