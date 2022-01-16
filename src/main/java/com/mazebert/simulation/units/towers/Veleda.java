@@ -33,7 +33,7 @@ public strictfp class Veleda extends Tower {
     @Override
     public Changelog getChangelog() {
         return new Changelog(
-                new ChangelogEntry(Sim.v29, true, 2021, "Veleda now attacks and damages creeps."),
+                new ChangelogEntry(Sim.v29, true, 2022, "Veleda now attacks and damages creeps."),
                 new ChangelogEntry(Sim.vRnR, true, 2021)
         );
     }
