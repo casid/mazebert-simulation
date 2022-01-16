@@ -36,12 +36,20 @@ public strictfp class Mummy extends Tower {
 
     @Override
     public String getName() {
-        return "Miss Jilly";
+        if (getGender() == Gender.Female) {
+            return "Miss Jilly";
+        } else {
+            return "Mister Jilly";
+        }
     }
 
     @Override
     public String getDescription() {
-        return "Likes to wrap herself and her victims in toilet paper.";
+        if (getGender() == Gender.Female) {
+            return "Likes to wrap herself and her victims in toilet paper.";
+        } else {
+            return "Likes to wrap himself and his victims in toilet paper.";
+        }
     }
 
     @Override

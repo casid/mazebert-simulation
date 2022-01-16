@@ -48,7 +48,11 @@ public strictfp class Spider extends Tower {
 
     @Override
     public String getDescription() {
-        return "When I'm grown up, I'll eat my mate. Nom, nom!";
+        if (getGender() == Gender.Female) {
+            return "When I'm grown up, I'll eat my mate. Nom, nom!";
+        } else {
+            return "When I'm grown up, I'll be eaten by my mate. Nom, nom!";
+        }
     }
 
     @Override

@@ -44,7 +44,11 @@ public strictfp class BlackWidow extends Tower {
 
     @Override
     public String getName() {
-        return "Black Widow";
+        if (getGender() == Gender.Female) {
+            return "Black Widow";
+        } else {
+            return "Black Widower";
+        }
     }
 
     @Override

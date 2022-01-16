@@ -50,7 +50,11 @@ public strictfp class Frog extends Tower {
 
     @Override
     public String getDescription() {
-        return "This frog enjoys killing his victims slowly. His poison spit causes immense pain.";
+        if (getGender() == Gender.Male) {
+            return "This frog enjoys killing his victims slowly. His poison spit causes immense pain.";
+        } else {
+            return "This frog enjoys killing her victims slowly. Her poison spit causes immense pain.";
+        }
     }
 
     @Override

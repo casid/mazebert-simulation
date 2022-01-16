@@ -48,7 +48,11 @@ public strictfp class Muli extends Tower {
 
     @Override
     public String getDescription() {
-        return "Huli's brother, kidnapped and experimented on when he was a baby.";
+        if (getGender() == Gender.Male) {
+            return "Huli's brother, kidnapped and experimented on when he was a baby.";
+        } else {
+            return "Huli's sister, kidnapped and experimented on when she was a baby.";
+        }
     }
 
     @Override

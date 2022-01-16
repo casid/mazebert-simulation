@@ -42,7 +42,11 @@ public strictfp class Elvis extends Tower {
 
     @Override
     public String getDescription() {
-        return "He is smelly. He can't sing and he can't dance. He disturbs everyone nearby.";
+        if (getGender() == Gender.Male) {
+            return "He is smelly. He can't sing and he can't dance. He disturbs everyone nearby.";
+        } else {
+            return "She is smelly. She can't sing and she can't dance. She disturbs everyone nearby.";
+        }
     }
 
     @Override

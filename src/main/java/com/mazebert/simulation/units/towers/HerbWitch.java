@@ -43,12 +43,21 @@ public strictfp class HerbWitch extends Tower {
 
     @Override
     public String getName() {
-        return "Herb Witch";
+        if (getGender() == Gender.Female) {
+            return "Herb Witch";
+        } else {
+            return "Herb Witcher";
+        }
     }
 
     @Override
     public String getDescription() {
-        return "Herb Witch's potions lend strength to her allies.";
+        if (getGender() == Gender.Female) {
+            return "Herb Witch's potions lend strength to her allies.";
+        } else {
+            return "Herb Witch's potions lend strength to his allies.";
+        }
+
     }
 
     @Override

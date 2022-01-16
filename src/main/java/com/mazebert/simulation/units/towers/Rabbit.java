@@ -45,7 +45,11 @@ public strictfp class Rabbit extends Tower {
 
     @Override
     public String getDescription() {
-        return "Baby Rabbit is cute, and he loves to share his carrots.";
+        if (getGender() == Gender.Male) {
+            return "Baby Rabbit is cute, and he loves to share his carrots.";
+        } else {
+            return "Baby Rabbit is cute, and she loves to share her carrots.";
+        }
     }
 
     @Override

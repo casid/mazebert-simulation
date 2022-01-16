@@ -51,7 +51,11 @@ public strictfp class AbyssKing extends Tower {
 
     @Override
     public String getDescription() {
-        return "Lord of the Undead.";
+        if (getGender() == Gender.Male) {
+            return "Lord of the Undead.";
+        } else {
+            return "Lady of the Undead.";
+        }
     }
 
     @Override

@@ -44,7 +44,7 @@ public strictfp class Idun extends Tower {
 
     @Override
     public String getDescription() {
-        return "Goddess of Eternal Youth.\n(does not attack)";
+        return "God of Eternal Youth.\n(does not attack)";
     }
 
     @Override

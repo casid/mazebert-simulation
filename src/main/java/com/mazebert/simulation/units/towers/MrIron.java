@@ -42,7 +42,11 @@ public strictfp class MrIron extends Tower {
 
     @Override
     public String getName() {
-        return "Mr. Iron";
+        if (getGender() == Gender.Male) {
+            return "Mr. Iron";
+        } else {
+            return "Mrs. Iron";
+        }
     }
 
     @Override

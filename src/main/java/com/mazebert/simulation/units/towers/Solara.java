@@ -52,7 +52,11 @@ public strictfp class Solara extends Tower {
 
     @Override
     public String getDescription() {
-        return "Solara is HOT,\nand she burns with righteous fury.";
+        if (getGender() == Gender.Female) {
+            return "Solara is HOT,\nand she burns with righteous fury.";
+        } else {
+            return "Solara is HOT,\nand he burns with righteous fury.";
+        }
     }
 
     @Override

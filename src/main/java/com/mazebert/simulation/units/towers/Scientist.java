@@ -41,7 +41,11 @@ public strictfp class Scientist extends Tower {
 
     @Override
     public String getDescription() {
-        return "This brainiac has dedicated his life to researching creeps.";
+        if (getGender() == Gender.Male) {
+            return "This brainiac has dedicated his life to researching creeps.";
+        } else {
+            return "This brainiac has dedicated her life to researching creeps.";
+        }
     }
 
     @Override

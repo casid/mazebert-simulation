@@ -48,7 +48,11 @@ public strictfp class KnusperHexe extends Tower {
 
     @Override
     public String getName() {
-        return "Knusperhexe";
+        if (getGender() == Gender.Female) {
+            return "Knusperhexe";
+        } else {
+            return "Knusperhexer";
+        }
     }
 
     @Override

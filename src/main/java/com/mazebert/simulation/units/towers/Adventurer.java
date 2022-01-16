@@ -40,7 +40,11 @@ public strictfp class Adventurer extends Tower {
 
     @Override
     public String getDescription() {
-        return "Her light helps her find treasures in deep, dark caves.";
+        if (getGender() == Gender.Female) {
+            return "Her light helps her find treasures in deep, dark caves.";
+        } else {
+            return "His light helps him find treasures in deep, dark caves.";
+        }
     }
 
     @Override

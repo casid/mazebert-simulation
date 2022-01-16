@@ -47,7 +47,11 @@ public strictfp class Tinker extends Tower {
 
     @Override
     public String getDescription() {
-        return "Likes to drink and share his luck.";
+        if (getGender() == Gender.Male) {
+            return "Likes to drink and share his luck.";
+        } else {
+            return "Likes to drink and share her luck.";
+        }
     }
 
     @Override

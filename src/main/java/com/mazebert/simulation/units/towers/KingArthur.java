@@ -50,7 +50,11 @@ public strictfp class KingArthur extends Tower {
 
     @Override
     public String getName() {
-        return "King Arthur";
+        if (getGender() == Gender.Male) {
+            return "King Arthur";
+        } else {
+            return "Queen Arthur";
+        }
     }
 
     @Override

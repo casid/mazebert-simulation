@@ -41,7 +41,11 @@ public strictfp class PocketThief extends Tower {
 
     @Override
     public String getDescription() {
-        return "She's learned how to survive in the shadows of downtown.";
+        if (getGender() == Gender.Female) {
+            return "She's learned how to survive in the shadows of downtown.";
+        } else {
+            return "He's learned how to survive in the shadows of downtown.";
+        }
     }
 
     @Override
