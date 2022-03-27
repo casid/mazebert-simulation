@@ -8,7 +8,7 @@ import com.mazebert.simulation.changelog.ChangelogEntry;
 public strictfp class PaintingOfSolea extends Item {
 
     public PaintingOfSolea() {
-        super(new PaintingOfSoleaAbility());
+        super(new PaintingOfSoleaLegacyAbility());
     }
 
     @Override

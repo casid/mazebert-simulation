@@ -7,7 +7,7 @@ import com.mazebert.simulation.units.abilities.LuckWithLevelBonusAbility;
 import com.mazebert.simulation.units.creeps.Creep;
 import com.mazebert.simulation.units.towers.Tower;
 
-public strictfp class PaintingOfSoleaAbility extends LuckWithLevelBonusAbility implements OnMissListener {
+public strictfp class PaintingOfSoleaLegacyAbility extends LuckWithLevelBonusAbility implements OnMissListener {
 
     private static final float luckBonus = 0.05f;
     private static final float attackSpeedBonus = 0.1f;
@@ -16,7 +16,7 @@ public strictfp class PaintingOfSoleaAbility extends LuckWithLevelBonusAbility i
 
     private final ExperienceSystem experienceSystem = Sim.context().experienceSystem;
 
-    public PaintingOfSoleaAbility() {
+    public PaintingOfSoleaLegacyAbility() {
         super(luckBonus, 0.0f);
     }
 
