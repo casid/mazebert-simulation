@@ -16,7 +16,7 @@ public strictfp class TinkerAura extends AuraAbility<Tinker, Tower> implements O
     private final int[] potionsByRarity = new int[Rarity.VALUES.length];
 
     public TinkerAura() {
-        super(CardCategory.Tower, Tower.class, Sim.context().version >= Sim.v29 ? 0 : 2);
+        super(CardCategory.Tower, Tower.class, Sim.context().version >= Sim.vRnREnd ? 0 : 2);
 
         if (Sim.context().version >= Sim.vDoLEnd) {
             bonus = 0.1f;

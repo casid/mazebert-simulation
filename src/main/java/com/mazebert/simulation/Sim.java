@@ -26,8 +26,7 @@ public strictfp class Sim {
     public static final int v26 = 26; // Small bugfix/qol release
     public static final int vHalloween = 27; // Halloween release
     public static final int vRnR = 28; // Rag nar Rog release
-    public static final int v29 = 29;
-    public static final int vRnREnd = 1000; // TODO Rag nar Rog season end merge
+    public static final int vRnREnd = 29;
 
     // For android 19 compatibility
     private static final ThreadLocal<Context> context = new ThreadLocal<Context>() {

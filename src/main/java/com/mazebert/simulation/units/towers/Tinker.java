@@ -30,7 +30,7 @@ public strictfp class Tinker extends Tower {
     @Override
     public Changelog getChangelog() {
         return new Changelog(
-                new ChangelogEntry(Sim.v29, true, 2022, "Aura range can be modified."),
+                new ChangelogEntry(Sim.vRnREnd, true, 2022, "Aura range can be modified."),
                 new ChangelogEntry(Sim.vDoLEnd, false, 2020, "Aura effect increased from 5% to 10%, effects per potion increased."),
                 ChangelogEntry.DAWN_OF_LIGHT
         );

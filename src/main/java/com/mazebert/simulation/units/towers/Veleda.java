@@ -23,7 +23,7 @@ public strictfp class Veleda extends Tower {
 
         setElement(Element.Unknown);
         addAbility(new VeledaCreateProphecy());
-        if (Sim.context().version >= Sim.v29) {
+        if (Sim.context().version >= Sim.vRnREnd) {
             addAbility(new AttackAbility());
             addAbility(new InstantDamageAbility());
             addAbility(new VikingAbility(false));
@@ -33,7 +33,7 @@ public strictfp class Veleda extends Tower {
     @Override
     public Changelog getChangelog() {
         return new Changelog(
-                new ChangelogEntry(Sim.v29, true, 2022, "Veleda now attacks and damages creeps."),
+                new ChangelogEntry(Sim.vRnREnd, true, 2022, "Veleda now attacks and damages creeps."),
                 new ChangelogEntry(Sim.vRnR, true, 2021)
         );
     }
