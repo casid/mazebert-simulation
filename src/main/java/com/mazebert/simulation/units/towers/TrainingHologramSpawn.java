@@ -1,6 +1,7 @@
 package com.mazebert.simulation.units.towers;
 
 import com.mazebert.simulation.*;
+import com.mazebert.simulation.gateways.UnitGateway;
 import com.mazebert.simulation.listeners.OnDeathListener;
 import com.mazebert.simulation.listeners.OnRoundStartedListener;
 import com.mazebert.simulation.listeners.OnUnitAddedListener;
@@ -17,6 +18,7 @@ public strictfp class TrainingHologramSpawn extends Ability<Tower> implements On
     private final float xpPerLevel = Sim.context().version >= Sim.vDoLEnd ? 0.5f : 0.2f;
 
     private final ExperienceSystem experienceSystem = Sim.context().experienceSystem;
+    private final UnitGateway unitGateway = Sim.context().unitGateway;
 
     @Override
     protected void initialize(Tower unit) {
@@ -70,7 +72,18 @@ public strictfp class TrainingHologramSpawn extends Ability<Tower> implements On
         Tower hologram = getUnit();
         if (hologram != null) {
             experienceSystem.grantExperience(hologram, creep.getExperience());
+
+            if (Sim.context().version >= Sim.vRnREnd) {
+                unitGateway.forEachTower(tower -> grantExperienceToGuard(creep, tower));
+            }
+
             creep.onDeath.remove(this);
+        }
+    }
+
+    private void grantExperienceToGuard(Creep creep, Tower tower) {
+        if (tower instanceof Guard) {
+            experienceSystem.grantExperience(tower, creep.getExperience());
         }
     }
 
@@ -91,7 +104,11 @@ public strictfp class TrainingHologramSpawn extends Ability<Tower> implements On
 
     @Override
     public String getLevelBonus() {
-        return format.experienceWithSignAndUnit(xpPerLevel) + " per tower level.";
+        String bonus = format.experienceWithSignAndUnit(xpPerLevel) + " per tower level.";
+        if (Sim.context().version >= Sim.vRnREnd) {
+            bonus += "\nAll " + format.card(TowerType.Guard) + " towers gain XP from creep holograms.";
+        }
+        return bonus;
     }
 
     @Override

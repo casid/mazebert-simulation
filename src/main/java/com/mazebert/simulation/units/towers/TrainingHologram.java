@@ -25,6 +25,7 @@ public strictfp class TrainingHologram extends Tower {
     @Override
     public Changelog getChangelog() {
         return new Changelog(
+                new ChangelogEntry(Sim.vRnREnd, false, 2022, "All Guard towers gain XP from creep holograms"),
                 new ChangelogEntry(Sim.vDoLEnd, false, 2020, "XP per level increased from 0.2 to 0.5"),
                 ChangelogEntry.DAWN_OF_LIGHT
         );
