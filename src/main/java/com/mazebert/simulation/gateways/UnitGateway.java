@@ -235,6 +235,10 @@ public strictfp final class UnitGateway {
     }
 
     public void destroyTower(Tower tower) {
+        if (Sim.context().version >= Sim.vRnREnd) {
+            tower.markForDisposal();
+        }
+
         returnAllItemsToInventory(tower);
         removeUnit(tower);
     }

@@ -135,6 +135,18 @@ strictfp class DrinkingHornTest extends ItemTest {
     }
 
     @Test
+    void towerSacrificed() {
+        tower.removeAbility(VikingAbility.class); // Reset
+
+        whenItemIsEquipped(ItemType.VikingHelmet, 3);
+        whenItemIsEquipped(ItemType.DrinkingHorn, 2);
+
+        whenPotionIsConsumed(PotionType.Sacrifice);
+
+        assertThat(wizard.itemStash.get(ItemType.DrinkingHorn).amount).isEqualTo(1);
+    }
+
+    @Test
     void cardDustVital() {
         whenItemIsEquipped(ItemType.DrinkingHorn);
         whenPotionIsConsumed(PotionType.CardDustVital);
