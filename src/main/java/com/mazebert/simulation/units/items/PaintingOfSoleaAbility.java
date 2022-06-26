@@ -61,6 +61,11 @@ public strictfp class PaintingOfSoleaAbility extends StackableAbility<Tower> imp
     }
 
     @Override
+    public boolean isVisibleToUser() {
+        return true;
+    }
+
+    @Override
     public String getTitle() {
         return "Beautiful Distraction";
     }
