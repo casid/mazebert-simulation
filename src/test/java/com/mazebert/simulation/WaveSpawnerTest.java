@@ -1175,8 +1175,7 @@ public strictfp class WaveSpawnerTest extends SimTest {
         Creep boss = getCreep(0);
         boss.simulate(1000);
 
-        whenGameIsUpdated(Balancing.WAVE_COUNTDOWN_SECONDS);
-        whenGameIsUpdated();
+        whenGameIsUpdated(1.0f, (int)Balancing.WAVE_COUNTDOWN_SECONDS);
 
         assertThat(stallingPreventionCountDown.getRemainingSeconds()).isEqualTo(119);
     }
@@ -1212,6 +1211,44 @@ public strictfp class WaveSpawnerTest extends SimTest {
 
         assertThat(wizard.gold).isEqualTo(255); // Interest calculation happens only once
         assertThat(wizard.towerStash.size()).isEqualTo(1); // Tower research happens only once
+    }
+
+    @Test
+    void stallingPreventionCountDown_multipleStalledWaves() {
+        givenBossWave();
+        givenBossWave();
+        givenBossWave();
+
+        whenGameIsStarted();
+        Creep boss = getCreep(0);
+        boss.setSpeedModifier(0);
+
+        whenGameIsUpdated(1.0f, (int)(Balancing.STALLING_PREVENTION_COUNTDOWN_SECONDS + Balancing.WAVE_COUNTDOWN_SECONDS));
+
+        Creep boss2 = getCreep(1);
+        boss2.setSpeedModifier(0);
+
+        assertThat(stallingPreventionCountDown).isNotNull();
+    }
+
+    @Test
+    void stallingPreventionCountDown_multipleStalledWaves_autoNextWave() {
+        gameGateway.getGame().autoNextWave = true;
+
+        givenBossWave();
+        givenBossWave();
+        givenBossWave();
+
+        whenGameIsStarted();
+        Creep boss = getCreep(0);
+        boss.setSpeedModifier(0);
+
+        whenGameIsUpdated(1.0f, (int)(Balancing.STALLING_PREVENTION_COUNTDOWN_SECONDS + Balancing.WAVE_COUNTDOWN_SECONDS));
+
+        Creep boss2 = getCreep(1);
+        boss2.setSpeedModifier(0);
+
+        assertThat(stallingPreventionCountDown).isNotNull();
     }
 
     @Test

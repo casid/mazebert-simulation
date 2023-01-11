@@ -16,12 +16,19 @@ public strictfp class StallingPreventionCountDown extends CountDown {
 
     @Override
     protected void onCountDownReached(SimulationListeners simulationListeners) {
+        if (Sim.context().version >= Sim.v30) {
+            Sim.context().stallingPreventionCountDown = null;
+        }
+
         wave.forcedCompletion = true;
 
         Creep lastCreep = Sim.context().unitGateway.findUnit(Creep.class, creep -> creep.getWave() == wave);
 
         Sim.context().waveSpawner.completeWave(wave, lastCreep);
-        Sim.context().stallingPreventionCountDown = null;
+
+        if (Sim.context().version < Sim.v30) {
+            Sim.context().stallingPreventionCountDown = null; // In newer versions, Do not override stallingPreventionCountDown  right after it was set in completeWave (if auto next wave is active)
+        }
 
         if (simulationListeners.areNotificationsEnabled()) {
             Sim.context().unitGateway.forEachWizard(w -> simulationListeners.showNotification(w, "Forcing next wave after " + Sim.context().formatPlugin.seconds(Balancing.STALLING_PREVENTION_COUNTDOWN_SECONDS) + "!"));

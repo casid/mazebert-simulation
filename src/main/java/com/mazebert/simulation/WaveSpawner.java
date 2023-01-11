@@ -204,14 +204,19 @@ public strictfp final class WaveSpawner implements OnGameStartedListener, OnWave
             return;
         }
 
-        if (version >= Sim.vRoCEnd) {
+        if (version >= Sim.v30) {
+            if (context.stallingPreventionCountDown != null) {
+                context.stallingPreventionCountDown.cancel();
+            }
+            context.stallingPreventionCountDown = new StallingPreventionCountDown(wave);
+            context.stallingPreventionCountDown.start();
+        } else if (version >= Sim.vRoCEnd) {
             if (context.stallingPreventionCountDown == null) {
                 context.stallingPreventionCountDown = new StallingPreventionCountDown(wave);
                 context.stallingPreventionCountDown.start();
             } else {
                 context.stallingPreventionCountDown.reset();
             }
-
         }
 
         if (version >= Sim.vRoCEnd) {
