@@ -38,7 +38,7 @@ public strictfp class IdunReviveAura extends AuraAbility<Tower, Creep> {
 
     @Override
     public String getDescription() {
-        return "Creeps that die in range have a chance to be revived.";
+        return "Creeps that die in range have an ability to be revived.";
     }
 
     @Override
