@@ -4,7 +4,6 @@ import com.mazebert.simulation.errors.DsyncException;
 import com.mazebert.simulation.replay.StreamReplayReader;
 import com.mazebert.simulation.units.wizards.Wizard;
 import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.parallel.Execution;
 import org.junit.jupiter.api.parallel.ExecutionMode;
@@ -17,8 +16,6 @@ import java.nio.file.StandardOpenOption;
 import java.util.*;
 import java.util.concurrent.*;
 import java.util.concurrent.atomic.LongAdder;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 
@@ -59,87 +56,87 @@ public class BackwardCompatiblityTester {
 
     @Test
     void check_10() throws IOException {
-        checkGames(Sim.v10);
+        checkGamesZip(Sim.v10);
     }
 
     @Test
     void check_11() throws IOException {
-        checkGames(Sim.v11);
+        checkGamesZip(Sim.v11);
     }
 
     @Test
     void check_12() throws IOException {
-        checkGames(Sim.v12);
+        checkGamesZip(Sim.v12);
     }
 
     @Test
     void check_13() throws IOException {
-        checkGames(Sim.v13);
+        checkGamesZip(Sim.v13);
     }
 
     @Test
     void check_14() throws IOException {
-        checkGames(Sim.v14);
+        checkGamesZip(Sim.v14);
     }
 
     @Test
     void check_16() throws IOException {
-        checkGames(Sim.v16);
+        checkGamesZip(Sim.v16);
     }
 
     @Test
     void check_17() throws IOException {
-        checkGames(Sim.v17);
+        checkGamesZip(Sim.v17);
     }
 
     @Test
     void check_18() throws IOException {
-        checkGames(Sim.vDoL);
+        checkGamesZip(Sim.vDoL);
     }
 
     @Test
     void check_19() throws IOException {
-        checkGames(Sim.v19);
+        checkGamesZip(Sim.v19);
     }
 
     @Test
     void check_20() throws IOException {
-        checkGames(Sim.vCorona);
+        checkGamesZip(Sim.vCorona);
     }
 
     @Test
     void check_21() throws IOException {
-        checkGames(Sim.vDoLEnd);
+        checkGamesZip(Sim.vDoLEnd);
     }
 
     @Test
     void check_22() throws IOException {
-        checkGames(Sim.vRoC);
+        checkGamesZip(Sim.vRoC);
     }
 
     @Test
     void check_23() throws IOException {
-        checkGames(Sim.v23);
+        checkGamesZip(Sim.v23);
     }
 
     @Test
     void check_24() throws IOException {
-        checkGames(Sim.v24);
+        checkGamesZip(Sim.v24);
     }
 
     @Test
     void check_25() throws IOException {
-        checkGames(Sim.vRoCEnd);
+        checkGamesZip(Sim.vRoCEnd);
     }
 
     @Test
     void check_26() throws IOException {
-        checkGames(Sim.v26);
+        checkGamesZip(Sim.v26);
     }
 
     @Test
     void check_28() throws IOException {
-        checkGames(Sim.vRnR);
+        checkGamesZip(Sim.vRnR);
     }
 
     @Test
@@ -150,28 +147,21 @@ public class BackwardCompatiblityTester {
     @Test
     void corruptEndOfFile() {
         int version = Sim.vDoLEnd;
-        checkGame(gamesDirectory.resolve("corrupt-eof.mbg"), version, null);
+        checkGame(gamesDirectory.resolve("corrupt-eof.mbg"), version);
     }
 
     @Test
     void noOutOfMemoryIfNoPathCouldBeFound() {
         int version = 22;
-        checkGame(gamesDirectory.resolve("no-oom-pathfinding.mbg"), version, null);
-    }
-
-    @Disabled
-    @Test
-    void checkOne() {
-        int version = Sim.v10;
-        checkGame(gamesDirectory.resolve(version + "/0dd320b2-cbed-4533-b265-8eddea8dc005-35049.mbg"), version, null);
+        checkGame(gamesDirectory.resolve("no-oom-pathfinding.mbg"), version);
     }
 
     private void checkGamesZip(int version) throws IOException {
         Path directory = gamesDirectory.resolve("" + version);
 
-        Path zip = directory.resolve("games.zip");
+        Path zipFile = directory.resolve("games.zip");
 
-        List<Game> games = readGames(zip);
+        List<Game> games = readGames(zipFile);
         int total = games.size();
 
         System.out.println("Validating " + total + " games (version " + version + ")");
@@ -318,67 +308,11 @@ public class BackwardCompatiblityTester {
         return result;
     }
 
-    private void checkGames(int version) throws IOException {
-        Path directory = gamesDirectory.resolve("" + version);
-
-        List<Path> files = getGameFiles(directory);
-        int total = files.size();
-        System.out.println("Validating " + total + " games (version " + version + ")");
-        LongAdder counter = new LongAdder();
-
-        GameValidationGateway gameValidationGateway = new GameValidationGateway(directory);
-
-        ExecutorService executorService = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
-
-        for (Path file : files) {
-            executorService.submit(() -> {
-                try {
-                    if (Files.isDirectory(file)) {
-                        return;
-                    }
-
-                    String fileName = file.getFileName().toString();
-                    if (fileName.startsWith(".")) {
-                        return;
-                    }
-
-                    if (acknowledgedDsyncs.contains(fileName)) {
-                        return;
-                    }
-
-                    checkGame(file, version, gameValidationGateway);
-                } finally {
-                    counter.add(1);
-                    System.out.println(counter + "/" + total + "");
-                }
-            });
-        }
-
-        try {
-            executorService.shutdown();
-            boolean success = executorService.awaitTermination(1, TimeUnit.HOURS);
-            assertThat(success).isTrue();
-        } catch (InterruptedException e) {
-            Thread.currentThread().interrupt();
-            return;
-        }
-
-        if (gameValidationGateway.needsToBePopulated) {
-            gameValidationGateway.writeToDisk();
-        }
-    }
-
-    private List<Path> getGameFiles(Path directory) throws IOException {
-        try (Stream<Path> stream = Files.walk(directory, 1)) {
-            return stream.filter(p -> p.toString().endsWith(".mbg")).collect(Collectors.toList());
-        }
-    }
-
-    private void checkGame(Path file, int version, GameValidationGateway gameValidationGateway) {
+    private void checkGame(Path file, int version) {
         try {
             Game game = readGame(file);
 
-            checkGame(game, version, gameValidationGateway);
+            checkGame(game, version, null);
         } catch (IOException e) {
             System.err.println("Arghs! " + e.getMessage());
             errors.put(file, e);
