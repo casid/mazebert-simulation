@@ -134,7 +134,7 @@ public abstract strictfp class Unit implements Hashable {
 
     private <T extends Ability> T addAbilityByClass(Class<T> abilityClass) {
         try {
-            T ability = abilityClass.newInstance();
+            T ability = abilityClass.getDeclaredConstructor().newInstance();
             addAbilityInternal(ability);
             return ability;
         } catch (Throwable e) {

@@ -90,7 +90,7 @@ public strictfp enum QuestType {
 
     public Quest create() {
         try {
-            return questClass.newInstance();
+            return questClass.getDeclaredConstructor().newInstance();
         } catch (Exception e) {
             throw new RuntimeException(e);
         }

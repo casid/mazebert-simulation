@@ -103,7 +103,7 @@ public strictfp enum TowerType implements CardType<Tower> {
     @Override
     public Tower create() {
         try {
-            Tower tower = towerClass.newInstance();
+            Tower tower = towerClass.getDeclaredConstructor().newInstance();
             tower.setLevel(1);
             return tower;
         } catch (Exception e) {

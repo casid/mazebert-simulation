@@ -58,7 +58,7 @@ public strictfp enum MapType {
 
     public Map create() {
         try {
-            return mapClass.newInstance();
+            return mapClass.getDeclaredConstructor().newInstance();
         } catch (Exception e) {
             throw new RuntimeException(e);
         }

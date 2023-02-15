@@ -207,7 +207,7 @@ public strictfp enum ItemType implements CardType<Item> {
     @Override
     public Item create() {
         try {
-            return itemClass.newInstance();
+            return itemClass.getDeclaredConstructor().newInstance();
         } catch (Exception e) {
             throw new RuntimeException(e);
         }

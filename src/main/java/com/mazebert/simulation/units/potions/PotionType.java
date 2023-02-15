@@ -137,7 +137,7 @@ public strictfp enum PotionType implements CardType<Potion> {
     @Override
     public Potion create() {
         try {
-            return potionClass.newInstance();
+            return potionClass.getDeclaredConstructor().newInstance();
         } catch (Exception e) {
             throw new RuntimeException(e);
         }

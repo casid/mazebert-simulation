@@ -72,7 +72,7 @@ public strictfp enum WizardPowerType {
 
     public WizardPower create() {
         try {
-            return powerClass.newInstance();
+            return powerClass.getDeclaredConstructor().newInstance();
         } catch (Exception e) {
             throw new RuntimeException(e);
         }

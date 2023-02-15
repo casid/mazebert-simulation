@@ -59,7 +59,7 @@ public strictfp enum HeroType implements CardType<Hero> {
     @Override
     public Hero create() {
         try {
-            return heroClass.newInstance();
+            return heroClass.getDeclaredConstructor().newInstance();
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
