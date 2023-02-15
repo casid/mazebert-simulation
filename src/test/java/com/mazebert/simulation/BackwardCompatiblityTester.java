@@ -21,6 +21,7 @@ import java.util.Set;
 import java.util.concurrent.*;
 import java.util.concurrent.atomic.LongAdder;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.jusecase.Builders.a;
@@ -164,7 +165,7 @@ public class BackwardCompatiblityTester {
     private void checkGames(int version) throws IOException {
         Path directory = gamesDirectory.resolve("" + version);
 
-        List<Path> files = Files.walk(directory, 1).filter(p -> p.toString().endsWith(".mbg")).collect(Collectors.toList());
+        List<Path> files = getGameFiles(directory);
         int total = files.size();
         System.out.println("Validating " + total + " games (version " + version + ")");
         LongAdder counter = new LongAdder();
@@ -208,6 +209,12 @@ public class BackwardCompatiblityTester {
 
         if (gameValidationGateway.needsToBePopulated) {
             gameValidationGateway.writeToDisk();
+        }
+    }
+
+    private List<Path> getGameFiles(Path directory) throws IOException {
+        try (Stream<Path> stream = Files.walk(directory, 1)) {
+            return stream.filter(p -> p.toString().endsWith(".mbg")).collect(Collectors.toList());
         }
     }
 
