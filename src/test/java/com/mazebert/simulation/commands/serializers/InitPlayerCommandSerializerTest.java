@@ -46,7 +46,7 @@ public class InitPlayerCommandSerializerTest {
         whenBufferIsFlushedAndRead();
 
         InitPlayerCommand actual = reader.readObjectNonNull(InitPlayerCommand.class);
-        assertThat(actual).isEqualToComparingFieldByFieldRecursively(expected);
+        assertThat(actual).usingRecursiveComparison().isEqualTo(expected);
     }
 
     @Test
@@ -60,7 +60,7 @@ public class InitPlayerCommandSerializerTest {
         whenBufferIsFlushedAndRead();
 
         InitPlayerCommand actual = reader.readObjectNonNull(InitPlayerCommand.class);
-        assertThat(actual).isEqualToComparingFieldByFieldRecursively(expected);
+        assertThat(actual).usingRecursiveComparison().isEqualTo(expected);
     }
 
     @Test
@@ -75,7 +75,7 @@ public class InitPlayerCommandSerializerTest {
         whenBufferIsFlushedAndRead();
 
         InitPlayerCommand actual = reader.readObjectNonNull(InitPlayerCommand.class);
-        assertThat(actual).isEqualToComparingFieldByFieldRecursively(expected);
+        assertThat(actual).usingRecursiveComparison().isEqualTo(expected);
     }
 
     @Test
@@ -90,7 +90,7 @@ public class InitPlayerCommandSerializerTest {
         whenBufferIsFlushedAndRead();
 
         InitPlayerCommand actual = reader.readObjectNonNull(InitPlayerCommand.class);
-        assertThat(actual).isEqualToComparingFieldByFieldRecursively(expected);
+        assertThat(actual).usingRecursiveComparison().isEqualTo(expected);
     }
 
     private void whenBufferIsFlushedAndRead() {

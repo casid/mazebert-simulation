@@ -1,8 +1,6 @@
 package com.mazebert.simulation.units.towers;
 
 import com.mazebert.simulation.units.abilities.Ability;
-import com.mazebert.simulation.units.abilities.PoisonAbility;
-import com.mazebert.simulation.units.creeps.Creep;
 
 public strictfp class FrogPoisonArmorAbility extends Ability<Tower> {
 

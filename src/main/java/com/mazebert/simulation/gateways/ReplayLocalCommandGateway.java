@@ -2,7 +2,6 @@ package com.mazebert.simulation.gateways;
 
 import com.mazebert.simulation.commands.Command;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 

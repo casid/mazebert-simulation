@@ -3,7 +3,7 @@ package com.mazebert.simulation.plugins.random;
 import java.util.UUID;
 
 /**
- * Based on http://www.iquilezles.org/www/articles/sfrand/sfrand.htm
+ * Based on <a href="http://www.iquilezles.org/www/articles/sfrand/sfrand.htm">iquilezles article</a>
  * with some small improvements
  */
 public strictfp class FastRandomPlugin extends RandomPlugin {

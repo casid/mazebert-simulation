@@ -1,7 +1,6 @@
 package com.mazebert.simulation.units.items;
 
 import com.mazebert.simulation.units.potions.MeadAbility;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;

@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+@SuppressWarnings("PointlessArithmeticExpression")
 public strictfp class HeroicSetTest extends ItemTest {
     private static final float MASK_BONUS = 0.1f;
     private static final float SET_BONUS = 0.4f;

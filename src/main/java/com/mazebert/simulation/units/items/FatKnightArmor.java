@@ -1,7 +1,6 @@
 package com.mazebert.simulation.units.items;
 
 import com.mazebert.simulation.Rarity;
-import com.mazebert.simulation.Sim;
 import com.mazebert.simulation.changelog.Changelog;
 import com.mazebert.simulation.changelog.ChangelogEntry;
 

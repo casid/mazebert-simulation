@@ -49,10 +49,10 @@ public class ReplayIT {
 
         try (StreamReplayReader replayReader = new StreamReplayReader(Files.newInputStream(replay.toPath(), StandardOpenOption.READ), header.version)) {
             ReplayHeader readHeader = replayReader.readHeader();
-            assertThat(readHeader).isEqualToComparingFieldByFieldRecursively(header);
+            assertThat(readHeader).usingRecursiveComparison().isEqualTo(header);
 
             ReplayFrame readFrame = replayReader.readFrame();
-            assertThat(readFrame).isEqualToComparingFieldByFieldRecursively(turn);
+            assertThat(readFrame).usingRecursiveComparison().isEqualTo(turn);
 
             ReplayFrame frame2 = replayReader.readFrame();
             assertThat(frame2).isNull();

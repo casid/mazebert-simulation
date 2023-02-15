@@ -12,7 +12,8 @@ public abstract class SimulationTest extends SimTest {
     protected MessageGatewayTrainer messageGatewayTrainer = new MessageGatewayTrainer();
     protected PlayerGatewayTrainer playerGatewayTrainer = new PlayerGatewayTrainer();
     protected Simulation simulation;
-    private int playerCount;
+
+    private final int playerCount;
 
     protected SimulationTest() {
         this(1);

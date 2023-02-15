@@ -10,8 +10,7 @@ public final strictfp class Plane {
     /**
      * sets up the coefficients of the plane
      */
-    public final void setCoefficients(float a, float b, float c, float d)
-    {
+    public void setCoefficients(float a, float b, float c, float d) {
         this.a = a;
         this.b = b;
         this.c = c;
@@ -27,8 +26,7 @@ public final strictfp class Plane {
      * @param ny y direction of the normal of the plane
      * @param nz z direction of the normal of the plane
      */
-    public final void setPointAndDirection(float px, float py, float pz, float nx, float ny, float nz)
-    {
+    public void setPointAndDirection(float px, float py, float pz, float nx, float ny, float nz) {
         a = nx;
         b = ny;
         c = nz;
@@ -38,8 +36,7 @@ public final strictfp class Plane {
     /**
      * sets this plane to the values of p
      */
-    public final void setPlane(Plane p)
-    {
+    public void setPlane(Plane p) {
         a = p.a;
         b = p.b;
         c = p.c;
@@ -49,8 +46,7 @@ public final strictfp class Plane {
     /**
      * normalizes the plane
      */
-    public final Plane normalize()
-    {
+    public Plane normalize() {
         float length = (float)StrictMath.sqrt(a * a + b * b + c * c);
 
         a /= length;
@@ -64,8 +60,7 @@ public final strictfp class Plane {
     /**
      * @return the nearest distance form a point to the plane
      */
-    public final float distanceToPoint(float x, float y, float z)
-    {
+    public float distanceToPoint(float x, float y, float z) {
         return a * x + b * y + c * z + d;
     }
 }

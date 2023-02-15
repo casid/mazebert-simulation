@@ -78,7 +78,7 @@ class NextWaveTest extends UsecaseTest<NextWaveCommand> {
     }
 
     /**
-     * See https://mazebert.com/forum/bugs/impatience-giving-more-speed--id1248/
+     * See <a href="https://mazebert.com/forum/bugs/impatience-giving-more-speed--id1248/">bug report</a>
      */
     @Test
     void skippedSeconds_countOnlyOnce() {

@@ -219,7 +219,7 @@ public strictfp class LootSystem {
     }
 
     private void rollCardDrop(Wizard wizard, Creep creep, int maxItemLevel, Rarity rarity, Stash stash, StashLookup lookup) {
-        while (rarity.ordinal() >= Rarity.Common.ordinal()) {
+        while (true) {
             CardType drop;
             if (version > Sim.v10) {
                 drop = stash.getRandomDrop(rarity, randomPlugin, maxItemLevel, lookup);

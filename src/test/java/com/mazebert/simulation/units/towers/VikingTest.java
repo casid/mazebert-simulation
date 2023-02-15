@@ -3,7 +3,6 @@ package com.mazebert.simulation.units.towers;
 import com.mazebert.simulation.CommandExecutor;
 import com.mazebert.simulation.SimTest;
 import com.mazebert.simulation.SimulationListeners;
-import com.mazebert.simulation.commands.DrinkPotionCommand;
 import com.mazebert.simulation.gateways.GameGateway;
 import com.mazebert.simulation.gateways.UnitGateway;
 import com.mazebert.simulation.maps.TestMap;

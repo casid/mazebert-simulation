@@ -2,7 +2,6 @@ package com.mazebert.simulation.units.items;
 
 import com.mazebert.simulation.listeners.OnItemEquippedListener;
 import com.mazebert.simulation.units.abilities.Ability;
-import com.mazebert.simulation.units.abilities.StackableAbility;
 import com.mazebert.simulation.units.towers.Tower;
 
 public strictfp class EldritchPearlAbility extends Ability<Tower> implements OnItemEquippedListener {

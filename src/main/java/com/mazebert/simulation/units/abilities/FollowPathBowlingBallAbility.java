@@ -3,7 +3,6 @@ package com.mazebert.simulation.units.abilities;
 import com.mazebert.java8.Consumer;
 import com.mazebert.simulation.Sim;
 import com.mazebert.simulation.SimulationListeners;
-import com.mazebert.simulation.WaveType;
 import com.mazebert.simulation.gateways.UnitGateway;
 import com.mazebert.simulation.minigames.BowlingGame;
 import com.mazebert.simulation.systems.ExperienceSystem;

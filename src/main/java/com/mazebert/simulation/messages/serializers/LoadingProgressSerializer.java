@@ -1,7 +1,6 @@
 package com.mazebert.simulation.messages.serializers;
 
 import com.mazebert.simulation.messages.LoadingProgress;
-import com.mazebert.simulation.messages.ResendTurn;
 import org.jusecase.bitpack.BitReader;
 import org.jusecase.bitpack.BitSerializer;
 import org.jusecase.bitpack.BitWriter;

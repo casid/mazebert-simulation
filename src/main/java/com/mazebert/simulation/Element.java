@@ -11,9 +11,9 @@ public strictfp enum Element implements Hashable {
     Light(4, 0xffffff, "Asgard"),
     ;
 
-    private static Element[] LOOKUP;
-    private static Element[] STANDARD = {Nature, Metropolis, Darkness};
-    private static Element[] DAWN_OF_LIGHT = {Nature, Metropolis, Darkness, Light};
+    private static final Element[] LOOKUP;
+    private static final Element[] STANDARD = {Nature, Metropolis, Darkness};
+    private static final Element[] DAWN_OF_LIGHT = {Nature, Metropolis, Darkness, Light};
 
     static {
         int maxId = 0;

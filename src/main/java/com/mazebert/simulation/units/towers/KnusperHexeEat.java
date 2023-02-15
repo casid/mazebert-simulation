@@ -2,7 +2,6 @@ package com.mazebert.simulation.units.towers;
 
 import com.mazebert.simulation.Sim;
 import com.mazebert.simulation.SimulationListeners;
-import com.mazebert.simulation.WaveType;
 import com.mazebert.simulation.listeners.OnAttackListener;
 import com.mazebert.simulation.units.abilities.Ability;
 import com.mazebert.simulation.units.creeps.Creep;

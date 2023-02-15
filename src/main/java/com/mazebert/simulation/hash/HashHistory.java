@@ -1,7 +1,7 @@
 package com.mazebert.simulation.hash;
 
 public strictfp class HashHistory {
-    private int[] hashes;
+    private final int[] hashes;
     private int hashIndex;
 
     public HashHistory(int size) {

@@ -8,7 +8,7 @@ import java.util.Queue;
 
 public class ReplayReaderTrainer implements ReplayReader {
 
-    private Queue<ReplayFrame> turns = new ArrayDeque<>();
+    private final Queue<ReplayFrame> turns = new ArrayDeque<>();
 
     @Override
     public ReplayHeader readHeader() {

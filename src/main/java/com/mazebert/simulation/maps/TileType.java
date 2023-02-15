@@ -1,5 +1,7 @@
 package com.mazebert.simulation.maps;
 
+import java.util.Objects;
+
 public strictfp class TileType {
     public final String name;
     public final float pivotX;
@@ -78,7 +80,7 @@ public strictfp class TileType {
         if (flyable != tileType.flyable) return false;
         if (buildable != tileType.buildable) return false;
         if (!name.equals(tileType.name)) return false;
-        return blendMode != null ? blendMode.equals(tileType.blendMode) : tileType.blendMode == null;
+        return Objects.equals(blendMode, tileType.blendMode);
     }
 
     @Override

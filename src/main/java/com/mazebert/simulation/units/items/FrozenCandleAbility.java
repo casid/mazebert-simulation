@@ -33,6 +33,6 @@ public strictfp class FrozenCandleAbility extends Ability<Tower> {
     public String getLevelBonus() {
         return format.percentWithSignAndUnit(critChanceBonus) + " crit chance\n" +
                 format.percentWithSignAndUnit(critDamageBonus) + " crit damage\n" +
-                + multicritMalus + " multicrit";
+                multicritMalus + " multicrit";
     }
 }

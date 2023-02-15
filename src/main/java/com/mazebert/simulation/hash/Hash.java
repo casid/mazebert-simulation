@@ -18,7 +18,7 @@ public strictfp class Hash {
     }
 
     public void add(float value) {
-        result = 31 * result + (value != +0.0f ? Float.floatToIntBits(value) : 0);
+        result = 31 * result + (value != 0.0f ? Float.floatToIntBits(value) : 0);
     }
 
     public void add(double value) {

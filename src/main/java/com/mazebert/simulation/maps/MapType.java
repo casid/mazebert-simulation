@@ -10,7 +10,7 @@ public strictfp enum MapType {
     DawnOfLight(5, DawnOfLight.class, "Dawn of Light"),
     ;
 
-    private static MapType[] LOOKUP;
+    private static final MapType[] LOOKUP;
 
     private static final MapType[] STANDARD      = {BloodMoor, ShatteredPlains, TwistedPaths, GoldenGrounds};
     private static final MapType[] DAWN_OF_LIGHT = {BloodMoor, ShatteredPlains, TwistedPaths, DawnOfLight, GoldenGrounds};
