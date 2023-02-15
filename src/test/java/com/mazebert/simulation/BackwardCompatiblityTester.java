@@ -14,14 +14,13 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
-import java.util.List;
-import java.util.Map;
-import java.util.Properties;
-import java.util.Set;
+import java.util.*;
 import java.util.concurrent.*;
 import java.util.concurrent.atomic.LongAdder;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipFile;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.jusecase.Builders.a;
@@ -42,11 +41,11 @@ public class BackwardCompatiblityTester {
 
     private static final Path gamesDirectory = Paths.get("games");
 
-    private final ConcurrentMap<Path, Exception> errors = new ConcurrentHashMap<>();
+    private final ConcurrentMap<Object, Exception> errors = new ConcurrentHashMap<>();
 
     @AfterEach
     void tearDown() {
-        for (Map.Entry<Path, Exception> entry : errors.entrySet()) {
+        for (Map.Entry<Object, Exception> entry : errors.entrySet()) {
             Exception exception = entry.getValue();
             if (exception instanceof IOException) {
                 System.err.println("Failed to load game " + entry.getKey() + " " + exception.getMessage());
@@ -144,6 +143,11 @@ public class BackwardCompatiblityTester {
     }
 
     @Test
+    void check_29() throws IOException {
+        checkGamesZip(Sim.vRnREnd);
+    }
+
+    @Test
     void corruptEndOfFile() {
         int version = Sim.vDoLEnd;
         checkGame(gamesDirectory.resolve("corrupt-eof.mbg"), version, null);
@@ -160,6 +164,158 @@ public class BackwardCompatiblityTester {
     void checkOne() {
         int version = Sim.v10;
         checkGame(gamesDirectory.resolve(version + "/0dd320b2-cbed-4533-b265-8eddea8dc005-35049.mbg"), version, null);
+    }
+
+    private void checkGamesZip(int version) throws IOException {
+        Path directory = gamesDirectory.resolve("" + version);
+
+        Path zip = directory.resolve("games.zip");
+
+        List<Game> games = readGames(zip);
+        int total = games.size();
+
+        System.out.println("Validating " + total + " games (version " + version + ")");
+        LongAdder counter = new LongAdder();
+
+        GameValidationGateway gameValidationGateway = new GameValidationGateway(directory);
+
+        ExecutorService executorService = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
+
+        for (Game game : games) {
+            executorService.submit(() -> {
+                try {
+                    if (acknowledgedDsyncs.contains(game.name)) {
+                        return;
+                    }
+
+                    checkGame(game, version, gameValidationGateway);
+                } finally {
+                    counter.add(1);
+                    System.out.println(counter + "/" + total + "");
+                }
+            });
+        }
+
+        try {
+            executorService.shutdown();
+            boolean success = executorService.awaitTermination(1, TimeUnit.HOURS);
+            assertThat(success).isTrue();
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+            return;
+        }
+
+        if (gameValidationGateway.needsToBePopulated) {
+            gameValidationGateway.writeToDisk();
+        }
+    }
+
+    private List<Game> readGames(Path gamesZipFile) throws IOException {
+        List<Game> result = new ArrayList<>();
+
+        try (ZipFile zipFile = new ZipFile(gamesZipFile.toFile())) {
+            Enumeration<? extends ZipEntry> zipEntries = zipFile.entries();
+
+            while (zipEntries.hasMoreElements()) {
+                ZipEntry zipEntry = zipEntries.nextElement();
+                if (zipEntry.isDirectory()) {
+                    continue;
+                }
+
+                if (zipEntry.getName().startsWith(".")) {
+                    continue;
+                }
+
+                result.add(readGame(zipFile, zipEntry));
+            }
+        }
+
+        return result;
+    }
+
+    private Game readGame(ZipFile zipFile, ZipEntry zipEntry) throws IOException {
+        byte[] data;
+        try (InputStream inputStream = zipFile.getInputStream(zipEntry)) {
+            data = readAllBytes(inputStream);
+        }
+
+        return new Game(zipEntry.getName(), data);
+    }
+
+    private Game readGame(Path file) throws IOException {
+        byte[] data;
+        try (InputStream is = Files.newInputStream(file, StandardOpenOption.READ)) {
+            data = readAllBytes(is);
+        }
+
+        return new Game(file.getFileName().toString(), data);
+    }
+
+    /**
+     * Copied from JDK 11, can be replaced once Java 8 support is no longer required.
+     */
+    private byte[] readAllBytes(InputStream is) throws IOException {
+        final int MAX_BUFFER_SIZE = Integer.MAX_VALUE - 8;
+        final int DEFAULT_BUFFER_SIZE = 8192;
+
+        if (Integer.MAX_VALUE < 0) {
+            throw new IllegalArgumentException("len < 0");
+        }
+
+        List<byte[]> bufs = null;
+        byte[] result = null;
+        int total = 0;
+        int remaining = Integer.MAX_VALUE;
+        int n;
+        do {
+            byte[] buf = new byte[Math.min(remaining, DEFAULT_BUFFER_SIZE)];
+            int nread = 0;
+
+            // read to EOF which may read more or less than buffer size
+            while ((n = is.read(buf, nread,
+                    Math.min(buf.length - nread, remaining))) > 0) {
+                nread += n;
+                remaining -= n;
+            }
+
+            if (nread > 0) {
+                if (MAX_BUFFER_SIZE - total < nread) {
+                    throw new OutOfMemoryError("Required array size too large");
+                }
+                total += nread;
+                if (result == null) {
+                    result = buf;
+                } else {
+                    if (bufs == null) {
+                        bufs = new ArrayList<>();
+                        bufs.add(result);
+                    }
+                    bufs.add(buf);
+                }
+            }
+            // if the last call to read returned -1 or the number of bytes
+            // requested have been read then break
+        } while (n >= 0 && remaining > 0);
+
+        if (bufs == null) {
+            if (result == null) {
+                return new byte[0];
+            }
+            return result.length == total ?
+                    result : Arrays.copyOf(result, total);
+        }
+
+        result = new byte[total];
+        int offset = 0;
+        remaining = total;
+        for (byte[] b : bufs) {
+            int count = Math.min(b.length, remaining);
+            System.arraycopy(b, 0, result, offset, count);
+            offset += count;
+            remaining -= count;
+        }
+
+        return result;
     }
 
     private void checkGames(int version) throws IOException {
@@ -219,30 +375,48 @@ public class BackwardCompatiblityTester {
     }
 
     private void checkGame(Path file, int version, GameValidationGateway gameValidationGateway) {
-        try (StreamReplayReader replayReader = new StreamReplayReader(new BufferedInputStream(Files.newInputStream(file, StandardOpenOption.READ)), version)) {
+        try {
+            Game game = readGame(file);
+
+            checkGame(game, version, gameValidationGateway);
+        } catch (IOException e) {
+            System.err.println("Arghs! " + e.getMessage());
+            errors.put(file, e);
+        }
+    }
+
+    private void checkGame(Game game, int version, GameValidationGateway gameValidationGateway) {
+        try (StreamReplayReader replayReader = new StreamReplayReader(new ByteArrayInputStream(game.data), version)) {
             new SimulationValidator().validate(version, replayReader, null, context -> {
                 if (gameValidationGateway == null) {
                     return;
                 }
 
-                String game = file.getFileName().toString();
-
                 Wizard wizard = context.unitGateway.getWizard(1);
                 String experience = "" + wizard.experience;
 
                 if (gameValidationGateway.needsToBePopulated) {
-                    gameValidationGateway.setExperience(game, experience);
+                    gameValidationGateway.setExperience(game.name, experience);
                 } else {
-                    String expectedExperience = gameValidationGateway.getExperience(game);
+                    String expectedExperience = gameValidationGateway.getExperience(game.name);
                     if (!expectedExperience.equals(experience)) {
                         throw new DsyncException("XP after validation is different! Expected " + expectedExperience + ", got " + experience, context.turnGateway.getCurrentTurnNumber());
                     }
                 }
             });
-
         } catch (Exception e) {
             System.err.println("Arghs! " + e.getMessage());
-            errors.put(file, e);
+            errors.put(game.name, e);
+        }
+    }
+
+    private static class Game {
+        final String name;
+        final byte[] data;
+
+        public Game(String name, byte[] data) {
+            this.name = name;
+            this.data = data;
         }
     }
 
