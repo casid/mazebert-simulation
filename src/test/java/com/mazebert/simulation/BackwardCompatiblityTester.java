@@ -56,92 +56,92 @@ public class BackwardCompatiblityTester {
 
     @Test
     void check_10() throws IOException {
-        checkGamesZip(Sim.v10);
+        checkGames(Sim.v10);
     }
 
     @Test
     void check_11() throws IOException {
-        checkGamesZip(Sim.v11);
+        checkGames(Sim.v11);
     }
 
     @Test
     void check_12() throws IOException {
-        checkGamesZip(Sim.v12);
+        checkGames(Sim.v12);
     }
 
     @Test
     void check_13() throws IOException {
-        checkGamesZip(Sim.v13);
+        checkGames(Sim.v13);
     }
 
     @Test
     void check_14() throws IOException {
-        checkGamesZip(Sim.v14);
+        checkGames(Sim.v14);
     }
 
     @Test
     void check_16() throws IOException {
-        checkGamesZip(Sim.v16);
+        checkGames(Sim.v16);
     }
 
     @Test
     void check_17() throws IOException {
-        checkGamesZip(Sim.v17);
+        checkGames(Sim.v17);
     }
 
     @Test
     void check_18() throws IOException {
-        checkGamesZip(Sim.vDoL);
+        checkGames(Sim.vDoL);
     }
 
     @Test
     void check_19() throws IOException {
-        checkGamesZip(Sim.v19);
+        checkGames(Sim.v19);
     }
 
     @Test
     void check_20() throws IOException {
-        checkGamesZip(Sim.vCorona);
+        checkGames(Sim.vCorona);
     }
 
     @Test
     void check_21() throws IOException {
-        checkGamesZip(Sim.vDoLEnd);
+        checkGames(Sim.vDoLEnd);
     }
 
     @Test
     void check_22() throws IOException {
-        checkGamesZip(Sim.vRoC);
+        checkGames(Sim.vRoC);
     }
 
     @Test
     void check_23() throws IOException {
-        checkGamesZip(Sim.v23);
+        checkGames(Sim.v23);
     }
 
     @Test
     void check_24() throws IOException {
-        checkGamesZip(Sim.v24);
+        checkGames(Sim.v24);
     }
 
     @Test
     void check_25() throws IOException {
-        checkGamesZip(Sim.vRoCEnd);
+        checkGames(Sim.vRoCEnd);
     }
 
     @Test
     void check_26() throws IOException {
-        checkGamesZip(Sim.v26);
+        checkGames(Sim.v26);
     }
 
     @Test
     void check_28() throws IOException {
-        checkGamesZip(Sim.vRnR);
+        checkGames(Sim.vRnR);
     }
 
     @Test
     void check_29() throws IOException {
-        checkGamesZip(Sim.vRnREnd);
+        checkGames(Sim.vRnREnd);
     }
 
     @Test
@@ -156,7 +156,7 @@ public class BackwardCompatiblityTester {
         checkGame(gamesDirectory.resolve("no-oom-pathfinding.mbg"), version);
     }
 
-    private void checkGamesZip(int version) throws IOException {
+    private void checkGames(int version) throws IOException {
         Path directory = gamesDirectory.resolve("" + version);
 
         Path zipFile = directory.resolve("games.zip");
