@@ -46,6 +46,11 @@ public class GamePrinter {
         StringBuilder result = new StringBuilder();
         result.append("p").append(request.playerId).append(", t").append(request.turnNumber).append(": ").append(request.getClass().getSimpleName()).append("(");
 
+        if (request instanceof InitPlayerCommand) {
+            InitPlayerCommand c = (InitPlayerCommand) request;
+            result.append(c.playerName).append(", id=").append(c.ladderPlayerId).append(", hero=").append(c.heroType);
+        }
+
         if (request instanceof BuildTowerCommand) {
             BuildTowerCommand c = (BuildTowerCommand) request;
             result.append(c.towerType).append(", x=").append(c.x).append(", y=").append(c.y);
