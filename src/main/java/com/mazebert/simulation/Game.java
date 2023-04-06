@@ -5,10 +5,7 @@ import com.mazebert.simulation.hash.Hashable;
 import com.mazebert.simulation.maps.Map;
 import com.mazebert.simulation.units.heroes.Azathoth;
 
-import java.util.Calendar;
-import java.util.GregorianCalendar;
-import java.util.TimeZone;
-import java.util.UUID;
+import java.util.*;
 
 public strictfp class Game implements Hashable {
     public UUID id;
@@ -124,7 +121,7 @@ public strictfp class Game implements Hashable {
             return false;
         }
 
-        Calendar calendar = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
+        Calendar calendar = new GregorianCalendar(TimeZone.getTimeZone("UTC"), Locale.US);
         calendar.setTimeInMillis(timestamp);
         int day = calendar.get(Calendar.DAY_OF_MONTH);
         int month = calendar.get(Calendar.MONTH);
