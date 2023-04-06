@@ -67,7 +67,7 @@ public strictfp class Game implements Hashable {
             return false;
         }
 
-        Calendar calendar = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
+        Calendar calendar = new GregorianCalendar(TimeZone.getTimeZone("UTC"), Locale.US);
         calendar.setTimeInMillis(timestamp);
         int month = calendar.get(Calendar.MONTH);
         return month == 10 || month == 11 || month == 0 || month == 1;
@@ -94,7 +94,7 @@ public strictfp class Game implements Hashable {
             return false;
         }
 
-        Calendar calendar = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
+        Calendar calendar = new GregorianCalendar(TimeZone.getTimeZone("UTC"), Locale.US);
         calendar.setTimeInMillis(timestamp);
         int month = calendar.get(Calendar.MONTH);
         return month == 9;
