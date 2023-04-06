@@ -28,6 +28,8 @@ public strictfp class Sim {
     public static final int vRnR = 28; // Rag nar Rog release
     public static final int vRnREnd = 29; // Rag nar Rog season end merge
     public static final int v30 = 30;
+    public static final int vToC = 31; // Tides of Change release
+    public static final int vToCEnd = 32; // Tides of Change release
 
     // For android 19 compatibility
     private static final ThreadLocal<Context> context = new ThreadLocal<Context>() {
@@ -62,5 +64,10 @@ public strictfp class Sim {
     public static boolean isRnRSeasonContent() {
         int version = context().version;
         return version >= vRnREnd || (version >= vRnR && context().season);
+    }
+
+    public static boolean isToCSeasonContent() {
+        int version = context().version;
+        return version >= vToCEnd || (version >= vToC && context().season);
     }
 }
