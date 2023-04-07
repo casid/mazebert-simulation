@@ -40,7 +40,11 @@ public strictfp class BuildTower implements Usecase<BuildTowerCommand> {
         }
 
         Tile tile = getTile(command.x, command.y);
-        if (tile == null || !tile.type.buildable) {
+        if (tile == null) {
+            return;
+        }
+
+        if (!tile.type.buildable) {
             return;
         }
 
