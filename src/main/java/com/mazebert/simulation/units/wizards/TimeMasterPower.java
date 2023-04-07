@@ -20,7 +20,7 @@ public strictfp class TimeMasterPower extends WizardPower {
 
     @Override
     public int getRequiredLevel() {
-        if (Sim.isDoLSeasonContent()) {
+        if (Sim.context().isDoLSeasonContent()) {
             return 1;
         }
         return 40;

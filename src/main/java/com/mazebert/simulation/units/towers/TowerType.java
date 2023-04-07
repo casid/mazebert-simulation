@@ -137,10 +137,10 @@ public strictfp enum TowerType implements CardType<Tower> {
     }
 
     public static TowerType[] getValues() {
-        if (Sim.isToCSeasonContent()) {
+        if (Sim.context().isToCSeasonContent()) {
             return TOC;
         }
-        if (Sim.isRnRSeasonContent()) {
+        if (Sim.context().isRnRSeasonContent()) {
             return RNR;
         }
         if (Sim.context().version >= Sim.vHalloween) {
@@ -149,7 +149,7 @@ public strictfp enum TowerType implements CardType<Tower> {
         if (Sim.context().version >= Sim.vRoCEnd) {
             return STANDARD_ROC;
         }
-        if (Sim.isDoLSeasonContent()) {
+        if (Sim.context().isDoLSeasonContent()) {
             return DOL;
         }
         return STANDARD;

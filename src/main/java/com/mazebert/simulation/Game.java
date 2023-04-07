@@ -48,7 +48,7 @@ public strictfp class Game implements Hashable {
 
     public boolean isTimeLordAllowed() {
         if (!timeLordAllowedCalculated) {
-            timeLordAllowed = Sim.isDoLSeasonContent() && !Sim.context().unitGateway.containsUnit(Azathoth.class);
+            timeLordAllowed = Sim.context().isDoLSeasonContent() && !Sim.context().unitGateway.containsUnit(Azathoth.class);
             timeLordAllowedCalculated = true;
         }
         return timeLordAllowed;

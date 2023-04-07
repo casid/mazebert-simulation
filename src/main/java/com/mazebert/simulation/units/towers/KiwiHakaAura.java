@@ -16,7 +16,7 @@ public strictfp class KiwiHakaAura extends AuraAbility<Kiwi, Creep> {
 
     @Override
     protected void onAuraEntered(Creep unit) {
-        if (unit.isSteady() && Sim.isDoLSeasonContent()) {
+        if (unit.isSteady() && Sim.context().isDoLSeasonContent()) {
             return;
         }
 

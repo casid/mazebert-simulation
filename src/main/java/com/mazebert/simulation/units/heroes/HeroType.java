@@ -83,13 +83,13 @@ public strictfp enum HeroType implements CardType<Hero> {
     }
 
     public static HeroType[] getValues() {
-        if (Sim.isRoCSeasonContent()) {
+        if (Sim.context().isRoCSeasonContent()) {
             return ROC_SEASON;
         }
         if (Sim.context().version >= Sim.vRoC) {
             return ROC;
         }
-        if (Sim.isDoLSeasonContent()) {
+        if (Sim.context().isDoLSeasonContent()) {
             return DAWN_OF_LIGHT;
         }
         return STANDARD;

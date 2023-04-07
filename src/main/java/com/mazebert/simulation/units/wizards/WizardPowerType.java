@@ -47,7 +47,7 @@ public strictfp enum WizardPowerType {
     }
 
     public static WizardPowerType[] getValues() {
-        if (Sim.isRoCSeasonContent()) {
+        if (Sim.context().isRoCSeasonContent()) {
             return ROC_SEASON;
         }
 

@@ -96,4 +96,20 @@ public strictfp class Context {
         this.simulation = simulation;
         commandExecutor.init();
     }
+
+    public boolean isDoLSeasonContent() {
+        return version >= Sim.vDoLEnd || (version >= Sim.vDoL && season);
+    }
+
+    public boolean isRoCSeasonContent() {
+        return version >= Sim.vRoCEnd || (version >= Sim.vRoC && season);
+    }
+
+    public boolean isRnRSeasonContent() {
+        return version >= Sim.vRnREnd || (version >= Sim.vRnR && season);
+    }
+
+    public boolean isToCSeasonContent() {
+        return version >= Sim.vToCEnd || (version >= Sim.vToC && season);
+    }
 }

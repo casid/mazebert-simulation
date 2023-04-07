@@ -37,7 +37,7 @@ public strictfp enum MapType {
     }
 
     public static MapType[] getValues() {
-        if (Sim.isDoLSeasonContent()) {
+        if (Sim.context().isDoLSeasonContent()) {
             return DAWN_OF_LIGHT;
         }
         return STANDARD;

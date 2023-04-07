@@ -51,23 +51,4 @@ public strictfp class Sim {
         context.remove();
     }
 
-    public static boolean isDoLSeasonContent() {
-        int version = context().version;
-        return version >= vDoLEnd || (version >= vDoL && context().season);
-    }
-
-    public static boolean isRoCSeasonContent() {
-        int version = context().version;
-        return version >= vRoCEnd || (version >= vRoC && context().season);
-    }
-
-    public static boolean isRnRSeasonContent() {
-        int version = context().version;
-        return version >= vRnREnd || (version >= vRnR && context().season);
-    }
-
-    public static boolean isToCSeasonContent() {
-        int version = context().version;
-        return version >= vToCEnd || (version >= vToC && context().season);
-    }
 }

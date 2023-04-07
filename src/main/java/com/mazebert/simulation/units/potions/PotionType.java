@@ -81,7 +81,7 @@ public strictfp enum PotionType implements CardType<Potion> {
             return HALLOWEEN;
         } else if (Sim.context().version >= Sim.vRoCEnd) {
             return STANDARD_ROC;
-        } else if (Sim.isDoLSeasonContent()) {
+        } else if (Sim.context().isDoLSeasonContent()) {
             return DAWN_OF_LIGHT;
         } else if (Sim.context().version >= Sim.vDoL) {
             return STANDARD_DOL;

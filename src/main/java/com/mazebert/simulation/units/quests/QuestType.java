@@ -113,13 +113,13 @@ public strictfp enum QuestType {
         if (Sim.context().version > Sim.vRnREnd) {
             return STANDARD_RNR;
         }
-        if (Sim.isRnRSeasonContent()) {
+        if (Sim.context().isRnRSeasonContent()) {
             return RNR;
         }
         if (Sim.context().version >= Sim.vRoCEnd) {
             return STANDARD_ROC;
         }
-        if (Sim.isRoCSeasonContent()) {
+        if (Sim.context().isRoCSeasonContent()) {
             return Sim.context().version >= Sim.v24 ? ROC_SEASON_APR : ROC_SEASON;
         }
         if (Sim.context().version >= Sim.vRoC) {
@@ -128,7 +128,7 @@ public strictfp enum QuestType {
         if (Sim.context().version >= Sim.vDoLEnd) {
             return STANDARD_DOL;
         }
-        if (Sim.isDoLSeasonContent()) {
+        if (Sim.context().isDoLSeasonContent()) {
             return DAWN_OF_LIGHT;
         }
         return STANDARD;

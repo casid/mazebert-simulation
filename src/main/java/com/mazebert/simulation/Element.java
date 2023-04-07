@@ -27,7 +27,7 @@ public strictfp enum Element implements Hashable {
     }
 
     public static Element[] getValues() {
-        if (Sim.isDoLSeasonContent()) {
+        if (Sim.context().isDoLSeasonContent()) {
             return DAWN_OF_LIGHT;
         }
         return STANDARD;

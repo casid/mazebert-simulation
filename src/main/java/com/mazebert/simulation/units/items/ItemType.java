@@ -146,23 +146,23 @@ public strictfp enum ItemType implements CardType<Item> {
     }
 
     public static ItemType[] getValues() {
-        if (Sim.isRnRSeasonContent()) {
+        if (Sim.context().isRnRSeasonContent()) {
             return RNR;
         }
-        if (Sim.isRoCSeasonContent()) {
+        if (Sim.context().isRoCSeasonContent()) {
             return ROC;
         }
         if (Sim.context().version >= Sim.vDoLEnd) {
             return DOL_END;
         }
         if (Sim.context().version >= Sim.vCorona) {
-            if (Sim.isDoLSeasonContent()) {
+            if (Sim.context().isDoLSeasonContent()) {
                 return DOL_CORONA;
             } else {
                 return STANDARD_CORONA;
             }
         }
-        if (Sim.isDoLSeasonContent()) {
+        if (Sim.context().isDoLSeasonContent()) {
             return DOL;
         }
         return STANDARD;

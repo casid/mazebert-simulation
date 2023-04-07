@@ -136,7 +136,7 @@ public strictfp class WaveGateway implements ReadonlyWaveGateway {
                 return WaveType.Challenge;
             }
 
-            if (Sim.isRoCSeasonContent()) {
+            if (Sim.context().isRoCSeasonContent()) {
                 WaveType cultist = calculateRocCultist(randomPlugin);
                 if (cultist != null) {
                     return cultist;

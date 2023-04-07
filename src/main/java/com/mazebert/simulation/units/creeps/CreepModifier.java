@@ -25,7 +25,7 @@ public strictfp enum CreepModifier {
     private final int minRound;
 
     public static CreepModifier[] getValues() {
-        if (Sim.isDoLSeasonContent()) {
+        if (Sim.context().isDoLSeasonContent()) {
             return DAWN_OF_LIGHT;
         }
         return STANDARD;
