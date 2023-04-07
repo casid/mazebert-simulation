@@ -4,6 +4,7 @@ import com.mazebert.simulation.*;
 import com.mazebert.simulation.hash.Hash;
 import com.mazebert.simulation.hash.Hashable;
 import com.mazebert.simulation.listeners.*;
+import com.mazebert.simulation.maps.Terrain;
 import com.mazebert.simulation.plugins.FormatPlugin;
 import com.mazebert.simulation.plugins.random.RandomPlugin;
 import com.mazebert.simulation.units.CooldownUnit;
@@ -822,5 +823,9 @@ public strictfp abstract class Tower extends Unit implements CooldownUnit, Card,
         }
 
         return result;
+    }
+
+    public Terrain getTerrain() {
+        return Terrain.Land;
     }
 }

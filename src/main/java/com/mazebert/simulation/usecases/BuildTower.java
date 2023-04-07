@@ -7,6 +7,7 @@ import com.mazebert.simulation.gateways.GameGateway;
 import com.mazebert.simulation.gateways.UnitGateway;
 import com.mazebert.simulation.maps.MapAura;
 import com.mazebert.simulation.maps.MapType;
+import com.mazebert.simulation.maps.Terrain;
 import com.mazebert.simulation.maps.Tile;
 import com.mazebert.simulation.systems.LootSystem;
 import com.mazebert.simulation.systems.PermanentAbilitySystem;
@@ -44,7 +45,7 @@ public strictfp class BuildTower implements Usecase<BuildTowerCommand> {
             return;
         }
 
-        if (!tile.type.buildable) {
+        if (!isTowerBuildable(command.towerType, tile)) {
             return;
         }
 
@@ -82,6 +83,16 @@ public strictfp class BuildTower implements Usecase<BuildTowerCommand> {
         if (oldTower != null) {
             lootSystem.addGold(wizard, tower, SellTower.getGoldForSelling(oldTower));
         }
+    }
+
+    private boolean isTowerBuildable(TowerType towerType, Tile tile) {
+        Terrain requiredTerrain = towerType.instance().getTerrain();
+
+        if (requiredTerrain == Terrain.Water) {
+            return tile.type.water;
+        }
+
+        return tile.type.buildable;
     }
 
     public Tower summonTower(Tower tower, Wizard wizard, int x, int y) {

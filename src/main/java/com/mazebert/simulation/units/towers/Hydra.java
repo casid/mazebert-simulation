@@ -6,6 +6,7 @@ import com.mazebert.simulation.Rarity;
 import com.mazebert.simulation.Sim;
 import com.mazebert.simulation.changelog.Changelog;
 import com.mazebert.simulation.changelog.ChangelogEntry;
+import com.mazebert.simulation.maps.Terrain;
 import com.mazebert.simulation.units.Gender;
 
 public strictfp class Hydra extends Tower {
@@ -80,5 +81,10 @@ public strictfp class Hydra extends Tower {
 
     int getHeadCount() {
         return multishot.getHeadCount();
+    }
+
+    @Override
+    public Terrain getTerrain() {
+        return Terrain.Water;
     }
 }

@@ -52,6 +52,20 @@ public strictfp class TestMap extends Map {
         }
     }
 
+    public void givenAllTilesAreWater() {
+        for (Tile tile : tiles) {
+            tile.type.water = true;
+            tile.type.buildable = false;
+        }
+    }
+
+    public void givenAllTilesAreLand() {
+        for (Tile tile : tiles) {
+            tile.type.water = false;
+            tile.type.buildable = true;
+        }
+    }
+
     public void givenEndWaypoint(int x, int y) {
         Tile tile = tiles.get(x + y * size);
         tile.waypointIndex = 1;

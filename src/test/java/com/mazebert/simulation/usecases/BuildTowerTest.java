@@ -16,10 +16,7 @@ import com.mazebert.simulation.systems.LootSystem;
 import com.mazebert.simulation.systems.ProphecySystem;
 import com.mazebert.simulation.units.items.*;
 import com.mazebert.simulation.units.potions.PotionType;
-import com.mazebert.simulation.units.towers.Dandelion;
-import com.mazebert.simulation.units.towers.Hitman;
-import com.mazebert.simulation.units.towers.Tower;
-import com.mazebert.simulation.units.towers.TowerType;
+import com.mazebert.simulation.units.towers.*;
 import com.mazebert.simulation.units.wizards.StashMasterPower;
 import com.mazebert.simulation.units.wizards.Wizard;
 import org.junit.jupiter.api.BeforeEach;
@@ -28,6 +25,9 @@ import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.Assertions.assertThat;
 
 class BuildTowerTest extends UsecaseTest<BuildTowerCommand> {
+
+    private static final int INITIAL_GOLD = 10000;
+
     RandomPluginTrainer randomPluginTrainer = new RandomPluginTrainer();
 
     TestMap map;
@@ -56,7 +56,7 @@ class BuildTowerTest extends UsecaseTest<BuildTowerCommand> {
         wizard = new Wizard();
         wizard.playerId = 1;
         wizard.towerStash.add(TowerType.Hitman);
-        wizard.gold = 500;
+        wizard.gold = INITIAL_GOLD;
         unitGateway.addUnit(wizard);
 
         usecase = new BuildTower();
@@ -90,7 +90,8 @@ class BuildTowerTest extends UsecaseTest<BuildTowerCommand> {
     @Test
     void towerIsBuilt_goldIsRemoved() {
         whenRequestIsExecuted();
-        assertThat(wizard.gold).isEqualTo(435L);
+
+        assertThat(wizard.gold).isEqualTo(INITIAL_GOLD - 65);
     }
 
     @Test
@@ -209,7 +210,7 @@ class BuildTowerTest extends UsecaseTest<BuildTowerCommand> {
 
         whenTowerIsBuilt(TowerType.Dandelion);
 
-        assertThat(wizard.gold).isEqualTo(432L);
+        assertThat(wizard.gold).isEqualTo(INITIAL_GOLD - 68);
     }
 
     @Test
@@ -287,6 +288,42 @@ class BuildTowerTest extends UsecaseTest<BuildTowerCommand> {
         whenTowerIsBuilt(TowerType.BloodDemon);
 
         assertThat(builtTower).isNull();
+    }
+
+    @Test
+    void buildOnLand_landTower() {
+        map.givenAllTilesAreLand();
+
+        whenTowerIsBuilt(TowerType.Huli);
+
+        assertThat(builtTower).isInstanceOf(Huli.class);
+    }
+
+    @Test
+    void buildOnLand_waterTower() {
+        map.givenAllTilesAreLand();
+
+        whenTowerIsBuilt(TowerType.Hydra);
+
+        assertThat(builtTower).isNull();
+    }
+
+    @Test
+    void buildOnWater_landTower() {
+        map.givenAllTilesAreWater();
+
+        whenTowerIsBuilt(TowerType.Huli);
+
+        assertThat(builtTower).isNull();
+    }
+
+    @Test
+    void buildOnWater_waterTower() {
+        map.givenAllTilesAreWater();
+
+        whenTowerIsBuilt(TowerType.Hydra);
+
+        assertThat(builtTower).isInstanceOf(Hydra.class);
     }
 
     private void givenTowerIsAlreadyBuilt() {
