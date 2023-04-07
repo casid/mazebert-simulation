@@ -2,6 +2,7 @@ package com.mazebert.simulation.plugins;
 
 import com.mazebert.java8.Function;
 import com.mazebert.simulation.*;
+import com.mazebert.simulation.maps.Terrain;
 import com.mazebert.simulation.units.Currency;
 import com.mazebert.simulation.units.wizards.Wizard;
 
@@ -241,6 +242,11 @@ public strictfp class FormatPlugin {
 
     public String element(Element element) {
         return colored(element.getName(), element.color);
+    }
+
+    @SuppressWarnings("unused") // By app
+    public String terrain(Terrain terrain) {
+        return colored(terrain.name(), terrain.color);
     }
 
     public String armorType(ArmorType armorType) {
