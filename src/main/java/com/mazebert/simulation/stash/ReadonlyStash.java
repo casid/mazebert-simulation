@@ -1,6 +1,5 @@
 package com.mazebert.simulation.stash;
 
-import com.mazebert.java8.Predicate;
 import com.mazebert.simulation.Card;
 import com.mazebert.simulation.CardCategory;
 import com.mazebert.simulation.CardType;
@@ -15,7 +14,6 @@ public interface ReadonlyStash<T extends Card> {
     ReadonlyStashEntry<T> get(CardType<T> cardType);
     int getIndex(CardType<T> cardType);
     boolean contains(CardType<T> cardType);
-    boolean contains(Predicate<T> predicate);
 
     @SuppressWarnings("unused") // for client
     CardCategory getCardCategory();

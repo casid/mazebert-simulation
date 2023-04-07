@@ -242,17 +242,6 @@ public abstract strictfp class Stash<T extends Card> implements ReadonlyStash<T>
     }
 
     @Override
-    public boolean contains(Predicate<T> predicate) {
-        for (StashEntry<T> entry : entries) {
-            if (predicate.test(entry.card)) {
-                return true;
-            }
-        }
-
-        return false;
-    }
-
-    @Override
     public void hash(Hash hash) {
         for (StashEntry<T> entry : entries) {
             hash.add(entry);
