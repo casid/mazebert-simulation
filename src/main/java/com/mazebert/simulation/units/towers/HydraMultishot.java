@@ -78,7 +78,7 @@ public strictfp class HydraMultishot extends AttackAbility implements OnUnitAdde
 
     @Override
     public String getIconFile() {
-        return "0026_axeattack2_512"; // TODO
+        return "hydra_regrowth";
     }
 
     public int getHeadCount() {

@@ -16,11 +16,11 @@ public strictfp class HydraMultishotDescription extends Ability<Tower> {
 
     @Override
     public String getDescription() {
-        return "Each time the wizard loses 10% of total health, Hydra loses a head and regrows two.";
+        return "Hydra has 3 heads and can make 3 attacks at a time.";
     }
 
     @Override
     public String getIconFile() {
-        return "0026_axeattack2_512"; // TODO
+        return "hydra_heads";
     }
 }
