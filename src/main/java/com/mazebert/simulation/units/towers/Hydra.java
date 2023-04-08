@@ -76,7 +76,12 @@ public strictfp class Hydra extends Tower {
 
     @Override
     public String getAuthor() {
-        return "MG Masi & FuzzyEuk";
+        return "MG Masi";
+    }
+
+    @Override
+    public String[] getAdditionalAuthors() {
+        return new String[] {"FuzzyEuk"};
     }
 
     int getHeadCount() {

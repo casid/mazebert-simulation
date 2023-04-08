@@ -1,5 +1,7 @@
 package com.mazebert.simulation.gateways;
 
+import com.mazebert.simulation.Card;
+import com.mazebert.simulation.CardType;
 import com.mazebert.simulation.units.heroes.HeroType;
 import com.mazebert.simulation.units.items.ItemType;
 import com.mazebert.simulation.units.potions.PotionType;
@@ -13,7 +15,7 @@ public strictfp class ContributorsGateway {
         Set<String> result = new HashSet<>();
 
         for (TowerType type : TowerType.values()) {
-            result.add(type.instance().getAuthor());
+            addAuthors(result, type);
         }
 
         for (ItemType type : ItemType.values()) {
@@ -36,6 +38,16 @@ public strictfp class ContributorsGateway {
         result.add("SnoreFox"); // Discord admin!
 
         return result;
+    }
+
+    private <T extends Card> void addAuthors(Set<String> result, CardType<T> type) {
+        T instance = type.instance();
+        result.add(instance.getAuthor());
+
+        String[] additionalAuthors = instance.getAdditionalAuthors();
+        if (additionalAuthors != null) {
+            result.addAll(Arrays.asList(additionalAuthors));
+        }
     }
 
     public Set<String> getTesters() {

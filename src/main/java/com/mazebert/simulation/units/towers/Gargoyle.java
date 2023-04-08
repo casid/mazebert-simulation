@@ -72,7 +72,12 @@ public strictfp class Gargoyle extends Tower {
 
     @Override
     public String getAuthor() {
-        return "jhoijhoi & shimakura";
+        return "jhoijhoi";
+    }
+
+    @Override
+    public String[] getAdditionalAuthors() {
+        return new String[] {"shimakura"};
     }
 
     @Override

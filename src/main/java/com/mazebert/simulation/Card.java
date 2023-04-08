@@ -13,6 +13,10 @@ public interface Card {
 
     String getAuthor();
 
+    default String[] getAdditionalAuthors() {
+        return null;
+    }
+
     Rarity getRarity();
 
     Rarity getDropRarity();
