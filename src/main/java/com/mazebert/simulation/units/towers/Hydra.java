@@ -45,7 +45,7 @@ public strictfp class Hydra extends Tower {
 
     @Override
     public String getDescription() {
-        return "Hydra has 3 heads and can make 3 attacks at a time.";
+        return "Hercules never knew the Hydra had siblings.";
     }
 
     @Override
