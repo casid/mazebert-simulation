@@ -15,11 +15,10 @@ import org.jusecase.bitpack.BitWriter;
 import java.util.EnumSet;
 
 public strictfp class EnumSerializer {
-    public static final int TOWER_BITS = 6;
-    public static final int ITEM_BITS = 7;
-    public static final int ELEMENT_BITS = 3;
-    public static final int DIFFICULTY_BITS = 3;
-    public static final int MAP_BITS = 3;
+    private static final int ITEM_BITS = 7;
+    private static final int ELEMENT_BITS = 3;
+    private static final int DIFFICULTY_BITS = 3;
+    private static final int MAP_BITS = 3;
 
     private final int version;
 
@@ -28,11 +27,11 @@ public strictfp class EnumSerializer {
     }
 
     public TowerType readTowerType(BitReader reader) {
-        return TowerType.forId(reader.readUnsignedInt(TOWER_BITS));
+        return TowerType.forId(reader.readUnsignedInt(getTowerBits()));
     }
 
     public void writeTowerType(BitWriter writer, TowerType type) {
-        writer.writeUnsignedInt(TOWER_BITS, getCardTypeId(type));
+        writer.writeUnsignedInt(getTowerBits(), getCardTypeId(type));
     }
 
     public PotionType readPotionType(BitReader reader) {
@@ -147,7 +146,7 @@ public strictfp class EnumSerializer {
 
     public EnumSet<TowerType> readTowerTypes(BitReader reader) {
         EnumSet<TowerType> result = EnumSet.noneOf(TowerType.class);
-        int size = reader.readUnsignedInt(TOWER_BITS);
+        int size = reader.readUnsignedInt(getTowerBits());
         for (int i = 0; i < size; ++i) {
             result.add(readTowerType(reader));
         }
@@ -156,9 +155,9 @@ public strictfp class EnumSerializer {
 
     public void writeTowerTypes(BitWriter writer, EnumSet<TowerType> types) {
         if (types == null) {
-            writer.writeUnsignedInt(TOWER_BITS, 0);
+            writer.writeUnsignedInt(getTowerBits(), 0);
         } else {
-            writer.writeUnsignedInt(TOWER_BITS, types.size());
+            writer.writeUnsignedInt(getTowerBits(), types.size());
             for (TowerType type : types) {
                 writeTowerType(writer, type);
             }
@@ -274,6 +273,14 @@ public strictfp class EnumSerializer {
             return 5;
         } else {
             return 4;
+        }
+    }
+
+    public int getTowerBits() {
+        if (version >= Sim.vToC) {
+            return 7;
+        } else {
+            return 6;
         }
     }
 
