@@ -6,7 +6,7 @@
 
     <groupId>com.mazebert</groupId>
     <artifactId>mazebert-simulation</artifactId>
-    <version>30</version> <!-- Keep in sync with Sim.version -->
+    <version>31</version> <!-- Keep in sync with Sim.version -->
     <packaging>jar</packaging>
 
     <properties>
