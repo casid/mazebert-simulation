@@ -23,7 +23,7 @@ public strictfp class TheRipperBloodThirst extends Ability<Tower> implements OnD
 
     @Override
     public void onDamage(Object origin, Creep target, double damage, int multicrits) {
-        if (multicrits > 0) {
+        if (multicrits > 0 && isOriginalDamage(origin)) {
             getUnit().addCritDamage(bonusPerCrit);
             getUnit().addAddedRelativeBaseDamage(bonusPerCrit);
             ++amount;
