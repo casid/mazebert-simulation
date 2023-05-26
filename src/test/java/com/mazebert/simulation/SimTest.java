@@ -145,4 +145,10 @@ public class SimTest extends Context {
             unitGateway.forEach(u -> u.simulate(1.0f));
         }
     }
+
+    protected void whenGameProjectilesAreSimulated(int ticks) {
+        for (int i = 0; i < ticks; i++) {
+            projectileGateway.simulate(1.0f);
+        }
+    }
 }

@@ -78,7 +78,8 @@ public strictfp enum TowerType implements CardType<Tower> {
 
     // ToC work in progress below
 
-    Hydra(63, Hydra.class),
+    BlueWhale(63, BlueWhale.class),
+    Hydra(64, Hydra.class),
     ;
 
     public final int id;
@@ -123,7 +124,7 @@ public strictfp enum TowerType implements CardType<Tower> {
     private static final TowerType[] STANDARD_ROC  = {Beaver, Dandelion, Rabbit, Frog, HerbWitch, Wolf, Huli, BearHunter, Viking, Ganesha, Balu, Manitou, Hitman, Scientist, PocketThief, ElectricChair, Elvis, Pub, MoneyBin, MrIron, ScarFace, Muli, Satellite, BlackWidow, Mummy, ScareCrow, Shadow, Gib, KnusperHexe, DarkForge, AcolyteOfGreed, NoviceWizard, Spider, BloodDemon, Solara, AbyssKing, TheRipper, KiwiEgg, Kiwi, Stonecutters, Yggdrasil, Adventurer, Gargoyle, Guard, TrainingHologram, Tinker, Templar, Phoenix, Candle, KingArthur, Unicorn, SnowGlobe, Lucifer, LuciferFallen, Beacon};
     private static final TowerType[] HALLOWEEN     = {Beaver, Dandelion, Rabbit, Frog, HerbWitch, Wolf, Huli, BearHunter, Viking, Ganesha, Balu, Manitou, Hitman, Scientist, PocketThief, ElectricChair, Elvis, Pub, MoneyBin, MrIron, ScarFace, Muli, Satellite, BlackWidow, Mummy, ScareCrow, Shadow, Gib, KnusperHexe, DarkForge, AcolyteOfGreed, NoviceWizard, Spider, BloodDemon, Solara, AbyssKing, TheRipper, KiwiEgg, Kiwi, Stonecutters, Yggdrasil, Adventurer, Gargoyle, Guard, TrainingHologram, Tinker, Templar, Phoenix, Candle, KingArthur, Unicorn, SnowGlobe, Lucifer, LuciferFallen, Beacon, Fox};
     private static final TowerType[] RNR           = {Beaver, Dandelion, Rabbit, Frog, HerbWitch, Wolf, Huli, BearHunter, Viking, Ganesha, Balu, Manitou, Hitman, Scientist, PocketThief, ElectricChair, Elvis, Pub, MoneyBin, MrIron, ScarFace, Muli, Satellite, BlackWidow, Mummy, ScareCrow, Shadow, Gib, KnusperHexe, DarkForge, AcolyteOfGreed, NoviceWizard, Spider, BloodDemon, Solara, AbyssKing, TheRipper, KiwiEgg, Kiwi, Stonecutters, Yggdrasil, Adventurer, Gargoyle, Guard, TrainingHologram, Tinker, Templar, Phoenix, Candle, KingArthur, Unicorn, SnowGlobe, Lucifer, LuciferFallen, Beacon, Fox, Veleda, Loki, Thor, Hel, Idun};
-    private static final TowerType[] TOC           = {Beaver, Dandelion, Rabbit, Frog, HerbWitch, Wolf, Huli, BearHunter, Viking, Ganesha, Balu, Manitou, Hitman, Scientist, PocketThief, ElectricChair, Elvis, Pub, MoneyBin, MrIron, ScarFace, Muli, Satellite, BlackWidow, Mummy, ScareCrow, Shadow, Gib, KnusperHexe, DarkForge, AcolyteOfGreed, NoviceWizard, Spider, BloodDemon, Solara, AbyssKing, TheRipper, KiwiEgg, Kiwi, Stonecutters, Yggdrasil, Adventurer, Gargoyle, Guard, TrainingHologram, Tinker, Templar, Phoenix, Candle, KingArthur, Unicorn, SnowGlobe, Lucifer, LuciferFallen, Beacon, Fox, Veleda, Loki, Thor, Hel, Idun, Hydra};
+    private static final TowerType[] TOC           = {Beaver, Dandelion, Rabbit, Frog, HerbWitch, Wolf, Huli, BearHunter, Viking, Ganesha, Balu, Manitou, Hitman, Scientist, PocketThief, ElectricChair, Elvis, Pub, MoneyBin, MrIron, ScarFace, Muli, Satellite, BlackWidow, Mummy, ScareCrow, Shadow, Gib, KnusperHexe, DarkForge, AcolyteOfGreed, NoviceWizard, Spider, BloodDemon, Solara, AbyssKing, TheRipper, KiwiEgg, Kiwi, Stonecutters, Yggdrasil, Adventurer, Gargoyle, Guard, TrainingHologram, Tinker, Templar, Phoenix, Candle, KingArthur, Unicorn, SnowGlobe, Lucifer, LuciferFallen, Beacon, Fox, Veleda, Loki, Thor, Hel, Idun, BlueWhale, Hydra};
 
     static {
         maxId = 0;
