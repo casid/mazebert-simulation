@@ -12,10 +12,15 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class StrictfpTest {
 
+    private static final double JAVA_VERSION = Double.parseDouble(System.getProperty("java.specification.version", "0"));
     private static final Class[] WHITELIST = {CardComparator.class};
 
     @Test
     void allSimulationClassesUseStrictFloatingPointMode() throws IOException, ClassNotFoundException {
+        if (JAVA_VERSION >= 17) {
+            return; // strictfp is the default since Java 17 and the modifier got removed.
+        }
+
         int failures = 0;
 
         Class[] classes = getClasses("com.mazebert.simulation", false);
